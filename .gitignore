@@ -1,0 +1,19 @@
+# Cache import Godot (diregenerasi saat buka project)
+.godot/
+
+# Toolchain binary & export templates (1.2GB+) — bukan source
+tools/godot/
+tools/export_templates.tpz
+tools/*.zip
+
+# Hasil build
+game/builds/
+*.apk
+
+# Log & artefak uji
+tools/*.log
+tools/test_sfx.bin
+
+# Screenshot autotest (diregenerasi tiap run)
+game/out_*.png
+visual-test/out_*.png

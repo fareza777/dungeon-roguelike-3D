@@ -1,0 +1,41 @@
+# Database biome: palet warna + kabut + tabel musuh per biome.
+# Biome berganti tiap 2 lantai. Biome baru = entri baru + (opsional) aset baru.
+
+const LIST := [
+	{
+		"name": "Catacombs",
+		"floor": Color(0.78, 0.85, 1.08), "wall": Color(0.9, 0.92, 1.06), "prop": Color(1.05, 0.97, 0.9),
+		"fog": Color(0.09, 0.08, 0.16), "fog_d": 0.024, "ambient": Color(0.25, 0.28, 0.45),
+		"sun": Color(1.0, 0.86, 0.68), "torch": Color(1.0, 0.55, 0.22), "torch_e": 1.4, "torch_r": 7.0,
+		"bg": Color(0.04, 0.03, 0.08),
+		"enemies": ["chaser", "chaser", "rogue"],
+	},
+	{
+		"name": "Ember Crypt",
+		"floor": Color(0.88, 0.92, 1.04), "wall": Color(0.9, 0.92, 1.0), "prop": Color(0.95, 0.94, 0.98),
+		"fog": Color(0.08, 0.045, 0.035), "fog_d": 0.02, "ambient": Color(0.3, 0.26, 0.28),
+		"sun": Color(1.0, 0.82, 0.62), "torch": Color(1.0, 0.5, 0.18), "torch_e": 1.0, "torch_r": 4.2,
+		"bg": Color(0.05, 0.03, 0.03),
+		"enemies": ["rogue", "chaser", "mage"],
+	},
+	{
+		"name": "Frozen Deep",
+		"floor": Color(0.82, 1.0, 1.18), "wall": Color(0.85, 0.95, 1.1), "prop": Color(0.9, 1.0, 1.12),
+		"fog": Color(0.06, 0.1, 0.16), "fog_d": 0.02, "ambient": Color(0.25, 0.35, 0.5),
+		"sun": Color(0.75, 0.88, 1.0), "torch": Color(0.6, 0.8, 1.0), "torch_e": 1.2, "torch_r": 5.5,
+		"bg": Color(0.02, 0.04, 0.07),
+		"enemies": ["mage", "rogue", "brute"],
+	},
+	{
+		"name": "Verdant Ruin",
+		"floor": Color(0.8, 1.05, 0.8), "wall": Color(0.85, 1.0, 0.85), "prop": Color(0.95, 1.05, 0.85),
+		"fog": Color(0.05, 0.12, 0.06), "fog_d": 0.026, "ambient": Color(0.22, 0.4, 0.25),
+		"sun": Color(0.85, 1.0, 0.7), "torch": Color(0.7, 1.0, 0.5), "torch_e": 1.2, "torch_r": 5.5,
+		"bg": Color(0.02, 0.06, 0.03),
+		"enemies": ["brute", "mage", "chaser"],
+	},
+]
+
+
+static func for_floor(f: int) -> Dictionary:
+	return LIST[clampi((f - 1) / 2, 0, LIST.size() - 1)]
