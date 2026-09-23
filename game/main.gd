@@ -767,7 +767,8 @@ func _new_run(new_seed: int) -> void:
 			continue
 		var is_elite := rng.randf() < elite_chance
 		var arch_id := "hound" if wolfsbane else String(table[rng.randi_range(0, table.size() - 1)])
-		_spawn_enemy(sp, arch_id, is_elite, not is_elite and rng.randf() < 0.05)
+		var gchance := 0.1 if String(biome.get("name", "")) == "Sunken Reliquary" else 0.05
+		_spawn_enemy(sp, arch_id, is_elite, not is_elite and rng.randf() < gchance)
 		if (mirror_hall or legion_omen) and not is_elite:
 			var mpos: Vector3 = sp["pos"] + Vector3(randf_range(-0.5, 0.5), 0, randf_range(-0.5, 0.5)) * info.tile * 0.5
 			_spawn_enemy({"pos": mpos, "room": int(sp.get("room", 0))}, arch_id, false)
