@@ -82,7 +82,7 @@ var cantor_t := 6.5
 var bride_t := 5.5
 var oath_t := 3.0
 var slip_n := 0
-var mirror_cd := 0.0
+
 var healer := false
 var heal_t := 4.0
 var crowned := false
@@ -1233,13 +1233,10 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 			var ms_ := get_tree().current_scene
 			if ms_ != null and ms_.has_method("_damage_number"):
 				ms_._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "SLIPPED", Color(0.6, 0.8, 1.0), false)
-	if affix == "mirrorhide":
-		mirror_cd -= 0.0
-		if mirror_cd <= 0.0:
-			mirror_cd = 1.0
-			var mp_ := _player()
-			if mp_ != null and mp_.has_method("take_hit") and dmg_taken > 0.0:
-				mp_.take_hit(global_position, maxi(1, int(ceil(dmg_taken * 0.1))))
+	if affix == "mirrorhide" and dmg_taken > 0.0:
+		var mp_ := _player()
+		if mp_ != null and mp_.has_method("take_hit"):
+			mp_.take_hit(global_position, maxi(1, int(ceil(dmg_taken * 0.1))))
 	if hex_t > 0.0:
 		dmg_taken *= 1.25
 	if sunder_t > 0.0:
