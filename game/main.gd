@@ -1254,6 +1254,7 @@ func toast(txt: String) -> void:
 func _lvl_banner(txt: String) -> void:
 	var l: Label = ui.lvl_banner
 	l.text = txt
+	l.add_theme_font_size_override("font_size", 44 if txt.length() <= 20 else 30)
 	l.visible = true
 	l.modulate.a = 1.0
 	l.pivot_offset = l.size * 0.5

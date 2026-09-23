@@ -10,6 +10,7 @@ var open := true
 var tw: Tween = null
 var glow_mat: StandardMaterial3D = null
 var chev: MeshInstance3D = null
+var exit_light: OmniLight3D = null
 
 
 func setup(tile: float, wall_h: float) -> void:
@@ -63,7 +64,7 @@ func setup(tile: float, wall_h: float) -> void:
 	glow_mat = StandardMaterial3D.new()
 	glow_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	glow_mat.emission_enabled = true
-	glow_mat.emission_energy_multiplier = 1.2
+	glow_mat.emission_energy_multiplier = 2.2
 	glow_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	glow_mat.cull_mode = BaseMaterial3D.CULL_DISABLED
 	var gm := PlaneMesh.new()
@@ -76,19 +77,26 @@ func setup(tile: float, wall_h: float) -> void:
 	add_child(glow)
 	# chevron melayang penanda jalan keluar
 	var cm2 := CylinderMesh.new()
-	cm2.top_radius = 0.11 * tile
+	cm2.top_radius = 0.15 * tile
 	cm2.bottom_radius = 0.0
-	cm2.height = 0.16 * tile
+	cm2.height = 0.22 * tile
 	chev = MeshInstance3D.new()
 	chev.mesh = cm2
 	chev.material_override = glow_mat
 	chev.rotation_degrees.x = 180.0
-	chev.position.y = height * 0.55
+	chev.position.y = height * 0.68
 	add_child(chev)
 	var btw := chev.create_tween()
 	btw.set_loops()
-	btw.tween_property(chev, "position:y", height * 0.55 + 0.07 * tile, 0.7).set_trans(Tween.TRANS_SINE)
-	btw.tween_property(chev, "position:y", height * 0.55 - 0.07 * tile, 0.7).set_trans(Tween.TRANS_SINE)
+	btw.tween_property(chev, "position:y", height * 0.68 + 0.1 * tile, 0.7).set_trans(Tween.TRANS_SINE)
+	btw.tween_property(chev, "position:y", height * 0.68 - 0.1 * tile, 0.7).set_trans(Tween.TRANS_SINE)
+	# lampu exit: lingkaran cahaya emas di lantai pintu terbuka
+	exit_light = OmniLight3D.new()
+	exit_light.light_color = Color(1.0, 0.8, 0.35)
+	exit_light.light_energy = 0.0
+	exit_light.omni_range = 1.5 * tile
+	exit_light.position = Vector3(0, 0.5 * tile, 0)
+	add_child(exit_light)
 	set_open(true, true)
 
 
@@ -99,12 +107,14 @@ func set_open(o: bool, instant := false) -> void:
 	cs.set_deferred("disabled", o)
 	if glow_mat != null:
 		if o:
-			glow_mat.albedo_color = Color(1.0, 0.8, 0.35, 0.4)
+			glow_mat.albedo_color = Color(1.0, 0.8, 0.35, 0.55)
 			glow_mat.emission = Color(1.0, 0.75, 0.3)
 		else:
 			glow_mat.albedo_color = Color(0.55, 0.14, 0.1, 0.25)
 			glow_mat.emission = Color(0.5, 0.12, 0.08)
 		chev.visible = o
+		if exit_light != null:
+			exit_light.light_energy = 1.1 if o else 0.0
 	if tw != null and tw.is_valid():
 		tw.kill()
 	var target_y: float = -height - 0.2 if o else 0.0
