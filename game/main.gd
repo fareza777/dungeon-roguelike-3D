@@ -4700,7 +4700,12 @@ func _on_mahzan_invoked(s) -> void:
 		"The Bone King pays me in bones. You'd pay in something warmer. Choose.",
 		"A customer! It's been a century since the last. Don't make me regret it, Kael.",
 	]
-	if mahzan_met == 2:
+	if Stats.nemesis != "":
+		mlines = [
+			"You stink of old death, Kael — something down here owns your blood and knows it. Pay me, and let's pretend it's only business.",
+			"A marked man walks in. The Debt has a name, and it is not kind. Buy something — you'll need it.",
+		]
+	elif mahzan_met == 2:
 		mlines = [
 			"Back already? You spend souls like water, Kael. I approve.",
 			"Twice in one descent. The crown must be worried about you.",
