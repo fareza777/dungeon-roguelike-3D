@@ -49,6 +49,7 @@ var soul_bonus := 0 # Crown Shard: jiwa ekstra per kill
 var event_soul_bonus := 0
 var soul_sealed := false
 var hollow_crown := false
+var spiteful := false
 var reaper_tithe := false
 var deathwish := false # omen: +40% ATK, +30% dmg taken
 var relic_burn := 0.0 # Ember Brand: peluang bakar di semua senjata
@@ -326,6 +327,7 @@ func reset_run() -> void:
 	reaper_tithe = false
 	deathwish = false
 	hollow_crown = false
+	spiteful = false
 	relic_burn = 0.0
 	cd_reduction = 0.0
 	current_hp = get_stat("max_hp")

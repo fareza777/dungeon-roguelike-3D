@@ -1779,6 +1779,18 @@ func _on_enemy_died(e) -> void:
 			toast("Bounty collected — " + String(ITEMS.DB[rid6]["name"]))
 			_ach("bounty1")
 		_quest_event("bounty")
+	if Stats.spiteful:
+		var nbe: Node3D = null
+		var nbd := 4.0 * info.tile
+		for f9 in get_tree().get_nodes_in_group("enemies"):
+			if f9 != e and int(f9.room_idx) == int(e.room_idx) and String(f9.get("state")) != "dead":
+				var dd9: float = f9.global_position.distance_to(e.global_position)
+				if dd9 < nbd:
+					nbd = dd9
+					nbe = f9
+		if nbe != null:
+			nbe.take_hit(e.global_position, 1.0)
+			_damage_number(nbe.global_position + Vector3(0, 0.9 * info.tile, 0), "SPITE", Color(0.85, 0.3, 0.9), false)
 	_combo_set(combo + 1)
 	# RAMPAGE: 3+ kill beruntun dalam 2.5 detik -> sorakan + banner
 	var now_s := Time.get_ticks_msec() / 1000.0
@@ -3413,6 +3425,7 @@ func _offer_omens() -> void:
 			{"text": "DEATHWISH — +40% ATK, but every blow you take hits 30% harder"},
 			{"text": "BARGAINER — your first Mahzan deal this run comes with 6 free souls"},
 			{"text": "HOLLOW CROWN — +40% ATK, but every relic melts into +3 souls"},
+			{"text": "SPITEFUL — each of your kills wounds a nearby foe for 1 HP"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -3443,7 +3456,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 24 if Stats.nemesis != "" else 23
+	var osize := 25 if Stats.nemesis != "" else 24
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -3552,6 +3565,9 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct += 0.4
 			oname = "HOLLOW CROWN"
 		23:
+			Stats.spiteful = true
+			oname = "SPITEFUL"
+		24:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -3597,6 +3613,7 @@ func _omen_deal(idx: int) -> void:
 		"HEIRLOOM": "Someone carried that before you. They are still carrying it, in a way.",
 		"GOLDEN FATE": "Every lock will gleam. Mind the teeth on some.",
 		"HOLLOW CROWN": "Crown of nothing. The Oracle admires your appetite anyway.",
+		"SPITEFUL": "Your hate is contagious, Kael. The dead will share it.",
 		"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 	}
 	var rline: String = String(reacts.get(oname, "An oath is an oath."))
