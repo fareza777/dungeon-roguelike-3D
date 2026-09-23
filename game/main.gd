@@ -240,6 +240,7 @@ var long_wake := false
 var dead_lantern := false
 var hull_song := false
 var salt_ledger := false
+var bloodtide_t := 0.0
 var iron_gullet := false
 var murk_fed := false
 var crew_oath := false
@@ -568,7 +569,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0, "riptide": 0.0, "soultithe": 0.0, "anchordrop": 0.0, "soulfall": 0.0, "keelsplit": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0, "riptide": 0.0, "soultithe": 0.0, "anchordrop": 0.0, "soulfall": 0.0, "keelsplit": 0.0, "bloodtide": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -956,6 +957,7 @@ func _reset_run_state() -> void:
 	dead_lantern = false
 	hull_song = false
 	salt_ledger = false
+	bloodtide_t = 0.0
 	iron_gullet = false
 	murk_fed = false
 	crew_oath = false
@@ -2904,6 +2906,9 @@ func _on_enemy_died(e) -> void:
 		Stats.earn_souls(1)
 		_souls_l()
 		_damage_number(e.global_position + Vector3(0, 0.7 * info.tile, 0), "TIDE TITHE +1", Color(0.5, 0.8, 0.7), false)
+	if bloodtide_t > 0:
+		Stats.earn_souls(1)
+		_souls_l()
 	if e.get("affix") == "salted":
 		Stats.earn_souls(2)
 		_souls_l()
@@ -4194,6 +4199,11 @@ func _cast_skill(id: String) -> void:
 			trauma = 0.5
 			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "KEEL SPLIT! ×%d" % khits, Color(0.55, 0.8, 1.0), true)
 			print("SKILL keelsplit hits=%d" % khits)
+		"bloodtide":
+			bloodtide_t = 5.0
+			Sfx.play("shrine")
+			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "BLOODTIDE — kills pay +1 soul", Color(0.9, 0.3, 0.4), true)
+			print("SKILL bloodtide t=5.0")
 	skill_used_floor = true
 	skills_floor[id] = true
 	_quest_event("skill_" + id)
@@ -9082,6 +9092,8 @@ func _process(delta: float) -> void:
 				_quest_event("moved")
 
 		# kombo kill: decay + label
+		if bloodtide_t > 0.0:
+			bloodtide_t = maxf(0.0, bloodtide_t - delta)
 		if combo_t > 0.0:
 			combo_t -= delta
 			if ui.has("combo_bar"):
