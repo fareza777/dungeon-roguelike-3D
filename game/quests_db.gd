@@ -185,6 +185,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Fog Seer", "desc": "Discover 10 rooms on one floor (0/10)", "kind": "roomfloor", "need": 1})
 		steps.append({"title": "Long Line", "desc": "Slay 6 foes with the Harpoon (0/6)", "kind": "kill_harpoon", "need": 6})
 		steps.append({"title": "Veil Render", "desc": "Clear 2 floors while the Thin Veil is drawn (0/2)", "kind": "veilwalk", "need": 2})
+		steps.append({"title": "Undertow Dancer", "desc": "Slay 2 RIPTIDE elites without being swept (0/2)", "kind": "affix_riptide", "need": 2})
 	if Stats.floor_num == 11:
 		steps.append({"title": "Soul Fisher", "desc": "Net three drifting wisps (0/3)", "kind": "wisp", "need": 3})
 	if Stats.floor_num >= 13 and Stats.floor_num % 8 == 5:
