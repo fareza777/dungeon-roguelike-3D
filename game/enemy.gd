@@ -97,6 +97,7 @@ var is_weeper := false
 var is_warper := false
 var is_hexer := false
 var is_waver := false
+var kiter := false
 var is_spiky := false
 var warp_t := 4.0
 var champion := false # elite sarang sang juara — drop senjata terjamin
@@ -156,6 +157,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	is_warper = bool(a.get("warper", false))
 	is_hexer = bool(a.get("hexer", false))
 	is_waver = bool(a.get("waver", false))
+	kiter = bool(a.get("kiter", false))
 	is_spiky = bool(a.get("spiky", false))
 	is_lurker = bool(a.get("lurks", false))
 	orator = bool(a.get("orator", false))
@@ -752,6 +754,13 @@ func _physics_process(delta: float) -> void:
 										Sfx.play("deny")
 						state = "recover"
 						state_t = 0.7
+						if kiter:
+							var qk := _player()
+							if qk != null:
+								var bk: Vector3 = global_position - qk.global_position
+								bk.y = 0
+								if bk.length() > 0.01:
+									global_position += bk.normalized() * 1.3 * room_tile
 		"slamming":
 			velocity = Vector3.ZERO
 			if state_t <= 0.0:

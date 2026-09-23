@@ -158,6 +158,7 @@ const ACH_DEF := {
 	"wellread": "Well Read (read 5 lore stones in one run)",
 	"keelhaul5": "Catch & Release (keelhauled 5 foes at once)",
 	"bombsquad": "Bomb Squad (disarmed 5 traps in one run)",
+	"birdkeeper": "Birdkeeper (felled 12 Keelbeaks across your runs)",
 	"bilge_dancer": "Bilge Dancer (weathered 3 different floor events in one run)",
 	"stormwatcher": "Storm Watcher (survived 5 different floor events in one run)",
 	"tideturner": "Tide Turner (cast Riptide 5 times in one run)",
