@@ -247,6 +247,7 @@ const BESTIARY := {
 	"orator": ["The Grave Orator", "It sings the dead awake — every chant makes the room hit harder."],
 	"crowned": ["The Crowned", "A fallen paladin — foes near it shrug off a quarter of your blows."],
 	"tither": ["The Tithing", "A soul-collector — its strikes skim the souls from your purse."],
+	"drowned": ["The Drowned One", "A reliquary corpse — souls leak from it as it walks, and pours out when it dies."],
 	"digger": ["The Gravedigger", "It digs where the dead should lie — and where you now stand."],
 	"weeper": ["The Weeper", "A wailing priest who knits his flock's bones back together. Silence him first."],
 	"bone_king": ["The Kings", "One throne, many forms. Every five floors he waits."],
@@ -263,7 +264,7 @@ const VANE_BIOME := {
 const KILLER_NAMES := {
 	"chaser": "a Skeleton Chaser", "rogue": "a Shadow Rogue", "mage": "a Bone Mage",
 	"brute": "a Bone Brute", "bomber": "a Boom Bones", "archer": "a Skeletal Archer",
-	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade", "hexer": "the Hex Priest", "spiker": "a Spiked Cadaver", "lurker": "the Dweller", "golem": "the Bone Golem", "maiden": "the Wailing Maiden", "revenant": "the Revenant", "shieldbearer": "the Shieldbearer", "herald": "the Herald", "batterer": "the Batterer", "duelist": "the Pale Duelist", "hound": "a Bone Hound", "moth": "a Soul Moth", "orator": "the Grave Orator", "crowned": "the Crowned", "tither": "the Tithing", "digger": "the Gravedigger",
+	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade", "hexer": "the Hex Priest", "spiker": "a Spiked Cadaver", "lurker": "the Dweller", "golem": "the Bone Golem", "maiden": "the Wailing Maiden", "revenant": "the Revenant", "shieldbearer": "the Shieldbearer", "herald": "the Herald", "batterer": "the Batterer", "duelist": "the Pale Duelist", "hound": "a Bone Hound", "moth": "a Soul Moth", "orator": "the Grave Orator", "crowned": "the Crowned", "tither": "the Tithing", "digger": "the Gravedigger", "drowned": "the Drowned One",
 	"bone_king": "the King himself", "trap": "a hidden trap", "": "the dungeon itself"}
 const KILLER_TIPS := {
 	"chaser": "Tip: chasers are slow — kite them into a corner and cleave.",
@@ -294,6 +295,7 @@ const KILLER_TIPS := {
 	"crowned": "Tip: Cut the Crowned down first — while it stands, its allies resist your steel.",
 	"tither": "Tip: The Tithing steals souls with every hit — kill it before it robs you.",
 	"digger": "Tip: Gravediggers seed the floor with void sigils — move before you commit.",
+	"drowned": "Tip: Drowned Ones always cough up a wisp — pop them for free souls.",
 	"bone_king": "Tip: his slams telegraph red — dash through the shockwave.",
 	"trap": "Tip: traps pulse on a rhythm — cross on the off-beat.",
 	"": "Tip: blessings, relics and Sir Vane can still turn a doomed run.",
@@ -1059,6 +1061,7 @@ const FIRST_SEEN := {
 	"crowned": "A fallen paladin still wears its crown — the dead rally behind it.",
 	"tither": "A Tithing comes to collect — the King's tax, paid in souls.",
 	"digger": "A Gravedigger wakes — it buried something where you're standing.",
+	"drowned": "A Drowned One surfaces — the tide gave it back, and it brought treasure.",
 }
 
 
@@ -1919,6 +1922,10 @@ func _on_enemy_died(e) -> void:
 		Stats.souls += 1
 		_souls_l()
 		tide_kills += 1
+	if String(e.arch_id) == "drowned":
+		Stats.souls += 1
+		_souls_l()
+		_damage_number(e.global_position + Vector3(0, 0.8 * info.tile, 0), "DRAINED +1", Color(0.4, 0.9, 0.9), false)
 		if tide_kills >= 20:
 			_ach("drowned20")
 	if wolf_omen and wolf_n < 20:

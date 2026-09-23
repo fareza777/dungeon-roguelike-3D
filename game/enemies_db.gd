@@ -41,6 +41,8 @@ const DB := {
 	"digger": {"glb": "Skeleton_Minion.glb", "hp": 3.0, "spd": 0.9, "dmg": 1, "windup": 0.6, "reach": 0.7, "aggro": 4.5, "xp": 7, "tint": Color(0.6, 0.5, 0.35), "scale": 1.05, "kb_resist": 0.3, "digger": true},
 	# tither — kolektor jiwa Raja: pukulannya mencuri jiwa pemain
 	"tither": {"glb": "Skeleton_Rogue.glb", "hp": 3.2, "spd": 1.1, "dmg": 1, "windup": 0.5, "reach": 0.75, "aggro": 6.0, "xp": 8, "tint": Color(0.5, 1.0, 0.65), "scale": 1.0, "kb_resist": 0.2, "tither": true},
+	# drowned — jenazah relikui yang tenggelam: tubuhnya penuh jiwa, menjatuhkan wisp saat mati
+	"drowned": {"glb": "Skeleton_Minion.glb", "hp": 3.5, "spd": 0.85, "dmg": 1, "windup": 0.55, "reach": 0.7, "aggro": 5.0, "xp": 7, "tint": Color(0.4, 0.85, 0.9), "scale": 1.0, "kb_resist": 0.2, "wisp_drop": true, "drowned": true},
 	# crowned — paladin yang jatuh: musuh di ruangannya menerima 25% lebih sedikit damage
 	"crowned": {"glb": "Skeleton_Warrior.glb", "hp": 5.5, "spd": 0.7, "dmg": 2, "windup": 0.8, "reach": 0.9, "aggro": 4.5, "xp": 9, "tint": Color(0.8, 0.85, 1.1), "scale": 1.15, "kb_resist": 0.7, "crowned": true},
 	# lurker — penunggu kegelapan: tak terlihat sampai pemain mendekat, lalu menerkam
