@@ -92,7 +92,8 @@ const LORE_LINES := [
 	"Sir Vane led the King's vanguard once — the only knight who refused to kneel to a skull. So they chained him in light.",
 	"Vane's cell was carved from the throne's own foundation stone. The King keeps his bravest prisoner closest.",
 	"The Keelhounds were the harbor's watchdogs once. They drowned loyal, and loyal still — now they guard every purse that sinks.",
-	"Mahzan keeps one contract he never speaks of: whatever the Bone King owes him is worth more than a throne."
+	"Mahzan keeps one contract he never speaks of: whatever the Bone King owes him is worth more than a throne.",
+	"The Fog doesn't rise from the sea — it seeps up from the graveyard below, carrying the drowned crew's last orders. They still slow the ship for the new dead."
 ]
 
 var dungeon_tex: Texture2D
