@@ -1945,6 +1945,7 @@ func _cast_skill(id: String) -> void:
 					struck += 1
 			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "SOUL STORM ×%d" % struck, Color(0.6, 0.55, 1.15), true)
 			trauma = 1.0
+			_quest_event("storm")
 			print("SKILL storm struck=%d" % struck)
 	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0)
 
