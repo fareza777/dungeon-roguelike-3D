@@ -18,7 +18,7 @@ func setup(p_tile: float, p_bell := false) -> void:
 	cm.bottom_radius = 0.2 * tile
 	cm.height = 0.45 * tile
 	var bm := StandardMaterial3D.new()
-	bm.albedo_color = Color(0.85, 0.7, 0.3) if bell else Color(0.5, 0.48, 0.4)
+	bm.albedo_color = Color(0.85, 0.7, 0.3) if bell else (Color(0.2, 0.1, 0.35) if void_urn else Color(0.5, 0.48, 0.4))
 	bm.metallic = 0.5 if bell else 0.1
 	cm.material = bm
 	body.mesh = cm
@@ -37,7 +37,7 @@ func setup(p_tile: float, p_bell := false) -> void:
 	add_child(lid)
 	# cahaya lembut biar terbaca di gelap
 	var om := OmniLight3D.new()
-	om.light_color = Color(1.0, 0.85, 0.4) if bell else Color(0.55, 0.75, 1.0)
+	om.light_color = Color(1.0, 0.85, 0.4) if bell else (Color(0.55, 0.3, 0.9) if void_urn else Color(0.55, 0.75, 1.0))
 	om.light_energy = 0.6 if bell else 0.3
 	om.omni_range = 1.1 * tile
 	om.position.y = 0.5 * tile
@@ -75,6 +75,13 @@ func smash(from_pos: Vector3) -> void:
 				m._spawn_wisp_at(global_position)
 			if m.has_method("toast"):
 				m.toast("BELL URN — +5 souls and a wisp!")
+		elif void_urn:
+			Stats.souls -= mini(Stats.souls, 2)
+			Stats.add_xp(8)
+			if m.has_method("_souls_l"):
+				m._souls_l()
+			if m.has_method("toast"):
+				m.toast("VOID LANTERN — the dark drank 2 souls and paid 8 XP")
 		elif reliq and not dry:
 			Stats.earn_souls(2 if bool(m.get("low_tide")) else 1)
 		if bool(m.get("deeproot")) and not reliq and not dry:
