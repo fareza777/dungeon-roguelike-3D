@@ -3522,6 +3522,8 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			{"who": "kael", "text": "Tell him to keep the crown warm."},
 			{"who": "mahzan", "text": "Twenty-four floors of carnage. Even I feel... almost... sentimental."},
 		]
+		if vane_floors > 0:
+			lines.append({"who": "knight", "text": "Whatever waits below, Kael — it will remember the night it met us."})
 	elif Stats.nemesis != "" and not nemesis_warned:
 		nemesis_warned = true
 		lines = [
