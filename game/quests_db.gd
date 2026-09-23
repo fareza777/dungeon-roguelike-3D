@@ -79,6 +79,8 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Crown's Edge", "desc": "Unleash KINGSFALL on the throne floor", "kind": "kingsfall", "need": 1})
 	if Stats.floor_num >= 7 and Stats.floor_num % 7 == 0:
 		steps.append({"title": "Bounty Hunter", "desc": "Claim a Bounty Stone contract", "kind": "bounty", "need": 1})
+	if Stats.floor_num >= 9 and Stats.floor_num % 6 == 3:
+		steps.append({"title": "Shieldbreaker", "desc": "Slay Shieldbearers (0/3)", "kind": "shield_kill", "need": 3})
 	if Stats.floor_num >= 5 and Stats.floor_num % 5 == 1:
 		steps.append({"title": "Forge-Fed", "desc": "Forge your blade at a Soul Forge", "kind": "forge", "need": 1})
 		steps.append({"title": "Floor Sweep", "desc": "Clear %d rooms of skeletons" % room_count, "kind": "clear_floor", "need": room_count})

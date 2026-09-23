@@ -1528,6 +1528,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("maiden_kill")
 	if e.arch_id == "revenant":
 		_quest_event("revenant_kill")
+	if e.arch_id == "shieldbearer":
+		_quest_event("shield_kill")
 		_spawn_tomb(e.global_position, "revenant", int(e.room_idx))
 	if bounty_ref != null and e == bounty_ref:
 		bounty_ref = null
