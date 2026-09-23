@@ -74,7 +74,7 @@ func _physics_process(delta: float) -> void:
 			if d.length() < 0.35 * tile:
 				absorbed = true
 				var m0 := get_tree().current_scene
-				var wp := 2 if (m0 != null and bool(m0.get("low_tide"))) else 1
+				var wp := 2 if (m0 != null and (bool(m0.get("low_tide")) or bool(m0.get("starved_deep")))) else 1
 				if Stats.relics.has("soul_creel"):
 					wp += 1
 				Stats.souls += wp
