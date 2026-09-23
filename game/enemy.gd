@@ -29,6 +29,7 @@ var is_summoner := false
 var proj_speed := 0.0
 var kb_resist := 0.0
 var dmg_reduce := 0.0
+var tidal_t := 0.0
 var speed := 4.0
 var dmg := 1
 var windup_t := 0.45
@@ -173,7 +174,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled"][randi() % 24]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal"][randi() % 25]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -249,6 +250,10 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				dmg_reduce = 0.25
 				speed *= 0.8
 				hp *= 1.1
+				xp_val = int(xp_val * 1.3)
+			"tidal":
+				# pasang: denyut menyembuhkan sekutunya perlahan
+				hp *= 1.15
 				xp_val = int(xp_val * 1.3)
 	scale = Vector3.ONE * sc
 	_base_scale = scale
@@ -378,6 +383,15 @@ func _physics_process(delta: float) -> void:
 	hex_t = maxf(0.0, hex_t - delta)
 	slow_t = maxf(0.0, slow_t - delta)
 	sunder_t = maxf(0.0, sunder_t - delta)
+	if affix == "tidal":
+		tidal_t += delta
+		if tidal_t >= 2.0:
+			tidal_t = 0.0
+			for tf2 in get_tree().get_nodes_in_group("enemies"):
+				if tf2 == self or tf2.get("state") == "dead":
+					continue
+				if tf2.global_position.distance_to(global_position) < 2.5 * room_tile:
+					tf2.hp = minf(float(tf2.get("hp_max")), float(tf2.get("hp")) + float(tf2.get("hp_max")) * 0.04)
 	# tanda debuff melayang: BURNING / HEXED / SUNDERED
 	var mtxt := ""
 	var mcol := Color(1.0, 0.55, 0.4)
