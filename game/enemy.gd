@@ -235,7 +235,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated"][randi() % 48]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred"][randi() % 49]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -407,6 +407,11 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				hp *= 1.15
 				speed *= 1.0
 				xp_val = int(xp_val * 1.4)
+			"tarred":
+				# lengket — tiap pukulan menyeret kaki ke aspal
+				hp *= 1.1
+				speed *= 0.95
+				xp_val = int(xp_val * 1.3)
 			"bloated":
 				# gemuk busuk — susah dibunuh, susah kabur
 				hp *= 1.6
@@ -922,6 +927,9 @@ func _physics_process(delta: float) -> void:
 									p.set("weak_t", 3.0)
 								if affix == "drowning" and q == p:
 									p.set("chill_t", 2.0)
+								if affix == "tarred" and q == p:
+									p.set("slip_t", maxf(float(p.get("slip_t")), -1.5))
+									p.set("chill_t", maxf(float(p.get("chill_t")), 1.5))
 								if leech and q == p:
 									hp = minf(hp_max, hp + 1.0)
 									var ls_ := get_tree().current_scene
