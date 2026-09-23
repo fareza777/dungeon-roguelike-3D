@@ -77,6 +77,7 @@ var draft_rerolled := false
 var low_quality := false
 var blood_moon := false
 var soul_rush := false
+var fading_light := false
 var omen_done := false
 var omen_hp_mult := 1.0
 var omen_name := ""
@@ -214,6 +215,7 @@ const TIPS := [
 	"Near death, fury answers — Last Stand adds +25% ATK.",
 	"Soul Vials drop from the dead — hold two, drink when it counts.",
 	"When the mist turns violet, the dead weep gems — reap them while it lasts.",
+	"When the torches die, the dead run faster — finish the floor for the tithe.",
 ]
 
 
@@ -388,6 +390,13 @@ func _apply_biome() -> void:
 		env.ambient_light_color = Color(0.5, 0.3, 0.85)
 		sun.light_color = Color(0.75, 0.5, 1.0)
 		sun.light_energy = 1.0
+	elif fading_light:
+		env.background_color = Color(0.02, 0.02, 0.05)
+		env.fog_density = float(biome["fog_d"]) * 1.5
+		env.fog_light_color = Color(0.03, 0.04, 0.08)
+		env.ambient_light_color = Color(0.25, 0.28, 0.4)
+		sun.light_color = Color(0.5, 0.55, 0.8)
+		sun.light_energy = 0.55
 
 
 func _style_room() -> void:
@@ -436,6 +445,8 @@ func _new_run(new_seed: int) -> void:
 	blood_moon = Stats.floor_num >= 3 and not boss_floor and rng.randf() < 0.07
 	# event langka #2: soul rush — kabut ungu, permata XP berlimpah, tithe jiwa saat clear
 	soul_rush = not blood_moon and Stats.floor_num >= 4 and not boss_floor and rng.randf() < 0.07
+	# event langka #3: fading light — obor padam, musuh lebih ganas, tithe jiwa saat clear
+	fading_light = not blood_moon and not soul_rush and Stats.floor_num >= 6 and not boss_floor and rng.randf() < 0.06
 	_apply_biome()
 	_style_room()
 	_build_gates()
@@ -527,6 +538,10 @@ func _new_run(new_seed: int) -> void:
 		_lvl_banner("✦ SOUL RUSH — THE DEAD WEEP GEMS")
 		toast("XP gems +60% • +3 souls on clear")
 		Sfx.play("quest")
+	elif fading_light:
+		_lvl_banner("◈ FADING LIGHT — THE TORCHES DIE")
+		toast("Enemies +12% speed • +4 souls on clear")
+		Sfx.play("thunder")
 	elif Stats.floor_num > 1:
 		_lvl_banner("FLOOR %d — %s" % [Stats.floor_num, String(biome["name"]).to_upper()])
 
@@ -778,6 +793,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.hp_max = e.hp
 		e.xp_val = int(ceilf(e.xp_val * 1.5))
 		e.speed *= 1.08
+	if fading_light and not e.is_boss:
+		e.speed *= 1.12
 	if omen_hp_mult > 1.0 and not e.is_boss:
 		e.hp *= omen_hp_mult
 		e.hp_max = e.hp
@@ -1263,6 +1280,11 @@ func _on_enemy_died(e) -> void:
 				_souls_l()
 				Stats.save_game()
 				toast("✦ SOUL RUSH TITHE — +3 souls")
+			elif fading_light:
+				Stats.souls += 4
+				_souls_l()
+				Stats.save_game()
+				toast("◈ GLOOM TITHE — +4 souls")
 			# bonus sapuan kilat: lantai bersih di bawah 90 detik
 			if floor_t < 90.0 and Stats.floor_num > 1:
 				Stats.souls += 2
@@ -3918,6 +3940,8 @@ func _refresh_buffs() -> void:
 		list.append(["☽ BLOOD MOON", Color(0.9, 0.15, 0.2)])
 	elif soul_rush:
 		list.append(["✦ SOUL RUSH", Color(0.7, 0.45, 1.0)])
+	elif fading_light:
+		list.append(["◈ FADING LIGHT", Color(0.55, 0.6, 0.85)])
 	if omen_name != "":
 		list.append(["☗ " + omen_name, Color(0.9, 0.7, 1.0)])
 	if player.get("root_t") != null and player.root_t > 0.0:
