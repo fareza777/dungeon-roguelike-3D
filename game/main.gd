@@ -1039,7 +1039,10 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 	if not elite and not e.is_boss and not _warned.has(arch_id) and FIRST_SEEN.has(arch_id) and player != null:
 		_warned[arch_id] = 1
 		Sfx.play("page")
-		_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), String(FIRST_SEEN[arch_id]), Color(0.55, 1.0, 0.75), true)
+		var wtxt := String(FIRST_SEEN[arch_id])
+		if Stats.ng_plus > 0:
+			wtxt = "Umbral " + wtxt
+		_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), wtxt, Color(0.55, 1.0, 0.75), true)
 	if e.is_boss:
 		boss_ref = e
 		var tier := _boss_tier()
