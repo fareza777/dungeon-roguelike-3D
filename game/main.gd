@@ -4702,11 +4702,12 @@ func _on_drowned_invoked(s) -> void:
 		[{"text": "Tide Baptism — pay 4 souls: full HP +10% speed this run"},
 		{"text": "Drowned Tithe — take +8 souls, but the water takes −10% Max HP"},
 		{"text": "Sea-Glass Ward — pay 5 souls: the floor's foes lose 15% HP"},
+		{"text": "Sea Legs — pay 6 souls: all skills recharge instantly"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 3:
+	if idx == 4:
 		toast("The water settles back into the stone")
 		return
 	if idx == 2:
@@ -4721,6 +4722,16 @@ func _drowned_deal(idx: int) -> void:
 				f.hp_max = f.hp
 		Sfx.play("shrine")
 		toast("SEA-GLASS WARD — the drowned rot faster")
+	elif idx == 3:
+		if Stats.souls < _soul_cost(6):
+			toast("Six souls — the sea doesn't lend for free")
+			return
+		Stats.souls -= _soul_cost(6)
+		_souls_l()
+		for sk in skill_cd:
+			skill_cd[sk] = 0.0
+		Sfx.play("shrine")
+		toast("SEA LEGS — your skills flow again")
 	if idx == 0:
 		if Stats.souls < _soul_cost(4):
 			toast("Four souls — the tide won't lift an empty purse")
