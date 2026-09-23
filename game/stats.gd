@@ -90,6 +90,7 @@ var sfx_volume := -1.0
 var saved_run := {}
 var lore_seen: Array = [] # baris lore yang pernah ditemukan (codex, persist)
 var oaths_seen: Array = [] # omen yang pernah disumpah (persist)
+var drowned_deals := 0
 var souls := 0 # mata uang meta — dari kill, dipakai di Hall of Souls
 var nemesis := "" # arch_id pembunuh terakhir — kembali lebih kuat sampai dibunuh balik
 var nemesis_name := "" # nama tampilan untuk menu
@@ -167,6 +168,7 @@ const ACH_DEF := {
 	"moondisciple": "Moon Disciple (bathed in three Moonpools)",
 	"fogwalker": "Fog Walker (cleared a floor under Rolling Fog)",
 	"pearlhunter": "Pearl Hunter (pried 12 snap clams)",
+	"deepdisciple": "Disciple of the Deep (took 8 Drowned Altar deals)",
 	"pilgrim": "Pilgrim (10 shrine visits in one run)",
 	"seaworthy": "Seaworthy (drank the Drowned Tithe)",
 	"drowned20": "Drowned Court (20 kills under the Sunken Tide)",
@@ -524,6 +526,7 @@ func save_game() -> void:
 			"mastered": mastered,
 			"nemesis": nemesis,
 			"nemesis_name": nemesis_name,
+			"drowned_deals": drowned_deals,
 		}))
 
 
@@ -567,6 +570,7 @@ func load_game() -> void:
 			if me is Dictionary:
 				for k in META_DEF.keys():
 					meta[k] = int(me.get(k, 0))
+			drowned_deals = int(d.get("drowned_deals", 0))
 			var be = d.get("bestiary", {})
 			if be is Dictionary:
 				bestiary = be
