@@ -123,7 +123,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile"][randi() % 5]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother"][randi() % 6]
 		match affix:
 			"swift":
 				speed *= 1.45

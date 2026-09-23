@@ -214,6 +214,7 @@ const TIPS := [
 	"Violet sigils snare your feet — dash before the trap bites.",
 	"Near death, fury answers — Last Stand adds +25% ATK.",
 	"Soul Vials drop from the dead — hold two, drink when it counts.",
+	"MOTHER-tagged elites split in two when slain — brace for the brood.",
 	"When the mist turns violet, the dead weep gems — reap them while it lasts.",
 	"When the torches die, the dead run faster — finish the floor for the tithe.",
 ]
@@ -801,7 +802,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		M.paint(e, M.toon(skeleton_tex, tint.lerp(Color(0.85, 0.08, 0.08), 0.4), 0.35, true))
 	e.position = sp["pos"]
 	e.room_idx = int(sp.get("room", 0))
-	e.activated = false
+	# spawn lantai: -1 -> inaktif sampai pemain masuk; summon/split di ruangan aktif langsung hidup
+	e.activated = int(sp.get("room", 0)) == current_room
 	room.add_child(e)
 	# spawn-in: muncul pop supaya tidak hard-cut
 	var esc: Vector3 = e.scale
@@ -1227,6 +1229,11 @@ func _on_enemy_died(e) -> void:
 		_lvl_banner("RAMPAGE ×%d!" % rampage_n)
 		Sfx.play("roar")
 		_quest_event("rampage")
+	# MOTHER affix: elite ini pecah jadi 2 crawler saat mati
+	if e.get("affix") == "mother":
+		for _mi in range(2):
+			_spawn_enemy({"pos": e.global_position + Vector3(randf_range(-0.4, 0.4) * info.tile, 0, randf_range(-0.4, 0.4) * info.tile), "room": e.room_idx}, "crawler", false)
+		_damage_number(e.global_position, "SPLITS!", Color(0.7, 1.0, 0.5), true)
 	# COMBO RIPPLE: kombo ≥20 -> tiap kill melepas gelombang 1 dmg ke tetangga
 	if combo >= 20:
 		var rip := 0
