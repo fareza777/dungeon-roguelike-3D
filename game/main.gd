@@ -3106,9 +3106,14 @@ func _update_minimap() -> void:
 	map_dots.clear()
 	for f in get_tree().get_nodes_in_group("enemies"):
 		var d := ColorRect.new()
-		d.color = Color(1.0, 0.3, 0.3)
-		d.size = Vector2(4, 4)
-		d.position = _map_pos(f.global_position, sc) + Vector2(1, 1)
+		if bool(f.get("nemesis")):
+			d.color = Color(1.0, 0.15, 0.55)
+			d.size = Vector2(6, 6)
+			d.position = _map_pos(f.global_position, sc)
+		else:
+			d.color = Color(1.0, 0.3, 0.3)
+			d.size = Vector2(4, 4)
+			d.position = _map_pos(f.global_position, sc) + Vector2(1, 1)
 		ui.map_view.add_child(d)
 		map_dots.append(d)
 	# titik gerbang: hijau = terbuka, merah gelap = terkunci

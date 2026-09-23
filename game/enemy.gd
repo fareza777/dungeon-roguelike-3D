@@ -178,7 +178,7 @@ func _ready() -> void:
 	add_child(cs)
 	collision_layer = 4
 	collision_mask = 1 | 2 | 4
-	if elite and not is_boss:
+	if (elite or nemesis) and not is_boss:
 		_mk_hpbar()
 		_mk_aura()
 	M.play_fuzzy(ap, ["idle"])
@@ -201,9 +201,9 @@ func _mk_hpbar() -> void:
 	hpbar_fg.position = Vector3(0, 1.12 * room_tile, 0.02)
 	hpbar_fg.visible = false
 	add_child(hpbar_fg)
-	if affix != "":
+	if affix != "" or nemesis:
 		hpbar_tag = Label3D.new()
-		hpbar_tag.text = affix.to_upper()
+		hpbar_tag.text = ("NEMESIS " + affix.to_upper()).strip_edges() if nemesis else affix.to_upper()
 		hpbar_tag.font_size = 42
 		hpbar_tag.modulate = Color(1.0, 0.75, 0.3)
 		hpbar_tag.outline_size = 14
