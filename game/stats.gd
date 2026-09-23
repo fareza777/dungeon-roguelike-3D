@@ -402,6 +402,8 @@ func reset_run() -> void:
 	mahzan_debt = 0.0
 	curse_dmg = 0.0
 	reroll_extra = 0
+	if relics.has("driftwood_idol"):
+		reroll_extra += 1
 	solo_xp = 0.0
 	curse_xp = 0.0
 	soul_bonus = 0
