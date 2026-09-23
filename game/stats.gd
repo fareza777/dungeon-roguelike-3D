@@ -169,6 +169,7 @@ const ACH_DEF := {
 	"fogwalker": "Fog Walker (cleared a floor under Rolling Fog)",
 	"pearlhunter": "Pearl Hunter (pried 12 snap clams)",
 	"deepdisciple": "Disciple of the Deep (took 8 Drowned Altar deals)",
+	"standingorders": "Standing Orders (15 kills planted on the Steady Rope)",
 	"pilgrim": "Pilgrim (10 shrine visits in one run)",
 	"seaworthy": "Seaworthy (drank the Drowned Tithe)",
 	"drowned20": "Drowned Court (20 kills under the Sunken Tide)",

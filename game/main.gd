@@ -217,6 +217,7 @@ var clams_run := 0
 var rooms_floor := 0
 var still_t := 0.0
 var _rope_active := false
+var rope_kills := 0
 var moonpool_run := 0
 var shellshield_used := false
 var tithe_armor := 0.0
@@ -806,6 +807,7 @@ func _reset_run_state() -> void:
 	mudlark = false
 	netgain_n = 0
 	_rope_active = false
+	rope_kills = 0
 	wellread = false
 	tide_lends = false
 	pearl_fever = false
@@ -2305,6 +2307,10 @@ func _on_enemy_died(e) -> void:
 		netgain_n -= 1
 		Stats.earn_souls(2)
 		_souls_l()
+	if _rope_active:
+		rope_kills += 1
+		if rope_kills >= 15:
+			_ach("standingorders")
 	if dread_tide and not e.is_boss:
 		Stats.earn_souls(1)
 		_souls_l()
