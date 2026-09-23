@@ -2465,6 +2465,8 @@ func _use_vial() -> void:
 		return
 	vials -= 1
 	var vfrac := 0.45 if iron_gullet else 0.3
+	if Stats.relics.has("brine_ration"):
+		vfrac += 0.1
 	var healed := minf(mh - player.hp, mh * vfrac)
 	player.hp = minf(mh, player.hp + mh * vfrac)
 	player.hp_changed.emit(player.hp)
