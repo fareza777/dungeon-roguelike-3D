@@ -716,7 +716,7 @@ func _physics_process(delta: float) -> void:
 									if mm7 != null and mm7.has_method("_damage_number"):
 										mm7._damage_number(p.global_position, "MIRED", Color(0.5, 0.85, 0.55), true)
 								if is_ruster and q == p:
-									p.set("rust_t", 4.0)
+									p.set("rust_t", 2.0 if Stats.relics.has("polishing_rag") else 4.0)
 									var mrj := get_tree().current_scene
 									if mrj != null and mrj.has_method("_damage_number"):
 										mrj._damage_number(p.global_position + Vector3(0, 0.8 * room_tile, 0), "RUSTED!", Color(0.75, 0.55, 0.35), true)
