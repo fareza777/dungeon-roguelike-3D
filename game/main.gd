@@ -1949,12 +1949,20 @@ func _on_boss_died(_e) -> void:
 		if Stats.floor_num != fl or Stats.draft_open or (dlg != null and dlg.active):
 			return
 		if Stats.floor_num >= 25:
-			_say([
-				{"who": "raja", "text": String(_boss_tier()["death"])},
-				{"who": "oracle", "text": "The throne is ash, Kael. The kingdom below... finally sleeps."},
-				{"who": "mahzan", "text": "A customer turned conqueror. I'll miss our little trades."},
-				{"who": "kael", "text": "Tell the surface to light the torches. I'm coming home."},
-			])
+			if Stats.ng_plus > 0:
+				_say([
+					{"who": "raja", "text": "AGAIN?! How many crowns must I lose, slicer?"},
+					{"who": "oracle", "text": "The throne falls a second time — and the dark below stirs, deeper still."},
+					{"who": "mahzan", "text": "Twice a conqueror! My ledgers salute you, friend."},
+					{"who": "kael", "text": "Then keep the torches lit. This isn't over until the dark runs out of floors."},
+				])
+			else:
+				_say([
+					{"who": "raja", "text": String(_boss_tier()["death"])},
+					{"who": "oracle", "text": "The throne is ash, Kael. The kingdom below... finally sleeps."},
+					{"who": "mahzan", "text": "A customer turned conqueror. I'll miss our little trades."},
+					{"who": "kael", "text": "Tell the surface to light the torches. I'm coming home."},
+				])
 		else:
 			_say([
 				{"who": "raja", "text": String(_boss_tier()["death"])},
