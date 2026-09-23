@@ -206,6 +206,10 @@ func _physics_process(delta: float) -> void:
 							Stats.souls += 1
 							if ml2.has_method("_souls_l"):
 								ml2._souls_l()
+						if ml2 != null and bool(ml2.get("muckraker")):
+							Stats.souls += 1
+							if ml2.has_method("_souls_l"):
+								ml2._souls_l()
 						if ml2.has_method("toast"):
 							ml2.toast("Trap defused!")
 						if kind == 6:
