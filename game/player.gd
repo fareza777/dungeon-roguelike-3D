@@ -277,7 +277,8 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 			var mn := get_tree().current_scene
 			if mn != null:
 				mn.set("net_n", int(mn.get("net_n")) + 1)
-				if int(mn.get("net_n")) >= 4:
+				var net_at: int = 3 if Stats.relics.has("wicker_net") else 4
+				if int(mn.get("net_n")) >= net_at:
 					mn.set("net_n", 0)
 					f.slow_t = 2.0
 					if mn.has_method("_damage_number"):
