@@ -7406,11 +7406,12 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Dowser's Knot — pay 2 souls: a thread that trembles near treasure — chests and shrines glint on your map"},
 		{"text": "Salt Rosary — pay 3 souls: blessed knots — venom, chill, root and silence fade twice as fast this run"},
 		{"text": "Moonwater — pay 4 souls: a skin of the still tide — your wounds knit +0.3 HP/s this run"},
+		{"text": "Bilge Baptism — pay 4 souls: washed in the foul water — the dead strike 10% softer this run"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 26:
+	if idx == 27:
 		toast("The water settles back into the stone")
 		return
 	if idx == 12:
@@ -7598,6 +7599,16 @@ func _drowned_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		_ach("seaworthy")
 		toast("DROWNED TITHE — +8 souls, −10% Max HP")
+	if idx == 26:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the font isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		Stats.curse_dmg -= 0.1
+		Sfx.play("shrine")
+		toast("BILGE BAPTISM — the foul water takes the edge off their spite")
+		return
 	if idx == 25:
 		if Stats.souls < _soul_cost(4):
 			toast("Four souls — the moon doesn't pour free")
