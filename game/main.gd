@@ -2586,7 +2586,10 @@ func _use_vial() -> void:
 	_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), "+%d" % int(ceil(healed)), Color(0.4, 1.0, 0.6), true)
 	Sfx.play("shrine")
 	_burst(player.global_position + Vector3(0, 0.8, 0), Color(0.3, 0.95, 0.8))
-	toast("⚗ Soul Vial — +30% HP")
+	if Stats.relics.has("purifiers_salt"):
+		for deb8 in ["weak_t", "chill_t", "root_t", "venom_t", "silence_t", "rust_t"]:
+			player.set(deb8, 0.0)
+	toast("⚗ Soul Vial — +30% HP" + (" — curses scoured" if Stats.relics.has("purifiers_salt") else ""))
 	_vial_btn()
 
 
