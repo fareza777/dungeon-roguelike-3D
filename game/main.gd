@@ -182,6 +182,8 @@ var waxpale := false
 var umbral_tide := false
 var moonwrit := false
 var barnacle_sense := false
+var brine_callus := false
+var callus_on := false
 var salt_purse := false
 var sirensong_deal := false
 var salt_tithe := false
@@ -777,6 +779,10 @@ func _reset_run_state() -> void:
 	umbral_tide = false
 	moonwrit = false
 	barnacle_sense = false
+	brine_callus = false
+	if callus_on:
+		Stats.buff_armor -= 2
+		callus_on = false
 	tide_kills = 0
 	reliquary_wisps = 0
 	flawless_run = 0
@@ -4276,6 +4282,9 @@ func _on_dlg_choice(idx: int) -> void:
 		19:
 			barnacle_sense = true
 			toast("Barnacle Sense: disarm reach half again as far")
+		20:
+			brine_callus = true
+			toast("Brine Callus: +2 Armor while under half health")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -5673,6 +5682,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Tide's Toll — all soul gains +20%"},
 			{"text": "Moonwrit — wisps you net pay +1 soul each"},
 			{"text": "Barnacle Sense — disarm sleeping traps from half again as far"},
+			{"text": "Brine Callus — +2 Armor while you're under half health"},
 		]
 	)
 
@@ -7366,6 +7376,16 @@ func _process(delta: float) -> void:
 				toast("The new blade cools — trial over")
 		if ui.has("time_label"):
 			ui.time_label.text = "%d:%02d" % [int(run_time) / 60, int(run_time) % 60]
+		if brine_callus:
+			var under_half: bool = player.hp < Stats.get_stat("max_hp") * 0.5
+			if under_half and not callus_on:
+				callus_on = true
+				Stats.buff_armor += 2
+				player.refresh_stats()
+			elif not under_half and callus_on:
+				callus_on = false
+				Stats.buff_armor -= 2
+				player.refresh_stats()
 		if not pool_positions.is_empty() and pool_healed < 4.0 and player.hp < Stats.get_stat("max_hp"):
 			for pp in pool_positions:
 				if player.global_position.distance_to(pp["pos"]) < float(pp["r"]) + 0.3 * info.tile:
