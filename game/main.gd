@@ -1808,7 +1808,7 @@ func _on_enemy_died(e) -> void:
 		_quest_event("bounty")
 	if Stats.spiteful:
 		var nbe: Node3D = null
-		var nbd := 4.0 * info.tile
+		var nbd: float = 4.0 * info.tile
 		for f9 in get_tree().get_nodes_in_group("enemies"):
 			if f9 != e and int(f9.room_idx) == int(e.room_idx) and String(f9.get("state")) != "dead":
 				var dd9: float = f9.global_position.distance_to(e.global_position)
