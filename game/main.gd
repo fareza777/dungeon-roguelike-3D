@@ -114,7 +114,9 @@ const LORE_LINES := [
 	"The quartermaster keeps two ledgers — one of rope and powder, one of debts no coin repays.",
 	"The wisps are not souls, Kael — they are receipts. Every one marks a debt the sea paid in full.",
 	"The Bilge Witches sang in the choirs once — the water took their voices and gave back cold.",
-	"A gauntlet floor is the King's way of counting how badly he wants you — answer accordingly."
+	"A gauntlet floor is the King's way of counting how badly he wants you — answer accordingly.",
+	"The Rust Jaws were smiths once — the dungeon keeps their trade but not their memory.",
+	"When the water kneels, Kael, do not thank it. The sea only bows before it pulls."
 ]
 
 var dungeon_tex: Texture2D
