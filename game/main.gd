@@ -393,6 +393,7 @@ var mimic_pending := false
 var shrine_used := false
 var shrine_count := 0
 var lucky_net := false
+var deeproot := false
 var _souls_seen := 0
 var _souls_net := 0
 var dlg: DialogueUI = null
@@ -662,6 +663,7 @@ func _reset_run_state() -> void:
 	wolf_n = 0
 	shrine_count = 0
 	lucky_net = false
+	deeproot = false
 	_souls_seen = Stats.souls
 	_souls_net = 0
 	ashborn = false
@@ -3886,6 +3888,9 @@ func _on_dlg_choice(idx: int) -> void:
 			lucky_net = true
 			_quest_event("lucky_net")
 			toast("Lucky Net: every tenth soul snags a bonus")
+		14:
+			deeproot = true
+			toast("Deeproot: urns spill +1 soul")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -5035,6 +5040,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Tempo's Grace — combos linger 40% longer this run"},
 			{"text": "Bone Wrap — the next trap hit does nothing (stacks)"},
 			{"text": "Lucky Net — every tenth soul you earn pays +1"},
+			{"text": "Deeproot — every urn spills +1 soul"},
 		]
 	)
 
