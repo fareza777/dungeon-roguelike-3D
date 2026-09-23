@@ -2959,6 +2959,10 @@ func _on_enemy_died(e) -> void:
 				Stats.earn_souls(rk)
 				_souls_l()
 			var kc: int = int(Stats.meta.get("keelcap", 0))
+			if shrine_used and Stats.relics.has("pilgrim_wage"):
+				Stats.earn_souls(1)
+				_souls_l()
+				_damage_number(player.global_position + Vector3(0, 1.2 * info.tile, 0), "PILGRIM'S WAGE +1", Color(0.85, 0.75, 0.4), false)
 			if kc > 0 and Stats.floor_num >= 13:
 				Stats.earn_souls(kc * 2)
 				_souls_l()

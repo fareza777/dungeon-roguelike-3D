@@ -88,6 +88,7 @@ const DB := {
 	"steady_rope": {"name": "Steady Rope", "chip": "SR", "desc": "Plant your feet — hold still a breath and your arm swings +8% harder", "rarity": 1, "mods": {}},
 	"ballast": {"name": "Ballast", "chip": "BA", "desc": "Weight that keeps you upright — +18% Max HP, +1 Armor, −8% Speed", "rarity": 1, "mods": {"max_hp_pct": 0.18, "armor": 1.0, "speed_pct": -0.08}},
 	"sea_lantern": {"name": "Sea Lantern", "chip": "SE", "desc": "Souls shine brighter — +12% souls earned", "rarity": 1, "mods": {"soul_gain_pct": 0.12}},
+	"pilgrim_wage": {"name": "Pilgrim's Wage", "chip": "PW", "desc": "Every floor where you take a shrine's blessing pays +1 soul at its end", "rarity": 1, "mods": {}},
 	"gilded_keel": {"name": "Gilded Keel", "chip": "GK", "desc": "A keel plated in court gold — every gilded chest pays +2 souls", "rarity": 2, "mods": {}},
 	"wicker_net": {"name": "Wicker Net", "chip": "WN", "desc": "Tighter weave — the Driftnet tangles every third strike", "rarity": 1, "mods": {}},
 	"dead_knot": {"name": "Dead Man's Knot", "chip": "DK", "desc": "A sailor's last tie — every 8th kill each floor pays +1 soul", "rarity": 1, "mods": {}},
