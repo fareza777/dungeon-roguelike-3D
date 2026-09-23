@@ -1925,6 +1925,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.xp_val = int(ceilf(e.xp_val * 1.15))
 	if Stats.relics.has("brine_whistle"):
 		e.slow_t = 2.5
+	if Stats.relics.has("gunners_badge") and e.proj_speed > 0.0:
+		e.proj_speed *= 0.85
 	if long_wake:
 		e.aggro_range *= 1.4
 	room.add_child(e)
