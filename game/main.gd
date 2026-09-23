@@ -929,7 +929,7 @@ func _spawn_traps(last_room: int) -> void:
 		room.add_child(tr)
 		tr.global_position = pos
 		var rk := rng.randf()
-		tr.setup(info.tile, rng.randf_range(0.0, 1.9), 3 if rk < 0.15 else (2 if rk < 0.3 else (1 if rk < 0.55 else 0)))
+		tr.setup(info.tile, rng.randf_range(0.0, 1.9), 4 if rk < 0.08 else (3 if rk < 0.23 else (2 if rk < 0.38 else (1 if rk < 0.6 else 0))))
 
 
 func _spawn_urns(last_room: int) -> void:
