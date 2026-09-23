@@ -209,13 +209,13 @@ func _physics_process(delta: float) -> void:
 			if p2.get("dead") != true:
 				var d2: Vector3 = p2.global_position - global_position
 				d2.y = 0
+				var ml2 := get_tree().current_scene
 				var disarm_reach: float = 0.26 * tile
-				if bool(ml2.get("barnacle_sense")):
+				if ml2 != null and bool(ml2.get("barnacle_sense")):
 					disarm_reach *= 1.5
 				if d2.length() < disarm_reach:
 					disarm()
 					Sfx.play("click")
-					var ml2 := get_tree().current_scene
 					if ml2 != null:
 						if ml2.has_method("_quest_event"):
 							ml2._quest_event("trap_disarm")
