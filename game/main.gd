@@ -1976,7 +1976,7 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 	if song_rust:
 		e.speed *= 0.9
 	if undertow:
-		e.dmg = int(maxi(1, roundi(e.dmg * 0.9)))
+		e.windup *= 1.12
 	if gale_tide:
 		e.speed *= 1.1
 	if mercy_tide:
@@ -6335,7 +6335,7 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Full Scrub — pay 3 souls: cleanse every ailment, rust and weakness included"},
 		{"text": "Deep Breath — pay 4 souls: the dead wade −5% slower for the rest of this run"},
 		{"text": "Deep Draw — pay 3 souls: fill your vial satchel"},
-		{"text": "Undertow — pay 4 souls: this floor's dead strike −10% softer"},
+		{"text": "Undertow — pay 4 souls: this floor's dead telegraph slower (+12% windup)"},
 		{"text": "Walk away"}])
 
 
@@ -6370,7 +6370,7 @@ func _drowned_deal(idx: int) -> void:
 		undertow = true
 		_quest_event("drowned")
 		Sfx.play("shrine")
-		toast("UNDERTOW — the floor's dead lose their grip")
+		toast("UNDERTOW — the floor's dead strike on a slow tide")
 		return
 	if idx == 11:
 		if Stats.souls < _soul_cost(3):
