@@ -50,7 +50,9 @@ const LORE_LINES := [
 	"The Oracle threads every soul she saves into a rope. Yours, she says, is her favorite strand.",
 	"Aldric's last decree was carved in gold: 'None shall outlive the throne.' He meant it literally.",
 	"The King's ledger lists every hero who ever fell — page after page, all in his own hand.",
-	"The Weeper was the court's choir-master. He still can't bear to hear bones break."
+	"The Weeper was the court's choir-master. He still can't bear to hear bones break.",
+	"The Sentinels were archers who swore never to retreat — the King took the words literally.",
+	"Mahzan once bet the Bone King a throne could be bought. He is still collecting."
 ]
 
 var dungeon_tex: Texture2D
