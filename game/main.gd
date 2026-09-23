@@ -2283,7 +2283,7 @@ func _on_boss_died(_e) -> void:
 	get_tree().create_timer(0.7, true, false, true).timeout.connect(func() -> void: Engine.time_scale = 1.0)
 	boss_ref = null
 	Stats.boss_kills += 1
-	Stats.souls += 15
+	Stats.souls += 15 + 5 * mini(Stats.ng_plus, 5)
 	if Stats.nemesis == "bone_king":
 		Stats.nemesis = ""
 		Stats.nemesis_name = ""
