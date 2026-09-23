@@ -5759,6 +5759,10 @@ func _on_dlg_choice(idx: int) -> void:
 		51:
 			Stats.buff_xp_pct += 0.15
 			toast("Fathom Eye: the deep teaches what the dark won't — +15% XP this run")
+		52:
+			Stats.buff_armor += 1
+			Stats.buff_aspd -= 0.05
+			toast("Bulkhead: iron plates bolt to your ribs — +1 Armor, −5% attack speed this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -8348,6 +8352,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Whale Lung — a deep-sea breath: dash recharges 25% faster this run"},
 			{"text": "Gunnel Grip — white-knuckled on the rail: +15% attack speed, −5% speed this run"},
 			{"text": "Fathom Eye — the deep teaches what the dark won't: +15% XP this run"},
+			{"text": "Bulkhead — iron plates bolt to your ribs: +1 Armor, −5% attack speed this run"},
 		]
 	)
 
