@@ -2851,6 +2851,9 @@ func _on_dlg_choice(idx: int) -> void:
 		8:
 			Stats.buff_crit += 0.12
 			toast("Eagle's Eye: +12% Crit")
+		9:
+			Stats.cd_reduction += 0.2
+			toast("Tempest Blessing: +20% Skill Recharge")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -2948,6 +2951,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Debt Settlement — pay 15 souls to lift your −%d Max HP debt" % int(Stats.mahzan_debt)},
 			{"text": "Curse Eater — pay 8 souls to shed one Blood Pact"},
 			{"text": "Kismet Thread — pay 8 souls: +1 reroll on every draft"},
+			{"text": "Pale Pawn — pay 6 souls: +30% XP this run"},
 		]
 	)
 
@@ -3147,6 +3151,14 @@ func _mahzan_deal(idx: int) -> void:
 				_souls_l()
 				Stats.reroll_extra += 1
 				toast("Kismet Thread — every draft gains a second reroll")
+		8:
+			if Stats.souls < 6:
+				toast("Not enough souls (need 6)")
+			else:
+				Stats.souls -= 6
+				_souls_l()
+				Stats.buff_xp_pct += 0.3
+				toast("Pale Pawn — +30% XP this run")
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
 		player.refresh_stats()
@@ -3176,6 +3188,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Fury Blessing — +10% Attack Speed this run"},
 			{"text": "Titan's Blessing — +20% Max HP this run"},
 			{"text": "Eagle's Eye — +12% Crit this run"},
+			{"text": "Tempest Blessing — +20% Skill Recharge this run"},
 		]
 	)
 
