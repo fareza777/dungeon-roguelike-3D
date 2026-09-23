@@ -185,6 +185,7 @@ var barnacle_sense := false
 var salt_purse := false
 var sirensong_deal := false
 var salt_tithe := false
+var keel_prayer := false
 var crown_oath := false
 var pinch_n := 0
 var abyss_n := 0
@@ -735,6 +736,7 @@ func _reset_run_state() -> void:
 	lore_run = 0
 	disarm_run = 0
 	salt_tithe = false
+	keel_prayer = false
 	events_run = {}
 	shellshield_used = false
 	perfect_dodges = 0
@@ -5510,11 +5512,12 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Raise Sail — pay 4 souls: +10% speed for you this run"},
 		{"text": "Scuttle Loot — pay 3 souls: +25% XP this run"},
 		{"text": "Keelhaul — pay 5 souls: drag every foe within 3 tiles to your feet"},
+		{"text": "Keel Prayer — pay 2 souls: the first trap that catches you MENDS you"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 4:
+	if idx == 5:
 		toast("The stone settles — the sea keeps its bargains")
 		return
 	if idx == 0:
@@ -5568,6 +5571,15 @@ func _keel_deal(idx: int) -> void:
 			_ach("keelhaul5")
 		Sfx.play("shrine")
 		toast("KEELHAULED — %d foes dragged under the keel" % hauled)
+	elif idx == 4:
+		if Stats.souls < _soul_cost(2):
+			toast("Two souls — the keel doesn't pray for free")
+			return
+		Stats.souls -= _soul_cost(2)
+		_souls_l()
+		keel_prayer = true
+		Sfx.play("shrine")
+		toast("KEEL PRAYER — the first trap will mend you")
 	_quest_event("keelstone")
 
 
