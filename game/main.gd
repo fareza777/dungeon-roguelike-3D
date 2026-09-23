@@ -6462,16 +6462,27 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Dirge of the Drowned — pay 4 souls: +1 Armor, but your HP bleeds 15% now"},
 		{"text": "Lullaby for Kael — pay 4 souls: mend 35% HP"},
 		{"text": "Chorus Line — pay 3 souls: reset every skill cooldown"},
+		{"text": "Shanty of Depths — pay 4 souls: +15% XP this run"},
 		{"text": "Walk away"}])
 
 
 func _siren_deal(idx: int) -> void:
-	if idx == 4:
+	if idx == 5:
 		Stats.earn_souls(2)
 		_souls_l()
 		_quest_event("siren")
 		Sfx.play("soul")
 		toast("UNSUNG — you walk, and the conch pays +2 souls for your silence")
+		return
+	if idx == 4:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the shanty isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		Stats.buff_xp_pct += 0.15
+		Sfx.play("shrine")
+		toast("SHANTY OF DEPTHS — +15% XP this run")
 		return
 	if idx == 0:
 		var c0 := _soul_cost(5)
