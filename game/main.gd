@@ -223,6 +223,7 @@ var rooms_floor := 0
 var still_t := 0.0
 var _rope_active := false
 var rope_kills := 0
+var harpoon_n := 0
 var moonpool_run := 0
 var shellshield_used := false
 var tithe_armor := 0.0
@@ -813,6 +814,7 @@ func _reset_run_state() -> void:
 	netgain_n = 0
 	_rope_active = false
 	rope_kills = 0
+	harpoon_n = 0
 	wellread = false
 	tide_lends = false
 	pearl_fever = false
