@@ -131,6 +131,7 @@ var grave_hunger := false
 var giant_hall := false
 var shrouded := false
 var ossuary := false
+var mirror_hall := false
 var shrine_kind := 0
 var bounty_ref: Enemy = null
 var bounty_epic := false
@@ -509,6 +510,9 @@ func _apply_biome() -> void:
 	elif ossuary:
 		env.fog_light_color = Color(0.13, 0.12, 0.09)
 		env.ambient_light_color = Color(0.5, 0.46, 0.35)
+	elif mirror_hall:
+		env.fog_light_color = Color(0.12, 0.14, 0.22)
+		env.ambient_light_color = Color(0.4, 0.46, 0.62)
 		sun.light_color = Color(0.95, 0.85, 0.6)
 		sun.light_energy = 1.05
 
@@ -595,6 +599,8 @@ func _new_run(new_seed: int) -> void:
 	giant_hall = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and Stats.floor_num >= 16 and not boss_floor and rng.randf() < 0.04
 	shrouded = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and Stats.floor_num >= 8 and not boss_floor and rng.randf() < 0.06
 	ossuary = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and Stats.floor_num >= 17 and not boss_floor and rng.randf() < 0.05
+	# event langka #12: mirror hall — bayangan memantulkan jiwa-jiwa (lantai 9+): musuh ganda, XP berlimpah
+	mirror_hall = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and Stats.floor_num >= 9 and not boss_floor and rng.randf() < 0.05
 	storm_t = 4.0
 	nemesis_spawned = false
 	_apply_biome()
@@ -635,7 +641,11 @@ func _new_run(new_seed: int) -> void:
 		if int(sp.get("room", 0)) == ambush_room:
 			continue
 		var is_elite := rng.randf() < elite_chance
-		_spawn_enemy(sp, table[rng.randi_range(0, table.size() - 1)], is_elite, not is_elite and rng.randf() < 0.05)
+		var arch_id: String = table[rng.randi_range(0, table.size() - 1)]
+		_spawn_enemy(sp, arch_id, is_elite, not is_elite and rng.randf() < 0.05)
+		if mirror_hall and not is_elite:
+			var mpos: Vector3 = sp["pos"] + Vector3(randf_range(-0.5, 0.5), 0, randf_range(-0.5, 0.5)) * info.tile * 0.5
+			_spawn_enemy({"pos": mpos, "room": int(sp.get("room", 0))}, arch_id, false)
 	if boss_floor:
 		var lr: Dictionary = info.ranges[last_room]
 		_spawn_enemy({"pos": Vector3((lr["x0"] + lr["x1"]) * 0.5, 0.0, lr["z1"] + 1.6 * info.tile), "room": last_room}, "bone_king", false)
@@ -736,6 +746,9 @@ func _new_run(new_seed: int) -> void:
 	elif ossuary:
 		_lvl_banner("☠ OSSUARY NIGHT — THE BONES RISE")
 		toast("Crawlers everywhere • double XP • +3 souls on clear")
+	elif mirror_hall:
+		_lvl_banner("◈ MIRROR HALL — EVERY SOUL REFLECTED")
+		toast("Twice the dead • richer gems • +3 souls on clear")
 		Sfx.play("roar")
 	elif Stats.floor_num > 1:
 		_lvl_banner("FLOOR %d — %s" % [Stats.floor_num, String(biome["name"]).to_upper()])
@@ -1828,6 +1841,9 @@ func _on_enemy_died(e) -> void:
 			elif ossuary:
 				Stats.souls += 3
 				_souls_l()
+			elif mirror_hall:
+				Stats.souls += 3
+				_souls_l()
 				Stats.save_game()
 				toast("☠ OSSUARY TITHE — +3 souls")
 			# bonus sapuan kilat: lantai bersih di bawah 90 detik
@@ -1872,6 +1888,8 @@ func _on_enemy_died(e) -> void:
 		xp_bonus *= 1.6
 	if ossuary:
 		xp_bonus *= 2.0
+	if mirror_hall:
+		xp_bonus *= 1.4
 	_spawn_gems(e.global_position, int(e.xp_val * xp_bonus))
 
 
@@ -4131,6 +4149,8 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 				evline = "The map dies here, Kael. Trust your feet instead."
 			elif ossuary:
 				evline = "Ossuary night — even the walls are made of the fallen."
+			elif mirror_hall:
+				evline = "A mirror hall, Kael. Every soul is followed by its reflection."
 			if evline != "":
 				lines = [{"who": "oracle", "text": evline}]
 		_say(lines)
@@ -5419,6 +5439,8 @@ func _refresh_buffs() -> void:
 		list.append(["◈ SHROUD", Color(0.55, 0.6, 0.7)])
 	elif ossuary:
 		list.append(["☠ OSSUARY", Color(0.95, 0.85, 0.5)])
+	elif mirror_hall:
+		list.append(["◈ MIRROR", Color(0.6, 0.7, 1.0)])
 	if Stats.soul_sealed:
 		list.append(["PRICE", Color(0.9, 0.2, 0.25)])
 	if Stats.curse_dmg > 0.0:
