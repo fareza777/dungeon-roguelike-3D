@@ -322,6 +322,16 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						f.take_hit(global_position, dmg * 0.4)
 					if mw.has_method("_damage_number"):
 						mw._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "SAWED", Color(1.0, 0.7, 0.3), false)
+		"riptide_fang": # RIP — tiap tebasan ke-6: lambatkan musuh + percepat langkahmu
+			var rfk := get_tree().current_scene
+			if rfk != null:
+				rfk.set("net_n", int(rfk.get("net_n")) + 1)
+				if int(rfk.get("net_n")) >= 6:
+					rfk.set("net_n", 0)
+					f.set("slow_t", 1.5)
+					slip_t = 1.5
+					if rfk.has_method("_damage_number"):
+						rfk._damage_number(f.global_position + Vector3(0, 0.65 * room_tile, 0), "RIPTIDE", Color(0.4, 0.8, 0.9), false)
 		"captains_hook": # HOOKED — tiap tebasan ke-5 menyeret musuh ke jangkauan
 			var chk := get_tree().current_scene
 			if chk != null:
