@@ -71,6 +71,7 @@ var crowned := false
 var tither := false
 var digger := false
 var keelh := false
+var mire := false
 var siren := false
 var _siren_pulled := false
 var _shell_cracked := false
@@ -160,6 +161,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	tither = bool(a.get("tither", false))
 	digger = bool(a.get("digger", false))
 	keelh = bool(a.get("keelh", false))
+	mire = bool(a.get("mire", false))
 	siren = bool(a.get("siren", false))
 	is_slammer = bool(a.get("slams", false))
 	wailer = bool(a.get("wailer", false))
@@ -665,6 +667,11 @@ func _physics_process(delta: float) -> void:
 									var mrt := get_tree().current_scene
 									if mrt != null and mrt.has_method("_damage_number"):
 										mrt._damage_number(p.global_position + Vector3(0, 0.8 * room_tile, 0), "SWEPT!", Color(0.4, 0.75, 1.0), false)
+								if mire and q == p:
+									p.set("chill_t", 2.0)
+									var mm7 := get_tree().current_scene
+									if mm7 != null and mm7.has_method("_damage_number"):
+										mm7._damage_number(p.global_position, "MIRED", Color(0.5, 0.85, 0.55), true)
 								if keelh and q == p:
 									var mkh := get_tree().current_scene
 									if Stats.souls > 0:
