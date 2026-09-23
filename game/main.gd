@@ -7178,6 +7178,8 @@ func _process(delta: float) -> void:
 					player.hp_changed.emit(player.hp)
 					Stats.add_xp(3)
 					Stats.earn_souls(8 + (4 if abyssal_patience else 0))
+					if abyssal_patience:
+						_quest_event("patient")
 					_souls_l()
 					Sfx.play("chest")
 					_burst(info.chest.global_position, Color(1.0, 0.85, 0.3))
