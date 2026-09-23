@@ -146,6 +146,7 @@ const TIPS := [
 	"Crimson-glowing elites grant double XP.",
 	"Red-eyed chests are mimics — beware.",
 	"Dash grants a moment of invincibility.",
+	"Dash THROUGH an attack at the last instant — a perfect dodge stuns and counters.",
 	"Pausing breaks your combo — keep slashing.",
 	"Spirit altars: pick a blessing that fits your build.",
 	"Floor spikes have a rhythm — learn it before crossing.",

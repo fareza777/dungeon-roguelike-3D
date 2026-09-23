@@ -239,8 +239,35 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 					m._shock_ring(f.global_position)
 
 
+# dash melalui serangan tepat waktu: musuh ter- stun + kena counter
+func _perfect_dodge(from_pos: Vector3) -> void:
+	var best: Node3D = null
+	var bd := room_tile * 0.9
+	for f in get_tree().get_nodes_in_group("enemies"):
+		var d: float = f.global_position.distance_to(from_pos)
+		if d < bd:
+			bd = d
+			best = f
+	var m := get_tree().current_scene
+	if best != null:
+		best.stun(1.4)
+		best.take_hit(global_position, Stats.get_stat("atk") * 1.5)
+		Sfx.play("thunder")
+	if m != null:
+		if m.has_method("_damage_number"):
+			m._damage_number(global_position, "PERFECT!", Color(0.6, 1.0, 0.95), true)
+		m.set("trauma", 0.45)
+	Engine.time_scale = 0.3
+	get_tree().create_timer(0.14, true, false, true).timeout.connect(func() -> void: Engine.time_scale = 1.0)
+	Sfx.play("dash")
+
+
 func take_hit(from_pos: Vector3, dmg_taken: int) -> void:
-	if dead or invuln > 0.0 or Stats.draft_open:
+	if dead or Stats.draft_open:
+		return
+	if invuln > 0.0:
+		if dash_t > 0.0:
+			_perfect_dodge(from_pos)
 		return
 	# relic Fase Hantu: peluang menghindar penuh
 	if Stats.dodge > 0.0 and randf() < Stats.dodge:
