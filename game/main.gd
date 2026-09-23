@@ -2707,6 +2707,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Relic Pawn — sell a random relic for 10 souls"},
 			{"text": "Vial Merchant — pay 5 souls for a full satchel"},
 			{"text": "Debt Settlement — pay 15 souls to lift your −%d Max HP debt" % int(Stats.mahzan_debt)},
+			{"text": "Curse Eater — pay 8 souls to shed one Blood Pact"},
 		]
 	)
 
@@ -2803,6 +2804,17 @@ func _mahzan_deal(idx: int) -> void:
 				_souls_l()
 				Stats.mahzan_debt = 0.0
 				toast("Debt settled — Max HP restored")
+		6:
+			if Stats.curse_dmg <= 0.0:
+				toast("You carry no pacts to shed, warrior")
+			elif Stats.souls < 8:
+				toast("Not enough souls (need 8)")
+			else:
+				Stats.souls -= 8
+				_souls_l()
+				Stats.curse_dmg = maxf(0.0, Stats.curse_dmg - 0.3)
+				Stats.curse_xp = maxf(0.0, Stats.curse_xp - 0.5)
+				toast("Curse eaten — the obelisk's hold weakens")
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
 		player.refresh_stats()
