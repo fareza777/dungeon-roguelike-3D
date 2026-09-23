@@ -1508,7 +1508,7 @@ func _spawn_urns(last_room: int) -> void:
 		var u = URN.new()
 		room.add_child(u)
 		u.global_position = pos
-		u.setup(info.tile)
+		u.setup(info.tile, i == 0 and String(biome.get("name", "")) == "Sunken Reliquary" and rng.randf() < 0.3)
 
 
 # altar arwah di ruangan terakhir — 45% kesempatan, sekali pakai
