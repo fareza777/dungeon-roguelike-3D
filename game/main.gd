@@ -8265,16 +8265,29 @@ func _on_throne_invoked(s) -> void:
 		{"text": "Court Summons — pay 4 souls: +15% XP this floor"},
 		{"text": "Kneel Not — pay 5 souls: this floor's dead lose half their footing (kb resist)"},
 		{"text": "Crown's Mercy — pay 6 souls: purge venom, chill, rust & roots — 3s untouchable"},
+		{"text": "Royal Writ — pay 5 souls: the crown presses one page of your quest forward"},
 		{"text": "Walk away"}])
 
 
 func _throne_deal(idx: int) -> void:
-	if idx == 13:
+	if idx == 14:
 		Stats.earn_souls(4)
 		_souls_l()
 		_quest_event("throne")
 		Sfx.play("soul")
 		toast("CLEAN HANDS — the crown pays +4 souls to the incorruptible")
+		return
+	if idx == 13:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the writ's ink isn't free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_souls_l()
+		if quest_idx < quest_steps.size():
+			var rw: Dictionary = quest_steps[quest_idx]
+			_quest_event(String(rw["kind"]), 1)
+		Sfx.play("quest")
+		toast("ROYAL WRIT — one errand advances under the crown's seal")
 		return
 	if idx == 12:
 		if Stats.souls < _soul_cost(6):
