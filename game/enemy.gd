@@ -86,6 +86,7 @@ var warden_bell := false
 var bell_t := 0.0
 var hookshot := false
 var eel := false
+var slow_immune := false
 var eel_t := 0.0
 var eel_dash_t := 0.0
 var eel_dir := Vector3.ZERO
@@ -240,7 +241,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred"][randi() % 49]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred", "seafaring"][randi() % 50]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -412,6 +413,9 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				hp *= 1.15
 				speed *= 1.0
 				xp_val = int(xp_val * 1.4)
+			"seafaring":
+				slow_immune = true
+				xp_val = int(xp_val * 1.25)
 			"tarred":
 				# lengket — tiap pukulan menyeret kaki ke aspal
 				hp *= 1.1
@@ -586,6 +590,8 @@ func _physics_process(delta: float) -> void:
 	if affix == "tidebound":
 		slow_t = 0.0
 	slow_t = maxf(0.0, slow_t - delta)
+	if slow_immune:
+		slow_t = 0.0
 	sunder_t = maxf(0.0, sunder_t - delta)
 	tender_t = maxf(0.0, tender_t - delta)
 	if affix == "tidal":
