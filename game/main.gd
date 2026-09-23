@@ -1986,6 +1986,12 @@ func _on_enemy_died(e) -> void:
 				e2.activated = true
 				_damage_number(npos + Vector3(0, 0.8 * info.tile, 0), "IT RISES!", Color(0.55, 0.35, 0.9), true)
 				Sfx.play("roar"))
+	# ONSLAUGHT: kombo ≥30 -> slow-mo pulsa + penanda besar tiap 10 kombo
+	if combo >= 30 and combo % 10 == 0:
+		_lvl_banner("☄ ONSLAUGHT ×%d!" % combo)
+		Sfx.play("roar")
+		if player != null and is_instance_valid(player):
+			_burst(player.global_position, Color(1.0, 0.5, 0.2))
 	# COMBO RIPPLE: kombo ≥20 -> tiap kill melepas gelombang 1 dmg ke tetangga
 	if combo >= 20:
 		var rip := 0
