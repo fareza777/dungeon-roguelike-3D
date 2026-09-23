@@ -2769,6 +2769,9 @@ func _on_enemy_died(e) -> void:
 			Stats.earn_souls(2)
 			_souls_l()
 			_damage_number(e.global_position + Vector3(0, 1.1 * info.tile, 0), "LEDGER +2", Color(0.5, 0.95, 0.85), false)
+		if bool(e.get("keel_marked")):
+			Stats.earn_souls(1)
+			_souls_l()
 		if choir:
 			_quest_event("choirkill")
 		if sirensong_deal:
@@ -5655,6 +5658,8 @@ func _keel_deal(idx: int) -> void:
 				var hdir: Vector3 = player.global_position - fh.global_position
 				hdir.y = 0
 				fh.global_position += hdir.normalized() * (hd - 0.9 * info.tile)
+				if Stats.relics.has("keel_mark"):
+					fh.set("keel_marked", true)
 				hauled += 1
 		if hauled >= 5:
 			_ach("keelhaul5")
