@@ -53,6 +53,7 @@ var volume := 0.8 # legacy: dipakai kalau music/sfx belum pernah diset
 var music_volume := -1.0
 var sfx_volume := -1.0
 var saved_run := {}
+var lore_seen: Array = [] # baris lore yang pernah ditemukan (codex, persist)
 
 # dipakai menu -> game
 var pending_restore := false
@@ -237,6 +238,7 @@ func wipe_progress() -> void:
 	onboarded = false
 	rated = false
 	saved_run = {}
+	lore_seen = []
 	reset_run()
 	save_game()
 
@@ -253,6 +255,7 @@ func save_game() -> void:
 			"music_volume": music_volume, "sfx_volume": sfx_volume,
 			"run": saved_run,
 			"ach": ach,
+			"lore": lore_seen,
 		}))
 
 
@@ -279,3 +282,6 @@ func load_game() -> void:
 			var a2 = d.get("ach", {})
 			if a2 is Dictionary:
 				ach = a2
+			var lo = d.get("lore", [])
+			if lo is Array:
+				lore_seen = lo

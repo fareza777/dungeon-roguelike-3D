@@ -742,7 +742,11 @@ func _on_lore_stone(s) -> void:
 	s.consume()
 	lore_ref = null
 	Stats.add_xp(1)
-	_say([{"who": "oracle", "text": LORE_LINES[rng.randi_range(0, LORE_LINES.size() - 1)]}])
+	var line: String = LORE_LINES[rng.randi_range(0, LORE_LINES.size() - 1)]
+	if not Stats.lore_seen.has(line):
+		Stats.lore_seen.append(line)
+		Stats.save_game()
+	_say([{"who": "oracle", "text": line}])
 
 
 func spawn_weapon_drop(pos: Vector3, wid: String) -> Node3D:
@@ -2668,6 +2672,11 @@ func _build_ui() -> void:
 	_pause_vol_row(pvb, "Sound FX", Stats.sfx_vol(), func(v: float) -> void:
 		Stats.sfx_volume = v
 		Stats.save_game())
+	var b_lore := _pause_btn("LORE (%d/%d)" % [Stats.lore_seen.size(), LORE_LINES.size()])
+	b_lore.pressed.connect(func() -> void:
+		Sfx.play("page")
+		_toggle_lore())
+	pvb.add_child(b_lore)
 	var b_qual := _pause_btn("QUALITY: " + ("LOW" if low_quality else "HIGH"))
 	b_qual.pressed.connect(func() -> void:
 		Stats.quality = 0 if not low_quality else 1
@@ -2692,6 +2701,7 @@ func _build_ui() -> void:
 	layer.add_child(pp)
 	pause_panel = pp
 	ui["pause_panel"] = pp
+	_build_lore_panel(layer)
 
 	# rect fade transisi (paling atas di layer UI)
 	fade_rect = ColorRect.new()
@@ -2793,6 +2803,81 @@ func _pause_btn(txt: String) -> Button:
 	return b
 
 
+var lore_panel: PanelContainer = null
+
+func _build_lore_panel(layer: CanvasLayer) -> void:
+	var lp := PanelContainer.new()
+	lp.anchor_left = 0.5
+	lp.anchor_right = 0.5
+	lp.anchor_top = 0.5
+	lp.anchor_bottom = 0.5
+	lp.offset_left = -220
+	lp.offset_right = 220
+	lp.offset_top = -330
+	lp.offset_bottom = 330
+	lp.process_mode = Node.PROCESS_MODE_ALWAYS
+	var lsb := StyleBoxFlat.new()
+	lsb.bg_color = Color(0.04, 0.04, 0.09, 0.97)
+	lsb.border_color = Color(0.75, 0.55, 1.0, 0.6)
+	lsb.set_border_width_all(2)
+	lsb.set_corner_radius_all(14)
+	lsb.set_content_margin_all(18)
+	lp.add_theme_stylebox_override("panel", lsb)
+	var vb := VBoxContainer.new()
+	vb.add_theme_constant_override("separation", 10)
+	vb.process_mode = Node.PROCESS_MODE_ALWAYS
+	lp.add_child(vb)
+	var lt := Label.new()
+	lt.text = "CODEX — WHISPERS OF THE DEEP"
+	lt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	lt.add_theme_font_size_override("font_size", 20)
+	lt.modulate = Color(0.85, 0.7, 1.0)
+	vb.add_child(lt)
+	var sc := ScrollContainer.new()
+	sc.custom_minimum_size = Vector2(0, 470)
+	sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	vb.add_child(sc)
+	var lv := VBoxContainer.new()
+	lv.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	lv.add_theme_constant_override("separation", 8)
+	sc.add_child(lv)
+	ui["lore_list"] = lv
+	var bb := _pause_btn("BACK")
+	bb.pressed.connect(func() -> void:
+		Sfx.play("click")
+		lore_panel.visible = false)
+	vb.add_child(bb)
+	lp.visible = false
+	layer.add_child(lp)
+	lore_panel = lp
+	ui["lore_panel"] = lp
+
+
+func _toggle_lore() -> void:
+	if lore_panel == null:
+		return
+	for c in ui.lore_list.get_children():
+		c.queue_free()
+	if Stats.lore_seen.is_empty():
+		var e := Label.new()
+		e.text = "No whispers yet — find the glowing lore stones."
+		e.modulate = Color(1, 1, 1, 0.55)
+		e.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		e.add_theme_font_size_override("font_size", 15)
+		ui.lore_list.add_child(e)
+	else:
+		var i := 0
+		for line in Stats.lore_seen:
+			i += 1
+			var l := Label.new()
+			l.text = "%02d — %s" % [i, line]
+			l.modulate = Color(0.9, 0.82, 1.0, 0.95)
+			l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			l.add_theme_font_size_override("font_size", 15)
+			ui.lore_list.add_child(l)
+	lore_panel.visible = true
+
+
 func _toggle_pause() -> void:
 	if run_state == "dead" or Stats.draft_open or (dlg != null and dlg.active):
 		return
@@ -2800,6 +2885,8 @@ func _toggle_pause() -> void:
 	get_tree().paused = paused_ui
 	ui.dim.visible = paused_ui or Stats.draft_open
 	pause_panel.visible = paused_ui
+	if not paused_ui and lore_panel != null:
+		lore_panel.visible = false
 	if paused_ui and ui.has("pause_stats"):
 		var pm := int(run_time) / 60
 		var ps := int(run_time) % 60
