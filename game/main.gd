@@ -131,6 +131,7 @@ const ACH := {
 	"reborn": "Oracle's Chosen (bought back your life)",
 	"scholar": "Crypt Scholar (filled the bestiary)",
 	"st5": "Death's Edge (5 kills at death's door)",
+	"hex1": "Hex Plunderer (cracked a Cursed Chest)",
 }
 const BOSS_TIERS := [
 	{"name": "BONE KING", "tint": Color(1.05, 1.05, 1.05),
@@ -4253,6 +4254,7 @@ func _process(delta: float) -> void:
 				elif cursed_chest:
 					cursed_chest = false
 					_quest_event("cursed_chest")
+					_ach("hex1")
 					Sfx.play("roar")
 					trauma = 0.9
 					_lvl_banner("☠ CURSED HOARD — THE DEAD OBJECT")
