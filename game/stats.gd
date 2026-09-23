@@ -66,7 +66,7 @@ var bestiary := {} # arch_id -> jumlah kill sepanjang masa (codex)
 var weapon_kills := {} # weapon_id -> kill sepanjang masa (mastery progress)
 var mastered := {} # weapon_id -> 1 bila mastery tercapai (+1 ATK permanen)
 const MASTERY_N := 25
-var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0}
+var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0}
 
 const META_DEF := {
 	"vital": {"name": "Vitality", "max": 5, "desc": "+1 Max HP per level"},
@@ -75,6 +75,7 @@ const META_DEF := {
 	"magnet": {"name": "Magnetism", "max": 3, "desc": "+20% soul-pull per level"},
 	"wind": {"name": "Second Wind", "max": 1, "desc": "Begin every run with a revive"},
 	"arcane": {"name": "Arcane Edge", "max": 3, "desc": "Skills recharge 8% faster per level"},
+	"greed": {"name": "Greed", "max": 3, "desc": "+10% souls per kill per level"},
 }
 
 # dipakai menu -> game
@@ -209,7 +210,7 @@ func equip_weapon(id: String) -> void:
 func count_kill() -> void:
 	kills += 1
 	total_kills += 1
-	souls += 1 + soul_bonus
+	souls += int(roundf(float(1 + soul_bonus) * (1.0 + 0.1 * float(meta.get("greed", 0)))))
 
 
 func reset_run() -> void:
