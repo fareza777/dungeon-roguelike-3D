@@ -3196,6 +3196,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Pale Pawn — pay 6 souls: +30% XP this run"},
 			{"text": "Bone Lottery — pay 5 souls: a random blade from the hoard"},
 			{"text": "Fool's Trove — pay 3 souls: a trinket, fair or foul"},
+			{"text": "Witness — pay 2 souls: Mahzan tells you a secret"},
 		]
 	)
 
@@ -3523,6 +3524,23 @@ func _mahzan_deal(idx: int) -> void:
 					Stats.save_game()
 					Sfx.play("shrine")
 					toast("Fool's Trove — " + String(ITEMS.DB[rid10]["name"]))
+		11:
+			if Stats.souls < _soul_cost(2):
+				toast("Mahzan's secrets are not free")
+			else:
+				var unseen: Array = []
+				for l2 in LORE_LINES:
+					if not Stats.lore_seen.has(l2):
+						unseen.append(l2)
+				if unseen.is_empty():
+					toast("He has no more secrets to sell")
+				else:
+					Stats.souls -= _soul_cost(2)
+					_souls_l()
+					var sl: String = String(unseen[rng.randi() % unseen.size()])
+					Stats.lore_seen.append(sl)
+					Stats.save_game()
+					toast("Mahzan whispers: '" + sl + "'")
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
 		player.refresh_stats()
