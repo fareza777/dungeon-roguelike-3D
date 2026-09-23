@@ -233,6 +233,7 @@ var soul_flush := false
 var kings_tithe := false
 var tar_smear := false
 var black_calm := false
+var gun_smoke := false
 var bilge_iron := false
 var shoal_spd := false
 var dead_weight := false
@@ -960,6 +961,12 @@ func _apply_biome() -> void:
 		env.fog_light_color = Color(0.2, 0.25, 0.35)
 		env.ambient_light_color = Color(0.3, 0.35, 0.5)
 		sun.light_energy = 0.7
+	elif gun_smoke:
+		env.fog_light_color = Color(0.45, 0.4, 0.35)
+		env.ambient_light_color = Color(0.5, 0.45, 0.4)
+		sun.light_energy = 0.9
+		env.ambient_light_color = Color(0.3, 0.35, 0.5)
+		sun.light_energy = 0.7
 	elif kings_tithe:
 		env.fog_light_color = Color(0.55, 0.4, 0.25)
 		env.ambient_light_color = Color(0.6, 0.45, 0.3)
@@ -1328,7 +1335,13 @@ func _new_run(new_seed: int) -> void:
 	barnacle_bloom = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and not wolfsbane and not thin_veil and not low_water and not drift_tide and not soul_swarm and not gauntlet and not brisk and not shoal_tide and not salvage_tide and not gale_tide and not mercy_tide and not eel_tide and not swell_tide and not kelp_bed and Stats.floor_num >= 9 and not boss_floor and rng.randf() < 0.03
 	if barnacle_bloom:
 		Stats.event_soul_bonus = 1
-	black_calm = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and not wolfsbane and not thin_veil and not low_water and not drift_tide and not soul_swarm and not gauntlet and not brisk and not shoal_tide and not salvage_tide and not gale_tide and not mercy_tide and not eel_tide and not swell_tide and not kelp_bed and not barnacle_bloom and not sodden and not bile_tide and not mire_hollow and not dark_lantern and not halfwreck and not merchant_tide and not hungry_urns and not bilge_run and not pale_squall and not soul_flush and not kings_tithe and Stats.floor_num >= 12 and not boss_floor and rng.randf() < 0.03
+	gun_smoke = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and not wolfsbane and not thin_veil and not low_water and not drift_tide and not soul_swarm and not gauntlet and not brisk and not shoal_tide and not salvage_tide and not gale_tide and not mercy_tide and not eel_tide and not swell_tide and not kelp_bed and not barnacle_bloom and not sodden and not bile_tide and not mire_hollow and not dark_lantern and not halfwreck and not merchant_tide and not hungry_urns and not bilge_run and not pale_squall and not soul_flush and not kings_tithe and not black_calm and Stats.floor_num >= 10 and not boss_floor and rng.randf() < 0.03
+	if gun_smoke:
+		Stats.event_soul_bonus = 2
+		Stats.buff_aspd += 0.1
+		if player != null and is_instance_valid(player):
+			player.refresh_stats()
+	black_calm = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and not wolfsbane and not thin_veil and not low_water and not drift_tide and not soul_swarm and not gauntlet and not brisk and not shoal_tide and not salvage_tide and not gale_tide and not mercy_tide and not eel_tide and not swell_tide and not kelp_bed and not barnacle_bloom and not sodden and not bile_tide and not mire_hollow and not dark_lantern and not halfwreck and not merchant_tide and not hungry_urns and not bilge_run and not pale_squall and not soul_flush and not kings_tithe and not gun_smoke and Stats.floor_num >= 12 and not boss_floor and rng.randf() < 0.03
 	if black_calm:
 		Stats.event_soul_bonus = 2
 	kings_tithe = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and not wolfsbane and not thin_veil and not low_water and not drift_tide and not soul_swarm and not gauntlet and not brisk and not shoal_tide and not salvage_tide and not gale_tide and not mercy_tide and not eel_tide and not swell_tide and not kelp_bed and not barnacle_bloom and not sodden and not bile_tide and not mire_hollow and not dark_lantern and not halfwreck and not merchant_tide and not hungry_urns and not bilge_run and not pale_squall and not soul_flush and not black_calm and Stats.floor_num >= 15 and not boss_floor and rng.randf() < 0.03
@@ -1460,7 +1473,7 @@ func _new_run(new_seed: int) -> void:
 	dead_weight = not choir and not dread_tide and not starved_deep and not abyssal_hymn and not dead_calm and not boss_floor and Stats.floor_num >= 14 and rng.randf() < 0.08
 	Stats.dead_weight = dead_weight
 	shell_game = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not umbral_tide and not abyssal_patience and not choir and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
-	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe", "tar_smear", "black_calm", "bilge_iron"]:
+	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe", "tar_smear", "black_calm", "bilge_iron", "gun_smoke"]:
 		if get(evf):
 			events_run[evf] = true
 			break
@@ -1767,6 +1780,10 @@ func _new_run(new_seed: int) -> void:
 		_lvl_banner("≋ KING'S TITHE — HE WANTS HIS SHARE")
 	elif black_calm:
 		_lvl_banner("≋ BLACK CALM — THE DEAD DRIFT SLOW")
+	elif gun_smoke:
+		_lvl_banner("≋ GUN SMOKE — THE AIR SMELLS OF POWDER")
+		toast("Ranged foes fire +30% faster through the smoke • your hands answer +10% faster • the floor tithes +2")
+		Sfx.play("souls")
 		toast("The dead drift −15% slower... but their blows carry the dark (+15% dmg) • the floor tithes +2")
 		Sfx.play("souls")
 		toast("The dead strike +20% harder for the crown • but souls pay +50% • the floor tithes +3")
@@ -2186,6 +2203,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 	if tar_smear and not e.is_boss:
 		e.speed *= 0.9
 	# bilge_iron: +2 armor via Stats.buff_armor
+	if gun_smoke and not e.is_boss and bool(e.get("ranged")):
+		e.windup_t = float(e.windup_t) * 0.7
 	if black_calm and not e.is_boss:
 		e.speed *= 0.85
 		e.dmg += maxi(1, int(ceilf(e.dmg * 0.15)))
@@ -3676,6 +3695,11 @@ func _on_enemy_died(e) -> void:
 				_souls_l()
 				Stats.save_game()
 				toast("≋ CALM TITHE — +2 souls")
+			elif gun_smoke:
+				Stats.earn_souls(2)
+				_souls_l()
+				Stats.save_game()
+				toast("≋ POWDER TITHE — +2 souls")
 			elif low_tide:
 				Stats.earn_souls(3)
 				_souls_l()
@@ -3813,6 +3837,8 @@ func _on_enemy_died(e) -> void:
 				_quest_event("tithewalk")
 			if black_calm:
 				_quest_event("calmwalk")
+			if gun_smoke:
+				_quest_event("smokewalk")
 			if dark_water:
 				_quest_event("darkwalk")
 			if glass_sea:
@@ -10087,6 +10113,8 @@ func _refresh_buffs() -> void:
 		list.append(["≋ TITHE", Color(0.7, 0.5, 0.3)])
 	elif black_calm:
 		list.append(["≋ CALM", Color(0.4, 0.5, 0.7)])
+	elif gun_smoke:
+		list.append(["≋ SMOKE", Color(0.6, 0.5, 0.4)])
 	if Stats.soul_sealed:
 		list.append(["PRICE", Color(0.9, 0.2, 0.25)])
 	if Stats.curse_dmg > 0.0:
