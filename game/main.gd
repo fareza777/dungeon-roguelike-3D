@@ -411,6 +411,7 @@ var shrine_used := false
 var shrine_count := 0
 var urn_count := 0
 var salvage_ct := 0
+var keelh_floor := 0
 var lucky_net := false
 var deeproot := false
 var still_waters := false
