@@ -5674,6 +5674,9 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_crit += 0.1
 			Stats.buff_armor += 1
 			toast("Sharp Hull: barnacle blades in the prow — +10% crit, +1 Armor this run")
+		51:
+			Stats.buff_xp_pct += 0.15
+			toast("Fathom Eye: the deep teaches what the dark won't — +15% XP this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -8190,6 +8193,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Sharp Hull — barnacle blades in the prow: +10% crit, +1 Armor this run"},
 			{"text": "Whale Lung — a deep-sea breath: dash recharges 25% faster this run"},
 			{"text": "Gunnel Grip — white-knuckled on the rail: +15% attack speed, −5% speed this run"},
+			{"text": "Fathom Eye — the deep teaches what the dark won't: +15% XP this run"},
 		]
 	)
 
