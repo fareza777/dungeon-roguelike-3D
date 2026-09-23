@@ -3852,6 +3852,7 @@ func _on_dlg_choice(idx: int) -> void:
 			toast("Bone Wrap: first trap hit is nothing")
 		13:
 			lucky_net = true
+			_quest_event("lucky_net")
 			toast("Lucky Net: every tenth soul snags a bonus")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()

@@ -129,6 +129,8 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Sea Prayer", "desc": "Answer a Drowned Altar's offer (0/1)", "kind": "drowned", "need": 1})
 	if Stats.floor_num == 11:
 		steps.append({"title": "Soul Fisher", "desc": "Net three drifting wisps (0/3)", "kind": "wisp", "need": 3})
+	if Stats.floor_num >= 13 and Stats.floor_num % 8 == 5:
+		steps.append({"title": "Ten-Soul Net", "desc": "Bless yourself with the Lucky Net (0/1)", "kind": "lucky_net", "need": 1})
 	if Stats.floor_num >= 9 and Stats.floor_num % 6 == 3:
 		steps.append({"title": "Shieldbreaker", "desc": "Slay Shieldbearers (0/3)", "kind": "shield_kill", "need": 3})
 	if Stats.floor_num >= 5 and Stats.floor_num % 5 == 1:
