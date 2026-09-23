@@ -82,6 +82,7 @@ var soul_rush := false
 var fading_light := false
 var echoing := false
 var omen_done := false
+var omen_done2 := false # pakta kedua di lantai 11
 var omen_hp_mult := 1.0
 var omen_name := ""
 var _warned := {}
@@ -2459,6 +2460,9 @@ func _on_dlg_end() -> void:
 	if run_state == "playing" and Stats.floor_num == 1 and not omen_done:
 		omen_done = true
 		_offer_omens()
+	elif run_state == "playing" and Stats.floor_num == 11 and not omen_done2:
+		omen_done2 = true
+		_offer_omens()
 
 
 func _on_dlg_choice(idx: int) -> void:
@@ -2508,8 +2512,11 @@ func _on_dlg_choice(idx: int) -> void:
 
 func _offer_omens() -> void:
 	dlg_pending_choice = 5
+	var oline := "Before you bleed for him, choose the omen you carry — every path has a price."
+	if Stats.floor_num >= 11:
+		oline = "Halfway to his throne, Kael. The deeps offer a second pact — stack it on your first, or refuse."
 	_say(
-		[{"who": "oracle", "text": "Before you bleed for him, choose the omen you carry — every path has a price."}],
+		[{"who": "oracle", "text": oline}],
 		[
 			{"text": "WARPATH — +30% ATK, -1 Armor"},
 			{"text": "FEATHER STEP — +15% Speed, -25% ATK"},
@@ -2519,19 +2526,21 @@ func _offer_omens() -> void:
 
 
 func _omen_deal(idx: int) -> void:
+	var oname := ""
 	match idx:
 		0:
 			Stats.buff_atk_pct += 0.3
 			Stats.buff_armor -= 1
-			omen_name = "WARPATH"
+			oname = "WARPATH"
 		1:
 			Stats.buff_speed_pct += 0.15
 			Stats.buff_atk_pct -= 0.25
-			omen_name = "FEATHER"
+			oname = "FEATHER"
 		2:
 			Stats.buff_xp_pct += 0.35
 			omen_hp_mult = 1.1
-			omen_name = "RICH SOIL"
+			oname = "RICH SOIL"
+	omen_name = oname if omen_name == "" else omen_name + "+" + oname
 	Sfx.play("shrine")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
