@@ -62,6 +62,14 @@ func smash(from_pos: Vector3) -> void:
 				ps[0].take_hit(from_pos, 1)
 				if m.has_method("_damage_number"):
 					m._damage_number(global_position + Vector3(0, 0.4 * tile, 0), "CURSED URN!", Color(0.8, 0.2, 0.6), true)
+		elif randf() < 0.10 and m.has_method("_spawn_enemy"):
+			# guci tidur — sesuatu masih bernapas di dalamnya
+			var ri: int = int(m.get("current_room")) if m.get("current_room") != null else 0
+			var ue = m._spawn_enemy({"pos": global_position + Vector3(0, 0, 0.3 * tile), "room": ri}, "crawler", false)
+			if ue != null:
+				ue.activated = true
+			if m.has_method("_damage_number"):
+				m._damage_number(global_position + Vector3(0, 0.4 * tile, 0), "SOMETHING STIRS!", Color(0.8, 0.6, 0.3), true)
 	var tw := create_tween()
 	tw.set_parallel(true)
 	tw.tween_property(self, "scale", Vector3(1.4, 0.1, 1.4), 0.18)
