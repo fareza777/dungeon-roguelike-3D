@@ -34,6 +34,7 @@ var dash_t := 0.0
 var dash_dir := Vector3.ZERO
 var step_t := 0.0
 var last_killer := ""
+var kings_n := 0 # counter King's Edge: tiap hit ke-5 meledak
 
 
 func dash_burst(dir: Vector3) -> void:
@@ -186,12 +187,56 @@ func _strike() -> void:
 			var crit := randf() < Stats.get_stat("crit")
 			if crit:
 				dmg *= 2.0
+			if Stats.weapon_id == "war_blade" and f.hp < f.hp_max * 0.35:
+				dmg *= 1.5
 			f.take_hit(global_position, dmg)
+			_weapon_proc(f, dmg, crit)
 			var heal: float = dmg * Stats.get_stat("lifesteal")
 			if heal > 0.0:
 				hp = minf(max_hp, hp + heal)
 				hp_changed.emit(hp)
 			hit_landed.emit(f.global_position, dmg, crit)
+
+
+# efek unik tiap senjata, terpicu setiap tebasan yang kena
+func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
+	match Stats.weapon_id:
+		"bone_axe": # CLEAVE — percikan ke musuh sekitar sasaran
+			for f2 in get_tree().get_nodes_in_group("enemies"):
+				if f2 != f and f2.global_position.distance_to(f.global_position) < room_tile * 0.7:
+					f2.take_hit(global_position, dmg * 0.5)
+		"twin_fang": # FLURRY — 25% tebasan ganda
+			if randf() < 0.25:
+				f.take_hit(global_position, dmg)
+				hit_landed.emit(f.global_position, dmg, crit)
+		"hex_staff": # HEX — tandai: musuh menerima +25% damage 4s
+			f.set("hex_t", 4.0)
+		"storm_axe": # STORM — 20% petir berantai ke musuh terdekat
+			if randf() < 0.2:
+				var best2: Node3D = null
+				var bd2 := room_tile * 1.3
+				for f2 in get_tree().get_nodes_in_group("enemies"):
+					if f2 == f:
+						continue
+					var d: float = f.global_position.distance_to(f2.global_position)
+					if d < bd2:
+						bd2 = d
+						best2 = f2
+				if best2 != null:
+					Sfx.play("thunder")
+					best2.take_hit(best2.global_position, dmg * 0.8)
+		"frost_fang": # FROST — beku 50% speed selama 3s
+			f.set("slow_t", 3.0)
+		"ember_mace": # BURN — membakar: DoT ~2.4s
+			f.set("burn_t", 2.4)
+		"kings_edge": # KING'S WRATH — tiap hit ke-5 meledak + knockback besar
+			kings_n += 1
+			if kings_n >= 5:
+				kings_n = 0
+				f.take_hit(global_position, dmg)
+				var m := get_tree().current_scene
+				if m != null and m.has_method("_shock_ring"):
+					m._shock_ring(f.global_position)
 
 
 func take_hit(from_pos: Vector3, dmg_taken: int) -> void:

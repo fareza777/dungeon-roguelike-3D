@@ -64,6 +64,10 @@ var slam_t := 4.0
 var summon_t := 11.0
 var banter_75 := false
 var banter_25 := false
+var hex_t := 0.0   # Hex Staff: musuh bertanda menerima +25% damage
+var slow_t := 0.0  # Frost Fang: beku — 50% speed
+var burn_t := 0.0  # Ember Mace: terbakar — damage berkala
+var _burn_acc := 0.0
 
 
 func stun(t: float) -> void:
@@ -239,6 +243,15 @@ func _physics_process(delta: float) -> void:
 	if state == "dead":
 		return
 	anim_lock = max(0.0, anim_lock - delta)
+	hex_t = maxf(0.0, hex_t - delta)
+	slow_t = maxf(0.0, slow_t - delta)
+	if burn_t > 0.0:
+		burn_t -= delta
+		_burn_acc += delta
+		if _burn_acc >= 0.7:
+			_burn_acc = 0.0
+			take_hit(global_position, maxf(1.0, hp_max * 0.06))
+			return
 	if stun_t > 0.0:
 		stun_t -= delta
 		velocity = kb
@@ -321,7 +334,7 @@ func _physics_process(delta: float) -> void:
 				# mage mundur kalau player terlalu dekat
 				if ranged and dist < prefer_range * 0.55:
 					dir = -dir
-				velocity = dir * speed + _separation() + kb
+				velocity = dir * speed * (0.5 if slow_t > 0.0 else 1.0) + _separation() + kb
 				if anim_lock <= 0.0:
 					M.play_fuzzy(ap, ["run", "walk"])
 		"windup":
@@ -493,6 +506,8 @@ func _explode() -> void:
 func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 	if state == "dead":
 		return
+	if hex_t > 0.0:
+		dmg_taken *= 1.25
 	hp -= dmg_taken
 	Sfx.play("hit")
 	if is_boss and hp > 0.0:
