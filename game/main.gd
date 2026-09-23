@@ -76,7 +76,11 @@ const LORE_LINES := [
 	"Mahzan's ledger has one page he refuses to sell — the one with his own name on it.",
 	"The Bounty Stones were the dungeon's own bounty board — it pays in relics for dead heroes' bones.",
 	"On Giant's Hall nights the tomb-walls stretch, and the dead remember being taller.",
-	"The Ferryman rows a river no map shows. His oar is a femur; his fare is always six."
+	"The Ferryman rows a river no map shows. His oar is a femur; his fare is always six.",
+	"The Crowned fell defending the throne. They still do — the throne just moved.",
+	"Somewhere below, the Well counts every soul you've thrown. It keeps a ledger too.",
+	"The pack that hunts you was Aldric's kennel once. They remember hand-feeding.",
+	"Mahzan was the court physician. He prescribed the burial."
 ]
 
 var dungeon_tex: Texture2D
