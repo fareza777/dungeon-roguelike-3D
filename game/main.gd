@@ -226,6 +226,7 @@ var long_wake := false
 var iron_gullet := false
 var murk_fed := false
 var crew_oath := false
+var lantern_oil := false
 var deadweight := false
 var undertow_grip := false
 var lookout := false
@@ -905,6 +906,7 @@ func _reset_run_state() -> void:
 	iron_gullet = false
 	murk_fed = false
 	crew_oath = false
+	lantern_oil = false
 	deadweight = false
 	undertow_grip = false
 	lookout = false
@@ -5289,6 +5291,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Glass Compass — pay 5 souls: he shows you the whole floor, every room"},
 			{"text": "Sea Shanty — pay 4 souls: his song speeds your skills (+10% recharge this run)"},
 			{"text": "Deck Prayer — pay 4 souls: +12% ATK this run"},
+			{"text": "Lantern Oil — pay 3 souls: hearts and lanterns mend half again this run"},
 		]
 	)
 
@@ -6304,6 +6307,15 @@ func _mahzan_deal(idx: int) -> void:
 					player.refresh_stats()
 					Sfx.play("shrine")
 				toast("DECK PRAYER — the deck itself leans into your swing")
+		25:
+			if Stats.souls < _soul_cost(3):
+				toast("Three souls — the oil isn't free")
+			else:
+				Stats.souls -= _soul_cost(3)
+				_souls_l()
+				lantern_oil = true
+				Sfx.play("shrine")
+				toast("LANTERN OIL — the wicks burn brighter (+50% mending)")
 
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
@@ -8603,7 +8615,7 @@ func _process(delta: float) -> void:
 		for ln2 in lanterns:
 			if is_instance_valid(ln2) and player.global_position.distance_to(ln2.global_position) < 3.0 * info.tile:
 				if player.hp < Stats.get_stat("max_hp"):
-					var lh: float = Stats.get_stat("max_hp") * 0.02 * delta * (1.0 + 0.5 * int(Stats.meta.get("lampwage", 0)))
+					var lh: float = Stats.get_stat("max_hp") * 0.02 * delta * (1.0 + 0.5 * int(Stats.meta.get("lampwage", 0))) * (1.5 if lantern_oil else 1.0)
 					player.hp = minf(player.hp + lh, Stats.get_stat("max_hp"))
 					player.hp_changed.emit(player.hp)
 					lantern_healed += lh
