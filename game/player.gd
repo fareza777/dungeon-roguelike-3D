@@ -132,6 +132,8 @@ func _physics_process(delta: float) -> void:
 				mcs._quest_event("chillshake", 1)
 	slip_t = max(0.0, slip_t - tick)
 	weak_t = max(0.0, weak_t - tick)
+	if Stats.relics.has("tarred_rope"):
+		root_t = 0.0
 	root_t = max(0.0, root_t - tick * (1.5 if Stats.relics.has("silk_greaves") else 1.0))
 	silence_t = max(0.0, silence_t - tick)
 	if Stats.relics.has("wormwood"):

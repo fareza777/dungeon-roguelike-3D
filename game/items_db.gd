@@ -96,6 +96,7 @@ const DB := {
 	"sea_chart": {"name": "Sea Chart", "chip": "SC", "desc": "+10% Speed, +5% Crit", "rarity": 1, "mods": {"speed_pct": 0.1, "crit": 0.05}},
 	"splintered_oar": {"name": "Splintered Oar", "chip": "SO", "desc": "The oar remembers rowing — your dash carries you 30% farther", "rarity": 0, "mods": {}},
 	"deck_plank": {"name": "Deck Plank", "chip": "DP", "desc": "Sure footing on any deck — +5% Speed, +5% Attack Speed", "rarity": 0, "mods": {"speed_pct": 0.05, "atk_speed_pct": 0.05}},
+	"tarred_rope": {"name": "Tarred Rope", "chip": "TR", "desc": "The pitch won't let go — the dead's snares cannot root you", "rarity": 1, "mods": {}},
 	"crow_claw": {"name": "Crow's Claw", "chip": "CC", "desc": "The claw tastes a chain — kills at combo ×5 or better pay +1 soul", "rarity": 1, "mods": {}},
 	"lucky_coin": {"name": "Lucky Coin", "chip": "LC", "desc": "Heads every time — souls pay +10% more", "rarity": 1, "mods": {"soul_gain_pct": 0.1}},
 	"signal_flag": {"name": "Signal Flag", "chip": "SF", "desc": "The crew answers the colors — your skills recharge 5% faster", "rarity": 0, "mods": {}},
