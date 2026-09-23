@@ -48,6 +48,7 @@ var skeleton_tex: Texture2D
 var room: Node3D = null
 var info := {}
 var biome := {}
+var _biomes_seen := {}
 var player = null
 var cam: Camera3D
 var sun: DirectionalLight3D
@@ -1600,6 +1601,34 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			{"who": "oracle", "text": "Even I don't know what waits below the twenty-fifth. No soul has returned to tell it."},
 			{"who": "kael", "text": "Then I'll be the first to come back and tell you."},
 		]
+	elif not _biomes_seen.get(String(biome.get("name", "")), false):
+		_biomes_seen[String(biome.get("name", ""))] = true
+		match String(biome.get("name", "")):
+			"Catacombs":
+				lines = [
+					{"who": "oracle", "text": "The Catacombs go deeper every year — as if the earth is making room."},
+					{"who": "kael", "text": "Then it can make room for one more king. Me."},
+				]
+			"Ember Crypt":
+				lines = [
+					{"who": "oracle", "text": "The Ember Crypt — they burned the dead here, before the dead refused to stay burned."},
+					{"who": "kael", "text": "Then I'll give them a second cremation."},
+				]
+			"Frozen Deep":
+				lines = [
+					{"who": "oracle", "text": "The Frozen Deep. Aldric's soldiers marched in and never thawed."},
+					{"who": "kael", "text": "Cold doesn't scare me, Oracle. Crowns do."},
+				]
+			"Verdant Ruin":
+				lines = [
+					{"who": "oracle", "text": "The Verdant Ruin — my old gardens. Even dead, they keep growing."},
+					{"who": "kael", "text": "Then something in this place still remembers you."},
+				]
+			"The Abyss":
+				lines = [
+					{"who": "oracle", "text": "The Abyss isn't a place, Kael. It's the hole the kingdom fell through."},
+					{"who": "kael", "text": "Then watch me climb back out of it."},
+				]
 	elif Stats.floor_num > 1 and rng.randf() < 0.35:
 		var tips := [
 			"Those floor spikes are alive — learn their rhythm before stepping.",
