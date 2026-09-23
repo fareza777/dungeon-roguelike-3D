@@ -335,6 +335,13 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 				var m16 := get_tree().current_scene
 				if m16 != null and m16.has_method("_damage_number"):
 					m16._damage_number(f.global_position + Vector3(0, 0.75 * room_tile, 0), "DUSKSTRIDE", Color(0.65, 0.55, 1.2), false)
+		"oathbrand": # BOND — +20% dmg selama sekutu bersumpah berjalan di sisimu
+			var m18 := get_tree().current_scene
+			if m18 != null:
+				var al: Variant = m18.get("squire_ref")
+				var kn: Variant = m18.get("knight_ref")
+				if (al != null and is_instance_valid(al)) or (kn != null and is_instance_valid(kn)):
+					f.take_hit(global_position, dmg * 0.2)
 		"gravebell": # TOLL — 25% korban membunyikan genta: 1x ATK ke tetangga
 			if float(f.get("hp")) <= 0.0 and randf() < 0.25:
 				var toll := 0
