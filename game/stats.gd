@@ -36,8 +36,8 @@ func earn_souls(n: int) -> void:
 	var pay := n
 	if dead_weight and n > 0:
 		pay = maxi(0, n - 1)
-	souls += int(ceilf(pay * (1.0 + soul_gain_pct)))
-	souls_run += int(ceilf(pay * (1.0 + soul_gain_pct)))
+	souls += int(ceilf(pay * (1.0 + soul_gain_pct) * (1.0 + 0.04 * float(meta.get("salvor", 0)))))
+	souls_run += int(ceilf(pay * (1.0 + soul_gain_pct) * (1.0 + 0.04 * float(meta.get("salvor", 0)))))
 var buff_lifesteal := 0.0 # berkat altar Vampiric: run ini saja
 var buff_maxhp_pct := 0.0 # omen Leeching Vein: pengorbanan Max HP
 var buff_aspd := 0.0 # berkat altar Fury: run ini saja
@@ -100,7 +100,7 @@ var bestiary := {} # arch_id -> jumlah kill sepanjang masa (codex)
 var weapon_kills := {} # weapon_id -> kill sepanjang masa (mastery progress)
 var mastered := {} # weapon_id -> 1 bila mastery tercapai (+1 ATK permanen)
 const MASTERY_N := 25
-var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0, "reckon": 0, "keelcap": 0, "shepherd": 0, "captain": 0, "quarter": 0, "purse": 0, "carto": 0, "sealegs": 0, "scribe": 0}
+var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0, "reckon": 0, "keelcap": 0, "shepherd": 0, "captain": 0, "quarter": 0, "purse": 0, "carto": 0, "sealegs": 0, "scribe": 0, "salvor": 0}
 
 const ACH_DEF := {
 	"kill1": "First Bloodbath",
@@ -229,6 +229,7 @@ const META_DEF := {
 	"carto": {"name": "Cartographer's Eye", "max": 3, "desc": "Each floor begins with +1 room charted per level"},
 	"sealegs": {"name": "Sea Legs", "max": 3, "desc": "+4% Speed per level"},
 	"scribe": {"name": "Bilge Scribe", "max": 3, "desc": "+5% XP per level"},
+	"salvor": {"name": "Salvor's Eye", "max": 3, "desc": "+4% souls earned per level"},
 }
 
 # dipakai menu -> game
@@ -529,7 +530,7 @@ func wipe_progress() -> void:
 	bestiary = {}
 	weapon_kills = {}
 	mastered = {}
-	meta = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0, "reckon": 0, "keelcap": 0, "shepherd": 0, "captain": 0, "quarter": 0, "purse": 0, "carto": 0, "sealegs": 0, "scribe": 0}
+	meta = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0, "reckon": 0, "keelcap": 0, "shepherd": 0, "captain": 0, "quarter": 0, "purse": 0, "carto": 0, "sealegs": 0, "scribe": 0, "salvor": 0}
 	reset_run()
 	save_game()
 
