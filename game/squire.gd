@@ -48,7 +48,9 @@ func _physics_process(delta: float) -> void:
 	t += delta
 	if life_t > 0.0:
 		life_t -= delta
-		modulate = Color(1, 1, 1, clampf(life_t / 4.0, 0.0, 1.0) * 0.75 + 0.15)
+		var fade: float = clampf(life_t / 4.0, 0.0, 1.0)
+		scale = Vector3.ONE * (0.6 + fade * 0.4)
+		position.y += delta * 0.4 * tile * (1.0 - fade)
 		if life_t <= 0.0:
 			queue_free()
 			return
