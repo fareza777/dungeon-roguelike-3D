@@ -747,7 +747,6 @@ func _reset_run_state() -> void:
 	abyssal_patience = false
 	umbral_tide = false
 	moonwrit = false
-	salt_purse = false
 	tide_kills = 0
 	reliquary_wisps = 0
 	flawless_run = 0
@@ -778,6 +777,7 @@ func _new_run(new_seed: int) -> void:
 	pool_positions.clear()
 	pool_healed = 0.0
 	keelh_floor = 0
+	salt_purse = false
 	pool_touched = false
 	pray_t = 0.0
 	prayed = false
