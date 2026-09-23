@@ -132,10 +132,10 @@ const LORE_LINES := [
 	"A lantern in a dead hand still counts as a lantern, Kael. Douse it kindly.",
 	"The sea does not count in years down here — she counts in tides owed.",
 	"The Reef Caller never learned a war song, Kael — it only ever learned yours.",
-	"A wormwood charm tastes bitter so the venom forgets where your heart is."	"The salt remembers every sailor — it keeps their names in the tide.",
+	"A wormwood charm tastes bitter so the venom forgets where your heart is.",
+	"The salt remembers every sailor — it keeps their names in the tide.",
 	"He built the dungeon to hold one prisoner, and got a thousand heroes instead.",
 	"Kael — the bride's song and the cantor's call were his wedding music once.",
-
 ]
 
 var dungeon_tex: Texture2D
