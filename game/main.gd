@@ -231,6 +231,7 @@ const TIPS := [
 	"A green-gold sigil mends one wound — step on its pulse.",
 	"Sleeping traps can be defused by a brave touch — walk over them on the off-beat.",
 	"Dread obelisks bleed the living — smash them before they drink you.",
+	"A forge that still burns takes souls — feed it and it feeds your blade.",
 	"Spiked cadavers bite back — skills and storms kill thorns at range.",
 	"THORNED-tagged elites bleed your blade's wielder — strike from range.",
 ]
@@ -1018,7 +1019,9 @@ func _spawn_shrine(last_room: int) -> void:
 	s.global_position = pos
 	# lantai 3+: 30% Mahzan; lantai 2+: 22% obelisk terkutuk; sisanya altar berkat
 	var skind := 0
-	if Stats.floor_num >= 3 and rng.randf() < 0.3:
+	if Stats.floor_num >= 4 and rng.randf() < 0.18:
+		skind = 3
+	elif Stats.floor_num >= 3 and rng.randf() < 0.3:
 		skind = 1
 	elif Stats.floor_num >= 2 and rng.randf() < 0.22:
 		skind = 2
@@ -1029,6 +1032,8 @@ func _spawn_shrine(last_room: int) -> void:
 			s.invoked.connect(_on_mahzan_invoked)
 		2:
 			s.invoked.connect(_on_curse_invoked)
+		3:
+			s.invoked.connect(_on_forge_invoked)
 		_:
 			s.invoked.connect(_on_shrine_invoked)
 
@@ -2763,6 +2768,10 @@ func _on_dlg_choice(idx: int) -> void:
 		dlg_pending_choice = -1
 		_omen_deal(idx)
 		return
+	elif dlg_pending_choice == 6:
+		dlg_pending_choice = -1
+		_forge_deal(idx)
+		return
 	match idx:
 		0:
 			Stats.buff_atk_pct += 0.15
@@ -2892,6 +2901,51 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Kismet Thread — pay 8 souls: +1 reroll on every draft"},
 		]
 	)
+
+
+func _on_forge_invoked(s) -> void:
+	shrine_used = true
+	s.consume()
+	Sfx.play("shrine")
+	dlg_pending_choice = 6
+	_say([{"who": "oracle", "text": "A smith's altar, cold these hundred years — but its flame remembers blades, Kael."}],
+		[{"text": "Quench the Blade — pay 6 souls: +1 weapon level"},
+		{"text": "Sharpen Fully — pay 10 souls: +2 weapon levels"},
+		{"text": "Leave the cold anvil"}])
+
+
+func _forge_deal(idx: int) -> void:
+	var wid: String = Stats.weapon_id
+	var wname: String = String(WDB.get_w(wid)["name"])
+	var wlv: int = int(Stats.weapon_lv.get(wid, 1))
+	if idx == 0:
+		if wlv >= 6:
+			toast("The blade is perfect — it can go no further")
+			return
+		elif Stats.souls < 6:
+			toast("Not enough souls (need 6)")
+			return
+		Stats.souls -= 6
+		Stats.weapon_lv[wid] = wlv + 1
+	elif idx == 1:
+		if wlv >= 5:
+			toast("The blade nears perfection — one quench at a time")
+			return
+		elif Stats.souls < 10:
+			toast("Not enough souls (need 10)")
+			return
+		Stats.souls -= 10
+		Stats.weapon_lv[wid] = wlv + 2
+	else:
+		return
+	_souls_l()
+	Stats.save_game()
+	Sfx.play("levelup")
+	toast("%s forged to +%d" % [wname, int(Stats.weapon_lv[wid]) - 1])
+	_refresh_buffs()
+	if player != null and is_instance_valid(player):
+		player.refresh_stats()
+		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.55, 0.15))
 
 
 func _on_curse_invoked(s) -> void:
