@@ -88,7 +88,7 @@ var bestiary := {} # arch_id -> jumlah kill sepanjang masa (codex)
 var weapon_kills := {} # weapon_id -> kill sepanjang masa (mastery progress)
 var mastered := {} # weapon_id -> 1 bila mastery tercapai (+1 ATK permanen)
 const MASTERY_N := 25
-var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0}
+var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0}
 
 const ACH_DEF := {
 	"kill1": "First Bloodbath",
@@ -159,6 +159,7 @@ const META_DEF := {
 	"leech": {"name": "Siphon Vein", "max": 3, "desc": "+2% Lifesteal per level"},
 	"tempered": {"name": "Tempered Edge", "max": 3, "desc": "+4% Crit per level"},
 	"veteran": {"name": "Battle Memory", "max": 2, "desc": "Start each run with +2 combo heat per level"},
+	"haggler": {"name": "Soul Haggler", "max": 3, "desc": "Every soul price drops 1 per level"},
 }
 
 # dipakai menu -> game
@@ -450,7 +451,7 @@ func wipe_progress() -> void:
 	bestiary = {}
 	weapon_kills = {}
 	mastered = {}
-	meta = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0}
+	meta = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0}
 	reset_run()
 	save_game()
 
