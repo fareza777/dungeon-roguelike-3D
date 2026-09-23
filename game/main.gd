@@ -241,6 +241,7 @@ var long_wake := false
 var dead_lantern := false
 var hull_song := false
 var salt_ledger := false
+var dash_fuel := false
 var bloodtide_t := 0.0
 var iron_gullet := false
 var murk_fed := false
@@ -964,6 +965,7 @@ func _reset_run_state() -> void:
 	dead_lantern = false
 	hull_song = false
 	salt_ledger = false
+	dash_fuel = false
 	bloodtide_t = 0.0
 	iron_gullet = false
 	murk_fed = false
@@ -4235,7 +4237,7 @@ func _cast_skill(id: String) -> void:
 	_quest_event("skill_" + id)
 	if skills_floor.size() >= 3:
 		_quest_event("witching")
-	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0) * (0.6 if id == "dash" and umbral_tide else 1.0) * (0.7 if id == "dash" and brisk else 1.0) * (0.75 if oarsworn else 1.0)
+	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0) * (0.6 if id == "dash" and umbral_tide else 1.0) * (0.7 if id == "dash" and brisk else 1.0) * (0.6 if id == "dash" and dash_fuel else 1.0) * (0.75 if oarsworn else 1.0)
 
 
 func _heavy_attack() -> void:
@@ -6704,10 +6706,24 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Rigging Plates — pay 3 souls: +1 Armor this run"},
 		{"text": "Fair Wind — pay 3 souls: +15% souls for the rest of this run"},
 		{"text": "Gangway Toll — pay 3 souls: this floor's dead are worth +15% XP"},
+		{"text": "Deck Fuel — pay 4 souls: your dash recharges 40% faster"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
+	if idx == 10:
+		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 9:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the fuel isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		dash_fuel = true
+		Sfx.play("shrine")
+		toast("DECK FUEL — your feet won't stop now (dash −40% recharge)")
+		return
 	if idx == 9:
 		toast("The stone settles — the sea keeps its bargains")
 		return
