@@ -1288,6 +1288,10 @@ func _new_run(new_seed: int) -> void:
 	if pale_drunk:
 		Stats.buff_speed_pct -= 0.08
 		pale_drunk = false
+	if deck_manifest:
+		Stats.soul_gain_pct -= 0.15
+		deck_manifest = false
+	pale_scrip = false
 	song_rust = false
 	undertow = false
 	splice_kills = 0
@@ -1599,8 +1603,6 @@ func _new_run(new_seed: int) -> void:
 	if powder_toll:
 		Stats.buff_atk_pct -= 0.15
 		powder_toll = false
-	if deck_manifest:
-		Stats.soul_gain_pct -= 0.15
 	if glass_sea:
 		Stats.buff_atk_pct += 0.10
 	if wolfsbane:
