@@ -2579,12 +2579,11 @@ func _on_enemy_died(e) -> void:
 		_quest_event("crowned_kill")
 	if e.arch_id == "tither":
 		_quest_event("tither_kill")
-	if String(e.get("affix")) != "":
-		for f2 in get_tree().get_nodes_in_group("enemies"):
-			if is_instance_valid(f2) and f2 != e and bool(f2.get("elite")) and String(f2.get("affix")) == "feral" and not bool(f2.get("dead", false)):
-				f2.speed *= 1.1
-				f2.dmg += 1 if f2.dmg < 3 else 0
-				_damage_number(f2.global_position + Vector3(0, 0.9 * info.tile, 0), "FRENZIES", Color(1.0, 0.45, 0.3), true)
+	for f2 in get_tree().get_nodes_in_group("enemies"):
+		if is_instance_valid(f2) and f2 != e and bool(f2.get("elite")) and String(f2.get("affix")) == "feral" and not bool(f2.get("dead", false)):
+			f2.speed *= 1.1
+			f2.dmg += 1 if f2.dmg < 3 else 0
+			_damage_number(f2.global_position + Vector3(0, 0.9 * info.tile, 0), "FRENZIES", Color(1.0, 0.45, 0.3), true)
 	if e.arch_id == "saltghast":
 		_quest_event("saltghast_kill")
 		if int(Stats.arch_kills.get("saltghast", 0)) >= 10:
