@@ -6172,16 +6172,33 @@ func _on_throne_invoked(s) -> void:
 		{"text": "Swear the Crown — pay 5 souls: your next elite kill pays +8 souls"},
 		{"text": "Beg a Boon — pay 3 souls: a random common relic"},
 		{"text": "Draw Blood — pay 3 souls: bleed for +20% ATK this floor"},
+		{"text": "Court Physician — pay 4 souls: cleanse every curse and mend 30% HP"},
 		{"text": "Walk away"}])
 
 
 func _throne_deal(idx: int) -> void:
-	if idx == 4:
+	if idx == 5:
 		Stats.earn_souls(4)
 		_souls_l()
 		_quest_event("throne")
 		Sfx.play("soul")
 		toast("CLEAN HANDS — the crown pays +4 souls to the incorruptible")
+		return
+	if idx == 4:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the court's leech isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		if player != null and is_instance_valid(player):
+			player.set("venom_t", 0.0)
+			player.set("chill_t", 0.0)
+			player.set("root_t", 0.0)
+			player.set("silence_t", 0.0)
+			player.hp = minf(Stats.get_stat("max_hp"), player.hp + Stats.get_stat("max_hp") * 0.3)
+			player.hp_changed.emit(player.hp)
+		Sfx.play("shrine")
+		toast("COURT PHYSICIAN — bled clean and mended")
 		return
 	if idx == 0:
 		if Stats.souls < _soul_cost(6):
