@@ -2848,10 +2848,21 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			{"who": "oracle", "text": "One throne shattered. He rebuilds it deeper, out of angrier bones."},
 			{"who": "kael", "text": "Then I keep swinging until there are no thrones left."},
 		]
+	elif Stats.floor_num == 9:
+		lines = [
+			{"who": "oracle", "text": "The walls stop pretending to be a crypt down here. This is the Abyss — the dungeon's own grave."},
+			{"who": "kael", "text": "Then it's fitting. I brought a shovel."},
+		]
 	elif Stats.floor_num == 12:
 		lines = [
 			{"who": "oracle", "text": "Mahzan whispers that you fight beautifully. He roots for you — he's bored of skeletons."},
 			{"who": "kael", "text": "Tell him to keep the blessings coming, then."},
+		]
+	elif Stats.floor_num == 17:
+		lines = [
+			{"who": "mahzan", "text": "Seventeen floors, little customer. Most heroes are in jars by now."},
+			{"who": "kael", "text": "Most heroes didn't have your prices to keep them honest."},
+			{"who": "oracle", "text": "Careful, Kael — the deep listens when you joke."},
 		]
 	elif Stats.floor_num == 16:
 		lines = [
