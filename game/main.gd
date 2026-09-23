@@ -716,7 +716,13 @@ func _step_dust(pos: Vector3) -> void:
 	q.size = Vector2(0.22 * info.tile, 0.22 * info.tile)
 	var mt := StandardMaterial3D.new()
 	mt.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	# jejak langkah ikut membara saat kombo tinggi
 	mt.albedo_color = Color(0.65, 0.58, 0.5, 0.3)
+	if combo >= 15:
+		mt.albedo_color = Color(1.0, 0.6, 0.25, 0.45)
+		mt.emission_enabled = true
+		mt.emission = Color(1.0, 0.5, 0.15)
+		mt.emission_energy_multiplier = 1.6
 	mt.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	mt.cull_mode = BaseMaterial3D.CULL_DISABLED
 	q.material = mt

@@ -213,6 +213,12 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 			for f2 in get_tree().get_nodes_in_group("enemies"):
 				if f2 != f and f2.global_position.distance_to(f.global_position) < room_tile * 0.7:
 					f2.take_hit(global_position, dmg * 0.5)
+		"war_blade": # EXECUTIONER — +50% dmg ke musuh sekarat (<35% HP)
+			if float(f.get("hp")) < float(f.get("hp_max")) * 0.35:
+				f.take_hit(global_position, dmg * 0.5)
+				var m5 := get_tree().current_scene
+				if m5 != null and m5.has_method("_damage_number"):
+					m5._damage_number(f.global_position + Vector3(0, 0.5 * room_tile, 0), "EXECUTED", Color(1.0, 0.3, 0.25), true)
 		"twin_fang": # FLURRY — 25% tebasan ganda
 			if randf() < 0.25:
 				f.take_hit(global_position, dmg)
