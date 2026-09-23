@@ -1012,21 +1012,21 @@ func _on_cage_freed(s) -> void:
 	vane_freed_n += 1
 	if vane_freed_n >= 3:
 		_say([
-			{"who": "knight", "t": "These bars keep FINDING me, warrior. Somewhere a gaoler laughs."},
-			{"who": "kael", "t": "Then keep breaking them, Sir Vane. It suits you."},
-			{"who": "knight", "t": "Until the King's own cell, friend. My blade remembers the way."},
+			{"who": "knight", "text": "These bars keep FINDING me, warrior. Somewhere a gaoler laughs."},
+			{"who": "kael", "text": "Then keep breaking them, Sir Vane. It suits you."},
+			{"who": "knight", "text": "Until the King's own cell, friend. My blade remembers the way."},
 		])
 	elif vane_freed_n == 2:
 		_say([
-			{"who": "knight", "t": "You AGAIN? Do they build these prisons around me?"},
-			{"who": "kael", "t": "Or you keep wandering into them."},
-			{"who": "knight", "t": "Bah. Blade, then — one more floor."},
+			{"who": "knight", "text": "You AGAIN? Do they build these prisons around me?"},
+			{"who": "kael", "text": "Or you keep wandering into them."},
+			{"who": "knight", "text": "Bah. Blade, then — one more floor."},
 		])
 	else:
 		_say([
-			{"who": "knight", "t": "A thousand years in these bars... and you walk right up?"},
-			{"who": "kael", "t": "Can you still swing a blade, old ghost?"},
-			{"who": "knight", "t": "Watch me. Until this floor ends — my sword is yours."},
+			{"who": "knight", "text": "A thousand years in these bars... and you walk right up?"},
+			{"who": "kael", "text": "Can you still swing a blade, old ghost?"},
+			{"who": "knight", "text": "Watch me. Until this floor ends — my sword is yours."},
 		])
 	_ach("knight1")
 
@@ -1231,6 +1231,16 @@ func _on_enemy_died(e) -> void:
 	kills_run += 1
 	if ui.has("kills_label"):
 		ui.kills_label.text = "☠ %d" % kills_run
+	# Sir Vane: celoteh perang tiap ~15 kill bersama
+	if kills_run % 15 == 0 and knight_ref != null and is_instance_valid(knight_ref):
+		var vbarks := [
+			"FOR THE OLD KINGDOM!",
+			"A fine mess of bones we're making.",
+			"That one had a brother. Send him over.",
+			"Ha! Still got it, boy.",
+			"The King hears you rattling, wretch!",
+		]
+		_damage_number(knight_ref.global_position + Vector3(0, 0.9 * info.tile, 0), vbarks[int(kills_run / 15) % vbarks.size()], Color(0.7, 0.9, 1.1), false)
 	if player != null and is_instance_valid(player) and player.hp <= player.max_hp * 0.2:
 		last_stand_kills += 1
 		if last_stand_kills >= 5:
