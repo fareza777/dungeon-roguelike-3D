@@ -70,10 +70,22 @@ const ACH := {
 	"w5": "Arsenal (5 weapons)",
 }
 const BOSS_TIERS := [
-	{"name": "BONE KING", "tint": Color(1.05, 1.05, 1.05)},
-	{"name": "EMBER KING", "tint": Color(1.4, 0.65, 0.4)},
-	{"name": "FROST KING", "tint": Color(0.55, 0.85, 1.45)},
-	{"name": "FERAL KING", "tint": Color(0.65, 1.35, 0.55)},
+	{"name": "BONE KING", "tint": Color(1.05, 1.05, 1.05),
+		"warn": "Careful — the Bone King lurks at the end of this corridor. If the ground shakes red, GET OUT.",
+		"taunt": "YOU AGAIN, LITTLE FRAGRANT ONE. I'll add your bones to my throne.",
+		"death": "...impossible... my throne... cracking..."},
+	{"name": "EMBER KING", "tint": Color(1.4, 0.65, 0.4),
+		"warn": "He rose from his own ashes — the Ember King burns through this floor.",
+		"taunt": "YOU AGAIN? I'LL BURN THE FLESH OFF YOUR BONES THIS TIME.",
+		"death": "...embers... dying... again..."},
+	{"name": "FROST KING", "tint": Color(0.55, 0.85, 1.45),
+		"warn": "His bones turned to ice — the Frost King chills the air itself.",
+		"taunt": "BONES DON'T SHIVER. YOURS WILL, WHEN I FREEZE THEM SOLID.",
+		"death": "...cold... so cold... the throne... melts..."},
+	{"name": "FERAL KING", "tint": Color(0.65, 1.35, 0.55),
+		"warn": "Last warning — the Feral King has lost all patience. And all mercy.",
+		"taunt": "THE THRONE IS MINE FOREVER. I'LL WEAR YOUR SKULL AS A CROWN.",
+		"death": "...no... I was... ETERNAL..."},
 ]
 var boss_name := "BONE KING"
 var atk_held := false
@@ -693,7 +705,7 @@ func _on_boss_died(_e) -> void:
 		if Stats.floor_num != fl or Stats.draft_open or (dlg != null and dlg.active):
 			return
 		_say([
-			{"who": "raja", "text": "...impossible... my throne... cracking..."},
+			{"who": "raja", "text": String(_boss_tier()["death"])},
 			{"who": "oracle", "text": "He will rise again five floors deeper — stronger. Keep descending, Kael."},
 		]))
 	_damage_number(_e.global_position, "BOSS DOWN", Color(1.0, 0.5, 0.2), true)
@@ -1427,8 +1439,14 @@ func _on_shrine_invoked(s) -> void:
 	shrine_used = true
 	s.consume()
 	Sfx.play("shrine")
+	var mlines := [
+		"The old spirits still honor brave bones. Choose one blessing — no greed.",
+		"Back so soon, warrior? The spirits remember a kindred soul. Choose.",
+		"Every floor you survive, the Bone King's patience thins. Take a blessing.",
+		"I was a king once too, you know. A kinder one. Choose your boon.",
+	]
 	_say(
-		[{"who": "mahzan", "text": "The old spirits still honor brave bones. Choose one blessing — no greed."}],
+		[{"who": "mahzan", "text": mlines[rng.randi_range(0, mlines.size() - 1)]}],
 		[
 			{"text": "War Blessing — +15% ATK this run"},
 			{"text": "Iron Blessing — +1 Armor this run"},
@@ -1446,16 +1464,22 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			{"who": "oracle", "text": "Every five floors he waits on his throne. The spirit statues in the halls still listen — touch them and ask for a blessing."},
 		]
 	elif boss_floor:
+		var tier := _boss_tier()
 		lines = [
-			{"who": "oracle", "text": "Careful — the Bone King lurks at the end of this corridor. If the ground shakes red, GET OUT."},
-			{"who": "raja", "text": "YOU AGAIN, LITTLE FRAGRANT ONE. I'll add your bones to my throne."},
+			{"who": "oracle", "text": String(tier["warn"])},
+			{"who": "kael", "text": "Then he's dying again."},
+			{"who": "raja", "text": String(tier["taunt"])},
 		]
-	elif Stats.floor_num > 1 and rng.randf() < 0.3:
+	elif Stats.floor_num > 1 and rng.randf() < 0.35:
 		var tips := [
 			"Those floor spikes are alive — learn their rhythm before stepping.",
 			"Not all chests are chests. The fanged ones are mimics — and they're hungry.",
 			"Elites glow crimson. Don't let them surround you.",
 			"An unbroken kill streak — a combo. Music to the Bone King's ears.",
+			"This kingdom was mine once, Kael. Before the dark took the throne.",
+			"Red orbs mend flesh — the dead still owe you a few favors.",
+			"Mahzan trades blessings for attention. He misses being worshipped.",
+			"The deeper you go, the stronger his throne grows. So must you.",
 		]
 		lines = [{"who": "oracle", "text": tips[rng.randi_range(0, tips.size() - 1)]}]
 	if lines.is_empty():
