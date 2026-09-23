@@ -7267,11 +7267,12 @@ func _on_throne_invoked(s) -> void:
 		{"text": "King's Pardon — pay 8 souls: your nemesis is forgiven and stops hunting you"},
 		{"text": "Pawn's Ransom — pay 5 souls: every debuff is lifted and +1 vial"},
 		{"text": "Sovereign's Toll — pay 4 souls: the crown underwrites your blade (+10% ATK this run)"},
+		{"text": "Knight's Vigil — pay 4 souls: +1 Armor this run"},
 		{"text": "Walk away"}])
 
 
 func _throne_deal(idx: int) -> void:
-	if idx == 8:
+	if idx == 9:
 		Stats.earn_souls(4)
 		_souls_l()
 		_quest_event("throne")
@@ -7288,6 +7289,16 @@ func _throne_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		_quest_event("throne")
 		toast("SOVEREIGN'S TOLL — the crown stamps your blade")
+	if idx == 8:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the vigil isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		Stats.buff_armor += 1
+		Sfx.play("shrine")
+		_quest_event("throne")
+		toast("KNIGHT'S VIGIL — the crown's plate weighs your shoulders")
 		return
 	if idx == 6:
 		if Stats.souls < _soul_cost(5):
