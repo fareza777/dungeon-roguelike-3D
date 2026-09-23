@@ -739,6 +739,14 @@ func _new_run(new_seed: int) -> void:
 		elif hungry_walls and not is_elite and rng.randf() < 0.45:
 			var hpos: Vector3 = sp["pos"] + Vector3(randf_range(-0.5, 0.5), 0, randf_range(-0.5, 0.5)) * info.tile * 0.5
 			_spawn_enemy({"pos": hpos, "room": int(sp.get("room", 0))}, arch_id, false)
+	if bone_chorus:
+		# satu orator per ruangan — paduan suara penggugah perang
+		for bci in range(info.ranges.size()):
+			if bci == last_room and boss_floor:
+				continue
+			var bcr: Dictionary = info.ranges[bci]
+			var bcp := Vector3((bcr["x0"] + bcr["x1"]) * 0.5 * info.tile, 0.0, (bcr["z0"] + bcr["z1"]) * 0.5 * info.tile)
+			_spawn_enemy({"pos": bcp, "room": bci}, "orator", false)
 	if boss_floor:
 		var lr: Dictionary = info.ranges[last_room]
 		_spawn_enemy({"pos": Vector3((lr["x0"] + lr["x1"]) * 0.5, 0.0, lr["z1"] + 1.6 * info.tile), "room": last_room}, "bone_king", false)
@@ -1156,14 +1164,6 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.hp_max = e.hp
 	if verdant and not e.is_boss:
 		e.speed *= 0.82
-	if bone_chorus:
-		# satu orator per ruangan — paduan suara penggugah perang
-		for bci in range(info.ranges.size()):
-			if bci == last_room and boss_floor:
-				continue
-			var bcr: Dictionary = info.ranges[bci]
-			var bcp := Vector3((bcr["x0"] + bcr["x1"]) * 0.5 * info.tile, 0.0, (bcr["z0"] + bcr["z1"]) * 0.5 * info.tile)
-			_spawn_enemy({"pos": bcp, "room": bci}, "orator", false)
 	if giant_hall and not e.is_boss:
 		e.scale *= 1.3
 		e._base_scale = e.scale
