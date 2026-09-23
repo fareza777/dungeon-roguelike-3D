@@ -1466,6 +1466,9 @@ func _on_enemy_died(e) -> void:
 	if e.get("affix") == "hoarded":
 		spawn_weapon_drop(e.global_position, WDB.roll_drop(rng, Stats.weapon_id))
 		_damage_number(e.global_position + Vector3(0, 0.7 * info.tile, 0), "HOARDED!", Color(1.0, 0.85, 0.35), true)
+	if e.get("affix") == "regal":
+		_spawn_gems(e.global_position, int(e.xp_val * 1.5))
+		_damage_number(e.global_position + Vector3(0, 0.7 * info.tile, 0), "REGAL SPOILS!", Color(1.0, 0.9, 0.3), true)
 	if grave_hunger and not e.get("is_boss") and rng.randf() < 0.12:
 		_spawn_wisp_at(e.global_position + Vector3(0, 0.3, 0))
 	# WAILING MAIDEN: tangis kematian membangunkan semua musuh di ruangan yang sama

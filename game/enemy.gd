@@ -141,7 +141,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom"][randi() % 12]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal"][randi() % 13]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -175,6 +175,10 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				prefer_range = maxf(prefer_range, 0.9 * room_tile)
 				warp_t = 1.2
 				xp_val = int(xp_val * 1.3)
+			"regal":
+				# elite ini memakai mahkota harta — dijatuhkan saat mati sebagai permata bonus
+				hp *= 1.3
+				xp_val = int(xp_val * 1.4)
 	scale = Vector3.ONE * sc
 	_base_scale = scale
 	hp_max = hp
