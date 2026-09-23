@@ -26,6 +26,7 @@ var draft_open := false
 # buff sementara (hilang saat run reset / turun lantai sesuai flag)
 var buff_atk_pct := 0.0 # berkat altar: run ini saja
 var buff_armor := 0 # berkat altar: armor datar run ini
+var warcry_t := 0.0 # skill War Cry: +50% ATK sementara
 var revive_left := 0 # jiwa bangkit: hidup lagi sekali per run
 var ach := {} # prestasi terbuka: id -> true (persist lintas run)
 var thorns := 0.0 # duri pantulan: balikkan dmg
@@ -70,12 +71,19 @@ func get_stat(n: String) -> float:
 		mult += wmods[n + "_pct"]
 	if n == "atk":
 		mult += buff_atk_pct
+		if warcry_t > 0.0:
+			mult += 0.5
 		# amukan: +ATK saat HP di bawah 35%
 		if berserk > 0.0 and current_hp <= get_stat("max_hp") * 0.35:
 			mult += berserk
 	if n == "armor":
 		flat += buff_armor
 	return flat * mult
+
+
+func _process(delta: float) -> void:
+	if warcry_t > 0.0:
+		warcry_t = maxf(0.0, warcry_t - delta)
 
 
 func mus_vol() -> float:
@@ -137,6 +145,7 @@ func reset_run() -> void:
 	owned_weapons = ["rusty_blade"]
 	buff_atk_pct = 0.0
 	buff_armor = 0
+	warcry_t = 0.0
 	revive_left = 0
 	thorns = 0.0
 	dodge = 0.0

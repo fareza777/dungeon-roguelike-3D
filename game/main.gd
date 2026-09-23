@@ -167,7 +167,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -1012,6 +1012,21 @@ func _cast_skill(id: String) -> void:
 			Sfx.play("thunder")
 			trauma = 0.9
 			print("SKILL thunder struck=%d" % struck)
+		"warcry":
+			player.anim_lock = M.play_action(player.ap, ["spellcast", "idle_combat", "idle"], 1.1)
+			Sfx.play("roar")
+			Stats.warcry_t = 5.0
+			_shock_ring(player.global_position)
+			var kd := 0
+			for f in get_tree().get_nodes_in_group("enemies"):
+				var wdv: Vector3 = f.global_position - player.global_position
+				wdv.y = 0
+				if wdv.length() < 1.6 * info.tile:
+					f.kb += wdv.normalized() * info.tile * 2.5 * (1.0 - f.kb_resist)
+					kd += 1
+			toast("WAR CRY! +50% ATK for 5s")
+			trauma = 0.5
+			print("SKILL warcry knocked=%d" % kd)
 	skill_cd[id] = float(SK.DB[id]["cd"])
 
 
