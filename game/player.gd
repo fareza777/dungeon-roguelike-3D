@@ -324,6 +324,16 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						f.take_hit(global_position, dmg * 0.4)
 					if mw.has_method("_damage_number"):
 						mw._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "SAWED", Color(1.0, 0.7, 0.3), false)
+		"harpooner": # SKEWER — tiap tebasan ke-5: +50% dmg dan sundur baju musuh
+			var hpk := get_tree().current_scene
+			if hpk != null:
+				hpk.set("net_n", int(hpk.get("net_n")) + 1)
+				if int(hpk.get("net_n")) >= 5:
+					hpk.set("net_n", 0)
+					f.take_hit(global_position, dmg * 0.5)
+					f.set("sunder_t", 4.0)
+					if hpk.has_method("_damage_number"):
+						hpk._damage_number(f.global_position + Vector3(0, 0.65 * room_tile, 0), "SKEWERED", Color(0.6, 0.8, 1.0), false)
 		"gaff_hook": # GAFF — tiap tebasan ke-7 merobek musuh lain terdekat
 			var gfk := get_tree().current_scene
 			if gfk != null:

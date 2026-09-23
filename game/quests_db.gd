@@ -229,6 +229,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Salt Rich", "desc": "Walk off a floor holding 60+ souls (0/2)", "kind": "soulrich", "need": 2})
 		steps.append({"title": "Reckoner", "desc": "Cast Dead Reckoning 3 times (0/3)", "kind": "skill_deadreckon", "need": 3})
 		steps.append({"title": "Deck Walker", "desc": "Cast Sea Legs 3 times (0/3)", "kind": "skill_sealegs", "need": 3})
+		steps.append({"title": "Skewered", "desc": "Slay 5 foes with Harpooner (0/5)", "kind": "kill_harpooner", "need": 5})
 		steps.append({"title": "Gaffed It", "desc": "Slay 5 foes with Gaff Hook (0/5)", "kind": "kill_gaff_hook", "need": 5})
 		steps.append({"title": "Rip Current", "desc": "Slay 5 foes with Riptide Fang (0/5)", "kind": "kill_riptide_fang", "need": 5})
 		steps.append({"title": "Hook, Line, Sinker", "desc": "Slay 5 foes with Captain's Hook (0/5)", "kind": "kill_captains_hook", "need": 5})
