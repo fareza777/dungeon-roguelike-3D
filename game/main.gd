@@ -5018,16 +5018,15 @@ func _cast_skill(id: String) -> void:
 			print("SKILL deadreckon marked=%d" % rkn)
 		"hullsplinter":
 			var nhs_ := 0
-			for hs_ in enemies:
+			for hs_ in get_tree().get_nodes_in_group("enemies"):
 				if hs_.get("state") == "dead":
 					continue
 				var hd_ = hs_.global_position.distance_to(player.global_position)
-				if hd_ < 3.0 * info.tile:
-					var hdm_ = player.atk * (1.0 - hd_ / (4.0 * info.tile))
-					hs_.take_hit(maxf(1.0, hdm_))
+				if hd_ < 3.0 * info.tile and hs_.has_method("take_hit"):
+					var hdm_ = Stats.get_stat("atk") * (1.0 - hd_ / (4.0 * info.tile))
+					hs_.take_hit(player.global_position, maxf(1.0, hdm_))
 					nhs_ += 1
 			if nhs_ > 0:
-				_screen_punch(0.35)
 				_damage_number(player.global_position + Vector3(0, 1.0 * info.tile, 0), "SPLINTERED x%d" % nhs_, Color(0.8, 0.6, 0.4), false)
 			Sfx.play("whirl")
 		"keelram":
