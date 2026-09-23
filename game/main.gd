@@ -5816,6 +5816,8 @@ func _keel_deal(idx: int) -> void:
 				fh.global_position += hdir.normalized() * (hd - 0.9 * info.tile)
 				if Stats.relics.has("keel_mark"):
 					fh.set("keel_marked", true)
+				if Stats.relics.has("galley_whip"):
+					fh.set("tender_t", 2.0)
 				_quest_event("haul")
 				hauled += 1
 		if hauled >= 5:

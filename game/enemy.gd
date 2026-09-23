@@ -32,6 +32,7 @@ var dmg_reduce := 0.0
 var tidal_t := 0.0
 var was_low := false
 var fs_hit := false
+var tender_t := 0.0
 var speed := 4.0
 var dmg := 1
 var windup_t := 0.45
@@ -390,7 +391,8 @@ func _physics_process(delta: float) -> void:
 	slow_t = maxf(0.0, slow_t - delta)
 	sunder_t = maxf(0.0, sunder_t - delta)
 	if affix == "tidal":
-		tidal_t += delta
+		tender_t = maxf(0.0, tender_t - delta)
+	tidal_t += delta
 		if tidal_t >= 2.0:
 			tidal_t = 0.0
 			for tf2 in get_tree().get_nodes_in_group("enemies"):
@@ -916,6 +918,8 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 	if dmg_reduce > 0.0 and dmg_taken > 0.0:
 		dmg_taken *= (1.0 - dmg_reduce)
 	was_low = hp > 0.0 and hp <= hp_max * 0.3
+	if tender_t > 0.0:
+		dmg_taken *= 1.25
 	hp -= dmg_taken
 	if affix == "sirensong" and not _siren_pulled and not Stats.relics.has("deaf_cap") and hp > 0.0 and hp <= hp_max * 0.4:
 		_siren_pulled = true
