@@ -62,6 +62,7 @@ var golden := false
 var nemesis := false
 var is_lurker := false # arketipe penyergap: sembunyi sampai pemain mendekat
 var lurk_revealed := false
+var lurk_warned := false
 var model_ref: Node3D = null
 var affix := ""
 var jailer := false
@@ -350,10 +351,19 @@ func _physics_process(delta: float) -> void:
 		var lrange := 1.3
 		if Stats.relics.has("mata_perenungan"):
 			lrange = 2.6
-		if activated and lp != null and lp.get("dead") != true and global_position.distance_to(lp.global_position) < lrange * room_tile:
-			_lurk_reveal()
-		else:
+		if activated and lp != null and lp.get("dead") != true:
+			var ld := global_position.distance_to(lp.global_position)
+			if ld < lrange * room_tile:
+				_lurk_reveal()
+				return
+			if ld < 2.4 * room_tile and not lurk_warned:
+				lurk_warned = true
+				Sfx.play("page")
+				var m2 := get_tree().current_scene
+				if m2 != null and m2.has_method("_damage_number"):
+					m2._damage_number(global_position + Vector3(0, 0.5 * room_tile, 0), "...", Color(0.45, 0.45, 0.65), false)
 			return
+		return
 	if not activated:
 		velocity = kb
 		kb = kb.move_toward(Vector3.ZERO, delta * room_tile * 8.0)
