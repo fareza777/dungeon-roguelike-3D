@@ -1040,12 +1040,13 @@ func _nemesis_mark(e) -> void:
 
 # necromancer membangkitkan 1 antek; dibatasi supaya ruangan tidak banjir
 func _on_necro_summon(n) -> void:
-	if _room_alive(n.room_idx) >= 8:
+	if _room_alive(n.room_idx) >= 6:
 		return
 	Sfx.play("thunder")
 	toast("A necromancer raises the dead!")
 	_burst(n.global_position + Vector3(0, 0.5, 0), Color(0.8, 0.4, 1.0))
-	_spawn_enemy({"pos": n.global_position + Vector3(0, 0, 0.6 * info.tile), "room": n.room_idx}, "chaser", false)
+	var arch := "crawler" if rng.randf() < 0.35 else "chaser"
+	_spawn_enemy({"pos": n.global_position + Vector3(0, 0, 0.6 * info.tile), "room": n.room_idx}, arch, false)
 
 
 # boss memanggil 2 antek; dibatasi supaya ruangan tidak banjir
