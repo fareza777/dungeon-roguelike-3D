@@ -98,6 +98,7 @@ var is_warper := false
 var is_hexer := false
 var is_waver := false
 var kiter := false
+var sheared := false
 var is_spiky := false
 var warp_t := 4.0
 var champion := false # elite sarang sang juara — drop senjata terjamin

@@ -297,6 +297,17 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						hp = minf(mh, hp + mh * 0.05)
 						if mg.has_method("_damage_number"):
 							mg._damage_number(global_position + Vector3(0, 0.6 * room_tile, 0), "REND +HP", Color(1.0, 0.4, 0.4), false)
+		"tide_shear": # SHEAR — tiap tebasan ke-5 menggunting tajam musuh: dmg −20% permanen
+			var ms := get_tree().current_scene
+			if ms != null:
+				ms.set("net_n", int(ms.get("net_n")) + 1)
+				if int(ms.get("net_n")) >= 5:
+					ms.set("net_n", 0)
+					if not bool(f.get("sheared")):
+						f.set("sheared", true)
+						f.dmg = maxi(1, int(ceil(f.dmg * 0.8)))
+						if ms.has_method("_damage_number"):
+							ms._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "SHEARED", Color(0.5, 0.95, 0.9), false)
 		"chain_anchor": # MOORING — tiap tebasan ke-6 menambat target: stun 1.5s
 			var mc := get_tree().current_scene
 			if mc != null:
