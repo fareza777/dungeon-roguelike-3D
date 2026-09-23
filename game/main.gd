@@ -315,6 +315,7 @@ const TIPS := [
 	"Dash THROUGH an attack at the last instant — a perfect dodge stuns and counters.",
 	"Pausing breaks your combo — keep slashing.",
 	"Spirit altars: pick a blessing that fits your build.",
+	"Snap Clams hold pearls — disarm them while they sleep for souls.",
 	"Floor spikes have a rhythm — learn it before crossing.",
 	"An enraged King summons minions — keep your distance.",
 	"The Soul Risen relic revives you once.",
