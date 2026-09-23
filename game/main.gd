@@ -843,7 +843,7 @@ func _step_dust(pos: Vector3) -> void:
 	tw.tween_callback(m.queue_free)
 
 
-func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false) -> void:
+func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false) -> Enemy:
 	var a: Dictionary = EDB.get_arch(arch_id)
 	var e = preload("res://enemy.gd").new()
 	var model: Node3D = load(CHARS + a["glb"]).instantiate()
@@ -905,6 +905,7 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.summon_requested.connect(_on_boss_summon)
 	elif e.is_summoner:
 		e.summon_requested.connect(_on_necro_summon)
+	return e
 
 
 func _nemesis_mark(e) -> void:
@@ -1323,6 +1324,7 @@ func _on_enemy_died(e) -> void:
 		Sfx.play("victory")
 		_burst(e.global_position, Color(0.9, 0.15, 0.25))
 		_lvl_banner("◆ NEMESIS SLAIN — +10 souls")
+		_say([{"who": "oracle", "text": "The ledger crosses a name tonight, Kael. Yours is still being written."}])
 		_damage_number(e.global_position + Vector3(0, 0.9 * info.tile, 0), "YOUR DEBT IS PAID", Color(1.0, 0.85, 0.35), true)
 		_ach("nem1")
 	# weapon mastery: 25 kill dengan senjata yang sama -> +1 ATK permanen
@@ -1371,6 +1373,18 @@ func _on_enemy_died(e) -> void:
 		for _mi in range(2):
 			_spawn_enemy({"pos": e.global_position + Vector3(randf_range(-0.4, 0.4) * info.tile, 0, randf_range(-0.4, 0.4) * info.tile), "room": e.room_idx}, "crawler", false)
 		_damage_number(e.global_position, "SPLITS!", Color(0.7, 1.0, 0.5), true)
+	# NIGHTMARE affix: elite bangkit sekali pada 40% HP setelah 1.6 detik
+	if e.get("affix") == "nightmare":
+		var npos: Vector3 = e.global_position
+		var nroom: int = e.room_idx
+		var narch: String = e.arch_id
+		get_tree().create_timer(1.6).timeout.connect(func():
+			var e2: Enemy = _spawn_enemy({"pos": npos, "room": nroom}, narch, false)
+			if e2 != null:
+				e2.hp = e2.hp_max * 0.4
+				e2.activated = true
+				_damage_number(npos + Vector3(0, 0.8 * info.tile, 0), "IT RISES!", Color(0.55, 0.35, 0.9), true)
+				Sfx.play("roar"))
 	# COMBO RIPPLE: kombo ≥20 -> tiap kill melepas gelombang 1 dmg ke tetangga
 	if combo >= 20:
 		var rip := 0
@@ -2986,6 +3000,11 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			{"who": "mahzan", "text": "Seventeen floors, little customer. Most heroes are in jars by now."},
 			{"who": "kael", "text": "Most heroes didn't have your prices to keep them honest."},
 			{"who": "oracle", "text": "Careful, Kael — the deep listens when you joke."},
+		]
+	elif Stats.floor_num == 14:
+		lines = [
+			{"who": "kael", "text": "Oracle — the halls whisper back down here. Are they yours?"},
+			{"who": "oracle", "text": "Not all of them, Kael. Some of them are his."},
 		]
 	elif Stats.floor_num == 16:
 		lines = [
