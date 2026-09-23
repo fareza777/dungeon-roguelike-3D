@@ -5919,12 +5919,25 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Keelhaul — pay 5 souls: drag every foe within 3 tiles to your feet"},
 		{"text": "Keel Prayer — pay 2 souls: the first trap that catches you MENDS you"},
 		{"text": "Hull Net — pay 4 souls: +30% XP for the rest of this run"},
+		{"text": "Rigging Plates — pay 3 souls: +1 Armor this run"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 6:
+	if idx == 7:
 		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 6:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the rigging isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		Stats.buff_armor += 1
+		if player != null and is_instance_valid(player):
+			player.refresh_stats()
+		Sfx.play("shrine")
+		toast("RIGGING PLATES — +1 Armor, lashed to your hull")
 		return
 	if idx == 0:
 		if Stats.souls < _soul_cost(4):
