@@ -3092,6 +3092,7 @@ func _offer_omens() -> void:
 			{"text": "FATEHAND — drafts show a 4th relic, -1 Armor"},
 			{"text": "SOLITARY — +35% XP, allies will not answer this run"},
 			{"text": "PAWNBREAKER — all soul prices drop 1, -15% Max HP"},
+			{"text": "HEIRLOOM — carry a random trinket into the run, -1 Armor"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else [])
 	)
 
@@ -3150,6 +3151,17 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_maxhp_pct -= 0.15
 			oname = "PAWNBREAKER"
 		11:
+			var hpool: Array = []
+			for rid13 in ITEMS.DB:
+				if int(ITEMS.DB[rid13]["rarity"]) <= 0 and not Stats.relics.has(rid13):
+					hpool.append(rid13)
+			if not hpool.is_empty():
+				var rid14: String = String(hpool[rng.randi() % hpool.size()])
+				Stats.add_relic(rid14)
+				toast("Heirloom: " + String(ITEMS.DB[rid14]["name"]))
+			Stats.buff_armor -= 1
+			oname = "HEIRLOOM"
+		12:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
