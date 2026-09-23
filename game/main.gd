@@ -247,7 +247,7 @@ var dead_lantern := false
 var hull_song := false
 var salt_ledger := false
 var slow_clock := false
-var keel_prayer := false
+var deck_alms := false
 var final_verse := false
 var dash_fuel := false
 var powder_keg := 0
@@ -979,7 +979,7 @@ func _reset_run_state() -> void:
 	hull_song = false
 	salt_ledger = false
 	slow_clock = false
-	keel_prayer = false
+	deck_alms = false
 	final_verse = false
 	dash_fuel = false
 	powder_keg = 0
@@ -1910,7 +1910,7 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.speed *= 0.92
 	if slow_clock:
 		e.speed *= 0.92
-	if keel_prayer:
+	if deck_alms:
 		e.speed *= 1.1
 	if final_verse:
 		e.dmg *= 0.85
@@ -5239,7 +5239,7 @@ func _offer_omens() -> void:
 			{"text": "SALT LEDGER — every price climbs +1 soul... but each floor's end pays +3"},
 			{"text": "DEEP TOLL — the dead endure +15% longer... but every lesson pays +30% XP"},
 			{"text": "SLOW CLOCK — your skills recharge a fifth slower... but the dead wade −8% slower too"},
-			{"text": "KEEL PRAYER — every price drops −1 soul... but the dead run +10% quicker"},
+			{"text": "DECK ALMS — every price drops −1 soul... but the dead run +10% quicker"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -5260,7 +5260,7 @@ func _soul_cost(n: int) -> int:
 		penny_floor = true
 	if salt_ledger:
 		disc -= 1
-	if keel_prayer:
+	if deck_alms:
 		disc += 1
 	return maxi(1, n - disc)
 
@@ -5498,8 +5498,8 @@ func _omen_deal(idx: int) -> void:
 			Stats.cd_reduction -= 0.2
 			oname = "SLOW CLOCK"
 		51:
-			keel_prayer = true
-			oname = "KEEL PRAYER"
+			deck_alms = true
+			oname = "DECK ALMS"
 		52:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
@@ -5557,7 +5557,7 @@ func _omen_deal(idx: int) -> void:
 		"SALT LEDGER": "The sea keeps books, Kael — she'll overcharge the dealers and pay you interest on the back.",
 		"DEEP TOLL": "The deep taxes endurance, Kael — the dead last longer and so do their lessons.",
 		"SLOW CLOCK": "Time runs thick down here, Kael — for your arts and for their feet alike.",
-		"KEEL PRAYER": "The keel blesses the generous, Kael — the dealers soften, and the dead hurry to collect.",
+		"DECK ALMS": "The keel blesses the generous, Kael — the dealers soften, and the dead hurry to collect.",
 		"HEIRLOOM": "Someone carried that before you. They are still carrying it, in a way.",
 		"GOLDEN FATE": "Every lock will gleam. Mind the teeth on some.",
 		"HOLLOW CROWN": "Crown of nothing. The Oracle admires your appetite anyway.",
