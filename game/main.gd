@@ -990,9 +990,12 @@ func _build_skill_buttons(layer: CanvasLayer) -> void:
 		sb.shadow_offset = Vector2(0, 3)
 		b.add_theme_stylebox_override("normal", sb)
 		b.add_theme_color_override("font_color", Color(0.85, 0.95, 1.0))
+		b.add_theme_color_override("font_outline_color", Color(0.02, 0.05, 0.1, 0.9))
+		b.add_theme_constant_override("outline_size", 4)
 		var sbp := sb.duplicate() as StyleBoxFlat
 		sbp.bg_color = Color(0.25, 0.4, 0.55, 0.95)
 		b.add_theme_stylebox_override("pressed", sbp)
+		b.pivot_offset = Vector2(39, 39)
 		b.anchor_left = 1.0
 		b.anchor_right = 1.0
 		b.anchor_top = 1.0
@@ -1033,10 +1036,17 @@ func _tick_skill_ui(delta: float) -> void:
 			b.modulate = Color(1, 1, 1, 0.45)
 			b.text = ""
 			lab.text = str(int(ceil(skill_cd[id])))
+			rec["was_cd"] = true
 		else:
 			b.modulate = Color(1, 1, 1, 1)
-			b.text = String(rec["name"])
+			b.text = String(SK.DB[id]["short"])
 			lab.text = ""
+			if bool(rec.get("was_cd", false)):
+				rec["was_cd"] = false
+				var ptw := b.create_tween()
+				ptw.tween_property(b, "scale", Vector2(1.12, 1.12), 0.08)
+				ptw.tween_property(b, "scale", Vector2.ONE, 0.16).set_trans(Tween.TRANS_BACK)
+				Sfx.play("xp")
 
 
 # ---------------- layar hero ----------------
