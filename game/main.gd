@@ -300,6 +300,7 @@ var splice_kills := 0
 var timber_shiver := false
 var hull_bonus := false
 var court_summons := false
+var kneel_not := false
 var deadweight := false
 var undertow_grip := false
 var lookout := false
@@ -1168,6 +1169,7 @@ func _new_run(new_seed: int) -> void:
 	timber_shiver = false
 	hull_bonus = false
 	court_summons = false
+	kneel_not = false
 	gangway = false
 	penny_floor = false
 	if drift_line:
@@ -2110,6 +2112,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.hp_max = e.hp
 	if sworn_hull and not e.is_boss:
 		e.speed *= 1.1
+	if kneel_not:
+		e.kb_resist *= 0.5
 	if mire_hollow and not e.is_boss:
 		e.hp *= 1.1
 		e.hp_max = e.hp
@@ -7858,16 +7862,27 @@ func _on_throne_invoked(s) -> void:
 		{"text": "Knight's Vigil — pay 4 souls: +1 Armor this run"},
 		{"text": "Crown's Insight — pay 3 souls: the throne names this floor's omen"},
 		{"text": "Court Summons — pay 4 souls: +15% XP this floor"},
+		{"text": "Kneel Not — pay 5 souls: this floor's dead lose half their footing (kb resist)"},
 		{"text": "Walk away"}])
 
 
 func _throne_deal(idx: int) -> void:
-	if idx == 11:
+	if idx == 12:
 		Stats.earn_souls(4)
 		_souls_l()
 		_quest_event("throne")
 		Sfx.play("soul")
 		toast("CLEAN HANDS — the crown pays +4 souls to the incorruptible")
+		return
+	if idx == 11:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the crown doesn't shove cheap")
+			return
+		Stats.souls -= _soul_cost(5)
+		_souls_l()
+		kneel_not = true
+		Sfx.play("shrine")
+		toast("KNEEL NOT — every shove lands twice as hard this floor")
 		return
 	if idx == 10:
 		if Stats.souls < _soul_cost(4):
