@@ -3507,6 +3507,8 @@ func _combo_set(n: int) -> void:
 	# tier buff nyata: streak tinggi = tambah kuat (hilang saat streak putus)
 	if combo == 8:
 		_quest_event("combo")
+	if combo == 40:
+		_quest_event("combo40")
 	if combo >= 50:
 		_ach("unstoppable")
 	if combo >= 40:

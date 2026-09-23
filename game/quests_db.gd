@@ -29,6 +29,8 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 				steps.append({"title": "Gem Rush", "desc": "Absorb 6 soul gems", "kind": "gem", "need": 6})
 			else:
 				steps.append({"title": "Battle Frenzy", "desc": "Reach a x8 kill combo", "kind": "combo", "need": 1})
+				if Stats.floor_num >= 10:
+					steps.append({"title": "Crescendo", "desc": "Reach a x40 kill combo", "kind": "combo40", "need": 1})
 		if floor_num >= 6:
 			steps.append({"title": "Skillful Hands", "desc": "Unleash 2 skills", "kind": "skill", "need": 2})
 		if floor_num >= 8 and floor_num % 4 == 3:
