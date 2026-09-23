@@ -235,6 +235,7 @@ var lantern_touched := false
 var gravetide := false
 var mudlark := false
 var netgain_n := 0
+var blood_drawn := false
 var skill_used_floor := false
 var skills_floor := {}
 var rooms_cleared := 0
@@ -802,6 +803,9 @@ func _reset_run_state() -> void:
 	gravetide = false
 	mudlark = false
 	netgain_n = 0
+	if blood_drawn:
+		Stats.buff_atk_pct -= 0.2
+		blood_drawn = false
 	wellread = false
 	tide_lends = false
 	pearl_fever = false
@@ -5943,11 +5947,12 @@ func _on_throne_invoked(s) -> void:
 		[{"text": "Tithe the Deep — pay 6 souls: +15% Max HP this run"},
 		{"text": "Swear the Crown — pay 5 souls: your next elite kill pays +8 souls"},
 		{"text": "Beg a Boon — pay 3 souls: a random common relic"},
+		{"text": "Draw Blood — pay 3 souls: bleed for +20% ATK this floor"},
 		{"text": "Walk away"}])
 
 
 func _throne_deal(idx: int) -> void:
-	if idx == 3:
+	if idx == 4:
 		Stats.earn_souls(4)
 		_souls_l()
 		_quest_event("throne")
@@ -5986,6 +5991,19 @@ func _throne_deal(idx: int) -> void:
 		Stats.add_relic(brid)
 		Sfx.play("shrine")
 		toast("ROYAL BOON — the crown grants " + String(ITEMS.DB[brid]["name"]))
+	elif idx == 3:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the crown's blade isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		if player != null and is_instance_valid(player):
+			player.hp = maxf(1.0, player.hp * 0.75)
+			player.hp_changed.emit(player.hp)
+		Stats.buff_atk_pct += 0.2
+		blood_drawn = true
+		Sfx.play("shrine")
+		toast("BLOOD DRAWN — +20% ATK until you descend")
 	_quest_event("throne")
 
 
