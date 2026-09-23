@@ -6197,7 +6197,7 @@ func _on_drowned_invoked(s) -> void:
 		_ach("lantern_lit")
 	s.consume()
 	Sfx.play("shrine")
-	dlg_pending_choice = 14
+	dlg_pending_choice = 15
 	_say([{"who": "oracle", "text": "A drowned altar, Kael — the sea still hears prayers down here. The tide always collects, but it also gives."}],
 		[{"text": "Tide Baptism — pay 4 souls: full HP +10% speed this run"},
 		{"text": "Drowned Tithe — take +8 souls, but the water takes −10% Max HP"},
@@ -6212,11 +6212,12 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Drift Line — pay 3 souls: +10% ATK till the floor falls"},
 		{"text": "Full Scrub — pay 3 souls: cleanse every ailment, rust and weakness included"},
 		{"text": "Deep Breath — pay 4 souls: the dead wade −5% slower for the rest of this run"},
+		{"text": "Deep Draw — pay 3 souls: fill your vial satchel"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 13:
+	if idx == 14:
 		toast("The water settles back into the stone")
 		return
 	if idx == 12:
@@ -6228,6 +6229,15 @@ func _drowned_deal(idx: int) -> void:
 		deep_breath = true
 		Sfx.play("shrine")
 		toast("DEEP BREATH — the water takes the edge off their step")
+	if idx == 13:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls to fill the satchel")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		vials = (3 if wide_satchel else 2)
+		Sfx.play("shrine")
+		toast("DEEP DRAW — the tide fills every vial")
 		return
 	if idx == 11:
 		if Stats.souls < _soul_cost(3):
