@@ -6939,7 +6939,7 @@ func _process(delta: float) -> void:
 		for ln2 in lanterns:
 			if is_instance_valid(ln2) and player.global_position.distance_to(ln2.global_position) < 3.0 * info.tile:
 				if player.hp < Stats.get_stat("max_hp"):
-					var lh: float = Stats.get_stat("max_hp") * 0.02 * delta
+					var lh: float = Stats.get_stat("max_hp") * 0.02 * delta * (1.0 + 0.5 * int(Stats.meta.get("lampwage", 0)))
 					player.hp = minf(player.hp + lh, Stats.get_stat("max_hp"))
 					player.hp_changed.emit(player.hp)
 					lantern_healed += lh

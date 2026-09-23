@@ -89,7 +89,7 @@ var bestiary := {} # arch_id -> jumlah kill sepanjang masa (codex)
 var weapon_kills := {} # weapon_id -> kill sepanjang masa (mastery progress)
 var mastered := {} # weapon_id -> 1 bila mastery tercapai (+1 ATK permanen)
 const MASTERY_N := 25
-var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0}
+var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0}
 
 const ACH_DEF := {
 	"kill1": "First Bloodbath",
@@ -169,6 +169,7 @@ const META_DEF := {
 	"haggler": {"name": "Soul Haggler", "max": 3, "desc": "Every soul price drops 1 per level"},
 	"diver": {"name": "Deep Diver", "max": 3, "desc": "Reliquary court tithe pays +2 souls per level"},
 	"foundry": {"name": "Foundry Rat", "max": 3, "desc": "Every forge price drops 1 per level"},
+	"lampwage": {"name": "Lamplighter's Wage", "max": 2, "desc": "Lanterns mend 50% more per level"},
 }
 
 # dipakai menu -> game
@@ -460,7 +461,7 @@ func wipe_progress() -> void:
 	bestiary = {}
 	weapon_kills = {}
 	mastered = {}
-	meta = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0}
+	meta = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0}
 	reset_run()
 	save_game()
 
