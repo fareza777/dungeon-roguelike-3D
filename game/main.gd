@@ -300,6 +300,7 @@ var old_salt := false
 var full_sails := false
 var long_oars := false
 var deep_draft := false
+var high_water := false
 var final_verse := false
 var cradle_deep := false
 var undertow := false
@@ -6020,6 +6021,7 @@ func _offer_omens() -> void:
 			{"text": "FULL SAILS — the dead fly +15% faster... but souls pay +30% more"},
 			{"text": "LONG OARS — you row −10% slower... but the dead row −20% slower"},
 			{"text": "DEEP DRAFT — your hull sits −15% lower... but souls pay +25% more"},
+			{"text": "HIGH WATER — the dead stand +10% taller and hit +10%... but every lesson pays +30% XP"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -6068,7 +6070,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 63 if Stats.nemesis != "" else 62
+	var osize := 64 if Stats.nemesis != "" else 63
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -6327,6 +6329,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct += 0.25
 			oname = "DEEP DRAFT"
 		62:
+			high_water = true
+			omen_hp_mult += 0.1
+			Stats.curse_dmg += 0.1
+			Stats.curse_xp += 0.3
+			oname = "HIGH WATER"
+		63:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -6392,6 +6400,7 @@ func _omen_deal(idx: int) -> void:
 		"FULL SAILS": "Speed for souls — the sea's oldest wager.",
 		"LONG OARS": "Slow and steady — the steady part is what the dead hate.",
 		"DEEP DRAFT": "Loaded low and heavy — wealth weighs more than wounds.",
+		"HIGH WATER": "The flood lifts every anchor — theirs and yours alike.",
 		"OLD SALT": "Lighter purse, heavier arm — the old hands swear by it.",
 		"SWORN HULL": "The hull thickens and the chase quickens — even trade.",
 		"SLIM PICKINGS": "The lean tide still pays, Kael — slower hands, heavier purse.",
