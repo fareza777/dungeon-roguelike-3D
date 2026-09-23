@@ -1776,6 +1776,8 @@ func _on_lore_stone(s) -> void:
 		Stats.save_game()
 		if Stats.lore_seen.size() >= LORE_LINES.size():
 			_ach("lore32")
+		elif Stats.lore_seen.size() >= 30:
+			_ach("lore30")
 		elif Stats.lore_seen.size() >= 10:
 			_ach("lore10")
 	if wellread:
