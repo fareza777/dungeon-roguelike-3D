@@ -61,6 +61,7 @@ var golden := false
 var affix := ""
 var jailer := false
 var is_weeper := false
+var champion := false # elite sarang sang juara — drop senjata terjamin
 var chant_t := 2.5
 var _base_scale := Vector3.ONE
 var slam_t := 4.0

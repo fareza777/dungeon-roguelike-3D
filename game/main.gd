@@ -74,6 +74,7 @@ var draft_rerolled := false
 var low_quality := false
 var blood_moon := false
 var _warned := {}
+var champ_room := -1 # sarang sang juara: elite terjamin + drop lebih baik
 var chest_opened := false
 var toast_tween: Tween = null
 
@@ -416,6 +417,15 @@ func _new_run(new_seed: int) -> void:
 		var lr: Dictionary = info.ranges[last_room]
 		_spawn_enemy({"pos": Vector3((lr["x0"] + lr["x1"]) * 0.5, 0.0, lr["z1"] + 1.6 * info.tile), "room": last_room}, "bone_king", false)
 	else:
+		# sarang sang juara (lantai 6+): satu ruangan berisi elite bergaransi
+		champ_room = -1
+		if Stats.floor_num >= 6 and last_room >= 2:
+			champ_room = rng.randi_range(1, last_room - 1)
+			var cr: Dictionary = info.ranges[champ_room]
+			var cpos := Vector3((cr["x0"] + cr["x1"]) * 0.5, 0.0, (cr["z0"] + cr["z1"]) * 0.5)
+			_spawn_enemy({"pos": cpos, "room": champ_room}, table[rng.randi_range(0, table.size() - 1)], true)
+			var cnd := get_tree().get_nodes_in_group("enemies")[get_tree().get_nodes_in_group("enemies").size() - 1]
+			cnd.champion = true
 		_spawn_traps(last_room)
 		_spawn_urns(last_room)
 		_spawn_shrine(last_room)
@@ -544,6 +554,9 @@ func _on_room_enter(ri: int) -> void:
 		if ri > 0:
 			if boss_ref != null and is_instance_valid(boss_ref) and boss_ref.room_idx == ri:
 				toast(boss_name + " BLOCKS YOUR PATH — slay him!")
+			elif ri == champ_room:
+				Sfx.play("roar")
+				toast("A CHAMPION holds this room — best him for better spoils!")
 			else:
 				toast("Room locked — slay all skeletons!")
 		print("RUANGAN %d TERKUNCI (musuh=%d)" % [ri, _room_alive(ri)])
@@ -1047,7 +1060,7 @@ func _on_enemy_died(e) -> void:
 	_combo_set(combo + 1)
 	if e.is_boss:
 		_on_boss_died(e)
-	if e.elite and rng.randf() < 0.6:
+	if e.elite and (bool(e.get("champion")) or rng.randf() < 0.6):
 		spawn_weapon_drop(e.global_position, WDB.roll_drop(rng, Stats.weapon_id))
 	elif e.arch_id == "brute" and rng.randf() < 0.25:
 		spawn_weapon_drop(e.global_position, WDB.roll_drop(rng, Stats.weapon_id))
