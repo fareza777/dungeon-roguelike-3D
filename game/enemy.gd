@@ -65,6 +65,7 @@ var jailer := false
 var is_weeper := false
 var is_warper := false
 var is_hexer := false
+var is_spiky := false
 var warp_t := 4.0
 var champion := false # elite sarang sang juara — drop senjata terjamin
 var sunder_t := 0.0 # debuff SUNDERING BLOW: terima +30% damage
@@ -121,6 +122,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	is_weeper = bool(a.get("chanter", false))
 	is_warper = bool(a.get("warper", false))
 	is_hexer = bool(a.get("hexer", false))
+	is_spiky = bool(a.get("spiky", false))
 	if is_summoner:
 		summon_t = 9.0
 	var sc: float = a["scale"]
@@ -617,6 +619,13 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 		dmg_taken *= 1.3
 	hp -= dmg_taken
 	Sfx.play("hit")
+	if is_spiky and state != "dead":
+		var p3 := _player()
+		if p3 != null and p3.get("dead") != true and p3.global_position.distance_to(from_pos) < 0.5 * room_tile:
+			p3.take_hit(global_position, 0.5)
+			var msp := get_tree().current_scene
+			if msp != null and msp.has_method("_damage_number"):
+				msp._damage_number(p3.global_position + Vector3(0, 0.5 * room_tile, 0), "SPIKED", Color(1.0, 0.6, 0.2), false)
 	if is_boss and hp > 0.0:
 		var frac: float = hp / hp_max
 		var mb := get_tree().current_scene
