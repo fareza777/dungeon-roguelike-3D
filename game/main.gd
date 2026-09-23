@@ -5787,7 +5787,11 @@ func _on_throne_invoked(s) -> void:
 
 func _throne_deal(idx: int) -> void:
 	if idx == 3:
-		toast("The crown finds your purse... light")
+		Stats.earn_souls(4)
+		_souls_l()
+		_quest_event("throne")
+		Sfx.play("soul")
+		toast("CLEAN HANDS — the crown pays +4 souls to the incorruptible")
 		return
 	if idx == 0:
 		if Stats.souls < _soul_cost(6):
