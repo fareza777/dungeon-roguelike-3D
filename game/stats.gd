@@ -470,7 +470,7 @@ func load_game() -> void:
 			traps_defused = int(d.get("traps_defused", 0))
 			wisps_caught = int(d.get("wisps_caught", 0))
 			prays = int(d.get("prays", 0))
-		oaths_sworn = int(d.get("oaths_sworn", 0))
+			oaths_sworn = int(d.get("oaths_sworn", 0))
 			forges_used = int(d.get("forges_used", 0))
 			ng_plus = int(d.get("ng_plus", 0))
 			tutorial_done = d.get("tutorial_done", false)
