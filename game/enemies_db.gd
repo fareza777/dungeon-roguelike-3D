@@ -32,6 +32,7 @@ const DB := {
 	"moth": {"glb": "Skeleton_Minion.glb", "hp": 1.2, "spd": 0.9, "dmg": 0, "windup": 0.4, "reach": 0.4, "aggro": 1.6, "xp": 2, "tint": Color(0.65, 0.75, 1.2), "scale": 0.6, "wisp_drop": true, "kb_resist": 0.0},
 	"hound": {"glb": "Skeleton_Rogue.glb", "hp": 1.6, "spd": 1.9, "dmg": 1, "windup": 0.22, "reach": 0.62, "aggro": 5.0, "xp": 2, "tint": Color(0.85, 0.8, 0.65), "scale": 0.75, "dash": true, "kb_resist": 0.0},
 	"duelist": {"glb": "Skeleton_Minion.glb", "hp": 3.2, "spd": 1.3, "dmg": 2, "windup": 0.35, "reach": 0.7, "aggro": 4.2, "xp": 5, "tint": Color(0.7, 0.85, 1.1), "scale": 1.0, "dash": true, "kb_resist": 0.2},
+	"orator": {"glb": "Skeleton_Minion.glb", "hp": 2.6, "spd": 0.8, "dmg": 1, "windup": 0.7, "reach": 0.7, "aggro": 5.0, "xp": 6, "tint": Color(1.0, 0.8, 0.4), "scale": 1.0, "orator": true, "kb_resist": 0.1},
 	# revenant — ksatria yang mati dua kali: nisannya harus dihancurkan atau ia bangkit
 	"revenant": {"glb": "Skeleton_Warrior.glb", "hp": 3.5, "spd": 0.8, "dmg": 1, "windup": 0.6, "reach": 0.8, "aggro": 4.0, "xp": 6, "tint": Color(0.65, 0.85, 0.7), "scale": 1.0, "kb_resist": 0.4, "revenant": true},
 	# maiden — pelayat berwajah porselen: tangis kematiannya membangunkan seluruh ruangan

@@ -60,7 +60,10 @@ var stun_t := 0.0
 var enraged := false
 var golden := false
 var nemesis := false
-var is_lurker := false # arketipe penyergap: sembunyi sampai pemain mendekat
+var is_lurker := false
+var orator := false
+var orator_t := 3.0
+var dmg_max := 0 # orator chant cap
 var is_slammer := false
 var wailer := false
 var wisp_drop := false
@@ -136,6 +139,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	is_hexer = bool(a.get("hexer", false))
 	is_spiky = bool(a.get("spiky", false))
 	is_lurker = bool(a.get("lurks", false))
+	orator = bool(a.get("orator", false))
 	is_slammer = bool(a.get("slams", false))
 	wailer = bool(a.get("wailer", false))
 	wisp_drop = bool(a.get("wisp_drop", false))
@@ -213,6 +217,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	scale = Vector3.ONE * sc
 	_base_scale = scale
 	hp_max = hp
+	dmg_max = dmg + 4
 	if elite:
 		print("SPAWN ELITE ", arch_id)
 	if is_boss:
@@ -369,6 +374,11 @@ func _physics_process(delta: float) -> void:
 			_burn_acc = 0.0
 			take_hit(global_position, maxf(1.0, hp_max * 0.06))
 			return
+	if orator and activated:
+		orator_t -= delta
+		if orator_t <= 0.0:
+			orator_t = 6.0
+			_orator_pulse()
 	if is_warper and activated:
 		warp_t -= delta
 		if warp_t <= 0.0:
@@ -718,6 +728,23 @@ func _explode() -> void:
 		mat.set_shader_parameter("flash", 1.0)
 	anim_lock = M.play_action(ap, ["death"], 1.2)
 	died.emit(self)
+
+
+func _orator_pulse() -> void:
+	# nyanyian perang: semua musuh di ruangan ini +1 dmg (hingga cap +4)
+	var mo := get_tree().current_scene
+	if mo != null and mo.has_method("_burst"):
+		mo._burst(global_position + Vector3(0, 0.6 * room_tile, 0), Color(1.0, 0.7, 0.3))
+	if mo != null and mo.has_method("_damage_number"):
+		mo._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "WAR CHANT!", Color(1.0, 0.75, 0.35), false)
+	Sfx.play("roar")
+	for e2 in get_tree().get_nodes_in_group("enemies"):
+		if e2 == self or not is_instance_valid(e2) or String(e2.get("state")) == "dead":
+			continue
+		if int(e2.get("room_idx")) != room_idx:
+			continue
+		if int(e2.get("dmg")) < int(e2.get("dmg_max")):
+			e2.dmg = int(e2.get("dmg")) + 1
 
 
 func _lurk_reveal() -> void:
