@@ -48,7 +48,7 @@ const LIST := [
 		"fog": Color(0.03, 0.1, 0.1), "fog_d": 0.032, "ambient": Color(0.18, 0.34, 0.32),
 		"sun": Color(0.6, 0.95, 0.9), "torch": Color(0.95, 0.8, 0.4), "torch_e": 1.3, "torch_r": 5.2,
 		"bg": Color(0.02, 0.05, 0.05),
-		"enemies": ["brute", "rogue", "archer", "bomber", "necromancer", "crawler", "gaoler", "weeper", "sentinel", "shade", "hexer", "spiker", "lurker", "golem", "maiden", "revenant", "shieldbearer", "herald", "batterer", "duelist", "moth", "orator", "crowned", "crowned", "tither", "tither", "digger", "drowned", "drowned", "keelhound", "keelhound", "maw", "maw", "mireling", "mireling", "keelbeak", "keelbeak", "bilge_witch", "bilge_witch", "rust_jaw", "rust_jaw", "salt_herald", "salt_herald"],
+		"enemies": ["brute", "rogue", "archer", "bomber", "necromancer", "crawler", "gaoler", "weeper", "sentinel", "shade", "hexer", "spiker", "lurker", "golem", "maiden", "revenant", "shieldbearer", "herald", "batterer", "duelist", "moth", "orator", "crowned", "crowned", "tither", "tither", "digger", "drowned", "drowned", "keelhound", "keelhound", "maw", "maw", "mireling", "mireling", "keelbeak", "keelbeak", "bilge_witch", "bilge_witch", "rust_jaw", "rust_jaw", "salt_herald", "salt_herald", "hull_widow", "hull_widow"],
 	},
 	{
 		"name": "The Abyss",
@@ -56,7 +56,7 @@ const LIST := [
 		"fog": Color(0.07, 0.04, 0.12), "fog_d": 0.03, "ambient": Color(0.2, 0.16, 0.38),
 		"sun": Color(0.85, 0.7, 1.0), "torch": Color(0.85, 0.5, 1.0), "torch_e": 1.4, "torch_r": 6.0,
 		"bg": Color(0.03, 0.02, 0.06),
-		"enemies": ["brute", "mage", "rogue", "archer", "bomber", "bomber", "necromancer", "necromancer", "crawler", "crawler", "crawler", "gaoler", "gaoler", "weeper", "sentinel", "shade", "shade", "hexer", "hexer", "spiker", "spiker", "lurker", "lurker", "golem", "golem", "maiden", "maiden", "revenant", "revenant", "shieldbearer", "shieldbearer", "herald", "batterer", "duelist", "hound", "hound", "moth", "orator", "crowned", "crowned", "tither", "digger", "siren", "siren", "gargoyle", "mireling", "mireling"],
+		"enemies": ["brute", "mage", "rogue", "archer", "bomber", "bomber", "necromancer", "necromancer", "crawler", "crawler", "crawler", "gaoler", "gaoler", "weeper", "sentinel", "shade", "shade", "hexer", "hexer", "spiker", "spiker", "lurker", "lurker", "golem", "golem", "maiden", "maiden", "revenant", "revenant", "shieldbearer", "shieldbearer", "herald", "batterer", "duelist", "hound", "hound", "moth", "orator", "crowned", "crowned", "tither", "digger", "siren", "siren", "gargoyle", "mireling", "mireling", "hull_widow"],
 	},
 ]
 
