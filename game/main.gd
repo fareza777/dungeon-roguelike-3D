@@ -2087,6 +2087,7 @@ func _spawn_vial(pos: Vector3) -> void:
 
 
 func _add_vial() -> void:
+	_quest_event("vial")
 	if vials >= 2:
 		# satchel penuh — langsung diminum di tempat
 		if player != null and is_instance_valid(player):
