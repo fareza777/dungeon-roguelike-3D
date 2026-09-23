@@ -1102,7 +1102,9 @@ func _spawn_shrine(last_room: int) -> void:
 	s.global_position = pos
 	# lantai 3+: 30% Mahzan; lantai 2+: 22% obelisk terkutuk; sisanya altar berkat
 	var skind := 0
-	if Stats.floor_num >= 7 and Stats.floor_num % 7 == 0:
+	if Stats.floor_num == 24:
+		skind = 1 # Mahzan selalu menjual sebelum takhta terakhir
+	elif Stats.floor_num >= 7 and Stats.floor_num % 7 == 0:
 		skind = 5 # lantai quest Bounty Hunter — batu kontrak terjamin
 	elif Stats.floor_num >= 10 and Stats.floor_num % 8 == 4:
 		skind = 6 # lantai quest Grave Robber — vault terjamin
