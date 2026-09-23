@@ -242,6 +242,7 @@ var bilge_iron := false
 var chorus_cut := false
 var greedy_tide := false
 var drift_wreck := false
+var long_watch := false
 var shoal_spd := false
 var dead_weight := false
 var hymn_delta := 0.0
@@ -983,6 +984,12 @@ func _apply_biome() -> void:
 		env.fog_light_color = Color(0.45, 0.4, 0.3)
 		env.ambient_light_color = Color(0.5, 0.45, 0.35)
 		sun.light_energy = 0.9
+	elif long_watch:
+		env.fog_light_color = Color(0.3, 0.4, 0.45)
+		env.ambient_light_color = Color(0.35, 0.45, 0.5)
+		sun.light_energy = 0.85
+		env.ambient_light_color = Color(0.5, 0.45, 0.35)
+		sun.light_energy = 0.9
 		env.ambient_light_color = Color(0.65, 0.6, 0.35)
 		sun.light_energy = 1.0
 		env.ambient_light_color = Color(0.5, 0.45, 0.4)
@@ -1357,7 +1364,13 @@ func _new_run(new_seed: int) -> void:
 	barnacle_bloom = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and not wolfsbane and not thin_veil and not low_water and not drift_tide and not soul_swarm and not gauntlet and not brisk and not shoal_tide and not salvage_tide and not gale_tide and not mercy_tide and not eel_tide and not swell_tide and not kelp_bed and Stats.floor_num >= 9 and not boss_floor and rng.randf() < 0.03
 	if barnacle_bloom:
 		Stats.event_soul_bonus = 1
-	drift_wreck = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and not wolfsbane and not thin_veil and not low_water and not drift_tide and not soul_swarm and not gauntlet and not brisk and not shoal_tide and not salvage_tide and not gale_tide and not mercy_tide and not eel_tide and not swell_tide and not kelp_bed and not barnacle_bloom and not sodden and not bile_tide and not mire_hollow and not dark_lantern and not halfwreck and not merchant_tide and not hungry_urns and not bilge_run and not pale_squall and not soul_flush and not kings_tithe and not black_calm and not gun_smoke and not greedy_tide and Stats.floor_num >= 6 and not boss_floor and rng.randf() < 0.03
+	long_watch = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and not wolfsbane and not thin_veil and not low_water and not drift_tide and not soul_swarm and not gauntlet and not brisk and not shoal_tide and not salvage_tide and not gale_tide and not mercy_tide and not eel_tide and not swell_tide and not kelp_bed and not barnacle_bloom and not sodden and not bile_tide and not mire_hollow and not dark_lantern and not halfwreck and not merchant_tide and not hungry_urns and not bilge_run and not pale_squall and not soul_flush and not kings_tithe and not black_calm and not gun_smoke and not greedy_tide and not drift_wreck and Stats.floor_num >= 9 and not boss_floor and rng.randf() < 0.03
+	if long_watch:
+		Stats.event_soul_bonus = 2
+		Stats.buff_speed_pct += 0.1
+		if player != null and is_instance_valid(player):
+			player.refresh_stats()
+	drift_wreck = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and not wolfsbane and not thin_veil and not low_water and not drift_tide and not soul_swarm and not gauntlet and not brisk and not shoal_tide and not salvage_tide and not gale_tide and not mercy_tide and not eel_tide and not swell_tide and not kelp_bed and not barnacle_bloom and not sodden and not bile_tide and not mire_hollow and not dark_lantern and not halfwreck and not merchant_tide and not hungry_urns and not bilge_run and not pale_squall and not soul_flush and not kings_tithe and not black_calm and not gun_smoke and not greedy_tide and not long_watch and Stats.floor_num >= 6 and not boss_floor and rng.randf() < 0.03
 	if drift_wreck:
 		Stats.event_soul_bonus = 1
 	greedy_tide = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and not wolfsbane and not thin_veil and not low_water and not drift_tide and not soul_swarm and not gauntlet and not brisk and not shoal_tide and not salvage_tide and not gale_tide and not mercy_tide and not eel_tide and not swell_tide and not kelp_bed and not barnacle_bloom and not sodden and not bile_tide and not mire_hollow and not dark_lantern and not halfwreck and not merchant_tide and not hungry_urns and not bilge_run and not pale_squall and not soul_flush and not kings_tithe and not black_calm and not gun_smoke and not drift_wreck and Stats.floor_num >= 8 and not boss_floor and rng.randf() < 0.03
@@ -1501,7 +1514,7 @@ func _new_run(new_seed: int) -> void:
 	dead_weight = not choir and not dread_tide and not starved_deep and not abyssal_hymn and not dead_calm and not boss_floor and Stats.floor_num >= 14 and rng.randf() < 0.08
 	Stats.dead_weight = dead_weight
 	shell_game = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not umbral_tide and not abyssal_patience and not choir and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
-	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe", "tar_smear", "black_calm", "bilge_iron", "gun_smoke", "greedy_tide", "drift_wreck", "chorus_cut"]:
+	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe", "tar_smear", "black_calm", "bilge_iron", "gun_smoke", "greedy_tide", "drift_wreck", "chorus_cut", "long_watch"]:
 		if get(evf):
 			events_run[evf] = true
 			break
@@ -1814,6 +1827,10 @@ func _new_run(new_seed: int) -> void:
 		_lvl_banner("≋ GREEDY TIDE — EVERY PRICE SOFTENS")
 	elif drift_wreck:
 		_lvl_banner("≋ DRIFT WRECK — THE SEA GIVES BACK")
+	elif long_watch:
+		_lvl_banner("≋ LONG WATCH — THE DEAD SEE FAR")
+		toast("The dead spot you sooner (+40% aggro) • your feet answer +10% faster • the floor tithes +2")
+		Sfx.play("souls")
 		toast("The wreck scatters its cargo — urns abound • the floor tithes +1")
 		Sfx.play("souls")
 		toast("All soul prices −20% this floor • the floor tithes +1")
@@ -2239,6 +2256,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 	if tar_smear and not e.is_boss:
 		e.speed *= 0.9
 	# bilge_iron: +2 armor via Stats.buff_armor
+	if long_watch:
+		e.aggro_range = float(e.aggro_range) * 1.4
 	if gun_smoke and not e.is_boss and bool(e.get("ranged")):
 		e.windup_t = float(e.windup_t) * 0.7
 	if black_calm and not e.is_boss:
@@ -3757,6 +3776,11 @@ func _on_enemy_died(e) -> void:
 				_souls_l()
 				Stats.save_game()
 				toast("≋ WRECK TITHE — +1 soul")
+			elif long_watch:
+				Stats.earn_souls(2)
+				_souls_l()
+				Stats.save_game()
+				toast("≋ WATCH TITHE — +2 souls")
 			elif low_tide:
 				Stats.earn_souls(3)
 				_souls_l()
@@ -3900,6 +3924,8 @@ func _on_enemy_died(e) -> void:
 				_quest_event("greedywalk")
 			if drift_wreck:
 				_quest_event("wreckwalk2")
+			if long_watch:
+				_quest_event("watchwalk")
 				_ach("smokedout")
 			if dark_water:
 				_quest_event("darkwalk")
@@ -10309,6 +10335,8 @@ func _refresh_buffs() -> void:
 		list.append(["≋ GREEDY", Color(0.75, 0.7, 0.4)])
 	elif drift_wreck:
 		list.append(["≋ WRECK", Color(0.6, 0.55, 0.45)])
+	elif long_watch:
+		list.append(["≋ WATCH", Color(0.5, 0.6, 0.7)])
 	if Stats.soul_sealed:
 		list.append(["PRICE", Color(0.9, 0.2, 0.25)])
 	if Stats.curse_dmg > 0.0:

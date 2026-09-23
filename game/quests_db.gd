@@ -89,6 +89,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Commuter of the Dead", "desc": "Let the Ferryman carry you (0/1)", "kind": "ferry", "need": 1})
 	if Stats.floor_num >= 14 and Stats.floor_num % 8 == 6:
 		steps.append({"title": "Shattered Glass", "desc": "Slay 2 MIRRORHIDE elites (0/2)", "kind": "affix_mirrorhide", "need": 2})
+		steps.append({"title": "Night Watchman", "desc": "Clear 2 LONG WATCH floors (0/2)", "kind": "watchwalk", "need": 2})
 		steps.append({"title": "Wreck Scavenger", "desc": "Clear 2 DRIFT WRECK floors (0/2)", "kind": "wreckwalk2", "need": 2})
 		steps.append({"title": "Peal Ringer", "desc": "Slay 5 foes with Chimecleaver (0/5)", "kind": "kill_chimecleaver", "need": 5})
 		steps.append({"title": "Bell Silencer", "desc": "Slay 4 Chimeheads (0/4)", "kind": "chime_kill", "need": 4})
