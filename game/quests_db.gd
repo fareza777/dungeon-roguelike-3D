@@ -107,6 +107,8 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Deep Pockets", "desc": "Offer the Well three tosses in one visit (0/1)", "kind": "deep_pockets", "need": 1})
 	if Stats.floor_num >= 14 and Stats.floor_num % 8 == 6:
 		steps.append({"title": "Dethroned", "desc": "Cut down a Crowned paladin (0/2)", "kind": "crowned_kill", "need": 2})
+	if Stats.floor_num >= 16 and Stats.floor_num % 12 == 8:
+		steps.append({"title": "Thirsting", "desc": "Drink from a Soul Fountain (0/1)", "kind": "fountain", "need": 1})
 	if Stats.floor_num >= 18 and Stats.floor_num % 11 == 7:
 		steps.append({"title": "Steel Scrounger", "desc": "Take a blade from a Scavenger's Cache (0/1)", "kind": "cache", "need": 1})
 	if Stats.floor_num >= 7 and Stats.floor_num % 7 == 0:

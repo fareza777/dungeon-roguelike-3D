@@ -1350,16 +1350,20 @@ func _spawn_shrine(last_room: int) -> void:
 		skind = 7 # lantai quest Commuter — ferryman terjamin
 	elif Stats.floor_num >= 11 and Stats.floor_num % 9 == 5:
 		skind = 8 # Gambler's Well terjamin di lantai %9==5
-	elif Stats.floor_num >= 10 and rng.randf() < 0.08:
-		skind = 8
 	elif Stats.floor_num >= 13 and Stats.floor_num % 11 == 7:
 		skind = 9 # Scavenger's Cache terjamin di lantai %11==7
-	elif Stats.floor_num >= 12 and rng.randf() < 0.07:
-		skind = 9
-	elif Stats.floor_num >= 9 and rng.randf() < 0.1:
-		skind = 6
+	elif Stats.floor_num >= 16 and Stats.floor_num % 12 == 8:
+		skind = 10 # Soul Fountain terjamin di lantai %12==8
 	elif Stats.floor_num >= 5 and Stats.floor_num % 5 == 1:
 		skind = 3 # lantai quest Forge-Fed — soul forge terjamin
+	elif Stats.floor_num >= 10 and rng.randf() < 0.08:
+		skind = 8
+	elif Stats.floor_num >= 12 and rng.randf() < 0.07:
+		skind = 9
+	elif Stats.floor_num >= 14 and rng.randf() < 0.06:
+		skind = 10
+	elif Stats.floor_num >= 9 and rng.randf() < 0.1:
+		skind = 6
 	elif Stats.floor_num >= 7 and rng.randf() < 0.1:
 		skind = 5
 	elif Stats.floor_num >= 6 and rng.randf() < 0.12:
@@ -1398,6 +1402,8 @@ func _spawn_shrine(last_room: int) -> void:
 			s.invoked.connect(_on_well_invoked)
 		9:
 			s.invoked.connect(_on_cache_invoked)
+		10:
+			s.invoked.connect(_on_fountain_invoked)
 		_:
 			s.invoked.connect(_on_shrine_invoked)
 
@@ -3564,6 +3570,10 @@ func _on_dlg_choice(idx: int) -> void:
 		dlg_pending_choice = -1
 		_cache_deal(idx)
 		return
+	elif dlg_pending_choice == 13:
+		dlg_pending_choice = -1
+		_fountain_deal(idx)
+		return
 	match idx:
 		0:
 			Stats.buff_atk_pct += 0.15
@@ -4272,6 +4282,49 @@ func _cache_deal(idx: int) -> void:
 	_quest_event("cache")
 
 
+func _on_fountain_invoked(s) -> void:
+	shrine_used = true
+	s.consume()
+	Sfx.play("shrine")
+	dlg_pending_choice = 13
+	_say([{"who": "oracle", "text": "A Soul Fountain, Kael — old magic pooled into stone. Its water remembers being alive."},
+		{"who": "mahzan", "text": "Free healing, if you can believe it. The dungeon must be feeling generous. Drink deep."}],
+		[{"text": "Drink — mend half your wounds (free)"},
+		{"text": "Pour an offering — pay 4 souls: heal fully + wash away curses"},
+		{"text": "Leave it still"}])
+
+
+func _fountain_deal(idx: int) -> void:
+	if idx == 2:
+		toast("The fountain's surface settles")
+		return
+	if idx == 1:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls for a full cup — the fountain doesn't beg")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		if player != null and is_instance_valid(player):
+			player.hp = Stats.get_stat("max_hp")
+			player.hex_t = 0.0
+			player.chilled_t = 0.0
+			player.sunder_t = 0.0
+			player.hp_changed.emit(player.hp)
+		Sfx.play("shrine")
+		toast("The water runs silver — fully mended, curses lifted")
+		_quest_event("fountain")
+	elif idx == 0:
+		if player != null and is_instance_valid(player):
+			player.hp = minf(player.hp + Stats.get_stat("max_hp") * 0.5, Stats.get_stat("max_hp"))
+			player.hp_changed.emit(player.hp)
+			_souls(player.global_position, 5, Color(0.35, 0.95, 0.85))
+		Sfx.play("shrine")
+		toast("Cold light settles into your wounds — +50% HP")
+		_quest_event("fountain")
+	if player != null and is_instance_valid(player):
+		_burst(player.global_position + Vector3(0, 0.4, 0), Color(0.35, 0.95, 0.85))
+
+
 func _on_vault_invoked(s) -> void:
 	shrine_used = true
 	s.consume()
@@ -4840,7 +4893,7 @@ func _build_minimap() -> void:
 	# penanda altar (cyan), batu lore (ungu), dan tujuan akhir lantai (emas besar)
 	if shrine_ref != null and is_instance_valid(shrine_ref):
 		var sd := ColorRect.new()
-		sd.color = [Color(1.0, 0.8, 0.3), Color(0.45, 0.65, 1.0), Color(1.0, 0.2, 0.15), Color(1.0, 0.55, 0.15), Color(0.55, 0.75, 1.0), Color(1.0, 0.5, 0.1), Color(0.95, 0.85, 0.3), Color(0.4, 0.55, 1.0), Color(0.7, 0.95, 0.25), Color(0.85, 0.6, 0.3)][shrine_kind]
+		sd.color = [Color(1.0, 0.8, 0.3), Color(0.45, 0.65, 1.0), Color(1.0, 0.2, 0.15), Color(1.0, 0.55, 0.15), Color(0.55, 0.75, 1.0), Color(1.0, 0.5, 0.1), Color(0.95, 0.85, 0.3), Color(0.4, 0.55, 1.0), Color(0.7, 0.95, 0.25), Color(0.85, 0.6, 0.3), Color(0.35, 0.95, 0.85)][shrine_kind]
 		sd.size = Vector2(5, 5)
 		sd.position = _map_pos(shrine_ref.global_position, sc)
 		mv.add_child(sd)
