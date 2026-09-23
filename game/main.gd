@@ -2681,6 +2681,7 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.15
 			oname = "ECLIPSE"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
+	_ach("omen1")
 	Sfx.play("shrine")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
@@ -2791,6 +2792,7 @@ func _mahzan_deal(idx: int) -> void:
 				Stats.remove_relic(rid3)
 				Stats.souls += 10
 				_souls_l()
+				_ach("pawn1")
 				toast("Pawned %s for +10 souls" % String(ITEMS.DB[rid3]["name"]))
 				if rid3 == "tulang_kesatria" and squire_ref != null and is_instance_valid(squire_ref):
 					_souls(squire_ref.global_position, 8, Color(0.9, 0.85, 0.5))

@@ -98,6 +98,8 @@ const ACH_DEF := {
 	"hex1": "Hex Plunderer (cracked a Cursed Chest)",
 	"nem1": "Debt Collector (slew your nemesis)",
 	"trap5": "Saboteur (defused 5 traps)",
+	"omen1": "Oathbound (swore an Omen)",
+	"pawn1": "Pawn Star (sold a relic to Mahzan)",
 }
 
 const META_DEF := {
