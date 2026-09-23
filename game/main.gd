@@ -2444,6 +2444,8 @@ func _on_enemy_died(e) -> void:
 	Sfx.play("death")
 	kills_run += 1
 	floor_kills += 1
+	if floor_kills == 30:
+		_ach("toothdeck")
 	Stats.arch_kills[String(e.arch_id)] = int(Stats.arch_kills.get(String(e.arch_id), 0)) + 1
 	if kills_run == 1:
 		# FIRST BLOOD — kill pertama tiap run langsung menghangatkan kombo
