@@ -4408,6 +4408,10 @@ func _on_dlg_choice(idx: int) -> void:
 		23:
 			lookout = true
 			toast("Lookout: spotting a new foe kind pays +1 soul")
+		24:
+			Stats.buff_armor += 1
+			Stats.buff_speed_pct -= 0.05
+			toast("Ironwood Hull: +1 Armor, but the keel drags (−5% speed)")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -5875,6 +5879,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Deadweight — your HEAVY hits drag foes to half speed for 2s"},
 			{"text": "Undertow Grip — your pulls reach half again as far"},
 			{"text": "Lookout — the first sight of each foe kind pays +1 soul"},
+			{"text": "Ironwood Hull — +1 Armor, −5% speed"},
 		]
 	)
 
