@@ -100,7 +100,7 @@ var bestiary := {} # arch_id -> jumlah kill sepanjang masa (codex)
 var weapon_kills := {} # weapon_id -> kill sepanjang masa (mastery progress)
 var mastered := {} # weapon_id -> 1 bila mastery tercapai (+1 ATK permanen)
 const MASTERY_N := 25
-var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0, "reckon": 0, "keelcap": 0, "shepherd": 0, "captain": 0, "quarter": 0, "purse": 0, "carto": 0, "sealegs": 0, "scribe": 0, "salvor": 0, "deckhand": 0, "powdermonk": 0}
+var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0, "reckon": 0, "keelcap": 0, "shepherd": 0, "captain": 0, "quarter": 0, "purse": 0, "carto": 0, "sealegs": 0, "scribe": 0, "salvor": 0, "deckhand": 0, "powdermonk": 0, "netmend": 0}
 
 const ACH_DEF := {
 	"kill1": "First Bloodbath",
@@ -238,6 +238,7 @@ const META_DEF := {
 	"salvor": {"name": "Salvor's Eye", "max": 3, "desc": "+4% souls earned per level"},
 	"deckhand": {"name": "Old Deckhand", "max": 5, "desc": "+2% attack damage per level"},
 	"powdermonk": {"name": "Powder Monkey", "max": 5, "desc": "-3% skill cooldowns per level"},
+	"netmend": {"name": "Net Mender", "max": 5, "desc": "+2% soul vial drop chance per level"},
 }
 
 # dipakai menu -> game
@@ -538,7 +539,7 @@ func wipe_progress() -> void:
 	bestiary = {}
 	weapon_kills = {}
 	mastered = {}
-	meta = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0, "reckon": 0, "keelcap": 0, "shepherd": 0, "captain": 0, "quarter": 0, "purse": 0, "carto": 0, "sealegs": 0, "scribe": 0, "salvor": 0, "deckhand": 0, "powdermonk": 0}
+	meta = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0, "reckon": 0, "keelcap": 0, "shepherd": 0, "captain": 0, "quarter": 0, "purse": 0, "carto": 0, "sealegs": 0, "scribe": 0, "salvor": 0, "deckhand": 0, "powdermonk": 0, "netmend": 0}
 	reset_run()
 	save_game()
 

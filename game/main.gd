@@ -2813,7 +2813,7 @@ func _on_enemy_died(e) -> void:
 	Stats.bestiary[e.arch_id] = int(Stats.bestiary.get(e.arch_id, 0)) + 1
 	if Stats.bestiary.size() >= BESTIARY.size():
 		_ach("scholar")
-	if rng.randf() < 0.05:
+	if rng.randf() < 0.05 + 0.02 * float(Stats.meta.get("netmend", 0)):
 		_spawn_vial(e.global_position)
 	if bool(e.get("nemesis")):
 		Stats.nemesis = ""
