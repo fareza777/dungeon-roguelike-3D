@@ -96,6 +96,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Hooked", "desc": "Slay 5 foes with Keelhook (0/5)", "kind": "kill_keelhook", "need": 5})
 		steps.append({"title": "Cull Picker", "desc": "Clear 2 HALFWAY DEAD floors (0/2)", "kind": "cullwalk", "need": 2})
 		steps.append({"title": "True Bearing", "desc": "Slay 5 foes with Sextant Edge (0/5)", "kind": "kill_sextant_edge", "need": 5})
+		steps.append({"title": "Eel Sauce", "desc": "Slay 4 Wrack Eels (0/4)", "kind": "eel_kill", "need": 4})
 		steps.append({"title": "Hook Dodger", "desc": "Slay 4 Hookfins (0/4)", "kind": "hookfin_kill", "need": 4})
 		steps.append({"title": "Death Chaplain", "desc": "Slay a Gutter Chaplain, a Bell Warden and a Salt Leech in one run", "kind": "chaplain_kill", "need": 2})
 		steps.append({"title": "Vein Tapping", "desc": "Clear 2 RICH VEIN floors (0/2)", "kind": "veinwalk", "need": 2})

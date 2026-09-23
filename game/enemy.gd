@@ -85,6 +85,10 @@ var chap_t := 0.0
 var warden_bell := false
 var bell_t := 0.0
 var hookshot := false
+var eel := false
+var eel_t := 0.0
+var eel_dash_t := 0.0
+var eel_dir := Vector3.ZERO
 var chime_t := 7.0
 var husk_shell := false
 var cantor_t := 6.5
@@ -212,6 +216,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	chaplain = bool(a.get("chaplain", false))
 	warden_bell = bool(a.get("warden_bell", false))
 	hookshot = bool(a.get("hookshot", false))
+	eel = bool(a.get("eel", false))
 	healer = bool(a.get("healer", false))
 	crowned = bool(a.get("crowned", false))
 	tither = bool(a.get("tither", false))
@@ -802,7 +807,19 @@ func _physics_process(delta: float) -> void:
 				# mage mundur kalau player terlalu dekat
 				elif ranged and dist < prefer_range * 0.55:
 					dir = -dir
-				velocity = dir * speed * (0.5 if slow_t > 0.0 else 1.0) + _separation() + kb
+				var mv_: Vector3 = dir * speed * (0.5 if slow_t > 0.0 else 1.0)
+				if eel:
+					eel_t -= delta
+					if eel_t <= 0.0 and dist < 2.4 * room_tile and dist > engage * 1.2:
+						eel_t = 2.5
+						eel_dash_t = 0.35
+						eel_dir = dir
+						if mat != null:
+							mat.set_shader_parameter("flash", 0.5)
+					if eel_dash_t > 0.0:
+						eel_dash_t -= delta
+						mv_ = eel_dir * speed * 3.2
+				velocity = mv_ + _separation() + kb
 				if anim_lock <= 0.0:
 					M.play_fuzzy(ap, ["run", "walk"])
 		"windup":
