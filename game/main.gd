@@ -155,6 +155,7 @@ var ferry_extra := 0
 var _ferry_used := false
 var lanterns: Array = []
 var lantern_healed := 0.0
+var gravetide := false
 var skill_used_floor := false
 var rooms_cleared := 0
 var storm_t := 0.0
@@ -615,6 +616,7 @@ func _reset_run_state() -> void:
 	nemesis_warned = false
 	ferry_extra = 0
 	_ferry_used = false
+	gravetide = false
 
 
 func _new_run(new_seed: int) -> void:
@@ -2121,6 +2123,9 @@ func _on_enemy_died(e) -> void:
 					player.hp = minf(player.hp + vheal, Stats.get_stat("max_hp"))
 					player.hp_changed.emit(player.hp)
 					toast("♛ Sir Vane's salute — +8% HP")
+			if gravetide:
+				Stats.souls += 2
+				_souls_l()
 			Stats.note_floor()
 			Stats.save_run()
 			for gi in gates:
@@ -3596,6 +3601,7 @@ func _offer_omens() -> void:
 			{"text": "HOLLOW CROWN — +40% ATK, but every relic melts into +3 souls"},
 			{"text": "SPITEFUL — each of your kills wounds a nearby foe for 1 HP"},
 			{"text": "KAEL'S WAGER — every soul is doubled... but you live on a single drop of blood"},
+			{"text": "GRAVETIDE — +2 souls at every floor's end, but the dead grow +10% tougher"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -3628,7 +3634,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 26 if Stats.nemesis != "" else 25
+	var osize := 27 if Stats.nemesis != "" else 26
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -3748,6 +3754,10 @@ func _omen_deal(idx: int) -> void:
 				player.hp_changed.emit(player.hp)
 			oname = "KAEL'S WAGER"
 		25:
+			gravetide = true
+			omen_hp_mult += 0.1
+			oname = "GRAVETIDE"
+		26:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -3797,6 +3807,7 @@ func _omen_deal(idx: int) -> void:
 		"HOLLOW CROWN": "Crown of nothing. The Oracle admires your appetite anyway.",
 		"SPITEFUL": "Your hate is contagious, Kael. The dead will share it.",
 		"KAEL'S WAGER": "A king's ransom on a single heartbeat. Even the Oracle holds her breath.",
+		"GRAVETIDE": "The tide comes in for you, Kael — and everything it carries is hungry.",
 		"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 	}
 	var rline: String = String(reacts.get(oname, "An oath is an oath."))
