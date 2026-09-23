@@ -3594,7 +3594,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Tempest Blessing — +20% Skill Recharge this run"},
 			{"text": "Grave Tithe — +1 soul per kill this run"},
 			{"text": "Tempo's Grace — combos linger 40% longer this run"},
-			{"text": "Bone Wrap — the first trap hit each floor does nothing"},
+			{"text": "Bone Wrap — the next trap hit does nothing (stacks)"},
 		]
 	)
 
