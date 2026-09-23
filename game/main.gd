@@ -4101,7 +4101,7 @@ func _cast_skill(id: String) -> void:
 			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "ANCHOR DROP! ×%d" % ahits, Color(0.4, 0.7, 1.0), true)
 			print("SKILL anchordrop hits=%d" % ahits)
 		"soulfall":
-			var cost := player.hp * 0.15
+			var cost: float = float(player.hp) * 0.15
 			if player.hp - cost < 1.0:
 				toast("Too weak to pay the Soulfall")
 				Sfx.play("deny")
@@ -4109,7 +4109,7 @@ func _cast_skill(id: String) -> void:
 			player.hp -= cost
 			player.hp_changed.emit(player.hp)
 			Sfx.play("thunder")
-			var fdmg := cost * 2.0
+			var fdmg: float = cost * 2.0
 			var fhits := 0
 			for f6 in get_tree().get_nodes_in_group("enemies"):
 				if f6.get("state") == "dead" or not bool(f6.get("activated")):
