@@ -149,6 +149,7 @@ var lonecrown := false
 var lc_delta := 0.0
 var wolf_n := 0
 var omen_count := 0
+var wellread := false
 var omen_refusals := 0
 var bargainer := false
 var bargain_used := false
@@ -637,6 +638,7 @@ func _reset_run_state() -> void:
 	ferry_extra = 0
 	_ferry_used = false
 	gravetide = false
+	wellread = false
 	flawless_run = 0
 	well_rolls = 0
 	if trial_atk_t > 0.0:
@@ -1677,6 +1679,9 @@ func _on_lore_stone(s) -> void:
 			_ach("lore32")
 		elif Stats.lore_seen.size() >= 10:
 			_ach("lore10")
+	if wellread:
+		Stats.souls += 1
+		_souls_l()
 	_say([{"who": "oracle", "text": line}])
 
 
@@ -3751,6 +3756,7 @@ func _offer_omens() -> void:
 			{"text": "KAEL'S WAGER — every soul is doubled... but you live on a single drop of blood"},
 			{"text": "GRAVETIDE — +2 souls at every floor's end, but the dead grow +10% tougher"},
 			{"text": "MARROW PACT — fortify: +2 armor... but your blood thins (−20% Max HP)"},
+			{"text": "WELLREAD — every lore stone also pays 1 soul... but the Oracle's voice grows faint"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -3783,7 +3789,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 28 if Stats.nemesis != "" else 27
+	var osize := 29 if Stats.nemesis != "" else 28
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -3911,6 +3917,9 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_maxhp_pct -= 0.2
 			oname = "MARROW PACT"
 		27:
+			wellread = true
+			oname = "WELLREAD"
+		28:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -3963,6 +3972,7 @@ func _omen_deal(idx: int) -> void:
 		"GRAVETIDE": "The tide comes in for you, Kael — and everything it carries is hungry.",
 		"MARROW PACT": "Bone will have to do what blood cannot. The King respects a thrifty heart.",
 		"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
+		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 	}
 	var rline: String = String(reacts.get(oname, "An oath is an oath."))
 	_say([{"who": "oracle", "text": rline}])
