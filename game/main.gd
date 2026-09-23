@@ -157,6 +157,7 @@ var sunken_tide := false
 var low_tide := false
 var glass_sea := false
 var abyssal_hymn := false
+var dead_calm := false
 var hymn_delta := 0.0
 var rotgut_drunk := false
 var pale_drunk := false
@@ -975,6 +976,9 @@ func _new_run(new_seed: int) -> void:
 	starved_deep = not dread_tide and not boss_floor and Stats.floor_num >= 13 and rng.randf() < 0.13
 	choir = not dread_tide and not starved_deep and not boss_floor and Stats.floor_num >= 13 and rng.randf() < 0.12
 	abyssal_hymn = not choir and not dread_tide and not starved_deep and not boss_floor and Stats.floor_num >= 13 and rng.randf() < 0.08
+	dead_calm = not choir and not dread_tide and not starved_deep and not abyssal_hymn and not boss_floor and Stats.floor_num >= 13 and rng.randf() < 0.07
+	if dead_calm:
+		Stats.event_soul_bonus = 1
 	if abyssal_hymn:
 		Stats.event_soul_bonus = 1
 	shell_game = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not umbral_tide and not abyssal_patience and not choir and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
@@ -1604,6 +1608,8 @@ func _dig_trap(pos: Vector3) -> void:
 
 
 func _spawn_traps(last_room: int) -> void:
+	if dead_calm:
+		return
 	var count: int = mini(maxi(Stats.floor_num - 1, 0), 3) + (2 if muckraker else 0)
 	for i in range(count):
 		var ri: int = rng.randi_range(1, last_room)
@@ -6003,6 +6009,8 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 				evline = "Hear it, swordsman — the choir below rehearses your funeral song. Their aim is... inspired."
 			elif abyssal_hymn:
 				evline = "One voice beneath the rest, Kael — a hymn that turns your legs to lead. But the dead pay in full tonight."
+			elif dead_calm:
+				evline = "Flat water, Kael — even the traps have fallen asleep. Walk soft; it's a mercy that won't last."
 			elif sunken_tide:
 				evline = "The water is rising through the graves, Kael — the drowned will come slow, but they come rich."
 			elif wolfsbane:
@@ -7336,6 +7344,8 @@ func _refresh_buffs() -> void:
 		list.append(["☗ CHOIR", Color(0.6, 0.45, 0.9)])
 	elif abyssal_hymn:
 		list.append(["☗ HYMN", Color(0.5, 0.7, 1.0)])
+	elif dead_calm:
+		list.append(["≈ CALM", Color(0.55, 0.85, 0.9)])
 	elif wolfsbane:
 		list.append(["☽ PACK", Color(0.65, 0.7, 0.95)])
 	if Stats.soul_sealed:
