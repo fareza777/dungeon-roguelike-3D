@@ -25,6 +25,7 @@ const DB := {
 	"hexer": {"glb": "Skeleton_Mage.glb", "hp": 3.0, "spd": 0.85, "dmg": 1, "windup": 0.6, "reach": 2.6, "prefer": 2.5, "aggro": 4.2, "xp": 4, "tint": Color(1.15, 0.35, 0.5), "scale": 1.0, "ranged": true, "proj_speed": 3.0, "hexer": true, "kb_resist": 0.0},
 	# spiker — mayat berduri: pukulan jarak dekat melukai penyerangnya
 	"spiker": {"glb": "Skeleton_Minion.glb", "hp": 2.6, "spd": 1.15, "dmg": 1, "windup": 0.55, "reach": 0.9, "aggro": 4.0, "xp": 4, "tint": Color(1.0, 0.7, 0.25), "scale": 0.95, "kb_resist": 0.3, "spiky": true},
+	"golem": {"glb": "Skeleton_Warrior.glb", "hp": 7.0, "spd": 0.6, "dmg": 3, "windup": 0.7, "reach": 1.0, "aggro": 4.5, "xp": 12, "tint": Color(0.55, 0.5, 0.45), "scale": 1.55, "kb_resist": 0.85, "slams": true},
 	# lurker — penunggu kegelapan: tak terlihat sampai pemain mendekat, lalu menerkam
 	"lurker": {"glb": "Skeleton_Rogue.glb", "hp": 2.2, "spd": 1.5, "dmg": 1, "windup": 0.3, "reach": 0.65, "aggro": 5.0, "xp": 4, "tint": Color(0.75, 0.7, 1.05), "scale": 0.95, "kb_resist": 0.0, "lurks": true},
 	# BOSS: Raja Tulang — tiap lantai kelipatan 5

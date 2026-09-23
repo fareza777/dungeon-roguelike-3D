@@ -61,6 +61,7 @@ var enraged := false
 var golden := false
 var nemesis := false
 var is_lurker := false # arketipe penyergap: sembunyi sampai pemain mendekat
+var is_slammer := false # golem: pukulannya mengguncang tanah di radius lebar
 var lurk_revealed := false
 var lurk_warned := false
 var model_ref: Node3D = null
@@ -128,6 +129,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	is_hexer = bool(a.get("hexer", false))
 	is_spiky = bool(a.get("spiky", false))
 	is_lurker = bool(a.get("lurks", false))
+	is_slammer = bool(a.get("slams", false))
 	if is_summoner:
 		summon_t = 9.0
 	var sc: float = a["scale"]
@@ -492,6 +494,8 @@ func _physics_process(delta: float) -> void:
 							dto.y = 0
 							if dto.length() < attack_range * 1.3:
 								q.take_hit(global_position, dmg)
+								if is_slammer:
+									_shock()
 								if jailer and q.get("dead") != true:
 									q.set("root_t", 1.2)
 									var mm3 := get_tree().current_scene
