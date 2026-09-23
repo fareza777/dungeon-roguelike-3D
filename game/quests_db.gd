@@ -177,6 +177,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Short Handed", "desc": "Clear a floor under a SKELETON CREW oath (0/1)", "kind": "crewfloor", "need": 1})
 		steps.append({"title": "Scuttlebutt", "desc": "Hear Sir Vane's war stories (0/3)", "kind": "vane_bark", "need": 3})
 		steps.append({"title": "Moonbather", "desc": "Drink from a Moonpool shrine (0/1)", "kind": "moonpool", "need": 1})
+		steps.append({"title": "Keel Smoked", "desc": "Slay 4 foes with the Tidebrand (0/4)", "kind": "kill_tidebrand", "need": 4})
 	if Stats.floor_num == 11:
 		steps.append({"title": "Soul Fisher", "desc": "Net three drifting wisps (0/3)", "kind": "wisp", "need": 3})
 	if Stats.floor_num >= 13 and Stats.floor_num % 8 == 5:
