@@ -152,6 +152,7 @@ const ACH_DEF := {
 	"abyss3": "Void Shepherd (cleared 3 Abyss floors in one run)",
 	"wellread": "Well Read (read 5 lore stones in one run)",
 	"keelhaul5": "Catch & Release (keelhauled 5 foes at once)",
+	"bombsquad": "Bomb Squad (disarmed 5 traps in one run)",
 	"pilgrim": "Pilgrim (10 shrine visits in one run)",
 	"seaworthy": "Seaworthy (drank the Drowned Tithe)",
 	"drowned20": "Drowned Court (20 kills under the Sunken Tide)",

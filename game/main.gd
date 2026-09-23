@@ -183,6 +183,7 @@ var crown_oath := false
 var pinch_n := 0
 var abyss_n := 0
 var lore_run := 0
+var disarm_run := 0
 var shellshield_used := false
 var tithe_armor := 0.0
 var tide_kills := 0
@@ -725,6 +726,7 @@ func _reset_run_state() -> void:
 	pinch_n = 0
 	abyss_n = 0
 	lore_run = 0
+	disarm_run = 0
 	shellshield_used = false
 	perfect_dodges = 0
 	leech_charge = 0
@@ -3915,6 +3917,9 @@ func _quest_event(kind: String, num: int = 1) -> void:
 	# total per-kind dihitung apa pun langkah aktifnya — langkah berurutan
 	# tidak boleh kehilangan progres yang terjadi sebelum gilirannya
 	if kind == "trap_disarm":
+		disarm_run += 1
+		if disarm_run >= 5:
+			_ach("bombsquad")
 		if Stats.relics.has("bone_tithe"):
 			tithe_armor += 1.0
 			Stats.buff_armor += 1
