@@ -33,7 +33,7 @@ const DB := {
 	"moonshell": {"name": "Moonshell", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.6, 0.75, 1.1), "mods": {"atk": 1.6}, "desc": "+1.6 ATK. THRALL: 15% of your kills rise to fight for you for 4s."},
 	"kingfisher": {"name": "Kingfisher", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.3, 0.9, 0.85), "mods": {"atk": 1.5, "aspd": 0.08}, "desc": "+1.5 ATK, +8% Atk Spd. DIVE: every kill cuts your dash cooldown by 0.5s."},
 	"tidebrand": {"name": "Tidebrand", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.85, 0.7, 0.3), "mods": {"atk": 1.8}, "desc": "+1.8 ATK. SALVAGE: killing a foe under 30% HP pays +1 soul."},
-	"driftnet": {"name": "Driftnet", "atk": 1.4, "spd": -0.06, "proc": "NETS: every 4th strike tangles the foe — −40% speed for 2s"},
+	"driftnet": {"name": "Driftnet", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.45, 0.8, 0.55), "mods": {"atk": 1.4, "speed_pct": -0.06}, "desc": "+1.4 ATK, −6% Speed. NETS: every 4th strike tangles the foe — slowed for 2s."},
 	"harpoon": {"name": "Harpoon", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.5, 0.75, 0.95), "mods": {"atk": 1.6, "speed_pct": -0.04}, "desc": "+1.6 ATK, −4% Speed. REACH: every third strike drags a struck foe to arm's length."},
 	"undertow": {"name": "Undertow", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.35, 0.9, 1.0), "mods": {"atk": 1.8, "speed_pct": 0.05}, "desc": "+1.8 ATK, +5% Speed. HAUL: strikes drag foes to your reach."},
 	"marsh_claw": {"name": "Marsh Claw", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.6, 0.95, 0.4), "mods": {"atk": 1.9, "crit": 0.05}, "desc": "+1.9 ATK, +5% Crit. LEECHROOT: strikes slow foes 10% (stacks)."},
