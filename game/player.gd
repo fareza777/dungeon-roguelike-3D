@@ -297,6 +297,16 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						hp = minf(mh, hp + mh * 0.05)
 						if mg.has_method("_damage_number"):
 							mg._damage_number(global_position + Vector3(0, 0.6 * room_tile, 0), "REND +HP", Color(1.0, 0.4, 0.4), false)
+		"whale_saw": # SAW — tiap tebasan ke-4 menggergaji: +40% dmg pada musuh di bawah setengah HP
+			var mw := get_tree().current_scene
+			if mw != null:
+				mw.set("net_n", int(mw.get("net_n")) + 1)
+				if int(mw.get("net_n")) >= 4 and f.hp < f.hp_max * 0.5:
+					mw.set("net_n", 0)
+					if f.has_method("take_hit"):
+						f.take_hit(global_position, dmg * 0.4)
+					if mw.has_method("_damage_number"):
+						mw._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "SAWED", Color(1.0, 0.7, 0.3), false)
 		"tide_shear": # SHEAR — tiap tebasan ke-5 menggunting tajam musuh: dmg −20% permanen
 			var ms := get_tree().current_scene
 			if ms != null:
