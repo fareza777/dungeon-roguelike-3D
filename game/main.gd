@@ -162,6 +162,13 @@ const BESTIARY := {
 	"weeper": ["The Weeper", "A wailing priest who knits his flock's bones back together. Silence him first."],
 	"bone_king": ["The Kings", "One throne, many forms. Every five floors he waits."],
 }
+const VANE_BIOME := {
+	"Catacombs": "I marched these halls a captain, boy. Now I rattle in them.",
+	"Ember Crypt": "I burned once. Trust me — the bones complain.",
+	"Frozen Deep": "Aldric left me to freeze once. I prefer the sword.",
+	"Verdant Ruin": "The Oracle's gardens... she wept the day we walled them in.",
+	"The Abyss": "Down here even my chains feel heavier. Stay close.",
+}
 const KILLER_NAMES := {
 	"chaser": "a Skeleton Chaser", "rogue": "a Shadow Rogue", "mage": "a Bone Mage",
 	"brute": "a Bone Brute", "bomber": "a Boom Bones", "archer": "a Skeletal Archer",
@@ -2583,6 +2590,8 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 					{"who": "oracle", "text": "The Abyss isn't a place, Kael. It's the hole the kingdom fell through."},
 					{"who": "kael", "text": "Then watch me climb back out of it."},
 				]
+		if knight_ref != null and is_instance_valid(knight_ref) and not lines.is_empty() and VANE_BIOME.has(String(biome.get("name", ""))):
+			lines.append({"who": "knight", "text": String(VANE_BIOME[String(biome.get("name", ""))])})
 	elif Stats.floor_num > 1 and rng.randf() < 0.35:
 		var tips := [
 			"Those floor spikes are alive — learn their rhythm before stepping.",
