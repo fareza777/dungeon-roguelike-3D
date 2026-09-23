@@ -928,7 +928,6 @@ func _physics_process(delta: float) -> void:
 								if affix == "drowning" and q == p:
 									p.set("chill_t", 2.0)
 								if affix == "tarred" and q == p:
-									p.set("slip_t", maxf(float(p.get("slip_t")), -1.5))
 									p.set("chill_t", maxf(float(p.get("chill_t")), 1.5))
 								if leech and q == p:
 									hp = minf(hp_max, hp + 1.0)
