@@ -5463,6 +5463,7 @@ func _drowned_deal(idx: int) -> void:
 		Stats.add_relic(crid)
 		Sfx.play("shrine")
 		toast("UNDERTOW CACHE — the sea surfaces: " + String(ITEMS.DB[crid]["name"]))
+		_ach("tideprovides")
 		return
 	if idx == 0:
 		if Stats.souls < _soul_cost(4):
