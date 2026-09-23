@@ -6230,6 +6230,11 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			{"who": "oracle", "text": "One throne shattered. He rebuilds it deeper, out of angrier bones."},
 			{"who": "kael", "text": "Then I keep swinging until there are no thrones left."},
 		]
+	elif Stats.floor_num == 8:
+		lines = [
+			{"who": "oracle", "text": "Do you hear it? Two courts deep now — his heralds mark your footfalls and count."},
+			{"who": "kael", "text": "Let them count. I'll give them a number worth fearing."},
+		]
 	elif Stats.floor_num == 9:
 		lines = [
 			{"who": "oracle", "text": "The walls stop pretending to be a crypt down here. This is the Abyss — the dungeon's own grave."},
