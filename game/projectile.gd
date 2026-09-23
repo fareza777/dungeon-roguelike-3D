@@ -9,6 +9,7 @@ var life := 3.0
 var t := 0.0
 var orb: MeshInstance3D = null
 var effect := ""
+var hook_src := Vector3.ZERO
 
 
 func _ready() -> void:
@@ -84,6 +85,14 @@ func _physics_process(delta: float) -> void:
 			var mh_c := get_tree().current_scene
 			if mh_c != null and mh_c.has_method("_damage_number"):
 				mh_c._damage_number(p.global_position + Vector3(0, 1.2, 0), "CHILLED", Color(0.5, 0.85, 1.0), false)
+		if effect == "hook" and not p.get("dead"):
+			var hd_: Vector3 = hook_src - p.global_position
+			hd_.y = 0
+			if hd_.length() > 1.0:
+				p.set("kb", p.get("kb") + hd_.normalized() * 9.0)
+			var mhh := get_tree().current_scene
+			if mhh != null and mhh.has_method("_damage_number"):
+				mhh._damage_number(p.global_position + Vector3(0, 1.2, 0), "HOOKED!", Color(0.5, 0.85, 0.9), true)
 		if effect == "weak" and not p.get("dead"):
 			p.set("weak_t", 3.0)
 			var m9 := get_tree().current_scene

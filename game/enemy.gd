@@ -84,6 +84,7 @@ var chaplain := false
 var chap_t := 0.0
 var warden_bell := false
 var bell_t := 0.0
+var hookshot := false
 var chime_t := 7.0
 var husk_shell := false
 var cantor_t := 6.5
@@ -210,6 +211,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	leech = bool(a.get("leech", false))
 	chaplain = bool(a.get("chaplain", false))
 	warden_bell = bool(a.get("warden_bell", false))
+	hookshot = bool(a.get("hookshot", false))
 	healer = bool(a.get("healer", false))
 	crowned = bool(a.get("crowned", false))
 	tither = bool(a.get("tither", false))
@@ -835,6 +837,13 @@ func _physics_process(delta: float) -> void:
 										var cm: StandardMaterial3D = pr.orb.mesh.material
 										cm.albedo_color = Color(0.5, 0.85, 1.0)
 										cm.emission = Color(0.4, 0.7, 1.0)
+								if hookshot:
+									pr.effect = "hook"
+									pr.hook_src = global_position
+									if pr.orb != null:
+										var hm2: StandardMaterial3D = pr.orb.mesh.material
+										hm2.albedo_color = Color(0.5, 0.85, 0.9)
+										hm2.emission = Color(0.4, 0.7, 0.85)
 								if is_waver:
 									pr.effect = "weak"
 									if pr.orb != null:
