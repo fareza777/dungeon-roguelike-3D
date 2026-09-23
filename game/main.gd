@@ -4139,6 +4139,7 @@ func _on_enemy_died(e) -> void:
 				_quest_event("calmwalk")
 			if gun_smoke:
 				_quest_event("smokewalk")
+				_ach("smokedout")
 			if greedy_tide:
 				_quest_event("greedywalk")
 			if drift_wreck:
@@ -4155,7 +4156,6 @@ func _on_enemy_died(e) -> void:
 				_quest_event("cullwalk")
 			if rich_vein:
 				_quest_event("veinwalk")
-				_ach("smokedout")
 			if wraiths_due:
 				_quest_event("wraithed")
 			if dark_water:
