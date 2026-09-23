@@ -136,6 +136,8 @@ const ACH_DEF := {
 	"ashfall": "Ashes Rained (cleared a floor under the ashfall)",
 	"chorus": "The Chorus Falls Silent (cleared a floor of singing dead)",
 	"wolfsbane": "Alpha Killer (survived the pack's floor)",
+	"slayer150": "Reaper of Ranks (150 kills in a single run)",
+	"slayer250": "The Bone Harvest (250 kills in a single run)",
 	"doubloath": "Twice-Sworn (carry two omens in one run)",
 	"fatebound": "Fatebound (five oaths sworn across your descents)",
 	"unstoppable": "Unstoppable (a ×50 kill streak in one run)",
