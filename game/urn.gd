@@ -66,19 +66,20 @@ func smash(from_pos: Vector3) -> void:
 			m._burst(global_position + Vector3(0, 0.2 * tile, 0), Color(0.9, 0.85, 0.6))
 		var ub: Dictionary = m.get("biome") if m.get("biome") is Dictionary else {}
 		var reliq := String(ub.get("name", "")) == "Sunken Reliquary"
+		var dry := bool(m.get("abyssal_patience"))
 		if bell:
-			Stats.earn_souls(5)
+			Stats.earn_souls(5 if not dry else 0)
 			if m.has_method("_quest_event"):
 				m._quest_event("bellurn")
 			if m.has_method("_spawn_wisp_at"):
 				m._spawn_wisp_at(global_position)
 			if m.has_method("toast"):
 				m.toast("BELL URN — +5 souls and a wisp!")
-		elif reliq:
+		elif reliq and not dry:
 			Stats.earn_souls(2 if bool(m.get("low_tide")) else 1)
-		if bool(m.get("deeproot")) and not reliq:
+		if bool(m.get("deeproot")) and not reliq and not dry:
 			Stats.earn_souls(1)
-		if bool(m.get("pearl_fever")):
+		if bool(m.get("pearl_fever")) and not dry:
 			Stats.earn_souls(1)
 		if m.has_method("_souls_l"):
 			m._souls_l()

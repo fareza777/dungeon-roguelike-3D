@@ -169,6 +169,7 @@ var wellread := false
 var tide_lends := false
 var pearl_fever := false
 var muckraker := false
+var abyssal_patience := false
 var tide_kills := 0
 var reliquary_wisps := 0
 var omen_refusals := 0
@@ -732,6 +733,7 @@ func _reset_run_state() -> void:
 	tide_lends = false
 	pearl_fever = false
 	muckraker = false
+	abyssal_patience = false
 	tide_kills = 0
 	reliquary_wisps = 0
 	flawless_run = 0
@@ -4114,6 +4116,7 @@ func _offer_omens() -> void:
 			{"text": "THE TIDE LENDS — every gilded chest pays +3 souls... but the King's notice hardens the dead (+8% HP)"},
 			{"text": "PEARL FEVER — every urn spills +1 soul... but the salt eats your armor (−1 Armor)"},
 			{"text": "MUCKRAKER — defusing traps pays +1 soul... but the floors breed +2 more traps"},
+			{"text": "ABYSSAL PATIENCE — every chest pays +4 souls... but urns run dry"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -4148,7 +4151,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 32 if Stats.nemesis != "" else 31
+	var osize := 33 if Stats.nemesis != "" else 32
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -4290,6 +4293,9 @@ func _omen_deal(idx: int) -> void:
 			muckraker = true
 			oname = "MUCKRAKER"
 		31:
+			abyssal_patience = true
+			oname = "ABYSSAL PATIENCE"
+		32:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -4346,6 +4352,7 @@ func _omen_deal(idx: int) -> void:
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
 		"PEARL FEVER": "Crack every shell you find, Kael — just mind the salt between the seams.",
 		"MUCKRAKER": "The deep pays its scavengers well — if they can keep their fingers.",
+		"ABYSSAL PATIENCE": "Patience, fisher — let the heavy chests fill your purse; leave the pots for the crabs.",
 	}
 	var rline: String = String(reacts.get(oname, "An oath is an oath."))
 	_say([{"who": "oracle", "text": rline}])
@@ -7170,7 +7177,7 @@ func _process(delta: float) -> void:
 					player.hp = Stats.get_stat("max_hp")
 					player.hp_changed.emit(player.hp)
 					Stats.add_xp(3)
-					Stats.earn_souls(8)
+					Stats.earn_souls(8 + (4 if abyssal_patience else 0))
 					_souls_l()
 					Sfx.play("chest")
 					_burst(info.chest.global_position, Color(1.0, 0.85, 0.3))
