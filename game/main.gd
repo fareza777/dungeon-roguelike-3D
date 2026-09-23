@@ -4615,6 +4615,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Pearl Insurance — pay 4 souls: your next 2 trap hits do nothing"},
 			{"text": "Abyssal Jar — pay 8 souls: a trinket dredged from the deep"},
 			{"text": "Sirensong — pay 4 souls: this floor's elites pay +4 souls"},
+			{"text": "Rotgut Brew — pay 3 souls: +15% Max HP till the floor falls"},
 		]
 	)
 
@@ -5454,6 +5455,18 @@ func _mahzan_deal(idx: int) -> void:
 				sirensong_deal = true
 				Sfx.play("shrine")
 				toast("SIRENSONG — this floor's elites sing a richer tune")
+		17:
+			if Stats.souls < _soul_cost(3):
+				toast("Three souls — the rotgut's not cheap")
+			else:
+				Stats.souls -= _soul_cost(3)
+				_souls_l()
+				Stats.buff_maxhp_pct += 0.15
+				rotgut_drunk = true
+				if player != null and is_instance_valid(player):
+					player.refresh_stats()
+				Sfx.play("shrine")
+				toast("ROTGUT — the room spins. +15% Max HP this floor")
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
 		player.refresh_stats()
