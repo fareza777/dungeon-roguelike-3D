@@ -10,6 +10,7 @@ signal hp_changed(hp)
 signal hit_landed(pos, dmg, crit)
 signal attacked
 signal stepped(pos)
+signal revived
 
 var speed := 6.0
 var hp := 5.0
@@ -218,6 +219,7 @@ func take_hit(from_pos: Vector3, dmg_taken: int) -> void:
 			hp = int(maxi(1.0, max_hp * 0.5))
 			invuln = 2.2
 			hp_changed.emit(hp)
+			revived.emit()
 			Sfx.play("victory")
 			if mat != null:
 				mat.set_shader_parameter("flash", 1.0)

@@ -334,11 +334,19 @@ func _spawn_player(pos: Vector3) -> void:
 	player.hit_landed.connect(_on_hit_landed)
 	player.attacked.connect(_on_player_attacked)
 	player.stepped.connect(_step_dust)
+	player.revived.connect(_on_player_revived)
 
 
 func _on_player_hp(hp: float) -> void:
 	Stats.current_hp = hp
 	_update_hp(hp)
+
+
+func _on_player_revived() -> void:
+	_lvl_banner("JIWA BANGKIT!")
+	_burst(player.global_position, Color(1.0, 0.9, 0.5))
+	_souls(player.global_position, 16, Color(0.6, 1.0, 0.75))
+	toast("Relik Jiwa Bangkit menyelamatkanmu — separuh HP kembali")
 
 
 func _on_player_attacked() -> void:
@@ -440,6 +448,10 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool) -> void:
 	e.room_idx = int(sp.get("room", 0))
 	e.activated = false
 	room.add_child(e)
+	# spawn-in: muncul pop supaya tidak hard-cut
+	e.scale = Vector3(0.01, 0.01, 0.01)
+	var stw := e.create_tween()
+	stw.tween_property(e, "scale", Vector3.ONE, 0.28).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	e.died.connect(_on_enemy_died)
 	if e.is_boss:
 		boss_ref = e
@@ -593,6 +605,8 @@ func _on_player_died() -> void:
 	Stats.runs += 1
 	Stats.save_game()
 	_tut_hide()
+	if player != null and is_instance_valid(player):
+		_souls(player.global_position, 18, Color(0.85, 0.9, 1.0))
 	var mins := int(run_time) / 60
 	var secs := int(run_time) % 60
 	_show_banner("KAMU MATI", "Lantai %d • %s\n%d kill • Lv %d • %d relik • %d:%02d\nTerbaik: Lantai %d — ketuk untuk mengulang" % [Stats.floor_num, biome["name"], kills_run, Stats.level, Stats.relics.size(), mins, secs, Stats.best_floor])
@@ -2002,8 +2016,18 @@ func _update_hp(hp: float) -> void:
 		ui.hp_text.text = "%d/%d" % [maxi(int(ceil(hp)), 0), maxh]
 	if prev_hp >= 0.0 and hp < prev_hp - 0.001:
 		trauma = maxf(trauma, 0.6)
+		_vign_flash()
 	prev_hp = hp
 	_set_low_hp(hp <= 1.0 and hp > 0.0)
+
+
+func _vign_flash() -> void:
+	# kilat merah sekali saat terluka; kalau denyut HP-kritis sedang jalan, biarkan
+	if vign == null or (vign_tween != null and vign_tween.is_valid()):
+		return
+	vign.modulate.a = 0.45
+	var tw := vign.create_tween()
+	tw.tween_property(vign, "modulate:a", 0.0, 0.5)
 
 
 func _set_low_hp(on: bool) -> void:
