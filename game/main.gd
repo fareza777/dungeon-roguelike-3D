@@ -6693,11 +6693,12 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Undertow — pay 4 souls: this floor's dead telegraph slower (+12% windup)"},
 		{"text": "Sea Burial — pay 4 souls: the Oracle's Bargain drops to 8 souls this run"},
 		{"text": "Salt Rinse — pay 2 souls: scrub venom & rust, mend 15% HP"},
+		{"text": "Kelp Wine — pay 3 souls: −1s on every skill charge, +5% speed this floor"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 17:
+	if idx == 18:
 		toast("The water settles back into the stone")
 		return
 	if idx == 12:
@@ -6885,6 +6886,20 @@ func _drowned_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		_ach("seaworthy")
 		toast("DROWNED TITHE — +8 souls, −10% Max HP")
+	if idx == 17:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the wine's not free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		for skk in skill_cd.keys():
+			skill_cd[skk] = maxf(0.0, float(skill_cd[skk]) - 1.0)
+		Stats.buff_speed_pct += 0.05
+		if player != null and is_instance_valid(player):
+			player.refresh_stats()
+		Sfx.play("shrine")
+		toast("KELP WINE — green, cold, quickening")
+		return
 	if idx == 16:
 		if Stats.souls < _soul_cost(2):
 			toast("Two souls — the rinse isn't free")
