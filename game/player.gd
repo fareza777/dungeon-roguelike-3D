@@ -130,6 +130,9 @@ func _physics_process(delta: float) -> void:
 		hp_changed.emit(hp)
 		if hp <= 0.0:
 			dead = true
+			if body_cs != null:
+				body_cs.set_deferred("disabled", true)
+			anim_lock = M.play_action(ap, ["death"], 1.0)
 			died.emit()
 	var spd_eff: float = speed * (0.55 if chill_t > 0.0 else 1.0) * (0.0 if root_t > 0.0 else 1.0)
 	if dash_t > 0.0:
