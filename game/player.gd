@@ -315,6 +315,17 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						f.take_hit(global_position, dmg * 0.4)
 					if mw.has_method("_damage_number"):
 						mw._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "SAWED", Color(1.0, 0.7, 0.3), false)
+		"bilge_hook": # GUT — tiap tebasan ke-5 mengait jiwa: +1 soul
+			var mbh := get_tree().current_scene
+			if mbh != null:
+				mbh.set("net_n", int(mbh.get("net_n")) + 1)
+				if int(mbh.get("net_n")) >= 5:
+					mbh.set("net_n", 0)
+					Stats.earn_souls(1)
+					if mbh.has_method("_souls_l"):
+						mbh._souls_l()
+					if mbh.has_method("_damage_number"):
+						mbh._damage_number(f.global_position + Vector3(0, 0.7 * room_tile, 0), "GUTTED +1", Color(0.6, 0.9, 0.95), false)
 		"oarblade": # SLAP — tiap tebasan ke-3 memukul rata: lawan terpental sejauh 1 tile
 			var mo := get_tree().current_scene
 			if mo != null:
