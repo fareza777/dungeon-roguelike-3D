@@ -1275,6 +1275,7 @@ func _on_enemy_died(e) -> void:
 		_spawn_vial(e.global_position)
 	if bool(e.get("nemesis")):
 		Stats.nemesis = ""
+		Stats.nemesis_name = ""
 		Stats.souls += 10
 		_souls_l()
 		Stats.save_game()
@@ -1521,6 +1522,7 @@ func _on_player_died() -> void:
 	if player != null and is_instance_valid(player):
 		killer = String(KILLER_NAMES.get(player.last_killer, player.last_killer))
 		Stats.nemesis = String(player.last_killer)
+		Stats.nemesis_name = killer.capitalize()
 	var ktip: String = ""
 	if player != null and is_instance_valid(player):
 		ktip = "\n" + String(KILLER_TIPS.get(player.last_killer, ""))
@@ -1582,6 +1584,7 @@ func _finalize_death() -> void:
 	if player != null and is_instance_valid(player):
 		killer = String(KILLER_NAMES.get(player.last_killer, player.last_killer))
 		Stats.nemesis = String(player.last_killer)
+		Stats.nemesis_name = killer.capitalize()
 	var ktip: String = ""
 	if player != null and is_instance_valid(player):
 		ktip = "\n" + String(KILLER_TIPS.get(player.last_killer, ""))
