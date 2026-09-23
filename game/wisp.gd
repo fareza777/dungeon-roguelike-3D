@@ -52,7 +52,18 @@ func _physics_process(delta: float) -> void:
 		retarget = randf_range(1.0, 2.0)
 		dir = Vector3(randf_range(-1.0, 1.0), 0.0, randf_range(-1.0, 1.0)).normalized()
 	# melayang pelan — hindari nabrak terlalu jauh: pantul di radius 2.4 tile dari spawn
-	global_position += dir * 0.45 * tile * delta
+	# Soul Lens (lensa_jiwa): kunang terhisap ke pemain dari radius 2.6 tile
+	var pl := get_tree().get_nodes_in_group("player")
+	if not pl.is_empty() and Stats.relics.has("lensa_jiwa"):
+		var d: Vector3 = pl[0].global_position - global_position
+		d.y = 0.0
+		if d.length() < 2.6 * tile and d.length() > 0.2:
+			dir = d.normalized()
+			global_position += dir * 1.15 * tile * delta
+		else:
+			global_position += dir * 0.45 * tile * delta
+	else:
+		global_position += dir * 0.45 * tile * delta
 	global_position.y = 0.35 * tile + 0.05 * tile * sin(t * 3.0)
 	var ps := get_tree().get_nodes_in_group("player")
 	if not ps.is_empty():
