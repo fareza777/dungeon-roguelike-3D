@@ -8646,12 +8646,25 @@ func _on_qm_invoked(s) -> void:
 		{"text": "Whistle Code — pay 4 souls: the crew calls the maneuvers — −2s on every skill charge"},
 		{"text": "Deck Manifest — pay 3 souls: the crew logs every catch — +15% souls this floor"},
 		{"text": "Powder Ward — pay 3 souls: powder-burned hands are steady hands — +10% ATK this run"},
+		{"text": "Deck Rite — pay 4 souls: the bosun's blessing read over the hold — +1 Armor this run"},
 		{"text": "Walk away"}])
 
 
 func _qm_deal(idx: int) -> void:
-	if idx == 13:
+	if idx == 14:
 		toast("The post shutters its stores")
+		return
+	if idx == 13:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the rite isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		Stats.buff_armor += 1
+		if player != null and is_instance_valid(player):
+			player.refresh_stats()
+		Sfx.play("shrine")
+		toast("DECK RITE — the hold answers the bosun's words")
 		return
 	if idx == 5:
 		if Stats.souls < _soul_cost(4):
