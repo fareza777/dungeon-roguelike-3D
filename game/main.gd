@@ -1003,6 +1003,7 @@ func _new_run(new_seed: int) -> void:
 	if pale_drunk:
 		Stats.buff_speed_pct -= 0.08
 		pale_drunk = false
+	song_rust = false
 	if drift_line:
 		Stats.buff_atk_pct -= 0.1
 		drift_line = false
