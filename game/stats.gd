@@ -98,7 +98,7 @@ var bestiary := {} # arch_id -> jumlah kill sepanjang masa (codex)
 var weapon_kills := {} # weapon_id -> kill sepanjang masa (mastery progress)
 var mastered := {} # weapon_id -> 1 bila mastery tercapai (+1 ATK permanen)
 const MASTERY_N := 25
-var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0, "reckon": 0, "keelcap": 0, "shepherd": 0, "captain": 0, "quarter": 0, "purse": 0, "carto": 0, "sealegs": 0}
+var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0, "reckon": 0, "keelcap": 0, "shepherd": 0, "captain": 0, "quarter": 0, "purse": 0, "carto": 0, "sealegs": 0, "scribe": 0}
 
 const ACH_DEF := {
 	"kill1": "First Bloodbath",
@@ -220,6 +220,7 @@ const META_DEF := {
 	"quarter": {"name": "Quartermaster", "max": 3, "desc": "Each descent mends 5% of your Max HP per level"},
 	"carto": {"name": "Cartographer's Eye", "max": 3, "desc": "Each floor begins with +1 room charted per level"},
 	"sealegs": {"name": "Sea Legs", "max": 3, "desc": "+4% Speed per level"},
+	"scribe": {"name": "Bilge Scribe", "max": 3, "desc": "+5% XP per level"},
 }
 
 # dipakai menu -> game
@@ -293,7 +294,7 @@ func xp_need() -> int:
 
 
 func add_xp(n: int) -> void:
-	xp += int(ceilf(n * (1.0 + curse_xp + buff_xp_pct + solo_xp)))
+	xp += int(ceilf(n * (1.0 + curse_xp + buff_xp_pct + solo_xp + float(meta.get("scribe", 0)) * 0.05)))
 	while xp >= xp_need():
 		xp -= xp_need()
 		level += 1
@@ -515,7 +516,7 @@ func wipe_progress() -> void:
 	bestiary = {}
 	weapon_kills = {}
 	mastered = {}
-	meta = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0, "reckon": 0, "keelcap": 0, "shepherd": 0, "captain": 0, "quarter": 0, "purse": 0, "carto": 0, "sealegs": 0}
+	meta = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0, "reckon": 0, "keelcap": 0, "shepherd": 0, "captain": 0, "quarter": 0, "purse": 0, "carto": 0, "sealegs": 0, "scribe": 0}
 	reset_run()
 	save_game()
 
