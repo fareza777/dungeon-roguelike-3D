@@ -7,7 +7,7 @@ signal choice_picked(blessing)
 
 var tile := 4.0
 var used := false
-var kind := 0 # 0 = altar berkat emas, 1 = wujud Mahzan (toko spektral)
+var kind := 0 # 0 = altar berkat emas, 1 = wujud Mahzan, 2 = obelisk terkutuk
 var glow: OmniLight3D
 var statue_ref: Node3D = null
 var _statue_y := 0.0
@@ -37,6 +37,10 @@ func setup(p_tile: float, p_kind := 0) -> void:
 		mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 		mat.emission = Color(0.2, 0.35, 0.8)
 		mat.emission_energy_multiplier = 1.2
+	elif kind == 2:
+		mat.albedo_color = Color(0.42, 0.06, 0.09)
+		mat.emission = Color(0.7, 0.05, 0.1)
+		mat.emission_energy_multiplier = 1.6
 	else:
 		mat.albedo_color = Color(0.9, 0.8, 0.55)
 		mat.emission = Color(0.5, 0.38, 0.12)
@@ -55,9 +59,10 @@ func setup(p_tile: float, p_kind := 0) -> void:
 	tor.outer_radius = 0.58 * tile
 	var rm := StandardMaterial3D.new()
 	rm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	rm.albedo_color = Color(0.45, 0.65, 1.0, 0.7) if kind == 1 else Color(1.0, 0.8, 0.3, 0.7)
+	var ring_col: Color = Color(0.45, 0.65, 1.0, 0.7) if kind == 1 else (Color(1.0, 0.15, 0.1, 0.75) if kind == 2 else Color(1.0, 0.8, 0.3, 0.7))
+	rm.albedo_color = ring_col
 	rm.emission_enabled = true
-	rm.emission = Color(0.35, 0.55, 1.0) if kind == 1 else Color(1.0, 0.75, 0.25)
+	rm.emission = Color(0.35, 0.55, 1.0) if kind == 1 else (Color(0.9, 0.05, 0.08) if kind == 2 else Color(1.0, 0.75, 0.25))
 	rm.emission_energy_multiplier = 2.0
 	rm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	tor.material = rm
@@ -65,7 +70,7 @@ func setup(p_tile: float, p_kind := 0) -> void:
 	ring.position.y = 0.06 * tile
 	add_child(ring)
 	glow = OmniLight3D.new()
-	glow.light_color = Color(0.45, 0.6, 1.0) if kind == 1 else Color(1.0, 0.75, 0.3)
+	glow.light_color = Color(0.45, 0.6, 1.0) if kind == 1 else (Color(1.0, 0.15, 0.1) if kind == 2 else Color(1.0, 0.75, 0.3))
 	glow.light_energy = 1.6
 	glow.omni_range = 2.2 * tile
 	glow.position.y = 1.0 * tile

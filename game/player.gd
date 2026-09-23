@@ -218,7 +218,7 @@ func take_hit(from_pos: Vector3, dmg_taken: int) -> void:
 			last_killer = "bone_king" if f.is_boss else String(f.arch_id)
 	if last_killer == "":
 		last_killer = "trap"
-	var eff := maxi(1, dmg_taken - int(Stats.get_stat("armor")))
+	var eff := maxi(1, dmg_taken + int(roundf(dmg_taken * Stats.curse_dmg)) - int(Stats.get_stat("armor")))
 	hp -= eff
 	invuln = 0.9
 	Sfx.play("hurt")

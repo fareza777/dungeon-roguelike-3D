@@ -659,11 +659,21 @@ func _spawn_shrine(last_room: int) -> void:
 	var s = SHRINE.new()
 	room.add_child(s)
 	s.global_position = pos
-	# 30%: Mahzan sendiri yang menampakkan diri sebagai toko spektral (lantai 3+)
-	var is_mahzan := Stats.floor_num >= 3 and rng.randf() < 0.3
-	s.setup(info.tile, 1 if is_mahzan else 0)
+	# lantai 3+: 30% Mahzan; lantai 2+: 22% obelisk terkutuk; sisanya altar berkat
+	var skind := 0
+	if Stats.floor_num >= 3 and rng.randf() < 0.3:
+		skind = 1
+	elif Stats.floor_num >= 2 and rng.randf() < 0.22:
+		skind = 2
+	s.setup(info.tile, skind)
 	shrine_ref = s
-	s.invoked.connect(_on_mahzan_invoked if is_mahzan else _on_shrine_invoked)
+	match skind:
+		1:
+			s.invoked.connect(_on_mahzan_invoked)
+		2:
+			s.invoked.connect(_on_curse_invoked)
+		_:
+			s.invoked.connect(_on_shrine_invoked)
 
 
 var lore_ref = null
@@ -1801,6 +1811,10 @@ func _on_dlg_choice(idx: int) -> void:
 		dlg_pending_choice = -1
 		_mahzan_deal(idx)
 		return
+	elif dlg_pending_choice == 2:
+		dlg_pending_choice = -1
+		_curse_deal(idx)
+		return
 	match idx:
 		0:
 			Stats.buff_atk_pct += 0.15
@@ -1835,6 +1849,25 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Mahzan's Gamble — a free relic... but he chooses it"},
 		]
 	)
+
+
+func _on_curse_invoked(s) -> void:
+	s.consume()
+	Sfx.play("shrine")
+	dlg_pending_choice = 2
+	_say([{"who": "oracle", "text": "A cursed obelisk... it hums with hungry promises, Kael."}],
+		[{"text": "Blood Pact — foes hit 30% harder, souls pay +50% XP"},
+		{"text": "Refuse — leave the whispering stone"}])
+
+
+func _curse_deal(idx: int) -> void:
+	if idx == 0:
+		Stats.curse_dmg += 0.3
+		Stats.curse_xp += 0.5
+		toast("BLOOD PACT — the dark bites deeper, souls run richer")
+		_burst(player.global_position, Color(0.8, 0.05, 0.1))
+		Sfx.play("roar")
+		Input.vibrate_handheld(220)
 
 
 func _mahzan_deal(idx: int) -> void:
