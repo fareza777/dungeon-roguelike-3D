@@ -7950,6 +7950,12 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			{"who": "oracle", "text": "Even I don't know what waits below the twenty-fifth. No soul has returned to tell it."},
 			{"who": "kael", "text": "Then I'll be the first to come back and tell you."},
 		]
+	elif Stats.floor_num == 23:
+		lines = [
+			{"who": "raja", "text": "KAEL. THE HALL BELOW IS MINE — THE LAST DOOR BEFORE THE THRONE."},
+			{"who": "kael", "text": "Then polish the crown, Aldric. I'm coming for it."},
+			{"who": "oracle", "text": "Careful — he's never needed to speak until now. That he answers means he is watching."},
+		]
 	elif Stats.floor_num == 20 and Stats.ng_plus >= 1:
 		lines = [
 			{"who": "oracle", "text": "His Heralds ride with you now, Kael — every floor they announce your title to the dead."},
