@@ -262,6 +262,15 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 				var m6 := get_tree().current_scene
 				if m6 != null and m6.has_method("_damage_number"):
 					m6._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "RIPOSTE", Color(0.7, 0.85, 1.3), true)
+		"soul_reaver": # SIPHON — 15% tiap hit mencuri 1 jiwa
+			if randf() < 0.15:
+				Stats.souls += 1
+				var m7 := get_tree().current_scene
+				if m7 != null:
+					if m7.has_method("_souls_l"):
+						m7._souls_l()
+					if m7.has_method("_damage_number"):
+						m7._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "SIPHON", Color(0.5, 1.0, 0.75), false)
 		"gaoler_brand": # WARDEN — 12% peluang menjaring musuh di tempat
 			if randf() < 0.12 and not bool(f.get("is_boss")):
 				f.stun(1.2)
