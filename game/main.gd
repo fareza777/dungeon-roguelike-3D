@@ -1479,8 +1479,10 @@ func _use_vial() -> void:
 		toast("HP already full")
 		return
 	vials -= 1
+	var healed := minf(mh - player.hp, mh * 0.3)
 	player.hp = minf(mh, player.hp + mh * 0.3)
 	player.hp_changed.emit(player.hp)
+	_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), "+%d" % int(ceil(healed)), Color(0.4, 1.0, 0.6), true)
 	Sfx.play("shrine")
 	_burst(player.global_position + Vector3(0, 0.8, 0), Color(0.3, 0.95, 0.8))
 	toast("⚗ Soul Vial — +30% HP")
