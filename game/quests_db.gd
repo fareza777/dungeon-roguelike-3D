@@ -224,6 +224,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Rust Scrub", "desc": "Slay 4 Rust Jaws (0/4)", "kind": "rustjaw_kill", "need": 4})
 		steps.append({"title": "Fasting", "desc": "Clear 2 floors without taking a shrine's deal (0/2)", "kind": "fasting", "need": 2})
 		steps.append({"title": "Quickstep", "desc": "Walk 2 BRISK TIDE floors to the end (0/2)", "kind": "briskwalk", "need": 2})
+		steps.append({"title": "Wreck Picker", "desc": "Walk 2 SALVAGE TIDE floors to the end (0/2)", "kind": "salvagewalk", "need": 2})
 		steps.append({"title": "Shoal Runner", "desc": "Walk 2 SHOAL TIDE floors to the end (0/2)", "kind": "shoalwalk", "need": 2})
 	if Stats.floor_num == 11:
 		steps.append({"title": "Soul Fisher", "desc": "Net three drifting wisps (0/3)", "kind": "wisp", "need": 3})
