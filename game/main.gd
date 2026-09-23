@@ -728,6 +728,15 @@ func _new_run(new_seed: int) -> void:
 	if boss_floor:
 		var lr: Dictionary = info.ranges[last_room]
 		_spawn_enemy({"pos": Vector3((lr["x0"] + lr["x1"]) * 0.5, 0.0, lr["z1"] + 1.6 * info.tile), "room": last_room}, "bone_king", false)
+		# CROWN GUARD: lantai takhta mengawal rajanya dengan dua elite
+		if Stats.floor_num >= 25:
+			var gtab: Array = biome["enemies"]
+			for gi2 in range(2):
+				var garch := String(gtab[rng.randi_range(0, gtab.size() - 1)])
+				var gpos := Vector3((lr["x0"] + lr["x1"]) * 0.5 + (gi2 - 0.5) * 1.4 * info.tile, 0.0, lr["z1"] + 0.8 * info.tile)
+				var ge := _spawn_enemy({"pos": gpos, "room": last_room}, garch, true)
+				if ge != null:
+					ge.activated = true
 	else:
 		# sarang sang juara (lantai 6+): satu ruangan berisi elite bergaransi
 		champ_room = -1
