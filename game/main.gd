@@ -2095,6 +2095,8 @@ func _pick_relic(i: int) -> void:
 	var id: String = draft_choices[i]
 	var before := Stats.get_stat("max_hp")
 	Stats.add_relic(id)
+	if Stats.relics.size() >= 10:
+		_ach("col10")
 	if id == "tulang_kesatria":
 		_spawn_squire()
 	var after := Stats.get_stat("max_hp")
