@@ -777,6 +777,11 @@ func _new_run(new_seed: int) -> void:
 		elif hungry_walls and not is_elite and rng.randf() < 0.45:
 			var hpos: Vector3 = sp["pos"] + Vector3(randf_range(-0.5, 0.5), 0, randf_range(-0.5, 0.5)) * info.tile * 0.5
 			_spawn_enemy({"pos": hpos, "room": int(sp.get("room", 0))}, arch_id, false)
+	if String(biome.get("name", "")) == "Sunken Reliquary" and not boss_floor and info.ranges.size() > 1:
+		# KING'S EMISSARY — penjaga gudang mahkota selalu berdiri di ruang terakhir
+		var er: Dictionary = info.ranges[last_room]
+		var epp := Vector3((er["x0"] + er["x1"]) * 0.5 * info.tile, 0.0, (er["z0"] + er["z1"]) * 0.5 * info.tile)
+		_spawn_enemy({"pos": epp, "room": last_room}, "crowned", true)
 	if bone_chorus:
 		# satu orator per ruangan — paduan suara penggugah perang
 		for bci in range(info.ranges.size()):
