@@ -748,6 +748,9 @@ func _reset_run_state() -> void:
 	salt_tithe = false
 	keel_prayer = false
 	events_run = {}
+	riptide_n = 0
+	steps_done_run = 0
+	urns_run = 0
 	shellshield_used = false
 	perfect_dodges = 0
 	leech_charge = 0
