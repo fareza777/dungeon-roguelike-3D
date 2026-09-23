@@ -46,6 +46,7 @@ const DB := {
 	"kingsfall": {"name": "Kingsfall", "short": "KING", "cd": 45.0, "unlock": 25, "desc": "Bring down the crown — 3x ATK to all awake foes; bosses take half again."},
 	"lance": {"name": "Soul Lance", "short": "LANCE", "cd": 22.0, "unlock": 27, "desc": "A piercing line of soul-light — 1.4x ATK through every foe in your facing lane."},
 	"gravestep": {"name": "Gravestep", "short": "STEP", "cd": 16.0, "unlock": 29, "desc": "Blink through the dark — 1.2x ATK burst on arrival."},
+	"tidecall": {"name": "Tide Call", "short": "TIDE", "cd": 20.0, "unlock": 31, "desc": "Summon the drowned tide — 1.5x ATK, hurls foes back and slows them."},
 	"rites": {
 		"name": "Reaper's Toll", "short": "TOLL", "cd": 34.0, "unlock": 21,
 		"desc": "Ring the toll: awake foes below 25% HP die outright; the rest take 1x ATK.",
