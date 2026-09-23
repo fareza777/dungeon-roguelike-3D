@@ -2489,6 +2489,7 @@ func _cast_skill(id: String) -> void:
 			trauma = 0.5
 			_damage_number(gtarget + Vector3(0, 0.8 * info.tile, 0), "GRAVESTEP! ×%d" % ghits, Color(0.65, 0.6, 1.2), true)
 			print("SKILL gravestep hit=%d" % ghits)
+			_quest_event("gravestep")
 		"kingsfall":
 			Sfx.play("thunder")
 			var dmgk := Stats.get_stat("atk") * 3.0

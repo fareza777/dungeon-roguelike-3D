@@ -87,6 +87,8 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Pale Fencer", "desc": "Answer two Pale Duelists in kind (0/2)", "kind": "duelist_kill", "need": 2})
 	if Stats.floor_num >= 10 and Stats.floor_num % 8 == 4:
 		steps.append({"title": "Grave Robber", "desc": "Unlock a Soul Vault", "kind": "vault", "need": 1})
+	if Stats.floor_num >= 20 and Stats.floor_num % 6 == 2:
+		steps.append({"title": "Deathwalk", "desc": "Blink through the dark twice (0/2)", "kind": "gravestep", "need": 2})
 	if Stats.floor_num >= 26 and Stats.floor_num % 4 == 2:
 		steps.append({"title": "Spear of Dawn", "desc": "Impale foes with SOUL LANCE", "kind": "lance", "need": 1})
 	if Stats.floor_num >= 7 and Stats.floor_num % 7 == 0:
