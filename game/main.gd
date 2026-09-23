@@ -2609,6 +2609,9 @@ func _on_dlg_choice(idx: int) -> void:
 		5:
 			Stats.buff_lifesteal += 0.08
 			toast("Vampiric Blessing: +8% Lifesteal")
+		6:
+			Stats.buff_aspd += 0.10
+			toast("Fury Blessing: +10% Attack Speed")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -2809,6 +2812,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Soul Blessing — +12 souls for the Hall"},
 			{"text": "Gale Blessing — +12% Speed this run"},
 			{"text": "Vampiric Blessing — +8% Lifesteal this run"},
+			{"text": "Fury Blessing — +10% Attack Speed this run"},
 		]
 	)
 

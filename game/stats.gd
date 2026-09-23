@@ -31,6 +31,7 @@ var buff_speed_pct := 0.0 # omen Feather Step
 var buff_xp_pct := 0.0 # omen Rich Soil
 var buff_lifesteal := 0.0 # berkat altar Vampiric: run ini saja
 var buff_maxhp_pct := 0.0 # omen Leeching Vein: pengorbanan Max HP
+var buff_aspd := 0.0 # berkat altar Fury: run ini saja
 var warcry_t := 0.0 # skill War Cry: +50% ATK sementara
 var revive_left := 0 # jiwa bangkit: hidup lagi sekali per run
 var ach := {} # prestasi terbuka: id -> true (persist lintas run)
@@ -144,7 +145,7 @@ func get_stat(n: String) -> float:
 		if nemesis != "" and relics.has("liontin_dendam"):
 			mult += 0.25
 	if n == "atk_speed":
-		mult += combo_aspd
+		mult += combo_aspd + buff_aspd
 	if n == "max_hp":
 		flat += float(meta.get("vital", 0))
 		flat -= mahzan_debt
@@ -264,6 +265,7 @@ func reset_run() -> void:
 	buff_xp_pct = 0.0
 	buff_lifesteal = 0.0
 	buff_maxhp_pct = 0.0
+	buff_aspd = 0.0
 	warcry_t = 0.0
 	revive_left = int(meta.get("wind", 0))
 	thorns = 0.0
