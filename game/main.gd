@@ -2621,6 +2621,9 @@ func _on_dlg_choice(idx: int) -> void:
 		6:
 			Stats.buff_aspd += 0.10
 			toast("Fury Blessing: +10% Attack Speed")
+		7:
+			Stats.buff_maxhp_pct += 0.2
+			toast("Titan's Blessing: +20% Max HP")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -2827,6 +2830,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Gale Blessing — +12% Speed this run"},
 			{"text": "Vampiric Blessing — +8% Lifesteal this run"},
 			{"text": "Fury Blessing — +10% Attack Speed this run"},
+			{"text": "Titan's Blessing — +20% Max HP this run"},
 		]
 	)
 
