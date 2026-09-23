@@ -351,6 +351,7 @@ const BESTIARY := {
 	"gargoyle": ["The Pearl Gargoyle", "A temple guardian fused to a giant clam — slow, patient, and hits like a falling gate."],
 	"digger": ["The Gravedigger", "It digs where the dead should lie — and where you now stand."],
 	"mireling": ["The Mireling", "A marsh rat grown fat on drowned men's boots — its nip chills the blood."],
+	"saltghast": ["The Saltghast", "A ghost blown through with sea-salt — it blinks to your blind side and pours a soul out when felled."],
 	"weeper": ["The Weeper", "A wailing priest who knits his flock's bones back together. Silence him first."],
 	"bone_king": ["The Kings", "One throne, many forms. Every five floors he waits."],
 }
@@ -366,7 +367,7 @@ const VANE_BIOME := {
 const KILLER_NAMES := {
 	"chaser": "a Skeleton Chaser", "rogue": "a Shadow Rogue", "mage": "a Bone Mage",
 	"brute": "a Bone Brute", "bomber": "a Boom Bones", "archer": "a Skeletal Archer",
-	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade", "hexer": "the Hex Priest", "spiker": "a Spiked Cadaver", "lurker": "the Dweller", "golem": "the Bone Golem", "maiden": "the Wailing Maiden", "revenant": "the Revenant", "shieldbearer": "the Shieldbearer", "herald": "the Herald", "batterer": "the Batterer", "duelist": "the Pale Duelist", "hound": "a Bone Hound", "moth": "a Soul Moth", "orator": "the Grave Orator", "crowned": "the Crowned", "tither": "the Tithing", "digger": "the Gravedigger", "drowned": "the Drowned One", "keelhound": "a Keelhound", "maw": "a Barnacle Maw", "siren": "the Void Siren", "gargoyle": "a Pearl Gargoyle", "mireling": "a Mireling",
+	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade", "hexer": "the Hex Priest", "spiker": "a Spiked Cadaver", "lurker": "the Dweller", "golem": "the Bone Golem", "maiden": "the Wailing Maiden", "revenant": "the Revenant", "shieldbearer": "the Shieldbearer", "herald": "the Herald", "batterer": "the Batterer", "duelist": "the Pale Duelist", "hound": "a Bone Hound", "moth": "a Soul Moth", "orator": "the Grave Orator", "crowned": "the Crowned", "tither": "the Tithing", "digger": "the Gravedigger", "drowned": "the Drowned One", "keelhound": "a Keelhound", "maw": "a Barnacle Maw", "siren": "the Void Siren", "gargoyle": "a Pearl Gargoyle", "mireling": "a Mireling", "saltghast": "a Saltghast",
 	"bone_king": "the King himself", "trap": "a hidden trap", "": "the dungeon itself"}
 const KILLER_TIPS := {
 	"chaser": "Tip: chasers are slow — kite them into a corner and cleave.",
@@ -403,6 +404,7 @@ const KILLER_TIPS := {
 	"siren": "Tip: when the Void Siren sings, plant your feet or dash sideways — she reels in what she hooks.",
 	"gargoyle": "Tip: the Pearl Gargoyle telegraphs its slam — circle behind, never stand in front.",
 	"mireling": "Tip: Mirelings are quick — dash through them, don't fence them.",
+	"saltghast": "Tip: the Saltghast blinks when you close — swing where it lands, not where it was.",
 	"bone_king": "Tip: his slams telegraph red — dash through the shockwave.",
 	"trap": "Tip: traps pulse on a rhythm — cross on the off-beat.",
 	"": "Tip: blessings, relics and Sir Vane can still turn a doomed run.",
@@ -1405,7 +1407,8 @@ const FIRST_SEEN := {
 	"maw": "A Barnacle Maw parts its shell — something old and hungry looks back.",
 	"siren": "The Void Siren hums — and suddenly you're walking toward her.",
 	"gargoyle": "A Pearl Gargoyle unglues itself from the wall — the temple still has guardians.",
-	"mireling": "A Mireling skitters — its bite carries the marsh's cold."
+	"mireling": "A Mireling skitters — its bite carries the marsh's cold.",
+	"saltghast": "A Saltghast shimmers in — strike where it settles, and pocket the soul it carries."
 }
 
 
