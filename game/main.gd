@@ -292,6 +292,7 @@ var lantern_touched := false
 var gravetide := false
 var mudlark := false
 var crows_share := false
+var penny_floor := false
 var netgain_n := 0
 var blood_drawn := false
 var skill_used_floor := false
@@ -1014,6 +1015,7 @@ func _new_run(new_seed: int) -> void:
 		pale_drunk = false
 	song_rust = false
 	gangway = false
+	penny_floor = false
 	if drift_line:
 		Stats.buff_atk_pct -= 0.1
 		drift_line = false
@@ -5106,6 +5108,9 @@ func _soul_cost(n: int) -> int:
 	if Stats.relics.has("pact_broker"):
 		disc += 1
 	disc += int(Stats.meta.get("haggler", 0))
+	if Stats.relics.has("rusted_penny") and not penny_floor:
+		disc += 1
+		penny_floor = true
 	return maxi(1, n - disc)
 
 
