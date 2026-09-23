@@ -4554,6 +4554,8 @@ func _process(delta: float) -> void:
 					for mk in range(2):
 						var off := Vector3((mk - 0.5) * 0.9 * info.tile, 0, 0.7 * info.tile)
 						_spawn_enemy({"pos": info.chest.global_position + off, "room": int(info.get("room_count", 1)) - 1}, "chaser", false)
+					if Stats.weapon_id != "mimic_fang" and rng.randf() < 0.2:
+						spawn_weapon_drop(info.chest.global_position + Vector3(0, 0, 0.45 * info.tile), "mimic_fang")
 				elif cursed_chest:
 					cursed_chest = false
 					_quest_event("cursed_chest")

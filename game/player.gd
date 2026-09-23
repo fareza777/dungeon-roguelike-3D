@@ -288,6 +288,15 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 				var m9 := get_tree().current_scene
 				if m9 != null and m9.has_method("_damage_number"):
 					m9._damage_number(f.global_position + Vector3(0, 0.8 * room_tile, 0), "CROWNSPLITTER", Color(1.1, 0.85, 0.3), true)
+		"mimic_fang": # JAW — 20% korban menggigit jiwa terlepas
+			if float(f.get("hp")) <= 0.0 and randf() < 0.2:
+				Stats.souls += 1
+				var m11 := get_tree().current_scene
+				if m11 != null:
+					if m11.has_method("_souls_l"):
+						m11._souls_l()
+					if m11.has_method("_damage_number"):
+						m11._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "JAW +1", Color(1.1, 0.45, 0.3), false)
 		"wisp_lantern": # WISP — korban melepas wisp yang menggigit musuh lain
 			if float(f.get("hp")) <= 0.0:
 				var best3: Node3D = null
