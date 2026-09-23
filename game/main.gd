@@ -145,7 +145,10 @@ const LORE_LINES := [
 	"Water-logged mirrors show the deck as it was — bright, crowded, unaware.",
 	"Every bargain Mahzan writes has two prices: the one you see, and the one you'll find out.",
 	"The sprite-maw at the bilge keeps its own ledger — a soul per touch, no exceptions.",
-]
+
+	"The Oracle's stone was carved from the same quarry as the throne — the King keeps his counselors close, and closer still.",
+	"Vane's vow was to guard the door, not the crown. He still can't say which one he failed.",
+	"Somewhere below the salt line the drowned keep their own court — the King tolerates it, as one tolerates a debt owed to the sea.",]
 
 var dungeon_tex: Texture2D
 var skeleton_tex: Texture2D
