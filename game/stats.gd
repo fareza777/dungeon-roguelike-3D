@@ -495,6 +495,7 @@ func wipe_progress() -> void:
 	saved_run = {}
 	lore_seen = []
 	oaths_seen = []
+	drowned_deals = 0
 	souls = 0
 	bestiary = {}
 	weapon_kills = {}
