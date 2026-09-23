@@ -5973,6 +5973,16 @@ func _process(delta: float) -> void:
 				if dd < bd2:
 					bd2 = dd
 					be = f
+		if be == null:
+			for f3 in get_tree().get_nodes_in_group("enemies"):
+				if String(f3.get("state")) == "dead" or not bool(f3.get("activated")):
+					continue
+				if not ["orator", "necromancer", "hexer"].has(String(f3.get("arch_id"))):
+					continue
+				var dd3: float = f3.global_position.distance_to(player.global_position)
+				if dd3 < bd2:
+					bd2 = dd3
+					be = f3
 		var shown := false
 		if be != null:
 			var sp2: Vector2 = cam.unproject_position(be.global_position + Vector3(0, 0.8 * info.get("tile", 4.0), 0))
