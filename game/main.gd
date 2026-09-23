@@ -107,6 +107,7 @@ var storm_cellar := false
 var gilded_tides := false
 var soul_drift := false
 var grave_hunger := false
+var bounty_ref: Enemy = null
 var storm_t := 0.0
 var nemesis_spawned := false # musuh yang membunuhmu run lalu — kembali lebih kuat
 var nemesis_warned := false # nemesis story beat — 1だけ
@@ -1051,7 +1052,9 @@ func _spawn_shrine(last_room: int) -> void:
 	s.global_position = pos
 	# lantai 3+: 30% Mahzan; lantai 2+: 22% obelisk terkutuk; sisanya altar berkat
 	var skind := 0
-	if Stats.floor_num >= 6 and rng.randf() < 0.12:
+	if Stats.floor_num >= 7 and rng.randf() < 0.1:
+		skind = 5
+	elif Stats.floor_num >= 6 and rng.randf() < 0.12:
 		skind = 4
 	elif Stats.floor_num >= 4 and rng.randf() < 0.18:
 		skind = 3
@@ -1070,6 +1073,8 @@ func _spawn_shrine(last_room: int) -> void:
 			s.invoked.connect(_on_forge_invoked)
 		4:
 			s.invoked.connect(_on_mirror_invoked)
+		5:
+			s.invoked.connect(_on_bounty_invoked)
 		_:
 			s.invoked.connect(_on_shrine_invoked)
 
@@ -1487,6 +1492,18 @@ func _on_enemy_died(e) -> void:
 	if e.arch_id == "revenant":
 		_quest_event("revenant_kill")
 		_spawn_tomb(e.global_position, "revenant", int(e.room_idx))
+	if bounty_ref != null and e == bounty_ref:
+		bounty_ref = null
+		var bpool: Array = []
+		for rid5 in ITEMS.DB:
+			if int(ITEMS.DB[rid5]["rarity"]) >= 1 and not Stats.relics.has(rid5):
+				bpool.append(rid5)
+		if not bpool.is_empty():
+			var rid6: String = bpool[rng.randi_range(0, bpool.size() - 1)]
+			Stats.add_relic(rid6)
+			toast("Bounty collected — " + String(ITEMS.DB[rid6]["name"]))
+			_ach("bounty1")
+		_quest_event("bounty")
 	_combo_set(combo + 1)
 	# RAMPAGE: 3+ kill beruntun dalam 2.5 detik -> sorakan + banner
 	var now_s := Time.get_ticks_msec() / 1000.0
@@ -2899,6 +2916,10 @@ func _on_dlg_choice(idx: int) -> void:
 		dlg_pending_choice = -1
 		_mirror_deal(idx)
 		return
+	elif dlg_pending_choice == 8:
+		dlg_pending_choice = -1
+		_bounty_deal(idx)
+		return
 	match idx:
 		0:
 			Stats.buff_atk_pct += 0.15
@@ -3132,6 +3153,30 @@ func _mirror_deal(idx: int) -> void:
 	_ach("mirror1")
 	if player != null and is_instance_valid(player):
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(0.5, 0.7, 1.0))
+
+
+func _on_bounty_invoked(s) -> void:
+	shrine_used = true
+	s.consume()
+	Sfx.play("shrine")
+	dlg_pending_choice = 8
+	_say([{"who": "oracle", "text": "A bounty stone — the dungeon's own bounty board. Summon a marked foe; its skull pays a relic."}],
+		[{"text": "Call the Marked — summon a bounty elite (drops a rare relic)"},
+		{"text": "Walk on"}])
+
+
+func _bounty_deal(idx: int) -> void:
+	if idx != 0:
+		return
+	var table: Array = biome["enemies"]
+	var arch := String(table[rng.randi_range(0, table.size() - 1)])
+	bounty_ref = _spawn_enemy({"pos": shrine_ref.global_position + Vector3(0.8 * info.tile, 0, 0.4 * info.tile), "room": current_room}, arch, true)
+	if bounty_ref != null:
+		bounty_ref.hp *= 1.4
+		bounty_ref.hp_max = bounty_ref.hp
+		bounty_ref.activated = true
+		Sfx.play("roar")
+		_damage_number(bounty_ref.global_position + Vector3(0, 1.0 * info.tile, 0), "BOUNTY MARKED!", Color(1.0, 0.75, 0.3), true)
 
 
 func _on_curse_invoked(s) -> void:

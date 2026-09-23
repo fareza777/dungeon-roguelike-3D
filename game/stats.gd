@@ -110,6 +110,7 @@ const ACH_DEF := {
 	"forge5": "Blade Saint (forged a weapon to +5)",
 	"mirror1": "Gazer (let the Mirror trade your blade)",
 	"smith3": "Master Smith (forged blades at 3 Soul Forges)",
+	"bounty1": "Contract Killer (claimed a Bounty Stone relic)",
 }
 
 const META_DEF := {
