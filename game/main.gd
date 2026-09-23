@@ -5204,6 +5204,7 @@ func _keel_deal(idx: int) -> void:
 		Stats.buff_xp_pct += 0.25
 		Sfx.play("shrine")
 		toast("LOOT SCUTTLED — +25% XP this run")
+	_quest_event("keelstone")
 
 
 func _on_shrine_invoked(s) -> void:
