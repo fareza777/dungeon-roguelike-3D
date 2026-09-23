@@ -26,9 +26,13 @@ const DB := {
 		"name": "Heaven's Judgment", "short": "JUDGE", "cd": 12.0, "unlock": 11,
 		"desc": "Smite the nearest foe: 3x ATK — up to 5x against the wounded. A kill pays 2 souls.",
 	},
+	"sunder": {
+		"name": "Sundering Blow", "short": "SNDR", "cd": 13.0, "unlock": 13,
+		"desc": "Guard-shattering strike: 2.5x ATK — the foe takes +30% damage for 4s.",
+	},
 }
 
-const ORDER := ["dash", "whirl", "thunder", "warcry", "nova", "judge"]
+const ORDER := ["dash", "whirl", "thunder", "warcry", "nova", "judge", "sunder"]
 
 
 static func get_s(id: String) -> Dictionary:

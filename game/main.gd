@@ -255,7 +255,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -1659,7 +1659,27 @@ func _cast_skill(id: String) -> void:
 			else:
 				toast("No foe in reach")
 			trauma = 0.55
-			print("SKILL judge")
+		"sunder":
+			player.anim_lock = M.play_action(player.ap, ["1h_melee_attack", "slash"], 1.3)
+			var st: Node3D = null
+			var sd: float = 2.4 * info.tile
+			for f in get_tree().get_nodes_in_group("enemies"):
+				var sdd: float = f.global_position.distance_to(player.global_position)
+				if sdd < sd:
+					sd = sdd
+					st = f
+			if st != null:
+				st.sunder_t = 4.0
+				st.take_hit(player.global_position, Stats.get_stat("atk") * 2.5)
+				_damage_number(st.global_position + Vector3(0, 0.7 * info.tile, 0), "SUNDERED", Color(0.55, 0.85, 1.0), true)
+				_shock_ring(st.global_position)
+				Sfx.play("thunder")
+			else:
+				Sfx.play("deny")
+				toast("No foe in reach")
+				return
+			trauma = 0.6
+			print("SKILL sunder")
 	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0)))
 
 

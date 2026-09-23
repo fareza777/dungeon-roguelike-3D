@@ -62,6 +62,7 @@ var affix := ""
 var jailer := false
 var is_weeper := false
 var champion := false # elite sarang sang juara — drop senjata terjamin
+var sunder_t := 0.0 # debuff SUNDERING BLOW: terima +30% damage
 var chant_t := 2.5
 var _base_scale := Vector3.ONE
 var slam_t := 4.0
@@ -257,6 +258,7 @@ func _physics_process(delta: float) -> void:
 	anim_lock = max(0.0, anim_lock - delta)
 	hex_t = maxf(0.0, hex_t - delta)
 	slow_t = maxf(0.0, slow_t - delta)
+	sunder_t = maxf(0.0, sunder_t - delta)
 	if burn_t > 0.0:
 		burn_t -= delta
 		_burn_acc += delta
@@ -538,6 +540,8 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 		return
 	if hex_t > 0.0:
 		dmg_taken *= 1.25
+	if sunder_t > 0.0:
+		dmg_taken *= 1.3
 	hp -= dmg_taken
 	Sfx.play("hit")
 	if is_boss and hp > 0.0:
