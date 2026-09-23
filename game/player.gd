@@ -229,6 +229,10 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 			f.set("slow_t", 3.0)
 		"ember_mace": # BURN — membakar: DoT ~2.4s
 			f.set("burn_t", 2.4)
+		"grave_scythe": # REAPER — target yang mati mengembalikan 1 HP
+			if float(f.get("hp")) <= 0.0:
+				hp = minf(max_hp, hp + 1.0)
+				hp_changed.emit(hp)
 		"kings_edge": # KING'S WRATH — tiap hit ke-5 meledak + knockback besar
 			kings_n += 1
 			if kings_n >= 5:

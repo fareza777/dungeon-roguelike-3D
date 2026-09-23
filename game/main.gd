@@ -388,6 +388,7 @@ func _new_run(new_seed: int) -> void:
 	_build_minimap()
 	Sfx.play_music("boss" if boss_floor else _biome_track())
 	ui.floor_label.text = "Floor %d • %s%s" % [Stats.floor_num, biome["name"], " (NG+%d)" % Stats.ng_plus if Stats.ng_plus > 0 else ""]
+	_souls_l()
 	_update_hp(Stats.current_hp)
 	_update_xp(Stats.xp, Stats.xp_need(), Stats.level)
 	_rebuild_chips()
@@ -908,6 +909,11 @@ func _blood_stain(pos: Vector3) -> void:
 	m.global_position = pos + Vector3(randf_range(-0.08, 0.08) * info.tile, 0.02 * info.tile, randf_range(-0.08, 0.08) * info.tile)
 
 
+func _souls_l() -> void:
+	if ui.has("souls_label"):
+		ui.souls_label.text = "◈ %d souls" % Stats.souls if Stats.souls > 0 else ""
+
+
 func _on_enemy_died(e) -> void:
 	print("ENEMY DIED arch=%s elite=%s xp=%d" % [e.arch_id, e.elite, e.xp_val])
 	trauma = 0.7
@@ -922,6 +928,7 @@ func _on_enemy_died(e) -> void:
 	var wid := Stats.weapon_id
 	var wk_old: int = int(Stats.weapon_kills.get(wid, 0))
 	Stats.weapon_kills[wid] = wk_old + 1
+	_souls_l()
 	if wk_old < Stats.MASTERY_N and wk_old + 1 >= Stats.MASTERY_N and not bool(Stats.mastered.get(wid, false)):
 		Stats.mastered[wid] = 1
 		Stats.save_game()
@@ -1002,6 +1009,7 @@ func _on_boss_died(_e) -> void:
 	boss_ref = null
 	Stats.boss_kills += 1
 	Stats.souls += 15
+	_souls_l()
 	Stats.save_game()
 	Sfx.play("victory")
 	Sfx.play_music(_biome_track())
@@ -1090,6 +1098,7 @@ func _run_victory() -> void:
 	Stats.runs += 1
 	Stats.ng_plus += 1
 	Stats.souls += 25
+	_souls_l()
 	Stats.save_game()
 	_ach("s25")
 	_tut_hide()
@@ -1943,6 +1952,7 @@ func _on_dlg_choice(idx: int) -> void:
 		3:
 			Stats.souls += 12
 			Stats.save_game()
+			_souls_l()
 			toast("Soul Blessing: +12 souls")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
@@ -2036,6 +2046,7 @@ func _mahzan_deal(idx: int) -> void:
 				var rid3: String = Stats.relics[rng.randi_range(0, Stats.relics.size() - 1)]
 				Stats.remove_relic(rid3)
 				Stats.souls += 10
+				_souls_l()
 				toast("Pawned %s for +10 souls" % String(ITEMS.DB[rid3]["name"]))
 				if rid3 == "tulang_kesatria" and squire_ref != null and is_instance_valid(squire_ref):
 					_souls(squire_ref.global_position, 8, Color(0.9, 0.85, 0.5))
@@ -2381,6 +2392,21 @@ func _build_ui() -> void:
 	fl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	layer.add_child(fl)
 	ui["floor_label"] = fl
+
+	var sul := Label.new()
+	sul.add_theme_font_size_override("font_size", 17)
+	sul.modulate = Color(0.75, 0.55, 1.0)
+	sul.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.8))
+	sul.add_theme_constant_override("outline_size", 3)
+	sul.anchor_left = 1.0
+	sul.anchor_right = 1.0
+	sul.offset_left = -280
+	sul.offset_top = 38
+	sul.offset_right = -140
+	sul.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	layer.add_child(sul)
+	ui["souls_label"] = sul
+	_souls_l()
 
 	var hero_btn := Button.new()
 	hero_btn.text = "HERO"
