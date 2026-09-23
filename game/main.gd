@@ -803,9 +803,6 @@ func _reset_run_state() -> void:
 	gravetide = false
 	mudlark = false
 	netgain_n = 0
-	if blood_drawn:
-		Stats.buff_atk_pct -= 0.2
-		blood_drawn = false
 	wellread = false
 	tide_lends = false
 	pearl_fever = false
@@ -868,6 +865,9 @@ func _new_run(new_seed: int) -> void:
 	if rotgut_drunk:
 		Stats.buff_maxhp_pct -= 0.15
 		rotgut_drunk = false
+	if blood_drawn:
+		Stats.buff_atk_pct -= 0.2
+		blood_drawn = false
 	if pale_drunk:
 		Stats.buff_speed_pct -= 0.08
 		pale_drunk = false
