@@ -234,6 +234,7 @@ var lantern_healed := 0.0
 var lantern_touched := false
 var gravetide := false
 var mudlark := false
+var netgain_n := 0
 var skill_used_floor := false
 var skills_floor := {}
 var rooms_cleared := 0
@@ -800,6 +801,7 @@ func _reset_run_state() -> void:
 	_ferry_used = false
 	gravetide = false
 	mudlark = false
+	netgain_n = 0
 	wellread = false
 	tide_lends = false
 	pearl_fever = false
@@ -2290,6 +2292,10 @@ func _on_enemy_died(e) -> void:
 		tide_kills += 1
 	if deep_current and not e.is_boss:
 		Stats.earn_souls(1)
+		_souls_l()
+	if netgain_n > 0 and not e.is_boss:
+		netgain_n -= 1
+		Stats.earn_souls(2)
 		_souls_l()
 	if dread_tide and not e.is_boss:
 		Stats.earn_souls(1)
@@ -5301,12 +5307,23 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Salt Purse — pay 3 souls: this floor's urns each spill +1 soul"},
 		{"text": "Salt Tithe — pay 2 souls: every urn this RUN spills +1 soul"},
 		{"text": "Brine Wash — pay 2 souls: cleanse venom, chill, root and silence"},
+		{"text": "Net Gain — pay 5 souls: your next five kills pay double souls"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 7:
+	if idx == 8:
 		toast("The water settles back into the stone")
+		return
+	if idx == 7:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the net isn't free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_souls_l()
+		netgain_n = 5
+		Sfx.play("shrine")
+		toast("NET GAIN — the next five kills pay double souls")
 		return
 	if idx == 6:
 		if Stats.souls < _soul_cost(2):
