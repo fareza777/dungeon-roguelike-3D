@@ -112,6 +112,7 @@ const ACH_DEF := {
 	"f5": "Depth Diver (Floor 5)",
 	"f10": "Fearless (Floor 10)",
 	"arsenal_full": "Full Arsenal (learned every skill)",
+	"decklegend": "Deck Legend (carried 6 blades at once)",
 	"f15": "Abyssal Gate (Floor 15)",
 	"f20": "Heart of the Deep (Floor 20)",
 	"f24": "Throneside (Floor 24)",
@@ -405,6 +406,9 @@ func equip_weapon(id: String) -> void:
 	weapon_id = id
 	if not owned_weapons.has(id):
 		owned_weapons.append(id)
+		if owned_weapons.size() >= 6:
+			ach["decklegend"] = true
+			save_game()
 	weapon_changed.emit()
 
 
