@@ -160,6 +160,7 @@ const ACH_DEF := {
 	"wellread": "Well Read (read 5 lore stones in one run)",
 	"keelhaul5": "Catch & Release (keelhauled 5 foes at once)",
 	"bombsquad": "Bomb Squad (disarmed 5 traps in one run)",
+	"arsenal": "Full Arsenal (own 15 weapons at once)",
 	"websurgeon": "Web Surgeon (slay 10 Hull Widows)",
 	"quarteroath": "Quarter Sworn (swore 25 omens across your runs)",
 	"salt_merchant": "Salt Merchant (earned 150 souls in one run)",
