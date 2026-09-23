@@ -898,6 +898,7 @@ func _on_boss_died(_e) -> void:
 	get_tree().create_timer(0.7, true, false, true).timeout.connect(func() -> void: Engine.time_scale = 1.0)
 	boss_ref = null
 	Stats.boss_kills += 1
+	Stats.souls += 15
 	Stats.save_game()
 	Sfx.play("victory")
 	Sfx.play_music(_biome_track())
@@ -907,7 +908,7 @@ func _on_boss_died(_e) -> void:
 	if Stats.boss_kills >= 3:
 		_ach("b3")
 	_boss_bar_hide()
-	toast(boss_name + " falls! +15 XP")
+	toast(boss_name + " falls! +15 XP, +15 souls")
 	# epilog singkat setelah bos tumbang (kecuali pemain buru-buru turun)
 	var fl := Stats.floor_num
 	get_tree().create_timer(1.4).timeout.connect(func() -> void:
@@ -985,6 +986,7 @@ func _run_victory() -> void:
 	Stats.clear_run()
 	Stats.runs += 1
 	Stats.ng_plus += 1
+	Stats.souls += 25
 	Stats.save_game()
 	_ach("s25")
 	_tut_hide()

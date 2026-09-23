@@ -5,6 +5,9 @@ extends Control
 var autotest := false
 var settings_panel: CenterContainer = null
 var about_panel: CenterContainer = null
+var souls_panel: CenterContainer = null
+var souls_rows: VBoxContainer = null
+var souls_lbl: Label = null
 var toast_l: Label = null
 
 const GOLD := Color(0.95, 0.78, 0.35)
@@ -20,6 +23,7 @@ func _ready() -> void:
 	Sfx.set_volume(Stats.volume)
 	Sfx.play_music("menu")
 	_build()
+	_build_souls()
 	Transit.fade_in(self)
 	if autotest:
 		_shell_autotest()
@@ -183,7 +187,8 @@ func _build() -> void:
 	var ach_txt := " • ◆ %d/10" % Stats.ach.size() if Stats.ach.size() > 0 else ""
 	var ng_txt := " • ♛ NG+%d" % Stats.ng_plus if Stats.ng_plus > 0 else ""
 	var lore_txt := " • Lore %d/14" % Stats.lore_seen.size() if Stats.lore_seen.size() > 0 else ""
-	best.text = "Best: Floor %d • Total kills: %d%s%s%s%s" % [Stats.best_floor, Stats.total_kills, boss_txt, ach_txt, ng_txt, lore_txt]
+	var souls_txt := " • ◈ %d" % Stats.souls if Stats.souls > 0 else ""
+	best.text = "Best: Floor %d • Total kills: %d%s%s%s%s%s" % [Stats.best_floor, Stats.total_kills, boss_txt, ach_txt, ng_txt, lore_txt, souls_txt]
 	best.add_theme_font_size_override("font_size", 17)
 	best.modulate = Color(1.0, 0.9, 0.6, 0.85)
 	best.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -235,6 +240,14 @@ func _build() -> void:
 	bq.custom_minimum_size = Vector2(184, 60)
 	bq.pressed.connect(func() -> void: get_tree().quit())
 	vb.add_child(bq)
+
+	var bso := _make_btn("HALL OF SOULS — ◈ %d" % Stats.souls, false)
+	bso.custom_minimum_size = Vector2(380, 60)
+	bso.pressed.connect(func() -> void:
+		_refresh_souls()
+		souls_panel.visible = true
+	)
+	vb.add_child(bso)
 
 	# masuk berjenjang: panel + tombol memudar satu-satu
 	var kids: Array[Control] = []
@@ -433,6 +446,97 @@ func _build_about() -> void:
 
 # ---------------- aksi ----------------
 
+func _build_souls() -> void:
+	souls_panel = CenterContainer.new()
+	souls_panel.set_anchors_preset(Control.PRESET_FULL_RECT)
+	souls_panel.visible = false
+	add_child(souls_panel)
+	var dim := ColorRect.new()
+	dim.set_anchors_preset(Control.PRESET_FULL_RECT)
+	dim.color = Color(0, 0, 0, 0.6)
+	souls_panel.add_child(dim)
+	var panel := PanelContainer.new()
+	var psb := StyleBoxFlat.new()
+	psb.bg_color = Color(0.07, 0.05, 0.13, 0.98)
+	psb.border_color = Color(0.62, 0.45, 0.95)
+	psb.set_border_width_all(2)
+	psb.set_corner_radius_all(16)
+	psb.set_content_margin_all(26)
+	panel.add_theme_stylebox_override("panel", psb)
+	souls_panel.add_child(panel)
+	var vb := VBoxContainer.new()
+	vb.add_theme_constant_override("separation", 10)
+	vb.custom_minimum_size = Vector2(440, 0)
+	panel.add_child(vb)
+	var t := Label.new()
+	t.text = "HALL OF SOULS"
+	t.add_theme_font_size_override("font_size", 28)
+	t.modulate = Color(0.75, 0.6, 1.0)
+	t.add_theme_color_override("font_outline_color", Color(0.15, 0.05, 0.3, 0.9))
+	t.add_theme_constant_override("outline_size", 6)
+	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	vb.add_child(t)
+	souls_lbl = Label.new()
+	souls_lbl.add_theme_font_size_override("font_size", 18)
+	souls_lbl.modulate = Color(0.9, 0.85, 1.0, 0.9)
+	souls_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	vb.add_child(souls_lbl)
+	var hint := Label.new()
+	hint.text = "Spent souls are gone forever — but the power stays."
+	hint.add_theme_font_size_override("font_size", 13)
+	hint.modulate = Color(1, 1, 1, 0.45)
+	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	vb.add_child(hint)
+	souls_rows = VBoxContainer.new()
+	souls_rows.add_theme_constant_override("separation", 8)
+	vb.add_child(souls_rows)
+	var back := _make_btn("BACK", false)
+	back.pressed.connect(func() -> void: souls_panel.visible = false)
+	vb.add_child(back)
+
+
+func _refresh_souls() -> void:
+	souls_lbl.text = "◈ %d souls — bound forever to Kael" % Stats.souls
+	for c in souls_rows.get_children():
+		c.queue_free()
+	for id in Stats.META_DEF.keys():
+		var d: Dictionary = Stats.META_DEF[id]
+		var lv: int = int(Stats.meta.get(id, 0))
+		var mx: int = int(d["max"])
+		var row := HBoxContainer.new()
+		row.add_theme_constant_override("separation", 10)
+		var info := VBoxContainer.new()
+		info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		var nm := Label.new()
+		nm.text = "%s  %s" % [String(d["name"]), "◆".repeat(lv) + "◇".repeat(mx - lv)]
+		nm.add_theme_font_size_override("font_size", 18)
+		nm.modulate = Color(1.0, 0.95, 0.85)
+		info.add_child(nm)
+		var ds := Label.new()
+		ds.text = String(d["desc"])
+		ds.add_theme_font_size_override("font_size", 13)
+		ds.modulate = Color(1, 1, 1, 0.55)
+		info.add_child(ds)
+		row.add_child(info)
+		var bb := _make_btn("MAX" if lv >= mx else "◈ %d" % Stats.meta_cost(id), false)
+		bb.custom_minimum_size = Vector2(110, 52)
+		bb.disabled = lv >= mx
+		var bb_id: String = id
+		var bb_d: Dictionary = d
+		bb.pressed.connect(func() -> void:
+			if Stats.buy_meta(bb_id):
+				Sfx.play("levelup")
+				_toast("Bound: %s Lv %d" % [String(bb_d["name"]), int(Stats.meta[bb_id])])
+			else:
+				Sfx.play("deny")
+				_toast("Not enough souls")
+			_refresh_souls()
+		)
+		row.add_child(bb)
+		souls_rows.add_child(row)
+
+
 func _on_share() -> void:
 	var url := STORE_URL + Stats.STORE_ID
 	DisplayServer.clipboard_set("Play DungeonSlice — a bone-breaking roguelike! " + url)
@@ -457,6 +561,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		if settings_panel.visible:
 			settings_panel.visible = false
+		elif souls_panel != null and souls_panel.visible:
+			souls_panel.visible = false
 		elif about_panel.visible:
 			about_panel.visible = false
 		else:

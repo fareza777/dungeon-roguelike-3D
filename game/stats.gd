@@ -56,6 +56,16 @@ var music_volume := -1.0
 var sfx_volume := -1.0
 var saved_run := {}
 var lore_seen: Array = [] # baris lore yang pernah ditemukan (codex, persist)
+var souls := 0 # mata uang meta — dari kill, dipakai di Hall of Souls
+var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0}
+
+const META_DEF := {
+	"vital": {"name": "Vitality", "max": 5, "desc": "+1 Max HP per level"},
+	"might": {"name": "Might", "max": 5, "desc": "+5% ATK per level"},
+	"swift": {"name": "Swiftness", "max": 4, "desc": "+3% Speed per level"},
+	"magnet": {"name": "Magnetism", "max": 3, "desc": "+20% soul-pull per level"},
+	"wind": {"name": "Second Wind", "max": 1, "desc": "Begin every run with a revive"},
+}
 
 # dipakai menu -> game
 var pending_restore := false
@@ -79,7 +89,7 @@ func get_stat(n: String) -> float:
 		mult += wmods[n + "_pct"]
 	if n == "atk":
 		flat += float(weapon_lv.get(weapon_id, 1) - 1)
-		mult += buff_atk_pct + combo_atk
+		mult += buff_atk_pct + combo_atk + float(meta.get("might", 0)) * 0.05
 		if warcry_t > 0.0:
 			mult += 0.5
 		# amukan: +ATK saat HP di bawah 35%
@@ -88,9 +98,12 @@ func get_stat(n: String) -> float:
 	if n == "atk_speed":
 		mult += combo_aspd
 	if n == "max_hp":
+		flat += float(meta.get("vital", 0))
 		flat -= mahzan_debt
 	if n == "armor":
 		flat += buff_armor
+	if n == "speed":
+		mult += float(meta.get("swift", 0)) * 0.03
 	return flat * mult
 
 
@@ -160,10 +173,10 @@ func reset_run() -> void:
 	buff_atk_pct = 0.0
 	buff_armor = 0
 	warcry_t = 0.0
-	revive_left = 0
+	revive_left = int(meta.get("wind", 0))
 	thorns = 0.0
 	dodge = 0.0
-	magnet = 0.0
+	magnet = float(meta.get("magnet", 0)) * 0.2
 	berserk = 0.0
 	combo_atk = 0.0
 	combo_aspd = 0.0
@@ -181,7 +194,23 @@ func reset_run() -> void:
 func register_kill(xp_val: int) -> void:
 	kills += 1
 	total_kills += 1
+	souls += 1
 	add_xp(xp_val)
+
+
+func meta_cost(id: String) -> int:
+	var lv: int = int(meta.get(id, 0))
+	return 40 if id == "wind" else 5 + lv * 5
+
+
+func buy_meta(id: String) -> bool:
+	var lv: int = int(meta.get(id, 0))
+	if lv >= int(META_DEF[id]["max"]) or souls < meta_cost(id):
+		return false
+	souls -= meta_cost(id)
+	meta[id] = lv + 1
+	save_game()
+	return true
 
 
 func note_floor() -> void:
@@ -245,6 +274,8 @@ func wipe_progress() -> void:
 	rated = false
 	saved_run = {}
 	lore_seen = []
+	souls = 0
+	meta = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0}
 	reset_run()
 	save_game()
 
@@ -262,6 +293,8 @@ func save_game() -> void:
 			"run": saved_run,
 			"ach": ach,
 			"lore": lore_seen,
+			"souls": souls,
+			"meta": meta,
 		}))
 
 
@@ -291,3 +324,8 @@ func load_game() -> void:
 			var lo = d.get("lore", [])
 			if lo is Array:
 				lore_seen = lo
+			souls = int(d.get("souls", 0))
+			var me = d.get("meta", {})
+			if me is Dictionary:
+				for k in META_DEF.keys():
+					meta[k] = int(me.get(k, 0))
