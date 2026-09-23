@@ -119,6 +119,8 @@ var grave_hunger := false
 var giant_hall := false
 var shrouded := false
 var bounty_ref: Enemy = null
+var ferry_skip := false
+var _ferry_used := false
 var storm_t := 0.0
 var nemesis_spawned := false # musuh yang membunuhmu run lalu — kembali lebih kuat
 var nemesis_warned := false # nemesis story beat — 1だけ
@@ -1117,6 +1119,8 @@ func _spawn_shrine(last_room: int) -> void:
 		skind = 5 # lantai quest Bounty Hunter — batu kontrak terjamin
 	elif Stats.floor_num >= 10 and Stats.floor_num % 8 == 4:
 		skind = 6 # lantai quest Grave Robber — vault terjamin
+	elif Stats.floor_num >= 13 and Stats.floor_num <= 19 and Stats.floor_num % 7 == 1:
+		skind = 7 # lantai quest Commuter — ferryman terjamin
 	elif Stats.floor_num >= 9 and rng.randf() < 0.1:
 		skind = 6
 	elif Stats.floor_num >= 5 and Stats.floor_num % 5 == 1:
@@ -1146,6 +1150,8 @@ func _spawn_shrine(last_room: int) -> void:
 			s.invoked.connect(_on_bounty_invoked)
 		6:
 			s.invoked.connect(_on_vault_invoked)
+		7:
+			s.invoked.connect(_on_ferry_invoked)
 		_:
 			s.invoked.connect(_on_shrine_invoked)
 
@@ -1988,6 +1994,10 @@ func _on_banner_tap() -> void:
 		get_tree().change_scene_to_file("res://app/menu.tscn")
 	elif run_state == "cleared":
 		_quest_event("descend")
+		if ferry_skip:
+			ferry_skip = false
+			Stats.floor_num += 1
+			toast("The Ferryman rows you past a floor")
 		Stats.floor_num += 1
 		Stats.note_floor()
 		if Stats.floor_num >= 5:
@@ -3065,6 +3075,10 @@ func _on_dlg_choice(idx: int) -> void:
 		dlg_pending_choice = -1
 		_vault_deal(idx)
 		return
+	elif dlg_pending_choice == 10:
+		dlg_pending_choice = -1
+		_ferry_deal(idx)
+		return
 	match idx:
 		0:
 			Stats.buff_atk_pct += 0.15
@@ -3435,6 +3449,34 @@ func _bounty_deal(idx: int) -> void:
 		bounty_ref.activated = true
 		Sfx.play("roar")
 		_damage_number(bounty_ref.global_position + Vector3(0, 1.0 * info.tile, 0), "BOUNTY MARKED!", Color(1.0, 0.75, 0.3), true)
+
+
+func _on_ferry_invoked(s) -> void:
+	if _ferry_used:
+		toast("The ferry has already sailed — its lantern is dark")
+		return
+	s.consume()
+	Sfx.play("shrine")
+	dlg_pending_choice = 10
+	_say([{"who": "mahzan", "text": "The Ferryman rows the dark between floors. Six souls buys passage past one."}],
+		[{"text": "Pay 6 souls — skip the next floor"},
+		{"text": "Refuse — walk the whole way down"}])
+
+
+func _ferry_deal(idx: int) -> void:
+	if idx != 0:
+		toast("The Ferryman's lantern fades without you")
+		return
+	if Stats.souls < _soul_cost(6):
+		toast("Six souls — the Ferryman doesn't haggle")
+		return
+	Stats.souls -= _soul_cost(6)
+	_souls_l()
+	_ferry_used = true
+	ferry_skip = true
+	Sfx.play("soul")
+	_quest_event("ferry")
+	toast("CARRIED — the Ferryman will bear you past the next floor")
 
 
 func _on_vault_invoked(s) -> void:
