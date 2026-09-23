@@ -141,6 +141,8 @@ var lc_delta := 0.0
 var wolf_n := 0
 var omen_count := 0
 var omen_refusals := 0
+var bargainer := false
+var bargain_used := false
 var shrine_kind := 0
 var bounty_ref: Enemy = null
 var bounty_epic := false
@@ -579,6 +581,8 @@ func _reset_run_state() -> void:
 	lc_delta = 0.0
 	omen_count = 0
 	omen_refusals = 0
+	bargainer = false
+	bargain_used = false
 	nemesis_warned = false
 
 
@@ -3367,6 +3371,7 @@ func _offer_omens() -> void:
 			{"text": "LONE CROWN — +20% ATK on boss floors, -5% ATK on all others"},
 			{"text": "REAPER'S TITHE — +1 soul per kill, but every 10th kill pays nothing"},
 			{"text": "DEATHWISH — +40% ATK, but every blow you take hits 30% harder"},
+			{"text": "BARGAINER — your first Mahzan deal this run comes with 6 free souls"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -3397,7 +3402,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 22 if Stats.nemesis != "" else 21
+	var osize := 23 if Stats.nemesis != "" else 22
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -3499,6 +3504,9 @@ func _omen_deal(idx: int) -> void:
 			Stats.deathwish = true
 			oname = "DEATHWISH"
 		21:
+			bargainer = true
+			oname = "BARGAINER"
+		22:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -3527,6 +3535,7 @@ func _omen_deal(idx: int) -> void:
 		"LONE CROWN": "Save your sharpest edge for thrones.",
 		"REAPER'S TITHE": "The reaper skims every tenth soul. Still worth it.",
 		"DEATHWISH": "Glass edge, glass skull. Beautiful and doomed.",
+		"BARGAINER": "He likes a customer who swears early.",
 		"FEATHER": "A lighter coffin, then. Sensible.",
 		"RICH SOIL": "The dungeon will feed you well — keep chewing.",
 		"LEECHING": "Your blood will not stay yours, but at least it circles back.",
@@ -3909,6 +3918,11 @@ func _curse_deal(idx: int) -> void:
 
 
 func _mahzan_deal(idx: int) -> void:
+	if bargainer and not bargain_used:
+		bargain_used = true
+		Stats.souls += 6
+		_souls_l()
+		toast("BARGAINER — Mahzan fronts you 6 souls")
 	_quest_event("mahzan")
 	match idx:
 		0:
