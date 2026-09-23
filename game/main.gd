@@ -91,6 +91,7 @@ var ambush_room := -1 # ruangan "kosong" yang ternyata penyergapan
 var ambushed_room := -1 # ruangan yang ambush-nya sudah meletus
 var chest_opened := false
 var gilded_chest := false
+var cursed_chest := false
 var toast_tween: Tween = null
 
 # polish r2: pause, ringkasan run, transisi fade, juice vfx
@@ -481,6 +482,10 @@ func _new_run(new_seed: int) -> void:
 	gilded_chest = not mimic_pending and Stats.floor_num >= 4 and rng.randf() < 0.12
 	if gilded_chest and info.get("chest") != null:
 		M.paint(info.chest, M.toon(dungeon_tex, Color(1.35, 1.15, 0.55), 0.55))
+	# peti terkutuk (10%, lantai 6+, bukan mimic/gilded): penyergapan demi relic epic
+	cursed_chest = not mimic_pending and not gilded_chest and Stats.floor_num >= 6 and rng.randf() < 0.10
+	if cursed_chest and info.get("chest") != null:
+		M.paint(info.chest, M.toon(dungeon_tex, Color(0.5, 0.3, 0.75), 0.5))
 	var last_room: int = int(info.get("room_count", 1)) - 1
 	var elite_chance: float = minf(0.08 + 0.02 * Stats.floor_num, 0.3)
 	var table: Array = biome["enemies"]
@@ -4234,6 +4239,26 @@ func _process(delta: float) -> void:
 					for mk in range(2):
 						var off := Vector3((mk - 0.5) * 0.9 * info.tile, 0, 0.7 * info.tile)
 						_spawn_enemy({"pos": info.chest.global_position + off, "room": int(info.get("room_count", 1)) - 1}, "chaser", false)
+				elif cursed_chest:
+					cursed_chest = false
+					Sfx.play("roar")
+					trauma = 0.9
+					_lvl_banner("☠ CURSED HOARD — THE DEAD OBJECT")
+					var table2: Array = biome["enemies"]
+					var last_r2: int = int(info.get("room_count", 1)) - 1
+					for mk2 in range(3):
+						var off2 := Vector3((mk2 - 1) * 0.9 * info.tile, 0, (0.4 + mk2 * 0.3) * info.tile)
+						_spawn_enemy({"pos": info.chest.global_position + off2, "room": last_r2}, String(table2[rng.randi_range(0, table2.size() - 1)]), mk2 == 0)
+					var pool2: Array = []
+					for rid3 in ITEMS.DB:
+						if int(ITEMS.DB[rid3]["rarity"]) >= 2 and not Stats.relics.has(rid3):
+							pool2.append(rid3)
+					if not pool2.is_empty():
+						var rid4: String = pool2[rng.randi_range(0, pool2.size() - 1)]
+						Stats.add_relic(rid4)
+						Stats.save_run()
+						toast("Cursed spoils — epic relic: " + String(ITEMS.DB[rid4]["name"]))
+					M.paint(info.chest, M.toon(dungeon_tex, Color(0.45, 0.4, 0.32), 0.1))
 				else:
 					player.hp = Stats.get_stat("max_hp")
 					player.hp_changed.emit(player.hp)
