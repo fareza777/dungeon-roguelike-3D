@@ -20,6 +20,7 @@ const SK = preload("res://skills_db.gd")
 const QDB = preload("res://quests_db.gd")
 const DLG = preload("res://dialogue.gd")
 const TRAP = preload("res://trap.gd")
+const SQUIRE = preload("res://squire.gd")
 const SHRINE = preload("res://shrine.gd")
 const LSTONE = preload("res://lore_stone.gd")
 const DUNGEON := "res://assets/dungeon/"
@@ -343,6 +344,8 @@ func _new_run(new_seed: int) -> void:
 		_spawn_shrine(last_room)
 		_spawn_lore_stone(last_room)
 		_spawn_motes()
+		if Stats.relics.has("tulang_kesatria"):
+			_spawn_squire()
 	_start_quests(boss_floor, int(info.get("room_count", 1)))
 	_build_minimap()
 	Sfx.play_music("boss" if boss_floor else _biome_track())
@@ -650,6 +653,7 @@ func _spawn_shrine(last_room: int) -> void:
 var lore_ref = null
 var motes_ref: GPUParticles3D = null
 var stain_count := 0
+var squire_ref: Node3D = null
 
 
 func _spawn_lore_stone(last_room: int) -> void:
@@ -712,6 +716,18 @@ func _spawn_motes() -> void:
 	dm.emission_energy_multiplier = 1.6
 	dot.material = dm
 	p.draw_pass_1 = dot
+
+
+func _spawn_squire() -> void:
+	if squire_ref != null and is_instance_valid(squire_ref):
+		return
+	if player == null or not is_instance_valid(player):
+		return
+	squire_ref = SQUIRE.new()
+	room.add_child(squire_ref)
+	squire_ref.global_position = player.global_position + Vector3(0.4 * info.tile, 0, 0.3 * info.tile)
+	squire_ref.setup(info.tile, maxf(1.0, Stats.get_stat("atk") * 0.35))
+	toast("Your squire kneels... then rises to fight")
 
 
 func _on_lore_stone(s) -> void:
@@ -1078,6 +1094,8 @@ func _pick_relic(i: int) -> void:
 	var id: String = draft_choices[i]
 	var before := Stats.get_stat("max_hp")
 	Stats.add_relic(id)
+	if id == "tulang_kesatria":
+		_spawn_squire()
 	var after := Stats.get_stat("max_hp")
 	if player != null and is_instance_valid(player):
 		if after > before:

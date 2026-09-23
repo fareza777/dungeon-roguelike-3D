@@ -32,6 +32,7 @@ const DB := {
 	"jiwa_bangkit": {"name": "Soul Risen", "chip": "SR", "desc": "Revive 1x (50% HP)", "rarity": 2, "mods": {"revive": 1}},
 	"amukan": {"name": "Berserk", "chip": "BK", "desc": "+35% ATK under 35% HP", "rarity": 2, "mods": {"berserk": 0.35}},
 	"darah_raja": {"name": "King's Blood", "chip": "KB", "desc": "+10% ATK, +2 Max HP, +5% Lifesteal", "rarity": 2, "mods": {"atk_pct": 0.1, "max_hp": 2.0, "lifesteal": 0.05}},
+	"tulang_kesatria": {"name": "Bone Squire", "chip": "SQ", "desc": "A loyal squire fights beside you", "rarity": 2, "mods": {"squire": 1}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
