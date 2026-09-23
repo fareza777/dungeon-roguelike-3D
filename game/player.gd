@@ -325,6 +325,26 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						f.take_hit(global_position, dmg * 0.4)
 					if mw.has_method("_damage_number"):
 						mw._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "SAWED", Color(1.0, 0.7, 0.3), false)
+		"quarterstaff": # SWEEP — tiap tebasan ke-8 mendorong semua musuh dekat
+			var qst := get_tree().current_scene
+			if qst != null:
+				qst.set("net_n", int(qst.get("net_n")) + 1)
+				if int(qst.get("net_n")) >= 8:
+					qst.set("net_n", 0)
+					var sw_n := 0
+					for fo2 in get_tree().get_nodes_in_group("enemies"):
+						if fo2.get("state") == "dead" or not is_instance_valid(fo2):
+							continue
+						if global_position.distance_to(fo2.global_position) > 1.8 * room_tile:
+							continue
+						var sdir: Vector3 = fo2.global_position - global_position
+						sdir.y = 0
+						fo2.kb += sdir.normalized() * room_tile * 8.0
+						sw_n += 1
+					if sw_n > 0:
+						Sfx.play("shake")
+						if qst.has_method("_damage_number"):
+							qst._damage_number(global_position + Vector3(0, 0.8 * room_tile, 0), "SWEEP ×%d" % sw_n, Color(0.85, 0.75, 0.5), false)
 		"reef_chorus": # CHORUS — tiap tebasan ke-7 mempercepat skill terlama
 			var rck := get_tree().current_scene
 			if rck != null:
