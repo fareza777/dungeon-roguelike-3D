@@ -326,6 +326,7 @@ func _ready() -> void:
 		print("LANJUTKAN run lantai=", Stats.floor_num)
 	else:
 		Stats.reset_run()
+		_reset_run_state()
 		kills_run = 0
 		last_stand_kills = 0
 		vials = 1
@@ -474,6 +475,15 @@ func _style_room() -> void:
 
 
 # ---------------- run lifecycle ----------------
+
+func _reset_run_state() -> void:
+	omen_done = false
+	omen_done2 = false
+	omen_name = ""
+	omen_hp_mult = 1.0
+	fatehand = false
+	nemesis_warned = false
+
 
 func _new_run(new_seed: int) -> void:
 	seed_val = new_seed
@@ -1828,6 +1838,7 @@ func _on_banner_tap() -> void:
 		_fade_to(0.0, 0.45)
 	elif run_state == "dead":
 		Stats.reset_run()
+		_reset_run_state()
 		kills_run = 0
 		last_stand_kills = 0
 		vials = 1
@@ -2895,6 +2906,7 @@ func _offer_omens() -> void:
 			{"text": "IRONSIDE — +2 Armor, -15% Speed"},
 			{"text": "STORMGLASS — +20% Skill Recharge, -15% Max HP"},
 			{"text": "OATH OF SILENCE — +30% ATK, skills recharge 35% slower"},
+			{"text": "FATEHAND — drafts show a 4th relic, -1 Armor"},
 		]
 	)
 
