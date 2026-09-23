@@ -126,23 +126,24 @@ func _physics_process(delta: float) -> void:
 	anim_lock = max(0.0, anim_lock - delta)
 	var tick := delta * (2.0 if Stats.relics.has("pressure_suit") else 1.0) * (1.3 if Stats.relics.has("brine_rat") else 1.0)
 	if chill_t > 0.0:
-		chill_t = max(0.0, chill_t - tick * (1.8 if Stats.relics.has("warm_blood") else 1.0))
+		chill_t = max(0.0, chill_t - tick * (1.8 if Stats.relics.has("warm_blood") else 1.0) * rosary_mult_)
 		if chill_t == 0.0 and Stats.relics.has("warm_blood"):
 			var mcs := get_tree().current_scene
 			if mcs != null and mcs.has_method("_quest_event"):
 				mcs._quest_event("chillshake", 1)
 	slip_t = max(0.0, slip_t - tick)
-	weak_t = max(0.0, weak_t - tick)
+	var rosary_mult_: float = 2.0 if get_tree().current_scene.get("salt_rosary") == true else 1.0
+	weak_t = max(0.0, weak_t - tick * rosary_mult_)
 	if Stats.relics.has("tarred_rope"):
 		root_t = 0.0
-	root_t = max(0.0, root_t - tick * (1.5 if Stats.relics.has("silk_greaves") else 1.0))
-	silence_t = max(0.0, silence_t - tick)
+	root_t = max(0.0, root_t - tick * (1.5 if Stats.relics.has("silk_greaves") else 1.0) * rosary_mult_)
+	silence_t = max(0.0, silence_t - tick * rosary_mult_)
 	if Stats.relics.has("wormwood"):
 		venom_t = 0.0
 	if venom_t > 0.0:
-		venom_t = max(0.0, venom_t - tick)
+		venom_t = max(0.0, venom_t - tick * rosary_mult_)
 	if rust_t > 0.0:
-		rust_t = max(0.0, rust_t - tick)
+		rust_t = max(0.0, rust_t - tick * rosary_mult_)
 		hp -= delta * (0.3 if Stats.relics.has("float_suit") else 0.6)
 		hp_changed.emit(hp)
 		if hp <= 0.0:
