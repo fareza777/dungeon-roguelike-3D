@@ -247,6 +247,7 @@ var fog_lantern_d := false
 var crowns_rest := false
 var salted_deck := false
 var pale_scrip := false
+var rat_ration := false
 var shoal_spd := false
 var dead_weight := false
 var hymn_delta := 0.0
@@ -1531,7 +1532,7 @@ func _new_run(new_seed: int) -> void:
 	dead_weight = not choir and not dread_tide and not starved_deep and not abyssal_hymn and not dead_calm and not boss_floor and Stats.floor_num >= 14 and rng.randf() < 0.08
 	Stats.dead_weight = dead_weight
 	shell_game = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not umbral_tide and not abyssal_patience and not choir and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
-	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe", "tar_smear", "black_calm", "bilge_iron", "gun_smoke", "greedy_tide", "drift_wreck", "chorus_cut", "long_watch", "fog_lantern_d", "crowns_rest", "salted_deck", "pale_scrip"]:
+	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe", "tar_smear", "black_calm", "bilge_iron", "gun_smoke", "greedy_tide", "drift_wreck", "chorus_cut", "long_watch", "fog_lantern_d", "crowns_rest", "salted_deck", "pale_scrip", "rat_ration"]:
 		if get(evf):
 			events_run[evf] = true
 			break
@@ -5520,6 +5521,10 @@ func _start_quests(boss_floor: bool, room_count: int) -> void:
 	for e in get_tree().get_nodes_in_group("enemies"):
 		if e.elite:
 			n_elites += 1
+	if rat_ration and player != null and is_instance_valid(player):
+		player.hp = Stats.get_stat("max_hp")
+		player.hp_changed.emit(player.hp)
+		toast("RAT RATION — the mold did most of the eating")
 	quest_steps = QDB.for_floor(Stats.floor_num, room_count, n_elites)
 	for st in quest_steps:
 		st["done"] = 0
