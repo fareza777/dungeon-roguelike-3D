@@ -136,7 +136,7 @@ const ACH_DEF := {
 	"pacifist": "Blade Only (a floor cleared without skills)",
 	"onedrop": "One Drop Left (took the throne on a single drop of blood)",
 	"loaded_dice": "Loaded Dice (5 well tosses in one run)",
-	"salvager": "Salvager (15 Reliquary wisp souls)",
+	"salvager": "Salvager (claimed 15 sea-borne souls)",
 	"accountant": "Soul Accountant (100 souls held)",
 	"cove": "Treasure Cove (smashed 8 urns in one run)",
 	"saltdog": "Saltdog (put down 10 Keelhounds)",
