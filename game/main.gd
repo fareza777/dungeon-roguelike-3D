@@ -3412,6 +3412,7 @@ func _offer_omens() -> void:
 			{"text": "REAPER'S TITHE — +1 soul per kill, but every 10th kill pays nothing"},
 			{"text": "DEATHWISH — +40% ATK, but every blow you take hits 30% harder"},
 			{"text": "BARGAINER — your first Mahzan deal this run comes with 6 free souls"},
+			{"text": "HOLLOW CROWN — +40% ATK, but every relic melts into +3 souls"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -3442,7 +3443,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 23 if Stats.nemesis != "" else 22
+	var osize := 24 if Stats.nemesis != "" else 23
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -3547,6 +3548,10 @@ func _omen_deal(idx: int) -> void:
 			bargainer = true
 			oname = "BARGAINER"
 		22:
+			Stats.hollow_crown = true
+			buff_atk += 0.4
+			oname = "HOLLOW CROWN"
+		23:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -3591,6 +3596,7 @@ func _omen_deal(idx: int) -> void:
 		"PAWNBREAKER": "His prices will sting less. He'll hate that.",
 		"HEIRLOOM": "Someone carried that before you. They are still carrying it, in a way.",
 		"GOLDEN FATE": "Every lock will gleam. Mind the teeth on some.",
+		"HOLLOW CROWN": "Crown of nothing. The Oracle admires your appetite anyway.",
 		"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 	}
 	var rline: String = String(reacts.get(oname, "An oath is an oath."))

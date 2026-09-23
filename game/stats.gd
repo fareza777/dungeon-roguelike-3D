@@ -48,6 +48,7 @@ var solo_xp := 0.0 # Kismet Thread: +1 reroll di tiap draft run ini
 var soul_bonus := 0 # Crown Shard: jiwa ekstra per kill
 var event_soul_bonus := 0
 var soul_sealed := false
+var hollow_crown := false
 var reaper_tithe := false
 var deathwish := false # omen: +40% ATK, +30% dmg taken
 var relic_burn := 0.0 # Ember Brand: peluang bakar di semua senjata
@@ -221,6 +222,9 @@ func add_xp(n: int) -> void:
 
 
 func add_relic(id: String) -> void:
+	if hollow_crown:
+		souls += 3
+		return
 	relics.append(id)
 	var mods: Dictionary = ITEMS.DB[id]["mods"]
 	if mods.has("revive"):
@@ -321,6 +325,7 @@ func reset_run() -> void:
 	soul_sealed = false
 	reaper_tithe = false
 	deathwish = false
+	hollow_crown = false
 	relic_burn = 0.0
 	cd_reduction = 0.0
 	current_hp = get_stat("max_hp")
