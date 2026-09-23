@@ -3072,6 +3072,9 @@ func _on_enemy_died(e) -> void:
 		_ach("k200")
 	_quest_event("kill")
 	_quest_event("kill_" + Stats.weapon_id)
+	if Stats.weapon_id == "storm_petrel":
+		skill_cd["dash"] = maxf(0.0, float(skill_cd.get("dash", 0.0)) - 0.4 * float(SkillsDb.get_s("dash").get("cd", 1.0)))
+		_damage_number(e.global_position + Vector3(0, 0.7 * info.tile, 0), "PETREL", Color(0.7, 0.85, 1.0), false)
 	if not events_run.is_empty():
 		_quest_event("eventkill")
 	if salvage_tide and rng.randf() < 0.1:
