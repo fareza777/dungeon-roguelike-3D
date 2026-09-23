@@ -1210,7 +1210,16 @@ func _blood_stain(pos: Vector3) -> void:
 
 func _souls_l() -> void:
 	if ui.has("souls_label"):
-		ui.souls_label.text = "◈ %d souls" % Stats.souls if Stats.souls > 0 else ""
+		var t2: String = "◈ %d souls" % Stats.souls if Stats.souls > 0 else ""
+		if t2 != ui.souls_label.text and Stats.souls > 0:
+			ui.souls_label.pivot_offset = ui.souls_label.size * 0.5
+			ui.souls_label.scale = Vector2(1.3, 1.3)
+			ui.souls_label.modulate = Color(1.0, 0.9, 0.4)
+			var tw := create_tween()
+			tw.set_parallel(true)
+			tw.tween_property(ui.souls_label, "scale", Vector2.ONE, 0.25)
+			tw.tween_property(ui.souls_label, "modulate", Color(1, 1, 1), 0.4)
+		ui.souls_label.text = t2
 
 
 func _on_enemy_died(e) -> void:
