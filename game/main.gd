@@ -7311,6 +7311,8 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			"The rusted ones wade slow. Do not waste your hurry on them.",
 			"Keelbound things cannot be pushed. Plant your feet and trade, or walk around.",
 			"The beaked ones never linger, Kael — wait for the hop, then answer.",
+			"A rusted blade heals with oil — the corrosive bites do not last forever.",
+			"Souls gather faster in wrecked waters. When the tide gives, take it all.",
 		]
 		lines = [{"who": "oracle", "text": tips[rng.randi_range(0, tips.size() - 1)]}]
 	if lines.is_empty():
