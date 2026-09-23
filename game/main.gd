@@ -163,6 +163,7 @@ var wolf_omen := false
 var ashborn := false
 var lonecrown := false
 var lc_delta := 0.0
+var tf_delta := 0.0
 var wolf_n := 0
 var omen_count := 0
 var wellread := false
@@ -725,6 +726,7 @@ func _reset_run_state() -> void:
 	ashborn = false
 	lonecrown = false
 	lc_delta = 0.0
+	tf_delta = 0.0
 	omen_count = 0
 	omen_refusals = 0
 	bargainer = false
@@ -776,6 +778,9 @@ func _new_run(new_seed: int) -> void:
 	Stats.buff_atk_pct -= lc_delta
 	lc_delta = (0.2 if boss_floor else -0.05) if lonecrown else 0.0
 	Stats.buff_atk_pct += lc_delta
+	Stats.buff_speed_pct -= tf_delta
+	tf_delta = 0.12 if (Stats.relics.has("trenchfoot") and Stats.floor_num >= 11) else 0.0
+	Stats.buff_speed_pct += tf_delta
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 	# event langka: blood moon — langit merah, musuh lebih keras, XP lebih kaya

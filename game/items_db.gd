@@ -67,6 +67,7 @@ const DB := {
 	"keelhook": {"name": "Keelhook", "chip": "KH", "desc": "Every Keelhound you drop spills +2 souls", "rarity": 1, "mods": {}},
 	"deaf_cap": {"name": "Deaf Cap", "chip": "DC", "desc": "Waxed ears — no siren's pull can move you", "rarity": 1, "mods": {}},
 	"choir_alms": {"name": "Choir Alms", "chip": "CA", "desc": "Entering a Choir Below floor pays +3 souls", "rarity": 1, "mods": {}},
+	"trenchfoot": {"name": "Trenchfoot", "chip": "TF", "desc": "Barnacle grip — +12% speed on the drowned floors (11+)", "rarity": 1, "mods": {}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
