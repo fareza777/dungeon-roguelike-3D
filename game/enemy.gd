@@ -75,6 +75,8 @@ var cantor := false
 var husk := false
 var fanatic := false
 var brood := false
+var chime := false
+var chime_t := 7.0
 var husk_shell := false
 var cantor_t := 6.5
 var bride_t := 5.5
@@ -194,6 +196,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	husk_shell = husk
 	fanatic = bool(a.get("fanatic", false))
 	brood = bool(a.get("brood", false))
+	chime = bool(a.get("chime", false))
 	healer = bool(a.get("healer", false))
 	crowned = bool(a.get("crowned", false))
 	tither = bool(a.get("tither", false))
@@ -583,6 +586,11 @@ func _physics_process(delta: float) -> void:
 		if cantor_t <= 0.0:
 			cantor_t = 6.5
 			_cantor_call()
+	if chime and activated and state != "dead":
+		chime_t -= delta
+		if chime_t <= 0.0:
+			chime_t = 7.5
+			_chime_toll()
 	if is_warper and activated:
 		warp_t -= delta
 		if warp_t <= 0.0:
@@ -1120,6 +1128,19 @@ func _bride_pulse() -> void:
 			e5.set("speed", float(e5.get("speed")) * 1.08)
 			e5.set("spd_boost", int(e5.get("spd_boost")) + 1)
 
+
+func _chime_toll() -> void:
+	var sc := get_tree().current_scene
+	if sc == null:
+		return
+	for e2 in sc.enemies:
+		if is_instance_valid(e2) and e2 != self and e2.state != "dead":
+			var dd: float = (e2.global_position - global_position).length()
+			if dd < 9.0 * room_tile and not bool(e2.get("activated")):
+				e2.set("activated", true)
+	Sfx.play("quest")
+	if sc.has_method("_damage_number"):
+		sc._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "TOLL!", Color(0.9, 0.8, 0.4), false)
 
 func _cantor_call() -> void:
 	# salt cantor: panggilannya membangunkan seluruh ruangan
