@@ -2317,7 +2317,7 @@ func _on_enemy_died(e) -> void:
 	if e.elite and String(biome.get("name", "")) == "Sunken Reliquary":
 		Stats.souls += 4
 		_souls_l()
-		_damage_number(e.global_position + Vector3(0, 0.9 * info.tile, 0), "EMISSARY'S PAYER — +4 souls", Color(0.5, 0.95, 0.85), true)
+		_damage_number(e.global_position + Vector3(0, 0.9 * info.tile, 0), "COURT'S HOARD — +4 souls", Color(0.5, 0.95, 0.85), true)
 	if e.elite:
 		_quest_event("elite_kill", 1)
 		if not e.is_boss:
