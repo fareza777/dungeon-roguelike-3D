@@ -4733,6 +4733,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Sirensong — pay 4 souls: this floor's elites pay +4 souls"},
 			{"text": "Rotgut Brew — pay 3 souls: +15% Max HP till the floor falls"},
 			{"text": "Pale Ale — pay 2 souls: +8% speed till the floor falls"},
+			{"text": "Mystery Meat — pay 4 souls: a random blessing, sight unseen"},
 		]
 	)
 
@@ -5606,6 +5607,32 @@ func _mahzan_deal(idx: int) -> void:
 					player.refresh_stats()
 				Sfx.play("shrine")
 				toast("PALE ALE — your feet forget the floor. +8% speed")
+		19:
+			if Stats.souls < _soul_cost(4):
+				toast("Four souls — even mystery meat costs")
+			else:
+				Stats.souls -= _soul_cost(4)
+				_souls_l()
+				var meat := rng.randi() % 4
+				if meat == 0:
+					Stats.buff_atk_pct += 0.15
+					toast("MYSTERY MEAT — it was war flesh: +15% ATK")
+				elif meat == 1:
+					Stats.buff_maxhp_pct += 0.15
+					rotgut_drunk = true
+					toast("MYSTERY MEAT — it was grave fat: +15% Max HP this floor")
+				elif meat == 2:
+					Stats.buff_speed_pct += 0.08
+					pale_drunk = true
+					toast("MYSTERY MEAT — it was eel: +8% speed this floor")
+				else:
+					Stats.buff_armor += 2
+					tithe_armor += 2.0
+					toast("MYSTERY MEAT — it was shell: +2 Armor this floor")
+				if player != null and is_instance_valid(player):
+					player.refresh_stats()
+				Sfx.play("shrine")
+
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
 		player.refresh_stats()
