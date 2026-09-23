@@ -308,6 +308,7 @@ func _new_run(new_seed: int) -> void:
 	room.name = "Room"
 	add_child(room)
 	info = RG.build_floor(room, seed_val, Stats.floor_num)
+	stain_count = 0
 	_apply_biome()
 	_style_room()
 	_build_gates()
@@ -641,6 +642,7 @@ func _spawn_shrine(last_room: int) -> void:
 
 var lore_ref = null
 var motes_ref: GPUParticles3D = null
+var stain_count := 0
 
 
 func _spawn_lore_stone(last_room: int) -> void:
@@ -743,9 +745,30 @@ func _spawn_gems(pos: Vector3, total: int) -> void:
 		gem.setup(v, info.tile)
 
 
+func _blood_stain(pos: Vector3) -> void:
+	# noda darah persisten di lantai — batas 28 per lantai
+	if room == null or not is_instance_valid(room) or stain_count >= 28:
+		return
+	stain_count += 1
+	var m := MeshInstance3D.new()
+	var pm := PlaneMesh.new()
+	var sz: float = randf_range(0.35, 0.8) * info.tile
+	pm.size = Vector2(sz, sz * randf_range(0.6, 1.0))
+	var mat := StandardMaterial3D.new()
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	mat.albedo_color = Color(0.16, 0.03, 0.05, randf_range(0.5, 0.8))
+	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	pm.material = mat
+	m.mesh = pm
+	m.rotation.y = randf() * TAU
+	room.add_child(m)
+	m.global_position = pos + Vector3(randf_range(-0.08, 0.08) * info.tile, 0.02 * info.tile, randf_range(-0.08, 0.08) * info.tile)
+
+
 func _on_enemy_died(e) -> void:
 	print("ENEMY DIED arch=%s elite=%s xp=%d" % [e.arch_id, e.elite, e.xp_val])
 	trauma = 0.7
+	_blood_stain(e.global_position)
 	_burst(e.global_position)
 	_souls(e.global_position, 22 if e.is_boss else 7, Color(1.0, 0.5, 0.3) if e.is_boss else Color(0.6, 0.85, 1.0))
 	Sfx.play("death")
