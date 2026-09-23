@@ -142,6 +142,7 @@ const ACH_DEF := {
 	"dice3": "Loaded Bones (won Bone Dice 3 times in one run)",
 	"satchel3": "Full Satchel (carried 3 soul vials at once)",
 	"lore30": "Deep Chronicler (read 30 dungeon whispers)",
+	"lore60": "Crow's Catalog (60 lore heard)",
 	"lore32": "Archivist (heard every whispered line)",
 	"col10": "Collector (carried 10 relics in one run)",
 	"centurion": "Centurion (100 kills in a single run)",
