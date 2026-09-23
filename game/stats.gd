@@ -64,6 +64,7 @@ var sfx_volume := -1.0
 var saved_run := {}
 var lore_seen: Array = [] # baris lore yang pernah ditemukan (codex, persist)
 var souls := 0 # mata uang meta — dari kill, dipakai di Hall of Souls
+var nemesis := "" # arch_id pembunuh terakhir — kembali lebih kuat sampai dibunuh balik
 var bestiary := {} # arch_id -> jumlah kill sepanjang masa (codex)
 var weapon_kills := {} # weapon_id -> kill sepanjang masa (mastery progress)
 var mastered := {} # weapon_id -> 1 bila mastery tercapai (+1 ATK permanen)
@@ -390,6 +391,7 @@ func save_game() -> void:
 			"bestiary": bestiary,
 			"weapon_kills": weapon_kills,
 			"mastered": mastered,
+			"nemesis": nemesis,
 		}))
 
 
@@ -433,3 +435,4 @@ func load_game() -> void:
 			var ms = d.get("mastered", {})
 			if ms is Dictionary:
 				mastered = ms
+			nemesis = str(d.get("nemesis", ""))

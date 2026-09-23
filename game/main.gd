@@ -96,6 +96,7 @@ var gilded_chest := false
 var cursed_chest := false
 var storm_cellar := false
 var storm_t := 0.0
+var nemesis_spawned := false # musuh yang membunuhmu run lalu — kembali lebih kuat
 var toast_tween: Tween = null
 
 # polish r2: pause, ringkasan run, transisi fade, juice vfx
@@ -462,6 +463,7 @@ func _new_run(new_seed: int) -> void:
 	echoing = not blood_moon and not soul_rush and not fading_light and Stats.floor_num >= 5 and not boss_floor and rng.randf() < 0.06
 	storm_cellar = not blood_moon and not soul_rush and not fading_light and not echoing and Stats.floor_num >= 10 and not boss_floor and rng.randf() < 0.05
 	storm_t = 4.0
+	nemesis_spawned = false
 	_apply_biome()
 	_style_room()
 	_build_gates()
@@ -832,6 +834,17 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.hp *= omen_hp_mult
 		e.hp_max = e.hp
 		M.paint(e, M.toon(skeleton_tex, tint.lerp(Color(0.85, 0.08, 0.08), 0.4), 0.35, true))
+	# nemesis: arketipe yang membunuhmu run lalu — kembali lebih keras sampai dibunuh
+	if Stats.nemesis != "" and arch_id == Stats.nemesis and not e.is_boss and not nemesis_spawned:
+		nemesis_spawned = true
+		e.nemesis = true
+		e.hp *= 1.6
+		e.hp_max = e.hp
+		e.speed *= 1.12
+		e.dmg += 1
+		e.xp_val = int(ceilf(e.xp_val * 1.5))
+		M.paint(e, M.toon(skeleton_tex, Color(0.75, 0.12, 0.18), 0.35, true))
+		call_deferred("_nemesis_mark", e)
 	e.position = sp["pos"]
 	e.room_idx = int(sp.get("room", 0))
 	# spawn lantai: -1 -> inaktif sampai pemain masuk; summon/split di ruangan aktif langsung hidup
@@ -858,6 +871,12 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.summon_requested.connect(_on_boss_summon)
 	elif e.is_summoner:
 		e.summon_requested.connect(_on_necro_summon)
+
+
+func _nemesis_mark(e) -> void:
+	if e != null and is_instance_valid(e) and e.get("state") != "dead":
+		Sfx.play("roar")
+		_damage_number(e.global_position + Vector3(0, 1.0 * info.tile, 0), "NEMESIS — the one that ended you", Color(1.0, 0.2, 0.3), true)
 
 
 # necromancer membangkitkan 1 antek; dibatasi supaya ruangan tidak banjir
@@ -1254,6 +1273,15 @@ func _on_enemy_died(e) -> void:
 		_ach("scholar")
 	if rng.randf() < 0.05:
 		_spawn_vial(e.global_position)
+	if bool(e.get("nemesis")):
+		Stats.nemesis = ""
+		Stats.souls += 10
+		_souls_l()
+		Stats.save_game()
+		Sfx.play("victory")
+		_burst(e.global_position, Color(0.9, 0.15, 0.25))
+		_lvl_banner("◆ NEMESIS SLAIN — +10 souls")
+		_damage_number(e.global_position + Vector3(0, 0.9 * info.tile, 0), "YOUR DEBT IS PAID", Color(1.0, 0.85, 0.35), true)
 	# weapon mastery: 25 kill dengan senjata yang sama -> +1 ATK permanen
 	var wid := Stats.weapon_id
 	var wk_old: int = int(Stats.weapon_kills.get(wid, 0))
@@ -1492,6 +1520,7 @@ func _on_player_died() -> void:
 	var killer: String = "the dungeon itself"
 	if player != null and is_instance_valid(player):
 		killer = String(KILLER_NAMES.get(player.last_killer, player.last_killer))
+		Stats.nemesis = String(player.last_killer)
 	var ktip: String = ""
 	if player != null and is_instance_valid(player):
 		ktip = "\n" + String(KILLER_TIPS.get(player.last_killer, ""))
@@ -1552,6 +1581,7 @@ func _finalize_death() -> void:
 	var killer: String = "the dungeon itself"
 	if player != null and is_instance_valid(player):
 		killer = String(KILLER_NAMES.get(player.last_killer, player.last_killer))
+		Stats.nemesis = String(player.last_killer)
 	var ktip: String = ""
 	if player != null and is_instance_valid(player):
 		ktip = "\n" + String(KILLER_TIPS.get(player.last_killer, ""))

@@ -59,6 +59,7 @@ var activated := true
 var stun_t := 0.0
 var enraged := false
 var golden := false
+var nemesis := false
 var affix := ""
 var jailer := false
 var is_weeper := false
