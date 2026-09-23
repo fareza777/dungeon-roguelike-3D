@@ -253,6 +253,7 @@ var crows_tide := false
 var long_night := false
 var wet_wool := false
 var ballast_beads := false
+var dowser_knot := false
 var melody_ledger := false
 var pale_scrip := false
 var rat_ration := false
@@ -1566,7 +1567,7 @@ func _new_run(new_seed: int) -> void:
 	dead_weight = not choir and not dread_tide and not starved_deep and not abyssal_hymn and not dead_calm and not boss_floor and Stats.floor_num >= 14 and rng.randf() < 0.08
 	Stats.dead_weight = dead_weight
 	shell_game = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not umbral_tide and not abyssal_patience and not choir and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
-	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe", "tar_smear", "black_calm", "bilge_iron", "gun_smoke", "greedy_tide", "drift_wreck", "chorus_cut", "long_watch", "fog_lantern_d", "crowns_rest", "salted_deck", "pale_scrip", "rat_ration", "crows_tide", "powder_toll", "wet_wool", "melody_ledger", "long_night", "ballast_beads"]:
+	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe", "tar_smear", "black_calm", "bilge_iron", "gun_smoke", "greedy_tide", "drift_wreck", "chorus_cut", "long_watch", "fog_lantern_d", "crowns_rest", "salted_deck", "pale_scrip", "rat_ration", "crows_tide", "powder_toll", "wet_wool", "melody_ledger", "long_night", "ballast_beads", "dowser_knot"]:
 		if get(evf):
 			events_run[evf] = true
 			break
@@ -7182,11 +7183,12 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Fog Lantern — pay 3 souls: the light marks the strong — elites pay +1 soul"},
 		{"text": "Pale Scrip — pay 2 souls: every room you clear this floor pays +1 soul"},
 		{"text": "Wet Wool — pay 3 souls: padding in the boots — traps bite −1 less"},
+		{"text": "Dowser's Knot — pay 2 souls: a thread that trembles near treasure — chests and shrines glint on your map"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 23:
+	if idx == 24:
 		toast("The water settles back into the stone")
 		return
 	if idx == 12:
@@ -7374,6 +7376,16 @@ func _drowned_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		_ach("seaworthy")
 		toast("DROWNED TITHE — +8 souls, −10% Max HP")
+	if idx == 23:
+		if Stats.souls < _soul_cost(2):
+			toast("Two souls — the knot isn't free")
+			return
+		Stats.souls -= _soul_cost(2)
+		_souls_l()
+		dowser_knot = true
+		Sfx.play("shrine")
+		toast("DOWSER'S KNOT — the thread pulls toward what glints")
+		return
 	if idx == 22:
 		if Stats.souls < _soul_cost(3):
 			toast("Three souls — the wool's still dripping")
@@ -9384,6 +9396,19 @@ func _update_minimap() -> void:
 		gd.position = _map_pos(g.global_position, sc)
 		ui.map_view.add_child(gd)
 		map_dots.append(gd)
+	if dowser_knot:
+		for dw_ in get_tree().get_nodes_in_group("shrines") + get_tree().get_nodes_in_group("chests"):
+			if not is_instance_valid(dw_):
+				continue
+			var dri3 := int(dw_.get("room_idx")) if dw_.get("room_idx") != null else -1
+			if dri3 >= 0 and not discovered.get(dri3, false):
+				continue
+			var dwd := ColorRect.new()
+			dwd.color = Color(0.95, 0.85, 0.3)
+			dwd.size = Vector2(4, 4)
+			dwd.position = _map_pos(dw_.global_position, sc)
+			ui.map_view.add_child(dwd)
+			map_dots.append(dwd)
 
 
 # ---------------- UI ----------------
