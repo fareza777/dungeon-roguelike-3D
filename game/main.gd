@@ -260,6 +260,7 @@ var ballast_beads := false
 var dowser_knot := false
 var crowns_vigil := false
 var deck_manifest := false
+var dirge_note := false
 var melody_ledger := false
 var pale_scrip := false
 var rat_ration := false
@@ -1583,7 +1584,7 @@ func _new_run(new_seed: int) -> void:
 	dead_weight = not choir and not dread_tide and not starved_deep and not abyssal_hymn and not dead_calm and not boss_floor and Stats.floor_num >= 14 and rng.randf() < 0.08
 	Stats.dead_weight = dead_weight
 	shell_game = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not umbral_tide and not abyssal_patience and not choir and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
-	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe", "tar_smear", "black_calm", "bilge_iron", "gun_smoke", "greedy_tide", "drift_wreck", "chorus_cut", "long_watch", "fog_lantern_d", "crowns_rest", "salted_deck", "pale_scrip", "rat_ration", "crows_tide", "powder_toll", "wet_wool", "melody_ledger", "long_night", "ballast_beads", "dowser_knot", "crowns_vigil", "halfway_dead", "deck_manifest"]:
+	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe", "tar_smear", "black_calm", "bilge_iron", "gun_smoke", "greedy_tide", "drift_wreck", "chorus_cut", "long_watch", "fog_lantern_d", "crowns_rest", "salted_deck", "pale_scrip", "rat_ration", "crows_tide", "powder_toll", "wet_wool", "melody_ledger", "long_night", "ballast_beads", "dowser_knot", "crowns_vigil", "halfway_dead", "deck_manifest", "dirge_note"]:
 		if get(evf):
 			events_run[evf] = true
 			break
@@ -3375,6 +3376,12 @@ func _on_enemy_died(e) -> void:
 		if stolen > 0:
 			_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), "MISER -%d" % stolen, Color(0.85, 0.7, 0.2), true)
 		_quest_event("miser_loss", stolen)
+	if dirge_note:
+		for dn_ in get_tree().get_nodes_in_group("enemies"):
+			if dn_ == e or dn_.get("state") == "dead":
+				continue
+			if dn_.global_position.distance_to(e.global_position) < 2.5 * info.tile:
+				dn_.set("slow_t", maxf(float(dn_.get("slow_t")), 1.0))
 	if melody_ledger:
 		ledger_n += 1
 		if ledger_n >= 5:
@@ -8531,16 +8538,27 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Chorus Cut — pay 4 souls: every kill this floor hums −0.5s off your longest charge"},
 		{"text": "Final Overture — pay 5 souls: every charge rings full and ready, right now"},
 		{"text": "Melody Ledger — pay 3 souls: every fifth note pays — each 5th kill +2 souls"},
+		{"text": "Dirge Note — pay 3 souls: each kill's echo staggers the rest — near foes slowed 1s"},
 		{"text": "Walk away"}])
 
 
 func _siren_deal(idx: int) -> void:
-	if idx == 14:
+	if idx == 15:
 		Stats.earn_souls(2)
 		_souls_l()
 		_quest_event("siren")
 		Sfx.play("soul")
 		toast("UNSUNG — you walk, and the conch pays +2 souls for your silence")
+		return
+	if idx == 14:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the dirge isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		dirge_note = true
+		Sfx.play("shrine")
+		toast("DIRGE NOTE — every death hums through the floor")
 		return
 	if idx == 13:
 		if Stats.souls < _soul_cost(3):
