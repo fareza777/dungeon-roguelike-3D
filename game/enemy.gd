@@ -66,7 +66,8 @@ var wailer := false
 var revenant := false
 var shielded := false
 var herald := false
-var herald_buffed := false # golem: pukulannya mengguncang tanah di radius lebar
+var herald_buffed := false
+var knocker := false # golem: pukulannya mengguncang tanah di radius lebar
 var lurk_revealed := false
 var lurk_warned := false
 var model_ref: Node3D = null
@@ -139,6 +140,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	revenant = bool(a.get("revenant", false))
 	shielded = bool(a.get("shielded", false))
 	herald = bool(a.get("herald", false))
+	knocker = bool(a.get("knocker", false))
 	if is_summoner:
 		summon_t = 9.0
 	var sc: float = a["scale"]
@@ -550,6 +552,13 @@ func _physics_process(delta: float) -> void:
 									if mm6 != null and mm6.has_method("_damage_number"):
 										mm6._damage_number(q.global_position + Vector3(0, 0.8 * room_tile, 0), "REAPED!", Color(1.0, 0.3, 0.2), true)
 								q.take_hit(global_position, dmg * dmulti)
+								if knocker:
+									var kdir: Vector3 = q.global_position - global_position
+									kdir.y = 0
+									q.velocity += kdir.normalized() * room_tile * 6.0
+									var mkn := get_tree().current_scene
+									if mkn != null and mkn.has_method("_damage_number"):
+										mkn._damage_number(q.global_position + Vector3(0, 0.7 * room_tile, 0), "BATTERED!", Color(1.0, 0.6, 0.25), true)
 								if affix == "vampiric":
 									hp = minf(hp_max, hp + dmg * dmulti * 0.35)
 								if is_slammer:

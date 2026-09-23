@@ -28,6 +28,7 @@ const DB := {
 	"golem": {"glb": "Skeleton_Warrior.glb", "hp": 7.0, "spd": 0.6, "dmg": 3, "windup": 0.7, "reach": 1.0, "aggro": 4.5, "xp": 12, "tint": Color(0.55, 0.5, 0.45), "scale": 1.55, "kb_resist": 0.85, "slams": true},
 	"shieldbearer": {"glb": "Skeleton_Warrior.glb", "hp": 5.5, "spd": 0.7, "dmg": 2, "windup": 0.6, "reach": 0.7, "aggro": 3.2, "xp": 5, "tint": Color(0.5, 0.62, 0.85), "scale": 1.2, "kb_resist": 0.9, "shielded": true},
 	"herald": {"glb": "Skeleton_Warrior.glb", "hp": 4.0, "spd": 0.9, "dmg": 1, "windup": 0.55, "reach": 0.7, "aggro": 4.0, "xp": 6, "tint": Color(1.05, 0.95, 0.5), "scale": 1.1, "kb_resist": 0.4, "herald": true},
+	"batterer": {"glb": "Skeleton_Warrior.glb", "hp": 6.0, "spd": 0.5, "dmg": 1, "windup": 0.9, "reach": 0.8, "aggro": 3.0, "xp": 6, "tint": Color(1.1, 0.8, 0.4), "scale": 1.45, "kb_resist": 0.95, "knocker": true},
 	# revenant — ksatria yang mati dua kali: nisannya harus dihancurkan atau ia bangkit
 	"revenant": {"glb": "Skeleton_Warrior.glb", "hp": 3.5, "spd": 0.8, "dmg": 1, "windup": 0.6, "reach": 0.8, "aggro": 4.0, "xp": 6, "tint": Color(0.65, 0.85, 0.7), "scale": 1.0, "kb_resist": 0.4, "revenant": true},
 	# maiden — pelayat berwajah porselen: tangis kematiannya membangunkan seluruh ruangan
