@@ -32,7 +32,7 @@ const LIST := [
 		"fog": Color(0.05, 0.12, 0.06), "fog_d": 0.026, "ambient": Color(0.22, 0.4, 0.25),
 		"sun": Color(0.85, 1.0, 0.7), "torch": Color(0.7, 1.0, 0.5), "torch_e": 1.2, "torch_r": 5.5,
 		"bg": Color(0.02, 0.06, 0.03),
-		"enemies": ["brute", "mage", "chaser", "archer", "bomber", "necromancer", "crawler", "crawler", "gaoler", "weeper", "sentinel"],
+		"enemies": ["brute", "mage", "chaser", "archer", "bomber", "necromancer", "crawler", "crawler", "gaoler", "weeper", "sentinel", "shade"],
 	},
 	{
 		"name": "The Abyss",
@@ -40,7 +40,7 @@ const LIST := [
 		"fog": Color(0.07, 0.04, 0.12), "fog_d": 0.03, "ambient": Color(0.2, 0.16, 0.38),
 		"sun": Color(0.85, 0.7, 1.0), "torch": Color(0.85, 0.5, 1.0), "torch_e": 1.4, "torch_r": 6.0,
 		"bg": Color(0.03, 0.02, 0.06),
-		"enemies": ["brute", "mage", "rogue", "archer", "bomber", "bomber", "necromancer", "necromancer", "crawler", "crawler", "crawler", "gaoler", "gaoler", "weeper", "sentinel"],
+		"enemies": ["brute", "mage", "rogue", "archer", "bomber", "bomber", "necromancer", "necromancer", "crawler", "crawler", "crawler", "gaoler", "gaoler", "weeper", "sentinel", "shade", "shade"],
 	},
 ]
 

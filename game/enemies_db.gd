@@ -20,6 +20,8 @@ const DB := {
 	"gaoler": {"glb": "Skeleton_Warrior.glb", "hp": 7.0, "spd": 0.6, "dmg": 2, "windup": 0.65, "reach": 0.7, "aggro": 3.0, "xp": 4, "tint": Color(0.6, 0.45, 1.05), "scale": 1.1, "jailer": true, "kb_resist": 0.5},
 	# sentinel — menara tulang: tak bergerak, tembakan jauh terus-menerus
 	"sentinel": {"glb": "Skeleton_Warrior.glb", "hp": 4.5, "spd": 0.0, "dmg": 1, "windup": 0.8, "reach": 3.6, "prefer": 3.4, "aggro": 4.5, "xp": 3, "tint": Color(0.9, 0.8, 1.2), "scale": 1.15, "ranged": true, "proj_speed": 2.8, "kb_resist": 1.0},
+	# shade — pembunuh berkedip: teleport ke sisimu tiap beberapa detik, lalu tembak
+	"shade": {"glb": "Skeleton_Mage.glb", "hp": 3.2, "spd": 2.2, "dmg": 1, "windup": 0.5, "reach": 0.9, "prefer": 2.4, "aggro": 6.0, "xp": 4, "tint": Color(0.55, 0.4, 0.95), "scale": 1.0, "ranged": true, "proj_speed": 2.6, "warper": true},
 	# BOSS: Raja Tulang — tiap lantai kelipatan 5
 	"bone_king": {"glb": "Skeleton_Warrior.glb", "hp": 42.0, "spd": 0.8, "dmg": 2, "windup": 0.85, "reach": 0.95, "aggro": 9.9, "xp": 15, "tint": Color(1.15, 0.45, 0.4), "scale": 1.85, "kb_resist": 0.9, "boss": true},
 }

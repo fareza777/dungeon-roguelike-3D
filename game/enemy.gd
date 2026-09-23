@@ -62,6 +62,8 @@ var golden := false
 var affix := ""
 var jailer := false
 var is_weeper := false
+var is_warper := false
+var warp_t := 4.0
 var champion := false # elite sarang sang juara — drop senjata terjamin
 var sunder_t := 0.0 # debuff SUNDERING BLOW: terima +30% damage
 var chant_t := 2.5
@@ -115,6 +117,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	is_summoner = a.get("summoner", false)
 	jailer = bool(a.get("jailer", false))
 	is_weeper = bool(a.get("chanter", false))
+	is_warper = bool(a.get("warper", false))
 	if is_summoner:
 		summon_t = 9.0
 	var sc: float = a["scale"]
@@ -295,6 +298,24 @@ func _physics_process(delta: float) -> void:
 			_burn_acc = 0.0
 			take_hit(global_position, maxf(1.0, hp_max * 0.06))
 			return
+	if is_warper:
+		warp_t -= delta
+		if warp_t <= 0.0:
+			var pw := _player()
+			if pw != null and global_position.distance_to(pw.global_position) < aggro_range * 1.3:
+				warp_t = randf_range(3.5, 5.0)
+				var off := Vector3(randf_range(-1.0, 1.0), 0, randf_range(-1.0, 1.0))
+				if off.length() < 0.3:
+					off = Vector3(0.6, 0, 0)
+				global_position = pw.global_position + off.normalized() * prefer_range
+				global_position.x = clampf(global_position.x, bounds.get("min_x", -100.0), bounds.get("max_x", 100.0))
+				global_position.z = clampf(global_position.z, bounds.get("min_z", -100.0), bounds.get("max_z", 100.0))
+				Sfx.play("dash")
+				var mw := get_tree().current_scene
+				if mw != null and mw.has_method("_burst"):
+					mw._burst(global_position, Color(0.6, 0.4, 1.0))
+			else:
+				warp_t = 0.5
 	if stun_t > 0.0:
 		stun_t -= delta
 		velocity = kb
