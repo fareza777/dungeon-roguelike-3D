@@ -516,8 +516,11 @@ func _physics_process(delta: float) -> void:
 					M.play_fuzzy(ap, ["idle_combat", "idle"])
 			else:
 				var dir := to.normalized()
+				# DESPERATE: nyawa tipis melarikan diri (gerombolan saja)
+				if not ranged and not elite and not is_boss and hp < hp_max * 0.18 and ["chaser", "crawler", "hound", "moth"].has(arch_id):
+					dir = -dir
 				# mage mundur kalau player terlalu dekat
-				if ranged and dist < prefer_range * 0.55:
+				elif ranged and dist < prefer_range * 0.55:
 					dir = -dir
 				velocity = dir * speed * (0.5 if slow_t > 0.0 else 1.0) + _separation() + kb
 				if anim_lock <= 0.0:
