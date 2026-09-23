@@ -186,6 +186,7 @@ var moonwrit := false
 var barnacle_sense := false
 var brine_callus := false
 var deadweight := false
+var undertow_grip := false
 var callus_on := false
 var salt_purse := false
 var sirensong_deal := false
@@ -787,6 +788,7 @@ func _reset_run_state() -> void:
 	barnacle_sense = false
 	brine_callus = false
 	deadweight = false
+	undertow_grip = false
 	if callus_on:
 		Stats.buff_armor -= 2
 		callus_on = false
@@ -3509,7 +3511,8 @@ func _cast_skill(id: String) -> void:
 				if f3.get("state") == "dead" or not bool(f3.get("activated")) or bool(f3.get("is_boss")):
 					continue
 				var rd: float = f3.global_position.distance_to(player.global_position)
-				if rd < 3.0 * info.tile and rd > 1.0 * info.tile:
+				var rreach: float = 3.0 * info.tile * (1.5 if undertow_grip else 1.0)
+				if rd < rreach and rd > 1.0 * info.tile:
 					var rdir: Vector3 = player.global_position - f3.global_position
 					rdir.y = 0
 					f3.global_position += rdir.normalized() * (rd - 0.9 * info.tile)
@@ -4324,6 +4327,9 @@ func _on_dlg_choice(idx: int) -> void:
 		21:
 			deadweight = true
 			toast("Deadweight: your heavy hits slow foes")
+		22:
+			undertow_grip = true
+			toast("Undertow Grip: your pulls reach half again as far")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -5629,7 +5635,8 @@ func _keel_deal(idx: int) -> void:
 			if fh.get("state") == "dead" or bool(fh.get("is_boss")):
 				continue
 			var hd: float = fh.global_position.distance_to(player.global_position)
-			if hd < 3.0 * info.tile and hd > 1.0 * info.tile:
+			var reach: float = 3.0 * info.tile * (1.5 if undertow_grip else 1.0)
+			if hd < reach and hd > 1.0 * info.tile:
 				var hdir: Vector3 = player.global_position - fh.global_position
 				hdir.y = 0
 				fh.global_position += hdir.normalized() * (hd - 0.9 * info.tile)
@@ -5742,6 +5749,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Barnacle Sense — disarm sleeping traps from half again as far"},
 			{"text": "Brine Callus — +2 Armor while you're under half health"},
 			{"text": "Deadweight — your HEAVY hits drag foes to half speed for 2s"},
+			{"text": "Undertow Grip — your pulls reach half again as far"},
 		]
 	)
 
