@@ -2591,6 +2591,8 @@ func _add_vial() -> void:
 	else:
 		vials += 1
 		toast("+1 ⚗ SOUL VIAL (tap VIAL to drink)")
+		if vials >= 3:
+			_ach("satchel3")
 	_vial_btn()
 
 
