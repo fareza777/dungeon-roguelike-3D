@@ -55,6 +55,8 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 			steps.append({"title": "Ghost Dancer", "desc": "Dash through 2 attacks at the last instant", "kind": "pdodge", "need": 2})
 		if floor_num >= 17 and floor_num % 4 == 2:
 			steps.append({"title": "Tempest Herald", "desc": "Unleash a SOUL STORM", "kind": "storm", "need": 1})
+		if floor_num >= 8 and floor_num % 4 == 1:
+			steps.append({"title": "Thorn Proof", "desc": "Slay 2 Spiked Cadavers", "kind": "spiker_kill", "need": 2})
 		steps.append({"title": "Floor Sweep", "desc": "Clear %d rooms of skeletons" % room_count, "kind": "clear_floor", "need": room_count})
 		steps.append({"title": "Treasure Chest", "desc": "Find & open the chest in the final room", "kind": "open_chest", "need": 1})
 		steps.append({"title": "Descend", "desc": "Tap to descend to the next floor", "kind": "descend", "need": 1})

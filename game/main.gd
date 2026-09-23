@@ -1317,6 +1317,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("shade_kill")
 	if e.arch_id == "hexer":
 		_quest_event("hexer_kill")
+	if e.arch_id == "spiker":
+		_quest_event("spiker_kill")
 	_combo_set(combo + 1)
 	# RAMPAGE: 3+ kill beruntun dalam 2.5 detik -> sorakan + banner
 	var now_s := Time.get_ticks_msec() / 1000.0
