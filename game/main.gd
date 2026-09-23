@@ -1882,6 +1882,12 @@ func _combo_set(n: int) -> void:
 
 func _boss_bar_show() -> void:
 	ui.boss_bar.visible = true
+	# warnai bar per varian Raja: ember/frost/feral/undying
+	var tc: Color = Color(_boss_tier().get("tint", Color(1.0, 0.3, 0.25)))
+	var sb: StyleBox = ui.boss_bar.get_theme_stylebox("panel")
+	if sb is StyleBoxFlat:
+		sb.border_color = tc
+	ui.boss_name.modulate = tc.lightened(0.3)
 
 
 func _boss_bar_hide() -> void:
