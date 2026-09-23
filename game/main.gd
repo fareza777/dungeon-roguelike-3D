@@ -104,7 +104,13 @@ const LORE_LINES := [
 	"Barbed Lines were fished from the last crew's hold — the hooks still hunger for whatever escapes the deck.",
 	"The Pilot Fish never leaves a sinking ship — it simply finds a slower one. Keep it close and dying gets harder.",
 	"When the tide draws out, even the King's court wades slower — the shallows remember everyone who drowned in them.",
-	"Cartographers in the deep don't draw rooms — they draw debts. Every charted hall is a promise the floor means to keep."
+	"Cartographers in the deep don't draw rooms — they draw debts. Every charted hall is a promise the floor means to keep.",
+	"The Quartermaster kept the crew armed even after they drowned — a good steward never abandons inventory.",
+	"Saltghasts are blown out of sailors' last breaths — every one still trying to signal a shore that sank.",
+	"A Guthook isn't a weapon so much as an argument — every fifth swing settles it.",
+	"The Feral don't love their pack, Kael — they love what the pack leaves behind when it falls.",
+	"The Siren's Conch never repeats a song. Mahzan says the sea only charges once per verse.",
+	"The fathomless owe the most — the deeper the lesson, the steeper the bill."
 ]
 
 var dungeon_tex: Texture2D
