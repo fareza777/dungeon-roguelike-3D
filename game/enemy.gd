@@ -70,6 +70,8 @@ var orator := false
 var warlock := false
 var war_t := 5.0
 var gnawer := false
+var bride := false
+var bride_t := 5.5
 var healer := false
 var heal_t := 4.0
 var crowned := false
@@ -85,6 +87,7 @@ var digger_dug := false
 var pack_bounty := false
 var orator_t := 3.0
 var dmg_max := 0 # orator chant cap
+var spd_boost := 0 # bride chant cap counter
 var is_slammer := false
 var wailer := false
 var wisp_drop := false
@@ -177,6 +180,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	orator = bool(a.get("orator", false))
 	warlock = bool(a.get("warlock", false))
 	gnawer = bool(a.get("gnawer", false))
+	bride = bool(a.get("bride", false))
 	healer = bool(a.get("healer", false))
 	crowned = bool(a.get("crowned", false))
 	tither = bool(a.get("tither", false))
@@ -531,6 +535,11 @@ func _physics_process(delta: float) -> void:
 		if war_t <= 0.0:
 			war_t = 5.0
 			_caller_pulse()
+	if bride and activated:
+		bride_t -= delta
+		if bride_t <= 0.0:
+			bride_t = 5.5
+			_bride_pulse()
 	if is_warper and activated:
 		warp_t -= delta
 		if warp_t <= 0.0:
@@ -1022,6 +1031,24 @@ func _jack_pulse() -> void:
 		if int(e3.get("room_idx")) != room_idx:
 			continue
 		e3.hp = minf(float(e3.hp) + 1.0, float(e3.hp_max))
+
+
+func _bride_pulse() -> void:
+	# pengantin busuk: nyanyiannya mempercepat sekutu ruangan (+8% per chant, cap +24%)
+	var mb := get_tree().current_scene
+	if mb != null and mb.has_method("_burst"):
+		mb._burst(global_position + Vector3(0, 0.6 * room_tile, 0), Color(0.9, 0.5, 0.6))
+	if mb != null and mb.has_method("_damage_number"):
+		mb._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "BRIDE'S REEL", Color(0.9, 0.55, 0.65), false)
+	Sfx.play("roar")
+	for e5 in get_tree().get_nodes_in_group("enemies"):
+		if e5 == self or not is_instance_valid(e5) or String(e5.get("state")) == "dead":
+			continue
+		if int(e5.get("room_idx")) != room_idx:
+			continue
+		if int(e5.get("spd_boost")) < 3:
+			e5.set("speed", float(e5.get("speed")) * 1.08)
+			e5.set("spd_boost", int(e5.get("spd_boost")) + 1)
 
 
 func _caller_pulse() -> void:
