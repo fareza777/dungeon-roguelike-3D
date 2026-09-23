@@ -4810,6 +4810,9 @@ func _on_dlg_choice(idx: int) -> void:
 		32:
 			Stats.soul_gain_pct += 0.1
 			toast("Spirit Share: the dead leave a tithe for you — +10% souls")
+		33:
+			Stats.buff_xp_pct += 0.1
+			toast("Deep Water: the dead teach — +10% XP this run")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -6713,6 +6716,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Urnsworn — every urn spills +1 soul this run"},
 			{"text": "Iron Gullet — soul vials mend 45% HP"},
 			{"text": "Spirit Share — +10% souls from every source this run"},
+			{"text": "Deep Water — +10% XP from every source this run"},
 		]
 	)
 
