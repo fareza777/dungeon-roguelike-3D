@@ -1719,6 +1719,8 @@ func _spawn_shrine(last_room: int) -> void:
 		skind = 10 # Soul Fountain terjamin di lantai %12==8
 	elif Stats.floor_num >= 13 and Stats.floor_num % 10 == 8:
 		skind = 13 # Throne's Offering — the King buys tribute in the deep
+	elif Stats.floor_num >= 14 and rng.randf() < 0.10:
+		skind = 14 # Moonpool — kolam cahaya bulan di kedalaman
 	elif Stats.floor_num >= 5 and Stats.floor_num % 5 == 1:
 		skind = 3 # lantai quest Forge-Fed — soul forge terjamin
 	elif Stats.floor_num >= 10 and rng.randf() < 0.08:
@@ -1775,6 +1777,8 @@ func _spawn_shrine(last_room: int) -> void:
 			s.invoked.connect(_on_keel_invoked)
 		13:
 			s.invoked.connect(_on_throne_invoked)
+		14:
+			s.invoked.connect(_on_moonpool_invoked)
 		_:
 			s.invoked.connect(_on_shrine_invoked)
 
@@ -5795,6 +5799,25 @@ func _keel_deal(idx: int) -> void:
 	_quest_event("keelstone")
 
 
+func _on_moonpool_invoked(s) -> void:
+	shrine_used = true
+	shrine_count += 1
+	if shrine_count >= 10:
+		_ach("pilgrim")
+	s.consume()
+	Sfx.play("shrine")
+	if player != null and is_instance_valid(player):
+		player.hp = minf(Stats.get_stat("max_hp"), player.hp + Stats.get_stat("max_hp") * 0.3)
+		player.hp_changed.emit(player.hp)
+	for wi in range(2):
+		_spawn_wisp_at(s.global_position + Vector3(randf_range(-0.5, 0.5), 0, randf_range(-0.6, 0.6)) * info.tile)
+	Stats.earn_souls(2)
+	_souls_l()
+	_quest_event("moonpool")
+	toast("MOONPOOL — cold light closes your wounds; freed wisps scatter")
+	_damage_number(player.global_position + Vector3(0, 1.0 * info.tile, 0), "+30% HP • wisps freed", Color(0.7, 0.85, 1.1), true)
+
+
 func _on_throne_invoked(s) -> void:
 	shrine_used = true
 	shrine_count += 1
@@ -6206,7 +6229,7 @@ func _build_minimap() -> void:
 	# penanda altar (cyan), batu lore (ungu), dan tujuan akhir lantai (emas besar)
 	if shrine_ref != null and is_instance_valid(shrine_ref):
 		var sd := ColorRect.new()
-		sd.color = [Color(1.0, 0.8, 0.3), Color(0.45, 0.65, 1.0), Color(1.0, 0.2, 0.15), Color(1.0, 0.55, 0.15), Color(0.55, 0.75, 1.0), Color(1.0, 0.5, 0.1), Color(0.95, 0.85, 0.3), Color(0.4, 0.55, 1.0), Color(0.7, 0.95, 0.25), Color(0.85, 0.6, 0.3), Color(0.35, 0.95, 0.85), Color(0.4, 0.85, 1.0), Color(0.5, 0.7, 1.05), Color(0.65, 0.25, 0.95)][shrine_kind]
+		sd.color = [Color(1.0, 0.8, 0.3), Color(0.45, 0.65, 1.0), Color(1.0, 0.2, 0.15), Color(1.0, 0.55, 0.15), Color(0.55, 0.75, 1.0), Color(1.0, 0.5, 0.1), Color(0.95, 0.85, 0.3), Color(0.4, 0.55, 1.0), Color(0.7, 0.95, 0.25), Color(0.85, 0.6, 0.3), Color(0.35, 0.95, 0.85), Color(0.4, 0.85, 1.0), Color(0.5, 0.7, 1.05), Color(0.65, 0.25, 0.95), Color(0.75, 0.85, 1.05)][shrine_kind]
 		sd.size = Vector2(5, 5)
 		sd.position = _map_pos(shrine_ref.global_position, sc)
 		mv.add_child(sd)
