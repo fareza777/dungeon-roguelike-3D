@@ -316,6 +316,7 @@ func _ready() -> void:
 		run_time = 0.0
 		combo_max = 0
 		mahzan_met = 0
+		vane_floors = 0
 	Stats.pending_restore = false
 	Stats.runs += 1
 	for v in Stats.meta.values():
@@ -520,6 +521,8 @@ func _new_run(new_seed: int) -> void:
 	# Sir Vane yang terbebaskan bertempur di setiap lantai hingga run berakhir
 	if vane_freed_n > 0:
 		_spawn_knight()
+	else:
+		vane_floors = 0
 	_start_quests(boss_floor, int(info.get("room_count", 1)))
 	_build_minimap()
 	Sfx.play_music("boss" if boss_floor else _biome_track())
@@ -968,6 +971,7 @@ func _spawn_cage(last_room: int) -> void:
 
 
 var vane_freed_n := 0
+var vane_floors := 0 # lantai yang Sir Vane lalui bersamamu — ia makin kuat
 
 
 func _spawn_knight() -> void:
@@ -978,8 +982,12 @@ func _spawn_knight() -> void:
 	knight_ref = SQUIRE.new()
 	room.add_child(knight_ref)
 	knight_ref.global_position = player.global_position + Vector3(-0.4 * info.tile, 0, 0.3 * info.tile)
-	knight_ref.setup(info.tile, maxf(1.0, Stats.get_stat("atk") * 0.55), Color(0.62, 0.85, 1.0), Color(0.7, 0.95, 1.0))
+	vane_floors += 1
+	var vane_mult := 0.55 + minf(0.45, 0.04 * vane_floors)
+	knight_ref.setup(info.tile, maxf(1.0, Stats.get_stat("atk") * vane_mult), Color(0.62, 0.85, 1.0), Color(0.7, 0.95, 1.0))
 	knight_ref.set("is_vane", true)
+	if vane_floors == 4 or vane_floors == 8 or vane_floors == 12:
+		toast("⚔ Sir Vane remembers his captain's forms (+%d%% ATK)" % int(vane_mult * 100.0))
 
 
 func _on_cage_freed(s) -> void:
@@ -1559,6 +1567,7 @@ func _on_banner_tap() -> void:
 		run_time = 0.0
 		combo_max = 0
 		mahzan_met = 0
+		vane_floors = 0
 		await _fade_to(1.0, 0.3)
 		_new_run(rng.randi())
 		_fade_to(0.0, 0.45)
