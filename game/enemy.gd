@@ -98,6 +98,7 @@ var is_warper := false
 var is_hexer := false
 var is_waver := false
 var kiter := false
+var is_chiller := false
 var sheared := false
 var is_spiky := false
 var warp_t := 4.0
@@ -159,6 +160,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	is_hexer = bool(a.get("hexer", false))
 	is_waver = bool(a.get("waver", false))
 	kiter = bool(a.get("kiter", false))
+	is_chiller = bool(a.get("chiller", false))
 	is_spiky = bool(a.get("spiky", false))
 	is_lurker = bool(a.get("lurks", false))
 	orator = bool(a.get("orator", false))
@@ -648,6 +650,12 @@ func _physics_process(delta: float) -> void:
 									if pr.orb != null:
 										var hm: StandardMaterial3D = pr.orb.mesh.material
 										hm.albedo_color = Color(1.0, 0.25, 0.4)
+								if is_chiller:
+									pr.effect = "chill"
+									if pr.orb != null:
+										var cm: StandardMaterial3D = pr.orb.mesh.material
+										cm.albedo_color = Color(0.5, 0.85, 1.0)
+										cm.emission = Color(0.4, 0.7, 1.0)
 								if is_waver:
 									pr.effect = "weak"
 									if pr.orb != null:

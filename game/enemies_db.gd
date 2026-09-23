@@ -58,6 +58,7 @@ const DB := {
 	# mireling — tikus rawa cepat: gigitannya mendinginkanmu
 	"waver": {"glb": "Skeleton_Minion.glb", "hp": 4.5, "spd": 0.75, "dmg": 1, "windup": 0.6, "reach": 0.9, "prefer": 3.2, "aggro": 7.0, "xp": 8, "tint": Color(0.95, 0.7, 0.4), "scale": 1.15, "ranged": true, "proj_speed": 2.2, "kb_resist": 0.4, "waver": true},
 	"saltghast": {"glb": "Skeleton_Mage.glb", "hp": 2.8, "spd": 2.4, "dmg": 1, "windup": 0.45, "reach": 0.8, "prefer": 2.0, "aggro": 6.5, "xp": 6, "tint": Color(0.7, 0.8, 0.95), "scale": 0.9, "ranged": true, "proj_speed": 3.0, "warper": true, "wisp_drop": true},
+	"bilge_witch": {"glb": "Skeleton_Mage.glb", "hp": 2.6, "spd": 1.3, "dmg": 1, "windup": 0.5, "reach": 0.8, "prefer": 2.6, "aggro": 6.0, "xp": 6, "tint": Color(0.5, 0.85, 1.0), "scale": 0.9, "ranged": true, "proj_speed": 2.8, "kb_resist": 0.2, "chiller": true},
 	"keelbeak": {"glb": "Skeleton_Rogue.glb", "hp": 1.6, "spd": 2.2, "dmg": 1, "windup": 0.18, "reach": 0.6, "aggro": 6.0, "xp": 5, "tint": Color(0.6, 0.75, 1.0), "scale": 0.65, "dash": true, "kb_resist": 0.0, "kiter": true},
 	"mireling": {"glb": "Skeleton_Rogue.glb", "hp": 2.4, "spd": 1.85, "dmg": 1, "windup": 0.28, "reach": 0.62, "aggro": 5.0, "xp": 4, "tint": Color(0.5, 0.85, 0.55), "scale": 0.7, "dash": true, "kb_resist": 0.0, "mire": true},
 	# BOSS: Raja Tulang — tiap lantai kelipatan 5

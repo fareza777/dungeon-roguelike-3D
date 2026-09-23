@@ -217,6 +217,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Anchor Raised", "desc": "Fell 2 KEELBOUND elites (0/2)", "kind": "affix_keelbound", "need": 2})
 		steps.append({"title": "Salt Rich", "desc": "Walk off a floor holding 60+ souls (0/2)", "kind": "soulrich", "need": 2})
 		steps.append({"title": "Sawbones", "desc": "Saw 6 kills with the Whalebone Saw (0/6)", "kind": "kill_whale_saw", "need": 6})
+		steps.append({"title": "Witch Hunter", "desc": "Fell 4 Bilge Witches (0/4)", "kind": "witch_kill", "need": 4})
 	if Stats.floor_num == 11:
 		steps.append({"title": "Soul Fisher", "desc": "Net three drifting wisps (0/3)", "kind": "wisp", "need": 3})
 	if Stats.floor_num >= 13 and Stats.floor_num % 8 == 5:

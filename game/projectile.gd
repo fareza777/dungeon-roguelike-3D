@@ -79,6 +79,11 @@ func _physics_process(delta: float) -> void:
 			var m8 := get_tree().current_scene
 			if m8 != null and m8.has_method("_damage_number"):
 				m8._damage_number(p.global_position + Vector3(0, 1.2, 0), "SILENCED", Color(1.0, 0.3, 0.45), true)
+		if effect == "chill" and not p.get("dead"):
+			p.set("chill_t", 3.0)
+			var mh_c := get_tree().current_scene
+			if mh_c != null and mh_c.has_method("_damage_number"):
+				mh_c._damage_number(p.global_position + Vector3(0, 0.8 * room_tile, 0), "CHILLED", Color(0.5, 0.85, 1.0), false)
 		if effect == "weak" and not p.get("dead"):
 			p.set("weak_t", 3.0)
 			var m9 := get_tree().current_scene
