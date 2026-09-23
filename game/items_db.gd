@@ -29,6 +29,7 @@ const DB := {
 	"tangan_tukang": {"name": "Smith's Hand", "chip": "SH", "desc": "Forge your weapon +1 instantly", "rarity": 1, "mods": {}},
 	"tulang_gema": {"name": "Echo Bone", "chip": "EO", "desc": "Skills recharge 18% faster", "rarity": 1, "mods": {"cd_red": 0.18}},
 	"persembahan_kubur": {"name": "Grave Tithe", "chip": "GT", "desc": "+1 Armor, -10% Speed", "rarity": 0, "mods": {"armor": 1.0, "speed_pct": -0.1}},
+	"langkah_seribu": {"name": "Thousand Steps", "chip": "TS", "desc": "+20% Speed, -1 Armor", "rarity": 1, "mods": {"speed_pct": 0.2, "armor": -1.0}},
 	# ---- epic ----
 	"amarah_dewa": {"name": "Wrath of God", "chip": "WG", "desc": "+50% ATK", "rarity": 2, "mods": {"atk_pct": 0.5}},
 	"raja_kritis": {"name": "Crit King", "chip": "CK", "desc": "+25% Crit", "rarity": 2, "mods": {"crit": 0.25}},
@@ -42,6 +43,7 @@ const DB := {
 	"beban_raja": {"name": "King's Burden", "chip": "KU", "desc": "+40% ATK, -20% Max HP", "rarity": 2, "mods": {"atk_pct": 0.4, "max_hp_pct": -0.2}},
 	"mata_cyclops": {"name": "Cyclops Eye", "chip": "CE", "desc": "+40% Crit, -10% ATK", "rarity": 2, "mods": {"crit": 0.4, "atk_pct": -0.1}},
 	"piala_darah": {"name": "Sanguine Chalice", "chip": "SC", "desc": "+20% Lifesteal", "rarity": 2, "mods": {"lifesteal": 0.2}},
+	"mahkota_darah": {"name": "Bloodied Crown", "chip": "BC", "desc": "+1 soul per kill, -20% Max HP", "rarity": 2, "mods": {"soul_bonus": 1, "max_hp_pct": -0.2}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
