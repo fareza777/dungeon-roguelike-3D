@@ -69,6 +69,7 @@ var is_lurker := false
 var orator := false
 var warlock := false
 var war_t := 5.0
+var gnawer := false
 var healer := false
 var heal_t := 4.0
 var crowned := false
@@ -175,6 +176,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	is_lurker = bool(a.get("lurks", false))
 	orator = bool(a.get("orator", false))
 	warlock = bool(a.get("warlock", false))
+	gnawer = bool(a.get("gnawer", false))
 	healer = bool(a.get("healer", false))
 	crowned = bool(a.get("crowned", false))
 	tither = bool(a.get("tither", false))
@@ -822,6 +824,8 @@ func _physics_process(delta: float) -> void:
 										mkn._damage_number(q.global_position + Vector3(0, 0.7 * room_tile, 0), "BATTERED!", Color(1.0, 0.6, 0.25), true)
 								if affix == "vampiric":
 									hp = minf(hp_max, hp + dmg * dmulti * 0.35)
+								if gnawer:
+									hp = minf(hp_max, hp + 1.0)
 								if is_slammer:
 									_shock()
 								if jailer and q.get("dead") != true:
