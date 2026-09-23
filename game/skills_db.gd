@@ -55,6 +55,7 @@ const DB := {
 	"bloodtide": {"name": "Bloodtide", "short": "TIDE", "cd": 16.0, "unlock": 47, "desc": "For 5 seconds every kill pays +1 soul."},
 	"sealegs": {"name": "Sea Legs", "short": "LEGS", "cd": 14.0, "unlock": 49, "desc": "Find your sea legs — shed every hex, chill and root; +15% speed for 2.5s."},
 	"deadreckon": {"name": "Dead Reckoning", "short": "RECK", "cd": 20.0, "unlock": 51, "desc": "Chart every foe in the room — they take +25% damage for 6s."},
+	"becalm": {"name": "Becalm", "short": "CALM", "cd": 18.0, "unlock": 53, "desc": "The sea goes still — every foe in the room drags at half speed for 6s."},
 	"keelsplit": {"name": "Keel Split", "short": "KEEL", "cd": 22.0, "unlock": 45, "desc": "Split the keel — a full-tile line ahead takes 1.4× ATK and drags slowed for 2s."},
 	"anchordrop": {"name": "Anchor Drop", "short": "ANCH", "cd": 28.0, "unlock": 41, "desc": "Drop a spectral anchor — foes within 2 tiles take 1.6x ATK and are pinned in place for 2s."},
 	"rites": {
@@ -63,7 +64,7 @@ const DB := {
 	},
 }
 
-const ORDER := ["dash", "whirl", "thunder", "warcry", "nova", "judge", "sunder", "chains", "storm", "mend", "rites", "seismic", "kingsfall", "lance", "gravestep", "tidecall", "snapjaw", "graveseal", "riptide", "soultithe", "anchordrop", "soulfall", "keelsplit", "bloodtide", "sealegs", "deadreckon"]
+const ORDER := ["dash", "whirl", "thunder", "warcry", "nova", "judge", "sunder", "chains", "storm", "mend", "rites", "seismic", "kingsfall", "lance", "gravestep", "tidecall", "snapjaw", "graveseal", "riptide", "soultithe", "anchordrop", "soulfall", "keelsplit", "bloodtide", "sealegs", "deadreckon", "becalm"]
 
 
 static func get_s(id: String) -> Dictionary:
