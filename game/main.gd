@@ -3209,6 +3209,8 @@ func _cast_skill(id: String) -> void:
 			_burst(player.global_position, Color(0.95, 0.95, 0.9))
 			trauma = 0.5
 			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "SNAPJAW! ×%d" % shits, Color(0.95, 0.95, 0.9), true)
+			if shits >= 3:
+				_quest_event("snapjaw3")
 			print("SKILL snapjaw hits=%d" % shits)
 	skill_used_floor = true
 	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0)
