@@ -4864,6 +4864,10 @@ func _on_dlg_choice(idx: int) -> void:
 		35:
 			Stats.buff_lifesteal += 0.08
 			toast("Leech Line: the dead bleed for you — +8% lifesteal this run")
+		36:
+			Stats.buff_crit += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Sea Wisdom: old heads strike true — +5% crit and +5% XP")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -6807,6 +6811,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Deep Water — +10% XP from every source this run"},
 			{"text": "Crew's Oath — your squire bites +50% harder this run"},
 			{"text": "Leech Line — strikes drink deep: +8% lifesteal this run"},
+			{"text": "Sea Wisdom — +5% crit and +5% XP this run"},
 		]
 	)
 
