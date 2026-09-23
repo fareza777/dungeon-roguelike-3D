@@ -98,6 +98,7 @@ var room: Node3D = null
 var info := {}
 var biome := {}
 var _biomes_seen := {}
+var _biomes_run := {}
 var player = null
 var cam: Camera3D
 var sun: DirectionalLight3D
@@ -695,6 +696,7 @@ func _reset_run_state() -> void:
 	wolf_n = 0
 	shrine_count = 0
 	urn_count = 0
+	_biomes_run = {}
 	salvage_ct = 0
 	lucky_net = false
 	deeproot = false
@@ -5385,6 +5387,9 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			{"who": "oracle", "text": "Kael — %s walks these halls again. The one that ended you last descent." % Stats.nemesis_name},
 			{"who": "kael", "text": "Then the ledger and I both have a page to close."},
 		]
+	_biomes_run[String(biome.get("name", ""))] = true
+	if _biomes_run.size() >= 6:
+		_ach("cart6")
 	elif not _biomes_seen.get(String(biome.get("name", "")), false):
 		_biomes_seen[String(biome.get("name", ""))] = true
 		match String(biome.get("name", "")):
