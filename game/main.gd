@@ -1098,6 +1098,8 @@ func _spawn_shrine(last_room: int) -> void:
 	var skind := 0
 	if Stats.floor_num >= 7 and Stats.floor_num % 7 == 0:
 		skind = 5 # lantai quest Bounty Hunter — batu kontrak terjamin
+	elif Stats.floor_num >= 9 and rng.randf() < 0.1:
+		skind = 6
 	elif Stats.floor_num >= 5 and Stats.floor_num % 5 == 1:
 		skind = 3 # lantai quest Forge-Fed — soul forge terjamin
 	elif Stats.floor_num >= 7 and rng.randf() < 0.1:
@@ -1123,6 +1125,8 @@ func _spawn_shrine(last_room: int) -> void:
 			s.invoked.connect(_on_mirror_invoked)
 		5:
 			s.invoked.connect(_on_bounty_invoked)
+		6:
+			s.invoked.connect(_on_vault_invoked)
 		_:
 			s.invoked.connect(_on_shrine_invoked)
 
@@ -2999,6 +3003,10 @@ func _on_dlg_choice(idx: int) -> void:
 		dlg_pending_choice = -1
 		_bounty_deal(idx)
 		return
+	elif dlg_pending_choice == 9:
+		dlg_pending_choice = -1
+		_vault_deal(idx)
+		return
 	match idx:
 		0:
 			Stats.buff_atk_pct += 0.15
@@ -3294,6 +3302,39 @@ func _bounty_deal(idx: int) -> void:
 		bounty_ref.activated = true
 		Sfx.play("roar")
 		_damage_number(bounty_ref.global_position + Vector3(0, 1.0 * info.tile, 0), "BOUNTY MARKED!", Color(1.0, 0.75, 0.3), true)
+
+
+func _on_vault_invoked(s) -> void:
+	shrine_used = true
+	s.consume()
+	Sfx.play("shrine")
+	dlg_pending_choice = 9
+	_say([{"who": "oracle", "text": "A soul-sealed vault, Kael — the dungeon locks treasure behind the very coin it mints."}],
+		[{"text": "Unlock — pay 5 souls: a rare relic inside"},
+		{"text": "Leave it sealed"}])
+
+
+func _vault_deal(idx: int) -> void:
+	if idx != 0:
+		return
+	if Stats.souls < _soul_cost(5):
+		toast("The lock demands five souls")
+		return
+	var vpool: Array = []
+	for rid11 in ITEMS.DB:
+		if int(ITEMS.DB[rid11]["rarity"]) >= 1 and not Stats.relics.has(rid11):
+			vpool.append(rid11)
+	if vpool.is_empty():
+		toast("The vault is already empty")
+		return
+	Stats.souls -= _soul_cost(5)
+	_souls_l()
+	var rid12: String = String(vpool[rng.randi() % vpool.size()])
+	Stats.add_relic(rid12)
+	Stats.save_game()
+	Sfx.play("chest")
+	_quest_event("vault")
+	toast("VAULT OPENED — " + String(ITEMS.DB[rid12]["name"]))
 
 
 func _on_curse_invoked(s) -> void:
