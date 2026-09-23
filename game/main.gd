@@ -618,6 +618,7 @@ func _reset_run_state() -> void:
 	ferry_extra = 0
 	_ferry_used = false
 	gravetide = false
+	flawless_run = 0
 
 
 func _new_run(new_seed: int) -> void:
@@ -658,7 +659,6 @@ func _new_run(new_seed: int) -> void:
 	Stats.event_soul_bonus = 0
 	skill_used_floor = false
 	rooms_cleared = 0
-	flawless_run = 0
 	# event langka #6: gilded tides — timbunan muncul ke permukaan (lantai 12+): peti gilded + jiwa +1/kill
 	gilded_tides = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and Stats.floor_num >= 12 and not boss_floor and rng.randf() < 0.05
 	if gilded_tides:
