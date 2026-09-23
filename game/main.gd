@@ -5727,6 +5727,15 @@ func _mahzan_deal(idx: int) -> void:
 				if player != null and is_instance_valid(player):
 					player.refresh_stats()
 				Sfx.play("shrine")
+		20:
+			if Stats.souls < _soul_cost(3):
+				toast("Three souls — the lark doesn't sing free")
+			else:
+				Stats.souls -= _soul_cost(3)
+				_souls_l()
+				mudlark = true
+				Sfx.play("shrine")
+				toast("MUDLARK — every floor's end pays +1 soul for the run")
 
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
