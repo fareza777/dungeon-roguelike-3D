@@ -7425,6 +7425,7 @@ func _process(delta: float) -> void:
 					if abyssal_patience:
 						_quest_event("patient")
 					_souls_l()
+					_quest_event("chest_open")
 					Sfx.play("chest")
 					_burst(info.chest.global_position, Color(1.0, 0.85, 0.3))
 					_souls(info.chest.global_position, 8, Color(1.0, 0.8, 0.35))

@@ -154,6 +154,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Moonrise", "desc": "Slay 10 foes with the Moonshell (0/10)", "kind": "moonkill", "need": 10})
 		steps.append({"title": "Witching Hour", "desc": "Cast 3 different skills on one floor (0/3)", "kind": "witching", "need": 1})
 		steps.append({"title": "Gargoyle's Brood", "desc": "Shatter 5 gargoyles (0/5)", "kind": "garg_kill", "need": 5})
+		steps.append({"title": "King's Audit", "desc": "Open 6 chests in one run (0/6)", "kind": "chest_open", "need": 6})
 	if Stats.floor_num == 11:
 		steps.append({"title": "Soul Fisher", "desc": "Net three drifting wisps (0/3)", "kind": "wisp", "need": 3})
 	if Stats.floor_num >= 13 and Stats.floor_num % 8 == 5:
