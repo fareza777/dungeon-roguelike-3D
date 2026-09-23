@@ -8307,16 +8307,28 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Encore Echo — pay 4 souls: +10% crit for the rest of this run"},
 		{"text": "Echo Verse — pay 5 souls: your skills hum back 15% sooner this run"},
 		{"text": "Chorus Cut — pay 4 souls: every kill this floor hums −0.5s off your longest charge"},
+		{"text": "Final Overture — pay 5 souls: every charge rings full and ready, right now"},
 		{"text": "Walk away"}])
 
 
 func _siren_deal(idx: int) -> void:
-	if idx == 12:
+	if idx == 13:
 		Stats.earn_souls(2)
 		_souls_l()
 		_quest_event("siren")
 		Sfx.play("soul")
 		toast("UNSUNG — you walk, and the conch pays +2 souls for your silence")
+		return
+	if idx == 12:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the overture isn't free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_souls_l()
+		for fs_ in skill_cd.keys():
+			skill_cd[fs_] = 0.0
+		Sfx.play("shrine")
+		toast("FINAL OVERTURE — every song at once")
 		return
 	if idx == 11:
 		if Stats.souls < _soul_cost(4):
