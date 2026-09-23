@@ -13,6 +13,7 @@ const CHARACTERS := {
 	"oracle": {"name": "THE ORACLE", "portrait": "portrait_oracle.png", "color": Color(0.55, 1.0, 0.75)},
 	"raja": {"name": "BONE KING", "portrait": "portrait_raja.png", "color": Color(1.0, 0.45, 0.4)},
 	"mahzan": {"name": "MAHZAN, SPIRIT MERCHANT", "portrait": "portrait_vendor.png", "color": Color(0.75, 0.85, 1.0)},
+	"knight": {"name": "SIR VANE, THE UNMADE", "portrait": "", "color": Color(0.55, 0.8, 1.0)},
 	"narator": {"name": "", "portrait": "", "color": Color(1, 1, 1, 0.6)},
 }
 

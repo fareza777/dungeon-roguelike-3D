@@ -8,13 +8,13 @@ var t := 0.0
 var dmg := 1.0
 
 
-func setup(p_tile: float, p_dmg: float) -> void:
+func setup(p_tile: float, p_dmg: float, p_tint := Color(0.95, 0.88, 0.6), p_orb := Color(1.0, 0.85, 0.3)) -> void:
 	tile = p_tile
 	dmg = p_dmg
 	var model: Node3D = load("res://assets/characters/Skeleton_Minion.glb").instantiate()
 	model.scale = Vector3.ONE * 0.62
 	var mat := StandardMaterial3D.new()
-	mat.albedo_color = Color(0.95, 0.88, 0.6)
+	mat.albedo_color = p_tint
 	mat.metallic = 0.2
 	_paint(model, mat)
 	add_child(model)
@@ -25,9 +25,9 @@ func setup(p_tile: float, p_dmg: float) -> void:
 	es.height = 0.07 * tile
 	var em := StandardMaterial3D.new()
 	em.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	em.albedo_color = Color(1.0, 0.85, 0.3)
+	em.albedo_color = p_orb
 	em.emission_enabled = true
-	em.emission = Color(1.0, 0.8, 0.2)
+	em.emission = p_orb
 	em.emission_energy_multiplier = 2.5
 	es.material = em
 	eye.mesh = es

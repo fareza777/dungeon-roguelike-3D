@@ -23,6 +23,7 @@ const TRAP = preload("res://trap.gd")
 const SQUIRE = preload("res://squire.gd")
 const SHRINE = preload("res://shrine.gd")
 const LSTONE = preload("res://lore_stone.gd")
+const CAGE = preload("res://cage.gd")
 const DUNGEON := "res://assets/dungeon/"
 
 # baris lore dunia — bisikan Oracle saat menyentuh batu pengetahuan
@@ -97,6 +98,7 @@ const ACH := {
 	"defiant": "Defiant (spat in the King's face)",
 	"forge3": "Arms Master (forged a weapon to Lv 3)",
 	"master1": "Master at Arms (weapon mastered)",
+	"knight1": "Liberator (freed Sir Vane)",
 }
 const BOSS_TIERS := [
 	{"name": "BONE KING", "tint": Color(1.05, 1.05, 1.05),
@@ -378,6 +380,7 @@ func _new_run(new_seed: int) -> void:
 		_spawn_traps(last_room)
 		_spawn_shrine(last_room)
 		_spawn_lore_stone(last_room)
+		_spawn_cage(last_room)
 		_spawn_motes()
 		if Stats.relics.has("tulang_kesatria"):
 			_spawn_squire()
@@ -701,6 +704,39 @@ var lore_ref = null
 var motes_ref: GPUParticles3D = null
 var stain_count := 0
 var squire_ref: Node3D = null
+var knight_ref: Node3D = null
+
+
+func _spawn_cage(last_room: int) -> void:
+	# penjara spektral: 20% di lantai 4+, di ruangan awal/tengah (bukan bos)
+	if Stats.floor_num < 4 or rng.randf() >= 0.2:
+		return
+	var r: Dictionary = info.ranges[rng.randi_range(0, last_room - 1)]
+	var pos := Vector3((r["x0"] + r["x1"]) * 0.5 + rng.randf_range(-0.6, 0.6) * info.tile, 0.0, (r["z0"] + r["z1"]) * 0.5)
+	for pr in info.props:
+		if pr.global_position.distance_to(pos) < 1.1 * info.tile:
+			return
+	var s = CAGE.new()
+	room.add_child(s)
+	s.global_position = pos
+	s.setup(info.tile)
+	s.freed.connect(_on_cage_freed)
+
+
+func _on_cage_freed(s) -> void:
+	Sfx.play("gate")
+	# klon squire dengan tint spektral — bertempur sampai lantai berakhir
+	if knight_ref == null or not is_instance_valid(knight_ref):
+		knight_ref = SQUIRE.new()
+		room.add_child(knight_ref)
+		knight_ref.global_position = s.global_position
+		knight_ref.setup(info.tile, maxf(1.0, Stats.get_stat("atk") * 0.55), Color(0.62, 0.85, 1.0), Color(0.7, 0.95, 1.0))
+	_say([
+		{"who": "knight", "t": "A thousand years in these bars... and you walk right up?"},
+		{"who": "kael", "t": "Can you still swing a blade, old ghost?"},
+		{"who": "knight", "t": "Watch me. Until this floor ends — my sword is yours."},
+	])
+	_ach("knight1")
 
 
 func _spawn_lore_stone(last_room: int) -> void:
