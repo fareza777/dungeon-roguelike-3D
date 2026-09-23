@@ -4742,6 +4742,12 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			{"who": "oracle", "text": "The walls stop pretending to be a crypt down here. This is the Abyss — the dungeon's own grave."},
 			{"who": "kael", "text": "Then it's fitting. I brought a shovel."},
 		]
+	elif Stats.floor_num == 11:
+		lines = [
+			{"who": "kael", "text": "The air down here tastes like old coins, Oracle."},
+			{"who": "oracle", "text": "That's the Queen's treasury floor, Kael — Aldric drowned it in gold before he buried it."},
+			{"who": "mahzan", "text": "Coin for the dead, steel for the living. I approve of this arrangement."},
+		]
 	elif Stats.floor_num == 12:
 		lines = [
 			{"who": "oracle", "text": "Mahzan whispers that you fight beautifully. He roots for you — he's bored of skeletons."},
