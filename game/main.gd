@@ -1898,6 +1898,8 @@ func _blood_stain(pos: Vector3) -> void:
 
 
 func _souls_l() -> void:
+	if Stats.souls >= 100:
+		_ach("accountant")
 	if ui.has("souls_label"):
 		var t2: String = "◈ %d souls" % Stats.souls if Stats.souls > 0 else ""
 		if t2 != ui.souls_label.text and Stats.souls > 0:
