@@ -240,6 +240,11 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "sextant_edge":
+				net_n += 1
+				if net_n >= 5:
+					net_n = 0
+					crit = true
 			if crit:
 				dmg *= 2.0
 			if Stats.weapon_id == "war_blade" and f.hp < f.hp_max * 0.35:
