@@ -135,6 +135,7 @@ var mirror_hall := false
 var ashfall := false
 var legion_omen := false
 var wolf_omen := false
+var ashborn := false
 var wolf_n := 0
 var omen_count := 0
 var shrine_kind := 0
@@ -568,6 +569,7 @@ func _reset_run_state() -> void:
 	legion_omen = false
 	wolf_omen = false
 	wolf_n = 0
+	ashborn = false
 	omen_count = 0
 	nemesis_warned = false
 
@@ -616,6 +618,9 @@ func _new_run(new_seed: int) -> void:
 	mirror_hall = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and Stats.floor_num >= 9 and not boss_floor and rng.randf() < 0.05
 	# event langka #13: ashfall — hujan abu kremasi turun (lantai 10+): jiwa +1 per kill
 	ashfall = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and Stats.floor_num >= 10 and not boss_floor and rng.randf() < 0.05
+	if ashborn and Stats.floor_num >= 10 and not boss_floor and not ashfall:
+		ashfall = true
+		Stats.event_soul_bonus = 1
 	if ashfall:
 		Stats.event_soul_bonus = 1
 	storm_t = 4.0
@@ -3328,6 +3333,7 @@ func _offer_omens() -> void:
 			{"text": "LASTBORN — start the run wounded (-35% Max HP) but carry two extra soul vials"},
 			{"text": "HEAVYHAND — +20% ATK, but swings come 20% slower"},
 			{"text": "WOLF OF THE HALLS — each kill quickens you +1% (up to +20%)"},
+			{"text": "ASHBORN — the ash rain follows you; every floor 10+ is ashfall, -10% Max HP"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -3356,7 +3362,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 18 if Stats.nemesis != "" else 17
+	var osize := 19 if Stats.nemesis != "" else 18
 	if idx >= osize:
 		toast("You walk alone — the Oracle nods")
 		return
@@ -3439,6 +3445,10 @@ func _omen_deal(idx: int) -> void:
 			wolf_omen = true
 			oname = "WOLF"
 		17:
+			ashborn = true
+			Stats.buff_maxhp_pct -= 0.1
+			oname = "ASHBORN"
+		18:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -3460,6 +3470,7 @@ func _omen_deal(idx: int) -> void:
 		"LASTBORN": "Born fragile, armed thrice. Drink deep when it matters.",
 		"HEAVYHAND": "Slow hands, heavy graves. Make each cut count.",
 		"WOLF": "The pack runs faster after every feed.",
+		"ASHBORN": "Carry the fire's memory. The rain will find you.",
 		"FEATHER": "A lighter coffin, then. Sensible.",
 		"RICH SOIL": "The dungeon will feed you well — keep chewing.",
 		"LEECHING": "Your blood will not stay yours, but at least it circles back.",
