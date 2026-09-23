@@ -1456,6 +1456,8 @@ func _combo_set(n: int) -> void:
 			_lvl_banner("UNSTOPPABLE!")
 	else:
 		ui.combo_l.visible = false
+		if ui.has("combo_bar"):
+			ui.combo_bar.visible = false
 
 
 # ---------------- bar HP boss ----------------
@@ -1907,6 +1909,20 @@ func _build_ui() -> void:
 	cl.visible = false
 	layer.add_child(cl)
 	ui["combo_l"] = cl
+	# bar drain tipis di bawah label kombo
+	var cbar := ColorRect.new()
+	cbar.anchor_left = 0.5
+	cbar.anchor_right = 0.5
+	cbar.anchor_top = 1.0
+	cbar.anchor_bottom = 1.0
+	cbar.offset_left = -140
+	cbar.offset_right = 140
+	cbar.offset_top = -322
+	cbar.offset_bottom = -318
+	cbar.color = Color(1.0, 0.65, 0.2, 0.85)
+	cbar.visible = false
+	layer.add_child(cbar)
+	ui["combo_bar"] = cbar
 
 	# minimap kanan atas
 	var mp := PanelContainer.new()
@@ -2536,6 +2552,12 @@ func _process(delta: float) -> void:
 		# kombo kill: decay + label
 		if combo_t > 0.0:
 			combo_t -= delta
+			if ui.has("combo_bar"):
+				var cbf: ColorRect = ui.combo_bar
+				var f2: float = clampf(combo_t / 4.0, 0.0, 1.0)
+				cbf.offset_right = -140 + 280.0 * f2
+				cbf.offset_left = -140
+				cbf.visible = combo >= 3
 			if combo_t <= 0.0:
 				_combo_set(0)
 
