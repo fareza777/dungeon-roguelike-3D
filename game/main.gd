@@ -347,6 +347,8 @@ func _biome_track() -> String:
 			return "frozen"
 		"Verdant Ruin":
 			return "verdant"
+		"Sunken Reliquary":
+			return "reliquary"
 		"The Abyss":
 			return "frozen"
 	return "dungeon"
