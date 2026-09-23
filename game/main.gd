@@ -184,6 +184,7 @@ var thin_veil := false
 var low_water := false
 var drift_tide := false
 var soul_swarm := false
+var gauntlet := false
 var dead_weight := false
 var hymn_delta := 0.0
 var rotgut_drunk := false
@@ -755,6 +756,11 @@ func _apply_biome() -> void:
 		env.ambient_light_color = Color(0.45, 0.55, 0.9)
 		sun.light_color = Color(0.55, 0.65, 1.0)
 		sun.light_energy = 0.9
+	elif gauntlet:
+		env.fog_light_color = Color(0.14, 0.08, 0.1)
+		env.ambient_light_color = Color(0.75, 0.5, 0.4)
+		sun.light_color = Color(0.95, 0.6, 0.45)
+		sun.light_energy = 0.9
 	elif sunken_tide:
 		env.fog_light_color = Color(0.06, 0.16, 0.15)
 		env.ambient_light_color = Color(0.25, 0.5, 0.45)
@@ -1046,6 +1052,10 @@ func _new_run(new_seed: int) -> void:
 	soul_swarm = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and not wolfsbane and not thin_veil and not low_water and not drift_tide and Stats.floor_num >= 16 and not boss_floor and rng.randf() < 0.05
 	if soul_swarm:
 		Stats.event_soul_bonus = 2
+	gauntlet = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and not wolfsbane and not thin_veil and not low_water and not drift_tide and not soul_swarm and Stats.floor_num >= 17 and not boss_floor and rng.randf() < 0.05
+	if gauntlet:
+		Stats.event_soul_bonus = 2
+		Stats.curse_xp += 0.15
 	storm_t = 4.0
 	nemesis_spawned = false
 	_ferry_used = false
@@ -1140,7 +1150,7 @@ func _new_run(new_seed: int) -> void:
 	dead_weight = not choir and not dread_tide and not starved_deep and not abyssal_hymn and not dead_calm and not boss_floor and Stats.floor_num >= 14 and rng.randf() < 0.08
 	Stats.dead_weight = dead_weight
 	shell_game = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not umbral_tide and not abyssal_patience and not choir and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
-	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm"]:
+	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet"]:
 		if get(evf):
 			events_run[evf] = true
 			break
@@ -1368,6 +1378,10 @@ func _new_run(new_seed: int) -> void:
 	elif soul_swarm:
 		_lvl_banner("◈ SOUL SWARM — WISPS RIDE THE DEAD")
 		toast("Every foe carries a wisp • the floor tithes +2 souls")
+		Sfx.play("souls")
+	elif gauntlet:
+		_lvl_banner("⚔ GAUNTLET — THE DEAD FIGHT HARDER")
+		toast("Their blows +15% • your lessons +15% XP • the floor tithes +2 souls")
 		Sfx.play("souls")
 	elif sunken_tide:
 		toast("The drowned shuffle slower • +1 soul per kill")
@@ -1733,6 +1747,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.hp_max = e.hp
 	if soul_swarm:
 		e.wisp_drop = true
+	if gauntlet:
+		e.dmg = int(ceil(e.dmg * 1.15))
 	room.add_child(e)
 	# spawn-in: muncul pop supaya tidak hard-cut
 	var esc: Vector3 = e.scale
@@ -2959,6 +2975,11 @@ func _on_enemy_died(e) -> void:
 				_souls_l()
 				Stats.save_game()
 				toast("◈ SOUL SWARM TITHE — +2 souls")
+			elif gauntlet:
+				Stats.earn_souls(2)
+				_souls_l()
+				Stats.save_game()
+				toast("⚔ GAUNTLET TITHE — +2 souls")
 			elif low_tide:
 				Stats.earn_souls(3)
 				_souls_l()
@@ -3043,6 +3064,8 @@ func _on_enemy_died(e) -> void:
 				_quest_event("driftwalk")
 			if soul_swarm:
 				_quest_event("swarmwalk")
+			if gauntlet:
+				_quest_event("gauntletwalk")
 			if dark_water:
 				_quest_event("darkwalk")
 			if glass_sea:
@@ -7072,6 +7095,8 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 				evline = "Souls drift deep tonight, Kael — the drowned sink lower, but their purses swell on the way down."
 			elif soul_swarm:
 				evline = "The wisps ride the dead tonight, Kael — every blade you lay frees one. Harvest them kindly."
+			elif gauntlet:
+				evline = "They mean to make a proving of you tonight, Kael — the dead fight harder and teach more. Earn both."
 			if evline != "":
 				lines = [{"who": "oracle", "text": evline}]
 		_say(lines)
@@ -8415,6 +8440,8 @@ func _refresh_buffs() -> void:
 		list.append(["≋ DRIFT", Color(0.35, 0.7, 1.0)])
 	elif soul_swarm:
 		list.append(["◈ SWARM", Color(0.5, 0.6, 1.0)])
+	elif gauntlet:
+		list.append(["⚔ GAUNTLET", Color(0.95, 0.6, 0.4)])
 	if Stats.soul_sealed:
 		list.append(["PRICE", Color(0.9, 0.2, 0.25)])
 	if Stats.curse_dmg > 0.0:
