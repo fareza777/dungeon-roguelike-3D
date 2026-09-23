@@ -188,6 +188,7 @@ var barnacle_sense := false
 var brine_callus := false
 var deadweight := false
 var undertow_grip := false
+var lookout := false
 var callus_on := false
 var salt_purse := false
 var sirensong_deal := false
@@ -796,6 +797,7 @@ func _reset_run_state() -> void:
 	brine_callus = false
 	deadweight = false
 	undertow_grip = false
+	lookout = false
 	if callus_on:
 		Stats.buff_armor -= 2
 		callus_on = false
@@ -1555,6 +1557,9 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 	e.died.connect(_on_enemy_died)
 	if not elite and not e.is_boss and not _warned.has(arch_id) and FIRST_SEEN.has(arch_id) and player != null:
 		_warned[arch_id] = 1
+		if lookout:
+			Stats.earn_souls(1)
+			_souls_l()
 		Sfx.play("page")
 		var wtxt := String(FIRST_SEEN[arch_id])
 		if Stats.ng_plus > 0:
@@ -4363,6 +4368,9 @@ func _on_dlg_choice(idx: int) -> void:
 		22:
 			undertow_grip = true
 			toast("Undertow Grip: your pulls reach half again as far")
+		23:
+			lookout = true
+			toast("Lookout: spotting a new foe kind pays +1 soul")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -5786,6 +5794,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Brine Callus — +2 Armor while you're under half health"},
 			{"text": "Deadweight — your HEAVY hits drag foes to half speed for 2s"},
 			{"text": "Undertow Grip — your pulls reach half again as far"},
+			{"text": "Lookout — the first sight of each foe kind pays +1 soul"},
 		]
 	)
 
