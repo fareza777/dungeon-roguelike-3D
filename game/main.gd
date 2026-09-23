@@ -653,7 +653,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0, "riptide": 0.0, "soultithe": 0.0, "anchordrop": 0.0, "soulfall": 0.0, "keelsplit": 0.0, "bloodtide": 0.0, "sealegs": 0.0, "deadreckon": 0.0, "becalm": 0.0, "irontide": 0.0, "dragline": 0.0, "deadlight": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0, "riptide": 0.0, "soultithe": 0.0, "anchordrop": 0.0, "soulfall": 0.0, "keelsplit": 0.0, "bloodtide": 0.0, "sealegs": 0.0, "deadreckon": 0.0, "becalm": 0.0, "irontide": 0.0, "dragline": 0.0, "deadlight": 0.0, "broadside": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -4812,6 +4812,27 @@ func _cast_skill(id: String) -> void:
 			Sfx.play("shrine")
 			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "DEAD RECKONING — %d marked" % rkn, Color(0.75, 0.6, 1.0), true)
 			print("SKILL deadreckon marked=%d" % rkn)
+		"broadside":
+			player.anim_lock = M.play_action(player.ap, ["1h_melee_attack", "spellcast"], 0.8)
+			Sfx.play("thunder")
+			var bf_ := Vector3(sin(player.rotation.y), 0, cos(player.rotation.y))
+			var bhit := 0
+			for bf2 in get_tree().get_nodes_in_group("enemies"):
+				if bf2.get("state") == "dead" or not bool(bf2.get("activated")):
+					continue
+				var bto: Vector3 = bf2.global_position - player.global_position
+				bto.y = 0
+				var bl := bto.length()
+				if bl < 3.5 * info.tile and (bl < 0.01 or bto.normalized().dot(bf_) > 0.3):
+					if bf2.has_method("take_hit"):
+						bf2.take_hit(player.global_position, Stats.get_stat("atk") * 1.0)
+					bf2.kb += bto.normalized() * info.tile * 2.5
+					bhit += 1
+			_shock_ring(player.global_position)
+			trauma = 0.5
+			_damage_number(player.global_position + Vector3(0, 1.0 * info.tile, 0), "BROADSIDE ×%d" % bhit, Color(1.0, 0.7, 0.4), true)
+			if bhit == 0:
+				toast("BROADSIDE — fired into open water")
 		"deadlight":
 			var dl_ := 0
 			for dlf in get_tree().get_nodes_in_group("enemies"):
