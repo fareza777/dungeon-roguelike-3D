@@ -134,6 +134,7 @@ var ossuary := false
 var mirror_hall := false
 var ashfall := false
 var hungry_walls := false
+var candlelit := false
 var legion_omen := false
 var wolf_omen := false
 var ashborn := false
@@ -537,6 +538,11 @@ func _apply_biome() -> void:
 		env.ambient_light_color = Color(0.5, 0.38, 0.3)
 		sun.light_color = Color(0.9, 0.6, 0.45)
 		sun.light_energy = 1.0
+	elif candlelit:
+		env.fog_light_color = Color(0.3, 0.22, 0.12)
+		env.ambient_light_color = Color(0.7, 0.6, 0.42)
+		sun.light_color = Color(1.0, 0.85, 0.55)
+		sun.light_energy = 1.3
 
 
 func _style_room() -> void:
@@ -650,6 +656,10 @@ func _new_run(new_seed: int) -> void:
 	# event langka #14: hungry walls — lorong-lorong melahirkan musuh (lantai 12+): +45% musuh ekstra
 	hungry_walls = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and Stats.floor_num >= 12 and not boss_floor and rng.randf() < 0.05
 	if hungry_walls:
+		Stats.event_soul_bonus = 1
+	# event langka #15: candlelit — seribu api menerangi lorong (lantai 11+): musuh lemah, jiwa melimpah
+	candlelit = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and Stats.floor_num >= 11 and not boss_floor and rng.randf() < 0.05
+	if candlelit:
 		Stats.event_soul_bonus = 1
 	storm_t = 4.0
 	nemesis_spawned = false
@@ -810,6 +820,10 @@ func _new_run(new_seed: int) -> void:
 		_lvl_banner("▲ HUNGRY WALLS — THE DEEP BREEDS")
 		toast("The corridors teem • +40% foes • +1 soul per kill")
 		Sfx.play("roar")
+	elif candlelit:
+		_lvl_banner("☆ CANDLELIT — A THOUSAND FLAMES")
+		toast("The dark retreats • foes −15% HP • +1 soul per kill")
+		Sfx.play("shrine")
 	elif Stats.floor_num > 1:
 		_lvl_banner("FLOOR %d — %s" % [Stats.floor_num, String(biome["name"]).to_upper()])
 
@@ -1089,6 +1103,9 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.speed *= 1.08
 	if fading_light and not e.is_boss:
 		e.speed *= 1.12
+	if candlelit and not e.is_boss:
+		e.hp *= 0.85
+		e.hp_max = e.hp
 	if giant_hall and not e.is_boss:
 		e.scale *= 1.3
 		e._base_scale = e.scale
@@ -1957,6 +1974,11 @@ func _on_enemy_died(e) -> void:
 				Stats.save_game()
 				toast("☠ OSSUARY TITHE — +3 souls")
 			elif hungry_walls:
+				Stats.souls += 2
+				_souls_l()
+				Stats.save_game()
+				toast("☠ OSSUARY TITHE — +3 souls")
+			elif candlelit:
 				Stats.souls += 2
 				_souls_l()
 				Stats.save_game()
@@ -4549,6 +4571,8 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 				evline = "Ash falls from a fire that never stops burning. Every kill pays in full."
 			elif hungry_walls:
 				evline = "The walls breed the dead tonight, Kael. Feed them, or join them."
+			elif candlelit:
+				evline = "Someone lit every wick in the deep. The dead shrink from the light — cut quickly."
 			if evline != "":
 				lines = [{"who": "oracle", "text": evline}]
 		_say(lines)
@@ -5843,6 +5867,8 @@ func _refresh_buffs() -> void:
 		list.append(["▲ ASHFALL", Color(0.85, 0.75, 0.6)])
 	elif hungry_walls:
 		list.append(["▲ HUNGRY", Color(0.95, 0.6, 0.4)])
+	elif candlelit:
+		list.append(["☆ CANDLELIT", Color(1.0, 0.85, 0.5)])
 	if Stats.soul_sealed:
 		list.append(["PRICE", Color(0.9, 0.2, 0.25)])
 	if Stats.curse_dmg > 0.0:
