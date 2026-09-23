@@ -185,6 +185,7 @@ var abyssal_patience := false
 var bone_market := false
 var waxpale := false
 var vessel := false
+var skeleton_crew := false
 var umbral_tide := false
 var moonwrit := false
 var barnacle_sense := false
@@ -794,6 +795,7 @@ func _reset_run_state() -> void:
 	bone_market = false
 	waxpale = false
 	vessel = false
+	skeleton_crew = false
 	umbral_tide = false
 	moonwrit = false
 	barnacle_sense = false
@@ -940,6 +942,8 @@ func _new_run(new_seed: int) -> void:
 		M.paint(info.chest, M.toon(dungeon_tex, Color(0.5, 0.3, 0.75), 0.5))
 	var last_room: int = int(info.get("room_count", 1)) - 1
 	var elite_chance: float = minf(0.08 + 0.02 * Stats.floor_num + 0.1 * maxi(0, Stats.ng_plus - 2), 0.4)
+	if skeleton_crew:
+		elite_chance = minf(elite_chance * 1.5, 0.5)
 	var table: Array = biome["enemies"]
 	# penyergapan (lantai 5+, non-bos): satu ruangan tampak kosong — tulang bangkit saat kau masuk
 	ambush_room = -1
@@ -954,6 +958,9 @@ func _new_run(new_seed: int) -> void:
 			continue
 		# ruangan ambush sengaja dikosongkan — kejutan saat masuk
 		if int(sp.get("room", 0)) == ambush_room:
+			continue
+		# Skeleton Crew: ruangan menyusut awaknya
+		if skeleton_crew and rng.randf() < 0.33:
 			continue
 		var is_elite := rng.randf() < elite_chance
 		var arch_id := "hound" if wolfsbane else String(table[rng.randi_range(0, table.size() - 1)])
@@ -4429,6 +4436,7 @@ func _offer_omens() -> void:
 			{"text": "BONE MARKET — chests pay double souls... but every lid bites 5% of your Max HP"},
 			{"text": "WAXPALE — the wisps pay double... but the dead grow 10% harder"},
 			{"text": "VESSEL — the urns pay double... but the dead grow 10% harder"},
+			{"text": "SKELETON CREW — one fewer foe in every room... but the survivors are twice as likely to be elite"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -4463,7 +4471,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 37 if Stats.nemesis != "" else 36
+	var osize := 38 if Stats.nemesis != "" else 37
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -4622,6 +4630,9 @@ func _omen_deal(idx: int) -> void:
 			omen_hp_mult += 0.1
 			oname = "VESSEL"
 		36:
+			skeleton_crew = true
+			oname = "SKELETON CREW"
+		37:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -4683,6 +4694,7 @@ func _omen_deal(idx: int) -> void:
 		"BONE MARKET": "Everything here has a price on its lid. Try not to lose a finger haggling.",
 		"WAXPALE": "Pale as tallow, hungry as the tide — the little lights will feed you well tonight.",
 		"VESSEL": "Crack every pot you find, Kael — the dead stored their wages in clay.",
+		"SKELETON CREW": "A short crew on a long grave, Kael — the few who remain will wear crowns.",
 	}
 	var rline: String = String(reacts.get(oname, "An oath is an oath."))
 	_say([{"who": "oracle", "text": rline}])
