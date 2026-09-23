@@ -7529,6 +7529,19 @@ func _siren_deal(idx: int) -> void:
 			skill_cd[sid] = 0.0
 		Sfx.play("shrine")
 		toast("CHORUS — every song in you starts fresh")
+	if idx == 8:
+		var c8 := _soul_cost(4)
+		if Stats.souls < c8:
+			toast("Four souls — the encore isn't free")
+			return
+		Stats.souls -= c8
+		_souls_l()
+		Stats.buff_xp_pct += 0.1
+		if player != null and is_instance_valid(player):
+			player.hp = minf(Stats.get_stat("max_hp"), player.hp + Stats.get_stat("max_hp") * 0.2)
+			player.hp_changed.emit(player.hp)
+		Sfx.play("shrine")
+		toast("ENCORE — the sea sings you back toward the light")
 	_quest_event("siren")
 	if int(quest_counts.get("siren", 0)) >= 4:
 		_ach("choralist")
