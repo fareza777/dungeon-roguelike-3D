@@ -211,6 +211,8 @@ const ACH_DEF := {
 	"unstoppable": "Unstoppable (a ×50 kill streak in one run)",
 	"deepvault": "Deep Vault (held 50 souls at once)",
 	"fortyknells": "Forty Knells (40 skill casts in one run)",
+	"sixtypacts": "Sixty Pacts (60 omens sworn total)",
+	"fulldeck": "Full Deck (every meta upgrade maxed)",
 	"ngdeep": "Void Warden (reached floor 20 in New Game+)",
 	"oathkeeper": "Oathkeeper (eight omens in a single descent)",
 }
@@ -471,6 +473,13 @@ func buy_meta(id: String) -> bool:
 		return false
 	souls -= meta_cost(id)
 	meta[id] = lv + 1
+	var all_max := true
+	for mk in META_DEF.keys():
+		if int(meta.get(mk, 0)) < int(META_DEF[mk]["max"]):
+			all_max = false
+	if all_max and not ach.has("fulldeck"):
+		ach["fulldeck"] = true
+		save_game()
 	save_game()
 	return true
 

@@ -5953,6 +5953,8 @@ func _omen_deal(idx: int) -> void:
 	Stats.oaths_sworn += 1
 	if Stats.oaths_sworn >= 5:
 		_ach("fatebound")
+	if Stats.oaths_sworn >= 60:
+		_ach("sixtypacts")
 	_ach("omen1")
 	if omen_count >= 2:
 		_ach("doubloath")
