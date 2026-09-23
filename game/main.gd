@@ -653,7 +653,9 @@ func _on_enemy_died(e) -> void:
 				_souls(player.global_position, 12, Color(1.0, 0.8, 0.35))
 				Sfx.play("victory")
 	# permata XP terakhir, supaya logika gerbang di atas tidak keganggu bila gem gagal
-	_spawn_gems(e.global_position, e.xp_val)
+	# bonus XP dari kombo aktif: +5% per streak (maks +50%)
+	var xp_bonus := 1.0 + minf(float(combo), 10.0) * 0.05
+	_spawn_gems(e.global_position, int(e.xp_val * xp_bonus))
 
 
 func _on_boss_died(_e) -> void:
@@ -684,6 +686,7 @@ func _on_boss_died(_e) -> void:
 func _on_player_died() -> void:
 	print("PLAYER DIED floor=%d" % Stats.floor_num)
 	run_state = "dead"
+	var new_record := Stats.floor_num >= Stats.best_floor
 	Stats.note_floor()
 	Stats.clear_run()
 	Stats.runs += 1
@@ -694,7 +697,8 @@ func _on_player_died() -> void:
 		_souls(player.global_position, 18, Color(0.85, 0.9, 1.0))
 	var mins := int(run_time) / 60
 	var secs := int(run_time) % 60
-	_show_banner("KAMU MATI", "Lantai %d • %s\n%d kill • Lv %d • %d relik • %d:%02d\nTerbaik: Lantai %d — ketuk untuk mengulang" % [Stats.floor_num, biome["name"], kills_run, Stats.level, Stats.relics.size(), mins, secs, Stats.best_floor])
+	var rec := "\nREKOR BARU!" if new_record and Stats.floor_num > 1 else ""
+	_show_banner("KAMU MATI", "Lantai %d • %s\n%d kill • Lv %d • %d relik • %d:%02d\nTerbaik: Lantai %d — ketuk untuk mengulang%s" % [Stats.floor_num, biome["name"], kills_run, Stats.level, Stats.relics.size(), mins, secs, Stats.best_floor, rec])
 
 
 func _on_banner_tap() -> void:

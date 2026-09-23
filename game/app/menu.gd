@@ -390,6 +390,17 @@ func _on_rate() -> void:
 		_toast("Terima kasih atas ulasannya!")
 
 
+func _unhandled_input(event: InputEvent) -> void:
+	# tombol back: tutup panel kalau ada, kalau tidak -> keluar aplikasi
+	if event.is_action_pressed("ui_cancel"):
+		if settings_panel.visible:
+			settings_panel.visible = false
+		elif about_panel.visible:
+			about_panel.visible = false
+		else:
+			get_tree().quit()
+
+
 func _on_continue() -> void:
 	Stats.pending_restore = true
 	await Transit.fade_out(self)
