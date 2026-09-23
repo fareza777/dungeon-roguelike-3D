@@ -57,6 +57,7 @@ var sfx_volume := -1.0
 var saved_run := {}
 var lore_seen: Array = [] # baris lore yang pernah ditemukan (codex, persist)
 var souls := 0 # mata uang meta — dari kill, dipakai di Hall of Souls
+var bestiary := {} # arch_id -> jumlah kill sepanjang masa (codex)
 var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0}
 
 const META_DEF := {
@@ -177,6 +178,7 @@ func equip_weapon(id: String) -> void:
 func count_kill() -> void:
 	kills += 1
 	total_kills += 1
+	souls += 1
 
 
 func reset_run() -> void:
@@ -212,7 +214,6 @@ func reset_run() -> void:
 func register_kill(xp_val: int) -> void:
 	kills += 1
 	total_kills += 1
-	souls += 1
 	add_xp(xp_val)
 
 
@@ -293,6 +294,7 @@ func wipe_progress() -> void:
 	saved_run = {}
 	lore_seen = []
 	souls = 0
+	bestiary = {}
 	meta = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0}
 	reset_run()
 	save_game()
@@ -313,6 +315,7 @@ func save_game() -> void:
 			"lore": lore_seen,
 			"souls": souls,
 			"meta": meta,
+			"bestiary": bestiary,
 		}))
 
 
@@ -347,3 +350,6 @@ func load_game() -> void:
 			if me is Dictionary:
 				for k in META_DEF.keys():
 					meta[k] = int(me.get(k, 0))
+			var be = d.get("bestiary", {})
+			if be is Dictionary:
+				bestiary = be

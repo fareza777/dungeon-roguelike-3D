@@ -125,6 +125,17 @@ var atk_hold_t := 0.0
 var atk_charged := false
 var tip_l: Label = null
 
+const BESTIARY := {
+	"chaser": ["Skeleton Chaser", "The King's runts — countless, tireless, hungry."],
+	"rogue": ["Shadow Rogue", "They learned to dash before they learned to die."],
+	"mage": ["Bone Mage", "Spells older than the kingdom, hurled from the dark."],
+	"brute": ["Bone Brute", "Built like a siege engine — hits like one too."],
+	"bomber": ["Boom Bones", "A walking funeral pyre. Don't let it reach you."],
+	"archer": ["Skeletal Archer", "Fast fingers, faster arrows — from three tiles away."],
+	"necromancer": ["The Necromancer", "Death is a door he keeps propping open. Kill him first."],
+	"crawler": ["Crypt Crawler", "Small, quick, and never alone."],
+	"bone_king": ["The Kings", "One throne, many forms. Every five floors he waits."],
+}
 const KILLER_NAMES := {
 	"chaser": "a Skeleton Chaser", "rogue": "a Shadow Rogue", "mage": "a Bone Mage",
 	"brute": "a Bone Brute", "bomber": "a Boom Bones", "archer": "a Skeletal Archer",
@@ -835,6 +846,7 @@ func _on_enemy_died(e) -> void:
 	Sfx.play("death")
 	kills_run += 1
 	Stats.count_kill()
+	Stats.bestiary[e.arch_id] = int(Stats.bestiary.get(e.arch_id, 0)) + 1
 	if Stats.total_kills >= 1:
 		_ach("kill1")
 	if Stats.total_kills >= 50:
@@ -2808,6 +2820,11 @@ func _build_ui() -> void:
 		Sfx.play("page")
 		_toggle_lore())
 	pvb.add_child(b_lore)
+	var b_best := _pause_btn("BESTIARY (%d/9)" % mini(Stats.bestiary.size(), 9))
+	b_best.pressed.connect(func() -> void:
+		Sfx.play("page")
+		_toggle_bestiary())
+	pvb.add_child(b_best)
 	var b_qual := _pause_btn("QUALITY: " + ("LOW" if low_quality else "HIGH"))
 	b_qual.pressed.connect(func() -> void:
 		Stats.quality = 0 if not low_quality else 1
@@ -2833,6 +2850,7 @@ func _build_ui() -> void:
 	pause_panel = pp
 	ui["pause_panel"] = pp
 	_build_lore_panel(layer)
+	_build_bestiary_panel(layer)
 
 	# rect fade transisi (paling atas di layer UI)
 	fade_rect = ColorRect.new()
@@ -2984,6 +3002,89 @@ func _build_lore_panel(layer: CanvasLayer) -> void:
 	ui["lore_panel"] = lp
 
 
+var bestiary_panel: PanelContainer = null
+
+func _build_bestiary_panel(layer: CanvasLayer) -> void:
+	var lp := PanelContainer.new()
+	lp.anchor_left = 0.5
+	lp.anchor_right = 0.5
+	lp.anchor_top = 0.5
+	lp.anchor_bottom = 0.5
+	lp.offset_left = -220
+	lp.offset_right = 220
+	lp.offset_top = -330
+	lp.offset_bottom = 330
+	lp.process_mode = Node.PROCESS_MODE_ALWAYS
+	var lsb := StyleBoxFlat.new()
+	lsb.bg_color = Color(0.07, 0.04, 0.05, 0.97)
+	lsb.border_color = Color(1.0, 0.55, 0.4, 0.6)
+	lsb.set_border_width_all(2)
+	lsb.set_corner_radius_all(14)
+	lsb.set_content_margin_all(18)
+	lp.add_theme_stylebox_override("panel", lsb)
+	var vb := VBoxContainer.new()
+	vb.add_theme_constant_override("separation", 10)
+	vb.process_mode = Node.PROCESS_MODE_ALWAYS
+	lp.add_child(vb)
+	var lt := Label.new()
+	lt.text = "BESTIARY — DENIZENS OF THE DEEP"
+	lt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	lt.add_theme_font_size_override("font_size", 20)
+	lt.modulate = Color(1.0, 0.7, 0.55)
+	vb.add_child(lt)
+	var sc := ScrollContainer.new()
+	sc.custom_minimum_size = Vector2(0, 470)
+	sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	vb.add_child(sc)
+	var lv := VBoxContainer.new()
+	lv.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	lv.add_theme_constant_override("separation", 12)
+	sc.add_child(lv)
+	ui["bestiary_list"] = lv
+	var bb := _pause_btn("BACK")
+	bb.pressed.connect(func() -> void:
+		Sfx.play("click")
+		bestiary_panel.visible = false)
+	vb.add_child(bb)
+	lp.visible = false
+	layer.add_child(lp)
+	bestiary_panel = lp
+	ui["bestiary_panel"] = lp
+
+
+func _toggle_bestiary() -> void:
+	if bestiary_panel == null:
+		return
+	for c in ui.bestiary_list.get_children():
+		c.queue_free()
+	for arch in BESTIARY.keys():
+		var b: Array = BESTIARY[arch]
+		var n: int = int(Stats.bestiary.get(arch, 0))
+		var row := HBoxContainer.new()
+		row.add_theme_constant_override("separation", 8)
+		var info := VBoxContainer.new()
+		info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		var nm := Label.new()
+		nm.text = String(b[0]) if n > 0 else "???"
+		nm.modulate = Color(1.0, 0.9, 0.75, 0.95) if n > 0 else Color(1, 1, 1, 0.3)
+		nm.add_theme_font_size_override("font_size", 17)
+		info.add_child(nm)
+		var ds := Label.new()
+		ds.text = String(b[1]) if n > 0 else "Yet unmet — the deep still hides it."
+		ds.modulate = Color(1, 1, 1, 0.55) if n > 0 else Color(1, 1, 1, 0.25)
+		ds.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		ds.add_theme_font_size_override("font_size", 13)
+		info.add_child(ds)
+		row.add_child(info)
+		var kl := Label.new()
+		kl.text = "×%d" % n if n > 0 else ""
+		kl.modulate = Color(1.0, 0.6, 0.4, 0.9)
+		kl.add_theme_font_size_override("font_size", 17)
+		row.add_child(kl)
+		ui.bestiary_list.add_child(row)
+	bestiary_panel.visible = true
+
+
 func _toggle_lore() -> void:
 	if lore_panel == null:
 		return
@@ -3018,6 +3119,8 @@ func _toggle_pause() -> void:
 	pause_panel.visible = paused_ui
 	if not paused_ui and lore_panel != null:
 		lore_panel.visible = false
+	if not paused_ui and bestiary_panel != null:
+		bestiary_panel.visible = false
 	if paused_ui and ui.has("pause_stats"):
 		var pm := int(run_time) / 60
 		var ps := int(run_time) % 60
