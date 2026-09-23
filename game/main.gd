@@ -4218,6 +4218,10 @@ func _well_deal(idx: int) -> void:
 		toast("The well drinks deep... and gives nothing back")
 		Sfx.play("hurt")
 	_quest_event("well")
+	# Deep Pockets: tiga lemparan dalam satu lantai memuaskan questnya
+	well_rolls += 1
+	if well_rolls >= 3:
+		_quest_event("deep_pockets")
 
 
 func _on_cache_invoked(s) -> void:
