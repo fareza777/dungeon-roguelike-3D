@@ -297,6 +297,15 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						hp = minf(mh, hp + mh * 0.05)
 						if mg.has_method("_damage_number"):
 							mg._damage_number(global_position + Vector3(0, 0.6 * room_tile, 0), "REND +HP", Color(1.0, 0.4, 0.4), false)
+		"chain_anchor": # MOORING — tiap tebasan ke-6 menambat target: stun 1.5s
+			var mc := get_tree().current_scene
+			if mc != null:
+				mc.set("net_n", int(mc.get("net_n")) + 1)
+				if int(mc.get("net_n")) >= 6:
+					mc.set("net_n", 0)
+					f.stun_t = 1.5
+					if mc.has_method("_damage_number"):
+						mc._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "MOORED", Color(0.4, 0.6, 1.0), false)
 		"scourge": # LASH — tiap tebasan ke-4 menyeret musuh terdekat mendekat
 			var ml := get_tree().current_scene
 			if ml != null:
