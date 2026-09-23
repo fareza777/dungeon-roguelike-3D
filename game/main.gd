@@ -245,6 +245,7 @@ var hull_song := false
 var salt_ledger := false
 var slow_clock := false
 var dash_fuel := false
+var powder_keg := 0
 var bloodtide_t := 0.0
 var iron_gullet := false
 var murk_fed := false
@@ -970,6 +971,7 @@ func _reset_run_state() -> void:
 	salt_ledger = false
 	slow_clock = false
 	dash_fuel = false
+	powder_keg = 0
 	bloodtide_t = 0.0
 	iron_gullet = false
 	murk_fed = false
@@ -2936,6 +2938,16 @@ func _on_enemy_died(e) -> void:
 	if bloodtide_t > 0:
 		Stats.earn_souls(1)
 		_souls_l()
+	if powder_keg > 0 and not e.is_boss:
+		powder_keg -= 1
+		for pk in get_tree().get_nodes_in_group("enemies"):
+			if pk == e or pk.get("state") == "dead":
+				continue
+			var pd: Vector3 = pk.global_position - e.global_position
+			if pd.length() < 1.6 * info.tile and pk.has_method("take_hit"):
+				pk.take_hit(player.global_position, Stats.get_stat("atk") * 0.8)
+		_burst(e.global_position + Vector3(0, 0.5 * info.tile, 0), Color(1.0, 0.6, 0.2))
+		trauma = 0.4
 	if e.get("affix") == "salted":
 		Stats.earn_souls(2)
 		_souls_l()
@@ -6886,12 +6898,23 @@ func _on_qm_invoked(s) -> void:
 		{"text": "Provisions — pay 3 souls: mend 25% HP"},
 		{"text": "Rope Ration — pay 3 souls: +1 soul vial for the road"},
 		{"text": "Chipped Compass — pay 4 souls: the post charts this floor for you"},
+		{"text": "Powder Keg — pay 4 souls: your next 3 kills detonate on their neighbors"},
 		{"text": "Walk away"}])
 
 
 func _qm_deal(idx: int) -> void:
-	if idx == 5:
+	if idx == 6:
 		toast("The post shutters its stores")
+		return
+	if idx == 5:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the powder isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		powder_keg = 3
+		Sfx.play("shrine")
+		toast("POWDER KEG — your next three kills go off like a deck fire")
 		return
 	if idx == 4:
 		if Stats.souls < _soul_cost(4):
