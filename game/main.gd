@@ -90,6 +90,7 @@ var toast_tween: Tween = null
 # polish r2: pause, ringkasan run, transisi fade, juice vfx
 var paused_ui := false
 var kills_run := 0
+var last_stand_kills := 0
 var run_time := 0.0
 var floor_t := 0.0
 var combo_max := 0
@@ -120,6 +121,7 @@ const ACH := {
 	"knight1": "Liberator (freed Sir Vane)",
 	"reborn": "Oracle's Chosen (bought back your life)",
 	"scholar": "Crypt Scholar (filled the bestiary)",
+	"st5": "Death's Edge (5 kills at death's door)",
 }
 const BOSS_TIERS := [
 	{"name": "BONE KING", "tint": Color(1.05, 1.05, 1.05),
@@ -297,6 +299,7 @@ func _ready() -> void:
 	else:
 		Stats.reset_run()
 		kills_run = 0
+		last_stand_kills = 0
 		run_time = 0.0
 		combo_max = 0
 	Stats.pending_restore = false
@@ -1114,6 +1117,10 @@ func _on_enemy_died(e) -> void:
 	kills_run += 1
 	if ui.has("kills_label"):
 		ui.kills_label.text = "☠ %d" % kills_run
+	if player != null and is_instance_valid(player) and player.hp <= player.max_hp * 0.2:
+		last_stand_kills += 1
+		if last_stand_kills >= 5:
+			_ach("st5")
 	Stats.count_kill()
 	Stats.bestiary[e.arch_id] = int(Stats.bestiary.get(e.arch_id, 0)) + 1
 	if Stats.bestiary.size() >= BESTIARY.size():
@@ -1431,6 +1438,7 @@ func _on_banner_tap() -> void:
 	elif run_state == "dead":
 		Stats.reset_run()
 		kills_run = 0
+		last_stand_kills = 0
 		run_time = 0.0
 		combo_max = 0
 		await _fade_to(1.0, 0.3)
