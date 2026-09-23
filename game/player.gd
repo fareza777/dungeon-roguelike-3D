@@ -259,6 +259,19 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 				hit_landed.emit(f.global_position, dmg, crit)
 		"hex_staff": # HEX — tandai: musuh menerima +25% damage 4s
 			f.set("hex_t", 4.0)
+		"harpoon": # REACH — tiap tebasan ke-3 seret target ke jarak lengan
+			var mh := get_tree().current_scene
+			if mh != null:
+				mh.set("harpoon_n", int(mh.get("harpoon_n")) + 1)
+				if int(mh.get("harpoon_n")) >= 3:
+					mh.set("harpoon_n", 0)
+					var hdist: float = f.global_position.distance_to(global_position)
+					if hdist > 1.2 * room_tile:
+						var hdir: Vector3 = global_position - f.global_position
+						hdir.y = 0
+						f.global_position += hdir.normalized() * (hdist - 0.9 * room_tile)
+						if mh.has_method("_damage_number"):
+							mh._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "REACHED", Color(0.5, 0.8, 1.0), false)
 		"storm_axe": # STORM — 20% petir berantai ke musuh terdekat
 			if randf() < 0.2:
 				var best2: Node3D = null
