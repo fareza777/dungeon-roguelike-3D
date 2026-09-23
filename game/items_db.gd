@@ -92,6 +92,7 @@ const DB := {
 	"lucky_lantern": {"name": "Lucky Lantern", "chip": "LL", "desc": "A lantern that never empties — kills sometimes spill a wandering soul", "rarity": 1, "mods": {}},
 	"silk_greaves": {"name": "Silk Greaves", "chip": "SG", "desc": "Woven hull-silk — roots and webs wear off half again as fast", "rarity": 1, "mods": {}},
 	"warm_blood": {"name": "Warm Blood", "chip": "WB", "desc": "The furnace in your chest — chills and freezes wear off twice as fast", "rarity": 1, "mods": {}},
+	"pendulum": {"name": "Pendulum Weight", "chip": "PW", "desc": "A keel-weight that swings for you — heavy attacks charge in 0.4s instead of 0.6s", "rarity": 1, "mods": {}},
 	"purifiers_salt": {"name": "Purifier's Salt", "chip": "PS", "desc": "Salt blessed at a drowned altar — soul vials also scour hexes, chill, root and rust", "rarity": 1, "mods": {}},
 	"brine_ration": {"name": "Brine Ration", "chip": "BR", "desc": "Salt preserves — soul vials mend +10% more", "rarity": 1, "mods": {}},
 	"rusted_penny": {"name": "Rusted Penny", "chip": "RP", "desc": "The ferryman's toll — your first shrine price each floor drops 1 soul", "rarity": 0, "mods": {}},

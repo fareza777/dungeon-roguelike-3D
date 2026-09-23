@@ -9459,12 +9459,13 @@ func _process(delta: float) -> void:
 		if attacking:
 			atk_hold_t += delta
 			player.attack()
-			if atk_hold_t >= 0.6 and not atk_charged:
+			var heavy_threshold := 0.4 if Stats.relics.has("pendulum") else 0.6
+			if atk_hold_t >= heavy_threshold and not atk_charged:
 				atk_charged = true
 				Input.vibrate_handheld(60)
 				ui.atk_btn.modulate = Color(1.35, 1.15, 0.6)
 		else:
-			if atk_hold_t >= 0.6:
+			if atk_hold_t >= (0.4 if Stats.relics.has("pendulum") else 0.6):
 				_heavy_attack()
 			atk_hold_t = 0.0
 			atk_charged = false
