@@ -154,6 +154,7 @@ var sunken_tide := false
 var low_tide := false
 var glass_sea := false
 var deep_current := false
+var dread_tide := false
 var legion_omen := false
 var wolf_omen := false
 var ashborn := false
@@ -636,6 +637,10 @@ func _apply_biome() -> void:
 		env.fog_light_color = Color(0.03, 0.1, 0.18)
 		env.ambient_light_color = Color(0.2, 0.4, 0.55)
 		sun.light_color = Color(0.4, 0.7, 1.0)
+	elif dread_tide:
+		env.fog_light_color = Color(0.12, 0.04, 0.14)
+		env.ambient_light_color = Color(0.4, 0.2, 0.45)
+		sun.light_color = Color(0.8, 0.4, 0.9)
 		sun.light_energy = 0.95
 
 
@@ -864,6 +869,7 @@ func _new_run(new_seed: int) -> void:
 		Stats.buff_atk_pct -= 0.10
 	glass_sea = not wolfsbane and not sunken_tide and not low_tide and not boss_floor and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
 	deep_current = not wolfsbane and not sunken_tide and not low_tide and not glass_sea and not boss_floor and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
+	dread_tide = not boss_floor and Stats.floor_num >= 13 and rng.randf() < 0.14
 	if glass_sea:
 		Stats.buff_atk_pct += 0.10
 	if wolfsbane:
@@ -1039,6 +1045,10 @@ func _new_run(new_seed: int) -> void:
 		_lvl_banner("≈ GLASS SEA — CALM AND CRUEL")
 	elif deep_current:
 		_lvl_banner("≈ DEEP CURRENT — THE WATER SEEKS YOU")
+	elif dread_tide:
+		_lvl_banner("◆ DREAD TIDE — THE ABYSS SWELLS")
+		toast("The dark pays out • +1 soul per kill • foes strike +10% harder")
+		Sfx.play("roar")
 		toast("The dead smell you from across the halls • +50% sight • +1 soul per kill")
 		Sfx.play("roar")
 		toast("The water is still — the dead move faster • +10% ATK this floor")
@@ -1354,6 +1364,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.hp_max = e.hp
 	if deep_current and not e.is_boss:
 		e.aggro_range *= 1.5
+	if dread_tide and not e.is_boss:
+		e.dmg += 1
 	if giant_hall and not e.is_boss:
 		e.scale *= 1.3
 		e._base_scale = e.scale
@@ -2049,6 +2061,9 @@ func _on_enemy_died(e) -> void:
 		_souls_l()
 		tide_kills += 1
 	if deep_current and not e.is_boss:
+		Stats.souls += 1
+		_souls_l()
+	if dread_tide and not e.is_boss:
 		Stats.souls += 1
 		_souls_l()
 	if String(e.arch_id) == "drowned":
@@ -5388,6 +5403,8 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 				evline = "Calm water, sharp blades, Kael. The sea forgives nothing tonight — don't you either."
 			elif deep_current:
 				evline = "The current runs toward you, swordsman — everything in these halls knows your name now."
+			elif dread_tide:
+				evline = "The Abyss is breathing, Kael — it exhales souls tonight, and its children are eager."
 			elif sunken_tide:
 				evline = "The water is rising through the graves, Kael — the drowned will come slow, but they come rich."
 			elif wolfsbane:
@@ -6713,6 +6730,8 @@ func _refresh_buffs() -> void:
 		list.append(["≈ GLASS", Color(0.75, 0.98, 1.0)])
 	elif deep_current:
 		list.append(["≈ DRIFT", Color(0.4, 0.7, 1.0)])
+	elif dread_tide:
+		list.append(["◆ DREAD", Color(0.8, 0.4, 0.9)])
 	elif wolfsbane:
 		list.append(["☽ PACK", Color(0.65, 0.7, 0.95)])
 	if Stats.soul_sealed:
