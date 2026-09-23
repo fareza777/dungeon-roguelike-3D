@@ -22,6 +22,7 @@ var attack_cooldown := 0.45
 var cd := 0.0
 var invuln := 0.0
 var dead := false
+var hit_n := 0
 var move_input := Vector2.ZERO
 var bounds := {}
 var room_tile := 4.0
@@ -198,6 +199,10 @@ func _strike() -> void:
 			if Stats.weapon_id == "war_blade" and f.hp < f.hp_max * 0.35:
 				dmg *= 1.5
 			f.take_hit(global_position, dmg)
+			hit_n += 1
+			if Stats.relics.has("echo_strike") and hit_n % 4 == 0:
+				f.take_hit(global_position, dmg)
+				hit_landed.emit(f.global_position, dmg, true)
 			_weapon_proc(f, dmg, crit)
 			var heal: float = dmg * Stats.get_stat("lifesteal")
 			if heal > 0.0:
