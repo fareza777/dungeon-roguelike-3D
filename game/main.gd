@@ -62,6 +62,7 @@ var autotest := false
 var rng := RandomNumberGenerator.new()
 var pending_drafts := 0
 var draft_choices: Array = []
+var draft_rerolled := false
 var low_quality := false
 var chest_opened := false
 var toast_tween: Tween = null
@@ -928,7 +929,29 @@ func _try_open_draft() -> void:
 		return
 	Stats.draft_open = true
 	pending_drafts -= 1
+	draft_rerolled = false
+	if ui.has("draft_reroll"):
+		ui.draft_reroll.visible = true
 	draft_choices = ITEMS.roll_choices(Stats.relics, rng)
+	_build_draft_cards()
+	ui.draft.visible = true
+	ui.dim.visible = true
+	get_tree().paused = true
+	print("DRAFT terbuka: %s (Lv %d)" % [str(draft_choices), Stats.level])
+
+
+func _draft_reroll() -> void:
+	if not Stats.draft_open or draft_rerolled:
+		return
+	draft_rerolled = true
+	ui.draft_reroll.visible = false
+	Sfx.play("click")
+	draft_choices = ITEMS.roll_choices(Stats.relics, rng)
+	_build_draft_cards()
+	print("DRAFT reroll: %s" % str(draft_choices))
+
+
+func _build_draft_cards() -> void:
 	for c in ui.draft_cards.get_children():
 		c.queue_free()
 	for i in range(draft_choices.size()):
@@ -981,10 +1004,6 @@ func _try_open_draft() -> void:
 		var ctw := card.create_tween()
 		ctw.tween_interval(0.06 * i)
 		ctw.tween_property(card, "scale", Vector2.ONE, 0.28).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	ui.draft.visible = true
-	ui.dim.visible = true
-	get_tree().paused = true
-	print("DRAFT terbuka: %s (Lv %d)" % [str(draft_choices), Stats.level])
 
 
 func _pick_relic(i: int) -> void:
@@ -2262,6 +2281,25 @@ func _build_ui() -> void:
 	var cards := HBoxContainer.new()
 	cards.add_theme_constant_override("separation", 12)
 	dvb.add_child(cards)
+	var reroll := Button.new()
+	reroll.text = "REROLL"
+	reroll.custom_minimum_size = Vector2(0, 44)
+	reroll.add_theme_font_size_override("font_size", 18)
+	reroll.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.85))
+	reroll.add_theme_constant_override("outline_size", 5)
+	var rrsb := StyleBoxFlat.new()
+	rrsb.bg_color = Color(0.2, 0.16, 0.1, 1.0)
+	rrsb.border_color = Color(0.9, 0.75, 0.3, 0.8)
+	rrsb.set_border_width_all(2)
+	rrsb.set_corner_radius_all(10)
+	reroll.add_theme_stylebox_override("normal", rrsb)
+	var rrsb2: StyleBoxFlat = rrsb.duplicate()
+	rrsb2.bg_color = Color(0.32, 0.25, 0.14, 1.0)
+	reroll.add_theme_stylebox_override("hover", rrsb2)
+	reroll.process_mode = Node.PROCESS_MODE_ALWAYS
+	reroll.pressed.connect(_draft_reroll)
+	dvb.add_child(reroll)
+	ui["draft_reroll"] = reroll
 	panel.add_child(dvb)
 	dr.add_child(panel)
 	layer.add_child(dr)
