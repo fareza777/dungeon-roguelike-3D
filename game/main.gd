@@ -98,7 +98,10 @@ const LORE_LINES := [
 	"Every Keelstone is a sailor's grave that chose to keep working. Lean close and you can hear it taking bets.",
 	"The Deep doesn't want your death, Kael — it wants your debts. Everything down here runs on what you're owed.",
 	"The Orator's choir once sang Aldric's coronation hymn. Now it rehearses his funeral dirge and never finishes the last verse.",
-	"Mahzan owes the Bone King a debt older than the throne — and a debt that old, both of them swear, can never be allowed to close."
+	"Mahzan owes the Bone King a debt older than the throne — and a debt that old, both of them swear, can never be allowed to close.",
+	"When the Veil runs thin, the drowned can see the living shore — and every one of them remembers wanting to walk on it.",
+	"The Glass Compass was ground from a drowned navigator's lens. Mahzan swears it still points the way the tide went out.",
+	"Barbed Lines were fished from the last crew's hold — the hooks still hunger for whatever escapes the deck."
 ]
 
 var dungeon_tex: Texture2D
@@ -2832,6 +2835,8 @@ func _on_enemy_died(e) -> void:
 				_ach("chorus")
 			if wolfsbane:
 				_ach("wolfsbane")
+			if thin_veil:
+				_ach("veilwalker")
 			if glass_sea:
 				_quest_event("glasswalk")
 			if dread_tide:
