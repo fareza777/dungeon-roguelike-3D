@@ -873,6 +873,10 @@ func _new_run(new_seed: int) -> void:
 	room.name = "Room"
 	add_child(room)
 	info = RG.build_floor(room, seed_val, Stats.floor_num)
+	for ci in range(mini(int(Stats.meta.get("carto", 0)), info.ranges.size() - 1)):
+		discovered[ci + 1] = true
+	if int(Stats.meta.get("carto", 0)) > 0:
+		_update_minimap()
 	stain_count = 0
 	stain_positions.clear()
 	pool_positions.clear()

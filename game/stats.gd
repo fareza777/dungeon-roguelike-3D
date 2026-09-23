@@ -209,6 +209,7 @@ const META_DEF := {
 	"shepherd": {"name": "Wisp Shepherd", "max": 3, "desc": "The wisps pay +1 soul per level"},
 	"captain": {"name": "Soul Captain", "max": 3, "desc": "Quest steps completed pay +1 soul per level"},
 	"quarter": {"name": "Quartermaster", "max": 3, "desc": "Each descent mends 5% of your Max HP per level"},
+	"carto": {"name": "Cartographer's Eye", "max": 3, "desc": "Each floor begins with +1 room charted per level"},
 }
 
 # dipakai menu -> game
