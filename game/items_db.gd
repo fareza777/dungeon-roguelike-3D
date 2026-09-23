@@ -96,7 +96,7 @@ const DB := {
 	"sea_chart": {"name": "Sea Chart", "chip": "SC", "desc": "+10% Speed, +5% Crit", "rarity": 1, "mods": {"speed_pct": 0.1, "crit": 0.05}},
 	"splintered_oar": {"name": "Splintered Oar", "chip": "SO", "desc": "The oar remembers rowing — your dash carries you 30% farther", "rarity": 0, "mods": {}},
 	"deck_plank": {"name": "Deck Plank", "chip": "DP", "desc": "Sure footing on any deck — +5% Speed, +5% Attack Speed", "rarity": 0, "mods": {"speed_pct": 0.05, "atk_speed_pct": 0.05}},
-	"lucky_coin": {"name": "Lucky Coin", "chip": "LC", "desc": "Heads every time — souls pay +10% more", "rarity": 1, "mods": {"soul_gain_pct": 0.1}}, {"name": "Lucky Coin", "chip": "LC", "desc": "Heads every time — souls pay +10% more", "rarity": 1, "mods": {}},
+	"lucky_coin": {"name": "Lucky Coin", "chip": "LC", "desc": "Heads every time — souls pay +10% more", "rarity": 1, "mods": {"soul_gain_pct": 0.1}},
 	"signal_flag": {"name": "Signal Flag", "chip": "SF", "desc": "The crew answers the colors — your skills recharge 5% faster", "rarity": 0, "mods": {}},
 	"eel_skin": {"name": "Eel Skin", "chip": "ES", "desc": "Slippery as the tide itself — +6% dodge", "rarity": 1, "mods": {"dodge": 0.06}},
 	"deadmans_toll": {"name": "Deadman's Toll", "chip": "DT", "desc": "Every floor you cross pays its fare — +1 soul on each floor clear", "rarity": 1, "mods": {}},
