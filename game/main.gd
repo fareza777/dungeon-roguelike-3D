@@ -187,6 +187,7 @@ var waxpale := false
 var vessel := false
 var skeleton_crew := false
 var rolling_fog := false
+var deep_pockets_oath := false
 var umbral_tide := false
 var moonwrit := false
 var barnacle_sense := false
@@ -803,6 +804,7 @@ func _reset_run_state() -> void:
 	vessel = false
 	skeleton_crew = false
 	rolling_fog = false
+	deep_pockets_oath = false
 	umbral_tide = false
 	moonwrit = false
 	barnacle_sense = false
@@ -4487,6 +4489,7 @@ func _offer_omens() -> void:
 			{"text": "VESSEL — the urns pay double... but the dead grow 10% harder"},
 			{"text": "SKELETON CREW — one fewer foe in every room... but the survivors are twice as likely to be elite"},
 			{"text": "ROLLING FOG — the dead rise dazed for 3 heartbeats... but +8% hardier"},
+			{"text": "DEEP POCKETS — every bargain costs a fifth less... but the dead grow +12% harder"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -4497,6 +4500,8 @@ func _soul_cost(n: int) -> int:
 		disc += 1
 	if mahzan_met >= 4:
 		disc += 1
+	if deep_pockets_oath:
+		return maxi(1, int(ceilf(float(n) * 0.8)))
 	if Stats.relics.has("pact_broker"):
 		disc += 1
 	disc += int(Stats.meta.get("haggler", 0))
@@ -4521,7 +4526,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 39 if Stats.nemesis != "" else 38
+	var osize := 40 if Stats.nemesis != "" else 39
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -4686,6 +4691,10 @@ func _omen_deal(idx: int) -> void:
 			rolling_fog = true
 			oname = "ROLLING FOG"
 		38:
+			deep_pockets_oath = true
+			omen_hp_mult += 0.12
+			oname = "DEEP POCKETS"
+		39:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -4749,6 +4758,7 @@ func _omen_deal(idx: int) -> void:
 		"VESSEL": "Crack every pot you find, Kael — the dead stored their wages in clay.",
 		"SKELETON CREW": "A short crew on a long grave, Kael — the few who remain will wear crowns.",
 		"ROLLING FOG": "The fog buys you three breaths, Kael — spend them cutting.",
+		"DEEP POCKETS": "Deep pockets for a shallow grave, Kael — haggle while you can.",
 	}
 	var rline: String = String(reacts.get(oname, "An oath is an oath."))
 	_say([{"who": "oracle", "text": rline}])
