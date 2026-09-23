@@ -153,6 +153,7 @@ func _ach(id: String) -> void:
 var boss_ref = null
 var quest_steps: Array = []
 var quest_idx := 0
+var quest_counts := {}
 var combo := 0
 var combo_t := 0.0
 var mimic_pending := false
@@ -755,6 +756,8 @@ func _on_enemy_died(e) -> void:
 	# permata XP terakhir, supaya logika gerbang di atas tidak keganggu bila gem gagal
 	if e.golden:
 		_damage_number(e.global_position, "LUCKY ×3", Color(1.0, 0.85, 0.3), true)
+	if e.elite:
+		_quest_event("elite_kill", 1)
 	# bonus XP dari kombo aktif: +5% per streak (maks +50%)
 	var xp_bonus := 1.0 + minf(float(combo), 10.0) * 0.05
 	_spawn_gems(e.global_position, int(e.xp_val * xp_bonus))
@@ -1435,7 +1438,12 @@ func _lvl_banner(txt: String) -> void:
 # ---------------- quest berurutan ----------------
 
 func _start_quests(boss_floor: bool, room_count: int) -> void:
-	quest_steps = QDB.for_floor(Stats.floor_num, room_count)
+	quest_counts = {}
+	var n_elites := 0
+	for e in get_tree().get_nodes_in_group("enemies"):
+		if e.elite:
+			n_elites += 1
+	quest_steps = QDB.for_floor(Stats.floor_num, room_count, n_elites)
 	for st in quest_steps:
 		st["done"] = 0
 	quest_idx = 0
@@ -1443,6 +1451,10 @@ func _start_quests(boss_floor: bool, room_count: int) -> void:
 
 
 func _quest_event(kind: String, num: int = 1) -> void:
+	# total per-kind dihitung apa pun langkah aktifnya — langkah berurutan
+	# tidak boleh kehilangan progres yang terjadi sebelum gilirannya
+	if kind != "reach_room":
+		quest_counts[kind] = int(quest_counts.get(kind, 0)) + num
 	if quest_idx >= quest_steps.size():
 		return
 	var st: Dictionary = quest_steps[quest_idx]
@@ -1454,7 +1466,7 @@ func _quest_event(kind: String, num: int = 1) -> void:
 			return
 		st["done"] = int(st["need"])
 	else:
-		st["done"] = int(st.get("done", 0)) + num
+		st["done"] = int(quest_counts[kind])
 	if int(st["done"]) >= int(st["need"]):
 		quest_idx += 1
 		Sfx.play("quest")
@@ -1464,6 +1476,18 @@ func _quest_event(kind: String, num: int = 1) -> void:
 			var qtw := qb.create_tween()
 			qtw.tween_property(qb, "scale", Vector2(1.1, 1.1), 0.09)
 			qtw.tween_property(qb, "scale", Vector2.ONE, 0.22).set_trans(Tween.TRANS_BACK)
+	# langkah baru bisa langsung selesai bila progresnya terjadi sebelum aktif
+	while quest_idx < quest_steps.size():
+		var nxt: Dictionary = quest_steps[quest_idx]
+		var nk := String(nxt["kind"])
+		if nk == "reach_room":
+			break
+		var cd := int(quest_counts.get(nk, 0))
+		nxt["done"] = cd
+		if cd < int(nxt["need"]):
+			break
+		quest_idx += 1
+		Sfx.play("quest")
 	_quest_render()
 
 
