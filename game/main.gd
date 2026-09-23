@@ -200,6 +200,7 @@ const TIPS := [
 	"A chest that gleams brighter is gilded — relics hide inside.",
 	"Clear a floor in under 90 seconds for a Sweep Bonus.",
 	"Violet sigils snare your feet — dash before the trap bites.",
+	"Near death, fury answers — Last Stand adds +25% ATK.",
 	"When the mist turns violet, the dead weep gems — reap them while it lasts.",
 ]
 
@@ -3822,6 +3823,8 @@ func _refresh_buffs() -> void:
 		list.append(["DEBT -%d HP" % int(Stats.mahzan_debt), Color(0.6, 0.4, 0.9)])
 	if player.get("chill_t") != null and player.chill_t > 0.0:
 		list.append(["CHILLED", Color(0.5, 0.8, 1.0)])
+	if player.hp <= player.max_hp * 0.2 and not player.dead:
+		list.append(["⚑ LAST STAND +25% ATK", Color(1.0, 0.35, 0.25)])
 	var sig := ""
 	for b in list:
 		sig += String(b[0]) + "|"

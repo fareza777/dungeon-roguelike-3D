@@ -105,6 +105,9 @@ func get_stat(n: String) -> float:
 		# amukan: +ATK saat HP di bawah 35%
 		if berserk > 0.0 and current_hp <= get_stat("max_hp") * 0.35:
 			mult += berserk
+		# last stand: +25% ATK saat HP kritis
+		if current_hp <= get_stat("max_hp") * 0.2:
+			mult += 0.25
 	if n == "atk_speed":
 		mult += combo_aspd
 	if n == "max_hp":
