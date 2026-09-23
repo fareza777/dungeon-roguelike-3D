@@ -137,6 +137,7 @@ var hungry_walls := false
 var candlelit := false
 var verdant := false
 var bone_chorus := false
+var wolfsbane := false
 var legion_omen := false
 var wolf_omen := false
 var ashborn := false
@@ -565,6 +566,11 @@ func _apply_biome() -> void:
 		env.ambient_light_color = Color(0.55, 0.4, 0.55)
 		sun.light_color = Color(0.9, 0.7, 0.95)
 		sun.light_energy = 1.0
+	elif wolfsbane:
+		env.fog_light_color = Color(0.12, 0.1, 0.16)
+		env.ambient_light_color = Color(0.4, 0.4, 0.55)
+		sun.light_color = Color(0.7, 0.75, 0.95)
+		sun.light_energy = 0.85
 
 
 func _style_room() -> void:
@@ -699,6 +705,10 @@ func _new_run(new_seed: int) -> void:
 	bone_chorus = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and Stats.floor_num >= 15 and not boss_floor and rng.randf() < 0.05
 	if bone_chorus:
 		Stats.event_soul_bonus = 1
+	# event langka #18: wolfsbane — kawanan pemburu (lantai 12+): semua musuh adalah hound
+	wolfsbane = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and Stats.floor_num >= 12 and Stats.floor_num <= 24 and not boss_floor and rng.randf() < 0.05
+	if wolfsbane:
+		Stats.event_soul_bonus = 1
 	storm_t = 4.0
 	nemesis_spawned = false
 	_ferry_used = false
@@ -740,7 +750,7 @@ func _new_run(new_seed: int) -> void:
 		if int(sp.get("room", 0)) == ambush_room:
 			continue
 		var is_elite := rng.randf() < elite_chance
-		var arch_id: String = table[rng.randi_range(0, table.size() - 1)]
+		var arch_id := "hound" if wolfsbane else String(table[rng.randi_range(0, table.size() - 1)])
 		_spawn_enemy(sp, arch_id, is_elite, not is_elite and rng.randf() < 0.05)
 		if (mirror_hall or legion_omen) and not is_elite:
 			var mpos: Vector3 = sp["pos"] + Vector3(randf_range(-0.5, 0.5), 0, randf_range(-0.5, 0.5)) * info.tile * 0.5
@@ -909,6 +919,10 @@ func _new_run(new_seed: int) -> void:
 	elif bone_chorus:
 		_lvl_banner("◆ BONE CHORUS — THE DEEP SINGS")
 		toast("An Orator chants in every hall • silence them first • +1 soul per kill")
+		Sfx.play("roar")
+	elif wolfsbane:
+		_lvl_banner("☽ WOLFSBANE — THE PACK HUNTS")
+		toast("Nothing but hounds this floor — keep your back to a wall • +1 soul per kill")
 		Sfx.play("roar")
 	elif Stats.floor_num > 1:
 		_lvl_banner("FLOOR %d — %s" % [Stats.floor_num, String(biome["name"]).to_upper()])
@@ -2143,6 +2157,11 @@ func _on_enemy_died(e) -> void:
 				Stats.save_game()
 				toast("☠ OSSUARY TITHE — +3 souls")
 			elif bone_chorus:
+				Stats.souls += 2
+				_souls_l()
+				Stats.save_game()
+				toast("☠ OSSUARY TITHE — +3 souls")
+			elif wolfsbane:
 				Stats.souls += 2
 				_souls_l()
 				Stats.save_game()
@@ -4850,6 +4869,8 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 				evline = "Green creeps over the bones, Kael. Even the dungeon forgets to be dead sometimes."
 			elif bone_chorus:
 				evline = "Hear it? The dead are singing war-songs. Find the choir-masters before the chorus swells."
+			elif wolfsbane:
+				evline = "All claws, Kael — the pack has claimed this floor. Watch the flanks; hounds die easy but arrive together."
 			if evline != "":
 				lines = [{"who": "oracle", "text": evline}]
 		_say(lines)
@@ -6163,6 +6184,8 @@ func _refresh_buffs() -> void:
 		list.append(["☆ VERDANT", Color(0.55, 0.95, 0.55)])
 	elif bone_chorus:
 		list.append(["◆ CHORUS", Color(0.85, 0.55, 0.95)])
+	elif wolfsbane:
+		list.append(["☽ PACK", Color(0.65, 0.7, 0.95)])
 	if Stats.soul_sealed:
 		list.append(["PRICE", Color(0.9, 0.2, 0.25)])
 	if Stats.curse_dmg > 0.0:
