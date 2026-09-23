@@ -5378,11 +5378,12 @@ func _on_keel_invoked(s) -> void:
 		[{"text": "Drop Anchor — pay 4 souls: the floor's foes lose 15% speed"},
 		{"text": "Raise Sail — pay 4 souls: +10% speed for you this run"},
 		{"text": "Scuttle Loot — pay 3 souls: +25% XP this run"},
+		{"text": "Keelhaul — pay 5 souls: drag every foe within 3 tiles to your feet"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 3:
+	if idx == 4:
 		toast("The stone settles — the sea keeps its bargains")
 		return
 	if idx == 0:
@@ -5416,6 +5417,24 @@ func _keel_deal(idx: int) -> void:
 		Stats.buff_xp_pct += 0.25
 		Sfx.play("shrine")
 		toast("LOOT SCUTTLED — +25% XP this run")
+	elif idx == 3:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the keel doesn't haul free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_souls_l()
+		var hauled := 0
+		for fh in get_tree().get_nodes_in_group("enemies"):
+			if fh.get("state") == "dead" or bool(fh.get("is_boss")):
+				continue
+			var hd: float = fh.global_position.distance_to(player.global_position)
+			if hd < 3.0 * info.tile and hd > 1.0 * info.tile:
+				var hdir: Vector3 = player.global_position - fh.global_position
+				hdir.y = 0
+				fh.global_position += hdir.normalized() * (hd - 0.9 * info.tile)
+				hauled += 1
+		Sfx.play("shrine")
+		toast("KEELHAULED — %d foes dragged under the keel" % hauled)
 	_quest_event("keelstone")
 
 
