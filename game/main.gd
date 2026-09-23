@@ -552,6 +552,7 @@ func _reset_run_state() -> void:
 	golden_fate = false
 	trap_wrapped = 0
 	perfect_dodges = 0
+	leech_charge = 0
 	nemesis_warned = false
 
 
@@ -574,7 +575,6 @@ func _new_run(new_seed: int) -> void:
 	stain_positions.clear()
 	pray_t = 0.0
 	prayed = false
-	leech_charge = 0
 	var boss_floor: bool = QDB.is_boss_floor(Stats.floor_num)
 	# event langka: blood moon — langit merah, musuh lebih keras, XP lebih kaya
 	blood_moon = Stats.floor_num >= 3 and not boss_floor and rng.randf() < 0.07
