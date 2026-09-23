@@ -4716,6 +4716,7 @@ func _offer_omens() -> void:
 			{"text": "DEEP POCKETS — every bargain costs a fifth less... but the dead grow +12% harder"},
 			{"text": "OARSWORN — your skills recharge a quarter faster... but the dead grow +10% harder"},
 			{"text": "DARK WATER — every floor's end tithes +1 soul... but the dead grow +10% harder"},
+			{"text": "FATHOMLESS — +30% XP... but the dead grow +15% harder"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -4752,7 +4753,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 42 if Stats.nemesis != "" else 41
+	var osize := 43 if Stats.nemesis != "" else 42
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -4929,6 +4930,10 @@ func _omen_deal(idx: int) -> void:
 			omen_hp_mult += 0.1
 			oname = "DARK WATER"
 		41:
+			Stats.buff_xp_pct += 0.3
+			omen_hp_mult += 0.15
+			oname = "FATHOMLESS"
+		42:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -4973,6 +4978,7 @@ func _omen_deal(idx: int) -> void:
 		"FATEHAND": "More doors for fate to walk through — watch which one you open.",
 		"SOLITARY": "Alone, then. Even ghosts respect a debt they didn't choose.",
 		"PAWNBREAKER": "His prices will sting less. He'll hate that.",
+		"FATHOMLESS": "Deep lessons, deep bruises. The sea teaches both.",
 		"HEIRLOOM": "Someone carried that before you. They are still carrying it, in a way.",
 		"GOLDEN FATE": "Every lock will gleam. Mind the teeth on some.",
 		"HOLLOW CROWN": "Crown of nothing. The Oracle admires your appetite anyway.",
