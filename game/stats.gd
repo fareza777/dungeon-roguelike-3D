@@ -180,6 +180,7 @@ const ACH_DEF := {
 	"wolfsbane": "Alpha Killer (survived the pack's floor)",
 	"veilwalker": "Veil Walker (cleared a floor through the Thin Veil)",
 	"tideprovides": "The Tide Provides (took an Undertow Cache)",
+	"shoalwalker": "Shoalwalker (cleared a floor in Low Water)",
 	"slayer150": "Reaper of Ranks (150 kills in a single run)",
 	"slayer250": "The Bone Harvest (250 kills in a single run)",
 	"doubloath": "Twice-Sworn (carry two omens in one run)",

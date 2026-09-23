@@ -2862,6 +2862,9 @@ func _on_enemy_died(e) -> void:
 			if thin_veil:
 				_ach("veilwalker")
 				_quest_event("veilwalk")
+			if low_water:
+				_ach("shoalwalker")
+				_quest_event("lowwalk")
 			if glass_sea:
 				_quest_event("glasswalk")
 			if dread_tide:
