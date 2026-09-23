@@ -1419,6 +1419,8 @@ func _spawn_shrine(last_room: int) -> void:
 	var skind := 0
 	if Stats.floor_num == 24:
 		skind = 1 # Mahzan selalu menjual sebelum takhta terakhir
+	elif Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.6:
+		skind = 11 # Drowned Altar — relikui tenggelam menjual kehendak laut
 	elif Stats.floor_num >= 7 and Stats.floor_num % 7 == 0:
 		skind = 5 # lantai quest Bounty Hunter — batu kontrak terjamin
 	elif Stats.floor_num >= 10 and Stats.floor_num % 8 == 4:
@@ -1481,6 +1483,8 @@ func _spawn_shrine(last_room: int) -> void:
 			s.invoked.connect(_on_cache_invoked)
 		10:
 			s.invoked.connect(_on_fountain_invoked)
+		11:
+			s.invoked.connect(_on_drowned_invoked)
 		_:
 			s.invoked.connect(_on_shrine_invoked)
 
@@ -3724,6 +3728,10 @@ func _on_dlg_choice(idx: int) -> void:
 		dlg_pending_choice = -1
 		_fountain_deal(idx)
 		return
+	elif dlg_pending_choice == 14:
+		dlg_pending_choice = -1
+		_drowned_deal(idx)
+		return
 	match idx:
 		0:
 			Stats.buff_atk_pct += 0.15
@@ -4492,6 +4500,49 @@ func _fountain_deal(idx: int) -> void:
 		_burst(player.global_position + Vector3(0, 0.4, 0), Color(0.35, 0.95, 0.85))
 
 
+func _on_drowned_invoked(s) -> void:
+	shrine_used = true
+	s.consume()
+	Sfx.play("shrine")
+	dlg_pending_choice = 14
+	_say([{"who": "oracle", "text": "A drowned altar, Kael — the sea still hears prayers down here. The tide always collects, but it also gives."}],
+		[{"text": "Tide Baptism — pay 4 souls: full HP +10% speed this run"},
+		{"text": "Drowned Tithe — take +8 souls, but the water takes −10% Max HP"},
+		{"text": "Walk away"}])
+
+
+func _drowned_deal(idx: int) -> void:
+	if idx == 2:
+		toast("The water settles back into the stone")
+		return
+	if idx == 0:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the tide won't lift an empty purse")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		if player != null and is_instance_valid(player):
+			player.hp = Stats.get_stat("max_hp")
+			player.hp_changed.emit(player.hp)
+		Stats.buff_speed_pct += 0.1
+		if player != null and is_instance_valid(player):
+			player.refresh_stats()
+		Sfx.play("shrine")
+		toast("TIDE BAPTISM — whole again, and swifter for it")
+	elif idx == 1:
+		Stats.souls += 8
+		_souls_l()
+		Stats.buff_maxhp_pct -= 0.1
+		if player != null and is_instance_valid(player):
+			player.refresh_stats()
+			player.hp = minf(player.hp, Stats.get_stat("max_hp"))
+			player.hp_changed.emit(player.hp)
+		Sfx.play("shrine")
+		toast("DROWNED TITHE — +8 souls, −10% Max HP")
+	if player != null and is_instance_valid(player):
+		_burst(player.global_position + Vector3(0, 0.4, 0), Color(0.35, 0.95, 0.85))
+
+
 func _on_vault_invoked(s) -> void:
 	shrine_used = true
 	s.consume()
@@ -5082,7 +5133,7 @@ func _build_minimap() -> void:
 	# penanda altar (cyan), batu lore (ungu), dan tujuan akhir lantai (emas besar)
 	if shrine_ref != null and is_instance_valid(shrine_ref):
 		var sd := ColorRect.new()
-		sd.color = [Color(1.0, 0.8, 0.3), Color(0.45, 0.65, 1.0), Color(1.0, 0.2, 0.15), Color(1.0, 0.55, 0.15), Color(0.55, 0.75, 1.0), Color(1.0, 0.5, 0.1), Color(0.95, 0.85, 0.3), Color(0.4, 0.55, 1.0), Color(0.7, 0.95, 0.25), Color(0.85, 0.6, 0.3), Color(0.35, 0.95, 0.85)][shrine_kind]
+		sd.color = [Color(1.0, 0.8, 0.3), Color(0.45, 0.65, 1.0), Color(1.0, 0.2, 0.15), Color(1.0, 0.55, 0.15), Color(0.55, 0.75, 1.0), Color(1.0, 0.5, 0.1), Color(0.95, 0.85, 0.3), Color(0.4, 0.55, 1.0), Color(0.7, 0.95, 0.25), Color(0.85, 0.6, 0.3), Color(0.35, 0.95, 0.85), Color(0.4, 0.85, 1.0)][shrine_kind]
 		sd.size = Vector2(5, 5)
 		sd.position = _map_pos(shrine_ref.global_position, sc)
 		mv.add_child(sd)
