@@ -186,7 +186,7 @@ func _build() -> void:
 	var boss_txt := " • Bosses slain: %d" % Stats.boss_kills if Stats.boss_kills > 0 else ""
 	var ach_txt := " • ◆ %d/18" % Stats.ach.size() if Stats.ach.size() > 0 else ""
 	var ng_txt := " • ♛ NG+%d" % Stats.ng_plus if Stats.ng_plus > 0 else ""
-	var lore_txt := " • Lore %d/16" % Stats.lore_seen.size() if Stats.lore_seen.size() > 0 else ""
+	var lore_txt := " • Lore %d/19" % Stats.lore_seen.size() if Stats.lore_seen.size() > 0 else ""
 	var souls_txt := " • ◈ %d" % Stats.souls if Stats.souls > 0 else ""
 	best.text = "Best: Floor %d • Total kills: %d%s%s%s%s%s" % [Stats.best_floor, Stats.total_kills, boss_txt, ach_txt, ng_txt, lore_txt, souls_txt]
 	best.add_theme_font_size_override("font_size", 17)

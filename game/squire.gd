@@ -6,6 +6,7 @@ var tile := 4.0
 var atk_cd := 0.0
 var t := 0.0
 var dmg := 1.0
+var is_vane := false # Sir Vane: kadang bicara setelah menebas
 
 
 func setup(p_tile: float, p_dmg: float, p_tint := Color(0.95, 0.88, 0.6), p_orb := Color(1.0, 0.85, 0.3)) -> void:
@@ -77,3 +78,6 @@ func _physics_process(delta: float) -> void:
 		var m := get_tree().current_scene
 		if m != null and m.has_method("_damage_number"):
 			m._damage_number(best.global_position + Vector3(0, 0.3 * tile, 0), "-%d" % int(dmg), Color(1.0, 0.9, 0.5), false)
+		if is_vane and m != null and randf() < 0.16 and m.has_method("_damage_number"):
+			var quips := ["That one had it coming.", "Still got it.", "For the nursery!", "Rust won't stop steel.", "Bones break the same as ever.", "Tell the King I'm coming."]
+			m._damage_number(global_position + Vector3(0, 0.8 * tile, 0), quips[randi() % quips.size()], Color(0.65, 0.85, 1.0), true)

@@ -43,7 +43,10 @@ const LORE_LINES := [
 	"Skeletons don't dream — yet they all march in the same direction.",
 	"Beneath the thirtieth floor, even the stone forgets the sun.",
 	"The cages were built by a gaoler with no face — he collects what the King forgets.",
-	"Sir Vane died defending the nursery door. The bars never forgave him."
+	"Sir Vane died defending the nursery door. The bars never forgave him.",
+	"The Gaoler was the King's twin brother, once — the crown chose the crueler of two shadows.",
+	"The Oracle threads every soul she saves into a rope. Yours, she says, is her favorite strand.",
+	"Aldric's last decree was carved in gold: 'None shall outlive the throne.' He meant it literally."
 ]
 
 var dungeon_tex: Texture2D
@@ -796,6 +799,7 @@ func _spawn_knight() -> void:
 	room.add_child(knight_ref)
 	knight_ref.global_position = player.global_position + Vector3(-0.4 * info.tile, 0, 0.3 * info.tile)
 	knight_ref.setup(info.tile, maxf(1.0, Stats.get_stat("atk") * 0.55), Color(0.62, 0.85, 1.0), Color(0.7, 0.95, 1.0))
+	knight_ref.set("is_vane", true)
 
 
 func _on_cage_freed(s) -> void:
