@@ -1565,7 +1565,7 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 	# spawn lantai: -1 -> inaktif sampai pemain masuk; summon/split di ruangan aktif langsung hidup
 	e.activated = int(sp.get("room", 0)) == current_room
 	if rolling_fog:
-		e.slow_t = 3.0
+		e.slow_t = 6.0 if Stats.relics.has("fog_lantern") else 3.0
 		e.hp *= 1.08
 		e.hp_max = e.hp
 	room.add_child(e)
