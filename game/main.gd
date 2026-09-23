@@ -120,7 +120,9 @@ const LORE_LINES := [
 	"The Heralds were criers once — the salt still announces them, whether they wish it or not.",
 	"Skill comes back like the tide, Kael — the trick is to be standing when it does.",
 	"The gales test rigging and sailor alike — in this dungeon, Kael, you are both.",
-	"Salt preserves what it touches. Ask the Salted ones what it preserved of them — then ask what spilled."
+	"Salt preserves what it touches. Ask the Salted ones what it preserved of them — then ask what spilled.",
+	"The Hull Widows wove the King's fleet into one great snare. He drowned them for the compliment.",
+	"Mercy is a tide that comes rarely, Kael — and always at the hour you stopped expecting it."
 ]
 
 var dungeon_tex: Texture2D
