@@ -190,7 +190,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted"][randi() % 34]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed"][randi() % 35]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -299,6 +299,11 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				hp *= 1.1
 				speed *= 0.95
 				xp_val = int(xp_val * 1.1)
+			"webbed":
+				# benang sari: pukulannya menjerat kaki — elit jaring
+				hp *= 1.1
+				speed *= 1.05
+				xp_val = int(xp_val * 1.15)
 			"tideworn":
 				# usang air asin: lambat namun berlapis — matinya mentitahkan 1 jiwa
 				hp *= 1.3
@@ -734,6 +739,8 @@ func _physics_process(delta: float) -> void:
 									var mrj := get_tree().current_scene
 									if mrj != null and mrj.has_method("_damage_number"):
 										mrj._damage_number(p.global_position + Vector3(0, 0.8 * room_tile, 0), "RUSTED!", Color(0.75, 0.55, 0.35), true)
+								if affix == "webbed" and q == p:
+									p.set("root_t", 1.5)
 								if is_widow and q == p:
 									p.set("root_t", 2.0)
 									var mw := get_tree().current_scene
