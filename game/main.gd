@@ -4774,6 +4774,9 @@ func _on_dlg_choice(idx: int) -> void:
 		31:
 			iron_gullet = true
 			toast("Iron Gullet: the vials go down easier — they mend half your HP")
+		32:
+			Stats.soul_gain_pct += 0.1
+			toast("Spirit Share: the dead leave a tithe for you — +10% souls")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -6655,6 +6658,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Crow's Nest — +8% crit chance this run"},
 			{"text": "Urnsworn — every urn spills +1 soul this run"},
 			{"text": "Iron Gullet — soul vials mend 45% HP"},
+			{"text": "Spirit Share — +10% souls from every source this run"},
 		]
 	)
 
