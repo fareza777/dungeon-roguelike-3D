@@ -80,7 +80,11 @@ const LORE_LINES := [
 	"The Crowned fell defending the throne. They still do — the throne just moved.",
 	"Somewhere below, the Well counts every soul you've thrown. It keeps a ledger too.",
 	"The pack that hunts you was Aldric's kennel once. They remember hand-feeding.",
-	"Mahzan was the court physician. He prescribed the burial."
+	"Mahzan was the court physician. He prescribed the burial.",
+	"The Sunken Reliquary drowned when the King refused the sea its tithe. The sea took the treasury anyway.",
+	"Drowned Ones walked out of the vaults on their own once the water rose. The dead don't mind the wet — it's the gold they came for.",
+	"The Drowned Altar was the sailors' shrine before the kingdom forgot it had sailors.",
+	"The Emissary was the last tax-collector to enter the Reliquary. He's still collecting."
 ]
 
 var dungeon_tex: Texture2D
