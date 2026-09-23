@@ -257,6 +257,8 @@ func _perfect_dodge(from_pos: Vector3) -> void:
 		best.take_hit(global_position, Stats.get_stat("atk") * 1.5)
 		Sfx.play("thunder")
 	if m != null:
+		if m.has_method("_quest_event"):
+			m._quest_event("pdodge")
 		if m.has_method("_damage_number"):
 			m._damage_number(global_position, "PERFECT!", Color(0.6, 1.0, 0.95), true)
 		m.set("trauma", 0.45)
