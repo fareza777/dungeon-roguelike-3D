@@ -2206,6 +2206,8 @@ func _on_enemy_died(e) -> void:
 			_ach("saltdog")
 	if e.arch_id == "maw":
 		_quest_event("maw_kill")
+	if e.arch_id == "siren":
+		_quest_event("siren_kill")
 	if e.arch_id == "sentinel":
 		_quest_event("sentinel_kill")
 	if e.arch_id == "shade":
