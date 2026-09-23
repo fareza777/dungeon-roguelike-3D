@@ -219,6 +219,7 @@ const TIPS := [
 	"When the torches die, the dead run faster — finish the floor for the tithe.",
 	"A green-gold sigil mends one wound — step on its pulse.",
 	"Spiked cadavers bite back — skills and storms kill thorns at range.",
+	"THORNED-tagged elites bleed your blade's wielder — strike from range.",
 ]
 
 

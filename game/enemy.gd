@@ -132,7 +132,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden"][randi() % 8]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned"][randi() % 9]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -151,6 +151,9 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 			"volatile":
 				# meledak saat mati — bonus XP sebagai imbalan bahayanya
 				xp_val = int(xp_val * 1.5)
+			"thorned":
+				# pukulan jarak dekat melukai penyerang — bonus XP
+				xp_val = int(xp_val * 1.25)
 	scale = Vector3.ONE * sc
 	_base_scale = scale
 	hp_max = hp
@@ -619,7 +622,7 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 		dmg_taken *= 1.3
 	hp -= dmg_taken
 	Sfx.play("hit")
-	if is_spiky and state != "dead":
+	if (is_spiky or affix == "thorned") and state != "dead":
 		var p3 := _player()
 		if p3 != null and p3.get("dead") != true and p3.global_position.distance_to(from_pos) < 0.5 * room_tile:
 			p3.take_hit(global_position, 0.5)
