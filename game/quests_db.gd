@@ -161,6 +161,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Choir Soloist", "desc": "Slay 5 foes while the Choir Below sings (0/5)", "kind": "choirkill", "need": 5})
 		steps.append({"title": "Shell Dancer", "desc": "Pry loose 3 Void Pinchers in one run (0/3)", "kind": "pinch", "need": 3})
 		steps.append({"title": "Tide Caller", "desc": "Cast Riptide (0/1)", "kind": "skill_riptide", "need": 1})
+		steps.append({"title": "Bone General", "desc": "Raise 3 thralls with the Moonshell (0/3)", "kind": "thrall", "need": 3})
 	if Stats.floor_num == 11:
 		steps.append({"title": "Soul Fisher", "desc": "Net three drifting wisps (0/3)", "kind": "wisp", "need": 3})
 	if Stats.floor_num >= 13 and Stats.floor_num % 8 == 5:

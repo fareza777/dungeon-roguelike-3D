@@ -2310,6 +2310,7 @@ func _on_enemy_died(e) -> void:
 		sq.setup(info.tile, Stats.get_stat("atk") * 0.35, Color(0.6, 0.75, 1.1), Color(0.6, 0.8, 1.1))
 		sq.life_t = 4.0
 		_damage_number(e.global_position + Vector3(0, 0.9 * info.tile, 0), "THRALL", Color(0.6, 0.8, 1.1), false)
+		_quest_event("thrall")
 	if wid == "kingfisher":
 		skill_cd["dash"] = maxf(0.0, skill_cd["dash"] - 0.5)
 	if wid == "conchhorn":
