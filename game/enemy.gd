@@ -76,6 +76,7 @@ var husk := false
 var husk_shell := false
 var cantor_t := 6.5
 var bride_t := 5.5
+var oath_t := 3.0
 var healer := false
 var heal_t := 4.0
 var crowned := false
@@ -211,7 +212,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing"][randi() % 41]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound"][randi() % 42]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -354,6 +355,11 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				hp *= 1.15
 				speed *= 0.85
 				xp_val = int(xp_val * 1.25)
+			"oathbound":
+				# sumpah setia: denyutnya menyembuhkan sekutunya perlahan
+				hp *= 1.25
+				speed *= 0.85
+				xp_val = int(xp_val * 1.4)
 			"tideworn":
 				# usang air asin: lambat namun berlapis — matinya mentitahkan 1 jiwa
 				hp *= 1.3
@@ -552,6 +558,11 @@ func _physics_process(delta: float) -> void:
 		if war_t <= 0.0:
 			war_t = 5.0
 			_caller_pulse()
+	if affix == "oathbound" and activated and state != "dead":
+		oath_t -= delta
+		if oath_t <= 0.0:
+			oath_t = 4.0
+			_oath_pulse()
 	if bride and activated:
 		bride_t -= delta
 		if bride_t <= 0.0:
@@ -1067,6 +1078,18 @@ func _jack_pulse() -> void:
 			continue
 		e3.hp = minf(float(e3.hp) + 1.0, float(e3.hp_max))
 
+
+func _oath_pulse() -> void:
+	var sc := get_tree().current_scene
+	if sc == null:
+		return
+	for e2 in sc.enemies:
+		if is_instance_valid(e2) and e2 != self and e2.state != "dead":
+			var dd: float = (e2.global_position - global_position).length()
+			if dd < 8.0 * room_tile:
+				e2.hp = minf(e2.hp_max, e2.hp + 1.0)
+				if sc.has_method("_burst"):
+					sc._burst(e2.global_position + Vector3(0, 0.6 * room_tile, 0), Color(0.5, 1.0, 0.8))
 
 func _bride_pulse() -> void:
 	# pengantin busuk: nyanyiannya mempercepat sekutu ruangan (+8% per chant, cap +24%)
