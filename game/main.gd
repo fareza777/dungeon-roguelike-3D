@@ -112,7 +112,9 @@ const LORE_LINES := [
 	"The Siren's Conch never repeats a song. Mahzan says the sea only charges once per verse.",
 	"The fathomless owe the most — the deeper the lesson, the steeper the bill.",
 	"The quartermaster keeps two ledgers — one of rope and powder, one of debts no coin repays.",
-	"The wisps are not souls, Kael — they are receipts. Every one marks a debt the sea paid in full."
+	"The wisps are not souls, Kael — they are receipts. Every one marks a debt the sea paid in full.",
+	"The Bilge Witches sang in the choirs once — the water took their voices and gave back cold.",
+	"A gauntlet floor is the King's way of counting how badly he wants you — answer accordingly."
 ]
 
 var dungeon_tex: Texture2D
