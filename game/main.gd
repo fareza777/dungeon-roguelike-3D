@@ -805,6 +805,7 @@ func _reset_run_state() -> void:
 	gravetide = false
 	mudlark = false
 	netgain_n = 0
+	_rope_active = false
 	wellread = false
 	tide_lends = false
 	pearl_fever = false
