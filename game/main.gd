@@ -905,6 +905,8 @@ func _on_room_enter(ri: int) -> void:
 			Sfx.play("whisper")
 			_damage_number(player.global_position + Vector3(0, 1.0 * info.tile, 0), "UMBRAL — it was never really there", Color(0.6, 0.5, 1.1), true)
 	_quest_event("reach_room", ri)
+	if ui.has("kills_label"):
+		ui.kills_label.text = "☠ %d  ·  FOES %d" % [kills_run, _room_alive(ri)]
 	# bisikan Oracle: atmosfer ambient di ruangan yang hidup (bukan lantai bos)
 	if Stats.floor_num >= 2 and not QDB.is_boss_floor(Stats.floor_num) and ri > 0 and _room_alive(ri) > 0 and rng.randf() < 0.14 and player != null:
 		Sfx.play("page")
@@ -1640,7 +1642,7 @@ func _on_enemy_died(e) -> void:
 			_souls_l()
 			_damage_number(player.global_position + Vector3(0, 0.8, 0), "LEECH SEED RIPENS — +1 soul", Color(0.6, 1.0, 0.6), true)
 	if ui.has("kills_label"):
-		ui.kills_label.text = "☠ %d" % kills_run
+		ui.kills_label.text = "☠ %d  ·  FOES %d" % [kills_run, _room_alive(current_room)]
 	# Sir Vane: celoteh perang tiap ~15 kill bersama
 	if kills_run >= 100:
 		_ach("centurion")
