@@ -168,6 +168,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Keel Commander", "desc": "Keelhaul foes into your blade (0/6)", "kind": "haul", "need": 6})
 		steps.append({"title": "Gatekeeper", "desc": "Force open 4 dungeon gates (0/4)", "kind": "gate_open", "need": 4})
 		steps.append({"title": "Empty Pockets", "desc": "Get bitten empty-pocketed by a Keelhound (0/1)", "kind": "snatched", "need": 1})
+		steps.append({"title": "Widow's Bell", "desc": "Slay 4 foes with the Gravebell (0/4)", "kind": "kill_gravebell", "need": 4})
 	if Stats.floor_num == 11:
 		steps.append({"title": "Soul Fisher", "desc": "Net three drifting wisps (0/3)", "kind": "wisp", "need": 3})
 	if Stats.floor_num >= 13 and Stats.floor_num % 8 == 5:
