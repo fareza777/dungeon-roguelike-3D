@@ -5372,11 +5372,12 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Salt Tithe — pay 2 souls: every urn this RUN spills +1 soul"},
 		{"text": "Brine Wash — pay 2 souls: cleanse venom, chill, root and silence"},
 		{"text": "Net Gain — pay 5 souls: your next five kills pay double souls"},
+		{"text": "Undertow Cache — pay 4 souls: the sea drags a relic to the surface"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 8:
+	if idx == 9:
 		toast("The water settles back into the stone")
 		return
 	if idx == 7:
@@ -5442,6 +5443,26 @@ func _drowned_deal(idx: int) -> void:
 			salt_tithe = true
 			Sfx.play("shrine")
 			toast("SALT TITHE — every urn this run spills +1 soul")
+	if idx == 8:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the undertow only drags for coin")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		var cpool: Array = []
+		for rid_c in ITEMS.DB:
+			if int(ITEMS.DB[rid_c]["rarity"]) <= 1 and not Stats.relics.has(rid_c):
+				cpool.append(rid_c)
+		if cpool.is_empty():
+			Stats.earn_souls(4)
+			_souls_l()
+			toast("The undertow drags back nothing — your souls return")
+			return
+		var crid: String = String(cpool[rng.randi() % cpool.size()])
+		Stats.add_relic(crid)
+		Sfx.play("shrine")
+		toast("UNDERTOW CACHE — the sea surfaces: " + String(ITEMS.DB[crid]["name"]))
+		return
 	if idx == 0:
 		if Stats.souls < _soul_cost(4):
 			toast("Four souls — the tide won't lift an empty purse")
