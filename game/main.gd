@@ -321,6 +321,7 @@ var deep_draft := false
 var high_water := false
 var ballast_oath := false
 var thin_hull := false
+var cold_toll := false
 var final_verse := false
 var cradle_deep := false
 var undertow := false
@@ -6203,6 +6204,7 @@ func _offer_omens() -> void:
 			{"text": "HIGH WATER — the dead stand +10% taller and hit +10%... but every lesson pays +30% XP"},
 			{"text": "BALLAST OATH — iron in your boots (−10% speed)... but stone in your ribs (+2 Armor)"},
 			{"text": "THIN HULL — your planks run one plank short (−1 Armor)... but your edge sings (+15% ATK)"},
+			{"text": "COLD TOLL — the sea takes its warmth (−5% speed)... but the cold teaches (＋10% XP)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -6251,7 +6253,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 66 if Stats.nemesis != "" else 65
+	var osize := 67 if Stats.nemesis != "" else 66
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -6526,6 +6528,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct += 0.15
 			oname = "THIN HULL"
 		65:
+			cold_toll = true
+			Stats.buff_speed_pct -= 0.05
+			Stats.buff_xp_pct += 0.10
+			oname = "COLD TOLL"
+		66:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -6596,6 +6603,7 @@ func _omen_deal(idx: int) -> void:
 		"HIGH WATER": "The flood lifts every anchor — theirs and yours alike.",
 		"BALLAST OATH": "Heavy feet, steady hull — let them bounce off you.",
 		"THIN HULL": "Lose the plank, keep the edge — everything's a trade at sea.",
+		"COLD TOLL": "Cold fingers, sharp mind — you'll learn faster shivering.",
 		"OLD SALT": "Lighter purse, heavier arm — the old hands swear by it.",
 		"SWORN HULL": "The hull thickens and the chase quickens — even trade.",
 		"SLIM PICKINGS": "The lean tide still pays, Kael — slower hands, heavier purse.",
