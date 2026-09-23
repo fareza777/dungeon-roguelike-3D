@@ -149,6 +149,24 @@ func add_relic(id: String) -> void:
 	relics_changed.emit()
 
 
+func remove_relic(id: String) -> void:
+	if not relics.has(id):
+		return
+	relics.erase(id)
+	var mods: Dictionary = ITEMS.DB[id]["mods"]
+	if mods.has("revive"):
+		revive_left = maxi(0, revive_left - int(mods["revive"]))
+	if mods.has("thorns"):
+		thorns = maxf(0.0, thorns - float(mods["thorns"]))
+	if mods.has("dodge"):
+		dodge = maxf(0.0, dodge - float(mods["dodge"]))
+	if mods.has("magnet"):
+		magnet = maxf(0.0, magnet - float(mods["magnet"]))
+	if mods.has("berserk"):
+		berserk = maxf(0.0, berserk - float(mods["berserk"]))
+	relics_changed.emit()
+
+
 func equip_weapon(id: String) -> void:
 	weapon_id = id
 	if not owned_weapons.has(id):

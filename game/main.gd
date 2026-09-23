@@ -1849,6 +1849,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Leech's Bargain — lose 2 Max HP, gain a rare relic"},
 			{"text": "Blood Tithe — lose 1 HP now, +20% ATK this run"},
 			{"text": "Mahzan's Gamble — a free relic... but he chooses it"},
+			{"text": "Relic Pawn — sell a random relic for 10 souls"},
 		]
 	)
 
@@ -1894,6 +1895,18 @@ func _mahzan_deal(idx: int) -> void:
 			var rid2: String = ITEMS.roll_choices(Stats.relics, rng, 1)[0]
 			Stats.add_relic(rid2)
 			toast("Mahzan's Gamble: " + String(ITEMS.DB[rid2]["name"]))
+		3:
+			if Stats.relics.is_empty():
+				toast("You have nothing to pawn, warrior")
+			else:
+				var rid3: String = Stats.relics[rng.randi_range(0, Stats.relics.size() - 1)]
+				Stats.remove_relic(rid3)
+				Stats.souls += 10
+				toast("Pawned %s for +10 souls" % String(ITEMS.DB[rid3]["name"]))
+				if rid3 == "tulang_kesatria" and squire_ref != null and is_instance_valid(squire_ref):
+					_souls(squire_ref.global_position, 8, Color(0.9, 0.85, 0.5))
+					squire_ref.queue_free()
+					squire_ref = null
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
 		player.refresh_stats()
