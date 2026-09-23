@@ -4056,6 +4056,10 @@ func _quest_event(kind: String, num: int = 1) -> void:
 		_souls_l()
 		toast("QUEST STEP DONE — +2 souls")
 		steps_done_run += 1
+		var cap_n := int(Stats.meta.get("captain", 0))
+		if cap_n > 0:
+			Stats.earn_souls(cap_n)
+			_souls_l()
 		if steps_done_run >= 6:
 			_ach("completionist")
 		if player != null and is_instance_valid(player):
