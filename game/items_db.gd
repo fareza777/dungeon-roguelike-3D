@@ -64,6 +64,7 @@ const DB := {
 	"clamheart": {"name": "Clamheart", "chip": "CH", "desc": "Disarming a trap pays +1 soul", "rarity": 1, "mods": {}},
 	"pressure_suit": {"name": "Pressure Suit", "chip": "PS", "desc": "Roots and chills end twice as fast", "rarity": 1, "mods": {}},
 	"tidebound_anklet": {"name": "Tidebound Anklet", "chip": "TA", "desc": "Snap Clams can only hold you a moment", "rarity": 1, "mods": {}},
+	"keelhook": {"name": "Keelhook", "chip": "KH", "desc": "Every Keelhound you drop spills +2 souls", "rarity": 1, "mods": {}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
