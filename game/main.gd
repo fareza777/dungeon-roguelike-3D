@@ -3367,6 +3367,8 @@ func _soul_cost(n: int) -> int:
 	var disc := 0
 	if pawn_discount:
 		disc += 1
+	if mahzan_met >= 4:
+		disc += 1
 	return maxi(1, n - disc)
 
 
@@ -3551,6 +3553,7 @@ func _on_mahzan_invoked(s) -> void:
 		]
 		Stats.souls += 3
 		_souls_l()
+		toast("FAMILY RATES — all soul prices -1")
 	_say(
 		[{"who": "mahzan", "text": mlines[rng.randi_range(0, mlines.size() - 1)]}],
 		[
