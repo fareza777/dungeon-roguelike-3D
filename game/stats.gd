@@ -166,6 +166,7 @@ const ACH_DEF := {
 	"powdermonkey": "Powder Monkey (put down 8 Boom Bones)",
 	"moondisciple": "Moon Disciple (bathed in three Moonpools)",
 	"fogwalker": "Fog Walker (cleared a floor under Rolling Fog)",
+	"pearlhunter": "Pearl Hunter (pried 12 snap clams)",
 	"pilgrim": "Pilgrim (10 shrine visits in one run)",
 	"seaworthy": "Seaworthy (drank the Drowned Tithe)",
 	"drowned20": "Drowned Court (20 kills under the Sunken Tide)",

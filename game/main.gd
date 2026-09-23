@@ -213,6 +213,7 @@ var riptide_n := 0
 var steps_done_run := 0
 var urns_run := 0
 var urns_floor := 0
+var clams_run := 0
 var still_t := 0.0
 var moonpool_run := 0
 var shellshield_used := false
@@ -854,6 +855,7 @@ func _new_run(new_seed: int) -> void:
 	salt_purse = false
 	disarm_floor = 0
 	urns_floor = 0
+	clams_run = 0
 	sirensong_deal = false
 	pool_touched = false
 	shellshield_used = false

@@ -254,6 +254,10 @@ func _physics_process(delta: float) -> void:
 							var pearl_pay: int = 4 if bool(ml2.get("shell_game")) else 2
 							if Stats.relics.has("oyster_king"):
 								pearl_pay += 1
+							var clams_run: int = int(ml2.get("clams_run")) + 1
+							ml2.set("clams_run", clams_run)
+							if clams_run >= 12:
+								ml2._ach("pearlhunter")
 							if Stats.relics.has("shellshield") and not bool(ml2.get("shellshield_used")):
 								ml2.set("shellshield_used", true)
 								pearl_pay += 2
