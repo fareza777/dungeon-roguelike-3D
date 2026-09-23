@@ -776,6 +776,15 @@ func _new_run(new_seed: int) -> void:
 			var bcr: Dictionary = info.ranges[bci]
 			var bcp := Vector3((bcr["x0"] + bcr["x1"]) * 0.5 * info.tile, 0.0, (bcr["z0"] + bcr["z1"]) * 0.5 * info.tile)
 			_spawn_enemy({"pos": bcp, "room": bci}, "orator", false)
+	if wolfsbane:
+		# PACK ALPHA — kawanan dipimpin induk raksasa di ruangan terakhir
+		var ar: Dictionary = info.ranges[last_room]
+		var apos := Vector3((ar["x0"] + ar["x1"]) * 0.5 * info.tile, 0.0, (ar["z0"] + ar["z1"]) * 0.5 * info.tile)
+		var alp := _spawn_enemy({"pos": apos, "room": last_room}, "hound", true)
+		if alp != null:
+			alp.scale *= 1.5
+			alp._base_scale = alp.scale
+			alp.champion = true
 	if Stats.floor_num >= 20 and not boss_floor:
 		# sang pembawa pesan Raja — satu elite herald berpatroli di lantai-lantai terdalam
 		var hr: Dictionary = info.ranges[rng.randi_range(1, last_room)]
