@@ -3556,6 +3556,7 @@ func _curse_deal(idx: int) -> void:
 		_burst(player.global_position, Color(0.8, 0.05, 0.1))
 		Sfx.play("roar")
 		Input.vibrate_handheld(220)
+		_refresh_buffs()
 	elif idx == 1:
 		if player != null and is_instance_valid(player):
 			player.hp = maxf(1.0, player.hp - 2.0)
@@ -3564,6 +3565,7 @@ func _curse_deal(idx: int) -> void:
 		toast("BLOOD OFFERING — the stone drinks your pulse, XP +50%")
 		_burst(player.global_position, Color(0.8, 0.05, 0.1))
 		Sfx.play("hurt")
+		_refresh_buffs()
 	elif idx == 2:
 		Stats.soul_sealed = true
 		Stats.buff_atk_pct += 0.4
@@ -5184,6 +5186,10 @@ func _refresh_buffs() -> void:
 		list.append(["◈ SHROUD", Color(0.55, 0.6, 0.7)])
 	if Stats.soul_sealed:
 		list.append(["PRICE", Color(0.9, 0.2, 0.25)])
+	if Stats.curse_dmg > 0.0:
+		list.append(["PACT +%d%%" % int(Stats.curse_dmg * 100.0), Color(0.95, 0.25, 0.2)])
+	if Stats.curse_xp > 0.0:
+		list.append(["+%d%% XP" % int(Stats.curse_xp * 100.0), Color(0.8, 0.55, 1.0)])
 	if omen_name != "":
 		list.append(["☗ " + omen_name, Color(0.9, 0.7, 1.0)])
 	if player.get("root_t") != null and player.root_t > 0.0:
