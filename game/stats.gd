@@ -38,6 +38,8 @@ func earn_souls(n: int) -> void:
 		pay = maxi(0, n - 1)
 	souls += int(ceilf(pay * (1.0 + soul_gain_pct) * (1.0 + 0.04 * float(meta.get("salvor", 0))) * (1.0 + 0.02 * float(meta.get("ferry", 0)))))
 	souls_run += int(ceilf(pay * (1.0 + soul_gain_pct) * (1.0 + 0.04 * float(meta.get("salvor", 0))) * (1.0 + 0.02 * float(meta.get("ferry", 0)))))
+	if souls >= 60:
+		achievements["deeppurse"] = true
 var buff_lifesteal := 0.0 # berkat altar Vampiric: run ini saja
 var buff_maxhp_pct := 0.0 # omen Leeching Vein: pengorbanan Max HP
 var buff_aspd := 0.0 # berkat altar Fury: run ini saja
@@ -140,6 +142,7 @@ const ACH_DEF := {
 	"ng2": "Twice-Crowned (reached NG+2)", "ng4": "Ever-Drowning (reached NG+4)", "ng7": "Grave's Delver (reached NG+7)",
 	"bless5": "Favored of the Deep (5 blessings in one run)",
 	"dice3": "Loaded Bones (won Bone Dice 3 times in one run)",
+	"deeppurse": "Deep Purse (held 60 souls at once)",
 	"satchel3": "Full Satchel (carried 3 soul vials at once)",
 	"lore30": "Deep Chronicler (read 30 dungeon whispers)",
 	"lore60": "Crow's Catalog (60 lore heard)",
