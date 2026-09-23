@@ -6904,6 +6904,8 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			"When the drift tide runs, the purses sink deeper. Walk heavier; collect more.",
 			"Mahzan's songs cost souls — his silences cost more. Walk away when the price is wrong.",
 			"Anchors, Kael — the sea's own argument for staying in one place.",
+			"A fathomless purse buys fathomless bruises — I keep both ledgers, boy.",
+			"The rusted ones wade slow. Do not waste your hurry on them.",
 		]
 		lines = [{"who": "oracle", "text": tips[rng.randi_range(0, tips.size() - 1)]}]
 	if lines.is_empty():
