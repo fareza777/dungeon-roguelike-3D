@@ -96,6 +96,7 @@ const DB := {
 	"sea_chart": {"name": "Sea Chart", "chip": "SC", "desc": "+10% Speed, +5% Crit", "rarity": 1, "mods": {"speed_pct": 0.1, "crit": 0.05}},
 	"splintered_oar": {"name": "Splintered Oar", "chip": "SO", "desc": "The oar remembers rowing — your dash carries you 30% farther", "rarity": 0, "mods": {}},
 	"deck_plank": {"name": "Deck Plank", "chip": "DP", "desc": "Sure footing on any deck — +5% Speed, +5% Attack Speed", "rarity": 0, "mods": {"speed_pct": 0.05, "atk_speed_pct": 0.05}},
+	"knotmaster_ring": {"name": "Knotmaster's Ring", "chip": "KR", "desc": "A braid of cord and gold — +8% crit", "rarity": 2, "mods": {"crit": 0.08}},
 	"salted_dice": {"name": "Salted Dice", "chip": "SD", "desc": "Loaded bones that favor the holder — +6% crit, +6% dodge", "rarity": 2, "mods": {"crit": 0.06, "dodge": 0.06}},
 	"powder_flask": {"name": "Powder Flask", "chip": "PF", "desc": "Blackpowder on your belt — +10% ATK", "rarity": 2, "mods": {"atk_pct": 0.1}},
 	"prow_plate": {"name": "Prow Plate", "chip": "PP", "desc": "Ship's bow-iron bolted to your chest — +1 Armor", "rarity": 2, "mods": {"armor": 1}},
