@@ -165,7 +165,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn"][randi() % 20]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn"][randi() % 21]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -882,6 +882,15 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 				mm4._souls_l()
 			if mm4 != null and mm4.has_method("_damage_number"):
 				mm4._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "KEELBORN +3", Color(0.4, 0.9, 0.9), true)
+		if affix == "clamworn":
+			var mm5 := get_tree().current_scene
+			if mm5 != null and mm5.get("room") != null:
+				var TRAPR = load("res://trap.gd")
+				var ctr = TRAPR.new()
+				mm5.get("room").add_child(ctr)
+				ctr.global_position = global_position
+				var ctile: float = float(mm5.get("info").get("tile", 1.6) if mm5.get("info") is Dictionary else 1.6)
+				ctr.setup(ctile, 0.0, 6)
 		if affix == "wispsborn":
 			var mm3 := get_tree().current_scene
 			if mm3 != null and mm3.has_method("_spawn_wisp_at"):
