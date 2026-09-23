@@ -65,6 +65,7 @@ var orator := false
 var crowned := false
 var tither := false
 var digger := false
+var keelh := false
 var digger_dug := false
 var pack_bounty := false
 var orator_t := 3.0
@@ -149,6 +150,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	crowned = bool(a.get("crowned", false))
 	tither = bool(a.get("tither", false))
 	digger = bool(a.get("digger", false))
+	keelh = bool(a.get("keelh", false))
 	is_slammer = bool(a.get("slams", false))
 	wailer = bool(a.get("wailer", false))
 	wisp_drop = bool(a.get("wisp_drop", false))
@@ -591,6 +593,14 @@ func _physics_process(delta: float) -> void:
 									if mm6 != null and mm6.has_method("_damage_number"):
 										mm6._damage_number(q.global_position + Vector3(0, 0.8 * room_tile, 0), "REAPED!", Color(1.0, 0.3, 0.2), true)
 								q.take_hit(global_position, dmg * dmulti)
+								if keelh and q == p:
+									var mkh := get_tree().current_scene
+									if Stats.souls > 0:
+										Stats.souls -= 1
+										if mkh != null and mkh.has_method("_souls_l"):
+											mkh._souls_l()
+										if mkh != null and mkh.has_method("_damage_number"):
+											mkh._damage_number(q.global_position + Vector3(0, 0.9 * room_tile, 0), "SNATCHED — -1 soul", Color(0.4, 0.9, 0.95), false)
 								if tither and q == p:
 									var mt2 := get_tree().current_scene
 									var stol := mini(2, Stats.souls)
