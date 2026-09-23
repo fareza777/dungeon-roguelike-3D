@@ -571,6 +571,9 @@ func _new_run(new_seed: int) -> void:
 	add_child(room)
 	info = RG.build_floor(room, seed_val, Stats.floor_num)
 	stain_count = 0
+	stain_positions.clear()
+	pray_t = 0.0
+	prayed = false
 	var boss_floor: bool = QDB.is_boss_floor(Stats.floor_num)
 	# event langka: blood moon — langit merah, musuh lebih keras, XP lebih kaya
 	blood_moon = Stats.floor_num >= 3 and not boss_floor and rng.randf() < 0.07
@@ -1203,6 +1206,9 @@ func _spawn_shrine(last_room: int) -> void:
 var lore_ref = null
 var motes_ref: GPUParticles3D = null
 var stain_count := 0
+var stain_positions: Array = []
+var pray_t := 0.0
+var prayed := false
 var squire_ref: Node3D = null
 var knight_ref: Node3D = null
 
@@ -1515,6 +1521,7 @@ func _blood_stain(pos: Vector3) -> void:
 	if room == null or not is_instance_valid(room) or stain_count >= 28:
 		return
 	stain_count += 1
+	stain_positions.append(pos)
 	var m := MeshInstance3D.new()
 	var pm := PlaneMesh.new()
 	var sz: float = randf_range(0.35, 0.8) * info.tile
@@ -5616,6 +5623,24 @@ func _process(delta: float) -> void:
 			trauma = max(0.0, trauma - delta * 1.8)
 			cam.global_position += Vector3(randf_range(-1, 1), randf_range(-0.6, 0.6), randf_range(-1, 1)) * trauma * 0.18
 		cam.look_at(player.global_position + Vector3(0, 0, -0.9 * s))
+	# Prayer of the Fallen: berdiri di atas noda darah 2s -> +1 jiwa (sekali per lantai)
+	if not prayed and player != null and is_instance_valid(player) and not stain_positions.is_empty():
+		var near_stain := false
+		for sp5 in stain_positions:
+			if player.global_position.distance_to(sp5) < 0.6 * info.tile:
+				near_stain = true
+				break
+		if near_stain:
+			pray_t += delta
+			if pray_t >= 2.0:
+				prayed = true
+				Stats.souls += 1
+				_souls_l()
+				Sfx.play("whisper")
+				_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), "A PRAYER FOR THE FALLEN — +1 soul", Color(0.6, 0.85, 1.0), true)
+				_quest_event("pray")
+		else:
+			pray_t = 0.0
 	# panah elite off-screen: arahkan ke elite teraktivasi terdekat
 	if ui.has("elite_arrow"):
 		var earr2: Label = ui["elite_arrow"]
