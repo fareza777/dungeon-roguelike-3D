@@ -712,6 +712,7 @@ const FIRST_SEEN := {
 	"spiker": "A Spiked Cadaver shambles up — its thorns punish every melee hit.",
 	"lurker": "Something waits unseen in these rooms, Kael — walk their edges first.",
 	"golem": "A Bone Golem blocks the way — its slams swallow whole rooms.",
+	"maiden": "A pale mourner drifts ahead — kill her last, or her cry raises the room.",
 }
 
 
