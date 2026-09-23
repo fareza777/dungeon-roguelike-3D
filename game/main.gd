@@ -314,7 +314,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -2305,6 +2305,27 @@ func _cast_skill(id: String) -> void:
 			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "SEISMIC! ×%d" % hit, Color(1.0, 0.7, 0.3), true)
 			_quest_event("seismic")
 			print("SKILL seismic hit=%d" % hit)
+		"lance":
+			Sfx.play("thunder")
+			var dmgl := Stats.get_stat("atk") * 1.4
+			var fwd: Vector3 = -player.global_transform.basis.z
+			fwd.y = 0
+			var hitl := 0
+			for f in get_tree().get_nodes_in_group("enemies"):
+				if f.get("state") == "dead" or not bool(f.get("activated")):
+					continue
+				var tof: Vector3 = f.global_position - player.global_position
+				tof.y = 0
+				var along: float = tof.normalized().dot(fwd.normalized()) * tof.length()
+				var lateral: float = (tof - fwd.normalized() * along).length()
+				if along > 0.0 and along < 3.2 * info.tile and lateral < 0.55 * info.tile:
+					f.take_hit(player.global_position, dmgl)
+					_burst(f.global_position + Vector3(0, 0.5 * info.tile, 0), Color(0.65, 0.8, 1.2))
+					hitl += 1
+			trauma = 0.8
+			_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), "SOUL LANCE! ×%d" % hitl, Color(0.7, 0.85, 1.25), true)
+			_quest_event("lance")
+			print("SKILL lance hit=%d" % hitl)
 		"kingsfall":
 			Sfx.play("thunder")
 			var dmgk := Stats.get_stat("atk") * 3.0
