@@ -6145,11 +6145,6 @@ func _omen_deal(idx: int) -> void:
 		61:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
-			Stats.soul_gain_pct += 0.3
-			oname = "FULL SAILS"
-		60:
-			nemesis_bounty = true
-			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
 	if not Stats.oaths_seen.has(oname):
 		Stats.oaths_seen.append(oname)
