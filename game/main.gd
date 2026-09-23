@@ -196,6 +196,7 @@ var brine_callus := false
 var deadweight := false
 var undertow_grip := false
 var lookout := false
+var bosun_mark := false
 var callus_on := false
 var salt_purse := false
 var sirensong_deal := false
@@ -816,6 +817,7 @@ func _reset_run_state() -> void:
 	deadweight = false
 	undertow_grip = false
 	lookout = false
+	bosun_mark = false
 	if callus_on:
 		Stats.buff_armor -= 2
 		callus_on = false
@@ -2012,6 +2014,8 @@ func _spawn_squire() -> void:
 	room.add_child(squire_ref)
 	squire_ref.global_position = player.global_position + Vector3(0.4 * info.tile, 0, 0.3 * info.tile)
 	squire_ref.setup(info.tile, maxf(1.0, Stats.get_stat("atk") * 0.35))
+	if bosun_mark:
+		squire_ref.dmg *= 1.2
 	toast("Your squire kneels... then rises to fight")
 
 
@@ -4445,6 +4449,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_armor += 1
 			Stats.buff_speed_pct -= 0.05
 			toast("Ironwood Hull: +1 Armor, but the keel drags (−5% speed)")
+		25:
+			bosun_mark = true
+			if squire_ref != null and is_instance_valid(squire_ref):
+				squire_ref.dmg *= 1.2
+			toast("Bosun's Mark: your crew swings a fifth harder")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
