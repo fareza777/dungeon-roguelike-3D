@@ -240,6 +240,13 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "undertow_blade":
+				var ub_ = get_tree().current_scene
+				ub_.set("net_n", int(ub_.get("net_n")) + 1)
+				if int(ub_.get("net_n")) >= 4:
+					ub_.set("net_n", 0)
+					if f.has_method("stun"):
+						f.stun(1.0)
 			if Stats.weapon_id == "fathom_score":
 				f.set("mark_t", 2.0)
 			if Stats.weapon_id == "oathbreak" and (bool(f.get("elite")) or bool(f.get("is_boss"))):
