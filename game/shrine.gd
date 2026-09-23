@@ -65,6 +65,10 @@ func setup(p_tile: float, p_kind := 0) -> void:
 		mat.albedo_color = Color(0.35, 0.45, 0.15)
 		mat.emission = Color(0.75, 0.95, 0.2)
 		mat.emission_energy_multiplier = 1.4
+	elif kind == 9:
+		mat.albedo_color = Color(0.45, 0.32, 0.18)
+		mat.emission = Color(0.8, 0.55, 0.25)
+		mat.emission_energy_multiplier = 1.0
 	else:
 		mat.albedo_color = Color(0.9, 0.8, 0.55)
 		mat.emission = Color(0.5, 0.38, 0.12)
@@ -83,10 +87,10 @@ func setup(p_tile: float, p_kind := 0) -> void:
 	tor.outer_radius = 0.58 * tile
 	var rm := StandardMaterial3D.new()
 	rm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	var ring_col: Color = Color(0.45, 0.65, 1.0, 0.7) if kind == 1 else (Color(1.0, 0.15, 0.1, 0.75) if kind == 2 else (Color(1.0, 0.5, 0.1, 0.8) if kind == 3 else (Color(0.5, 0.7, 1.0, 0.75) if kind == 4 else (Color(1.0, 0.55, 0.15, 0.75) if kind == 5 else (Color(0.95, 0.85, 0.3, 0.8) if kind == 6 else (Color(0.35, 0.5, 1.0, 0.75) if kind == 7 else (Color(0.7, 0.95, 0.25, 0.8) if kind == 8 else Color(1.0, 0.8, 0.3, 0.7))))))))
+	var ring_col: Color = Color(0.45, 0.65, 1.0, 0.7) if kind == 1 else (Color(1.0, 0.15, 0.1, 0.75) if kind == 2 else (Color(1.0, 0.5, 0.1, 0.8) if kind == 3 else (Color(0.5, 0.7, 1.0, 0.75) if kind == 4 else (Color(1.0, 0.55, 0.15, 0.75) if kind == 5 else (Color(0.95, 0.85, 0.3, 0.8) if kind == 6 else (Color(0.35, 0.5, 1.0, 0.75) if kind == 7 else (Color(0.7, 0.95, 0.25, 0.8) if kind == 8 else (Color(0.85, 0.6, 0.3, 0.75) if kind == 9 else Color(1.0, 0.8, 0.3, 0.7)))))))))
 	rm.albedo_color = ring_col
 	rm.emission_enabled = true
-	rm.emission = Color(0.35, 0.55, 1.0) if kind == 1 else (Color(0.9, 0.05, 0.08) if kind == 2 else (Color(1.0, 0.45, 0.1) if kind == 3 else (Color(0.45, 0.6, 1.0) if kind == 4 else (Color(0.95, 0.5, 0.15) if kind == 5 else (Color(0.95, 0.85, 0.3) if kind == 6 else (Color(0.35, 0.5, 1.0) if kind == 7 else (Color(0.7, 0.95, 0.25) if kind == 8 else Color(1.0, 0.75, 0.25))))))))
+	rm.emission = Color(0.35, 0.55, 1.0) if kind == 1 else (Color(0.9, 0.05, 0.08) if kind == 2 else (Color(1.0, 0.45, 0.1) if kind == 3 else (Color(0.45, 0.6, 1.0) if kind == 4 else (Color(0.95, 0.5, 0.15) if kind == 5 else (Color(0.95, 0.85, 0.3) if kind == 6 else (Color(0.35, 0.5, 1.0) if kind == 7 else (Color(0.7, 0.95, 0.25) if kind == 8 else (Color(0.85, 0.6, 0.3) if kind == 9 else Color(1.0, 0.75, 0.25)))))))))
 	rm.emission_energy_multiplier = 2.0
 	rm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	tor.material = rm
@@ -94,7 +98,7 @@ func setup(p_tile: float, p_kind := 0) -> void:
 	ring.position.y = 0.06 * tile
 	add_child(ring)
 	glow = OmniLight3D.new()
-	glow.light_color = Color(0.45, 0.6, 1.0) if kind == 1 else (Color(1.0, 0.15, 0.1) if kind == 2 else (Color(1.0, 0.45, 0.12) if kind == 3 else (Color(0.45, 0.65, 1.0) if kind == 4 else (Color(1.0, 0.55, 0.2) if kind == 5 else (Color(0.95, 0.85, 0.35) if kind == 6 else (Color(0.35, 0.5, 1.0) if kind == 7 else (Color(0.7, 0.95, 0.25) if kind == 8 else Color(1.0, 0.75, 0.3))))))))
+	glow.light_color = Color(0.45, 0.6, 1.0) if kind == 1 else (Color(1.0, 0.15, 0.1) if kind == 2 else (Color(1.0, 0.45, 0.12) if kind == 3 else (Color(0.45, 0.65, 1.0) if kind == 4 else (Color(1.0, 0.55, 0.2) if kind == 5 else (Color(0.95, 0.85, 0.35) if kind == 6 else (Color(0.35, 0.5, 1.0) if kind == 7 else (Color(0.7, 0.95, 0.25) if kind == 8 else (Color(0.85, 0.6, 0.3) if kind == 9 else Color(1.0, 0.75, 0.3)))))))))
 	glow.light_energy = 1.6
 	glow.omni_range = 2.2 * tile
 	glow.position.y = 1.0 * tile

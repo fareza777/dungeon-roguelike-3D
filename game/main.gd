@@ -1246,6 +1246,10 @@ func _spawn_shrine(last_room: int) -> void:
 		skind = 8 # Gambler's Well terjamin di lantai %9==5
 	elif Stats.floor_num >= 10 and rng.randf() < 0.08:
 		skind = 8
+	elif Stats.floor_num >= 13 and Stats.floor_num % 11 == 7:
+		skind = 9 # Scavenger's Cache terjamin di lantai %11==7
+	elif Stats.floor_num >= 12 and rng.randf() < 0.07:
+		skind = 9
 	elif Stats.floor_num >= 9 and rng.randf() < 0.1:
 		skind = 6
 	elif Stats.floor_num >= 5 and Stats.floor_num % 5 == 1:
@@ -1286,6 +1290,8 @@ func _spawn_shrine(last_room: int) -> void:
 			s.invoked.connect(_on_ferry_invoked)
 		8:
 			s.invoked.connect(_on_well_invoked)
+		9:
+			s.invoked.connect(_on_cache_invoked)
 		_:
 			s.invoked.connect(_on_shrine_invoked)
 
@@ -3346,6 +3352,10 @@ func _on_dlg_choice(idx: int) -> void:
 		dlg_pending_choice = -1
 		_well_deal(idx)
 		return
+	elif dlg_pending_choice == 12:
+		dlg_pending_choice = -1
+		_cache_deal(idx)
+		return
 	match idx:
 		0:
 			Stats.buff_atk_pct += 0.15
@@ -3990,6 +4000,34 @@ func _well_deal(idx: int) -> void:
 	_quest_event("well")
 
 
+func _on_cache_invoked(s) -> void:
+	shrine_used = true
+	s.consume()
+	Sfx.play("shrine")
+	dlg_pending_choice = 12
+	_say([{"who": "mahzan", "text": "A scavenger's cache — the dead leave their steel behind, Kael. Take what they no longer need."}],
+		[{"text": "Take the steel — a random blade from the hoard (free)"},
+		{"text": "Leave it — your blade is oath enough"}])
+
+
+func _cache_deal(idx: int) -> void:
+	if idx != 0:
+		toast("The cache's lid settles shut")
+		return
+	var pool: Array = []
+	for wid in WDB.POOL:
+		if wid != Stats.weapon_id:
+			pool.append(wid)
+	if pool.is_empty():
+		toast("The hoard holds only what you already carry")
+		return
+	var wid2: String = String(pool[rng.randi() % pool.size()])
+	Stats.equip_weapon(wid2)
+	Sfx.play("shrine")
+	toast("SCAVENGED — " + String(WDB.get_w(wid2)["name"]))
+	_quest_event("cache")
+
+
 func _on_vault_invoked(s) -> void:
 	shrine_used = true
 	s.consume()
@@ -4550,7 +4588,7 @@ func _build_minimap() -> void:
 	# penanda altar (cyan), batu lore (ungu), dan tujuan akhir lantai (emas besar)
 	if shrine_ref != null and is_instance_valid(shrine_ref):
 		var sd := ColorRect.new()
-		sd.color = [Color(1.0, 0.8, 0.3), Color(0.45, 0.65, 1.0), Color(1.0, 0.2, 0.15), Color(1.0, 0.55, 0.15), Color(0.55, 0.75, 1.0), Color(1.0, 0.5, 0.1), Color(0.95, 0.85, 0.3), Color(0.4, 0.55, 1.0), Color(0.7, 0.95, 0.25)][shrine_kind]
+		sd.color = [Color(1.0, 0.8, 0.3), Color(0.45, 0.65, 1.0), Color(1.0, 0.2, 0.15), Color(1.0, 0.55, 0.15), Color(0.55, 0.75, 1.0), Color(1.0, 0.5, 0.1), Color(0.95, 0.85, 0.3), Color(0.4, 0.55, 1.0), Color(0.7, 0.95, 0.25), Color(0.85, 0.6, 0.3)][shrine_kind]
 		sd.size = Vector2(5, 5)
 		sd.position = _map_pos(shrine_ref.global_position, sc)
 		mv.add_child(sd)
