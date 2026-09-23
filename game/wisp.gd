@@ -75,6 +75,8 @@ func _physics_process(delta: float) -> void:
 				absorbed = true
 				var m0 := get_tree().current_scene
 				var wp := 2 if (m0 != null and bool(m0.get("low_tide"))) else 1
+				if Stats.relics.has("soul_creel"):
+					wp += 1
 				Stats.souls += wp
 				if m0 != null and m0.get("biome") is Dictionary and String(m0.biome.get("name", "")) == "Sunken Reliquary":
 					m0.reliquary_wisps += wp

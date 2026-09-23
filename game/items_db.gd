@@ -60,6 +60,7 @@ const DB := {
 	"pact_broker": {"name": "Pact Broker", "chip": "PB", "desc": "All soul prices -1", "rarity": 1, "mods": {}},
 	"kings_ledger": {"name": "King's Ledger", "chip": "KL", "desc": "Every elite slain pays +2 souls", "rarity": 1, "mods": {}},
 	"drowned_oar": {"name": "Drowned Oar", "chip": "DO", "desc": "The Ferryman charges 3 fewer souls", "rarity": 1, "mods": {}},
+	"soul_creel": {"name": "Soul Creel", "chip": "SC", "desc": "Wisps pay +1 soul when netted", "rarity": 1, "mods": {}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
