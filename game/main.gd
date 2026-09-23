@@ -186,6 +186,7 @@ var bone_market := false
 var waxpale := false
 var vessel := false
 var skeleton_crew := false
+var rolling_fog := false
 var umbral_tide := false
 var moonwrit := false
 var barnacle_sense := false
@@ -798,6 +799,7 @@ func _reset_run_state() -> void:
 	waxpale = false
 	vessel = false
 	skeleton_crew = false
+	rolling_fog = false
 	umbral_tide = false
 	moonwrit = false
 	barnacle_sense = false
@@ -1562,6 +1564,10 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 	e.room_idx = int(sp.get("room", 0))
 	# spawn lantai: -1 -> inaktif sampai pemain masuk; summon/split di ruangan aktif langsung hidup
 	e.activated = int(sp.get("room", 0)) == current_room
+	if rolling_fog:
+		e.slow_t = 3.0
+		e.hp *= 1.08
+		e.hp_max = e.hp
 	room.add_child(e)
 	# spawn-in: muncul pop supaya tidak hard-cut
 	var esc: Vector3 = e.scale
@@ -4471,6 +4477,7 @@ func _offer_omens() -> void:
 			{"text": "WAXPALE — the wisps pay double... but the dead grow 10% harder"},
 			{"text": "VESSEL — the urns pay double... but the dead grow 10% harder"},
 			{"text": "SKELETON CREW — one fewer foe in every room... but the survivors are twice as likely to be elite"},
+			{"text": "ROLLING FOG — the dead rise dazed for 3 heartbeats... but +8% hardier"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -4505,7 +4512,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 38 if Stats.nemesis != "" else 37
+	var osize := 39 if Stats.nemesis != "" else 38
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -4667,6 +4674,9 @@ func _omen_deal(idx: int) -> void:
 			skeleton_crew = true
 			oname = "SKELETON CREW"
 		37:
+			rolling_fog = true
+			oname = "ROLLING FOG"
+		38:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -4729,6 +4739,7 @@ func _omen_deal(idx: int) -> void:
 		"WAXPALE": "Pale as tallow, hungry as the tide — the little lights will feed you well tonight.",
 		"VESSEL": "Crack every pot you find, Kael — the dead stored their wages in clay.",
 		"SKELETON CREW": "A short crew on a long grave, Kael — the few who remain will wear crowns.",
+		"ROLLING FOG": "The fog buys you three breaths, Kael — spend them cutting.",
 	}
 	var rline: String = String(reacts.get(oname, "An oath is an oath."))
 	_say([{"who": "oracle", "text": rline}])
