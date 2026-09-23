@@ -2115,6 +2115,8 @@ func _on_enemy_died(e) -> void:
 	_quest_event("kill")
 	if e.arch_id == "gaoler":
 		_quest_event("gaoler_kill")
+	if e.arch_id == "keelhound":
+		_quest_event("keelhound_kill")
 	if e.arch_id == "sentinel":
 		_quest_event("sentinel_kill")
 	if e.arch_id == "shade":
