@@ -179,6 +179,7 @@ var sirensong_deal := false
 var crown_oath := false
 var pinch_n := 0
 var abyss_n := 0
+var lore_run := 0
 var tide_kills := 0
 var reliquary_wisps := 0
 var omen_refusals := 0
@@ -718,6 +719,7 @@ func _reset_run_state() -> void:
 	crown_oath = false
 	pinch_n = 0
 	abyss_n = 0
+	lore_run = 0
 	perfect_dodges = 0
 	leech_charge = 0
 	legion_omen = false
@@ -1895,6 +1897,9 @@ func _on_lore_stone(s) -> void:
 	if String(biome.get("name", "")) == "Sunken Reliquary":
 		_quest_event("tidepage")
 	var line: String = LORE_LINES[rng.randi_range(0, LORE_LINES.size() - 1)]
+	lore_run += 1
+	if lore_run >= 5:
+		_ach("wellread")
 	if not Stats.lore_seen.has(line):
 		Stats.lore_seen.append(line)
 		Stats.save_game()
@@ -2668,6 +2673,7 @@ func _on_enemy_died(e) -> void:
 			crown_oath = false
 	pinch_n = 0
 	abyss_n = 0
+	lore_run = 0
 			Stats.earn_souls(8)
 			_souls_l()
 			_damage_number(e.global_position + Vector3(0, 1.3 * info.tile, 0), "CROWN PAID — +8 souls", Color(1.0, 0.8, 0.3), true)
