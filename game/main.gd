@@ -6558,6 +6558,19 @@ func _drowned_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		_ach("seaworthy")
 		toast("DROWNED TITHE — +8 souls, −10% Max HP")
+	if idx == 15:
+		if Stats.souls < _soul_cost(2):
+			toast("Two souls — the rinse isn't free")
+			return
+		Stats.souls -= _soul_cost(2)
+		_souls_l()
+		if player != null and is_instance_valid(player):
+			player.set("venom_t", 0.0)
+			player.set("rust_t", 0.0)
+			player.hp = minf(Stats.get_stat("max_hp"), player.hp + Stats.get_stat("max_hp") * 0.15)
+			player.hp_changed.emit(player.hp)
+		Sfx.play("shrine")
+		toast("SALT RINSE — the brine scours your veins")
 	if player != null and is_instance_valid(player):
 		_burst(player.global_position + Vector3(0, 0.4, 0), Color(0.35, 0.95, 0.85))
 	Stats.drowned_deals += 1
