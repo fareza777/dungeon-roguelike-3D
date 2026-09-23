@@ -270,6 +270,7 @@ var shrine_used := false
 var dlg: DialogueUI = null
 var dlg_pending_choice := -1
 var oracle_bargained := false # Oracle's Bargain: sekali per run
+var mahzan_met := 0 # kunjungan Mahzan dalam run ini — dialognya berevolusi
 var map_dots: Array = []
 var map_t := 0.0
 
@@ -313,6 +314,7 @@ func _ready() -> void:
 		vials = 1
 		run_time = 0.0
 		combo_max = 0
+		mahzan_met = 0
 	Stats.pending_restore = false
 	Stats.runs += 1
 	for v in Stats.meta.values():
@@ -1537,6 +1539,7 @@ func _on_banner_tap() -> void:
 		vials = 1
 		run_time = 0.0
 		combo_max = 0
+		mahzan_met = 0
 		await _fade_to(1.0, 0.3)
 		_new_run(rng.randi())
 		_fade_to(0.0, 0.45)
@@ -2495,11 +2498,22 @@ func _on_mahzan_invoked(s) -> void:
 	s.consume()
 	Sfx.play("shrine")
 	dlg_pending_choice = 1
+	mahzan_met += 1
 	var mlines := [
 		"Ah — living blood in my halls. Rare merchandise... rarer currency. Pick a deal.",
 		"The Bone King pays me in bones. You'd pay in something warmer. Choose.",
 		"A customer! It's been a century since the last. Don't make me regret it, Kael.",
 	]
+	if mahzan_met == 2:
+		mlines = [
+			"Back already? You spend souls like water, Kael. I approve.",
+			"Twice in one descent. The crown must be worried about you.",
+		]
+	elif mahzan_met >= 3:
+		mlines = [
+			"My most faithful customer. When you take the throne, remember who stocked your satchel.",
+			"Kael. Again. I'd offer you credit, but the dead don't have wallets.",
+		]
 	_say(
 		[{"who": "mahzan", "text": mlines[rng.randi_range(0, mlines.size() - 1)]}],
 		[
