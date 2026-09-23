@@ -63,6 +63,7 @@ var nemesis := false
 var is_lurker := false
 var orator := false
 var crowned := false
+var tither := false
 var pack_bounty := false
 var orator_t := 3.0
 var dmg_max := 0 # orator chant cap
@@ -144,6 +145,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	is_lurker = bool(a.get("lurks", false))
 	orator = bool(a.get("orator", false))
 	crowned = bool(a.get("crowned", false))
+	tither = bool(a.get("tither", false))
 	is_slammer = bool(a.get("slams", false))
 	wailer = bool(a.get("wailer", false))
 	wisp_drop = bool(a.get("wisp_drop", false))
@@ -578,6 +580,14 @@ func _physics_process(delta: float) -> void:
 									if mm6 != null and mm6.has_method("_damage_number"):
 										mm6._damage_number(q.global_position + Vector3(0, 0.8 * room_tile, 0), "REAPED!", Color(1.0, 0.3, 0.2), true)
 								q.take_hit(global_position, dmg * dmulti)
+								if tither and q == p:
+									var mt2 := get_tree().current_scene
+									if mt2 != null:
+										var stol := mini(2, int(mt2.Stats.souls))
+										if stol > 0:
+											mt2.Stats.souls -= stol
+											mt2._souls_l()
+											mt2._damage_number(q.global_position + Vector3(0, 0.9 * room_tile, 0), "TITHED — -%d souls" % stol, Color(0.5, 0.95, 0.6), true)
 								if knocker:
 									var kdir: Vector3 = q.global_position - global_position
 									kdir.y = 0
