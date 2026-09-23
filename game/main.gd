@@ -2617,6 +2617,8 @@ func _on_enemy_died(e) -> void:
 			f2.speed *= 1.1
 			f2.dmg += 1 if f2.dmg < 3 else 0
 			_damage_number(f2.global_position + Vector3(0, 0.9 * info.tile, 0), "FRENZIES", Color(1.0, 0.45, 0.3), true)
+	if e.arch_id == "waver":
+		_quest_event("waver_kill")
 	if e.arch_id == "saltghast":
 		_quest_event("saltghast_kill")
 		if int(Stats.arch_kills.get("saltghast", 0)) >= 10:
