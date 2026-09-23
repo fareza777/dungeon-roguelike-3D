@@ -636,6 +636,8 @@ const WHISPERS := [
 	"You bleed and they remember — every drop.",
 	"A hero once died at that very spot.",
 	"His patience thins with every room you clear.",
+	"The deeper you descend, the louder his ledger turns.",
+	"Every cage you break, the crown counts twice.",
 ]
 
 # bisikan sekali-per-run saat arketipe pertama kali muncul
@@ -677,7 +679,10 @@ func _on_room_enter(ri: int) -> void:
 	# bisikan Oracle: atmosfer ambient di ruangan yang hidup (bukan lantai bos)
 	if Stats.floor_num >= 2 and not QDB.is_boss_floor(Stats.floor_num) and ri > 0 and _room_alive(ri) > 0 and rng.randf() < 0.14 and player != null:
 		Sfx.play("page")
-		_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), WHISPERS[rng.randi_range(0, WHISPERS.size() - 1)], Color(0.55, 1.0, 0.75), true)
+		var wline: String = WHISPERS[rng.randi_range(0, WHISPERS.size() - 1)]
+		if Stats.nemesis != "" and rng.randf() < 0.5:
+			wline = "The one that ended you walks these halls again, Kael. End it back."
+		_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), wline, Color(0.55, 1.0, 0.75), true)
 	if boss_ref != null and is_instance_valid(boss_ref) and boss_ref.activated:
 		Sfx.play("roar")
 		Sfx.play_music("boss")
