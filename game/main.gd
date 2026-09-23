@@ -346,7 +346,7 @@ func _new_run(new_seed: int) -> void:
 	_start_quests(boss_floor, int(info.get("room_count", 1)))
 	_build_minimap()
 	Sfx.play_music("boss" if boss_floor else _biome_track())
-	ui.floor_label.text = "Floor %d • %s" % [Stats.floor_num, biome["name"]]
+	ui.floor_label.text = "Floor %d • %s%s" % [Stats.floor_num, biome["name"], " (NG+%d)" % Stats.ng_plus if Stats.ng_plus > 0 else ""]
 	_update_hp(Stats.current_hp)
 	_update_xp(Stats.xp, Stats.xp_need(), Stats.level)
 	_rebuild_chips()
@@ -922,6 +922,7 @@ func _run_victory() -> void:
 	Stats.note_floor()
 	Stats.clear_run()
 	Stats.runs += 1
+	Stats.ng_plus += 1
 	Stats.save_game()
 	_ach("s25")
 	_tut_hide()
@@ -932,7 +933,7 @@ func _run_victory() -> void:
 	Input.vibrate_handheld(400)
 	var mins := int(run_time) / 60
 	var secs := int(run_time) % 60
-	_show_banner("THE THRONE FALLS", "The Bone King's crown shatters.\n%d kills • Lv %d • %d relics • best combo ×%d • %d:%02d\nTap to return to the surface" % [kills_run, Stats.level, Stats.relics.size(), combo_max, mins, secs], Color(0.55, 1.0, 0.72))
+	_show_banner("THE THRONE FALLS", "The Bone King's crown shatters.\n%d kills • Lv %d • %d relics • best combo ×%d • %d:%02d\nNG+%d unlocked — the depths grow crueler\nTap to return to the surface" % [kills_run, Stats.level, Stats.relics.size(), combo_max, mins, secs, Stats.ng_plus], Color(0.55, 1.0, 0.72))
 
 
 func _on_banner_tap() -> void:

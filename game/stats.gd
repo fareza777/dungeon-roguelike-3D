@@ -42,6 +42,7 @@ var best_floor := 0
 var total_kills := 0
 var runs := 0
 var boss_kills := 0
+var ng_plus := 0 # New Game+: naik tiap kali menang di lantai 25
 var tutorial_done := false
 var seen_cinematic := false
 var onboarded := false
@@ -227,6 +228,7 @@ func wipe_progress() -> void:
 	total_kills = 0
 	runs = 0
 	boss_kills = 0
+	ng_plus = 0
 	tutorial_done = false
 	onboarded = false
 	rated = false
@@ -240,7 +242,7 @@ func save_game() -> void:
 	if f != null:
 		f.store_string(JSON.stringify({
 			"best_floor": best_floor, "total_kills": total_kills, "runs": runs,
-			"boss_kills": boss_kills,
+			"boss_kills": boss_kills, "ng_plus": ng_plus,
 			"tutorial_done": tutorial_done, "seen_cinematic": seen_cinematic,
 			"onboarded": onboarded, "rated": rated,
 			"quality": quality, "volume": volume,
@@ -258,6 +260,7 @@ func load_game() -> void:
 			total_kills = int(d.get("total_kills", 0))
 			runs = int(d.get("runs", 0))
 			boss_kills = int(d.get("boss_kills", 0))
+			ng_plus = int(d.get("ng_plus", 0))
 			tutorial_done = d.get("tutorial_done", false)
 			seen_cinematic = d.get("seen_cinematic", false)
 			onboarded = d.get("onboarded", false)

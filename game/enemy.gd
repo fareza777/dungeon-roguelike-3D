@@ -81,14 +81,17 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	elite = p_elite
 	var a: Dictionary = EDB.get_arch(arch_id)
 	var hp_growth := 1.0 + 0.15 * float(floor_num - 1)
+	# New Game+: tiap kemenangan menambah kedalaman — musuh lebih keras + cepat
+	var ng: float = float(Stats.ng_plus)
+	hp_growth += 0.35 * ng
 	hp = a["hp"] * hp_growth
-	speed = a["spd"] * tile
+	speed = a["spd"] * tile * (1.0 + 0.08 * ng)
 	aggro_range = a["aggro"] * tile
 	attack_range = a["reach"] * tile
 	prefer_range = a.get("prefer", 0.0) * tile
 	windup_t = a["windup"]
-	dmg = a["dmg"]
-	xp_val = a["xp"]
+	dmg = a["dmg"] + int(ng)
+	xp_val = a["xp"] + int(ng)
 	ranged = a.get("ranged", false)
 	dash = a.get("dash", false)
 	proj_speed = a.get("proj_speed", 0.0) * tile
