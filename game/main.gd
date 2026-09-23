@@ -172,6 +172,7 @@ var pearl_fever := false
 var muckraker := false
 var abyssal_patience := false
 var umbral_tide := false
+var moonwrit := false
 var crown_oath := false
 var tide_kills := 0
 var reliquary_wisps := 0
@@ -742,6 +743,7 @@ func _reset_run_state() -> void:
 	muckraker = false
 	abyssal_patience = false
 	umbral_tide = false
+	moonwrit = false
 	tide_kills = 0
 	reliquary_wisps = 0
 	flawless_run = 0
@@ -4133,6 +4135,9 @@ func _on_dlg_choice(idx: int) -> void:
 		17:
 			Stats.soul_gain_pct += 0.2
 			toast("Tide's Toll: every soul pays a fifth more")
+		18:
+			moonwrit = true
+			toast("Moonwrit: the wisps pay you an extra soul")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -5443,6 +5448,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Still Waters — traps doze 40% longer"},
 			{"text": "Bone Veil — the first hit each floor does nothing"},
 			{"text": "Tide's Toll — all soul gains +20%"},
+			{"text": "Moonwrit — wisps you net pay +1 soul each"},
 		]
 	)
 
