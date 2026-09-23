@@ -140,6 +140,7 @@ var lonecrown := false
 var lc_delta := 0.0
 var wolf_n := 0
 var omen_count := 0
+var omen_refusals := 0
 var shrine_kind := 0
 var bounty_ref: Enemy = null
 var bounty_epic := false
@@ -577,6 +578,7 @@ func _reset_run_state() -> void:
 	lonecrown = false
 	lc_delta = 0.0
 	omen_count = 0
+	omen_refusals = 0
 	nemesis_warned = false
 
 
@@ -3397,7 +3399,11 @@ func _pdodged() -> void:
 func _omen_deal(idx: int) -> void:
 	var osize := 22 if Stats.nemesis != "" else 21
 	if idx >= osize:
-		toast("You walk alone — the Oracle nods")
+		omen_refusals += 1
+		if omen_refusals >= 2:
+			toast("Twice refused. The old woman says nothing — that's rare.")
+		else:
+			toast("You walk alone — the Oracle nods")
 		return
 	var oname := ""
 	match idx:
