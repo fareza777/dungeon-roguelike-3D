@@ -70,6 +70,7 @@ var toast_tween: Tween = null
 var paused_ui := false
 var kills_run := 0
 var run_time := 0.0
+var combo_max := 0
 var fade_rect: ColorRect = null
 var pause_panel: PanelContainer = null
 var vign: TextureRect = null
@@ -198,6 +199,7 @@ func _ready() -> void:
 		Stats.reset_run()
 		kills_run = 0
 		run_time = 0.0
+		combo_max = 0
 	Stats.pending_restore = false
 	Stats.runs += 1
 	Stats.save_game()
@@ -826,6 +828,7 @@ func _on_banner_tap() -> void:
 		Stats.reset_run()
 		kills_run = 0
 		run_time = 0.0
+		combo_max = 0
 		await _fade_to(1.0, 0.3)
 		_new_run(rng.randi())
 		_fade_to(0.0, 0.45)
@@ -1456,6 +1459,7 @@ func _quest_render() -> void:
 
 func _combo_set(n: int) -> void:
 	combo = n
+	combo_max = maxi(combo_max, n)
 	combo_t = 4.0
 	if not ui.has("combo_l"):
 		return
@@ -2289,6 +2293,14 @@ func _build_ui() -> void:
 	pt.add_theme_constant_override("outline_size", 5)
 	pt.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	pvb.add_child(pt)
+	var pstats := Label.new()
+	pstats.name = "pause_stats"
+	pstats.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	pstats.add_theme_font_size_override("font_size", 14)
+	pstats.modulate = Color(1, 1, 1, 0.6)
+	pstats.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	pvb.add_child(pstats)
+	ui["pause_stats"] = pstats
 	_pause_vol_row(pvb, "Music", Stats.mus_vol(), func(v: float) -> void:
 		Stats.music_volume = v
 		Sfx.set_music_volume(v)
@@ -2428,6 +2440,10 @@ func _toggle_pause() -> void:
 	get_tree().paused = paused_ui
 	ui.dim.visible = paused_ui or Stats.draft_open
 	pause_panel.visible = paused_ui
+	if paused_ui and ui.has("pause_stats"):
+		var pm := int(run_time) / 60
+		var ps := int(run_time) % 60
+		ui.pause_stats.text = "Floor %d  •  %d kills  •  best combo ×%d  •  %d:%02d" % [Stats.floor_num, kills_run, combo_max, pm, ps]
 	Sfx.play("click")
 
 
