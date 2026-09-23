@@ -122,7 +122,9 @@ const LORE_LINES := [
 	"The gales test rigging and sailor alike — in this dungeon, Kael, you are both.",
 	"Salt preserves what it touches. Ask the Salted ones what it preserved of them — then ask what spilled.",
 	"The Hull Widows wove the King's fleet into one great snare. He drowned them for the compliment.",
-	"Mercy is a tide that comes rarely, Kael — and always at the hour you stopped expecting it."
+	"Mercy is a tide that comes rarely, Kael — and always at the hour you stopped expecting it.",
+	"The Widow's webs outlast her — clear them or they will outlast you.",
+	"A slow clock still strikes, Kael — it only asks that you be patient enough to hear it."
 ]
 
 var dungeon_tex: Texture2D
