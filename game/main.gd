@@ -103,6 +103,7 @@ var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
 var trap_wrapped := 0
+var golden_fate := false
 var _warned := {}
 var champ_room := -1 # sarang sang juara: elite terjamin + drop lebih baik
 var ambush_room := -1 # ruangan "kosong" yang ternyata penyergapan
@@ -516,6 +517,7 @@ func _reset_run_state() -> void:
 	combo_rate_bonus = 0.0
 	solitary = false
 	pawn_discount = false
+	golden_fate = false
 	nemesis_warned = false
 
 
@@ -565,7 +567,7 @@ func _new_run(new_seed: int) -> void:
 	chest_opened = false
 	mimic_pending = Stats.floor_num >= 2 and rng.randf() < 0.35
 	# peti berlapis emas (12%, lantai 4+, bukan mimic): berisi relic langka+
-	gilded_chest = (not mimic_pending and Stats.floor_num >= 4 and rng.randf() < 0.12) or (not mimic_pending and Stats.floor_num >= 2 and Stats.relics.has("kunci_osuarium")) or (not mimic_pending and Stats.floor_num >= 8 and Stats.relics.size() < 3)
+	gilded_chest = golden_fate or (not mimic_pending and Stats.floor_num >= 4 and rng.randf() < 0.12) or (not mimic_pending and Stats.floor_num >= 2 and Stats.relics.has("kunci_osuarium")) or (not mimic_pending and Stats.floor_num >= 8 and Stats.relics.size() < 3)
 	if gilded_chest and info.get("chest") != null:
 		M.paint(info.chest, M.toon(dungeon_tex, Color(1.35, 1.15, 0.55), 0.55))
 	# peti terkutuk (10%, lantai 6+, bukan mimic/gilded): penyergapan demi relic epic
@@ -3108,6 +3110,7 @@ func _offer_omens() -> void:
 			{"text": "SOLITARY — +35% XP, allies will not answer this run"},
 			{"text": "PAWNBREAKER — all soul prices drop 1, -15% Max HP"},
 			{"text": "HEIRLOOM — carry a random trinket into the run, -1 Armor"},
+			{"text": "GOLDEN FATE — every chest is gilded, -2 Max HP"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else [])
 	)
 
@@ -3177,6 +3180,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_armor -= 1
 			oname = "HEIRLOOM"
 		12:
+			golden_fate = true
+			Stats.buff_maxhp_pct -= 0.1
+			oname = "GOLDEN FATE"
+		13:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
