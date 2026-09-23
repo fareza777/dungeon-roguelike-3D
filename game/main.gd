@@ -6991,11 +6991,12 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Fair Wind — pay 3 souls: +15% souls for the rest of this run"},
 		{"text": "Gangway Toll — pay 3 souls: this floor's dead are worth +15% XP"},
 		{"text": "Deck Fuel — pay 4 souls: your dash recharges 40% faster"},
+		{"text": "Tar Seal — pay 4 souls: mend 25% HP and scrub chill, root, rust"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 10:
+	if idx == 11:
 		toast("The stone settles — the sea keeps its bargains")
 		return
 	if idx == 9:
@@ -7007,6 +7008,21 @@ func _keel_deal(idx: int) -> void:
 		dash_fuel = true
 		Sfx.play("shrine")
 		toast("DECK FUEL — your feet won't stop now (dash −40% recharge)")
+		return
+	if idx == 10:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the tar isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		if player != null and is_instance_valid(player):
+			player.hp = minf(Stats.get_stat("max_hp"), player.hp + Stats.get_stat("max_hp") * 0.25)
+			for deb9 in ["chill_t", "root_t", "rust_t"]:
+				player.set(deb9, 0.0)
+			player.hp_changed.emit(player.hp)
+		_quest_event("keelstone")
+		Sfx.play("shrine")
+		toast("TAR SEAL — hot pitch knits your hull")
 		return
 	if idx == 8:
 		if Stats.souls < _soul_cost(3):
