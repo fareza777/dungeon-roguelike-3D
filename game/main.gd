@@ -62,7 +62,9 @@ const LORE_LINES := [
 	"The Golem was every fallen knight at once — it swings with all their weight, and none of their mercy.",
 	"Somewhere below, the Soul Forge still burns for a smith who never came back for his blade.",
 	"The Wailing Maidens were choir-sisters once. They still sing — only at funerals now.",
-	"Mahzan's ledger has one page he refuses to sell — the one with his own name on it."
+	"Mahzan's ledger has one page he refuses to sell — the one with his own name on it.",
+	"The Bounty Stones were the dungeon's own bounty board — it pays in relics for dead heroes' bones.",
+	"On Giant's Hall nights the tomb-walls stretch, and the dead remember being taller."
 ]
 
 var dungeon_tex: Texture2D
