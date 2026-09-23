@@ -128,7 +128,9 @@ const LORE_LINES := [
 	"The Gunners were the King's own powder crews — he drowned them mid-salute, and they are still firing.",
 	"Every tide that favors you, Kael, the sea writes down twice: once as a gift, once as a debt.",
 	"Powder crews fired in pairs by tradition — one barrel for the foe, one for luck.",
-	"A loose ship still floats, Kael — she just reminds you how thin the hull is."
+	"A loose ship still floats, Kael — she just reminds you how thin the hull is.",
+	"A lantern in a dead hand still counts as a lantern, Kael. Douse it kindly.",
+	"The sea does not count in years down here — she counts in tides owed."
 ]
 
 var dungeon_tex: Texture2D
