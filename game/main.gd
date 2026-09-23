@@ -4242,9 +4242,9 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Bone Lottery — pay 5 souls: a random blade from the hoard"},
 			{"text": "Fool's Trove — pay 3 souls: a trinket, fair or foul"},
 			{"text": "Witness — pay 2 souls: Mahzan tells you a secret"},
-			{"text": "Pearl Insurance — pay 4 souls: your next 2 trap hits do nothing"},
 			{"text": "Blood Velvet — pay 9 souls: +10% Max HP this run"},
 			{"text": "Last Rites — pay 12 souls: one resurrection, on credit"},
+			{"text": "Pearl Insurance — pay 4 souls: your next 2 trap hits do nothing"},
 		]
 	)
 
