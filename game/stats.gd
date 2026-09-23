@@ -69,6 +69,30 @@ var mastered := {} # weapon_id -> 1 bila mastery tercapai (+1 ATK permanen)
 const MASTERY_N := 25
 var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0}
 
+const ACH_DEF := {
+	"kill1": "First Bloodbath",
+	"k50": "Corridor Reaper (50 kills)",
+	"k200": "Crypt Dweller (200 kills)",
+	"f5": "Depth Diver (Floor 5)",
+	"f10": "Fearless (Floor 10)",
+	"f20": "Heart of the Deep (Floor 20)",
+	"b1": "Throne Breaker",
+	"b3": "King Hunter (3 bosses)",
+	"r5": "Relic Collector (5 relics)",
+	"w5": "Arsenal (5 weapons)",
+	"s25": "Crown Taker (clear Floor 25)",
+	"soul1": "Soulbound (bound a meta upgrade)",
+	"pact1": "Bloodletter (swore a Blood Pact)",
+	"defiant": "Defiant (spat in the King's face)",
+	"forge3": "Arms Master (forged a weapon to Lv 3)",
+	"master1": "Master at Arms (weapon mastered)",
+	"knight1": "Liberator (freed Sir Vane)",
+	"reborn": "Oracle's Chosen (bought back your life)",
+	"scholar": "Crypt Scholar (filled the bestiary)",
+	"st5": "Death's Edge (5 kills at death's door)",
+	"hex1": "Hex Plunderer (cracked a Cursed Chest)",
+}
+
 const META_DEF := {
 	"vital": {"name": "Vitality", "max": 5, "desc": "+1 Max HP per level"},
 	"might": {"name": "Might", "max": 5, "desc": "+5% ATK per level"},

@@ -109,30 +109,7 @@ var vign_tween: Tween = null
 var prev_hp := -1.0
 var floor_hurt := false
 
-# prestasi lintas run + varian bos per 5 lantai
-const ACH := {
-	"kill1": "First Bloodbath",
-	"k50": "Corridor Reaper (50 kills)",
-	"k200": "Crypt Dweller (200 kills)",
-	"f5": "Depth Diver (Floor 5)",
-	"f10": "Fearless (Floor 10)",
-	"f20": "Heart of the Deep (Floor 20)",
-	"b1": "Throne Breaker",
-	"b3": "King Hunter (3 bosses)",
-	"r5": "Relic Collector (5 relics)",
-	"w5": "Arsenal (5 weapons)",
-	"s25": "Crown Taker (clear Floor 25)",
-	"soul1": "Soulbound (bound a meta upgrade)",
-	"pact1": "Bloodletter (swore a Blood Pact)",
-	"defiant": "Defiant (spat in the King's face)",
-	"forge3": "Arms Master (forged a weapon to Lv 3)",
-	"master1": "Master at Arms (weapon mastered)",
-	"knight1": "Liberator (freed Sir Vane)",
-	"reborn": "Oracle's Chosen (bought back your life)",
-	"scholar": "Crypt Scholar (filled the bestiary)",
-	"st5": "Death's Edge (5 kills at death's door)",
-	"hex1": "Hex Plunderer (cracked a Cursed Chest)",
-}
+# prestasi lintas run (definisi di stats.gd: ACH_DEF) + varian bos per 5 lantai
 const BOSS_TIERS := [
 	{"name": "BONE KING", "tint": Color(1.05, 1.05, 1.05),
 		"warn": "Careful — the Bone King lurks at the end of this corridor. If the ground shakes red, GET OUT.",
@@ -265,7 +242,7 @@ func _ach(id: String) -> void:
 		return
 	Stats.ach[id] = true
 	Stats.save_game()
-	_lvl_banner("◆ ACHIEVEMENT — " + String(ACH[id]))
+	_lvl_banner("◆ ACHIEVEMENT — " + String(Stats.ACH_DEF[id]))
 	Sfx.play("quest")
 
 # v5: boss + quest + kombo + altar + peti mimic + dialog + minimap

@@ -8,6 +8,9 @@ var about_panel: CenterContainer = null
 var souls_panel: CenterContainer = null
 var souls_rows: VBoxContainer = null
 var souls_lbl: Label = null
+var ach_panel: CenterContainer = null
+var ach_rows: VBoxContainer = null
+var ach_title: Label = null
 var toast_l: Label = null
 
 const GOLD := Color(0.95, 0.78, 0.35)
@@ -24,6 +27,7 @@ func _ready() -> void:
 	Sfx.play_music("menu")
 	_build()
 	_build_souls()
+	_build_ach()
 	Transit.fade_in(self)
 	if autotest:
 		_shell_autotest()
@@ -248,6 +252,14 @@ func _build() -> void:
 		souls_panel.visible = true
 	)
 	vb.add_child(bso)
+
+	var bac := _make_btn("ACHIEVEMENTS — ◆ %d/%d" % [Stats.ach.size(), Stats.ACH_DEF.size()], false)
+	bac.custom_minimum_size = Vector2(380, 60)
+	bac.pressed.connect(func() -> void:
+		_refresh_ach()
+		ach_panel.visible = true
+	)
+	vb.add_child(bac)
 
 	# masuk berjenjang: panel + tombol memudar satu-satu
 	var kids: Array[Control] = []
@@ -535,6 +547,77 @@ func _refresh_souls() -> void:
 		)
 		row.add_child(bb)
 		souls_rows.add_child(row)
+
+
+func _build_ach() -> void:
+	ach_panel = CenterContainer.new()
+	ach_panel.set_anchors_preset(Control.PRESET_FULL_RECT)
+	ach_panel.visible = false
+	add_child(ach_panel)
+	var dim := ColorRect.new()
+	dim.set_anchors_preset(Control.PRESET_FULL_RECT)
+	dim.color = Color(0, 0, 0, 0.6)
+	ach_panel.add_child(dim)
+	var panel := PanelContainer.new()
+	var psb := StyleBoxFlat.new()
+	psb.bg_color = Color(0.1, 0.07, 0.05, 0.98)
+	psb.border_color = GOLD
+	psb.set_border_width_all(2)
+	psb.set_corner_radius_all(16)
+	psb.set_content_margin_all(26)
+	panel.add_theme_stylebox_override("panel", psb)
+	ach_panel.add_child(panel)
+	var vb := VBoxContainer.new()
+	vb.add_theme_constant_override("separation", 10)
+	vb.custom_minimum_size = Vector2(460, 0)
+	panel.add_child(vb)
+	ach_title = Label.new()
+	ach_title.add_theme_font_size_override("font_size", 26)
+	ach_title.modulate = GOLD
+	ach_title.add_theme_color_override("font_outline_color", Color(0.25, 0.15, 0.02, 0.9))
+	ach_title.add_theme_constant_override("outline_size", 6)
+	ach_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	vb.add_child(ach_title)
+	var hint := Label.new()
+	hint.text = "Deeds the deeps remember — earned forever."
+	hint.add_theme_font_size_override("font_size", 13)
+	hint.modulate = Color(1, 1, 1, 0.45)
+	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	vb.add_child(hint)
+	var sc := ScrollContainer.new()
+	sc.custom_minimum_size = Vector2(440, 560)
+	sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	vb.add_child(sc)
+	ach_rows = VBoxContainer.new()
+	ach_rows.add_theme_constant_override("separation", 6)
+	ach_rows.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	sc.add_child(ach_rows)
+	var back := _make_btn("BACK", false)
+	back.pressed.connect(func() -> void: ach_panel.visible = false)
+	vb.add_child(back)
+
+
+func _refresh_ach() -> void:
+	ach_title.text = "ACHIEVEMENTS — %d/%d" % [Stats.ach.size(), Stats.ACH_DEF.size()]
+	for c in ach_rows.get_children():
+		c.queue_free()
+	for id in Stats.ACH_DEF.keys():
+		var got: bool = Stats.ach.get(id, false)
+		var row := PanelContainer.new()
+		var rsb := StyleBoxFlat.new()
+		rsb.bg_color = Color(0.18, 0.13, 0.06, 0.9) if got else Color(0.06, 0.05, 0.08, 0.9)
+		rsb.border_color = GOLD if got else Color(0.35, 0.3, 0.3)
+		rsb.set_border_width_all(1)
+		rsb.set_corner_radius_all(8)
+		rsb.set_content_margin_all(8)
+		row.add_theme_stylebox_override("panel", rsb)
+		var l := Label.new()
+		l.text = ("◆ " if got else "◇ ") + String(Stats.ACH_DEF[id])
+		l.add_theme_font_size_override("font_size", 16)
+		l.modulate = Color(1.0, 0.9, 0.55) if got else Color(1, 1, 1, 0.35)
+		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		row.add_child(l)
+		ach_rows.add_child(row)
 
 
 func _on_share() -> void:
