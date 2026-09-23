@@ -182,6 +182,7 @@ const ACH_DEF := {
 	"tideprovides": "The Tide Provides (took an Undertow Cache)",
 	"shoalwalker": "Shoalwalker (cleared a floor in Low Water)",
 	"knotmaster": "Knotmaster (8 Dead Man's Knot payouts in a run)",
+	"saltsown": {"name": "Salt-Sown", "desc": "Fell 10 Saltghasts"},
 	"ratlord": "Ratlord (slain 15 Mirelings)",
 	"slayer150": "Reaper of Ranks (150 kills in a single run)",
 	"slayer250": "The Bone Harvest (250 kills in a single run)",

@@ -2579,6 +2579,10 @@ func _on_enemy_died(e) -> void:
 		_quest_event("crowned_kill")
 	if e.arch_id == "tither":
 		_quest_event("tither_kill")
+	if e.arch_id == "saltghast":
+		_quest_event("saltghast_kill")
+		if int(Stats.arch_kills.get("saltghast", 0)) >= 10:
+			_ach("saltsown")
 	if e.arch_id == "mireling":
 		_quest_event("mireling_kill")
 		if int(Stats.arch_kills.get("mireling", 0)) >= 15:
