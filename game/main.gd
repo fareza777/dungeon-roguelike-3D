@@ -378,6 +378,7 @@ const BESTIARY := {
 	"digger": ["The Gravedigger", "It digs where the dead should lie — and where you now stand."],
 	"bilge_witch": ["The Bilge Witch", "A drowned crone whose bolts carry the cold of the deep — her touch numbs."],
 	"keelbeak": ["The Keelbeak", "A gull-bone thing that stabs and hops clear — it never stays where it strikes."],
+	"rust_jaw": ["The Rust Jaw", "A corrosion-mouthed corpse — every bite pits your steel and dulls your edge."],
 	"mireling": ["The Mireling", "A marsh rat grown fat on drowned men's boots — its nip chills the blood."],
 	"saltghast": ["The Saltghast", "A ghost blown through with sea-salt — it blinks to your blind side and pours a soul out when felled."],
 	"waver": ["The Waver", "A bloated tide-priest — its bolt numbs your arm and your swing goes soft."],
@@ -396,7 +397,7 @@ const VANE_BIOME := {
 const KILLER_NAMES := {
 	"chaser": "a Skeleton Chaser", "rogue": "a Shadow Rogue", "mage": "a Bone Mage",
 	"brute": "a Bone Brute", "bomber": "a Boom Bones", "archer": "a Skeletal Archer",
-	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade", "hexer": "the Hex Priest", "spiker": "a Spiked Cadaver", "lurker": "the Dweller", "golem": "the Bone Golem", "maiden": "the Wailing Maiden", "revenant": "the Revenant", "shieldbearer": "the Shieldbearer", "herald": "the Herald", "batterer": "the Batterer", "duelist": "the Pale Duelist", "hound": "a Bone Hound", "moth": "a Soul Moth", "orator": "the Grave Orator", "crowned": "the Crowned", "tither": "the Tithing", "digger": "the Gravedigger", "drowned": "the Drowned One", "keelhound": "a Keelhound", "maw": "a Barnacle Maw", "siren": "the Void Siren", "gargoyle": "a Pearl Gargoyle", "mireling": "a Mireling", "saltghast": "a Saltghast", "waver": "a Waver", "keelbeak": "a Keelbeak", "bilge_witch": "a Bilge Witch",
+	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade", "hexer": "the Hex Priest", "spiker": "a Spiked Cadaver", "lurker": "the Dweller", "golem": "the Bone Golem", "maiden": "the Wailing Maiden", "revenant": "the Revenant", "shieldbearer": "the Shieldbearer", "herald": "the Herald", "batterer": "the Batterer", "duelist": "the Pale Duelist", "hound": "a Bone Hound", "moth": "a Soul Moth", "orator": "the Grave Orator", "crowned": "the Crowned", "tither": "the Tithing", "digger": "the Gravedigger", "drowned": "the Drowned One", "keelhound": "a Keelhound", "maw": "a Barnacle Maw", "siren": "the Void Siren", "gargoyle": "a Pearl Gargoyle", "mireling": "a Mireling", "saltghast": "a Saltghast", "waver": "a Waver", "keelbeak": "a Keelbeak", "bilge_witch": "a Bilge Witch", "rust_jaw": "a Rust Jaw",
 	"bone_king": "the King himself", "trap": "a hidden trap", "": "the dungeon itself"}
 const KILLER_TIPS := {
 	"chaser": "Tip: chasers are slow — kite them into a corner and cleave.",
@@ -434,6 +435,7 @@ const KILLER_TIPS := {
 	"gargoyle": "Tip: the Pearl Gargoyle telegraphs its slam — circle behind, never stand in front.",
 	"bilge_witch": "Tip: Bilge Witch bolts chill your blood — dodge them or lose your speed.",
 	"keelbeak": "Tip: Keelbeaks hop back after every peck — strike where they land.",
+	"rust_jaw": "Tip: Rust Jaw bites corrode your blade — your strikes land softer for a breath. Space them.",
 	"mireling": "Tip: Mirelings are quick — dash through them, don't fence them.",
 	"saltghast": "Tip: the Saltghast blinks when you close — swing where it lands, not where it was.",
 	"waver": "Tip: the Waver's amber bolt numbs your arm — sidestep it or your blade goes dull.",
@@ -1531,6 +1533,7 @@ const FIRST_SEEN := {
 	"siren": "The Void Siren hums — and suddenly you're walking toward her.",
 	"gargoyle": "A Pearl Gargoyle unglues itself from the wall — the temple still has guardians.",
 	"bilge_witch": "A Bilge Witch croons — her bolts carry the deep's own chill.",
+	"rust_jaw": "A Rust Jaw grins — its bite corrodes the finest steel.",
 	"keelbeak": "A Keelbeak wheels — it pecks, then hops clear of your blade.",
 	"mireling": "A Mireling skitters — its bite carries the marsh's cold.",
 	"saltghast": "A Saltghast shimmers in — strike where it settles, and pocket the soul it carries.",
@@ -2761,6 +2764,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("keelbeak_kill")
 		if int(Stats.arch_kills.get("keelbeak", 0)) >= 12:
 			_ach("birdkeeper")
+	if e.arch_id == "rust_jaw":
+		_quest_event("rustjaw_kill")
 	if e.arch_id == "mireling":
 		_quest_event("mireling_kill")
 		if int(Stats.arch_kills.get("mireling", 0)) >= 15:
@@ -8651,6 +8656,8 @@ func _refresh_buffs() -> void:
 		list.append(["✦ SILENCED", Color(1.0, 0.3, 0.45)])
 	if player.get("weak_t") != null and player.weak_t > 0.0:
 		list.append(["WEAKENED", Color(0.95, 0.65, 0.3)])
+	if player.get("rust_t") != null and player.rust_t > 0.0:
+		list.append(["RUSTED", Color(0.75, 0.55, 0.35)])
 	if player.hp <= player.max_hp * 0.2 and not player.dead:
 		list.append(["⚑ LAST STAND +25% ATK", Color(1.0, 0.35, 0.25)])
 	if vials > 1:

@@ -60,6 +60,7 @@ const DB := {
 	"saltghast": {"glb": "Skeleton_Mage.glb", "hp": 2.8, "spd": 2.4, "dmg": 1, "windup": 0.45, "reach": 0.8, "prefer": 2.0, "aggro": 6.5, "xp": 6, "tint": Color(0.7, 0.8, 0.95), "scale": 0.9, "ranged": true, "proj_speed": 3.0, "warper": true, "wisp_drop": true},
 	"bilge_witch": {"glb": "Skeleton_Mage.glb", "hp": 2.6, "spd": 1.3, "dmg": 1, "windup": 0.5, "reach": 0.8, "prefer": 2.6, "aggro": 6.0, "xp": 6, "tint": Color(0.5, 0.85, 1.0), "scale": 0.9, "ranged": true, "proj_speed": 2.8, "kb_resist": 0.2, "chiller": true},
 	"keelbeak": {"glb": "Skeleton_Rogue.glb", "hp": 1.6, "spd": 2.2, "dmg": 1, "windup": 0.18, "reach": 0.6, "aggro": 6.0, "xp": 5, "tint": Color(0.6, 0.75, 1.0), "scale": 0.65, "dash": true, "kb_resist": 0.0, "kiter": true},
+	"rust_jaw": {"glb": "Skeleton_Warrior.glb", "hp": 2.2, "spd": 1.5, "dmg": 1, "windup": 0.42, "reach": 0.75, "aggro": 6.0, "xp": 6, "tint": Color(0.7, 0.5, 0.35), "scale": 0.85, "kb_resist": 0.15, "ruster": true},
 	"mireling": {"glb": "Skeleton_Rogue.glb", "hp": 2.4, "spd": 1.85, "dmg": 1, "windup": 0.28, "reach": 0.62, "aggro": 5.0, "xp": 4, "tint": Color(0.5, 0.85, 0.55), "scale": 0.7, "dash": true, "kb_resist": 0.0, "mire": true},
 	# BOSS: Raja Tulang — tiap lantai kelipatan 5
 	"bone_king": {"glb": "Skeleton_Warrior.glb", "hp": 42.0, "spd": 0.8, "dmg": 2, "windup": 0.85, "reach": 0.95, "aggro": 9.9, "xp": 15, "tint": Color(1.15, 0.45, 0.4), "scale": 1.85, "kb_resist": 0.9, "boss": true},

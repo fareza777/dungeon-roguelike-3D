@@ -99,6 +99,7 @@ var is_hexer := false
 var is_waver := false
 var kiter := false
 var is_chiller := false
+var is_ruster := false
 var sheared := false
 var is_spiky := false
 var warp_t := 4.0
@@ -161,6 +162,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	is_waver = bool(a.get("waver", false))
 	kiter = bool(a.get("kiter", false))
 	is_chiller = bool(a.get("chiller", false))
+	is_ruster = bool(a.get("ruster", false))
 	is_spiky = bool(a.get("spiky", false))
 	is_lurker = bool(a.get("lurks", false))
 	orator = bool(a.get("orator", false))
@@ -713,6 +715,11 @@ func _physics_process(delta: float) -> void:
 									var mm7 := get_tree().current_scene
 									if mm7 != null and mm7.has_method("_damage_number"):
 										mm7._damage_number(p.global_position, "MIRED", Color(0.5, 0.85, 0.55), true)
+								if is_ruster and q == p:
+									p.set("rust_t", 4.0)
+									var mrj := get_tree().current_scene
+									if mrj != null and mrj.has_method("_damage_number"):
+										mrj._damage_number(p.global_position + Vector3(0, 0.8 * room_tile, 0), "RUSTED!", Color(0.75, 0.55, 0.35), true)
 								if keelh and q == p:
 									var mkh := get_tree().current_scene
 									if Stats.souls > 0:

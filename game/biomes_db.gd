@@ -48,7 +48,7 @@ const LIST := [
 		"fog": Color(0.03, 0.1, 0.1), "fog_d": 0.032, "ambient": Color(0.18, 0.34, 0.32),
 		"sun": Color(0.6, 0.95, 0.9), "torch": Color(0.95, 0.8, 0.4), "torch_e": 1.3, "torch_r": 5.2,
 		"bg": Color(0.02, 0.05, 0.05),
-		"enemies": ["brute", "rogue", "archer", "bomber", "necromancer", "crawler", "gaoler", "weeper", "sentinel", "shade", "hexer", "spiker", "lurker", "golem", "maiden", "revenant", "shieldbearer", "herald", "batterer", "duelist", "moth", "orator", "crowned", "crowned", "tither", "tither", "digger", "drowned", "drowned", "keelhound", "keelhound", "maw", "maw", "mireling", "mireling", "keelbeak", "keelbeak", "bilge_witch", "bilge_witch"],
+		"enemies": ["brute", "rogue", "archer", "bomber", "necromancer", "crawler", "gaoler", "weeper", "sentinel", "shade", "hexer", "spiker", "lurker", "golem", "maiden", "revenant", "shieldbearer", "herald", "batterer", "duelist", "moth", "orator", "crowned", "crowned", "tither", "tither", "digger", "drowned", "drowned", "keelhound", "keelhound", "maw", "maw", "mireling", "mireling", "keelbeak", "keelbeak", "bilge_witch", "bilge_witch", "rust_jaw", "rust_jaw"],
 	},
 	{
 		"name": "The Abyss",

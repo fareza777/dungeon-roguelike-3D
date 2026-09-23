@@ -20,6 +20,7 @@ var ambushed_ids := {}
 var root_t := 0.0 # Gaoler: terjerat, tak bisa bergerak (dash masih bisa kabur)
 var silence_t := 0.0
 var venom_t := 0.0
+var rust_t := 0.0
 var hp := 5.0
 var max_hp := 5.0
 var attack_cooldown := 0.45
@@ -128,6 +129,8 @@ func _physics_process(delta: float) -> void:
 	silence_t = max(0.0, silence_t - tick)
 	if venom_t > 0.0:
 		venom_t = max(0.0, venom_t - tick)
+	if rust_t > 0.0:
+		rust_t = max(0.0, rust_t - tick)
 		hp -= delta * (0.3 if Stats.relics.has("float_suit") else 0.6)
 		hp_changed.emit(hp)
 		if hp <= 0.0:
@@ -211,6 +214,8 @@ func _strike() -> void:
 			var dmg: float = Stats.get_stat("atk") * (1.0 + Stats.buff_atk_pct)
 			if weak_t > 0.0:
 				dmg *= 0.75
+			if rust_t > 0.0:
+				dmg *= 0.8
 			var crit := randf() < Stats.get_stat("crit")
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
