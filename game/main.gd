@@ -110,7 +110,9 @@ const LORE_LINES := [
 	"A Guthook isn't a weapon so much as an argument — every fifth swing settles it.",
 	"The Feral don't love their pack, Kael — they love what the pack leaves behind when it falls.",
 	"The Siren's Conch never repeats a song. Mahzan says the sea only charges once per verse.",
-	"The fathomless owe the most — the deeper the lesson, the steeper the bill."
+	"The fathomless owe the most — the deeper the lesson, the steeper the bill.",
+	"The quartermaster keeps two ledgers — one of rope and powder, one of debts no coin repays.",
+	"The wisps are not souls, Kael — they are receipts. Every one marks a debt the sea paid in full."
 ]
 
 var dungeon_tex: Texture2D
