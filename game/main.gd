@@ -21,7 +21,26 @@ const QDB = preload("res://quests_db.gd")
 const DLG = preload("res://dialogue.gd")
 const TRAP = preload("res://trap.gd")
 const SHRINE = preload("res://shrine.gd")
+const LSTONE = preload("res://lore_stone.gd")
 const DUNGEON := "res://assets/dungeon/"
+
+# baris lore dunia — bisikan Oracle saat menyentuh batu pengetahuan
+const LORE_LINES := [
+	"The Bone King was King Aldric once — the crown still sits on his skull.",
+	"He buried this kingdom to keep it. Now you dig through his grave.",
+	"The Oracle was his queen. She stayed to watch him fall.",
+	"Mahzan sells blessings to the dead — you are his only living customer.",
+	"Every throne needs a body. He keeps trying to make yours fit.",
+	"The torches still burn for a court of bones. Someone keeps them lit.",
+	"Floor by floor, the walls remember less kindness.",
+	"The gates open only for victors. The King designed it that way.",
+	"The mimics learned his greed: hoard everything, devour the rest.",
+	"The deeper you go, the older his magic — and the colder.",
+	"Kael, he knew your name before you ever drew your blade.",
+	"The last hero left his sword in the Bone King's chest. It is still there.",
+	"Skeletons don't dream — yet they all march in the same direction.",
+	"Beneath the thirtieth floor, even the stone forgets the sun."
+]
 
 var dungeon_tex: Texture2D
 var skeleton_tex: Texture2D
@@ -306,6 +325,7 @@ func _new_run(new_seed: int) -> void:
 	else:
 		_spawn_traps(last_room)
 		_spawn_shrine(last_room)
+		_spawn_lore_stone(last_room)
 	_start_quests(boss_floor, int(info.get("room_count", 1)))
 	_build_minimap()
 	Sfx.play_music("boss" if boss_floor else _biome_track())
@@ -589,6 +609,34 @@ func _spawn_shrine(last_room: int) -> void:
 	s.setup(info.tile)
 	shrine_ref = s
 	s.invoked.connect(_on_shrine_invoked)
+
+
+var lore_ref = null
+
+
+func _spawn_lore_stone(last_room: int) -> void:
+	# batu pengetahuan: 35% di ruangan tengah mana pun
+	if rng.randf() >= 0.35:
+		return
+	var r: Dictionary = info.ranges[rng.randi_range(0, last_room)]
+	var pos := Vector3((r["x0"] + r["x1"]) * 0.5 + rng.randf_range(-0.5, 0.5) * info.tile, 0.0, (r["z0"] + r["z1"]) * 0.5)
+	for pr in info.props:
+		if pr.global_position.distance_to(pos) < 1.2 * info.tile:
+			return
+	var s = LSTONE.new()
+	room.add_child(s)
+	s.global_position = pos
+	s.setup(info.tile)
+	lore_ref = s
+	s.invoked.connect(_on_lore_stone)
+
+
+func _on_lore_stone(s) -> void:
+	Sfx.play("page")
+	s.consume()
+	lore_ref = null
+	Stats.add_xp(1)
+	_say([{"who": "oracle", "text": LORE_LINES[rng.randi_range(0, LORE_LINES.size() - 1)]}])
 
 
 func spawn_weapon_drop(pos: Vector3, wid: String) -> Node3D:
