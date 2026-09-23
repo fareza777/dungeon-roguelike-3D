@@ -78,6 +78,7 @@ var brood := false
 var chime := false
 var sprite := false
 var leech := false
+var charged := false
 var chime_t := 7.0
 var husk_shell := false
 var cantor_t := 6.5
@@ -225,7 +226,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound"][randi() % 46]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged"][randi() % 47]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -392,6 +393,11 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				# terikat pada arusnya sendiri — tak ada yang bisa memperlambatnya
 				hp *= 1.2
 				speed *= 1.05
+			"charged":
+				# makin terluka makin geram — windup makin pendek tiap darah tertumpah
+				hp *= 1.15
+				speed *= 1.0
+				xp_val = int(xp_val * 1.4)
 				xp_val = int(xp_val * 1.4)
 			"tideworn":
 				# usang air asin: lambat namun berlapis — matinya mentitahkan 1 jiwa
@@ -741,7 +747,7 @@ func _physics_process(delta: float) -> void:
 				engage = prefer_range
 			if dist < engage:
 				state = "windup"
-				state_t = windup_t
+				state_t = windup_t * (1.0 - 0.4 * (1.0 - hp / hp_max) if affix == "charged" else 1.0)
 				velocity = Vector3.ZERO
 				scale = _base_scale * 1.06
 				if mat != null:
