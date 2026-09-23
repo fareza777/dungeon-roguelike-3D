@@ -113,7 +113,7 @@ func smash(from_pos: Vector3) -> void:
 		if bool(m.get("hungry_urns")):
 			if not dry:
 				Stats.earn_souls(1)
-			var pp := m.get("player")
+			var pp: Node3D = m.get("player")
 			if pp != null and is_instance_valid(pp) and pp.has_method("take_hit"):
 				pp.take_hit(global_position, 1)
 				if m.has_method("toast"):
