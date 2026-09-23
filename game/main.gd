@@ -5201,6 +5201,10 @@ func _on_dlg_choice(idx: int) -> void:
 		42:
 			wide_satchel = true
 			toast("Wide Satchel: the satchel stretches — carry +1 soul vial this run")
+		43:
+			Stats.buff_armor += 1
+			Stats.buff_hp_pct += 0.05
+			toast("Salt Hide: the brine cures your skin — +1 Armor, +5% Max HP this run")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -7363,6 +7367,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Crow's Tithe — the small gods take less: +5% souls this run"},
 			{"text": "Trade Wind — the floor hurries you on: +8% speed this run"},
 			{"text": "Wide Satchel — the satchel stretches: carry +1 soul vial this run"},
+			{"text": "Salt Hide — the brine cures your skin: +1 Armor, +5% Max HP this run"},
 		]
 	)
 
