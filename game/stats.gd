@@ -132,6 +132,7 @@ const ACH_DEF := {
 	"devout": "Devout (fifteen prayers over the fallen)",
 	"pacifist": "Blade Only (a floor cleared without skills)",
 	"onedrop": "One Drop Left (took the throne on a single drop of blood)",
+	"tidebearer": ["Tidebearer", "Survived the drowned vaults of the Sunken Reliquary."],
 	"untouch": "Untouchable (three flawless floors in one run)",
 	"ashfall": "Ashes Rained (cleared a floor under the ashfall)",
 	"chorus": "The Chorus Falls Silent (cleared a floor of singing dead)",
