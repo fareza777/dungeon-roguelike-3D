@@ -119,6 +119,7 @@ var soul_drift := false
 var grave_hunger := false
 var giant_hall := false
 var shrouded := false
+var ossuary := false
 var bounty_ref: Enemy = null
 var ferry_skip := false
 var _ferry_used := false
@@ -490,6 +491,10 @@ func _apply_biome() -> void:
 		env.ambient_light_color = Color(0.3, 0.33, 0.42)
 		sun.light_energy = 0.6
 		sun.light_color = Color(0.7, 0.6, 1.05)
+	elif ossuary:
+		env.fog_light_color = Color(0.13, 0.12, 0.09)
+		env.ambient_light_color = Color(0.5, 0.46, 0.35)
+		sun.light_color = Color(0.95, 0.85, 0.6)
 		sun.light_energy = 1.05
 
 
@@ -569,6 +574,7 @@ func _new_run(new_seed: int) -> void:
 	grave_hunger = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and Stats.floor_num >= 15 and not boss_floor and rng.randf() < 0.05
 	giant_hall = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and Stats.floor_num >= 16 and not boss_floor and rng.randf() < 0.04
 	shrouded = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and Stats.floor_num >= 8 and not boss_floor and rng.randf() < 0.06
+	ossuary = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and Stats.floor_num >= 17 and not boss_floor and rng.randf() < 0.05
 	storm_t = 4.0
 	nemesis_spawned = false
 	_apply_biome()
@@ -707,6 +713,10 @@ func _new_run(new_seed: int) -> void:
 		_lvl_banner("◈ SHROUDED HALLS — THE MAP DIES IN YOUR HANDS")
 		toast("No map in the mist • +2 souls on clear")
 		Sfx.play("whisper")
+	elif ossuary:
+		_lvl_banner("☠ OSSUARY NIGHT — THE BONES RISE")
+		toast("Crawlers everywhere • double XP • +3 souls on clear")
+		Sfx.play("roar")
 	elif Stats.floor_num > 1:
 		_lvl_banner("FLOOR %d — %s" % [Stats.floor_num, String(biome["name"]).to_upper()])
 
@@ -1145,6 +1155,12 @@ func _spawn_shrine(last_room: int) -> void:
 		skind = 2
 	s.setup(info.tile, skind)
 	shrine_ref = s
+	if ossuary:
+		var rooms2: Array = info.get("rooms", [])
+		for oc in range(mini(4, rooms2.size())):
+			var rr3: Dictionary = rooms2[rng.randi_range(0, rooms2.size() - 1)]
+			var opos := Vector3(((rr3["x0"] + rr3["x1"]) * 0.5 + randf_range(-0.7, 0.7)) * info.tile, 0, ((rr3["z0"] + rr3["z1"]) * 0.5 + randf_range(-0.7, 0.7)) * info.tile)
+			_spawn_enemy({"pos": opos, "room": int(rr3.get("id", 0))}, "crawler", false)
 	match skind:
 		1:
 			s.invoked.connect(_on_mahzan_invoked)
@@ -1760,6 +1776,11 @@ func _on_enemy_died(e) -> void:
 				_souls_l()
 				Stats.save_game()
 				toast("◈ SHROUD TITHE — +2 souls")
+			elif ossuary:
+				Stats.souls += 3
+				_souls_l()
+				Stats.save_game()
+				toast("☠ OSSUARY TITHE — +3 souls")
 			# bonus sapuan kilat: lantai bersih di bawah 90 detik
 			if floor_t < 90.0 and Stats.floor_num > 1:
 				Stats.souls += 2
@@ -1794,6 +1815,8 @@ func _on_enemy_died(e) -> void:
 	var xp_bonus := 1.0 + minf(float(combo), 10.0) * 0.05
 	if soul_rush:
 		xp_bonus *= 1.6
+	if ossuary:
+		xp_bonus *= 2.0
 	_spawn_gems(e.global_position, int(e.xp_val * xp_bonus))
 
 
@@ -5195,6 +5218,8 @@ func _refresh_buffs() -> void:
 		list.append(["▲ GIANT", Color(1.0, 0.7, 0.4)])
 	elif shrouded:
 		list.append(["◈ SHROUD", Color(0.55, 0.6, 0.7)])
+	elif ossuary:
+		list.append(["☠ OSSUARY", Color(0.95, 0.85, 0.5)])
 	if Stats.soul_sealed:
 		list.append(["PRICE", Color(0.9, 0.2, 0.25)])
 	if Stats.curse_dmg > 0.0:
