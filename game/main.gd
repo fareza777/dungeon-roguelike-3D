@@ -230,6 +230,8 @@ var quest_idx := 0
 var quest_counts := {}
 var combo := 0
 var combo_t := 0.0
+var rampage_n := 0
+var rampage_t := -9.0
 var mimic_pending := false
 var shrine_used := false
 var dlg: DialogueUI = null
@@ -1064,6 +1066,22 @@ func _on_enemy_died(e) -> void:
 	if e.arch_id == "gaoler":
 		_quest_event("gaoler_kill")
 	_combo_set(combo + 1)
+	# RAMPAGE: 3+ kill beruntun dalam 2.5 detik -> sorakan + banner
+	var now_s := Time.get_ticks_msec() / 1000.0
+	rampage_n = rampage_n + 1 if now_s - rampage_t <= 2.5 else 1
+	rampage_t = now_s
+	if rampage_n >= 3 and rampage_n % 3 == 0:
+		_lvl_banner("RAMPAGE ×%d!" % rampage_n)
+		Sfx.play("roar")
+	# COMBO RIPPLE: kombo ≥20 -> tiap kill melepas gelombang 1 dmg ke tetangga
+	if combo >= 20:
+		var rip := 0
+		for f in get_tree().get_nodes_in_group("enemies"):
+			if f != e and f.get("state") != "dead" and f.global_position.distance_to(e.global_position) < 1.4 * info.tile:
+				f.take_hit(e.global_position, 1.0)
+				rip += 1
+		if rip > 0:
+			_shock_ring(e.global_position)
 	if e.is_boss:
 		_on_boss_died(e)
 	if e.elite and (bool(e.get("champion")) or rng.randf() < 0.6):
