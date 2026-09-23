@@ -79,6 +79,7 @@ var chime := false
 var sprite := false
 var leech := false
 var charged := false
+var keel_marked := false
 var chaplain := false
 var chap_t := 0.0
 var warden_bell := false

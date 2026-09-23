@@ -4183,7 +4183,7 @@ func _on_enemy_died(e) -> void:
 			Stats.earn_souls(2)
 			_souls_l()
 			_damage_number(e.global_position + Vector3(0, 1.1 * info.tile, 0), "LEDGER +2", Color(0.5, 0.95, 0.85), false)
-		if bool(e.get("keel_marked")):
+		if e.get("keel_marked") == true:
 			Stats.earn_souls(1)
 			_souls_l()
 		if crowns_vigil:
