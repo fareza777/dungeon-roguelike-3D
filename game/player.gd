@@ -325,6 +325,23 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						f.take_hit(global_position, dmg * 0.4)
 					if mw.has_method("_damage_number"):
 						mw._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "SAWED", Color(1.0, 0.7, 0.3), false)
+		"reef_chorus": # CHORUS — tiap tebasan ke-7 mempercepat skill terlama
+			var rck := get_tree().current_scene
+			if rck != null:
+				rck.set("net_n", int(rck.get("net_n")) + 1)
+				if int(rck.get("net_n")) >= 7:
+					rck.set("net_n", 0)
+					var longest := ""
+					var longv := 0.0
+					for sid2 in rck.get("skill_cd"):
+						var cv := float(rck.get("skill_cd")[sid2])
+						if cv > longv:
+							longv = cv
+							longest = String(sid2)
+					if longest != "":
+						rck.get("skill_cd")[longest] = maxf(0.0, longv - 3.0)
+						if rck.has_method("_damage_number"):
+							rck._damage_number(global_position + Vector3(0, 0.8 * room_tile, 0), "CHORUS", Color(0.5, 0.95, 0.8), false)
 		"harpooner": # SKEWER — tiap tebasan ke-5: +50% dmg dan sundur baju musuh
 			var hpk := get_tree().current_scene
 			if hpk != null:
