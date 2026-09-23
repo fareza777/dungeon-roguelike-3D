@@ -42,7 +42,7 @@ const DB := {
 		"name": "Oracle's Mend", "short": "MEND", "cd": 40.0, "unlock": 19,
 		"desc": "Her thread closes wounds: restore 2 HP and shake off chill and chains.",
 	},
-	"seismic": {"name": "Seismic Slam", "tag": "SEISMIC", "cd": 30.0, "unlock": 23, "desc": "Slam the dungeon floor — nearby foes take 1.8x ATK and are stunned."},
+	"seismic": {"name": "Seismic Slam", "short": "SEIS", "cd": 30.0, "unlock": 23, "desc": "Slam the dungeon floor — nearby foes take 1.8x ATK and are stunned."},
 	"rites": {
 		"name": "Reaper's Toll", "short": "TOLL", "cd": 34.0, "unlock": 21,
 		"desc": "Ring the toll: awake foes below 25% HP die outright; the rest take 1x ATK.",
