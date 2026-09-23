@@ -895,6 +895,8 @@ func _new_run(new_seed: int) -> void:
 		_spawn_obelisks(last_room)
 		_spawn_lanterns(last_room)
 		_spawn_motes()
+		if String(biome.get("name", "")) == "Sunken Reliquary":
+			_spawn_tidepools()
 		if Stats.relics.has("tulang_kesatria") and not solitary:
 			_spawn_squire()
 	# Sir Vane yang terbebaskan bertempur di setiap lantai hingga run berakhir
@@ -1921,6 +1923,28 @@ func _blood_stain(pos: Vector3) -> void:
 	m.rotation.y = randf() * TAU
 	room.add_child(m)
 	m.global_position = pos + Vector3(randf_range(-0.08, 0.08) * info.tile, 0.02 * info.tile, randf_range(-0.08, 0.08) * info.tile)
+
+
+func _spawn_tidepools() -> void:
+	# kolam pasang di lantai relikui — cakram air dangkal berpendar
+	for tp_i in range(mini(4 + int(rng.randf() * 3), info.ranges.size())):
+		var tr2: Dictionary = info.ranges[tp_i]
+		var tpos := Vector3((tr2["x0"] + tr2["x1"]) * 0.5 * info.tile + randf_range(-0.6, 0.6) * info.tile, 0.015 * info.tile, (tr2["z0"] + tr2["z1"]) * 0.5 * info.tile + randf_range(-0.6, 0.6) * info.tile)
+		var tm := MeshInstance3D.new()
+		var tpm := PlaneMesh.new()
+		var tsz: float = randf_range(0.5, 1.1) * info.tile
+		tpm.size = Vector2(tsz, tsz * randf_range(0.6, 0.9))
+		var tmat := StandardMaterial3D.new()
+		tmat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		tmat.albedo_color = Color(0.25, 0.75, 0.7, 0.22)
+		tmat.emission_enabled = true
+		tmat.emission = Color(0.15, 0.5, 0.45)
+		tmat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		tpm.material = tmat
+		tm.mesh = tpm
+		tm.rotation.y = randf() * TAU
+		room.add_child(tm)
+		tm.global_position = tpos
 
 
 func _souls_l() -> void:
