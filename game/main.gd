@@ -4526,6 +4526,8 @@ func _quest_event(kind: String, num: int = 1) -> void:
 		Stats.wisps_caught += num
 		if Stats.wisps_caught >= 8:
 			_ach("wisp8")
+		if Stats.wisps_caught >= 20:
+			_ach("wisp20")
 	if kind == "pinch":
 		pinch_n += num
 		if pinch_n >= 3:
