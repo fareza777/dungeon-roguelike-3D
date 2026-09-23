@@ -132,6 +132,7 @@ var giant_hall := false
 var shrouded := false
 var ossuary := false
 var mirror_hall := false
+var legion_omen := false
 var shrine_kind := 0
 var bounty_ref: Enemy = null
 var bounty_epic := false
@@ -557,6 +558,7 @@ func _reset_run_state() -> void:
 	trap_wrapped = 0
 	perfect_dodges = 0
 	leech_charge = 0
+	legion_omen = false
 	nemesis_warned = false
 
 
@@ -643,7 +645,7 @@ func _new_run(new_seed: int) -> void:
 		var is_elite := rng.randf() < elite_chance
 		var arch_id: String = table[rng.randi_range(0, table.size() - 1)]
 		_spawn_enemy(sp, arch_id, is_elite, not is_elite and rng.randf() < 0.05)
-		if mirror_hall and not is_elite:
+		if (mirror_hall or legion_omen) and not is_elite:
 			var mpos: Vector3 = sp["pos"] + Vector3(randf_range(-0.5, 0.5), 0, randf_range(-0.5, 0.5)) * info.tile * 0.5
 			_spawn_enemy({"pos": mpos, "room": int(sp.get("room", 0))}, arch_id, false)
 	if boss_floor:
@@ -3288,6 +3290,7 @@ func _offer_omens() -> void:
 			{"text": "PAWNBREAKER — all soul prices drop 1, -15% Max HP"},
 			{"text": "HEIRLOOM — carry a random trinket into the run, -1 Armor"},
 			{"text": "GOLDEN FATE — every chest is gilded, -2 Max HP"},
+			{"text": "LEGION — the halls swarm with an extra foe in every room; +15% XP"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -3316,7 +3319,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 14 if Stats.nemesis != "" else 13
+	var osize := 15 if Stats.nemesis != "" else 14
 	if idx >= osize:
 		toast("You walk alone — the Oracle nods")
 		return
@@ -3384,6 +3387,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_maxhp_pct -= 0.1
 			oname = "GOLDEN FATE"
 		13:
+			legion_omen = true
+			Stats.buff_xp_pct += 0.15
+			oname = "LEGION"
+		14:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -3398,6 +3405,7 @@ func _omen_deal(idx: int) -> void:
 	toast("Omen sworn: " + omen_name)
 	var reacts := {
 		"WARPATH": "All edge, no hilt. Swing like you mean to be feared.",
+		"LEGION": "More dead to cut. The deeps oblige your hunger.",
 		"FEATHER": "A lighter coffin, then. Sensible.",
 		"RICH SOIL": "The dungeon will feed you well — keep chewing.",
 		"LEECHING": "Your blood will not stay yours, but at least it circles back.",
