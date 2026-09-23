@@ -1226,6 +1226,7 @@ func _on_enemy_died(e) -> void:
 	if rampage_n >= 3 and rampage_n % 3 == 0:
 		_lvl_banner("RAMPAGE ×%d!" % rampage_n)
 		Sfx.play("roar")
+		_quest_event("rampage")
 	# COMBO RIPPLE: kombo ≥20 -> tiap kill melepas gelombang 1 dmg ke tetangga
 	if combo >= 20:
 		var rip := 0
