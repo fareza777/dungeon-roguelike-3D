@@ -63,7 +63,8 @@ var nemesis := false
 var is_lurker := false # arketipe penyergap: sembunyi sampai pemain mendekat
 var is_slammer := false
 var wailer := false
-var revenant := false # golem: pukulannya mengguncang tanah di radius lebar
+var revenant := false
+var shielded := false # golem: pukulannya mengguncang tanah di radius lebar
 var lurk_revealed := false
 var lurk_warned := false
 var model_ref: Node3D = null
@@ -134,6 +135,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	is_slammer = bool(a.get("slams", false))
 	wailer = bool(a.get("wailer", false))
 	revenant = bool(a.get("revenant", false))
+	shielded = bool(a.get("shielded", false))
 	if is_summoner:
 		summon_t = 9.0
 	var sc: float = a["scale"]
@@ -697,6 +699,15 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 		dmg_taken *= 1.25
 	if sunder_t > 0.0:
 		dmg_taken *= 1.3
+	if shielded and dmg_taken > 0.0:
+		var fwd2: Vector3 = -global_transform.basis.z
+		var toh: Vector3 = from_pos - global_position
+		toh.y = 0
+		if toh.length() > 0.01 and fwd2.normalized().dot(toh.normalized()) > 0.55:
+			dmg_taken *= 0.4
+			var msh := get_tree().current_scene
+			if msh != null and msh.has_method("_damage_number"):
+				msh._damage_number(global_position + Vector3(0, 1.0 * room_tile, 0), "BLOCKED", Color(0.55, 0.7, 1.0), false)
 	hp -= dmg_taken
 	Sfx.play("hit")
 	if (is_spiky or affix == "thorned") and state != "dead":
