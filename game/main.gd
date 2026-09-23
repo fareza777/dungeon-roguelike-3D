@@ -1578,6 +1578,19 @@ func _combo_set(n: int) -> void:
 	combo = n
 	combo_max = maxi(combo_max, n)
 	combo_t = 4.0
+	# tier buff nyata: streak tinggi = tambah kuat (hilang saat streak putus)
+	if combo >= 25:
+		Stats.combo_atk = 0.3
+		Stats.combo_aspd = 0.25
+	elif combo >= 15:
+		Stats.combo_atk = 0.2
+		Stats.combo_aspd = 0.15
+	elif combo >= 8:
+		Stats.combo_atk = 0.1
+		Stats.combo_aspd = 0.0
+	else:
+		Stats.combo_atk = 0.0
+		Stats.combo_aspd = 0.0
 	if not ui.has("combo_l"):
 		return
 	if combo >= 3:
@@ -1590,11 +1603,11 @@ func _combo_set(n: int) -> void:
 		if combo >= 5:
 			Sfx.play("combo")
 		if combo == 8:
-			_lvl_banner("RAMPAGE!")
+			_lvl_banner("RAMPAGE! +10% ATK")
 		elif combo == 15:
-			_lvl_banner("MASSACRE!")
+			_lvl_banner("MASSACRE! +20% ATK +15% HASTE")
 		elif combo == 25:
-			_lvl_banner("UNSTOPPABLE!")
+			_lvl_banner("UNSTOPPABLE! +30% ATK +25% HASTE")
 	else:
 		ui.combo_l.visible = false
 		if ui.has("combo_bar"):

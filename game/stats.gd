@@ -33,6 +33,8 @@ var thorns := 0.0 # duri pantulan: balikkan dmg
 var dodge := 0.0 # fase hantu: peluang bebas damage
 var magnet := 0.0 # magnet jiwa: perbesar radius serap orb
 var berserk := 0.0 # amukan: bonus ATK saat HP kritis
+var combo_atk := 0.0 # bonus ATK bertingkat dari streak kombo (8/15/25)
+var combo_aspd := 0.0 # bonus attack-speed dari streak kombo
 
 # meta (tersimpan)
 var best_floor := 0
@@ -70,12 +72,14 @@ func get_stat(n: String) -> float:
 	if wmods.has(n + "_pct"):
 		mult += wmods[n + "_pct"]
 	if n == "atk":
-		mult += buff_atk_pct
+		mult += buff_atk_pct + combo_atk
 		if warcry_t > 0.0:
 			mult += 0.5
 		# amukan: +ATK saat HP di bawah 35%
 		if berserk > 0.0 and current_hp <= get_stat("max_hp") * 0.35:
 			mult += berserk
+	if n == "atk_speed":
+		mult += combo_aspd
 	if n == "armor":
 		flat += buff_armor
 	return flat * mult
@@ -151,6 +155,8 @@ func reset_run() -> void:
 	dodge = 0.0
 	magnet = 0.0
 	berserk = 0.0
+	combo_atk = 0.0
+	combo_aspd = 0.0
 	current_hp = get_stat("max_hp")
 	draft_open = false
 	saved_run = {}
