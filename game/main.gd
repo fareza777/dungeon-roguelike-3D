@@ -3743,7 +3743,7 @@ func _vault_deal(idx: int) -> void:
 			toast("THE VAULT WAKES — its guards rise!")
 			var table4: Array = biome["enemies"]
 			for va in range(3):
-				var vo := Vector3(cos(va * TAU / 3.0), 0, sin(va * TAU / 3.0)) * info.tile * 0.9
+				var vo: Vector3 = Vector3(cos(va * TAU / 3.0), 0, sin(va * TAU / 3.0)) * info.tile * 0.9
 				var ve := _spawn_enemy({"pos": shrine_ref.global_position + vo, "room": current_room}, String(table4[rng.randi_range(0, table4.size() - 1)]), va == 0)
 				if ve != null:
 					ve.activated = true

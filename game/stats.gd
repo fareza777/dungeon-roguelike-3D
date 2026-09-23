@@ -455,7 +455,7 @@ func load_game() -> void:
 			boss_kills = int(d.get("boss_kills", 0))
 			traps_defused = int(d.get("traps_defused", 0))
 			wisps_caught = int(d.get("wisps_caught", 0))
-		prays = int(d.get("prays", 0))
+			prays = int(d.get("prays", 0))
 			forges_used = int(d.get("forges_used", 0))
 			ng_plus = int(d.get("ng_plus", 0))
 			tutorial_done = d.get("tutorial_done", false)
