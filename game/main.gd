@@ -711,6 +711,7 @@ func _reset_run_state() -> void:
 	trap_wrapped = 0
 	veil_used = false
 	crown_oath = false
+	pinch_n = 0
 	perfect_dodges = 0
 	leech_charge = 0
 	legion_omen = false
@@ -775,7 +776,6 @@ func _new_run(new_seed: int) -> void:
 	pool_positions.clear()
 	pool_healed = 0.0
 	keelh_floor = 0
-	pinch_n = 0
 	pool_touched = false
 	pray_t = 0.0
 	prayed = false
@@ -2634,6 +2634,7 @@ func _on_enemy_died(e) -> void:
 			_damage_number(e.global_position + Vector3(0, 1.1 * info.tile, 0), "LEDGER +2", Color(0.5, 0.95, 0.85), false)
 		if crown_oath:
 			crown_oath = false
+	pinch_n = 0
 			Stats.earn_souls(8)
 			_souls_l()
 			_damage_number(e.global_position + Vector3(0, 1.3 * info.tile, 0), "CROWN PAID — +8 souls", Color(1.0, 0.8, 0.3), true)
