@@ -90,6 +90,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 	if Stats.floor_num >= 14 and Stats.floor_num % 8 == 6:
 		steps.append({"title": "Shattered Glass", "desc": "Slay 2 MIRRORHIDE elites (0/2)", "kind": "affix_mirrorhide", "need": 2})
 		steps.append({"title": "Sentence Passed", "desc": "Slay 5 foes with King's Gavel (0/5)", "kind": "kill_king_gavel", "need": 5})
+		steps.append({"title": "Crow's Wake", "desc": "Clear 2 CROW'S TIDE floors (0/2)", "kind": "crowwalk", "need": 2})
 		steps.append({"title": "Sprite Swatter", "desc": "Swat 4 Bilge Sprites (0/4)", "kind": "sprite_kill", "need": 4})
 		steps.append({"title": "Iron Droppers", "desc": "Slay 2 KEELMARK elites (0/2)", "kind": "affix_keelmark", "need": 2})
 		steps.append({"title": "Salt Walker", "desc": "Clear 2 SALTED DECK floors (0/2)", "kind": "saltwalk", "need": 2})
