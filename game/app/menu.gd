@@ -228,6 +228,18 @@ func _build() -> void:
 	bq.pressed.connect(func() -> void: get_tree().quit())
 	vb.add_child(bq)
 
+	# masuk berjenjang: panel + tombol memudar satu-satu
+	var kids: Array[Control] = []
+	for c in vb.get_children():
+		if c is Button or c is HBoxContainer:
+			kids.append(c)
+	for i2 in range(kids.size()):
+		var k: Control = kids[i2]
+		k.modulate.a = 0.0
+		var stw := create_tween()
+		stw.tween_interval(0.12 + 0.06 * i2)
+		stw.tween_property(k, "modulate:a", 1.0, 0.3)
+
 	var ver := Label.new()
 	ver.text = "v" + Stats.VERSION
 	ver.anchor_left = 0.5
@@ -307,6 +319,8 @@ func _build_settings() -> void:
 	t.text = "SETTINGS"
 	t.add_theme_font_size_override("font_size", 30)
 	t.modulate = GOLD
+	t.add_theme_color_override("font_outline_color", Color(0.2, 0.1, 0.0, 0.9))
+	t.add_theme_constant_override("outline_size", 6)
 	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vb.add_child(t)
 
@@ -394,6 +408,8 @@ func _build_about() -> void:
 	t.text = "ABOUT"
 	t.add_theme_font_size_override("font_size", 30)
 	t.modulate = GOLD
+	t.add_theme_color_override("font_outline_color", Color(0.2, 0.1, 0.0, 0.9))
+	t.add_theme_constant_override("outline_size", 6)
 	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vb.add_child(t)
 	var body := Label.new()
@@ -412,7 +428,7 @@ func _build_about() -> void:
 func _on_share() -> void:
 	var url := STORE_URL + Stats.STORE_ID
 	DisplayServer.clipboard_set("Play DungeonSlice — a bone-breaking roguelike! " + url)
-	_toast("Tautan game disalin — tempelkan ke temanmu!")
+	_toast("Game link copied — share it with a friend!")
 	Sfx.play("click")
 
 
