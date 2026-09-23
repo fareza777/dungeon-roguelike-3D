@@ -212,6 +212,7 @@ const ACH_DEF := {
 	"deepvault": "Deep Vault (held 50 souls at once)",
 	"fortyknells": "Forty Knells (40 skill casts in one run)",
 	"sixtypacts": "Sixty Pacts (60 omens sworn total)",
+	"smokedout": "Powder Burn (clear a GUN SMOKE floor)",
 	"halfcentury": "Half Century (clear 50 floors)",
 	"fulldeck": "Full Deck (every meta upgrade maxed)",
 	"ngdeep": "Void Warden (reached floor 20 in New Game+)",

@@ -3839,6 +3839,7 @@ func _on_enemy_died(e) -> void:
 				_quest_event("calmwalk")
 			if gun_smoke:
 				_quest_event("smokewalk")
+				_ach("smokedout")
 			if dark_water:
 				_quest_event("darkwalk")
 			if glass_sea:
