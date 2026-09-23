@@ -5031,6 +5031,8 @@ func _ferry_deal(idx: int) -> void:
 		toast("The Ferryman's lantern fades without you")
 		return
 	var fare6 := _soul_cost(6)
+	if Stats.relics.has("ferry_token"):
+		fare6 = 3
 	if Stats.relics.has("drowned_oar"):
 		fare6 = maxi(fare6 - 3, 1)
 	if Stats.souls < fare6:
