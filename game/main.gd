@@ -157,6 +157,8 @@ const TIPS := [
 	"An enraged King summons minions — keep your distance.",
 	"The Soul Risen relic revives you once.",
 	"Hold ATK to slash — release after the button glows for a HEAVY hit.",
+	"SIPHON-tagged elites drain your whole combo on hit — kill them first.",
+	"When the moon turns red, the dead hunger — and drop more XP.",
 ]
 
 

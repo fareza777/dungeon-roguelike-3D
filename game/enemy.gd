@@ -116,12 +116,15 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful"][randi() % 3]
+		affix = ["swift", "bulwark", "vengeful", "siphon"][randi() % 4]
 		match affix:
 			"swift":
 				speed *= 1.45
 			"bulwark":
 				hp *= 1.5
+				xp_val = int(xp_val * 1.25)
+			"siphon":
+				# pukulan elite ini menyedot kombo pemain sampai nol
 				xp_val = int(xp_val * 1.25)
 	scale = Vector3.ONE * sc
 	_base_scale = scale
@@ -376,6 +379,13 @@ func _physics_process(delta: float) -> void:
 							dto.y = 0
 							if dto.length() < attack_range * 1.3:
 								q.take_hit(global_position, dmg)
+								if affix == "siphon":
+									var mm := get_tree().current_scene
+									if mm != null and mm.get("combo") != null and int(mm.combo) > 0 and mm.has_method("_combo_set"):
+										mm._combo_set(0)
+										if mm.has_method("_damage_number"):
+											mm._damage_number(q.global_position, "COMBO SIPHONED", Color(0.5, 0.65, 1.0), true)
+										Sfx.play("deny")
 						state = "recover"
 						state_t = 0.7
 		"slamming":
