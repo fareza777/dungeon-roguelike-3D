@@ -4754,8 +4754,8 @@ func _cast_skill(id: String) -> void:
 			print("SKILL deadreckon marked=%d" % rkn)
 		"deadlight":
 			var dl_ := 0
-			for dlf in enemies:
-				if is_instance_valid(dlf) and dlf.state != "dead":
+			for dlf in get_tree().get_nodes_in_group("enemies"):
+				if dlf.get("state") != "dead" and bool(dlf.get("activated")):
 					dlf.stun(2.5)
 					dlf.take_hit(player.global_position, Stats.get_stat("atk") * 0.4)
 					dl_ += 1
