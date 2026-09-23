@@ -53,6 +53,7 @@ var room_idx := 0
 var activated := true
 var stun_t := 0.0
 var enraged := false
+var golden := false
 var slam_t := 4.0
 var summon_t := 11.0
 

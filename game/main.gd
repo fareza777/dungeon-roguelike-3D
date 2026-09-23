@@ -320,7 +320,8 @@ func _new_run(new_seed: int) -> void:
 		# di lantai boss, ruangan terakhir hanya untuk Raja Tulang
 		if boss_floor and int(sp.get("room", 0)) == last_room:
 			continue
-		_spawn_enemy(sp, table[rng.randi_range(0, table.size() - 1)], rng.randf() < elite_chance)
+		var is_elite := rng.randf() < elite_chance
+		_spawn_enemy(sp, table[rng.randi_range(0, table.size() - 1)], is_elite, not is_elite and rng.randf() < 0.05)
 	if boss_floor:
 		var lr: Dictionary = info.ranges[last_room]
 		_spawn_enemy({"pos": Vector3((lr["x0"] + lr["x1"]) * 0.5, 0.0, lr["z1"] + 1.6 * info.tile), "room": last_room}, "bone_king", false)
@@ -530,7 +531,7 @@ func _step_dust(pos: Vector3) -> void:
 	tw.tween_callback(m.queue_free)
 
 
-func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool) -> void:
+func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false) -> void:
 	var a: Dictionary = EDB.get_arch(arch_id)
 	var e = preload("res://enemy.gd").new()
 	var model: Node3D = load(CHARS + a["glb"]).instantiate()
@@ -538,7 +539,12 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool) -> void:
 	var tint: Color = a["tint"]
 	if elite:
 		tint = EDB.ELITE["tint"]
+	elif golden:
+		tint = Color(1.35, 1.12, 0.45)
 	e.setup(M.toon(skeleton_tex, tint, 0.35, true), info.tile, info, arch_id, elite, Stats.floor_num)
+	if golden:
+		e.golden = true
+		e.xp_val *= 3
 	e.position = sp["pos"]
 	e.room_idx = int(sp.get("room", 0))
 	e.activated = false
@@ -732,6 +738,8 @@ func _on_enemy_died(e) -> void:
 				_souls(player.global_position, 12, Color(1.0, 0.8, 0.35))
 				Sfx.play("victory")
 	# permata XP terakhir, supaya logika gerbang di atas tidak keganggu bila gem gagal
+	if e.golden:
+		_damage_number(e.global_position, "LUCKY ×3", Color(1.0, 0.85, 0.3), true)
 	# bonus XP dari kombo aktif: +5% per streak (maks +50%)
 	var xp_bonus := 1.0 + minf(float(combo), 10.0) * 0.05
 	_spawn_gems(e.global_position, int(e.xp_val * xp_bonus))
