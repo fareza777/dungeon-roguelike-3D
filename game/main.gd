@@ -1976,7 +1976,7 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 	if song_rust:
 		e.speed *= 0.9
 	if undertow:
-		e.windup *= 1.12
+		e.windup_t *= 1.12
 	if gale_tide:
 		e.speed *= 1.1
 	if mercy_tide:
