@@ -41,6 +41,7 @@ var combo_aspd := 0.0 # bonus attack-speed dari streak kombo
 var mahzan_debt := 0.0 # hutang Max HP ke Mahzan (Leech's Bargain)
 var soul_bonus := 0 # Crown Shard: jiwa ekstra per kill
 var relic_burn := 0.0 # Ember Brand: peluang bakar di semua senjata
+var cd_reduction := 0.0 # Echo Bone: skill recharge lebih cepat
 var curse_dmg := 0.0 # pakta obelisk: musuh lebih keras (stack)
 var curse_xp := 0.0 # pakta obelisk: jiwa lebih kaya (stack)
 
@@ -163,6 +164,8 @@ func add_relic(id: String) -> void:
 		soul_bonus += int(mods["soul_bonus"])
 	if mods.has("burn_proc"):
 		relic_burn += float(mods["burn_proc"])
+	if mods.has("cd_red"):
+		cd_reduction += float(mods["cd_red"])
 	if mods.has("xp_pct"):
 		curse_xp += float(mods["xp_pct"])
 	if id == "tangan_tukang":
@@ -189,6 +192,8 @@ func remove_relic(id: String) -> void:
 		soul_bonus = maxi(0, soul_bonus - int(mods["soul_bonus"]))
 	if mods.has("burn_proc"):
 		relic_burn = maxf(0.0, relic_burn - float(mods["burn_proc"]))
+	if mods.has("cd_red"):
+		cd_reduction = maxf(0.0, cd_reduction - float(mods["cd_red"]))
 	if mods.has("xp_pct"):
 		curse_xp = maxf(0.0, curse_xp - float(mods["xp_pct"]))
 	relics_changed.emit()
@@ -233,6 +238,7 @@ func reset_run() -> void:
 	curse_xp = 0.0
 	soul_bonus = 0
 	relic_burn = 0.0
+	cd_reduction = 0.0
 	current_hp = get_stat("max_hp")
 	draft_open = false
 	saved_run = {}
@@ -270,7 +276,7 @@ func note_floor() -> void:
 
 # snapshot run supaya tombol "Lanjutkan" di menu berarti
 func save_run() -> void:
-	saved_run = {"floor": floor_num, "level": level, "xp": xp, "relics": relics.duplicate(), "weapon_id": weapon_id, "owned": owned_weapons.duplicate(), "hp": current_hp, "kills": kills, "revive": revive_left, "thorns": thorns, "dodge": dodge, "magnet": magnet, "berserk": berserk, "mahzan_debt": mahzan_debt, "weapon_lv": weapon_lv.duplicate(), "curse_dmg": curse_dmg, "curse_xp": curse_xp}
+	saved_run = {"floor": floor_num, "level": level, "xp": xp, "relics": relics.duplicate(), "weapon_id": weapon_id, "owned": owned_weapons.duplicate(), "hp": current_hp, "kills": kills, "revive": revive_left, "thorns": thorns, "dodge": dodge, "magnet": magnet, "berserk": berserk, "mahzan_debt": mahzan_debt, "weapon_lv": weapon_lv.duplicate(), "curse_dmg": curse_dmg, "curse_xp": curse_xp, "cd_reduction": cd_reduction}
 	save_game()
 
 
@@ -302,6 +308,7 @@ func restore_run() -> bool:
 	weapon_lv = saved_run.get("weapon_lv", {})
 	curse_dmg = float(saved_run.get("curse_dmg", 0.0))
 	curse_xp = float(saved_run.get("curse_xp", 0.0))
+	cd_reduction = float(saved_run.get("cd_reduction", 0.0))
 	mahzan_debt = float(saved_run.get("mahzan_debt", 0.0))
 	buff_atk_pct = 0.0
 	current_hp = float(saved_run.get("hp", get_stat("max_hp")))

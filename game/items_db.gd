@@ -27,6 +27,8 @@ const DB := {
 	"cap_ember": {"name": "Ember Brand", "chip": "EB", "desc": "Attacks scorch: 12% burn", "rarity": 1, "mods": {"burn_proc": 0.12}},
 	"buku_hitam": {"name": "Black Grimoire", "chip": "BG", "desc": "+30% XP", "rarity": 1, "mods": {"xp_pct": 0.3}},
 	"tangan_tukang": {"name": "Smith's Hand", "chip": "SH", "desc": "Forge your weapon +1 instantly", "rarity": 1, "mods": {}},
+	"tulang_gema": {"name": "Echo Bone", "chip": "EO", "desc": "Skills recharge 18% faster", "rarity": 1, "mods": {"cd_red": 0.18}},
+	"persembahan_kubur": {"name": "Grave Tithe", "chip": "GT", "desc": "+1 Armor, -10% Speed", "rarity": 0, "mods": {"armor": 1.0, "speed_pct": -0.1}},
 	# ---- epic ----
 	"amarah_dewa": {"name": "Wrath of God", "chip": "WG", "desc": "+50% ATK", "rarity": 2, "mods": {"atk_pct": 0.5}},
 	"raja_kritis": {"name": "Crit King", "chip": "CK", "desc": "+25% Crit", "rarity": 2, "mods": {"crit": 0.25}},
@@ -39,6 +41,7 @@ const DB := {
 	"tulang_kesatria": {"name": "Bone Squire", "chip": "SQ", "desc": "A loyal squire fights beside you", "rarity": 2, "mods": {"squire": 1}},
 	"beban_raja": {"name": "King's Burden", "chip": "KU", "desc": "+40% ATK, -20% Max HP", "rarity": 2, "mods": {"atk_pct": 0.4, "max_hp_pct": -0.2}},
 	"mata_cyclops": {"name": "Cyclops Eye", "chip": "CE", "desc": "+40% Crit, -10% ATK", "rarity": 2, "mods": {"crit": 0.4, "atk_pct": -0.1}},
+	"piala_darah": {"name": "Sanguine Chalice", "chip": "SC", "desc": "+20% Lifesteal", "rarity": 2, "mods": {"lifesteal": 0.2}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }

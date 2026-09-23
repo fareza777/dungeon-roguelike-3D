@@ -1808,7 +1808,7 @@ func _cast_skill(id: String) -> void:
 				return
 			trauma = 0.6
 			print("SKILL sunder")
-	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0)))
+	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction)
 
 
 func _heavy_attack() -> void:
