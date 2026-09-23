@@ -360,6 +360,7 @@ const BESTIARY := {
 	"digger": ["The Gravedigger", "It digs where the dead should lie — and where you now stand."],
 	"mireling": ["The Mireling", "A marsh rat grown fat on drowned men's boots — its nip chills the blood."],
 	"saltghast": ["The Saltghast", "A ghost blown through with sea-salt — it blinks to your blind side and pours a soul out when felled."],
+	"waver": ["The Waver", "A bloated tide-priest — its bolt numbs your arm and your swing goes soft."],
 	"weeper": ["The Weeper", "A wailing priest who knits his flock's bones back together. Silence him first."],
 	"bone_king": ["The Kings", "One throne, many forms. Every five floors he waits."],
 }
@@ -375,7 +376,7 @@ const VANE_BIOME := {
 const KILLER_NAMES := {
 	"chaser": "a Skeleton Chaser", "rogue": "a Shadow Rogue", "mage": "a Bone Mage",
 	"brute": "a Bone Brute", "bomber": "a Boom Bones", "archer": "a Skeletal Archer",
-	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade", "hexer": "the Hex Priest", "spiker": "a Spiked Cadaver", "lurker": "the Dweller", "golem": "the Bone Golem", "maiden": "the Wailing Maiden", "revenant": "the Revenant", "shieldbearer": "the Shieldbearer", "herald": "the Herald", "batterer": "the Batterer", "duelist": "the Pale Duelist", "hound": "a Bone Hound", "moth": "a Soul Moth", "orator": "the Grave Orator", "crowned": "the Crowned", "tither": "the Tithing", "digger": "the Gravedigger", "drowned": "the Drowned One", "keelhound": "a Keelhound", "maw": "a Barnacle Maw", "siren": "the Void Siren", "gargoyle": "a Pearl Gargoyle", "mireling": "a Mireling", "saltghast": "a Saltghast",
+	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade", "hexer": "the Hex Priest", "spiker": "a Spiked Cadaver", "lurker": "the Dweller", "golem": "the Bone Golem", "maiden": "the Wailing Maiden", "revenant": "the Revenant", "shieldbearer": "the Shieldbearer", "herald": "the Herald", "batterer": "the Batterer", "duelist": "the Pale Duelist", "hound": "a Bone Hound", "moth": "a Soul Moth", "orator": "the Grave Orator", "crowned": "the Crowned", "tither": "the Tithing", "digger": "the Gravedigger", "drowned": "the Drowned One", "keelhound": "a Keelhound", "maw": "a Barnacle Maw", "siren": "the Void Siren", "gargoyle": "a Pearl Gargoyle", "mireling": "a Mireling", "saltghast": "a Saltghast", "waver": "a Waver",
 	"bone_king": "the King himself", "trap": "a hidden trap", "": "the dungeon itself"}
 const KILLER_TIPS := {
 	"chaser": "Tip: chasers are slow — kite them into a corner and cleave.",
@@ -413,6 +414,7 @@ const KILLER_TIPS := {
 	"gargoyle": "Tip: the Pearl Gargoyle telegraphs its slam — circle behind, never stand in front.",
 	"mireling": "Tip: Mirelings are quick — dash through them, don't fence them.",
 	"saltghast": "Tip: the Saltghast blinks when you close — swing where it lands, not where it was.",
+	"waver": "Tip: the Waver's amber bolt numbs your arm — sidestep it or your blade goes dull.",
 	"bone_king": "Tip: his slams telegraph red — dash through the shockwave.",
 	"trap": "Tip: traps pulse on a rhythm — cross on the off-beat.",
 	"": "Tip: blessings, relics and Sir Vane can still turn a doomed run.",
@@ -1429,7 +1431,8 @@ const FIRST_SEEN := {
 	"siren": "The Void Siren hums — and suddenly you're walking toward her.",
 	"gargoyle": "A Pearl Gargoyle unglues itself from the wall — the temple still has guardians.",
 	"mireling": "A Mireling skitters — its bite carries the marsh's cold.",
-	"saltghast": "A Saltghast shimmers in — strike where it settles, and pocket the soul it carries."
+	"saltghast": "A Saltghast shimmers in — strike where it settles, and pocket the soul it carries.",
+	"waver": "A Waver sways into sight — its bolt steals the strength from your arm; close fast."
 }
 
 
@@ -8226,6 +8229,8 @@ func _refresh_buffs() -> void:
 		list.append(["CHILLED", Color(0.5, 0.8, 1.0)])
 	if player.get("silence_t") != null and player.silence_t > 0.0:
 		list.append(["✦ SILENCED", Color(1.0, 0.3, 0.45)])
+	if player.get("weak_t") != null and player.weak_t > 0.0:
+		list.append(["WEAKENED", Color(0.95, 0.65, 0.3)])
 	if player.hp <= player.max_hp * 0.2 and not player.dead:
 		list.append(["⚑ LAST STAND +25% ATK", Color(1.0, 0.35, 0.25)])
 	if vials > 1:

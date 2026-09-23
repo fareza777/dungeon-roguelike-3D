@@ -96,6 +96,7 @@ var jailer := false
 var is_weeper := false
 var is_warper := false
 var is_hexer := false
+var is_waver := false
 var is_spiky := false
 var warp_t := 4.0
 var champion := false # elite sarang sang juara — drop senjata terjamin
@@ -154,6 +155,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	is_weeper = bool(a.get("chanter", false))
 	is_warper = bool(a.get("warper", false))
 	is_hexer = bool(a.get("hexer", false))
+	is_waver = bool(a.get("waver", false))
 	is_spiky = bool(a.get("spiky", false))
 	is_lurker = bool(a.get("lurks", false))
 	orator = bool(a.get("orator", false))
@@ -628,6 +630,11 @@ func _physics_process(delta: float) -> void:
 									if pr.orb != null:
 										var hm: StandardMaterial3D = pr.orb.mesh.material
 										hm.albedo_color = Color(1.0, 0.25, 0.4)
+								if is_waver:
+									pr.effect = "weak"
+									if pr.orb != null:
+										var wm: StandardMaterial3D = pr.orb.mesh.material
+										wm.albedo_color = Color(0.95, 0.65, 0.3)
 										hm.emission = Color(0.9, 0.2, 0.35)
 							if siren and Stats.relics.has("deaf_cap"):
 								var msr0 := get_tree().current_scene

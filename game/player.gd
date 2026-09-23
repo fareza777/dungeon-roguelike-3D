@@ -14,6 +14,7 @@ signal revived
 
 var speed := 6.0
 var chill_t := 0.0
+var weak_t := 0.0
 var salvage_n := 0
 var ambushed_ids := {}
 var root_t := 0.0 # Gaoler: terjerat, tak bisa bergerak (dash masih bisa kabur)
@@ -122,6 +123,7 @@ func _physics_process(delta: float) -> void:
 	anim_lock = max(0.0, anim_lock - delta)
 	var tick := delta * (2.0 if Stats.relics.has("pressure_suit") else 1.0) * (1.3 if Stats.relics.has("brine_rat") else 1.0)
 	chill_t = max(0.0, chill_t - tick)
+	weak_t = max(0.0, weak_t - tick)
 	root_t = max(0.0, root_t - tick)
 	silence_t = max(0.0, silence_t - tick)
 	if venom_t > 0.0:
@@ -207,6 +209,8 @@ func _strike() -> void:
 		to.y = 0
 		if to.length() < reach and facing.dot(to.normalized()) > 0.3:
 			var dmg: float = Stats.get_stat("atk") * (1.0 + Stats.buff_atk_pct)
+			if weak_t > 0.0:
+				dmg *= 0.75
 			var crit := randf() < Stats.get_stat("crit")
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
