@@ -165,6 +165,7 @@ const BESTIARY := {
 	"necromancer": ["The Necromancer", "Death is a door he keeps propping open. Kill him first."],
 	"crawler": ["Crypt Crawler", "Small, quick, and never alone."],
 	"gaoler": ["The Gaoler", "A faceless warden. His blows cage you where you stand — dash out of them."],
+	"sentinel": ["Bone Sentinel", "A war-archer fused to the floor — it never moves, it only kills."],
 	"weeper": ["The Weeper", "A wailing priest who knits his flock's bones back together. Silence him first."],
 	"bone_king": ["The Kings", "One throne, many forms. Every five floors he waits."],
 }
@@ -178,7 +179,7 @@ const VANE_BIOME := {
 const KILLER_NAMES := {
 	"chaser": "a Skeleton Chaser", "rogue": "a Shadow Rogue", "mage": "a Bone Mage",
 	"brute": "a Bone Brute", "bomber": "a Boom Bones", "archer": "a Skeletal Archer",
-	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper",
+	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel",
 	"bone_king": "the King himself", "trap": "a hidden trap", "": "the dungeon itself"}
 const KILLER_TIPS := {
 	"chaser": "Tip: chasers are slow — kite them into a corner and cleave.",
@@ -191,6 +192,7 @@ const KILLER_TIPS := {
 	"crawler": "Tip: crawlers swarm — a HEAVY attack clears the whole pack.",
 	"gaoler": "Tip: the Gaoler's swing roots you — dash THROUGH him instead.",
 	"weeper": "Tip: the Weeper heals his flock every few seconds — always cut him down first.",
+	"sentinel": "Tip: sentinels never move — bait the bolt, then dash in.",
 	"bone_king": "Tip: his slams telegraph red — dash through the shockwave.",
 	"trap": "Tip: traps pulse on a rhythm — cross on the off-beat.",
 	"": "Tip: blessings, relics and Sir Vane can still turn a doomed run.",
@@ -614,6 +616,7 @@ const FIRST_SEEN := {
 	"necromancer": "The Necromancer props death's door open — shut it.",
 	"gaoler": "A Gaoler — the crown's own brother. Mind his chains.",
 	"weeper": "A Weeper chants ahead — cut his song short.",
+	"sentinel": "A Bone Sentinel — it cannot chase. Only kill.",
 }
 
 

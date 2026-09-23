@@ -18,6 +18,8 @@ const DB := {
 	"weeper": {"glb": "Skeleton_Mage.glb", "hp": 3.0, "spd": 0.8, "dmg": 1, "windup": 0.65, "reach": 2.2, "prefer": 2.0, "aggro": 3.8, "xp": 3, "tint": Color(0.55, 1.1, 0.6), "scale": 1.0, "ranged": true, "proj_speed": 2.6, "chanter": true, "kb_resist": 0.0},
 	# gaoler — sipir tanpa wajah dari lore: pukulannya MENJERAT pemain (root 1.2s)
 	"gaoler": {"glb": "Skeleton_Warrior.glb", "hp": 7.0, "spd": 0.6, "dmg": 2, "windup": 0.65, "reach": 0.7, "aggro": 3.0, "xp": 4, "tint": Color(0.6, 0.45, 1.05), "scale": 1.1, "jailer": true, "kb_resist": 0.5},
+	# sentinel — menara tulang: tak bergerak, tembakan jauh terus-menerus
+	"sentinel": {"glb": "Skeleton_Warrior.glb", "hp": 4.5, "spd": 0.0, "dmg": 1, "windup": 0.8, "reach": 3.6, "prefer": 3.4, "aggro": 4.5, "xp": 3, "tint": Color(0.9, 0.8, 1.2), "scale": 1.15, "ranged": true, "proj_speed": 2.8, "kb_resist": 1.0},
 	# BOSS: Raja Tulang — tiap lantai kelipatan 5
 	"bone_king": {"glb": "Skeleton_Warrior.glb", "hp": 42.0, "spd": 0.8, "dmg": 2, "windup": 0.85, "reach": 0.95, "aggro": 9.9, "xp": 15, "tint": Color(1.15, 0.45, 0.4), "scale": 1.85, "kb_resist": 0.9, "boss": true},
 }
