@@ -2653,6 +2653,7 @@ func _offer_omens() -> void:
 			{"text": "RICH SOIL — +35% XP, foes +10% HP"},
 			{"text": "LEECHING VEIN — +15% Lifesteal, -30% Max HP"},
 			{"text": "ECLIPSE — return from death once, -15% ATK"},
+			{"text": "IRONSIDE — +2 Armor, -15% Speed"},
 		]
 	)
 
@@ -2680,6 +2681,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.revive_left += 1
 			Stats.buff_atk_pct -= 0.15
 			oname = "ECLIPSE"
+		5:
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.15
+			oname = "IRONSIDE"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
 	_ach("omen1")
 	Sfx.play("shrine")
