@@ -770,9 +770,16 @@ func _new_run(new_seed: int) -> void:
 				champ_room = last_room - 1 if ambush_room != last_room - 1 else 1
 			var cr: Dictionary = info.ranges[champ_room]
 			var cpos := Vector3((cr["x0"] + cr["x1"]) * 0.5, 0.0, (cr["z0"] + cr["z1"]) * 0.5)
-			_spawn_enemy({"pos": cpos, "room": champ_room}, table[rng.randi_range(0, table.size() - 1)], true)
+			var champ_arch := "bone_king" if ashfall else String(table[rng.randi_range(0, table.size() - 1)])
+			var ch := _spawn_enemy({"pos": cpos, "room": champ_room}, champ_arch, champ_arch != "bone_king")
 			var cnd := get_tree().get_nodes_in_group("enemies")[get_tree().get_nodes_in_group("enemies").size() - 1]
 			cnd.champion = true
+			if champ_arch == "bone_king":
+				ch.scale *= 0.72
+				ch._base_scale = ch.scale
+				ch.hp *= 0.45
+				ch.hp_max = ch.hp
+				ch.xp_val = int(ch.xp_val * 1.5)
 		_spawn_traps(last_room)
 		_spawn_urns(last_room)
 		_spawn_shrine(last_room)
