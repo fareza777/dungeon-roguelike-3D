@@ -227,6 +227,7 @@ var iron_gullet := false
 var murk_fed := false
 var crew_oath := false
 var lantern_oil := false
+var bloodwarm := false
 var deadweight := false
 var undertow_grip := false
 var lookout := false
@@ -909,6 +910,7 @@ func _reset_run_state() -> void:
 	murk_fed = false
 	crew_oath = false
 	lantern_oil = false
+	bloodwarm = false
 	deadweight = false
 	undertow_grip = false
 	lookout = false
@@ -2250,7 +2252,7 @@ func _spawn_health_orb(pos: Vector3) -> void:
 	var orb = HORB.new()
 	room.add_child(orb)
 	orb.global_position = pos + Vector3(0, 0.5, 0)
-	orb.setup(1.0, info.tile)
+	orb.setup(2.0 if bloodwarm else 1.0, info.tile)
 
 
 func _spawn_obelisks(last_room: int) -> void:
@@ -4877,6 +4879,9 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_crit += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Sea Wisdom: old heads strike true — +5% crit and +5% XP")
+		37:
+			bloodwarm = true
+			toast("Bloodwarm: the red orbs burn — they mend double")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -6857,6 +6862,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Crew's Oath — your squire bites +50% harder this run"},
 			{"text": "Leech Line — strikes drink deep: +8% lifesteal this run"},
 			{"text": "Sea Wisdom — +5% crit and +5% XP this run"},
+			{"text": "Bloodwarm — the red orbs mend double this run"},
 		]
 	)
 
