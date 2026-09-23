@@ -325,6 +325,17 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						f.take_hit(global_position, dmg * 0.4)
 					if mw.has_method("_damage_number"):
 						mw._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "SAWED", Color(1.0, 0.7, 0.3), false)
+		"chimecleaver": # PEAL — tiap tebasan ke-6 membunyikan genta setrum
+			var cc_ := get_tree().current_scene
+			if cc_ != null:
+				cc_.set("net_n", int(cc_.get("net_n")) + 1)
+				if int(cc_.get("net_n")) >= 6:
+					cc_.set("net_n", 0)
+					for cf_ in cc_.get_tree().get_nodes_in_group("enemies"):
+						if cf_.get("state") != "dead" and cf_.global_position.distance_to(f.global_position) < 1.6 * room_tile:
+							cf_.stun(1.2)
+					if cc_.has_method("_damage_number"):
+						cc_._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "PEAL!", Color(0.95, 0.85, 0.4), true)
 		"scurvy_blade": # SCURVY — tiap tebasan menambah pembusukan
 			f.set("burn_t", float(f.get("burn_t")) + 0.8)
 		"bilge_saw": # SAWED — tiap tebasan ke-5 membakar luka
