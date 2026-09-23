@@ -5992,6 +5992,9 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.08
 			Stats.buff_aspd += 0.05
 			toast("Deckmaster: you own this deck — +8% speed, +5% attack speed this run")
+		55:
+			Stats.buff_maxhp_pct += 0.2
+			toast("Full Hull: every plank sealed — +20% Max HP this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -8719,6 +8722,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Bulkhead — iron plates bolt to your ribs: +1 Armor, −5% attack speed this run"},
 			{"text": "Overhang — the rigging hums overhead: skills recharge +10% sooner this run"},
 			{"text": "Deckmaster — you own this deck: +8% speed, +5% attack speed this run"},
+			{"text": "Full Hull — every plank sealed tight: +20% Max HP this run"},
 		]
 	)
 
