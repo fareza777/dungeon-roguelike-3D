@@ -344,7 +344,10 @@ func _physics_process(delta: float) -> void:
 		return
 	if is_lurker and not lurk_revealed:
 		var lp := _player()
-		if activated and lp != null and lp.get("dead") != true and global_position.distance_to(lp.global_position) < 1.3 * room_tile:
+		var lrange := 1.3
+		if Stats.relics.has("mata_perenungan"):
+			lrange = 2.6
+		if activated and lp != null and lp.get("dead") != true and global_position.distance_to(lp.global_position) < lrange * room_tile:
 			_lurk_reveal()
 		else:
 			return
