@@ -2518,6 +2518,8 @@ func _on_enemy_died(e) -> void:
 				_quest_event("glasswalk")
 			if dread_tide:
 				_quest_event("dreadtide")
+			if starved_deep:
+				_quest_event("starved")
 				Stats.dread_survived += 1
 				if Stats.dread_survived >= 3:
 					_ach("dreadlord")
