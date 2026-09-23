@@ -29,6 +29,9 @@ var buff_armor := 0 # berkat altar: armor datar run ini
 var revive_left := 0 # jiwa bangkit: hidup lagi sekali per run
 var ach := {} # prestasi terbuka: id -> true (persist lintas run)
 var thorns := 0.0 # duri pantulan: balikkan dmg
+var dodge := 0.0 # fase hantu: peluang bebas damage
+var magnet := 0.0 # magnet jiwa: perbesar radius serap orb
+var berserk := 0.0 # amukan: bonus ATK saat HP kritis
 
 # meta (tersimpan)
 var best_floor := 0
@@ -67,6 +70,9 @@ func get_stat(n: String) -> float:
 		mult += wmods[n + "_pct"]
 	if n == "atk":
 		mult += buff_atk_pct
+		# amukan: +ATK saat HP di bawah 35%
+		if berserk > 0.0 and current_hp <= get_stat("max_hp") * 0.35:
+			mult += berserk
 	if n == "armor":
 		flat += buff_armor
 	return flat * mult
@@ -100,6 +106,12 @@ func add_relic(id: String) -> void:
 		revive_left += int(mods["revive"])
 	if mods.has("thorns"):
 		thorns += float(mods["thorns"])
+	if mods.has("dodge"):
+		dodge += float(mods["dodge"])
+	if mods.has("magnet"):
+		magnet += float(mods["magnet"])
+	if mods.has("berserk"):
+		berserk += float(mods["berserk"])
 	relics_changed.emit()
 
 
@@ -127,6 +139,9 @@ func reset_run() -> void:
 	buff_armor = 0
 	revive_left = 0
 	thorns = 0.0
+	dodge = 0.0
+	magnet = 0.0
+	berserk = 0.0
 	current_hp = get_stat("max_hp")
 	draft_open = false
 	saved_run = {}
@@ -149,7 +164,7 @@ func note_floor() -> void:
 
 # snapshot run supaya tombol "Lanjutkan" di menu berarti
 func save_run() -> void:
-	saved_run = {"floor": floor_num, "level": level, "xp": xp, "relics": relics.duplicate(), "weapon_id": weapon_id, "owned": owned_weapons.duplicate(), "hp": current_hp, "kills": kills, "revive": revive_left, "thorns": thorns}
+	saved_run = {"floor": floor_num, "level": level, "xp": xp, "relics": relics.duplicate(), "weapon_id": weapon_id, "owned": owned_weapons.duplicate(), "hp": current_hp, "kills": kills, "revive": revive_left, "thorns": thorns, "dodge": dodge, "magnet": magnet, "berserk": berserk}
 	save_game()
 
 
@@ -175,6 +190,9 @@ func restore_run() -> bool:
 	kills = int(saved_run.get("kills", 0))
 	revive_left = int(saved_run.get("revive", 0))
 	thorns = float(saved_run.get("thorns", 0.0))
+	dodge = float(saved_run.get("dodge", 0.0))
+	magnet = float(saved_run.get("magnet", 0.0))
+	berserk = float(saved_run.get("berserk", 0.0))
 	buff_atk_pct = 0.0
 	current_hp = float(saved_run.get("hp", get_stat("max_hp")))
 	draft_open = false

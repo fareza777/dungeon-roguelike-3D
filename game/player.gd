@@ -193,6 +193,15 @@ func _strike() -> void:
 func take_hit(from_pos: Vector3, dmg_taken: int) -> void:
 	if dead or invuln > 0.0 or Stats.draft_open:
 		return
+	# relic Fase Hantu: peluang menghindar penuh
+	if Stats.dodge > 0.0 and randf() < Stats.dodge:
+		invuln = 0.5
+		Sfx.play("dash")
+		if mat != null:
+			mat.set_shader_parameter("flash", 0.5)
+			var dtw := create_tween()
+			dtw.tween_property(mat, "shader_parameter/flash", 0.0, 0.25)
+		return
 	var eff := maxi(1, dmg_taken - int(Stats.get_stat("armor")))
 	hp -= eff
 	invuln = 0.9
