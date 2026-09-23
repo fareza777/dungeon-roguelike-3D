@@ -48,6 +48,7 @@ const DB := {
 	"gravestep": {"name": "Gravestep", "short": "STEP", "cd": 16.0, "unlock": 29, "desc": "Blink through the dark — 1.2x ATK burst on arrival."},
 	"tidecall": {"name": "Tide Call", "short": "TIDE", "cd": 20.0, "unlock": 31, "desc": "Summon the drowned tide — 1.5x ATK, hurls foes back and slows them."},
 	"snapjaw": {"name": "Snapjaw", "short": "SNAP", "cd": 18.0, "unlock": 33, "desc": "A spectral clam erupts — foes nearby are clamped shut for 1.5s and bitten for 1.2x ATK."},
+	"graveseal": {"name": "Grave Seal", "short": "SEAL", "cd": 22.0, "unlock": 35, "desc": "A wax seal of the King himself — every foe in the room is sealed still for 2.5s."},
 	"rites": {
 		"name": "Reaper's Toll", "short": "TOLL", "cd": 34.0, "unlock": 21,
 		"desc": "Ring the toll: awake foes below 25% HP die outright; the rest take 1x ATK.",

@@ -437,7 +437,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -3316,6 +3316,21 @@ func _cast_skill(id: String) -> void:
 			if shits >= 3:
 				_quest_event("snapjaw3")
 			print("SKILL snapjaw hits=%d" % shits)
+		"graveseal":
+			Sfx.play("shrine")
+			var gseal := 0
+			for f2 in get_tree().get_nodes_in_group("enemies"):
+				if f2.get("state") == "dead" or not bool(f2.get("activated")):
+					continue
+				if f2.has_method("stun"):
+					f2.stun(2.5)
+					gseal += 1
+			_burst(player.global_position, Color(0.85, 0.55, 1.0))
+			trauma = 0.4
+			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "GRAVE SEAL! ×%d" % gseal, Color(0.85, 0.55, 1.0), true)
+			if gseal >= 5:
+				_quest_event("seal5")
+			print("SKILL graveseal sealed=%d" % gseal)
 	skill_used_floor = true
 	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0)
 
