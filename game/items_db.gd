@@ -88,6 +88,7 @@ const DB := {
 	"steady_rope": {"name": "Steady Rope", "chip": "SR", "desc": "Plant your feet — hold still a breath and your arm swings +8% harder", "rarity": 1, "mods": {}},
 	"ballast": {"name": "Ballast", "chip": "BA", "desc": "Weight that keeps you upright — +18% Max HP, +1 Armor, −8% Speed", "rarity": 1, "mods": {"max_hp_pct": 0.18, "armor": 1.0, "speed_pct": -0.08}},
 	"sea_lantern": {"name": "Sea Lantern", "chip": "SE", "desc": "Souls shine brighter — +12% souls earned", "rarity": 1, "mods": {"soul_gain_pct": 0.12}},
+	"lucky_lantern": {"name": "Lucky Lantern", "chip": "LL", "desc": "A lantern that never empties — kills sometimes spill a wandering soul", "rarity": 1, "mods": {}},
 	"silk_greaves": {"name": "Silk Greaves", "chip": "SG", "desc": "Woven hull-silk — roots and webs wear off half again as fast", "rarity": 1, "mods": {}},
 	"brine_ration": {"name": "Brine Ration", "chip": "BR", "desc": "Salt preserves — soul vials mend +10% more", "rarity": 1, "mods": {}},
 	"rusted_penny": {"name": "Rusted Penny", "chip": "RP", "desc": "The ferryman's toll — your first shrine price each floor drops 1 soul", "rarity": 0, "mods": {}},

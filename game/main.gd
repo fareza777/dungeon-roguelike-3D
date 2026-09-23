@@ -2979,6 +2979,8 @@ func _on_enemy_died(e) -> void:
 		trauma = 0.4
 	if eel_tide and rng.randf() < 0.07 and not e.is_boss:
 		_spawn_vial(e.global_position)
+	if Stats.relics.has("lucky_lantern") and rng.randf() < 0.04:
+		_spawn_wisp_at(e.global_position)
 	if e.get("affix") == "salted":
 		Stats.earn_souls(2)
 		_souls_l()
