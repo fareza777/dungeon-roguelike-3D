@@ -382,6 +382,7 @@ var rampage_n := 0
 var rampage_t := -9.0
 var mimic_pending := false
 var shrine_used := false
+var shrine_count := 0
 var dlg: DialogueUI = null
 var dlg_pending_choice := -1
 var oracle_bargained := false # Oracle's Bargain: sekali per run
@@ -751,6 +752,7 @@ func _new_run(new_seed: int) -> void:
 	boss_ref = null
 	shrine_ref = null
 	shrine_used = false
+	shrine_count = 0
 	chest_opened = false
 	mimic_pending = Stats.floor_num >= 2 and rng.randf() < 0.35
 	# peti berlapis emas (12%, lantai 4+, bukan mimic): berisi relic langka+
@@ -4081,6 +4083,9 @@ func _omen_deal(idx: int) -> void:
 
 func _on_mahzan_invoked(s) -> void:
 	shrine_used = true
+	shrine_count += 1
+	if shrine_count >= 10:
+		_ach("pilgrim")
 	s.consume()
 	Sfx.play("shrine")
 	dlg_pending_choice = 1
@@ -4131,6 +4136,9 @@ func _on_mahzan_invoked(s) -> void:
 
 func _on_forge_invoked(s) -> void:
 	shrine_used = true
+	shrine_count += 1
+	if shrine_count >= 10:
+		_ach("pilgrim")
 	s.consume()
 	Sfx.play("shrine")
 	dlg_pending_choice = 6
@@ -4227,6 +4235,9 @@ func _forge_deal(idx: int) -> void:
 
 func _on_mirror_invoked(s) -> void:
 	shrine_used = true
+	shrine_count += 1
+	if shrine_count >= 10:
+		_ach("pilgrim")
 	s.consume()
 	Sfx.play("shrine")
 	dlg_pending_choice = 7
@@ -4302,6 +4313,9 @@ func _mirror_deal(idx: int) -> void:
 
 func _on_bounty_invoked(s) -> void:
 	shrine_used = true
+	shrine_count += 1
+	if shrine_count >= 10:
+		_ach("pilgrim")
 	s.consume()
 	Sfx.play("shrine")
 	dlg_pending_choice = 8
@@ -4415,6 +4429,9 @@ func _ferry_deal(idx: int) -> void:
 
 func _on_well_invoked(s) -> void:
 	shrine_used = true
+	shrine_count += 1
+	if shrine_count >= 10:
+		_ach("pilgrim")
 	s.consume()
 	Sfx.play("shrine")
 	dlg_pending_choice = 11
@@ -4473,6 +4490,9 @@ func _well_deal(idx: int) -> void:
 
 func _on_cache_invoked(s) -> void:
 	shrine_used = true
+	shrine_count += 1
+	if shrine_count >= 10:
+		_ach("pilgrim")
 	s.consume()
 	Sfx.play("shrine")
 	dlg_pending_choice = 12
@@ -4501,6 +4521,9 @@ func _cache_deal(idx: int) -> void:
 
 func _on_fountain_invoked(s) -> void:
 	shrine_used = true
+	shrine_count += 1
+	if shrine_count >= 10:
+		_ach("pilgrim")
 	s.consume()
 	Sfx.play("shrine")
 	dlg_pending_choice = 13
@@ -4544,6 +4567,9 @@ func _fountain_deal(idx: int) -> void:
 
 func _on_drowned_invoked(s) -> void:
 	shrine_used = true
+	shrine_count += 1
+	if shrine_count >= 10:
+		_ach("pilgrim")
 	s.consume()
 	Sfx.play("shrine")
 	dlg_pending_choice = 14
@@ -4589,6 +4615,9 @@ func _drowned_deal(idx: int) -> void:
 
 func _on_vault_invoked(s) -> void:
 	shrine_used = true
+	shrine_count += 1
+	if shrine_count >= 10:
+		_ach("pilgrim")
 	s.consume()
 	Sfx.play("shrine")
 	dlg_pending_choice = 9
@@ -4882,6 +4911,9 @@ func _mahzan_deal(idx: int) -> void:
 
 func _on_shrine_invoked(s) -> void:
 	shrine_used = true
+	shrine_count += 1
+	if shrine_count >= 10:
+		_ach("pilgrim")
 	s.consume()
 	Sfx.play("shrine")
 	var mlines := [
