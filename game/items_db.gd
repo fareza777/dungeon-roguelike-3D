@@ -70,6 +70,7 @@ const DB := {
 	"trenchfoot": {"name": "Trenchfoot", "chip": "TF", "desc": "Barnacle grip — +12% speed on the drowned floors (11+)", "rarity": 1, "mods": {}},
 	"siren_farewell": {"name": "Siren's Farewell", "chip": "SF", "desc": "Every siren you silence refunds +2 souls", "rarity": 1, "mods": {}},
 	"shellshield": {"name": "Shell Shield", "chip": "SH", "desc": "The first clam you pry each floor pays +2 extra souls", "rarity": 1, "mods": {}},
+	"bone_tithe": {"name": "Bone Tithe", "chip": "BT", "desc": "Disarming a trap grants +1 Armor for the rest of the floor", "rarity": 2, "mods": {}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }

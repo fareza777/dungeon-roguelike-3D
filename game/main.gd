@@ -183,6 +183,7 @@ var pinch_n := 0
 var abyss_n := 0
 var lore_run := 0
 var shellshield_used := false
+var tithe_armor := 0.0
 var tide_kills := 0
 var reliquary_wisps := 0
 var omen_refusals := 0
@@ -3886,6 +3887,12 @@ func _quest_event(kind: String, num: int = 1) -> void:
 	# total per-kind dihitung apa pun langkah aktifnya — langkah berurutan
 	# tidak boleh kehilangan progres yang terjadi sebelum gilirannya
 	if kind == "trap_disarm":
+		if Stats.relics.has("bone_tithe"):
+			tithe_armor += 1.0
+			Stats.buff_armor += 1
+			if player != null and is_instance_valid(player):
+				player.refresh_stats()
+			toast("BONE TITHE — +1 Armor till the floor falls")
 		Stats.traps_defused += num
 		if Stats.traps_defused >= 5:
 			_ach("trap5")
