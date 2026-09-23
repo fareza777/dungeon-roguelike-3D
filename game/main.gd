@@ -735,7 +735,7 @@ func _on_enemy_died(e) -> void:
 				Stats.tutorial_done = true
 				Stats.save_game()
 				_tut_hide()
-			_show_banner("FLOOR %d CLEARED" % Stats.floor_num, "tap to descend to Floor %d" % [Stats.floor_num + 1])
+			_show_banner("FLOOR %d CLEARED" % Stats.floor_num, "%d kills this run • best combo ×%d — tap to descend to Floor %d" % [kills_run, combo_max, Stats.floor_num + 1])
 			if player != null and is_instance_valid(player):
 				_burst(player.global_position, Color(1.0, 0.85, 0.3))
 				_souls(player.global_position, 12, Color(1.0, 0.8, 0.35))
@@ -807,7 +807,7 @@ func _on_player_died() -> void:
 	var mins := int(run_time) / 60
 	var secs := int(run_time) % 60
 	var rec := "\nNEW RECORD!" if new_record and Stats.floor_num > 1 else ""
-	_show_banner("YOU DIED", "Floor %d • %s\n%d kills • Lv %d • %d relics • %d:%02d\nBest: Floor %d — tap to retry%s" % [Stats.floor_num, biome["name"], kills_run, Stats.level, Stats.relics.size(), mins, secs, Stats.best_floor, rec], Color(1.0, 0.32, 0.28))
+	_show_banner("YOU DIED", "Floor %d • %s\n%d kills • Lv %d • %d relics • best combo ×%d • %d:%02d\nBest: Floor %d — tap to retry%s" % [Stats.floor_num, biome["name"], kills_run, Stats.level, Stats.relics.size(), combo_max, mins, secs, Stats.best_floor, rec], Color(1.0, 0.32, 0.28))
 
 
 func _on_banner_tap() -> void:
