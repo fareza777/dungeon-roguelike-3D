@@ -4869,6 +4869,7 @@ func _offer_omens() -> void:
 			{"text": "DARK WATER — every floor's end tithes +1 soul... but the dead grow +10% harder"},
 			{"text": "FATHOMLESS — +30% XP... but the dead grow +15% harder"},
 			{"text": "FULL CHART — every floor lies fully charted... but the dead grow +10% harder"},
+			{"text": "WET POWDER — your strikes hit +15% harder... but the skills recharge 20% slower"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -4905,7 +4906,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 44 if Stats.nemesis != "" else 43
+	var osize := 45 if Stats.nemesis != "" else 44
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -5090,6 +5091,10 @@ func _omen_deal(idx: int) -> void:
 			omen_hp_mult += 0.1
 			oname = "FULL CHART"
 		43:
+			Stats.buff_atk_pct += 0.15
+			Stats.cd_reduction -= 0.2
+			oname = "WET POWDER"
+		44:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -5136,6 +5141,7 @@ func _omen_deal(idx: int) -> void:
 		"PAWNBREAKER": "His prices will sting less. He'll hate that.",
 		"FATHOMLESS": "Deep lessons, deep bruises. The sea teaches both.",
 		"FULL CHART": "No corner unmapped, Kael — the deep cannot hide from you now, nor you from it.",
+		"WET POWDER": "Wet powder, dry blade, Kael — the sword remembers, the tricks forget.",
 		"HEIRLOOM": "Someone carried that before you. They are still carrying it, in a way.",
 		"GOLDEN FATE": "Every lock will gleam. Mind the teeth on some.",
 		"HOLLOW CROWN": "Crown of nothing. The Oracle admires your appetite anyway.",
