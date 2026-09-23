@@ -229,6 +229,7 @@ var bosun_ledger := false
 var urnsworn := false
 var full_chart := false
 var long_wake := false
+var dead_lantern := false
 var iron_gullet := false
 var murk_fed := false
 var crew_oath := false
@@ -1761,6 +1762,9 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.xp_val = int(e.xp_val * 2)
 	if omen_hp_mult > 1.0 and not e.is_boss:
 		e.hp *= omen_hp_mult
+		e.hp_max = e.hp
+	if dead_lantern and bool(e.get("elite")):
+		e.hp *= 1.15
 		e.hp_max = e.hp
 		M.paint(e, M.toon(skeleton_tex, tint.lerp(Color(0.85, 0.08, 0.08), 0.4), 0.35, true))
 	# nemesis: arketipe yang membunuhmu run lalu — kembali lebih keras sampai dibunuh
@@ -5006,6 +5010,7 @@ func _offer_omens() -> void:
 			{"text": "WET POWDER — your strikes hit +15% harder... but the skills recharge 20% slower"},
 			{"text": "LONG WAKE — the dead scent you from further... but +20% XP"},
 			{"text": "SALT FEVER — every soul pays +25%... but the dead grow +10% harder"},
+			{"text": "DEAD LANTERN — elites burn +15% brighter... but the urns pay +1 soul"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -5042,7 +5047,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 47 if Stats.nemesis != "" else 46
+	var osize := 48 if Stats.nemesis != "" else 47
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -5239,6 +5244,9 @@ func _omen_deal(idx: int) -> void:
 			omen_hp_mult += 0.1
 			oname = "SALT FEVER"
 		46:
+			dead_lantern = true
+			oname = "DEAD LANTERN"
+		47:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -5288,6 +5296,7 @@ func _omen_deal(idx: int) -> void:
 		"WET POWDER": "Wet powder, dry blade, Kael — the sword remembers, the tricks forget.",
 		"LONG WAKE": "They smell the living on you, Kael — good, let them come. Lessons arrive faster that way.",
 		"SALT FEVER": "Greed salts the water, Kael — richer souls, meaner dead.",
+		"DEAD LANTERN": "Hang the lantern high, Kael — the urns will pay for what the elites will cost.",
 		"HEIRLOOM": "Someone carried that before you. They are still carrying it, in a way.",
 		"GOLDEN FATE": "Every lock will gleam. Mind the teeth on some.",
 		"HOLLOW CROWN": "Crown of nothing. The Oracle admires your appetite anyway.",
