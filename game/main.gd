@@ -189,6 +189,7 @@ var brisk := false
 var dead_weight := false
 var hymn_delta := 0.0
 var rotgut_drunk := false
+var drift_line := false
 var pale_drunk := false
 var deep_current := false
 var dread_tide := false
@@ -983,6 +984,9 @@ func _new_run(new_seed: int) -> void:
 	if pale_drunk:
 		Stats.buff_speed_pct -= 0.08
 		pale_drunk = false
+	if drift_line:
+		Stats.buff_atk_pct -= 0.1
+		drift_line = false
 	Stats.buff_armor -= tithe_armor
 	tithe_armor = 0.0
 	pray_t = 0.0
@@ -5819,12 +5823,26 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Net Gain — pay 5 souls: your next five kills pay double souls"},
 		{"text": "Undertow Cache — pay 4 souls: the sea drags a relic to the surface"},
 		{"text": "Salt Stitch — pay 3 souls: the brine knits your wounds (+8% lifesteal this run)"},
+		{"text": "Drift Line — pay 3 souls: +10% ATK till the floor falls"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 10:
+	if idx == 11:
 		toast("The water settles back into the stone")
+		return
+	if idx == 10:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the line isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		Stats.buff_atk_pct += 0.1
+		drift_line = true
+		if player != null and is_instance_valid(player):
+			player.refresh_stats()
+		Sfx.play("shrine")
+		toast("DRIFT LINE — the current leans on your blade (+10% ATK this floor)")
 		return
 	if idx == 9:
 		if Stats.souls < _soul_cost(3):
