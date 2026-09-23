@@ -2000,8 +2000,6 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.hp_max = e.hp
 	if grim_charter and e.elite:
 		e.xp_val = int(ceilf(e.xp_val * 1.5))
-	if martyrs_oath and not e.is_boss:
-		Stats.earn_souls(0)
 	if final_verse:
 		e.dmg *= 0.85
 	if deep_breath:
