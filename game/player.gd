@@ -120,7 +120,7 @@ func _physics_process(delta: float) -> void:
 	cd = max(0.0, cd - delta)
 	invuln = max(0.0, invuln - delta)
 	anim_lock = max(0.0, anim_lock - delta)
-	var tick := delta * (2.0 if Stats.relics.has("pressure_suit") else 1.0) * (1.3 if Stats.relics.has("bilge_rat") else 1.0)
+	var tick := delta * (2.0 if Stats.relics.has("pressure_suit") else 1.0) * (1.3 if Stats.relics.has("brine_rat") else 1.0)
 	chill_t = max(0.0, chill_t - tick)
 	root_t = max(0.0, root_t - tick)
 	silence_t = max(0.0, silence_t - tick)
