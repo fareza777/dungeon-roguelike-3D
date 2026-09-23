@@ -284,7 +284,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -1355,6 +1355,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("hexer_kill")
 	if e.arch_id == "spiker":
 		_quest_event("spiker_kill")
+	if e.arch_id == "lurker":
+		_quest_event("lurker_kill")
 	_combo_set(combo + 1)
 	# RAMPAGE: 3+ kill beruntun dalam 2.5 detik -> sorakan + banner
 	var now_s := Time.get_ticks_msec() / 1000.0
@@ -2012,6 +2014,23 @@ func _cast_skill(id: String) -> void:
 			_burst(player.global_position + Vector3(0, 0.5, 0), Color(0.55, 1.0, 0.75))
 			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "MENDED", Color(0.55, 1.0, 0.75), true)
 			print("SKILL mend")
+		"rites":
+			Sfx.play("roar")
+			var dmgr := Stats.get_stat("atk")
+			var culled := 0
+			var grazed := 0
+			for f in get_tree().get_nodes_in_group("enemies"):
+				if f.get("state") != "dead" and bool(f.get("activated")):
+					if float(f.get("hp")) <= 0.25 * float(f.get("hp_max")):
+						f.take_hit(f.global_position + Vector3(0, 2.0, 0), 9999.0)
+						_burst(f.global_position + Vector3(0, 0.5, 0), Color(0.9, 0.35, 0.9))
+						culled += 1
+					else:
+						f.take_hit(player.global_position, dmgr)
+						grazed += 1
+			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "REAPER'S TOLL ×%d" % culled, Color(0.9, 0.35, 0.9), true)
+			trauma = 1.0
+			print("SKILL rites culled=%d grazed=%d" % [culled, grazed])
 	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0)
 
 
