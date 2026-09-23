@@ -220,7 +220,7 @@ func _physics_process(delta: float) -> void:
 							if mw.has_method("_damage_number"):
 								mw._damage_number(p.global_position + Vector3(0, 0.7 * tile, 0), "KEEL MENDS", Color(0.5, 0.95, 0.7), true)
 						else:
-							p.take_hit(global_position, 1)
+							p.take_hit(global_position, 2 if bool(get_tree().current_scene.get("bilge_run")) else 1)
 
 	# sentuh jebakan saat fase tidur untuk melucutinya (kecuali lentera)
 	if not up and armed and kind != 4:
@@ -246,6 +246,10 @@ func _physics_process(delta: float) -> void:
 								ml2._souls_l()
 						if ml2 != null and bool(ml2.get("muckraker")):
 							Stats.earn_souls(1)
+							if ml2.has_method("_souls_l"):
+								ml2._souls_l()
+						if bool(ml2.get("bilge_run")):
+							Stats.earn_souls(2)
 							if ml2.has_method("_souls_l"):
 								ml2._souls_l()
 						if ml2.has_method("toast"):
@@ -314,7 +318,7 @@ func _physics_process(delta: float) -> void:
 						if mw2.has_method("_damage_number"):
 							mw2._damage_number(p3.global_position + Vector3(0, 0.7 * tile, 0), "WRAPPED", Color(0.7, 0.8, 1.0), true)
 					else:
-						p3.take_hit(global_position, 1)
+						p3.take_hit(global_position, 2 if bool(get_tree().current_scene.get("bilge_run")) else 1)
 					bn.queue_free()
 					bolts.remove_at(i)
 
