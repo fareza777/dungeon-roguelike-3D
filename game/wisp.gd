@@ -74,6 +74,9 @@ func _physics_process(delta: float) -> void:
 			if d.length() < 0.35 * tile:
 				absorbed = true
 				Stats.souls += 1
+				if p.hp < Stats.get_stat("max_hp"):
+					p.hp = minf(p.hp + Stats.get_stat("max_hp") * 0.02, Stats.get_stat("max_hp"))
+					p.hp_changed.emit(p.hp)
 				if Stats.relics.has("stoples_bara"):
 					Stats.add_xp(3)
 				Stats.save_game()
