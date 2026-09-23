@@ -2196,10 +2196,15 @@ func _on_enemy_died(e) -> void:
 		_quest_event("gaoler_kill")
 	if e.arch_id == "keelhound":
 		_quest_event("keelhound_kill")
-	if e.arch_id == "maw":
-		_quest_event("maw_kill")
+		keelh_floor += 1
+		if keelh_floor >= 3:
+			_quest_event("keelh3")
+		if Stats.relics.has("keelhook"):
+			_souls(e.global_position, 2)
 		if int(Stats.arch_kills.get("keelhound", 0)) >= 10:
 			_ach("saltdog")
+	if e.arch_id == "maw":
+		_quest_event("maw_kill")
 	if e.arch_id == "sentinel":
 		_quest_event("sentinel_kill")
 	if e.arch_id == "shade":
