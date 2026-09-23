@@ -1,0 +1,65 @@
+extends Node3D
+# Guci tulang: dihancurkan oleh tebasan pemain — menjatuhkan permata jiwa.
+# ~15% guci terkutuk: menggigit balik 1 dmg saat pecah.
+
+var tile := 4.0
+var smashed := false
+
+
+func setup(p_tile: float) -> void:
+	tile = p_tile
+	add_to_group("urns")
+	# badan guci: silinder gemuk
+	var body := MeshInstance3D.new()
+	var cm := CylinderMesh.new()
+	cm.top_radius = 0.16 * tile
+	cm.bottom_radius = 0.2 * tile
+	cm.height = 0.45 * tile
+	var bm := StandardMaterial3D.new()
+	bm.albedo_color = Color(0.5, 0.48, 0.4)
+	bm.metallic = 0.1
+	cm.material = bm
+	body.mesh = cm
+	body.position.y = 0.22 * tile
+	add_child(body)
+	# tutup setengah bola
+	var lid := MeshInstance3D.new()
+	var lm := SphereMesh.new()
+	lm.radius = 0.14 * tile
+	lm.height = 0.22 * tile
+	lid.mesh = lm
+	lid.position.y = 0.45 * tile
+	lid.scale.y = 0.55
+	add_child(lid)
+	# cahaya lembut biar terbaca di gelap
+	var om := OmniLight3D.new()
+	om.light_color = Color(0.55, 0.75, 1.0)
+	om.light_energy = 0.3
+	om.omni_range = 1.1 * tile
+	om.position.y = 0.5 * tile
+	add_child(om)
+
+
+func smash(from_pos: Vector3) -> void:
+	if smashed:
+		return
+	smashed = true
+	remove_from_group("urns")
+	Sfx.play("hit")
+	var m := get_tree().current_scene
+	if m != null:
+		if m.has_method("_spawn_gems"):
+			m._spawn_gems(global_position, 2 + randi() % 3)
+		if m.has_method("_burst"):
+			m._burst(global_position + Vector3(0, 0.2 * tile, 0), Color(0.9, 0.85, 0.6))
+		if randf() < 0.15:
+			var ps := get_tree().get_nodes_in_group("player")
+			if not ps.is_empty() and ps[0].get("dead") != true:
+				ps[0].take_hit(from_pos, 1)
+				if m.has_method("_damage_number"):
+					m._damage_number(global_position + Vector3(0, 0.4 * tile, 0), "CURSED URN!", Color(0.8, 0.2, 0.6), true)
+	var tw := create_tween()
+	tw.set_parallel(true)
+	tw.tween_property(self, "scale", Vector3(1.4, 0.1, 1.4), 0.18)
+	tw.tween_property(self, "rotation:y", 3.0, 0.18)
+	tw.chain().tween_callback(queue_free)

@@ -24,6 +24,7 @@ const SQUIRE = preload("res://squire.gd")
 const SHRINE = preload("res://shrine.gd")
 const LSTONE = preload("res://lore_stone.gd")
 const CAGE = preload("res://cage.gd")
+const URN = preload("res://urn.gd")
 const DUNGEON := "res://assets/dungeon/"
 
 # baris lore dunia — bisikan Oracle saat menyentuh batu pengetahuan
@@ -412,6 +413,7 @@ func _new_run(new_seed: int) -> void:
 		_spawn_enemy({"pos": Vector3((lr["x0"] + lr["x1"]) * 0.5, 0.0, lr["z1"] + 1.6 * info.tile), "room": last_room}, "bone_king", false)
 	else:
 		_spawn_traps(last_room)
+		_spawn_urns(last_room)
 		_spawn_shrine(last_room)
 		_spawn_lore_stone(last_room)
 		_spawn_cage(last_room)
@@ -734,6 +736,25 @@ func _spawn_traps(last_room: int) -> void:
 		tr.global_position = pos
 		var rk := rng.randf()
 		tr.setup(info.tile, rng.randf_range(0.0, 1.9), 2 if rk < 0.18 else (1 if rk < 0.5 else 0))
+
+
+func _spawn_urns(last_room: int) -> void:
+	# guci tulang: 1-3 per lantai, dipecahkan untuk permata jiwa
+	for i in range(rng.randi_range(1, 3)):
+		var ri: int = rng.randi_range(0, last_room)
+		var r: Dictionary = info.ranges[ri]
+		var pos := Vector3(rng.randf_range(r["x0"] + 0.5 * info.tile, r["x1"] - 0.5 * info.tile), 0.0, rng.randf_range(r["z1"] + 1.0 * info.tile, r["z0"] - 1.0 * info.tile))
+		var ok := true
+		for pr in info.props:
+			if pr.global_position.distance_to(pos) < 0.8 * info.tile:
+				ok = false
+				break
+		if not ok:
+			continue
+		var u = URN.new()
+		room.add_child(u)
+		u.global_position = pos
+		u.setup(info.tile)
 
 
 # altar arwah di ruangan terakhir — 45% kesempatan, sekali pakai

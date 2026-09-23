@@ -198,6 +198,12 @@ func _strike() -> void:
 				hp = minf(max_hp, hp + heal)
 				hp_changed.emit(hp)
 			hit_landed.emit(f.global_position, dmg, crit)
+	# guci tulang di busur yang sama: dihancurkan jadi permata
+	for u in get_tree().get_nodes_in_group("urns"):
+		var to2: Vector3 = u.global_position - global_position
+		to2.y = 0
+		if to2.length() < reach and facing.dot(to2.normalized()) > 0.3:
+			u.smash(global_position)
 
 
 # efek unik tiap senjata, terpicu setiap tebasan yang kena
