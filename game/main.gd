@@ -5468,6 +5468,8 @@ func _keel_deal(idx: int) -> void:
 				hdir.y = 0
 				fh.global_position += hdir.normalized() * (hd - 0.9 * info.tile)
 				hauled += 1
+		if hauled >= 5:
+			_ach("keelhaul5")
 		Sfx.play("shrine")
 		toast("KEELHAULED — %d foes dragged under the keel" % hauled)
 	_quest_event("keelstone")
