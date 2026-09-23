@@ -993,6 +993,8 @@ func _on_enemy_died(e) -> void:
 	if Stats.total_kills >= 200:
 		_ach("k200")
 	_quest_event("kill")
+	if e.arch_id == "gaoler":
+		_quest_event("gaoler_kill")
 	_combo_set(combo + 1)
 	if e.is_boss:
 		_on_boss_died(e)
@@ -1027,6 +1029,11 @@ func _on_enemy_died(e) -> void:
 				_run_victory()
 				return
 			run_state = "cleared"
+			if blood_moon:
+				Stats.souls += 5
+				_souls_l()
+				Stats.save_game()
+				toast("☽ BLOOD MOON TITHE — +5 souls")
 			Stats.note_floor()
 			Stats.save_run()
 			for gi in gates:
@@ -3431,6 +3438,10 @@ func _refresh_buffs() -> void:
 	if player == null or not is_instance_valid(player):
 		return
 	var list: Array = []
+	if blood_moon:
+		list.append(["☽ BLOOD MOON", Color(0.9, 0.15, 0.2)])
+	if player.get("root_t") != null and player.root_t > 0.0:
+		list.append(["CAGED", Color(0.6, 0.4, 1.0)])
 	if combo >= 8:
 		list.append(["CMB x%d" % combo, Color(1.0, 0.55, 0.15)])
 	if Stats.warcry_t > 0.0:
