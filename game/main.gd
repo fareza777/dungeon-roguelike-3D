@@ -5542,6 +5542,8 @@ func _refresh_buffs() -> void:
 		list.append(["✦ SILENCED", Color(1.0, 0.3, 0.45)])
 	if player.hp <= player.max_hp * 0.2 and not player.dead:
 		list.append(["⚑ LAST STAND +25% ATK", Color(1.0, 0.35, 0.25)])
+	if vials > 1:
+		list.append(["⚗ VIALS x%d" % vials, Color(0.5, 0.9, 0.75)])
 	var sig := ""
 	for b in list:
 		sig += String(b[0]) + "|"
