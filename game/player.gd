@@ -14,6 +14,7 @@ signal revived
 
 var speed := 6.0
 var chill_t := 0.0
+var salvage_n := 0
 var root_t := 0.0 # Gaoler: terjerat, tak bisa bergerak (dash masih bisa kabur)
 var silence_t := 0.0 # Hex Priest: skill terkunci sementara
 var hp := 5.0
@@ -343,6 +344,17 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 				var kn: Variant = m18.get("knight_ref")
 				if (al != null and is_instance_valid(al)) or (kn != null and is_instance_valid(kn)):
 					f.take_hit(global_position, dmg * 0.2)
+		"pearlrazor": # SALVAGE — tiap tebasan ke-4 membayar jiwa
+			salvage_n += 1
+			if salvage_n >= 4:
+				salvage_n = 0
+				Stats.souls += 1
+				var m23 := get_tree().current_scene
+				if m23 != null:
+					if m23.has_method("_souls_l"):
+						m23._souls_l()
+					if m23.has_method("_damage_number"):
+						m23._damage_number(f.global_position + Vector3(0, 0.7 * room_tile, 0), "SALVAGED", Color(0.9, 0.95, 1.0), false)
 		"keelspike": # DROWN — musuh sekarat tenggelam lebih cepat
 			if float(f.get("hp")) > 0.0 and float(f.get("hp")) <= 0.3 * float(f.get("hp_max")):
 				f.take_hit(global_position, dmg * 0.4)
