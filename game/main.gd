@@ -175,22 +175,22 @@ const BOSS_TIERS := [
 	{"name": "BONE KING", "tint": Color(1.05, 1.05, 1.05),
 		"warn": "Careful — the Bone King lurks at the end of this corridor. If the ground shakes red, GET OUT.",
 		"taunt": "YOU AGAIN, LITTLE FRAGRANT ONE. I'll add your bones to my throne.",
-		"banter": ["RATTLE ME HARDER, WORM.", "THE THRONE... TREMBLES?"],
+		"banter": ["RATTLE ME HARDER, WORM.", "THE THRONE... TREMBLES?", "I WILL NOT FALL TO A WORM!"],
 		"death": "...impossible... my throne... cracking..."},
 	{"name": "EMBER KING", "tint": Color(1.4, 0.65, 0.4),
 		"warn": "He rose from his own ashes — the Ember King burns through this floor.",
 		"taunt": "YOU AGAIN? I'LL BURN THE FLESH OFF YOUR BONES THIS TIME.",
-		"banter": ["YOUR FLESH SMELLS DONE ALREADY.", "ASHES... I NEED NO FLESH TO KILL YOU."],
+		"banter": ["YOUR FLESH SMELLS DONE ALREADY.", "ASHES... I NEED NO FLESH TO KILL YOU.", "BURN... EVERYTHING MUST BURN!"],
 		"death": "...embers... dying... again..."},
 	{"name": "FROST KING", "tint": Color(0.55, 0.85, 1.45),
 		"warn": "His bones turned to ice — the Frost King chills the air itself.",
 		"taunt": "BONES DON'T SHIVER. YOURS WILL, WHEN I FREEZE THEM SOLID.",
-		"banter": ["FEEL YOUR BLOOD TURN TO ICE?", "COLD... I AM THE COLD ITSELF!"],
+		"banter": ["FEEL YOUR BLOOD TURN TO ICE?", "COLD... I AM THE COLD ITSELF!", "THE FROST... TAKES US BOTH!"],
 		"death": "...cold... so cold... the throne... melts..."},
 	{"name": "FERAL KING", "tint": Color(0.65, 1.35, 0.55),
 		"warn": "Last warning — the Feral King has lost all patience. And all mercy.",
 		"taunt": "THE THRONE IS MINE FOREVER. I'LL WEAR YOUR SKULL AS A CROWN.",
-		"banter": ["RAAAGH! HOLD STILL, PREY!", "NO — NO PREY BITES THE KING!"],
+		"banter": ["RAAAGH! HOLD STILL, PREY!", "NO — NO PREY BITES THE KING!", "GRRRAAAH — DIE WITH ME THEN!"],
 		"death": "...no... I was... ETERNAL..."},
 ]
 var boss_name := "BONE KING"
@@ -323,7 +323,7 @@ func _boss_tier() -> Dictionary:
 		return {"name": "THE UNDYING KING", "tint": Color(1.5, 0.3, 0.7),
 			"warn": "This is his deepest hall — the throne beneath all thrones. End this, Kael.",
 			"taunt": "I HAVE WORN A THOUSAND CROWNS. YOURS WILL BE THE FINEST.",
-			"banter": ["I HAVE DIED A THOUSAND DEATHS. YOURS IS NEXT.", "THE CROWN... WILL NOT... FALL!"],
+			"banter": ["I HAVE DIED A THOUSAND DEATHS. YOURS IS NEXT.", "THE CROWN... WILL NOT... FALL!", "DEATH ITSELF WILL DRAG YOU DOWN!"],
 			"death": "...the throne... is yours now... Kael..."}
 	return BOSS_TIERS[(Stats.floor_num / 5 - 1) % BOSS_TIERS.size()]
 

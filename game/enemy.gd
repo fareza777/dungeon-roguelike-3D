@@ -91,6 +91,7 @@ var slam_t := 4.0
 var summon_t := 11.0
 var banter_75 := false
 var banter_25 := false
+var banter_10 := false
 var hex_t := 0.0   # Hex Staff: musuh bertanda menerima +25% damage
 var slow_t := 0.0  # Frost Fang: beku — 50% speed
 var burn_t := 0.0  # Ember Mace: terbakar — damage berkala
@@ -800,6 +801,10 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 			banter_25 = true
 			if mb != null and mb.has_method("_boss_banter"):
 				mb._boss_banter(1)
+		elif not banter_10 and frac <= 0.1:
+			banter_10 = true
+			if mb != null and mb.has_method("_boss_banter"):
+				mb._boss_banter(2)
 	var away: Vector3 = global_position - from_pos
 	away.y = 0
 	kb = away.normalized() * room_tile * 1.4 * (1.0 - kb_resist)
