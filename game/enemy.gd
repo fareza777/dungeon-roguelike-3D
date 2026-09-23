@@ -188,7 +188,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound"][randi() % 32]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded"][randi() % 33]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -287,6 +287,11 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				speed *= 0.9
 				kb_resist = 1.0
 				xp_val = int(xp_val * 1.3)
+			"corroded":
+				# berkarat hidup: lambat tapi gigitannya merusak baja — matinya mentitahkan jiwa
+				hp *= 1.15
+				speed *= 0.9
+				xp_val = int(xp_val * 1.2)
 			"tideworn":
 				# usang air asin: lambat namun berlapis — matinya mentitahkan 1 jiwa
 				hp *= 1.3
@@ -703,6 +708,8 @@ func _physics_process(delta: float) -> void:
 								q.take_hit(global_position, dmg * dmulti)
 								if affix == "venomed" and q == p:
 									p.set("venom_t", 4.0)
+								if affix == "corroded" and q == p:
+									p.set("rust_t", 3.0)
 								if affix == "riptide" and q == p:
 									var rdir: Vector3 = p.global_position - global_position
 									rdir.y = 0

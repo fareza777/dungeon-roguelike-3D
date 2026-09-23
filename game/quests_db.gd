@@ -214,6 +214,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Beak Clipped", "desc": "Fell 4 Keelbeaks (0/4)", "kind": "keelbeak_kill", "need": 4})
 		steps.append({"title": "Dulled Edge", "desc": "Shear 6 kills with the Tide Shear (0/6)", "kind": "kill_tide_shear", "need": 6})
 		steps.append({"title": "Proven", "desc": "Walk 2 GAUNTLET floors to the end (0/2)", "kind": "gauntletwalk", "need": 2})
+		steps.append({"title": "Rust Budget", "desc": "Slay 2 CORRODED elites (0/2)", "kind": "affix_corroded", "need": 2})
 		steps.append({"title": "Anchor Raised", "desc": "Fell 2 KEELBOUND elites (0/2)", "kind": "affix_keelbound", "need": 2})
 		steps.append({"title": "Salt Rich", "desc": "Walk off a floor holding 60+ souls (0/2)", "kind": "soulrich", "need": 2})
 		steps.append({"title": "Keelwright", "desc": "Split the keel 2 times (0/2)", "kind": "skill_keelsplit", "need": 2})
