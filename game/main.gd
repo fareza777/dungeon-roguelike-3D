@@ -177,6 +177,7 @@ var ferry_extra := 0
 var _ferry_used := false
 var lanterns: Array = []
 var lantern_healed := 0.0
+var lantern_touched := false
 var gravetide := false
 var skill_used_floor := false
 var rooms_cleared := 0
@@ -1720,6 +1721,7 @@ func _spawn_lanterns(last_room: int) -> void:
 	# lentera jiwa: aura penyembuh kecil di satu ruangan (lantai 8+, 40%)
 	lanterns = []
 	lantern_healed = 0.0
+	lantern_touched = false
 	if Stats.floor_num < 8 or rng.randf() > 0.4:
 		return
 	var ri: int = rng.randi_range(1, last_room)
@@ -6816,6 +6818,9 @@ func _process(delta: float) -> void:
 					player.hp = minf(player.hp + lh, Stats.get_stat("max_hp"))
 					player.hp_changed.emit(player.hp)
 					lantern_healed += lh
+					if not lantern_touched:
+						lantern_touched = true
+						_quest_event("lantern")
 					if lantern_healed >= Stats.get_stat("max_hp") * 0.3:
 						lantern_healed = -9999.0
 						_quest_event("lantern")
