@@ -7602,6 +7602,14 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 		]
 		if vane_floors > 0:
 			lines.append({"who": "knight", "text": "Let the old bones watch, boy. We'll give them a war worth remembering."})
+	elif Stats.floor_num == 15 and Stats.ng_plus >= 2:
+		lines = [
+			{"who": "oracle", "text": "Your third descent, Kael — the halls rearrange themselves around your name now."},
+			{"who": "mahzan", "text": "And business triples! Repeat customers are the backbone of every shop."},
+			{"who": "kael", "text": "Let them rearrange. I know the way by heart now."},
+		]
+		if vane_floors > 0:
+			lines.append({"who": "knight", "text": "A heart that knows the way is a compass, boy. Mine still points at the throne."})
 	elif Stats.floor_num == 16:
 		lines = [
 			{"who": "oracle", "text": "Halfway to his deepest hall. The air itself is starting to hate you."},
