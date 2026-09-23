@@ -1479,8 +1479,6 @@ func _on_lore_stone(s) -> void:
 	var line: String = LORE_LINES[rng.randi_range(0, LORE_LINES.size() - 1)]
 	if not Stats.lore_seen.has(line):
 		Stats.lore_seen.append(line)
-		if Stats.lore_seen.size() >= LORE_LINES.size():
-			_ach("loreall")
 		Stats.save_game()
 		if Stats.lore_seen.size() >= LORE_LINES.size():
 			_ach("lore32")

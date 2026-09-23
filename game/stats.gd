@@ -132,7 +132,6 @@ const ACH_DEF := {
 	"fatebound": "Fatebound (five oaths sworn across your descents)",
 	"unstoppable": "Unstoppable (a ×50 kill streak in one run)",
 	"oathkeeper": "Oathkeeper (eight omens in a single descent)",
-	"loreall": "Archaeologist (every whisper and stone read)",
 }
 
 const META_DEF := {
