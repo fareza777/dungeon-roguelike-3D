@@ -5326,6 +5326,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 0.1
 			Stats.buff_speed_pct -= 0.05
 			toast("Waxen Hull: caulked thick against the deep — +10% Max HP, −5% speed this run")
+		46:
+			Stats.buff_crit += 0.08
+			Stats.buff_lifesteal += 0.03
+			toast("Leech's Tithe: the old blood answers — +8% crit, +3% lifesteal this run")
 	blessings_run += 1
 	if blessings_run >= 5:
 		_ach("bless5")
@@ -7582,6 +7586,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Salt Hide — the brine cures your skin: +1 Armor, +5% Max HP this run"},
 			{"text": "Storm-eye — the gale moves through you: +12% attack speed, +8% speed this run"},
 			{"text": "Waxen Hull — caulked thick against the deep: +10% Max HP, −5% speed this run"},
+			{"text": "Leech's Tithe — the old blood answers: +8% crit, +3% lifesteal this run"},
 		]
 	)
 
