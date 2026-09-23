@@ -273,6 +273,7 @@ var dirge_note := false
 var line_splice := false
 var salt_rosary := false
 var moonwater := false
+var tar_knots := false
 var pilgrims_purse := false
 var crows_toll := false
 var crowns_decree := false
@@ -1322,6 +1323,8 @@ func _new_run(new_seed: int) -> void:
 	if pale_drunk:
 		Stats.buff_speed_pct -= 0.08
 		pale_drunk = false
+	if tar_knots:
+		tar_knots = false
 	if deck_manifest:
 		Stats.soul_gain_pct -= 0.15
 		deck_manifest = false
@@ -8291,12 +8294,23 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Ballast Beads — pay 4 souls: +1 Armor and the dead notice you −20% later"},
 		{"text": "Line Splice — pay 3 souls: rigged steady — the dead's throws push you half as far"},
 		{"text": "Hull Wick — pay 4 souls: tarred hemp in your grip — +15% attack speed this run"},
+		{"text": "Tar Knots — pay 3 souls: ropework lessons — your blows shove them 30% further this floor"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 19:
+	if idx == 20:
 		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 19:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the knots aren't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		tar_knots = true
+		Sfx.play("shrine")
+		toast("TAR KNOTS — every strike lands like a boom-swing")
 		return
 	if idx == 18:
 		if Stats.souls < _soul_cost(4):

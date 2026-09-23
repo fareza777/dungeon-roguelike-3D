@@ -274,6 +274,10 @@ func _strike() -> void:
 						kg_.set("net_n", 0)
 						dmg *= 1.5
 			f.take_hit(global_position, dmg)
+			if get_tree().current_scene.get("tar_knots") == true:
+				var tk_: Vector3 = f.global_position - global_position
+				tk_.y = 0
+				f.kb += tk_.normalized() * room_tile * 0.9
 			hit_n += 1
 			if Stats.relics.has("echo_strike") and hit_n % 4 == 0:
 				f.take_hit(global_position, dmg)
