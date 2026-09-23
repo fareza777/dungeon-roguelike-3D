@@ -503,7 +503,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0, "riptide": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0, "riptide": 0.0, "soultithe": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -3698,6 +3698,31 @@ func _cast_skill(id: String) -> void:
 			if riptide_n >= 5:
 				_ach("tideturner")
 			print("SKILL riptide hits=%d" % rhits)
+		"soultithe":
+			if Stats.souls < 3:
+				Sfx.play("deny")
+				toast("SOUL TITHE needs 3 souls — your purse runs dry")
+				skill_cd[id] = 0.0
+				return
+			Stats.souls -= 3
+			_souls_l()
+			Sfx.play("bigslash")
+			var thits := 0
+			var tkills_pre: int = Stats.kills
+			for f4 in get_tree().get_nodes_in_group("enemies"):
+				if f4.get("state") == "dead" or not bool(f4.get("activated")):
+					continue
+				if f4.has_method("take_hit"):
+					f4.take_hit(player.global_position, Stats.get_stat("atk") * 2.0)
+					thits += 1
+			var trefund: int = Stats.kills - tkills_pre
+			if trefund > 0:
+				Stats.souls += trefund
+				_souls_l()
+			_burst(player.global_position, Color(0.9, 0.8, 0.3))
+			trauma = 0.4
+			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "SOUL TITHE! ×%d" % thits, Color(0.9, 0.8, 0.3), true)
+			print("SKILL soultithe hits=%d refund=%d" % [thits, trefund])
 	skill_used_floor = true
 	skills_floor[id] = true
 	_quest_event("skill_" + id)

@@ -50,13 +50,14 @@ const DB := {
 	"snapjaw": {"name": "Snapjaw", "short": "SNAP", "cd": 18.0, "unlock": 33, "desc": "A spectral clam erupts — foes nearby are clamped shut for 1.5s and bitten for 1.2x ATK."},
 	"graveseal": {"name": "Grave Seal", "short": "SEAL", "cd": 22.0, "unlock": 35, "desc": "A wax seal of the King himself — every foe in the room is sealed still for 2.5s."},
 	"riptide": {"name": "Riptide", "short": "TIDE", "cd": 24.0, "unlock": 37, "desc": "The floor turns to black water — every foe within 3 tiles is dragged to your feet, soaked and slowed."},
+	"soultithe": {"name": "Soul Tithe", "short": "TITHE", "cd": 26.0, "unlock": 39, "desc": "Offer 3 souls to smite every awake foe for 2x ATK — the kill refunds its share."},
 	"rites": {
 		"name": "Reaper's Toll", "short": "TOLL", "cd": 34.0, "unlock": 21,
 		"desc": "Ring the toll: awake foes below 25% HP die outright; the rest take 1x ATK.",
 	},
 }
 
-const ORDER := ["dash", "whirl", "thunder", "warcry", "nova", "judge", "sunder", "chains", "storm", "mend", "rites", "seismic", "kingsfall", "lance", "gravestep"]
+const ORDER := ["dash", "whirl", "thunder", "warcry", "nova", "judge", "sunder", "chains", "storm", "mend", "rites", "seismic", "kingsfall", "lance", "gravestep", "soultithe"]
 
 
 static func get_s(id: String) -> Dictionary:
