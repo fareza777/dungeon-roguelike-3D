@@ -90,6 +90,7 @@ const ACH := {
 	"b3": "King Hunter (3 bosses)",
 	"r5": "Relic Collector (5 relics)",
 	"w5": "Arsenal (5 weapons)",
+	"s25": "Crown Taker (clear Floor 25)",
 }
 const BOSS_TIERS := [
 	{"name": "BONE KING", "tint": Color(1.05, 1.05, 1.05),
@@ -139,6 +140,12 @@ func _biome_track() -> String:
 
 
 func _boss_tier() -> Dictionary:
+	# final run: lantai 25 = wujud sejati Bone King
+	if Stats.floor_num >= 25:
+		return {"name": "THE UNDYING KING", "tint": Color(1.5, 0.3, 0.7),
+			"warn": "This is his deepest hall — the throne beneath all thrones. End this, Kael.",
+			"taunt": "I HAVE WORN A THOUSAND CROWNS. YOURS WILL BE THE FINEST.",
+			"death": "...the throne... is yours now... Kael..."}
 	return BOSS_TIERS[(Stats.floor_num / 5 - 1) % BOSS_TIERS.size()]
 
 
@@ -811,6 +818,9 @@ func _on_enemy_died(e) -> void:
 			if not get_tree().get_nodes_in_group("enemies").is_empty():
 				toast("Room clear — gates open!")
 		if get_tree().get_nodes_in_group("enemies").is_empty():
+			if Stats.floor_num >= 25:
+				_run_victory()
+				return
 			run_state = "cleared"
 			Stats.note_floor()
 			Stats.save_run()
@@ -857,10 +867,19 @@ func _on_boss_died(_e) -> void:
 	get_tree().create_timer(1.4).timeout.connect(func() -> void:
 		if Stats.floor_num != fl or Stats.draft_open or (dlg != null and dlg.active):
 			return
-		_say([
-			{"who": "raja", "text": String(_boss_tier()["death"])},
-			{"who": "oracle", "text": "He will rise again five floors deeper — stronger. Keep descending, Kael."},
-		]))
+		if Stats.floor_num >= 25:
+			_say([
+				{"who": "raja", "text": String(_boss_tier()["death"])},
+				{"who": "oracle", "text": "The throne is ash, Kael. The kingdom below... finally sleeps."},
+				{"who": "mahzan", "text": "A customer turned conqueror. I'll miss our little trades."},
+				{"who": "kael", "text": "Tell the surface to light the torches. I'm coming home."},
+			])
+		else:
+			_say([
+				{"who": "raja", "text": String(_boss_tier()["death"])},
+				{"who": "oracle", "text": "He will rise again five floors deeper — stronger. Keep descending, Kael."},
+			])
+	)
 	_damage_number(_e.global_position, "BOSS DOWN", Color(1.0, 0.5, 0.2), true)
 
 
@@ -898,8 +917,29 @@ func _on_player_died() -> void:
 	_show_banner("YOU DIED", "Floor %d • %s\n%d kills • Lv %d • %d relics • best combo ×%d • %d:%02d\nBest: Floor %d — tap to retry%s" % [Stats.floor_num, biome["name"], kills_run, Stats.level, Stats.relics.size(), combo_max, mins, secs, Stats.best_floor, rec], Color(1.0, 0.32, 0.28))
 
 
+func _run_victory() -> void:
+	run_state = "won"
+	Stats.note_floor()
+	Stats.clear_run()
+	Stats.runs += 1
+	Stats.save_game()
+	_ach("s25")
+	_tut_hide()
+	if player != null and is_instance_valid(player):
+		_burst(player.global_position, Color(0.6, 1.0, 0.75))
+		_souls(player.global_position, 20, Color(0.6, 1.0, 0.75))
+	Sfx.play("victory")
+	Input.vibrate_handheld(400)
+	var mins := int(run_time) / 60
+	var secs := int(run_time) % 60
+	_show_banner("THE THRONE FALLS", "The Bone King's crown shatters.\n%d kills • Lv %d • %d relics • best combo ×%d • %d:%02d\nTap to return to the surface" % [kills_run, Stats.level, Stats.relics.size(), combo_max, mins, secs], Color(0.55, 1.0, 0.72))
+
+
 func _on_banner_tap() -> void:
-	if run_state == "cleared":
+	if run_state == "won":
+		await _fade_to(1.0, 0.4)
+		get_tree().change_scene_to_file("res://app/menu.tscn")
+	elif run_state == "cleared":
 		_quest_event("descend")
 		Stats.floor_num += 1
 		Stats.note_floor()
@@ -950,7 +990,7 @@ func _on_leveled_up(lv: int) -> void:
 
 
 func _try_open_draft() -> void:
-	if Stats.draft_open or pending_drafts <= 0 or run_state == "dead":
+	if Stats.draft_open or pending_drafts <= 0 or run_state == "dead" or run_state == "won":
 		return
 	Stats.draft_open = true
 	pending_drafts -= 1
