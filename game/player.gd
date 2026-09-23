@@ -312,6 +312,18 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						f.take_hit(global_position, dmg * 0.4)
 					if mw.has_method("_damage_number"):
 						mw._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "SAWED", Color(1.0, 0.7, 0.3), false)
+		"oarblade": # SLAP — tiap tebasan ke-3 memukul rata: lawan terpental sejauh 1 tile
+			var mo := get_tree().current_scene
+			if mo != null:
+				mo.set("net_n", int(mo.get("net_n")) + 1)
+				if int(mo.get("net_n")) >= 3:
+					mo.set("net_n", 0)
+					if float(f.get("kb_resist")) < 1.0:
+						var bk2: Vector3 = f.global_position - global_position
+						bk2.y = 0
+						f.kb += bk2.normalized() * room_tile * 3.0
+					if mo.has_method("_damage_number"):
+						mo._damage_number(f.global_position + Vector3(0, 0.7 * room_tile, 0), "SLAPPED", Color(0.8, 0.7, 0.45), false)
 		"tide_shear": # SHEAR — tiap tebasan ke-5 menggunting tajam musuh: dmg −20% permanen
 			var ms := get_tree().current_scene
 			if ms != null:
