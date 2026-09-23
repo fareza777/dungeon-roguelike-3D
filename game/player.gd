@@ -240,6 +240,8 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "fathom_score":
+				f.set("mark_t", 2.0)
 			if Stats.weapon_id == "oathbreak" and (bool(f.get("elite")) or bool(f.get("is_boss"))):
 				dmg *= 1.5
 			if Stats.weapon_id == "mistrune":

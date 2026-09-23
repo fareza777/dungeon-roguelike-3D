@@ -151,6 +151,7 @@ var banter_25 := false
 var banter_10 := false
 var hex_t := 0.0   # Hex Staff: musuh bertanda menerima +25% damage
 var slow_t := 0.0  # Frost Fang: beku — 50% speed
+var mark_t := 0.0
 var burn_t := 0.0  # Ember Mace: terbakar — damage berkala
 var _burn_acc := 0.0
 
@@ -595,6 +596,7 @@ func _physics_process(delta: float) -> void:
 	if affix == "tidebound":
 		slow_t = 0.0
 	slow_t = maxf(0.0, slow_t - delta)
+	mark_t = maxf(0.0, mark_t - delta)
 	if slow_immune:
 		slow_t = 0.0
 	if fey and state == "chase":
@@ -1362,6 +1364,8 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 			mp_.take_hit(global_position, maxi(1, int(ceil(dmg_taken * 0.1))))
 	if hex_t > 0.0:
 		dmg_taken *= 1.25
+	if mark_t > 0.0:
+		dmg_taken *= 1.15
 	if sunder_t > 0.0:
 		dmg_taken *= 1.3
 	if not crowned and not is_boss:
