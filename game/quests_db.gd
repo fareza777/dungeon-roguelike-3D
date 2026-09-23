@@ -159,6 +159,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Undertaker", "desc": "Drag 4+ foes in one Riptide (0/4)", "kind": "riptide4", "need": 1})
 		steps.append({"title": "Hymn Breaker", "desc": "Clear a floor while the Abyssal Hymn sounds (0/1)", "kind": "hymnfloor", "need": 1})
 		steps.append({"title": "Choir Soloist", "desc": "Slay 5 foes while the Choir Below sings (0/5)", "kind": "choirkill", "need": 5})
+		steps.append({"title": "Gag the Song", "desc": "Silence 3 sirens (0/3)", "kind": "siren_kill", "need": 3})
 	if Stats.floor_num == 11:
 		steps.append({"title": "Soul Fisher", "desc": "Net three drifting wisps (0/3)", "kind": "wisp", "need": 3})
 	if Stats.floor_num >= 13 and Stats.floor_num % 8 == 5:
