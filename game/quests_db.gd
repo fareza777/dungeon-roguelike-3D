@@ -225,6 +225,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Salt Rich", "desc": "Walk off a floor holding 60+ souls (0/2)", "kind": "soulrich", "need": 2})
 		steps.append({"title": "Murk Runner", "desc": "Slay 6 foes with Murkmaker (0/6)", "kind": "kill_murkmaker", "need": 6})
 		steps.append({"title": "Powder Burn", "desc": "Slay 6 foes with Saltpeter (0/6)", "kind": "kill_saltpeter", "need": 6})
+		steps.append({"title": "Warm Blooded", "desc": "Wear off 8 chills (Warm Blood relic) (0/8)", "kind": "chillshake", "need": 8, "relic": "warm_blood"})
 		steps.append({"title": "Silk Draw", "desc": "Slay 6 foes with Silkfang (0/6)", "kind": "kill_silkfang", "need": 6})
 		steps.append({"title": "Brine Edge", "desc": "Slay 6 foes with the Brine Cutlass (0/6)", "kind": "kill_brine_cutlass", "need": 6})
 		steps.append({"title": "Hook Line", "desc": "Slay 6 foes with the Bilge Hook (0/6)", "kind": "kill_bilge_hook", "need": 6})
