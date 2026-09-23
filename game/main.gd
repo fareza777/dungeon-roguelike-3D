@@ -3276,6 +3276,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Bone Lottery — pay 5 souls: a random blade from the hoard"},
 			{"text": "Fool's Trove — pay 3 souls: a trinket, fair or foul"},
 			{"text": "Witness — pay 2 souls: Mahzan tells you a secret"},
+			{"text": "Blood Velvet — pay 9 souls: +10% Max HP this run"},
 		]
 	)
 
@@ -3636,6 +3637,16 @@ func _mahzan_deal(idx: int) -> void:
 					Stats.lore_seen.append(sl)
 					Stats.save_game()
 					toast("Mahzan whispers: '" + sl + "'")
+		12:
+			if Stats.souls < _soul_cost(9):
+				toast("Mahzan demands nine — not a drop less")
+			else:
+				Stats.souls -= _soul_cost(9)
+				_souls_l()
+				Stats.buff_maxhp_pct += 0.1
+				player.hp += Stats.get_stat("max_hp") - Stats.get_stat("max_hp") / 1.1
+				Sfx.play("shrine")
+				toast("BLOOD VELVET — +10% Max HP")
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
 		player.refresh_stats()
