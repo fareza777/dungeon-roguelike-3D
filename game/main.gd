@@ -2346,7 +2346,7 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 	if ballast_beads:
 		e.aggro_range = float(e.aggro_range) * 0.8
 	if halfway_dead:
-		e.hp = float(e.get("hp_max", e.hp)) * 0.9
+		e.hp = float(e.get("hp_max")) * 0.9
 	if long_watch:
 		e.aggro_range = float(e.aggro_range) * 1.4
 	if crowns_rest and not e.is_boss:
