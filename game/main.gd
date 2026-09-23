@@ -774,7 +774,7 @@ func _new_run(new_seed: int) -> void:
 			var ch := _spawn_enemy({"pos": cpos, "room": champ_room}, champ_arch, champ_arch != "bone_king")
 			var cnd := get_tree().get_nodes_in_group("enemies")[get_tree().get_nodes_in_group("enemies").size() - 1]
 			cnd.champion = true
-			if champ_arch == "bone_king":
+			if champ_arch == "bone_king" and ch != null:
 				ch.scale *= 0.72
 				ch._base_scale = ch.scale
 				ch.hp *= 0.45
