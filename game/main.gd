@@ -6145,6 +6145,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Bone Dice — stake 5 souls: even or odd, the dice decide (+12 or lose the stake)"},
 			{"text": "Debt Scribe — pay 3 souls: he writes one page of your quest forward"},
 			{"text": "Grave Cheer — pay 4 souls: a vial and a long pull (+1 vial, mend 15% HP)"},
+			{"text": "Tar Rum — pay 3 souls: thick and black — +5% ATK this run"},
 		]
 	)
 
@@ -7341,6 +7342,17 @@ func _mahzan_deal(idx: int) -> void:
 					player.hp_changed.emit(player.hp)
 				Sfx.play("heal")
 				toast("GRAVE CHEER — bottom's up, buyer")
+		32:
+			if Stats.souls < _soul_cost(3):
+				toast("Three souls — the rum's not free")
+			else:
+				Stats.souls -= _soul_cost(3)
+				_souls_l()
+				Stats.buff_atk_pct += 0.05
+				if player != null and is_instance_valid(player):
+					player.refresh_stats()
+				Sfx.play("shrine")
+				toast("TAR RUM — it burns going down and coming out swinging")
 
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
