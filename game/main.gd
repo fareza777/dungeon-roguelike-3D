@@ -172,6 +172,7 @@ var tide_lends := false
 var pearl_fever := false
 var muckraker := false
 var abyssal_patience := false
+var bone_market := false
 var umbral_tide := false
 var moonwrit := false
 var barnacle_sense := false
@@ -755,6 +756,7 @@ func _reset_run_state() -> void:
 	pearl_fever = false
 	muckraker = false
 	abyssal_patience = false
+	bone_market = false
 	umbral_tide = false
 	moonwrit = false
 	barnacle_sense = false
@@ -4244,6 +4246,7 @@ func _offer_omens() -> void:
 			{"text": "MUCKRAKER — defusing traps pays +1 soul... but the floors breed +2 more traps"},
 			{"text": "ABYSSAL PATIENCE — every chest pays +4 souls... but urns run dry"},
 			{"text": "UMBRAL TIDE — your dash recharges 40% faster... but the dead swim 20% quicker"},
+			{"text": "BONE MARKET — chests pay double souls... but every lid bites 5% of your Max HP"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -4278,7 +4281,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 34 if Stats.nemesis != "" else 33
+	var osize := 35 if Stats.nemesis != "" else 34
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -4426,6 +4429,9 @@ func _omen_deal(idx: int) -> void:
 			umbral_tide = true
 			oname = "UMBRAL TIDE"
 		33:
+			bone_market = true
+			oname = "BONE MARKET"
+		34:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -4484,6 +4490,7 @@ func _omen_deal(idx: int) -> void:
 		"MUCKRAKER": "The deep pays its scavengers well — if they can keep their fingers.",
 		"ABYSSAL PATIENCE": "Patience, fisher — let the heavy chests fill your purse; leave the pots for the crabs.",
 		"UMBRAL TIDE": "Step light, Kael — the black water is thick tonight, and everything in it is coming for you.",
+		"BONE MARKET": "Everything here has a price on its lid. Try not to lose a finger haggling.",
 	}
 	var rline: String = String(reacts.get(oname, "An oath is an oath."))
 	_say([{"who": "oracle", "text": rline}])
@@ -7409,7 +7416,12 @@ func _process(delta: float) -> void:
 					player.hp = Stats.get_stat("max_hp")
 					player.hp_changed.emit(player.hp)
 					Stats.add_xp(3)
-					Stats.earn_souls(8 + (4 if abyssal_patience else 0))
+					var chest_pay: int = 8 + (4 if abyssal_patience else 0) + (8 if bone_market else 0)
+					Stats.earn_souls(chest_pay)
+					if bone_market:
+						player.hp = maxf(1.0, player.hp - Stats.get_stat("max_hp") * 0.05)
+						player.hp_changed.emit(player.hp)
+						_damage_number(info.chest.global_position + Vector3(0, 1.1 * info.tile, 0), "LID BITE — −5%", Color(1.0, 0.4, 0.4), true)
 					if abyssal_patience:
 						_quest_event("patient")
 					_souls_l()
