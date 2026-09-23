@@ -1225,6 +1225,10 @@ func _spawn_shrine(last_room: int) -> void:
 		skind = 6 # lantai quest Grave Robber — vault terjamin
 	elif Stats.floor_num >= 13 and Stats.floor_num <= 19 and Stats.floor_num % 7 == 1:
 		skind = 7 # lantai quest Commuter — ferryman terjamin
+	elif Stats.floor_num >= 11 and Stats.floor_num % 9 == 5:
+		skind = 8 # Gambler's Well terjamin di lantai %9==5
+	elif Stats.floor_num >= 10 and rng.randf() < 0.08:
+		skind = 8
 	elif Stats.floor_num >= 9 and rng.randf() < 0.1:
 		skind = 6
 	elif Stats.floor_num >= 5 and Stats.floor_num % 5 == 1:
@@ -1263,6 +1267,8 @@ func _spawn_shrine(last_room: int) -> void:
 			s.invoked.connect(_on_vault_invoked)
 		7:
 			s.invoked.connect(_on_ferry_invoked)
+		8:
+			s.invoked.connect(_on_well_invoked)
 		_:
 			s.invoked.connect(_on_shrine_invoked)
 
@@ -3302,6 +3308,10 @@ func _on_dlg_choice(idx: int) -> void:
 		dlg_pending_choice = -1
 		_ferry_deal(idx)
 		return
+	elif dlg_pending_choice == 11:
+		dlg_pending_choice = -1
+		_well_deal(idx)
+		return
 	match idx:
 		0:
 			Stats.buff_atk_pct += 0.15
@@ -3878,6 +3888,60 @@ func _ferry_deal(idx: int) -> void:
 	toast("CARRIED — the Ferryman will bear you past the next floor")
 
 
+func _on_well_invoked(s) -> void:
+	shrine_used = true
+	s.consume()
+	Sfx.play("shrine")
+	dlg_pending_choice = 11
+	_say([{"who": "mahzan", "text": "A Gambler's Well, Kael — the dungeon's own dice-cup. Toss a soul in, see what the deep tosses back."}],
+		[{"text": "Toss 5 souls — gamble for a relic (65% rare, 10% epic... or nothing)"},
+		{"text": "Walk on — luck is for the living"}])
+
+
+func _well_deal(idx: int) -> void:
+	if idx != 0:
+		toast("The well's green water stills")
+		return
+	if Stats.souls < _soul_cost(5):
+		toast("Five souls — the well only takes real coin")
+		return
+	Stats.souls -= _soul_cost(5)
+	_souls_l()
+	Sfx.play("soul")
+	var roll := rng.randf()
+	if roll < 0.10:
+		var epool: Array = []
+		for ridx in ITEMS.DB:
+			if int(ITEMS.DB[ridx]["rarity"]) >= 2 and not Stats.relics.has(ridx):
+				epool.append(ridx)
+		if not epool.is_empty():
+			var ridw: String = epool[rng.randi_range(0, epool.size() - 1)]
+			Stats.add_relic(ridw)
+			toast("JACKPOT — epic relic: " + String(ITEMS.DB[ridw]["name"]))
+			Sfx.play("levelup")
+		else:
+			Stats.souls += 5
+			_souls_l()
+			toast("The well is spent — your souls bounce back")
+	elif roll < 0.75:
+		var rpool: Array = []
+		for ridx in ITEMS.DB:
+			if int(ITEMS.DB[ridx]["rarity"]) == 1 and not Stats.relics.has(ridx):
+				rpool.append(ridx)
+		if not rpool.is_empty():
+			var ridw2: String = rpool[rng.randi_range(0, rpool.size() - 1)]
+			Stats.add_relic(ridw2)
+			toast("THE WELL PAYS — rare relic: " + String(ITEMS.DB[ridw2]["name"]))
+		else:
+			Stats.souls += 5
+			_souls_l()
+			toast("The well is spent — your souls bounce back")
+	else:
+		toast("The well drinks deep... and gives nothing back")
+		Sfx.play("hurt")
+	_quest_event("well")
+
+
 func _on_vault_invoked(s) -> void:
 	shrine_used = true
 	s.consume()
@@ -4427,7 +4491,7 @@ func _build_minimap() -> void:
 	# penanda altar (cyan), batu lore (ungu), dan tujuan akhir lantai (emas besar)
 	if shrine_ref != null and is_instance_valid(shrine_ref):
 		var sd := ColorRect.new()
-		sd.color = [Color(1.0, 0.8, 0.3), Color(0.45, 0.65, 1.0), Color(1.0, 0.2, 0.15), Color(1.0, 0.55, 0.15), Color(0.55, 0.75, 1.0), Color(1.0, 0.5, 0.1), Color(0.95, 0.85, 0.3), Color(0.4, 0.55, 1.0)][shrine_kind]
+		sd.color = [Color(1.0, 0.8, 0.3), Color(0.45, 0.65, 1.0), Color(1.0, 0.2, 0.15), Color(1.0, 0.55, 0.15), Color(0.55, 0.75, 1.0), Color(1.0, 0.5, 0.1), Color(0.95, 0.85, 0.3), Color(0.4, 0.55, 1.0), Color(0.7, 0.95, 0.25)][shrine_kind]
 		sd.size = Vector2(5, 5)
 		sd.position = _map_pos(shrine_ref.global_position, sc)
 		mv.add_child(sd)
