@@ -6700,6 +6700,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Tar Rum — pay 3 souls: thick and black — +5% ATK this run"},
 			{"text": "Galley Scraps — pay 3 souls: peel off silence, roots and weakness"},
 			{"text": "Rat Ration — pay 2 souls: stale but hearty — full mend when the next floor begins"},
+			{"text": "Gilded Provisions — pay 4 souls: the officer's mess — vial topped, 30% mended"},
 		]
 	)
 
@@ -8004,6 +8005,16 @@ func _mahzan_deal(idx: int) -> void:
 					player.hp_changed.emit(player.hp)
 				Sfx.play("shrine")
 				toast("GALLEY SCRAPS — grease, salt, freedom")
+		35:
+			if Stats.souls < _soul_cost(4):
+				toast("Four souls — the gilt isn't free")
+			else:
+				Stats.souls -= _soul_cost(4)
+				_souls_l()
+				vials = mini(vials + 1, 3 if wide_satchel else 2)
+				player.hp = minf(player.max_hp, player.hp + player.max_hp * 0.3)
+				Sfx.play("shrine")
+				toast("GILDED PROVISIONS — you eat like an admiral tonight")
 		34:
 			if Stats.souls < _soul_cost(2):
 				toast("Two souls — even rats cost something")
