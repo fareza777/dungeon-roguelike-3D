@@ -3869,6 +3869,7 @@ func _on_curse_invoked(s) -> void:
 		[{"text": "Blood Pact — foes hit 30% harder, souls pay +50% XP"},
 		{"text": "Blood Offering — bleed 2 HP now, gain +50% XP"},
 		{"text": "Blood Price — kills stop paying souls this run, but +40% ATK"},
+		{"text": "Pyre Sacrament — burn a random common relic for +8 souls"},
 		{"text": "Refuse — leave the whispering stone"}])
 
 
@@ -3908,6 +3909,23 @@ func _curse_deal(idx: int) -> void:
 		_burst(player.global_position, Color(0.8, 0.05, 0.1))
 		Sfx.play("hurt")
 		_refresh_buffs()
+	elif idx == 3:
+		var commons2: Array = []
+		for ridp in Stats.relics:
+			if ITEMS.DB.has(ridp) and int(ITEMS.DB[ridp]["rarity"]) == 0:
+				commons2.append(ridp)
+		if commons2.is_empty():
+			toast("The obelisk finds no common relic to burn")
+			return
+		var burnt: String = commons2[rng.randi_range(0, commons2.size() - 1)]
+		Stats.remove_relic(burnt)
+		Stats.souls += 8
+		_souls_l()
+		Sfx.play("fire")
+		toast("PYRE SACRAMENT — %s burned for +8 souls" % String(ITEMS.DB[burnt]["name"]))
+		_refresh_buffs()
+		if player != null and is_instance_valid(player):
+			_burst(player.global_position, Color(1.0, 0.4, 0.1))
 	elif idx == 2:
 		Stats.soul_sealed = true
 		Stats.buff_atk_pct += 0.4
