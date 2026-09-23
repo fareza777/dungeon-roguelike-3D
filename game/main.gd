@@ -228,6 +228,8 @@ const TIPS := [
 	"Near death, fury answers — Last Stand adds +25% ATK.",
 	"Soul Vials drop from the dead — hold two, drink when it counts.",
 	"MOTHER-tagged elites split in two when slain — brace for the brood.",
+	"WARDEN-tagged elites root your feet — dash the moment they swing.",
+	"FROSTBITE-tagged elites chill your blood — keep your distance until it fades.",
 	"Take no damage on a floor for an Untouched tithe of souls.",
 	"When the mist turns violet, the dead weep gems — reap them while it lasts.",
 	"When the torches die, the dead run faster — finish the floor for the tithe.",

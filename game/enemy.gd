@@ -129,7 +129,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite"][randi() % 7]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden"][randi() % 8]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -141,6 +141,9 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				xp_val = int(xp_val * 1.25)
 			"frostbite":
 				# pukulan elite ini mendinginkan pemain 55% speed 3s
+				xp_val = int(xp_val * 1.25)
+			"warden":
+				# pukulan elite ini MENJERAT pemain di tempat 1s
 				xp_val = int(xp_val * 1.25)
 			"volatile":
 				# meledak saat mati — bonus XP sebagai imbalan bahayanya
@@ -464,6 +467,12 @@ func _physics_process(delta: float) -> void:
 									var mm4 := get_tree().current_scene
 									if mm4 != null and mm4.has_method("_damage_number"):
 										mm4._damage_number(q.global_position, "CHILLED", Color(0.5, 0.75, 1.0), true)
+								if affix == "warden" and q.get("dead") != true:
+									q.set("root_t", 1.0)
+									var mm5 := get_tree().current_scene
+									if mm5 != null and mm5.has_method("_damage_number"):
+										mm5._damage_number(q.global_position, "BOUND", Color(0.8, 0.5, 1.1), true)
+									Sfx.play("gate")
 								if affix == "siphon":
 									var mm := get_tree().current_scene
 									if mm != null and mm.get("combo") != null and int(mm.combo) > 0 and mm.has_method("_combo_set"):
