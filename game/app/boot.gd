@@ -38,7 +38,7 @@ func _ready() -> void:
 	t2.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vb.add_child(t2)
 	var t3 := Label.new()
-	t3.text = "roguelike tulang-belulang"
+	t3.text = "a bone-breaking roguelike"
 	t3.add_theme_font_size_override("font_size", 16)
 	t3.modulate = Color(1, 1, 1, 0.4)
 	t3.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

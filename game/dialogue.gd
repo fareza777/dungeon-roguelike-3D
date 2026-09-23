@@ -10,9 +10,9 @@ signal choice_made(index)
 const PORTRAITS := "res://assets/ui/"
 const CHARACTERS := {
 	"kael": {"name": "KAEL", "portrait": "portrait_kael.png", "color": Color(1.0, 0.85, 0.45)},
-	"oracle": {"name": "SANG PERAMAL", "portrait": "portrait_oracle.png", "color": Color(0.55, 1.0, 0.75)},
-	"raja": {"name": "RAJA TULANG", "portrait": "portrait_raja.png", "color": Color(1.0, 0.45, 0.4)},
-	"mahzan": {"name": "MAHZAN, PEDAGANG ARWAH", "portrait": "portrait_vendor.png", "color": Color(0.75, 0.85, 1.0)},
+	"oracle": {"name": "THE ORACLE", "portrait": "portrait_oracle.png", "color": Color(0.55, 1.0, 0.75)},
+	"raja": {"name": "BONE KING", "portrait": "portrait_raja.png", "color": Color(1.0, 0.45, 0.4)},
+	"mahzan": {"name": "MAHZAN, SPIRIT MERCHANT", "portrait": "portrait_vendor.png", "color": Color(0.75, 0.85, 1.0)},
 	"narator": {"name": "", "portrait": "", "color": Color(1, 1, 1, 0.6)},
 }
 
@@ -98,7 +98,7 @@ func _ready() -> void:
 	_text_l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	vb.add_child(_text_l)
 	_hint = Label.new()
-	_hint.text = "ketuk untuk lanjut ▶"
+	_hint.text = "tap to continue ▶"
 	_hint.add_theme_font_size_override("font_size", 14)
 	_hint.modulate = Color(1, 1, 1, 0.4)
 	_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT

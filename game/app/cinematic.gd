@@ -3,10 +3,10 @@ extends Control
 # voice over ElevenLabs (bila file ada). Ketuk = lanjut, Lewati = skip.
 
 const LINES := [
-	{"text": "Di kedalaman bumi yang terlupakan, sebuah kerajaan tulang terbangun dari tidurnya.", "img": "cine_1.png"},
-	{"text": "Kaulah prajurit terakhir yang berani menuruni tangga ini.", "img": "cine_2.png"},
-	{"text": "Setiap lantai semakin gelap. Setiap langkah semakin berbahaya. Dan di ujung, Raja Tulang menunggu.", "img": "cine_3.png"},
-	{"text": "Turunlah. Bertahanlah. Dan jangan pernah percaya kegelapan.", "img": "cine_4.png"},
+	{"text": "In the forgotten depths of the earth, a kingdom of bone has awakened from its slumber.", "img": "cine_1.png"},
+	{"text": "You are the last warrior who dares descend these stairs.", "img": "cine_2.png"},
+	{"text": "Every floor grows darker. Every step more dangerous. And at the end, the Bone King waits.", "img": "cine_3.png"},
+	{"text": "Descend. Survive. And never trust the dark.", "img": "cine_4.png"},
 ]
 
 var idx := 0
@@ -67,7 +67,7 @@ func _ready() -> void:
 	cc.add_child(label)
 
 	var hint := Label.new()
-	hint.text = "ketuk untuk lanjut"
+	hint.text = "tap to continue"
 	hint.add_theme_font_size_override("font_size", 15)
 	hint.modulate = Color(1, 1, 1, 0.35)
 	hint.anchor_left = 0.5
@@ -83,7 +83,7 @@ func _ready() -> void:
 	add_child(hint)
 
 	var skip := Button.new()
-	skip.text = "Lewati >"
+	skip.text = "Skip >"
 	skip.add_theme_font_size_override("font_size", 20)
 	skip.anchor_left = 1.0
 	skip.anchor_right = 1.0

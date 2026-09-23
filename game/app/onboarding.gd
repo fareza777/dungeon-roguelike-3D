@@ -5,20 +5,20 @@ extends Control
 const SLIDES := [
 	{
 		"img": "res://assets/ui/icon.png",
-		"title": "Geser & Tebas",
-		"text": "Jempol kiri untuk bergerak. Tombol ATK merah untuk menebas. Skill terbuka seiring levelmu naik.",
+		"title": "Move & Slash",
+		"text": "Left thumb to move. The red ATK button to slash. Skills unlock as you level up.",
 		"tint": Color(0.4, 0.75, 1.0),
 	},
 	{
 		"icon": "⚑",
-		"title": "Ikuti Rantai Quest",
-		"text": "Kotak di pojok kiri atas menunjukkan langkahmu berikutnya — bersihkan ruangan, capai ujung lantai, buka peti.",
+		"title": "Follow the Quest Chain",
+		"text": "The box at the top-left shows your next step — clear rooms, reach the floor's end, open the chest.",
 		"tint": Color(1.0, 0.8, 0.3),
 	},
 	{
 		"icon": "☠",
-		"title": "Boss Tiap 5 Lantai",
-		"text": "Raja Tulang menunggu di singgasananya. Perhatikan lingkar merah di lantai — itu telegraph slam-nya. Altar arwah memberimu berkat.",
+		"title": "A Boss Every 5 Floors",
+		"text": "The Bone King waits on his throne. Watch for the red circle on the ground — it's his slam telegraph. Spirit altars grant blessings.",
 		"tint": Color(1.0, 0.45, 0.4),
 	},
 ]
@@ -111,7 +111,7 @@ func _ready() -> void:
 	add_child(btn_next)
 
 	var skip := Button.new()
-	skip.text = "Lewati >"
+	skip.text = "Skip >"
 	skip.add_theme_font_size_override("font_size", 18)
 	skip.modulate = Color(1, 1, 1, 0.5)
 	skip.anchor_left = 1.0
@@ -187,7 +187,7 @@ func _show(i: int) -> void:
 	tw.tween_property(slide_box, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_BACK)
 	for d in dots.get_children():
 		d.color = GOLD if d.name == "dot%d" % i else Color(1, 1, 1, 0.2)
-	btn_next.text = "MULAI" if i == SLIDES.size() - 1 else "LANJUT"
+	btn_next.text = "START" if i == SLIDES.size() - 1 else "NEXT"
 	Sfx.play("page")
 
 

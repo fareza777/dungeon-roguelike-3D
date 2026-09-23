@@ -57,36 +57,36 @@ var prev_hp := -1.0
 
 # prestasi lintas run + varian bos per 5 lantai
 const ACH := {
-	"kill1": "Pembantaian Pertama",
-	"k50": "Algojo Lorong (50 kill)",
-	"k200": "Penghuni Kubur (200 kill)",
-	"f5": "Penurun Nekara (Lantai 5)",
-	"f10": "Tanpa Takut (Lantai 10)",
-	"f20": "Jantung Kedalaman (Lantai 20)",
-	"b1": "Pemecah Singgasana",
-	"b3": "Pemburu Raja (3 bos)",
-	"r5": "Kolektor Relik (5 relik)",
-	"w5": "Gudang Senjata (5 senjata)",
+	"kill1": "First Bloodbath",
+	"k50": "Corridor Reaper (50 kills)",
+	"k200": "Crypt Dweller (200 kills)",
+	"f5": "Depth Diver (Floor 5)",
+	"f10": "Fearless (Floor 10)",
+	"f20": "Heart of the Deep (Floor 20)",
+	"b1": "Throne Breaker",
+	"b3": "King Hunter (3 bosses)",
+	"r5": "Relic Collector (5 relics)",
+	"w5": "Arsenal (5 weapons)",
 }
 const BOSS_TIERS := [
-	{"name": "RAJA TULANG", "tint": Color(1.05, 1.05, 1.05)},
-	{"name": "RAJA BARA", "tint": Color(1.4, 0.65, 0.4)},
-	{"name": "RAJA BEKU", "tint": Color(0.55, 0.85, 1.45)},
-	{"name": "RAJA LIAR", "tint": Color(0.65, 1.35, 0.55)},
+	{"name": "BONE KING", "tint": Color(1.05, 1.05, 1.05)},
+	{"name": "EMBER KING", "tint": Color(1.4, 0.65, 0.4)},
+	{"name": "FROST KING", "tint": Color(0.55, 0.85, 1.45)},
+	{"name": "FERAL KING", "tint": Color(0.65, 1.35, 0.55)},
 ]
-var boss_name := "RAJA TULANG"
+var boss_name := "BONE KING"
 var atk_held := false
 var tip_l: Label = null
 
 const TIPS := [
-	"Elite berpendar merah memberi XP ganda.",
-	"Peti bermata merah itu mimic — waspada.",
-	"Dash memberi kekebalan sesaat.",
-	"Jeda combo memutus streak — tebas terus.",
-	"Altar arwah: pilih berkat sesuai gaya mainmu.",
-	"Duri lantai punya irama — pelajari sebelum lewat.",
-	"Raja yang marah memanggil antek — jaga jarak.",
-	"Relik Jiwa Bangkit menghidupkanmu sekali.",
+	"Crimson-glowing elites grant double XP.",
+	"Red-eyed chests are mimics — beware.",
+	"Dash grants a moment of invincibility.",
+	"Pausing breaks your combo — keep slashing.",
+	"Spirit altars: pick a blessing that fits your build.",
+	"Floor spikes have a rhythm — learn it before crossing.",
+	"An enraged King summons minions — keep your distance.",
+	"The Soul Risen relic revives you once.",
 ]
 
 
@@ -110,7 +110,7 @@ func _ach(id: String) -> void:
 		return
 	Stats.ach[id] = true
 	Stats.save_game()
-	_lvl_banner("◆ PENCAPAIAN — " + String(ACH[id]))
+	_lvl_banner("◆ ACHIEVEMENT — " + String(ACH[id]))
 	Sfx.play("quest")
 
 # v5: boss + quest + kombo + altar + peti mimic + dialog + minimap
@@ -296,7 +296,7 @@ func _new_run(new_seed: int) -> void:
 	_start_quests(boss_floor, int(info.get("room_count", 1)))
 	_build_minimap()
 	Sfx.play_music("boss" if boss_floor else _biome_track())
-	ui.floor_label.text = "Lantai %d • %s" % [Stats.floor_num, biome["name"]]
+	ui.floor_label.text = "Floor %d • %s" % [Stats.floor_num, biome["name"]]
 	_update_hp(Stats.current_hp)
 	_update_xp(Stats.xp, Stats.xp_need(), Stats.level)
 	_rebuild_chips()
@@ -308,7 +308,7 @@ func _new_run(new_seed: int) -> void:
 	quest_moved = 0.0
 	quest_last_p = info.player_pos
 	if tut_active:
-		_tut_show("Geser jempolmu di sisi kiri layar untuk bergerak")
+		_tut_show("Slide your thumb on the left side of the screen to move")
 		tut_last_pos = player.global_position
 	else:
 		_tut_hide()
@@ -319,7 +319,7 @@ func _new_run(new_seed: int) -> void:
 	print("ROOM seed=%d floor=%d biome=%s rooms=%d enemies=%d gates=%d boss=%s" % [seed_val, Stats.floor_num, biome["name"], info.get("room_count", 1), info.enemy_spawns.size(), gates.size(), str(QDB.is_boss_floor(Stats.floor_num))])
 	_floor_intro_lines(boss_floor)
 	if Stats.floor_num > 1:
-		_lvl_banner("LANTAI %d — %s" % [Stats.floor_num, String(biome["name"]).to_upper()])
+		_lvl_banner("FLOOR %d — %s" % [Stats.floor_num, String(biome["name"]).to_upper()])
 
 
 func _build_gates() -> void:
@@ -376,9 +376,9 @@ func _on_room_enter(ri: int) -> void:
 		_set_room_gates(ri, false)
 		if ri > 0:
 			if boss_ref != null and is_instance_valid(boss_ref) and boss_ref.room_idx == ri:
-				toast(boss_name + " MENGHADANG — bunuh dia!")
+				toast(boss_name + " BLOCKS YOUR PATH — slay him!")
 			else:
-				toast("Ruangan terkunci — habisi semua skeleton!")
+				toast("Room locked — slay all skeletons!")
 		print("RUANGAN %d TERKUNCI (musuh=%d)" % [ri, _room_alive(ri)])
 
 
@@ -403,16 +403,16 @@ func _on_player_hp(hp: float) -> void:
 
 
 func _on_player_revived() -> void:
-	_lvl_banner("JIWA BANGKIT!")
+	_lvl_banner("SOUL RISEN!")
 	_burst(player.global_position, Color(1.0, 0.9, 0.5))
 	_souls(player.global_position, 16, Color(0.6, 1.0, 0.75))
-	toast("Relik Jiwa Bangkit menyelamatkanmu — separuh HP kembali")
+	toast("Soul Risen saved you — half HP restored")
 
 
 func _on_player_attacked() -> void:
 	if tut_active and tut_step == 1:
 		tut_step = 2
-		_tut_show("Habisi semua skeleton di lantai ini!")
+		_tut_show("Slay all skeletons on this floor!")
 	_slash_vfx()
 
 
@@ -529,7 +529,7 @@ func _on_boss_summon(boss) -> void:
 	if alive >= 7:
 		return
 	Sfx.play("roar")
-	toast(boss_name + " memanggil antek-anteknya!")
+	toast(boss_name + " summons his minions!")
 	for k in range(2):
 		var off := Vector3((k - 0.5) * 0.8 * info.tile, 0, 0.5 * info.tile)
 		_spawn_enemy({"pos": boss.global_position + off, "room": boss.room_idx}, "chaser", false)
@@ -635,7 +635,7 @@ func _on_enemy_died(e) -> void:
 			_quest_event("clear_floor")
 			_set_room_gates(e.room_idx, true)
 			if not get_tree().get_nodes_in_group("enemies").is_empty():
-				toast("Ruangan bersih — gerbang terbuka!")
+				toast("Room clear — gates open!")
 		if get_tree().get_nodes_in_group("enemies").is_empty():
 			run_state = "cleared"
 			Stats.note_floor()
@@ -647,7 +647,7 @@ func _on_enemy_died(e) -> void:
 				Stats.tutorial_done = true
 				Stats.save_game()
 				_tut_hide()
-			_show_banner("LANTAI %d BERSIH" % Stats.floor_num, "ketuk untuk turun ke Lantai %d" % [Stats.floor_num + 1])
+			_show_banner("FLOOR %d CLEARED" % Stats.floor_num, "tap to descend to Floor %d" % [Stats.floor_num + 1])
 			if player != null and is_instance_valid(player):
 				_burst(player.global_position, Color(1.0, 0.85, 0.3))
 				_souls(player.global_position, 12, Color(1.0, 0.8, 0.35))
@@ -670,15 +670,15 @@ func _on_boss_died(_e) -> void:
 	if Stats.boss_kills >= 3:
 		_ach("b3")
 	_boss_bar_hide()
-	toast(boss_name + " roboh! +15 XP")
+	toast(boss_name + " falls! +15 XP")
 	# epilog singkat setelah bos tumbang (kecuali pemain buru-buru turun)
 	var fl := Stats.floor_num
 	get_tree().create_timer(1.2).timeout.connect(func() -> void:
 		if Stats.floor_num != fl or Stats.draft_open or (dlg != null and dlg.active):
 			return
 		_say([
-			{"who": "raja", "text": "...tidak mungkin... singgasanaku... retak..."},
-			{"who": "oracle", "text": "Dia akan bangkit lagi lima lantai lebih dalam — lebih kuat. Terus turun, Kael."},
+			{"who": "raja", "text": "...impossible... my throne... cracking..."},
+			{"who": "oracle", "text": "He will rise again five floors deeper — stronger. Keep descending, Kael."},
 		]))
 	_damage_number(_e.global_position, "BOSS TUMBANG", Color(1.0, 0.5, 0.2), true)
 
@@ -697,8 +697,8 @@ func _on_player_died() -> void:
 		_souls(player.global_position, 18, Color(0.85, 0.9, 1.0))
 	var mins := int(run_time) / 60
 	var secs := int(run_time) % 60
-	var rec := "\nREKOR BARU!" if new_record and Stats.floor_num > 1 else ""
-	_show_banner("KAMU MATI", "Lantai %d • %s\n%d kill • Lv %d • %d relik • %d:%02d\nTerbaik: Lantai %d — ketuk untuk mengulang%s" % [Stats.floor_num, biome["name"], kills_run, Stats.level, Stats.relics.size(), mins, secs, Stats.best_floor, rec])
+	var rec := "\nNEW RECORD!" if new_record and Stats.floor_num > 1 else ""
+	_show_banner("YOU DIED", "Floor %d • %s\n%d kills • Lv %d • %d relics • %d:%02d\nBest: Floor %d — tap to retry%s" % [Stats.floor_num, biome["name"], kills_run, Stats.level, Stats.relics.size(), mins, secs, Stats.best_floor, rec])
 
 
 func _on_banner_tap() -> void:
@@ -742,10 +742,10 @@ func _on_leveled_up(lv: int) -> void:
 	if player != null and is_instance_valid(player):
 		player.hp = minf(Stats.get_stat("max_hp"), player.hp + 2.0)
 		player.hp_changed.emit(player.hp)
-	_lvl_banner("NAIK LEVEL — Lv %d" % lv)
+	_lvl_banner("LEVEL UP — Lv %d" % lv)
 	for id in SK.ORDER:
 		if int(SK.DB[id]["unlock"]) == lv:
-			toast("Skill terbuka: %s!" % SK.DB[id]["name"])
+			toast("Skill unlocked: %s!" % SK.DB[id]["name"])
 	pending_drafts += 1
 	_try_open_draft()
 
@@ -833,7 +833,7 @@ func _cast_skill(id: String) -> void:
 		return
 	if not SK.is_unlocked(id, Stats.level):
 		Sfx.play("deny")
-		toast("%s terbuka di Lv %d" % [SK.DB[id]["name"], int(SK.DB[id]["unlock"])])
+		toast("%s unlocks at Lv %d" % [SK.DB[id]["name"], int(SK.DB[id]["unlock"])])
 		return
 	if skill_cd[id] > 0.0:
 		Sfx.play("deny")
@@ -874,7 +874,7 @@ func _cast_skill(id: String) -> void:
 				struck += 1
 			if struck == 0:
 				Sfx.play("deny")
-				toast("Tidak ada musuh dalam jangkauan petir")
+				toast("No enemies within thunder's reach")
 				return
 			Sfx.play("thunder")
 			trauma = 0.9
@@ -925,11 +925,10 @@ func _lightning(pos: Vector3) -> void:
 
 
 func _build_skill_buttons(layer: CanvasLayer) -> void:
-	var labels := {"dash": "DASH", "whirl": "PUTAR", "thunder": "PETIR"}
 	for i in range(SK.ORDER.size()):
 		var id: String = SK.ORDER[i]
 		var b := Button.new()
-		b.text = labels[id]
+		b.text = String(SK.DB[id]["short"])
 		b.add_theme_font_size_override("font_size", 14)
 		var sb := StyleBoxFlat.new()
 		sb.bg_color = Color(0.1, 0.16, 0.24, 0.88)
@@ -961,7 +960,7 @@ func _build_skill_buttons(layer: CanvasLayer) -> void:
 		var sid := id
 		b.pressed.connect(func() -> void: _cast_skill(sid))
 		layer.add_child(b)
-		skill_ui[id] = {"btn": b, "cd": cd, "name": labels[id]}
+		skill_ui[id] = {"btn": b, "cd": cd, "name": String(SK.DB[id]["name"])}
 
 
 func _tick_skill_ui(delta: float) -> void:
@@ -1052,12 +1051,12 @@ func _refresh_hero() -> void:
 		["Level", str(Stats.level)],
 		["XP", "%d / %d" % [Stats.xp, Stats.xp_need()]],
 		["ATK", "%.0f" % Stats.get_stat("atk")],
-		["HP Maks", "%.0f" % Stats.get_stat("max_hp")],
-		["Kecepatan", "%.0f%%" % (Stats.get_stat("speed") * 100.0)],
+		["Max HP", "%.0f" % Stats.get_stat("max_hp")],
+		["Speed", "%.0f%%" % (Stats.get_stat("speed") * 100.0)],
 		["Crit", "%.0f%%" % (Stats.get_stat("crit") * 100.0)],
 		["Lifesteal", "%.0f%%" % (Stats.get_stat("lifesteal") * 100.0)],
 		["Armor", "%d" % int(Stats.get_stat("armor"))],
-		["Kecepatan Serang", "%.0f%%" % (Stats.get_stat("atk_speed") * 100.0)],
+		["Attack Speed", "%.0f%%" % (Stats.get_stat("atk_speed") * 100.0)],
 	]
 	var grid := GridContainer.new()
 	grid.columns = 2
@@ -1076,7 +1075,7 @@ func _refresh_hero() -> void:
 	vb.add_child(grid)
 
 	var wl := Label.new()
-	wl.text = "SENJATA (ketuk untuk ganti)"
+	wl.text = "WEAPONS (tap to switch)"
 	wl.add_theme_font_size_override("font_size", 15)
 	wl.modulate = Color(1.0, 0.85, 0.4)
 	vb.add_child(wl)
@@ -1124,7 +1123,7 @@ func _refresh_hero() -> void:
 		rgrid.add_child(p)
 	if Stats.relics.is_empty():
 		var none := Label.new()
-		none.text = "(belum ada relic)"
+		none.text = "(no relics yet)"
 		none.modulate = Color(1, 1, 1, 0.4)
 		none.add_theme_font_size_override("font_size", 14)
 		rgrid.add_child(none)
@@ -1139,14 +1138,14 @@ func _refresh_hero() -> void:
 		var sd: Dictionary = SK.DB[id]
 		var unlocked := SK.is_unlocked(id, Stats.level)
 		var sl2 := Label.new()
-		sl2.text = "%s — %s%s" % [sd["name"], sd["desc"], "" if unlocked else " (terkunci: Lv %d)" % int(sd["unlock"])]
+		sl2.text = "%s — %s%s" % [sd["name"], sd["desc"], "" if unlocked else " (locked: Lv %d)" % int(sd["unlock"])]
 		sl2.add_theme_font_size_override("font_size", 14)
 		sl2.modulate = Color(1, 1, 1, 0.85) if unlocked else Color(1, 1, 1, 0.35)
 		sl2.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		vb.add_child(sl2)
 
 	var hclose := Button.new()
-	hclose.text = "Tutup"
+	hclose.text = "Close"
 	hclose.add_theme_font_size_override("font_size", 22)
 	hclose.custom_minimum_size = Vector2(0, 52)
 	hclose.pressed.connect(func() -> void: _toggle_hero(false))
@@ -1323,7 +1322,7 @@ func _combo_set(n: int) -> void:
 		return
 	if combo >= 3:
 		ui.combo_l.visible = true
-		ui.combo_l.text = "KOMBO ×%d" % combo
+		ui.combo_l.text = "COMBO ×%d" % combo
 		ui.combo_l.pivot_offset = ui.combo_l.size * 0.5
 		ui.combo_l.scale = Vector2(1.35, 1.35)
 		var tw := create_tween()
@@ -1382,14 +1381,14 @@ func _on_dlg_choice(idx: int) -> void:
 	match idx:
 		0:
 			Stats.buff_atk_pct += 0.15
-			toast("Berkat Perang: +15% ATK")
+			toast("War Blessing: +15% ATK")
 		1:
 			Stats.buff_armor += 1
-			toast("Berkat Besi: +1 Armor")
+			toast("Iron Blessing: +1 Armor")
 		2:
 			if player != null and is_instance_valid(player):
 				player.heal_to_full()
-			toast("Berkat Darah: HP pulih penuh")
+			toast("Blood Blessing: HP fully restored")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -1400,11 +1399,11 @@ func _on_shrine_invoked(s) -> void:
 	s.consume()
 	Sfx.play("shrine")
 	_say(
-		[{"who": "mahzan", "text": "Arwah-arwah tua masih menghormati tulang pemberani. Pilih satu berkat, jangan serakah."}],
+		[{"who": "mahzan", "text": "The old spirits still honor brave bones. Choose one blessing — no greed."}],
 		[
-			{"text": "Berkat Perang — +15% ATK run ini"},
-			{"text": "Berkat Besi — +1 Armor run ini"},
-			{"text": "Berkat Darah — pulihkan HP penuh"},
+			{"text": "War Blessing — +15% ATK this run"},
+			{"text": "Iron Blessing — +1 Armor this run"},
+			{"text": "Blood Blessing — fully heal HP"},
 		]
 	)
 
@@ -1413,21 +1412,21 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 	var lines: Array = []
 	if Stats.floor_num == 1:
 		lines = [
-			{"who": "oracle", "text": "Kael... kau sudah bangun. Kedalaman ini sekarang milik Raja Tulang."},
-			{"who": "kael", "text": "Aku turun bukan untuk mati, Peramal. Tunjukkan jalannya."},
-			{"who": "oracle", "text": "Setiap lima lantai dia menunggu di singgasananya. Patung arwah di lorong masih mendengar — sentuh, dan mintalah berkat."},
+			{"who": "oracle", "text": "Kael... you're awake. These depths belong to the Bone King now."},
+			{"who": "kael", "text": "I didn't come down here to die, Oracle. Show me the way."},
+			{"who": "oracle", "text": "Every five floors he waits on his throne. The spirit statues in the halls still listen — touch them and ask for a blessing."},
 		]
 	elif boss_floor:
 		lines = [
-			{"who": "oracle", "text": "Hati-hati — Raja Tulang ada di ujung lorong ini. Bila tanah bergetar merah, MINGGIR."},
-			{"who": "raja", "text": "KAU LAGI, SI KECIL YANG WANGI. Aku akan menambahkan tulangmu ke singgasanaku."},
+			{"who": "oracle", "text": "Careful — the Bone King lurks at the end of this corridor. If the ground shakes red, GET OUT."},
+			{"who": "raja", "text": "YOU AGAIN, LITTLE FRAGRANT ONE. I'll add your bones to my throne."},
 		]
 	elif Stats.floor_num > 1 and rng.randf() < 0.3:
 		var tips := [
-			"Duri di lantai itu hidup — perhatikan iramanya sebelum melangkah.",
-			"Peti tak selalu peti. Yang bergigi disebut mimic, dan ia lapar.",
-			"Elite berpendar merah. Jangan biarkan mereka mengepungmu.",
-			"Rantai pembunuhan tanpa jeda — kombo. Musik untuk telinga Raja Tulang.",
+			"Those floor spikes are alive — learn their rhythm before stepping.",
+			"Not all chests are chests. The fanged ones are mimics — and they're hungry.",
+			"Elites glow crimson. Don't let them surround you.",
+			"An unbroken kill streak — a combo. Music to the Bone King's ears.",
 		]
 		lines = [{"who": "oracle", "text": tips[rng.randi_range(0, tips.size() - 1)]}]
 	if lines.is_empty():
@@ -1853,7 +1852,7 @@ func _build_ui() -> void:
 	var dvb := VBoxContainer.new()
 	dvb.add_theme_constant_override("separation", 18)
 	var dt := Label.new()
-	dt.text = "LEVEL UP — pilih satu"
+	dt.text = "LEVEL UP — pick one"
 	dt.add_theme_font_size_override("font_size", 34)
 	dt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	dvb.add_child(dt)
@@ -1981,37 +1980,37 @@ func _build_ui() -> void:
 	pvb.process_mode = Node.PROCESS_MODE_ALWAYS
 	pp.add_child(pvb)
 	var pt := Label.new()
-	pt.text = "JEDA"
+	pt.text = "PAUSED"
 	pt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	pt.add_theme_font_size_override("font_size", 30)
 	pt.modulate = Color(1.0, 0.85, 0.4)
 	pt.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	pvb.add_child(pt)
-	_pause_vol_row(pvb, "Musik", Stats.mus_vol(), func(v: float) -> void:
+	_pause_vol_row(pvb, "Music", Stats.mus_vol(), func(v: float) -> void:
 		Stats.music_volume = v
 		Sfx.set_music_volume(v)
 		Stats.save_game())
-	_pause_vol_row(pvb, "Efek Suara", Stats.sfx_vol(), func(v: float) -> void:
+	_pause_vol_row(pvb, "Sound FX", Stats.sfx_vol(), func(v: float) -> void:
 		Stats.sfx_volume = v
 		Stats.save_game())
-	var b_qual := _pause_btn("KUALITAS: " + ("HEMAT" if low_quality else "INDAH"))
+	var b_qual := _pause_btn("QUALITY: " + ("LOW" if low_quality else "HIGH"))
 	b_qual.pressed.connect(func() -> void:
 		Stats.quality = 0 if not low_quality else 1
 		_apply_quality()
-		b_qual.text = "KUALITAS: " + ("HEMAT" if low_quality else "INDAH")
+		b_qual.text = "QUALITY: " + ("LOW" if low_quality else "HIGH")
 		Stats.save_game()
 		Sfx.play("click"))
 	pvb.add_child(b_qual)
-	var b_resume := _pause_btn("LANJUT")
+	var b_resume := _pause_btn("RESUME")
 	b_resume.pressed.connect(_toggle_pause)
 	pvb.add_child(b_resume)
-	var b_floor := _pause_btn("ULANGI LANTAI INI")
+	var b_floor := _pause_btn("RESTART FLOOR")
 	b_floor.pressed.connect(func() -> void:
 		if paused_ui:
 			_toggle_pause()
 		_new_run(rng.randi()))
 	pvb.add_child(b_floor)
-	var b_menu := _pause_btn("KELUAR KE MENU")
+	var b_menu := _pause_btn("QUIT TO MENU")
 	b_menu.pressed.connect(_quit_to_menu)
 	pvb.add_child(b_menu)
 	pp.visible = false
@@ -2252,7 +2251,7 @@ func _process(delta: float) -> void:
 			tut_last_pos = player.global_position
 			if moved_accum > 1.2 * info.tile:
 				tut_step = 1
-				_tut_show("Ketuk tombol ATK merah untuk menebas")
+				_tut_show("Tap the red ATK button to slash")
 				_quest_event("moved")
 
 		# quest "moved": akumulasi gerak pemain
@@ -2292,7 +2291,7 @@ func _process(delta: float) -> void:
 					Sfx.play("mimic")
 					trauma = 0.8
 					_burst(info.chest.global_position, Color(1.0, 0.35, 0.2))
-					toast("PETI PALSU! Itu bergerak!")
+					toast("MIMIC! It's alive!")
 					for mk in range(2):
 						var off := Vector3((mk - 0.5) * 0.9 * info.tile, 0, 0.7 * info.tile)
 						_spawn_enemy({"pos": info.chest.global_position + off, "room": int(info.get("room_count", 1)) - 1}, "chaser", false)
@@ -2304,7 +2303,7 @@ func _process(delta: float) -> void:
 					_burst(info.chest.global_position, Color(1.0, 0.85, 0.3))
 					_souls(info.chest.global_position, 8, Color(1.0, 0.8, 0.35))
 					M.paint(info.chest, M.toon(dungeon_tex, Color(0.45, 0.4, 0.32), 0.1))
-					toast("Peti Harta: HP pulih penuh, +3 XP")
+					toast("Treasure Chest: HP restored, +3 XP")
 
 	if player != null and is_instance_valid(player) and cam != null:
 		var s: float = info.get("tile", 4.0)

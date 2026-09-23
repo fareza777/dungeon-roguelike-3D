@@ -3,31 +3,31 @@
 
 const DB := {
 	# ---- common ----
-	"tulang_tajam": {"name": "Tulang Tajam", "chip": "TJ", "desc": "+1 ATK", "rarity": 0, "mods": {"atk": 1.0}},
-	"darah_segar": {"name": "Darah Segar", "chip": "DS", "desc": "+2 HP Maks", "rarity": 0, "mods": {"max_hp": 2.0}},
-	"kulit_keras": {"name": "Kulit Keras", "chip": "KK", "desc": "+1 Armor", "rarity": 0, "mods": {"armor": 1.0}},
-	"langkah_ringan": {"name": "Langkah Ringan", "chip": "LR", "desc": "+12% Kecepatan", "rarity": 0, "mods": {"speed_pct": 0.12}},
-	"mata_elang": {"name": "Mata Elang", "chip": "ME", "desc": "+8% Crit", "rarity": 0, "mods": {"crit": 0.08}},
-	"tangan_cepat": {"name": "Tangan Cepat", "chip": "TC", "desc": "+15% Kecepatan Serang", "rarity": 0, "mods": {"atk_speed_pct": 0.15}},
-	"jimat_palu": {"name": "Jimat Palu", "chip": "JP", "desc": "+15% ATK", "rarity": 0, "mods": {"atk_pct": 0.15}},
-	"kantong_nyawa": {"name": "Kantong Nyawa", "chip": "KN", "desc": "+25% HP Maks", "rarity": 0, "mods": {"max_hp_pct": 0.25}},
+	"tulang_tajam": {"name": "Sharp Bone", "chip": "SB", "desc": "+1 ATK", "rarity": 0, "mods": {"atk": 1.0}},
+	"darah_segar": {"name": "Fresh Blood", "chip": "FB", "desc": "+2 Max HP", "rarity": 0, "mods": {"max_hp": 2.0}},
+	"kulit_keras": {"name": "Hard Skin", "chip": "HS", "desc": "+1 Armor", "rarity": 0, "mods": {"armor": 1.0}},
+	"langkah_ringan": {"name": "Light Step", "chip": "LS", "desc": "+12% Speed", "rarity": 0, "mods": {"speed_pct": 0.12}},
+	"mata_elang": {"name": "Eagle Eye", "chip": "EE", "desc": "+8% Crit", "rarity": 0, "mods": {"crit": 0.08}},
+	"tangan_cepat": {"name": "Quick Hands", "chip": "QH", "desc": "+15% Attack Speed", "rarity": 0, "mods": {"atk_speed_pct": 0.15}},
+	"jimat_palu": {"name": "Hammer Charm", "chip": "HC", "desc": "+15% ATK", "rarity": 0, "mods": {"atk_pct": 0.15}},
+	"kantong_nyawa": {"name": "Life Pouch", "chip": "LP", "desc": "+25% Max HP", "rarity": 0, "mods": {"max_hp_pct": 0.25}},
 	# ---- rare ----
-	"pedang_berkarat": {"name": "Pedang Berkarat", "chip": "PB", "desc": "+2 ATK", "rarity": 1, "mods": {"atk": 2.0}},
-	"pengisap_darah": {"name": "Pengisap Darah", "chip": "PD", "desc": "+5% Lifesteal", "rarity": 1, "mods": {"lifesteal": 0.05}},
-	"otot_baja": {"name": "Otot Baja", "chip": "OB", "desc": "+20% ATK, +10% Kecepatan", "rarity": 1, "mods": {"atk_pct": 0.2, "speed_pct": 0.1}},
-	"jantung_badak": {"name": "Jantung Badak", "chip": "JB", "desc": "+4 HP Maks", "rarity": 1, "mods": {"max_hp": 4.0}},
-	"refleks_kucing": {"name": "Refleks Kucing", "chip": "RC", "desc": "+25% Kecepatan Serang", "rarity": 1, "mods": {"atk_speed_pct": 0.25}},
-	"sisik_naga": {"name": "Sisik Naga", "chip": "SN", "desc": "+1 Armor, +15% HP Maks", "rarity": 1, "mods": {"armor": 1.0, "max_hp_pct": 0.15}},
-	"duri_pantulan": {"name": "Duri Pantulan", "chip": "DP", "desc": "Balikkan 30% dmg ke penyerang", "rarity": 1, "mods": {"thorns": 0.3}},
+	"pedang_berkarat": {"name": "Rusty Sword", "chip": "RS", "desc": "+2 ATK", "rarity": 1, "mods": {"atk": 2.0}},
+	"pengisap_darah": {"name": "Blood Leech", "chip": "BL", "desc": "+5% Lifesteal", "rarity": 1, "mods": {"lifesteal": 0.05}},
+	"otot_baja": {"name": "Steel Muscle", "chip": "SM", "desc": "+20% ATK, +10% Speed", "rarity": 1, "mods": {"atk_pct": 0.2, "speed_pct": 0.1}},
+	"jantung_badak": {"name": "Rhino Heart", "chip": "RH", "desc": "+4 Max HP", "rarity": 1, "mods": {"max_hp": 4.0}},
+	"refleks_kucing": {"name": "Cat Reflexes", "chip": "CR", "desc": "+25% Attack Speed", "rarity": 1, "mods": {"atk_speed_pct": 0.25}},
+	"sisik_naga": {"name": "Dragon Scale", "chip": "DS", "desc": "+1 Armor, +15% Max HP", "rarity": 1, "mods": {"armor": 1.0, "max_hp_pct": 0.15}},
+	"duri_pantulan": {"name": "Reflector Spikes", "chip": "TP", "desc": "Reflect 30% dmg to attacker", "rarity": 1, "mods": {"thorns": 0.3}},
 	# ---- epic ----
-	"amarah_dewa": {"name": "Amarah Dewa", "chip": "AD", "desc": "+50% ATK", "rarity": 2, "mods": {"atk_pct": 0.5}},
-	"raja_kritis": {"name": "Raja Kritis", "chip": "RT", "desc": "+25% Crit", "rarity": 2, "mods": {"crit": 0.25}},
-	"hidup_abadi": {"name": "Hidup Abadi", "chip": "HA", "desc": "+50% HP Maks, +5% Lifesteal", "rarity": 2, "mods": {"max_hp_pct": 0.5, "lifesteal": 0.05}},
-	"angin_topan": {"name": "Angin Topan", "chip": "AT", "desc": "+30% Kecepatan Serang, +15% Kecepatan", "rarity": 2, "mods": {"atk_speed_pct": 0.3, "speed_pct": 0.15}},
-	"tulang_naga": {"name": "Tulang Naga", "chip": "TN", "desc": "+3 ATK, +2 HP Maks", "rarity": 2, "mods": {"atk": 3.0, "max_hp": 2.0}},
-	"jiwa_bangkit": {"name": "Jiwa Bangkit", "chip": "JB+", "desc": "Hidup lagi 1× (50% HP)", "rarity": 2, "mods": {"revive": 1}},
+	"amarah_dewa": {"name": "Wrath of God", "chip": "WG", "desc": "+50% ATK", "rarity": 2, "mods": {"atk_pct": 0.5}},
+	"raja_kritis": {"name": "Crit King", "chip": "CK", "desc": "+25% Crit", "rarity": 2, "mods": {"crit": 0.25}},
+	"hidup_abadi": {"name": "Immortal", "chip": "IM", "desc": "+50% Max HP, +5% Lifesteal", "rarity": 2, "mods": {"max_hp_pct": 0.5, "lifesteal": 0.05}},
+	"angin_topan": {"name": "Cyclone", "chip": "CY", "desc": "+30% Attack Speed, +15% Speed", "rarity": 2, "mods": {"atk_speed_pct": 0.3, "speed_pct": 0.15}},
+	"tulang_naga": {"name": "Dragon Bone", "chip": "DB", "desc": "+3 ATK, +2 Max HP", "rarity": 2, "mods": {"atk": 3.0, "max_hp": 2.0}},
+	"jiwa_bangkit": {"name": "Soul Risen", "chip": "SR", "desc": "Revive 1x (50% HP)", "rarity": 2, "mods": {"revive": 1}},
 	# ---- fallback berulang ----
-	"berkat_pandai_besi": {"name": "Berkat Pandai Besi", "chip": "B+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
+	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
 
 const RARITY_COLORS := [Color(0.85, 0.85, 0.9), Color(0.4, 0.7, 1.0), Color(1.0, 0.6, 0.15)]

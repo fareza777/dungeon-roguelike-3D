@@ -133,7 +133,7 @@ func _build() -> void:
 	tw.tween_property(title, "modulate", GOLD, 1.6)
 
 	var sub := Label.new()
-	sub.text = "roguelike tulang-belulang"
+	sub.text = "a bone-breaking roguelike"
 	sub.add_theme_font_size_override("font_size", 18)
 	sub.modulate = Color(1, 1, 1, 0.55)
 	sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -143,9 +143,9 @@ func _build() -> void:
 	vb.add_child(sub)
 
 	var best := Label.new()
-	var boss_txt := " • Boss ditumbangkan: %d" % Stats.boss_kills if Stats.boss_kills > 0 else ""
+	var boss_txt := " • Bosses slain: %d" % Stats.boss_kills if Stats.boss_kills > 0 else ""
 	var ach_txt := " • ◆ %d/10" % Stats.ach.size() if Stats.ach.size() > 0 else ""
-	best.text = "Terbaik: Lantai %d • Total kill: %d%s%s" % [Stats.best_floor, Stats.total_kills, boss_txt, ach_txt]
+	best.text = "Best: Floor %d • Total kills: %d%s%s" % [Stats.best_floor, Stats.total_kills, boss_txt, ach_txt]
 	best.add_theme_font_size_override("font_size", 17)
 	best.modulate = Color(1.0, 0.9, 0.6, 0.85)
 	best.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -159,11 +159,11 @@ func _build() -> void:
 	vb.add_child(sp)
 
 	if Stats.has_run():
-		var bc := _make_btn("LANJUTKAN — Lantai %d" % int(Stats.saved_run.get("floor", 1)))
+		var bc := _make_btn("CONTINUE — Floor %d" % int(Stats.saved_run.get("floor", 1)))
 		bc.pressed.connect(_on_continue)
 		vb.add_child(bc)
 
-	var bn := _make_btn("GAME BARU")
+	var bn := _make_btn("NEW GAME")
 	bn.pressed.connect(_on_new)
 	vb.add_child(bn)
 
@@ -171,11 +171,11 @@ func _build() -> void:
 	row.alignment = BoxContainer.ALIGNMENT_CENTER
 	row.add_theme_constant_override("separation", 10)
 	vb.add_child(row)
-	var bs := _make_btn("PENGATURAN", false)
+	var bs := _make_btn("SETTINGS", false)
 	bs.custom_minimum_size = Vector2(184, 60)
 	bs.pressed.connect(func() -> void: settings_panel.visible = true)
 	row.add_child(bs)
-	var ba := _make_btn("TENTANG", false)
+	var ba := _make_btn("ABOUT", false)
 	ba.custom_minimum_size = Vector2(184, 60)
 	ba.pressed.connect(func() -> void: about_panel.visible = true)
 	row.add_child(ba)
@@ -184,16 +184,16 @@ func _build() -> void:
 	row2.alignment = BoxContainer.ALIGNMENT_CENTER
 	row2.add_theme_constant_override("separation", 10)
 	vb.add_child(row2)
-	var bsh := _make_btn("BAGIKAN", false)
+	var bsh := _make_btn("SHARE", false)
 	bsh.custom_minimum_size = Vector2(184, 60)
 	bsh.pressed.connect(_on_share)
 	row2.add_child(bsh)
-	var br := _make_btn("NILAI ★", false)
+	var br := _make_btn("RATE ★", false)
 	br.custom_minimum_size = Vector2(184, 60)
 	br.pressed.connect(_on_rate)
 	row2.add_child(br)
 
-	var bq := _make_btn("KELUAR", false)
+	var bq := _make_btn("QUIT", false)
 	bq.custom_minimum_size = Vector2(184, 60)
 	bq.pressed.connect(func() -> void: get_tree().quit())
 	vb.add_child(bq)
@@ -273,24 +273,24 @@ func _build_settings() -> void:
 	panel.add_child(vb)
 
 	var t := Label.new()
-	t.text = "PENGATURAN"
+	t.text = "SETTINGS"
 	t.add_theme_font_size_override("font_size", 30)
 	t.modulate = GOLD
 	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vb.add_child(t)
 
-	_vol_row(vb, "Musik", Stats.mus_vol(), func(v: float) -> void:
+	_vol_row(vb, "Music", Stats.mus_vol(), func(v: float) -> void:
 		Stats.music_volume = v
 		Sfx.set_music_volume(v)
 		Stats.save_game()
 	)
-	_vol_row(vb, "Efek suara", Stats.sfx_vol(), func(v: float) -> void:
+	_vol_row(vb, "Sound FX", Stats.sfx_vol(), func(v: float) -> void:
 		Stats.sfx_volume = v
 		Sfx.set_volume(v)
 		Stats.save_game()
 	)
 
-	var ts := _make_btn("Uji Suara", false)
+	var ts := _make_btn("Test Sound", false)
 	ts.pressed.connect(func() -> void:
 		Sfx.play("swing")
 		await get_tree().create_timer(0.35).timeout
@@ -314,16 +314,16 @@ func _build_settings() -> void:
 	)
 	vb.add_child(qual_opt)
 
-	var wr := _make_btn("Reset Semua Progres", false)
+	var wr := _make_btn("Reset All Progress", false)
 	wr.add_theme_color_override("font_color", Color(1.0, 0.5, 0.45))
 	wr.pressed.connect(func() -> void:
 		Stats.wipe_progress()
-		_toast("Semua progres dihapus")
+		_toast("All progress wiped")
 		Sfx.play("hurt")
 	)
 	vb.add_child(wr)
 
-	var back := _make_btn("Tutup", false)
+	var back := _make_btn("Close", false)
 	back.pressed.connect(func() -> void: settings_panel.visible = false)
 	vb.add_child(back)
 
@@ -353,18 +353,18 @@ func _build_about() -> void:
 	vb.custom_minimum_size = Vector2(440, 0)
 	panel.add_child(vb)
 	var t := Label.new()
-	t.text = "TENTANG"
+	t.text = "ABOUT"
 	t.add_theme_font_size_override("font_size", 30)
 	t.modulate = GOLD
 	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vb.add_child(t)
 	var body := Label.new()
-	body.text = "DUNGEONSLICE v%s\n\nRoguelike aksi di kedalaman bumi. Setiap 5 lantai Raja Tulang menunggu di singgasananya — kalahkan dia atau jadi bagian dari takhtanya.\n\n— Tim Kecil Tapi Nekat —\nModel: KayKit Skeleton Pack\nPatung altar: Meshy AI\nMusik & SFX: ElevenLabs\nEngine: Godot 4.7" % Stats.VERSION
+	body.text = "DUNGEONSLICE v%s\n\nAn action roguelike from the depths below. Every 5 floors the Bone King waits on his throne — slay him or become part of it.\n\n— Small Team, Big Nerve —\nModels: KayKit Skeleton Pack\nAltar statue: Meshy AI\nMusic & SFX: ElevenLabs\nEngine: Godot 4.7" % Stats.VERSION
 	body.add_theme_font_size_override("font_size", 17)
 	body.modulate = Color(1, 1, 1, 0.85)
 	body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	vb.add_child(body)
-	var back := _make_btn("Tutup", false)
+	var back := _make_btn("Close", false)
 	back.pressed.connect(func() -> void: about_panel.visible = false)
 	vb.add_child(back)
 
@@ -373,7 +373,7 @@ func _build_about() -> void:
 
 func _on_share() -> void:
 	var url := STORE_URL + Stats.STORE_ID
-	DisplayServer.clipboard_set("Main DungeonSlice — roguelike tulang-belulang! " + url)
+	DisplayServer.clipboard_set("Play DungeonSlice — a bone-breaking roguelike! " + url)
 	_toast("Tautan game disalin — tempelkan ke temanmu!")
 	Sfx.play("click")
 
@@ -385,9 +385,9 @@ func _on_rate() -> void:
 	if ok != OK:
 		ok = OS.shell_open(STORE_URL + Stats.STORE_ID)
 	if ok != OK:
-		_toast("Buka Play Store: " + Stats.STORE_ID)
+		_toast("Opening Play Store: " + Stats.STORE_ID)
 	else:
-		_toast("Terima kasih atas ulasannya!")
+		_toast("Thanks for your rating!")
 
 
 func _unhandled_input(event: InputEvent) -> void:

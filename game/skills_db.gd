@@ -3,16 +3,16 @@ class_name SkillsDb
 
 const DB := {
 	"dash": {
-		"name": "Terjang Bayangan", "short": "DASH", "cd": 5.0, "unlock": 1,
-		"desc": "Menyundul cepat ke depan, kebal sebentar.",
+		"name": "Shadow Rush", "short": "DASH", "cd": 5.0, "unlock": 1,
+		"desc": "Dash forward, briefly invincible.",
 	},
 	"whirl": {
-		"name": "Putaran Badai", "short": "PUTAR", "cd": 9.0, "unlock": 3,
-		"desc": "Tebasan 360 derajat: 2x ATK ke semua musuh sekitar.",
+		"name": "Whirlwind", "short": "SPIN", "cd": 9.0, "unlock": 3,
+		"desc": "360° slash: 2x ATK to all nearby enemies.",
 	},
 	"thunder": {
-		"name": "Guntur Pembalasan", "short": "PETIR", "cd": 14.0, "unlock": 5,
-		"desc": "Petir menyambar 3 musuh terdekat: 3x ATK + stun.",
+		"name": "Vengeful Thunder", "short": "BOLT", "cd": 14.0, "unlock": 5,
+		"desc": "Lightning strikes the 3 nearest enemies: 3x ATK + stun.",
 	},
 }
 
