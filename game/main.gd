@@ -533,7 +533,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0, "riptide": 0.0, "soultithe": 0.0, "anchordrop": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0, "riptide": 0.0, "soultithe": 0.0, "anchordrop": 0.0, "soulfall": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -3930,6 +3930,29 @@ func _cast_skill(id: String) -> void:
 			trauma = 0.6
 			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "ANCHOR DROP! ×%d" % ahits, Color(0.4, 0.7, 1.0), true)
 			print("SKILL anchordrop hits=%d" % ahits)
+		"soulfall":
+			var cost := player.hp * 0.15
+			if player.hp - cost < 1.0:
+				toast("Too weak to pay the Soulfall")
+				Sfx.play("deny")
+				return
+			player.hp -= cost
+			player.hp_changed.emit(player.hp)
+			Sfx.play("thunder")
+			var fdmg := cost * 2.0
+			var fhits := 0
+			for f6 in get_tree().get_nodes_in_group("enemies"):
+				if f6.get("state") == "dead" or not bool(f6.get("activated")):
+					continue
+				if f6.global_position.distance_to(player.global_position) < 2.2 * info.tile:
+					if f6.has_method("take_hit"):
+						f6.take_hit(player.global_position, fdmg)
+					_burst(f6.global_position + Vector3(0, 0.4 * info.tile, 0), Color(0.9, 0.2, 0.35))
+					fhits += 1
+			_shock_ring(player.global_position)
+			trauma = 0.6
+			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "SOULFALL! ×%d" % fhits, Color(0.9, 0.3, 0.4), true)
+			print("SKILL soulfall cost=%d dmg=%d hits=%d" % (cost, fdmg, fhits))
 	skill_used_floor = true
 	skills_floor[id] = true
 	_quest_event("skill_" + id)
