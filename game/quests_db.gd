@@ -195,6 +195,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Arms Inspector", "desc": "Take 2 deals at a Quartermaster's Post (0/2)", "kind": "qm", "need": 2})
 		steps.append({"title": "Hooked Butcher", "desc": "Slay 6 foes with the Guthook (0/6)", "kind": "kill_guthook", "need": 6})
 		steps.append({"title": "Salt on the Wind", "desc": "Fell 4 Saltghasts (0/4)", "kind": "saltghast_kill", "need": 4})
+		steps.append({"title": "Pack Breaker", "desc": "Fell 2 FERAL elites (0/2)", "kind": "affix_feral", "need": 2})
 	if Stats.floor_num == 11:
 		steps.append({"title": "Soul Fisher", "desc": "Net three drifting wisps (0/3)", "kind": "wisp", "need": 3})
 	if Stats.floor_num >= 13 and Stats.floor_num % 8 == 5:

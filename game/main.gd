@@ -1682,7 +1682,7 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		if Stats.ng_plus > 0:
 			wtxt = "Umbral " + wtxt
 		_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), wtxt, Color(0.55, 1.0, 0.75), true)
-	if elite and not _warned.has("affix_" + String(e.affix)) and {"venomed": "Its bite seeps venom — kill it before it closes.", "tidal": "It sings the tide into its allies' wounds — cut it first.", "riptide": "Its blows carry the undertow — guard your footing.", "brinebound": "Salt-crusted — its death spills the souls it hoarded.", "barnacled": "Barnacle-armored — it shrugs your steel, but drags its feet."}.has(String(e.affix)) and player != null:
+	if elite and not _warned.has("affix_" + String(e.affix)) and {"venomed": "Its bite seeps venom — kill it before it closes.", "tidal": "It sings the tide into its allies' wounds — cut it first.", "riptide": "Its blows carry the undertow — guard your footing.", "brinebound": "Salt-crusted — its death spills the souls it hoarded.", "barnacled": "Barnacle-armored — it shrugs your steel, but drags its feet.", "feral": "It feeds on the falling — thin its pack last, or it quickens."}.has(String(e.affix)) and player != null:
 		_warned["affix_" + String(e.affix)] = 1
 		_damage_number(player.global_position + Vector3(0, 1.1 * info.tile, 0), String({"venomed": "Its bite seeps venom — kill it before it closes.", "tidal": "It sings the tide into its allies' wounds — cut it first.", "riptide": "Its blows carry the undertow — guard your footing.", "brinebound": "Salt-crusted — its death spills the souls it hoarded.", "barnacled": "Barnacle-armored — it shrugs your steel, but drags its feet."}[e.affix]), Color(0.6, 0.95, 0.7), true)
 	if e.is_boss:
@@ -2579,6 +2579,12 @@ func _on_enemy_died(e) -> void:
 		_quest_event("crowned_kill")
 	if e.arch_id == "tither":
 		_quest_event("tither_kill")
+	if String(e.get("affix")) != "":
+		for f2 in get_tree().get_nodes_in_group("enemies"):
+			if is_instance_valid(f2) and f2 != e and bool(f2.get("elite")) and String(f2.get("affix")) == "feral" and not bool(f2.get("dead", false)):
+				f2.speed *= 1.1
+				f2.dmg += 1 if f2.dmg < 3 else 0
+				_damage_number(f2.global_position + Vector3(0, 0.9 * info.tile, 0), "FRENZIES", Color(1.0, 0.45, 0.3), true)
 	if e.arch_id == "saltghast":
 		_quest_event("saltghast_kill")
 		if int(Stats.arch_kills.get("saltghast", 0)) >= 10:
