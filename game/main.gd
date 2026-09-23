@@ -209,6 +209,7 @@ var events_run := {}
 var riptide_n := 0
 var steps_done_run := 0
 var urns_run := 0
+var urns_floor := 0
 var still_t := 0.0
 var moonpool_run := 0
 var shellshield_used := false
@@ -761,6 +762,7 @@ func _reset_run_state() -> void:
 	riptide_n = 0
 	steps_done_run = 0
 	urns_run = 0
+	urns_floor = 0
 	moonpool_run = 0
 	shellshield_used = false
 	perfect_dodges = 0
