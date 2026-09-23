@@ -77,6 +77,7 @@ var fanatic := false
 var brood := false
 var chime := false
 var sprite := false
+var leech := false
 var chime_t := 7.0
 var husk_shell := false
 var cantor_t := 6.5
@@ -200,6 +201,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	brood = bool(a.get("brood", false))
 	chime = bool(a.get("chime", false))
 	sprite = bool(a.get("sprite", false))
+	leech = bool(a.get("leech", false))
 	healer = bool(a.get("healer", false))
 	crowned = bool(a.get("crowned", false))
 	tither = bool(a.get("tither", false))
@@ -872,6 +874,11 @@ func _physics_process(delta: float) -> void:
 									p.set("weak_t", 3.0)
 								if affix == "drowning" and q == p:
 									p.set("chill_t", 2.0)
+								if leech and q == p:
+									hp = minf(hp_max, hp + 1.0)
+									var ls_ := get_tree().current_scene
+									if ls_ != null and ls_.has_method("_damage_number"):
+										ls_._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "DRANK +1", Color(0.8, 0.5, 0.8), false)
 								if sprite and q == p:
 									var sm_ := get_tree().current_scene
 									if sm_ != null and int(Stats.souls) > 0:
