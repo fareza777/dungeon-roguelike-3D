@@ -337,6 +337,8 @@ var dlg_pending_choice := -1
 var oracle_bargained := false # Oracle's Bargain: sekali per run
 var mahzan_met := 0 # kunjungan Mahzan dalam run ini — dialognya berevolusi
 var map_dots: Array = []
+var map_room_rects: Dictionary = {}
+var discovered: Dictionary = {}
 var map_t := 0.0
 
 # gerbang / ruangan
@@ -558,6 +560,7 @@ func _new_run(new_seed: int) -> void:
 	run_state = "playing"
 	chest_opened = false
 	current_room = -1
+	discovered = {0: true}
 	for id in skill_cd:
 		skill_cd[id] = 0.0
 	biome = BIO.for_floor(Stats.floor_num)
@@ -1173,11 +1176,11 @@ func _spawn_shrine(last_room: int) -> void:
 	shrine_ref = s
 	shrine_kind = skind
 	if ossuary:
-		var rooms2: Array = info.get("rooms", [])
-		for oc in range(mini(4, rooms2.size())):
-			var rr3: Dictionary = rooms2[rng.randi_range(0, rooms2.size() - 1)]
+		for oc in range(mini(4, info.ranges.size() - 1)):
+			var oi: int = rng.randi_range(1, info.ranges.size() - 1)
+			var rr3: Dictionary = info.ranges[oi]
 			var opos := Vector3(((rr3["x0"] + rr3["x1"]) * 0.5 + randf_range(-0.7, 0.7)) * info.tile, 0, ((rr3["z0"] + rr3["z1"]) * 0.5 + randf_range(-0.7, 0.7)) * info.tile)
-			_spawn_enemy({"pos": opos, "room": int(rr3.get("id", 0))}, "crawler", false)
+			_spawn_enemy({"pos": opos, "room": oi}, "crawler", false)
 	match skind:
 		1:
 			s.invoked.connect(_on_mahzan_invoked)
@@ -4048,12 +4051,15 @@ func _build_minimap() -> void:
 		return
 	ui.map.visible = not shrouded
 	var sc: float = minf(130.0 / xs, 178.0 / zs)
-	for r in info.ranges:
+	map_room_rects.clear()
+	for ri7 in info.ranges.size():
+		var r: Dictionary = info.ranges[ri7]
 		var rc := ColorRect.new()
-		rc.color = Color(0.32, 0.3, 0.42, 0.9)
+		rc.color = Color(0.32, 0.3, 0.42, 0.9) if discovered.has(ri7) else Color(0.10, 0.09, 0.13, 0.5)
 		rc.position = Vector2((r["x0"] - info["min_x"]) * sc, (r["z1"] - info["min_z"]) * sc)
 		rc.size = Vector2(maxf((r["x1"] - r["x0"]) * sc, 4.0), maxf((r["z0"] - r["z1"]) * sc, 4.0))
 		mv.add_child(rc)
+		map_room_rects[ri7] = rc
 	if info.get("chest") != null:
 		var cd := ColorRect.new()
 		cd.color = Color(1.0, 0.8, 0.2)
@@ -4097,7 +4103,13 @@ func _update_minimap() -> void:
 		if is_instance_valid(d):
 			d.queue_free()
 	map_dots.clear()
+	for rid5 in discovered:
+		var rr5: ColorRect = map_room_rects.get(int(rid5), null)
+		if rr5 != null and is_instance_valid(rr5):
+			rr5.color = Color(0.32, 0.3, 0.42, 0.9)
 	for f in get_tree().get_nodes_in_group("enemies"):
+		if not discovered.get(int(f.get("room_idx")), false) and int(f.get("room_idx")) >= 0:
+			continue
 		var d := ColorRect.new()
 		if bool(f.get("nemesis")):
 			d.color = Color(1.0, 0.15, 0.55)
@@ -5448,6 +5460,8 @@ func _process(delta: float) -> void:
 		var ri := _room_at(player.global_position.z)
 		if ri >= 0 and ri != current_room:
 			current_room = ri
+			if not discovered.has(ri):
+				discovered[ri] = true
 			_on_room_enter(ri)
 
 		# preview hero ikut muter walau game pause? tidak perlu, layar hero punya sendiri
