@@ -342,6 +342,12 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 				var kn: Variant = m18.get("knight_ref")
 				if (al != null and is_instance_valid(al)) or (kn != null and is_instance_valid(kn)):
 					f.take_hit(global_position, dmg * 0.2)
+		"marsh_claw": # LEECHROOT — tiap tebasan melilit kaki musuh (speed -10%, menumpuk)
+			var slw := float(f.get("speed"))
+			f.set("speed", maxf(slw * 0.9, slw * 0.4))
+			var m19 := get_tree().current_scene
+			if m19 != null and randf() < 0.2 and m19.has_method("_damage_number"):
+				m19._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "ENTANGLED", Color(0.6, 0.9, 0.4), false)
 		"gravebell": # TOLL — 25% korban membunyikan genta: 1x ATK ke tetangga
 			if float(f.get("hp")) <= 0.0 and randf() < 0.25:
 				var toll := 0
