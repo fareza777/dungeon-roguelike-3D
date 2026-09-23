@@ -170,6 +170,7 @@ var tide_lends := false
 var pearl_fever := false
 var muckraker := false
 var abyssal_patience := false
+var crown_oath := false
 var tide_kills := 0
 var reliquary_wisps := 0
 var omen_refusals := 0
@@ -705,6 +706,7 @@ func _reset_run_state() -> void:
 	golden_fate = false
 	trap_wrapped = 0
 	veil_used = false
+	crown_oath = false
 	perfect_dodges = 0
 	leech_charge = 0
 	legion_omen = false
@@ -1588,6 +1590,8 @@ func _spawn_shrine(last_room: int) -> void:
 		skind = 9 # Scavenger's Cache terjamin di lantai %11==7
 	elif Stats.floor_num >= 16 and Stats.floor_num % 12 == 8:
 		skind = 10 # Soul Fountain terjamin di lantai %12==8
+	elif Stats.floor_num >= 13 and Stats.floor_num % 10 == 8:
+		skind = 13 # Throne's Offering — the King buys tribute in the deep
 	elif Stats.floor_num >= 5 and Stats.floor_num % 5 == 1:
 		skind = 3 # lantai quest Forge-Fed — soul forge terjamin
 	elif Stats.floor_num >= 10 and rng.randf() < 0.08:
@@ -1642,6 +1646,8 @@ func _spawn_shrine(last_room: int) -> void:
 			s.invoked.connect(_on_drowned_invoked)
 		12:
 			s.invoked.connect(_on_keel_invoked)
+		13:
+			s.invoked.connect(_on_throne_invoked)
 		_:
 			s.invoked.connect(_on_shrine_invoked)
 
@@ -2596,6 +2602,11 @@ func _on_enemy_died(e) -> void:
 			Stats.earn_souls(2)
 			_souls_l()
 			_damage_number(e.global_position + Vector3(0, 1.1 * info.tile, 0), "LEDGER +2", Color(0.5, 0.95, 0.85), false)
+		if crown_oath:
+			crown_oath = false
+			Stats.earn_souls(8)
+			_souls_l()
+			_damage_number(e.global_position + Vector3(0, 1.3 * info.tile, 0), "CROWN PAID — +8 souls", Color(1.0, 0.8, 0.3), true)
 		if not e.is_boss:
 			Engine.time_scale = 0.45
 			get_tree().create_timer(0.18, true, false, true).timeout.connect(func() -> void: Engine.time_scale = 1.0)
@@ -4031,6 +4042,8 @@ func _on_dlg_choice(idx: int) -> void:
 		dlg_pending_choice = -1
 		_drowned_deal(idx)
 		return
+	elif dlg_pending_choice == 16:
+		_throne_deal(idx)
 	elif dlg_pending_choice == 15:
 		dlg_pending_choice = -1
 		_keel_deal(idx)
@@ -5311,6 +5324,60 @@ func _keel_deal(idx: int) -> void:
 	_quest_event("keelstone")
 
 
+func _on_throne_invoked(s) -> void:
+	shrine_used = true
+	shrine_count += 1
+	if shrine_count >= 10:
+		_ach("pilgrim")
+	s.consume()
+	Sfx.play("shrine")
+	dlg_pending_choice = 16
+	_say([{"who": "mahzan", "text": "A Throne's Offering, buyer — even drowned kings take tribute. Pay up; the crown is generous to its debtors."}],
+		[{"text": "Tithe the Deep — pay 6 souls: +15% Max HP this run"},
+		{"text": "Swear the Crown — pay 5 souls: your next elite kill pays +8 souls"},
+		{"text": "Beg a Boon — pay 3 souls: a random common relic"},
+		{"text": "Walk away"}])
+
+
+func _throne_deal(idx: int) -> void:
+	if idx == 3:
+		toast("The crown finds your purse... light")
+		return
+	if idx == 0:
+		if Stats.souls < _soul_cost(6):
+			toast("Six souls — the crown's tithe isn't negotiable")
+			return
+		Stats.souls -= _soul_cost(6)
+		_souls_l()
+		Stats.buff_maxhp_pct += 0.15
+		Sfx.play("shrine")
+		toast("TITHE PAID — +15% Max HP this run")
+	elif idx == 1:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — oaths aren't free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_souls_l()
+		crown_oath = true
+		Sfx.play("shrine")
+		toast("CROWN SWORN — your next elite kill pays +8 souls")
+	elif idx == 2:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the crown doesn't beg")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		var bpool: Array = []
+		for ridb in ITEMS.DB:
+			if int(ITEMS.DB[ridb]["rarity"]) == 0 and not Stats.relics.has(ridb):
+				bpool.append(ridb)
+		var brid := String(bpool[rng.randi() % bpool.size()]) if not bpool.is_empty() else "berkat_pandai_besi"
+		Stats.add_relic(brid)
+		Sfx.play("shrine")
+		toast("ROYAL BOON — the crown grants " + String(ITEMS.DB[brid]["name"]))
+	_quest_event("throne")
+
+
 func _on_shrine_invoked(s) -> void:
 	shrine_used = true
 	shrine_count += 1
@@ -5643,7 +5710,7 @@ func _build_minimap() -> void:
 	# penanda altar (cyan), batu lore (ungu), dan tujuan akhir lantai (emas besar)
 	if shrine_ref != null and is_instance_valid(shrine_ref):
 		var sd := ColorRect.new()
-		sd.color = [Color(1.0, 0.8, 0.3), Color(0.45, 0.65, 1.0), Color(1.0, 0.2, 0.15), Color(1.0, 0.55, 0.15), Color(0.55, 0.75, 1.0), Color(1.0, 0.5, 0.1), Color(0.95, 0.85, 0.3), Color(0.4, 0.55, 1.0), Color(0.7, 0.95, 0.25), Color(0.85, 0.6, 0.3), Color(0.35, 0.95, 0.85), Color(0.4, 0.85, 1.0), Color(0.5, 0.7, 1.05)][shrine_kind]
+		sd.color = [Color(1.0, 0.8, 0.3), Color(0.45, 0.65, 1.0), Color(1.0, 0.2, 0.15), Color(1.0, 0.55, 0.15), Color(0.55, 0.75, 1.0), Color(1.0, 0.5, 0.1), Color(0.95, 0.85, 0.3), Color(0.4, 0.55, 1.0), Color(0.7, 0.95, 0.25), Color(0.85, 0.6, 0.3), Color(0.35, 0.95, 0.85), Color(0.4, 0.85, 1.0), Color(0.5, 0.7, 1.05), Color(0.65, 0.25, 0.95)][shrine_kind]
 		sd.size = Vector2(5, 5)
 		sd.position = _map_pos(shrine_ref.global_position, sc)
 		mv.add_child(sd)

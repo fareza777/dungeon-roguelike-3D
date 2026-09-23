@@ -148,6 +148,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Patience Pays", "desc": "Claim a chest under Abyssal Patience (0/1)", "kind": "patient", "need": 1})
 		steps.append({"title": "Wax and Wane", "desc": "Seal 5 foes at once with Grave Seal (0/1)", "kind": "seal5", "need": 1})
 		steps.append({"title": "Void Dues", "desc": "Crack 2 Void Lanterns (0/2)", "kind": "voidurn", "need": 2})
+		steps.append({"title": "Royal Debtor", "desc": "Pay tribute at a Throne's Offering (0/1)", "kind": "throne", "need": 1})
 	if Stats.floor_num == 11:
 		steps.append({"title": "Soul Fisher", "desc": "Net three drifting wisps (0/3)", "kind": "wisp", "need": 3})
 	if Stats.floor_num >= 13 and Stats.floor_num % 8 == 5:
