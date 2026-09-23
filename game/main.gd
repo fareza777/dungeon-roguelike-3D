@@ -1846,7 +1846,7 @@ func _on_enemy_died(e) -> void:
 	kills_run += 1
 	if kills_run == 1:
 		# FIRST BLOOD — kill pertama tiap run langsung menghangatkan kombo
-		_combo_set(maxi(combo, 2))
+		_combo_set(maxi(combo, 2 + int(Stats.meta.get("veteran", 0)) * 2))
 		_damage_number(e.global_position + Vector3(0, 0.9 * info.tile, 0), "FIRST BLOOD", Color(1.0, 0.4, 0.3), false)
 	if wolf_omen and wolf_n < 20:
 		wolf_n += 1

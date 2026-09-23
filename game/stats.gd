@@ -152,6 +152,7 @@ const META_DEF := {
 	"adamant": {"name": "Adamant", "max": 3, "desc": "+1 Armor per level"},
 	"leech": {"name": "Siphon Vein", "max": 3, "desc": "+2% Lifesteal per level"},
 	"tempered": {"name": "Tempered Edge", "max": 3, "desc": "+4% Crit per level"},
+	"veteran": {"name": "Battle Memory", "max": 2, "desc": "Start each run with +2 combo heat per level"},
 }
 
 # dipakai menu -> game
