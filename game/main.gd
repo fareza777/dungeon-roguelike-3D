@@ -923,6 +923,7 @@ func _reset_run_state() -> void:
 	urnsworn = false
 	full_chart = false
 	long_wake = false
+	dead_lantern = false
 	iron_gullet = false
 	murk_fed = false
 	crew_oath = false
