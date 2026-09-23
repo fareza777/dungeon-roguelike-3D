@@ -273,6 +273,17 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						f.global_position += hdir.normalized() * (hdist - 0.9 * room_tile)
 						if mh.has_method("_damage_number"):
 							mh._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "REACHED", Color(0.5, 0.8, 1.0), false)
+		"guthook": # BLEED — tiap tebasan ke-5 merobek: pulihkan 5% Max HP
+			var mg := get_tree().current_scene
+			if mg != null:
+				mg.set("net_n", int(mg.get("net_n")) + 1)
+				if int(mg.get("net_n")) >= 5:
+					mg.set("net_n", 0)
+					var mh: float = Stats.get_stat("max_hp")
+					if hp < mh:
+						hp = minf(mh, hp + mh * 0.05)
+						if mg.has_method("_damage_number"):
+							mg._damage_number(global_position + Vector3(0, 0.6 * room_tile, 0), "REND +HP", Color(1.0, 0.4, 0.4), false)
 		"driftnet": # NETS — tiap tebasan ke-4 melilit target: −40% speed 2s
 			var mn := get_tree().current_scene
 			if mn != null:
