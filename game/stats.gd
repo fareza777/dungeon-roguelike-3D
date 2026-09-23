@@ -132,6 +132,7 @@ const ACH_DEF := {
 	"devout": "Devout (fifteen prayers over the fallen)",
 	"pacifist": "Blade Only (a floor cleared without skills)",
 	"onedrop": "One Drop Left (took the throne on a single drop of blood)",
+	"seaworthy": ["Seaworthy", "Drank deep of the Drowned Tithe and lived to spend it."],
 	"drowned20": ["Drowned Court", "Slew twenty souls risen with the Sunken Tide."],
 	"tidebearer": ["Tidebearer", "Survived the drowned vaults of the Sunken Reliquary."],
 	"untouch": "Untouchable (three flawless floors in one run)",

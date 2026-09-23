@@ -4553,6 +4553,7 @@ func _drowned_deal(idx: int) -> void:
 			player.hp = minf(player.hp, Stats.get_stat("max_hp"))
 			player.hp_changed.emit(player.hp)
 		Sfx.play("shrine")
+		_ach("seaworthy")
 		toast("DROWNED TITHE — +8 souls, −10% Max HP")
 	if player != null and is_instance_valid(player):
 		_burst(player.global_position + Vector3(0, 0.4, 0), Color(0.35, 0.95, 0.85))
