@@ -4602,6 +4602,9 @@ func _quest_event(kind: String, num: int = 1) -> void:
 			_ach("trap5")
 	if kind == "wisp":
 		Stats.wisps_caught += num
+		if Stats.relics.has("netminder") and Stats.wisps_caught % 5 == 0:
+			Stats.earn_souls(1)
+			_souls_l()
 		if Stats.wisps_caught >= 8:
 			_ach("wisp8")
 		if Stats.wisps_caught >= 20:
