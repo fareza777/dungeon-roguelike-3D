@@ -39,6 +39,7 @@ var anim_lock := 0.0
 # bilah hp mini di atas kepala (khusus elite, muncul setelah kena hit)
 var hpbar_bg: Sprite3D = null
 var hpbar_fg: Sprite3D = null
+var hpbar_tag: Label3D = null
 static var _bar_tex: Texture2D = null
 const BAR_W := 0.6
 
@@ -54,6 +55,7 @@ var activated := true
 var stun_t := 0.0
 var enraged := false
 var golden := false
+var affix := ""
 var slam_t := 4.0
 var summon_t := 11.0
 
@@ -97,6 +99,13 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
+		affix = ["swift", "bulwark", "vengeful"][randi() % 3]
+		match affix:
+			"swift":
+				speed *= 1.45
+			"bulwark":
+				hp *= 1.5
+				xp_val = int(xp_val * 1.25)
 	scale = Vector3.ONE * sc
 	hp_max = hp
 	if elite:
@@ -143,6 +152,17 @@ func _mk_hpbar() -> void:
 	hpbar_fg.position = Vector3(0, 1.12 * room_tile, 0.02)
 	hpbar_fg.visible = false
 	add_child(hpbar_fg)
+	if affix != "":
+		hpbar_tag = Label3D.new()
+		hpbar_tag.text = affix.to_upper()
+		hpbar_tag.font_size = 42
+		hpbar_tag.modulate = Color(1.0, 0.75, 0.3)
+		hpbar_tag.outline_size = 14
+		hpbar_tag.outline_modulate = Color(0.1, 0.05, 0.0, 0.9)
+		hpbar_tag.position = Vector3(0, 1.26 * room_tile, 0)
+		hpbar_tag.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+		hpbar_tag.visible = false
+		add_child(hpbar_tag)
 
 
 func _mk_aura() -> void:
@@ -175,6 +195,8 @@ func _upd_hpbar() -> void:
 	var show := frac < 1.0 and frac > 0.0
 	hpbar_bg.visible = show
 	hpbar_fg.visible = show
+	if hpbar_tag != null:
+		hpbar_tag.visible = show
 	hpbar_fg.scale.x = frac
 	hpbar_fg.position.x = -0.5 * BAR_W * room_tile * (1.0 - frac)
 
@@ -430,6 +452,13 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 	if hp <= 0:
 		state = "dead"
 		remove_from_group("enemies")
+		if affix == "vengeful":
+			var p := _player()
+			if p != null and p.get("dead") != true:
+				var dv: Vector3 = p.global_position - global_position
+				dv.y = 0
+				if dv.length() < 1.0 * room_tile:
+					p.take_hit(global_position, dmg * 0.6)
 		anim_lock = M.play_action(ap, ["death"], 1.0)
 		died.emit(self)
 	else:
