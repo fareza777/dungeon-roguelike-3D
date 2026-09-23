@@ -87,6 +87,8 @@ var bell_t := 0.0
 var hookshot := false
 var eel := false
 var slow_immune := false
+var fey := false
+var fey_t := 2.0
 var eel_t := 0.0
 var eel_dash_t := 0.0
 var eel_dir := Vector3.ZERO
@@ -241,7 +243,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred", "seafaring"][randi() % 50]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred", "seafaring", "feytouched"][randi() % 51]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -413,6 +415,9 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				hp *= 1.15
 				speed *= 1.0
 				xp_val = int(xp_val * 1.4)
+			"feytouched":
+				fey = true
+				xp_val = int(xp_val * 1.3)
 			"seafaring":
 				slow_immune = true
 				xp_val = int(xp_val * 1.25)
@@ -592,6 +597,17 @@ func _physics_process(delta: float) -> void:
 	slow_t = maxf(0.0, slow_t - delta)
 	if slow_immune:
 		slow_t = 0.0
+	if fey and state == "chase":
+		fey_t -= delta
+		if fey_t <= 0.0:
+			fey_t = randf_range(2.0, 3.5)
+			var fp_ := _player()
+			if fp_ != null:
+				var fd_: Vector3 = fp_.global_position - global_position
+				fd_.y = 0
+				global_position += fd_.normalized() * minf(fd_.length() * 0.35, 0.8 * room_tile)
+				modulate.a = 0.5
+				create_tween().tween_property(self, "modulate:a", 1.0, 0.3)
 	sunder_t = maxf(0.0, sunder_t - delta)
 	tender_t = maxf(0.0, tender_t - delta)
 	if affix == "tidal":
