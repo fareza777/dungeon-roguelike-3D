@@ -261,6 +261,7 @@ var deck_alms := false
 var loose_ballast := false
 var black_sails := false
 var grim_charter := false
+var martyrs_oath := false
 var final_verse := false
 var cradle_deep := false
 var deep_breath := false
@@ -1017,6 +1018,7 @@ func _reset_run_state() -> void:
 	loose_ballast = false
 	black_sails = false
 	grim_charter = false
+	martyrs_oath = false
 	final_verse = false
 	cradle_deep = false
 	deep_breath = false
@@ -1998,6 +2000,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.hp_max = e.hp
 	if grim_charter and e.elite:
 		e.xp_val = int(ceilf(e.xp_val * 1.5))
+	if martyrs_oath and not e.is_boss:
+		Stats.earn_souls(0)
 	if final_verse:
 		e.dmg *= 0.85
 	if deep_breath:
@@ -3061,6 +3065,9 @@ func _on_enemy_died(e) -> void:
 		_damage_number(e.global_position + Vector3(0, 0.7 * info.tile, 0), "TIDE TITHE +1", Color(0.5, 0.8, 0.7), false)
 	if bloodtide_t > 0:
 		Stats.earn_souls(1)
+	if martyrs_oath and player != null and is_instance_valid(player) and not player.dead:
+		player.hp = minf(Stats.get_stat("max_hp"), player.hp + Stats.get_stat("max_hp") * 0.01)
+		player.hp_changed.emit(player.hp)
 		_souls_l()
 	if powder_keg > 0 and not e.is_boss:
 		powder_keg -= 1
@@ -5411,6 +5418,7 @@ func _offer_omens() -> void:
 			{"text": "LOOSE BALLAST — you take +15% damage... but the dead wade −10% slower"},
 			{"text": "BLACK SAILS — the dead come +15% faster... but every soul pays +20% more"},
 			{"text": "GRIM CHARTER — elites stalk you +10% more often... but each pays +50% XP"},
+			{"text": "MARTYR'S OATH — you take +10% damage... but every kill mends 1% HP"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -5454,7 +5462,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 56 if Stats.nemesis != "" else 55
+	var osize := 57 if Stats.nemesis != "" else 56
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -5683,6 +5691,10 @@ func _omen_deal(idx: int) -> void:
 			grim_charter = true
 			oname = "GRIM CHARTER"
 		55:
+			martyrs_oath = true
+			Stats.curse_dmg += 0.1
+			oname = "MARTYR'S OATH"
+		56:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -5743,6 +5755,7 @@ func _omen_deal(idx: int) -> void:
 		"LOOSE BALLAST": "A loose hull rolls hard, Kael — you'll feel every blow, but they'll feel the drag too.",
 		"BLACK SAILS": "Fast sails mean fast foes, Kael — but their pockets run heavier for the chase.",
 		"GRIM CHARTER": "The charter calls the captains out, Kael — heavier crowns, richer spoils.",
+		"MARTYR'S OATH": "Bleed for them and they feed you, Kael — the martyrs' ledger is fair.",
 		"HEIRLOOM": "Someone carried that before you. They are still carrying it, in a way.",
 		"GOLDEN FATE": "Every lock will gleam. Mind the teeth on some.",
 		"HOLLOW CROWN": "Crown of nothing. The Oracle admires your appetite anyway.",
