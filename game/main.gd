@@ -21,6 +21,7 @@ const QDB = preload("res://quests_db.gd")
 const DLG = preload("res://dialogue.gd")
 const TRAP = preload("res://trap.gd")
 const VIAL = preload("res://vial.gd")
+const WISP = preload("res://wisp.gd")
 const SQUIRE = preload("res://squire.gd")
 const SHRINE = preload("res://shrine.gd")
 const LSTONE = preload("res://lore_stone.gd")
@@ -543,6 +544,7 @@ func _new_run(new_seed: int) -> void:
 		_spawn_shrine(last_room)
 		_spawn_lore_stone(last_room)
 		_spawn_cage(last_room)
+		_spawn_wisps(last_room)
 		_spawn_motes()
 		if Stats.relics.has("tulang_kesatria"):
 			_spawn_squire()
@@ -1186,6 +1188,20 @@ func _spawn_health_orb(pos: Vector3) -> void:
 	room.add_child(orb)
 	orb.global_position = pos + Vector3(0, 0.5, 0)
 	orb.setup(1.0, info.tile)
+
+
+func _spawn_wisps(last_room: int) -> void:
+	# kunang jiwa pengembara: 55% satu, 20% dua — +1 soul kalau disentuh
+	if rng.randf() > 0.55:
+		return
+	var wcount := 2 if rng.randf() < 0.36 else 1
+	for _wi in range(wcount):
+		var ri := rng.randi_range(1, last_room)
+		var rr: Dictionary = info.ranges[ri]
+		var w := WISP.new()
+		w.setup(info.tile)
+		w.position = Vector3((rr["x0"] + rr["x1"]) * 0.5 + randf_range(-0.8, 0.8) * info.tile, 0.0, (rr["z0"] + rr["z1"]) * 0.5 + randf_range(-0.8, 0.8) * info.tile)
+		room.add_child(w)
 
 
 func _spawn_vial(pos: Vector3) -> void:
