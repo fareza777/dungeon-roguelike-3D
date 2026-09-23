@@ -100,6 +100,7 @@ var omen_name := ""
 var fatehand := false
 var nemesis_bounty := false
 var combo_rate_bonus := 0.0
+var solitary := false
 var _warned := {}
 var champ_room := -1 # sarang sang juara: elite terjamin + drop lebih baik
 var ambush_room := -1 # ruangan "kosong" yang ternyata penyergapan
@@ -509,6 +510,7 @@ func _reset_run_state() -> void:
 	fatehand = false
 	nemesis_bounty = false
 	combo_rate_bonus = 0.0
+	solitary = false
 	nemesis_warned = false
 
 
@@ -606,6 +608,7 @@ func _new_run(new_seed: int) -> void:
 		_spawn_urns(last_room)
 		_spawn_shrine(last_room)
 		_spawn_lore_stone(last_room)
+		if not solitary:
 		_spawn_cage(last_room)
 		_spawn_wisps(last_room)
 		_spawn_obelisks(last_room)
@@ -3054,6 +3057,7 @@ func _offer_omens() -> void:
 			{"text": "STORMGLASS — +20% Skill Recharge, -15% Max HP"},
 			{"text": "OATH OF SILENCE — +30% ATK, skills recharge 35% slower"},
 			{"text": "FATEHAND — drafts show a 4th relic, -1 Armor"},
+			{"text": "SOLITARY — +35% XP, allies will not answer this run"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else [])
 	)
 
@@ -3098,6 +3102,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_armor -= 1
 			oname = "FATEHAND"
 		9:
+			solitary = true
+			if squire_ref != null and is_instance_valid(squire_ref):
+				squire_ref.queue_free()
+				squire_ref = null
+			oname = "SOLITARY"
+		10:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
