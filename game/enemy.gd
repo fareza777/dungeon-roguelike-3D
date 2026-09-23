@@ -63,6 +63,7 @@ var affix := ""
 var jailer := false
 var is_weeper := false
 var is_warper := false
+var is_hexer := false
 var warp_t := 4.0
 var champion := false # elite sarang sang juara — drop senjata terjamin
 var sunder_t := 0.0 # debuff SUNDERING BLOW: terima +30% damage
@@ -118,6 +119,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	jailer = bool(a.get("jailer", false))
 	is_weeper = bool(a.get("chanter", false))
 	is_warper = bool(a.get("warper", false))
+	is_hexer = bool(a.get("hexer", false))
 	if is_summoner:
 		summon_t = 9.0
 	var sc: float = a["scale"]
@@ -430,6 +432,12 @@ func _physics_process(delta: float) -> void:
 						if q2 != null and q2.get("dead") != true:
 							var pr = PROJ.new()
 							get_parent().add_child(pr)
+							if is_hexer:
+								pr.effect = "silence"
+								if pr.orb != null:
+									var hm: StandardMaterial3D = pr.orb.mesh.material
+									hm.albedo_color = Color(1.0, 0.25, 0.4)
+									hm.emission = Color(0.9, 0.2, 0.35)
 							pr.launch(global_position + Vector3(0, 1.0 * scale.x, 0), q2.global_position + Vector3(0, 0.9, 0), proj_speed, dmg, 0.35 * room_tile)
 						state = "recover"
 						state_t = 1.1

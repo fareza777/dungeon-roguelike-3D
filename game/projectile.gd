@@ -8,6 +8,7 @@ var hit_r := 0.5
 var life := 3.0
 var t := 0.0
 var orb: MeshInstance3D = null
+var effect := ""
 
 
 func _ready() -> void:
@@ -73,4 +74,9 @@ func _physics_process(delta: float) -> void:
 	var d: Vector3 = global_position - (p.global_position + Vector3(0, 0.9, 0))
 	if d.length() < hit_r:
 		p.take_hit(global_position, dmg)
+		if effect == "silence" and not p.get("dead"):
+			p.set("silence_t", 4.0)
+			var m8 := get_tree().current_scene
+			if m8 != null and m8.has_method("_damage_number"):
+				m8._damage_number(p.global_position + Vector3(0, 1.2, 0), "SILENCED", Color(1.0, 0.3, 0.45), true)
 		queue_free()

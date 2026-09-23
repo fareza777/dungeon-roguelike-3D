@@ -173,6 +173,7 @@ const BESTIARY := {
 	"gaoler": ["The Gaoler", "A faceless warden. His blows cage you where you stand — dash out of them."],
 	"sentinel": ["Bone Sentinel", "A war-archer fused to the floor — it never moves, it only kills."],
 	"shade": ["The Shade", "A knight's ghost that refused the grave — it blinks to your blind spot."],
+	"hexer": ["The Hex Priest", "A curse-gnawed choirboy — his bolt seals your skills for a breath."],
 	"weeper": ["The Weeper", "A wailing priest who knits his flock's bones back together. Silence him first."],
 	"bone_king": ["The Kings", "One throne, many forms. Every five floors he waits."],
 }
@@ -186,7 +187,7 @@ const VANE_BIOME := {
 const KILLER_NAMES := {
 	"chaser": "a Skeleton Chaser", "rogue": "a Shadow Rogue", "mage": "a Bone Mage",
 	"brute": "a Bone Brute", "bomber": "a Boom Bones", "archer": "a Skeletal Archer",
-	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade",
+	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade", "hexer": "the Hex Priest",
 	"bone_king": "the King himself", "trap": "a hidden trap", "": "the dungeon itself"}
 const KILLER_TIPS := {
 	"chaser": "Tip: chasers are slow — kite them into a corner and cleave.",
@@ -201,6 +202,7 @@ const KILLER_TIPS := {
 	"weeper": "Tip: the Weeper heals his flock every few seconds — always cut him down first.",
 	"sentinel": "Tip: sentinels never move — bait the bolt, then dash in.",
 	"shade": "Tip: the Shade blinks to your flank — keep turning, strike the moment it lands.",
+	"hexer": "Tip: the Hex Priest's bolt silences your skills — dodge it or cut him down first.",
 	"bone_king": "Tip: his slams telegraph red — dash through the shockwave.",
 	"trap": "Tip: traps pulse on a rhythm — cross on the off-beat.",
 	"": "Tip: blessings, relics and Sir Vane can still turn a doomed run.",
@@ -646,6 +648,7 @@ const FIRST_SEEN := {
 	"weeper": "A Weeper chants ahead — cut his song short.",
 	"sentinel": "A Bone Sentinel — it cannot chase. Only kill.",
 	"shade": "A Shade walks these halls — it wears dead men's shortcuts.",
+	"hexer": "A Hex Priest croaks his curses — his bolt seals your skills.",
 }
 
 
@@ -1722,6 +1725,10 @@ func _pick_relic(i: int) -> void:
 
 func _cast_skill(id: String) -> void:
 	if player == null or not is_instance_valid(player) or player.dead or Stats.draft_open or run_state != "playing":
+		return
+	if float(player.get("silence_t")) > 0.0:
+		Sfx.play("deny")
+		toast("SILENCED — the Hex Priest seals your skills")
 		return
 	if not SK.is_unlocked(id, Stats.level):
 		Sfx.play("deny")
@@ -4079,6 +4086,8 @@ func _refresh_buffs() -> void:
 		list.append(["DEBT -%d HP" % int(Stats.mahzan_debt), Color(0.6, 0.4, 0.9)])
 	if player.get("chill_t") != null and player.chill_t > 0.0:
 		list.append(["CHILLED", Color(0.5, 0.8, 1.0)])
+	if player.get("silence_t") != null and player.silence_t > 0.0:
+		list.append(["✦ SILENCED", Color(1.0, 0.3, 0.45)])
 	if player.hp <= player.max_hp * 0.2 and not player.dead:
 		list.append(["⚑ LAST STAND +25% ATK", Color(1.0, 0.35, 0.25)])
 	var sig := ""
