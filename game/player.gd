@@ -331,7 +331,7 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 					if f.get("state") != "dead" and not bool(f.get("is_boss")):
 						var pull_dir: Vector3 = (global_position - f.global_position)
 						pull_dir.y = 0.0
-						f.kb = pull_dir.normalized() * pull_dir.length() * 6.0
+						f.kb = pull_dir.normalized() * minf(pull_dir.length() * 4.0, 9.0) * (1.0 - float(f.get("kb_resist")))
 						if chk.has_method("_damage_number"):
 							chk._damage_number(f.global_position + Vector3(0, 0.65 * room_tile, 0), "HOOKED", Color(0.75, 0.55, 0.3), false)
 		"murkmaker": # SLIP — tiap tebasan ke-5 memercepat langkah 3s
