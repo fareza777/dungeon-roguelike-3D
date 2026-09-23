@@ -754,6 +754,20 @@ func _new_run(new_seed: int) -> void:
 			var bcr: Dictionary = info.ranges[bci]
 			var bcp := Vector3((bcr["x0"] + bcr["x1"]) * 0.5 * info.tile, 0.0, (bcr["z0"] + bcr["z1"]) * 0.5 * info.tile)
 			_spawn_enemy({"pos": bcp, "room": bci}, "orator", false)
+	if Stats.floor_num >= 20 and not boss_floor:
+		# sang pembawa pesan Raja — satu elite herald berpatroli di lantai-lantai terdalam
+		var hr: Dictionary = info.ranges[rng.randi_range(1, last_room)]
+		var hpos2 := Vector3((hr["x0"] + hr["x1"]) * 0.5 * info.tile, 0.0, (hr["z0"] + hr["z1"]) * 0.5 * info.tile)
+		var her := _spawn_enemy({"pos": hpos2, "room": int(info.ranges.find(hr))}, "bone_king", false)
+		if her != null:
+			her.scale *= 0.62
+			her._base_scale = her.scale
+			her.hp *= 0.35
+			her.hp_max = her.hp
+			her.speed *= 1.25
+			her.xp_val = int(her.xp_val * 1.6)
+			her.champion = true
+			her.activated = true
 	if boss_floor:
 		var lr: Dictionary = info.ranges[last_room]
 		_spawn_enemy({"pos": Vector3((lr["x0"] + lr["x1"]) * 0.5, 0.0, lr["z1"] + 1.6 * info.tile), "room": last_room}, "bone_king", false)
