@@ -2585,6 +2585,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Mahzan's Gamble — a free relic... but he chooses it"},
 			{"text": "Relic Pawn — sell a random relic for 10 souls"},
 			{"text": "Vial Merchant — pay 5 souls for a full satchel"},
+			{"text": "Debt Settlement — pay 15 souls to lift your −%d Max HP debt" % int(Stats.mahzan_debt)},
 		]
 	)
 
@@ -2671,6 +2672,16 @@ func _mahzan_deal(idx: int) -> void:
 				vials = 2
 				_vial_btn()
 				toast("Satchel filled — 2 ⚗ vials")
+		5:
+			if Stats.mahzan_debt <= 0.0:
+				toast("Your ledger is clean, warrior")
+			elif Stats.souls < 15:
+				toast("Not enough souls (need 15)")
+			else:
+				Stats.souls -= 15
+				_souls_l()
+				Stats.mahzan_debt = 0.0
+				toast("Debt settled — Max HP restored")
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
 		player.refresh_stats()
