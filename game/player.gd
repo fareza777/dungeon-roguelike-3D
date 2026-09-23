@@ -137,6 +137,9 @@ func _physics_process(delta: float) -> void:
 	if Stats.relics.has("tarred_rope"):
 		root_t = 0.0
 	root_t = max(0.0, root_t - tick * (1.5 if Stats.relics.has("silk_greaves") else 1.0) * rosary_mult_)
+	if get_tree().current_scene.get("moonwater") == true and not dead:
+		hp = minf(Stats.get_stat("max_hp"), hp + delta * 0.3)
+		hp_changed.emit(hp)
 	silence_t = max(0.0, silence_t - tick * rosary_mult_)
 	if Stats.relics.has("wormwood"):
 		venom_t = 0.0

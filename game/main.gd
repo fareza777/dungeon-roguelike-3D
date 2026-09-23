@@ -266,6 +266,7 @@ var deck_manifest := false
 var dirge_note := false
 var line_splice := false
 var salt_rosary := false
+var moonwater := false
 var crows_toll := false
 var crowns_decree := false
 var melody_ledger := false
@@ -1244,6 +1245,7 @@ func _reset_run_state() -> void:
 	bosun_mark = false
 	omen_cd_add = 0.0
 	crows_toll = false
+	moonwater = false
 	if callus_on:
 		Stats.buff_armor -= 2
 		callus_on = false
@@ -7301,11 +7303,12 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Wet Wool — pay 3 souls: padding in the boots — traps bite −1 less"},
 		{"text": "Dowser's Knot — pay 2 souls: a thread that trembles near treasure — chests and shrines glint on your map"},
 		{"text": "Salt Rosary — pay 3 souls: blessed knots — venom, chill, root and silence fade twice as fast this run"},
+		{"text": "Moonwater — pay 4 souls: a skin of the still tide — your wounds knit +0.3 HP/s this run"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 25:
+	if idx == 26:
 		toast("The water settles back into the stone")
 		return
 	if idx == 12:
@@ -7493,6 +7496,16 @@ func _drowned_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		_ach("seaworthy")
 		toast("DROWNED TITHE — +8 souls, −10% Max HP")
+	if idx == 25:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the moon doesn't pour free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		moonwater = true
+		Sfx.play("shrine")
+		toast("MOONWATER — the tide remembers your shape")
+		return
 	if idx == 24:
 		if Stats.souls < _soul_cost(3):
 			toast("Three souls — the rosary isn't free")
