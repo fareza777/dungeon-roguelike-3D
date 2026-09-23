@@ -43,6 +43,14 @@ const LIST := [
 		"enemies": ["brute", "rogue", "archer", "bomber", "necromancer", "crawler", "crawler", "crawler", "weeper", "sentinel", "hexer", "spiker", "lurker", "maiden", "revenant", "batterer", "duelist", "hound", "hound", "moth", "orator", "digger", "digger"],
 	},
 	{
+		"name": "Sunken Reliquary",
+		"floor": Color(0.55, 0.72, 0.72), "wall": Color(0.6, 0.78, 0.78), "prop": Color(0.9, 0.8, 0.5),
+		"fog": Color(0.03, 0.1, 0.1), "fog_d": 0.032, "ambient": Color(0.18, 0.34, 0.32),
+		"sun": Color(0.6, 0.95, 0.9), "torch": Color(0.95, 0.8, 0.4), "torch_e": 1.3, "torch_r": 5.2,
+		"bg": Color(0.02, 0.05, 0.05),
+		"enemies": ["brute", "rogue", "archer", "bomber", "necromancer", "crawler", "gaoler", "weeper", "sentinel", "shade", "hexer", "spiker", "lurker", "golem", "maiden", "revenant", "shieldbearer", "herald", "batterer", "duelist", "moth", "orator", "crowned", "crowned", "tither", "tither", "digger"],
+	},
+	{
 		"name": "The Abyss",
 		"floor": Color(0.7, 0.62, 0.95), "wall": Color(0.75, 0.7, 1.0), "prop": Color(0.8, 0.72, 1.0),
 		"fog": Color(0.07, 0.04, 0.12), "fog_d": 0.03, "ambient": Color(0.2, 0.16, 0.38),

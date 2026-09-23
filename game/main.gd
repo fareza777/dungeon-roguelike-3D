@@ -255,6 +255,7 @@ const VANE_BIOME := {
 	"Verdant Ruin": "The Oracle's gardens... she wept the day we walled them in.",
 	"The Abyss": "Down here even my chains feel heavier. Stay close.",
 	"Marrow Marsh": "A swamp of bone-meal. My company marched past worse.",
+	"Sunken Reliquary": "Gold for the taking, boy — the dead don't haggle. But they watch.",
 }
 const KILLER_NAMES := {
 	"chaser": "a Skeleton Chaser", "rogue": "a Shadow Rogue", "mage": "a Bone Mage",
@@ -1565,6 +1566,7 @@ const MOTE_COLS := {
 	"Frozen Deep": Color(0.85, 0.95, 1.0, 0.55),
 	"Verdant Ruin": Color(0.6, 1.0, 0.55, 0.5),
 	"The Abyss": Color(0.75, 0.5, 1.0, 0.55),
+	"Sunken Reliquary": Color(0.5, 0.95, 0.85, 0.5),
 }
 
 
@@ -4907,6 +4909,12 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 					{"who": "oracle", "text": "The Marrow Marsh — the court's refuse pit. Bones dissolve here into something that still remembers being people."},
 					{"who": "kael", "text": "Keep your wits, Oracle. A marsh is still just a floor."},
 					{"who": "mahzan", "text": "Watch the ground, buyer — the Marsh collects walkers for next century's walls."},
+				]
+			"Sunken Reliquary":
+				lines = [
+					{"who": "oracle", "text": "The Sunken Reliquary — the drowned treasury. Every gold piece down here is a soul the King never paid."},
+					{"who": "mahzan", "text": "Ah, the old vaults. Half my inventory washes up down here, buyer."},
+					{"who": "kael", "text": "Then I'll collect what's owed — coin by coin."},
 				]
 			"The Abyss":
 				lines = [
