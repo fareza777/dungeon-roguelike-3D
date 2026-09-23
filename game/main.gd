@@ -749,6 +749,7 @@ func _reset_run_state() -> void:
 	lonecrown = false
 	lc_delta = 0.0
 	tf_delta = 0.0
+	hymn_delta = 0.0
 	omen_count = 0
 	omen_refusals = 0
 	bargainer = false
