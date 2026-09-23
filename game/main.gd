@@ -92,6 +92,8 @@ var ambushed_room := -1 # ruangan yang ambush-nya sudah meletus
 var chest_opened := false
 var gilded_chest := false
 var cursed_chest := false
+var storm_cellar := false
+var storm_t := 0.0
 var toast_tween: Tween = null
 
 # polish r2: pause, ringkasan run, transisi fade, juice vfx
@@ -399,6 +401,11 @@ func _apply_biome() -> void:
 		env.ambient_light_color = Color(0.4, 0.55, 0.7)
 		sun.light_color = Color(0.55, 0.8, 1.0)
 		sun.light_energy = 1.1
+	elif storm_cellar:
+		env.fog_light_color = Color(0.08, 0.07, 0.18)
+		env.ambient_light_color = Color(0.3, 0.28, 0.6)
+		sun.light_color = Color(0.6, 0.55, 1.15)
+		sun.light_energy = 1.05
 
 
 func _style_room() -> void:
@@ -451,6 +458,8 @@ func _new_run(new_seed: int) -> void:
 	fading_light = not blood_moon and not soul_rush and Stats.floor_num >= 6 and not boss_floor and rng.randf() < 0.06
 	# event langka #4: echoing halls — lorong bergema, skill recharge 25% lebih cepat
 	echoing = not blood_moon and not soul_rush and not fading_light and Stats.floor_num >= 5 and not boss_floor and rng.randf() < 0.06
+	storm_cellar = not blood_moon and not soul_rush and not fading_light and not echoing and Stats.floor_num >= 10 and not boss_floor and rng.randf() < 0.05
+	storm_t = 4.0
 	_apply_biome()
 	_style_room()
 	_build_gates()
@@ -557,6 +566,10 @@ func _new_run(new_seed: int) -> void:
 		_lvl_banner("◈ ECHOING HALLS — THE DEEPS REPEAT YOU")
 		toast("Skills recharge +25% • +3 souls on clear")
 		Sfx.play("shrine")
+	elif storm_cellar:
+		_lvl_banner("⚡ STORM CELLAR — THE DEEPS TURN ON THEIR OWN")
+		toast("Lightning aids you • +2 souls on clear")
+		Sfx.play("thunder")
 	elif Stats.floor_num > 1:
 		_lvl_banner("FLOOR %d — %s" % [Stats.floor_num, String(biome["name"]).to_upper()])
 
@@ -1336,6 +1349,11 @@ func _on_enemy_died(e) -> void:
 				_souls_l()
 				Stats.save_game()
 				toast("◈ ECHO TITHE — +3 souls")
+			elif storm_cellar:
+				Stats.souls += 2
+				_souls_l()
+				Stats.save_game()
+				toast("⚡ STORM TITHE — +2 souls")
 			# bonus sapuan kilat: lantai bersih di bawah 90 detik
 			if floor_t < 90.0 and Stats.floor_num > 1:
 				Stats.souls += 2
@@ -4069,6 +4087,8 @@ func _refresh_buffs() -> void:
 		list.append(["◈ FADING LIGHT", Color(0.55, 0.6, 0.85)])
 	elif echoing:
 		list.append(["◈ ECHOING", Color(0.55, 0.8, 1.0)])
+	elif storm_cellar:
+		list.append(["⚡ STORM", Color(0.6, 0.55, 1.15)])
 	if omen_name != "":
 		list.append(["☗ " + omen_name, Color(0.9, 0.7, 1.0)])
 	if player.get("root_t") != null and player.root_t > 0.0:
@@ -4157,6 +4177,21 @@ func _process(delta: float) -> void:
 	if player != null and is_instance_valid(player) and run_state == "playing":
 		run_time += delta
 		floor_t += delta
+		# STORM CELLAR: petir menyambar musuh acak tiap ~4.5 detik
+		if storm_cellar:
+			storm_t -= delta
+			if storm_t <= 0.0:
+				storm_t = 4.5
+				var pool_s: Array = []
+				for e2 in get_tree().get_nodes_in_group("enemies"):
+					if is_instance_valid(e2) and e2.state != "dead" and e2.activated:
+						pool_s.append(e2)
+				if not pool_s.is_empty():
+					var t2: Node3D = pool_s[rng.randi_range(0, pool_s.size() - 1)]
+					Sfx.play("thunder")
+					_burst(t2.global_position + Vector3(0, 0.6 * info.tile, 0), Color(0.7, 0.7, 1.2))
+					_damage_number(t2.global_position + Vector3(0, 0.8 * info.tile, 0), "STRUCK", Color(0.75, 0.75, 1.3), false)
+					t2.take_hit(t2.global_position + Vector3(0, 2.0, 0), 1.5)
 		var k := Vector2.ZERO
 		if Input.is_key_pressed(KEY_W) or Input.is_key_pressed(KEY_UP):
 			k.y -= 1.0
