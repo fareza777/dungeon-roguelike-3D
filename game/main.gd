@@ -95,6 +95,7 @@ var omen_done := false
 var omen_done2 := false # pakta kedua di lantai 11
 var omen_hp_mult := 1.0
 var omen_name := ""
+var fatehand := false
 var _warned := {}
 var champ_room := -1 # sarang sang juara: elite terjamin + drop lebih baik
 var ambush_room := -1 # ruangan "kosong" yang ternyata penyergapan
@@ -1914,7 +1915,7 @@ func _try_open_draft() -> void:
 	draft_rerolls = 1 + Stats.reroll_extra
 	if ui.has("draft_reroll"):
 		ui.draft_reroll.visible = true
-	draft_choices = ITEMS.roll_choices(Stats.relics, rng)
+	draft_choices = ITEMS.roll_choices(Stats.relics, rng, 4 if fatehand else 3)
 	_build_draft_cards()
 	ui.draft.visible = true
 	ui.dim.visible = true
@@ -1928,7 +1929,7 @@ func _draft_reroll() -> void:
 	draft_rerolls -= 1
 	ui.draft_reroll.visible = draft_rerolls > 0
 	Sfx.play("click")
-	draft_choices = ITEMS.roll_choices(Stats.relics, rng)
+	draft_choices = ITEMS.roll_choices(Stats.relics, rng, 4 if fatehand else 3)
 	_build_draft_cards()
 	print("DRAFT reroll: %s" % str(draft_choices))
 
@@ -2992,6 +2993,14 @@ func _omen_deal(idx: int) -> void:
 			Stats.cd_reduction += 0.2
 			Stats.buff_maxhp_pct -= 0.15
 			oname = "STORMGLASS"
+		7:
+			Stats.cd_reduction -= 0.35
+			Stats.buff_atk_pct += 0.3
+			oname = "SILENCE"
+		8:
+			fatehand = true
+			Stats.buff_armor -= 1
+			oname = "FATEHAND"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
 	_ach("omen1")
 	Sfx.play("shrine")
