@@ -47,7 +47,9 @@ const LORE_LINES := [
 	"Sir Vane died defending the nursery door. The bars never forgave him.",
 	"The Gaoler was the King's twin brother, once — the crown chose the crueler of two shadows.",
 	"The Oracle threads every soul she saves into a rope. Yours, she says, is her favorite strand.",
-	"Aldric's last decree was carved in gold: 'None shall outlive the throne.' He meant it literally."
+	"Aldric's last decree was carved in gold: 'None shall outlive the throne.' He meant it literally.",
+	"The King's ledger lists every hero who ever fell — page after page, all in his own hand.",
+	"The Weeper was the court's choir-master. He still can't bear to hear bones break."
 ]
 
 var dungeon_tex: Texture2D
@@ -891,8 +893,8 @@ func _on_cage_freed(s) -> void:
 
 
 func _spawn_lore_stone(last_room: int) -> void:
-	# batu pengetahuan: 35% di ruangan tengah mana pun
-	if rng.randf() >= 0.35:
+	# batu pengetahuan: 35% acak — dijamin muncul tiap lantai kelipatan-4 ≥12 (quest Dead Letters)
+	if rng.randf() >= 0.35 and not (Stats.floor_num >= 12 and Stats.floor_num % 4 == 0):
 		return
 	var r: Dictionary = info.ranges[rng.randi_range(0, last_room)]
 	var pos := Vector3((r["x0"] + r["x1"]) * 0.5 + rng.randf_range(-0.5, 0.5) * info.tile, 0.0, (r["z0"] + r["z1"]) * 0.5)
@@ -969,6 +971,7 @@ func _on_lore_stone(s) -> void:
 	s.consume()
 	lore_ref = null
 	Stats.add_xp(1)
+	_quest_event("page")
 	var line: String = LORE_LINES[rng.randi_range(0, LORE_LINES.size() - 1)]
 	if not Stats.lore_seen.has(line):
 		Stats.lore_seen.append(line)
