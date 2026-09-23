@@ -130,7 +130,9 @@ const LORE_LINES := [
 	"Powder crews fired in pairs by tradition — one barrel for the foe, one for luck.",
 	"A loose ship still floats, Kael — she just reminds you how thin the hull is.",
 	"A lantern in a dead hand still counts as a lantern, Kael. Douse it kindly.",
-	"The sea does not count in years down here — she counts in tides owed."
+	"The sea does not count in years down here — she counts in tides owed.",
+	"The Reef Caller never learned a war song, Kael — it only ever learned yours.",
+	"A wormwood charm tastes bitter so the venom forgets where your heart is."
 ]
 
 var dungeon_tex: Texture2D
