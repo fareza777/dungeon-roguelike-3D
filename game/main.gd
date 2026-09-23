@@ -54,7 +54,8 @@ const LORE_LINES := [
 	"The Sentinels were archers who swore never to retreat — the King took the words literally.",
 	"Mahzan once bet the Bone King a throne could be bought. He is still collecting.",
 	"The Hex Priests were Aldric's confessors — they still silence prayer itself.",
-	"The Shade was the King's champion duelist. He blinked once too often, and the dark kept him."
+	"The Shade was the King's champion duelist. He blinked once too often, and the dark kept him.",
+	"Kael's name is already in the ledger — only the page number is still being written."
 ]
 
 var dungeon_tex: Texture2D
