@@ -134,6 +134,8 @@ func _physics_process(delta: float) -> void:
 	weak_t = max(0.0, weak_t - tick)
 	root_t = max(0.0, root_t - tick * (1.5 if Stats.relics.has("silk_greaves") else 1.0))
 	silence_t = max(0.0, silence_t - tick)
+	if Stats.relics.has("wormwood"):
+		venom_t = 0.0
 	if venom_t > 0.0:
 		venom_t = max(0.0, venom_t - tick)
 	if rust_t > 0.0:
