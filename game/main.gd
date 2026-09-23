@@ -3236,6 +3236,7 @@ func _on_forge_invoked(s) -> void:
 	_say([{"who": "oracle", "text": "A smith's altar, cold these hundred years — but its flame remembers blades, Kael."}],
 		[{"text": "Quench the Blade — pay 6 souls: +1 weapon level"},
 		{"text": "Sharpen Fully — pay 10 souls: +2 weapon levels"},
+		{"text": "Temper the Wielder — pay 4 souls: the forge's heat seals your wounds"},
 		{"text": "Leave the cold anvil"}])
 
 
@@ -3261,6 +3262,21 @@ func _forge_deal(idx: int) -> void:
 			return
 		Stats.souls -= _soul_cost(10)
 		Stats.weapon_lv[wid] = wlv + 2
+	elif idx == 2:
+		if Stats.souls < _soul_cost(4):
+			toast("Not enough souls (need 4)")
+			return
+		Stats.souls -= _soul_cost(4)
+		player.hp = Stats.get_stat("max_hp")
+		_souls_l()
+		Stats.save_game()
+		Sfx.play("heal")
+		toast("TEMPERED — wounds sealed in forge-heat")
+		_quest_event("forge")
+		if player != null and is_instance_valid(player):
+			player.hp_changed.emit(player.hp)
+			_burst(player.global_position + Vector3(0, 0.6, 0), Color(1.0, 0.6, 0.25))
+		return
 	else:
 		return
 	_souls_l()
