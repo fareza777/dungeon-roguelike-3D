@@ -8212,11 +8212,12 @@ func _on_qm_invoked(s) -> void:
 		{"text": "Rope & Rum — pay 3 souls: +10% Speed and mend 20% HP"},
 		{"text": "Tar Smear — pay 4 souls: +1 Armor, the tar slows the dead −10% this floor"},
 		{"text": "Salt Pork — pay 3 souls: brined meat for the voyage — +15% Max HP this floor"},
+		{"text": "Whistle Code — pay 4 souls: the crew calls the maneuvers — −2s on every skill charge"},
 		{"text": "Walk away"}])
 
 
 func _qm_deal(idx: int) -> void:
-	if idx == 10:
+	if idx == 11:
 		toast("The post shutters its stores")
 		return
 	if idx == 5:
@@ -8239,6 +8240,17 @@ func _qm_deal(idx: int) -> void:
 		_quest_event("qm")
 		Sfx.play("shrine")
 		toast("SPLICE BONUS — the next five kills pay a splice share")
+		return
+	if idx == 10:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the code isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		for wc_ in skill_cd.keys():
+			skill_cd[wc_] = maxf(0.0, float(skill_cd[wc_]) - 2.0)
+		Sfx.play("shrine")
+		toast("WHISTLE CODE — orders you half remember")
 		return
 	if idx == 9:
 		if Stats.souls < _soul_cost(3):
