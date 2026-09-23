@@ -57,7 +57,8 @@ const LORE_LINES := [
 	"Mahzan once bet the Bone King a throne could be bought. He is still collecting.",
 	"The Hex Priests were Aldric's confessors — they still silence prayer itself.",
 	"The Shade was the King's champion duelist. He blinked once too often, and the dark kept him.",
-	"Kael's name is already in the ledger — only the page number is still being written."
+	"Kael's name is already in the ledger — only the page number is still being written.",
+	"The Golem was every fallen knight at once — it swings with all their weight, and none of their mercy."
 ]
 
 var dungeon_tex: Texture2D
@@ -2786,6 +2787,9 @@ func _on_dlg_choice(idx: int) -> void:
 		7:
 			Stats.buff_maxhp_pct += 0.2
 			toast("Titan's Blessing: +20% Max HP")
+		8:
+			Stats.buff_crit += 0.12
+			toast("Eagle's Eye: +12% Crit")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -2805,6 +2809,7 @@ func _offer_omens() -> void:
 			{"text": "LEECHING VEIN — +15% Lifesteal, -30% Max HP"},
 			{"text": "ECLIPSE — return from death once, -15% ATK"},
 			{"text": "IRONSIDE — +2 Armor, -15% Speed"},
+			{"text": "STORMGLASS — +20% Skill Recharge, -15% Max HP"},
 		]
 	)
 
@@ -2836,6 +2841,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_armor += 2
 			Stats.buff_speed_pct -= 0.15
 			oname = "IRONSIDE"
+		6:
+			Stats.cd_reduction += 0.2
+			Stats.buff_maxhp_pct -= 0.15
+			oname = "STORMGLASS"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
 	_ach("omen1")
 	Sfx.play("shrine")
@@ -3012,6 +3021,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Vampiric Blessing — +8% Lifesteal this run"},
 			{"text": "Fury Blessing — +10% Attack Speed this run"},
 			{"text": "Titan's Blessing — +20% Max HP this run"},
+			{"text": "Eagle's Eye — +12% Crit this run"},
 		]
 	)
 

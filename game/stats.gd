@@ -32,6 +32,7 @@ var buff_xp_pct := 0.0 # omen Rich Soil
 var buff_lifesteal := 0.0 # berkat altar Vampiric: run ini saja
 var buff_maxhp_pct := 0.0 # omen Leeching Vein: pengorbanan Max HP
 var buff_aspd := 0.0 # berkat altar Fury: run ini saja
+var buff_crit := 0.0 # berkat altar Eagle's Eye: run ini saja
 var warcry_t := 0.0 # skill War Cry: +50% ATK sementara
 var revive_left := 0 # jiwa bangkit: hidup lagi sekali per run
 var ach := {} # prestasi terbuka: id -> true (persist lintas run)
@@ -163,6 +164,8 @@ func get_stat(n: String) -> float:
 		flat += buff_armor + float(meta.get("adamant", 0))
 	if n == "lifesteal":
 		flat += buff_lifesteal + float(meta.get("leech", 0)) * 0.02
+	if n == "crit":
+		flat += buff_crit
 	if n == "speed":
 		mult += float(meta.get("swift", 0)) * 0.03 + buff_speed_pct
 	return flat * mult
@@ -275,6 +278,7 @@ func reset_run() -> void:
 	buff_lifesteal = 0.0
 	buff_maxhp_pct = 0.0
 	buff_aspd = 0.0
+	buff_crit = 0.0
 	warcry_t = 0.0
 	revive_left = int(meta.get("wind", 0))
 	thorns = 0.0
