@@ -273,6 +273,15 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						f.global_position += hdir.normalized() * (hdist - 0.9 * room_tile)
 						if mh.has_method("_damage_number"):
 							mh._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "REACHED", Color(0.5, 0.8, 1.0), false)
+		"driftnet": # NETS — tiap tebasan ke-4 melilit target: −40% speed 2s
+			var mn := get_tree().current_scene
+			if mn != null:
+				mn.set("net_n", int(mn.get("net_n")) + 1)
+				if int(mn.get("net_n")) >= 4:
+					mn.set("net_n", 0)
+					f.slow_t = 2.0
+					if mn.has_method("_damage_number"):
+						mn._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "NETTED", Color(0.4, 0.9, 0.6), false)
 		"storm_axe": # STORM — 20% petir berantai ke musuh terdekat
 			if randf() < 0.2:
 				var best2: Node3D = null

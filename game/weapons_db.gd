@@ -33,13 +33,14 @@ const DB := {
 	"moonshell": {"name": "Moonshell", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.6, 0.75, 1.1), "mods": {"atk": 1.6}, "desc": "+1.6 ATK. THRALL: 15% of your kills rise to fight for you for 4s."},
 	"kingfisher": {"name": "Kingfisher", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.3, 0.9, 0.85), "mods": {"atk": 1.5, "aspd": 0.08}, "desc": "+1.5 ATK, +8% Atk Spd. DIVE: every kill cuts your dash cooldown by 0.5s."},
 	"tidebrand": {"name": "Tidebrand", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.85, 0.7, 0.3), "mods": {"atk": 1.8}, "desc": "+1.8 ATK. SALVAGE: killing a foe under 30% HP pays +1 soul."},
+	"driftnet": {"name": "Driftnet", "atk": 1.4, "spd": -0.06, "proc": "NETS: every 4th strike tangles the foe — −40% speed for 2s"},
 	"harpoon": {"name": "Harpoon", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.5, 0.75, 0.95), "mods": {"atk": 1.6, "speed_pct": -0.04}, "desc": "+1.6 ATK, −4% Speed. REACH: every third strike drags a struck foe to arm's length."},
 	"undertow": {"name": "Undertow", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.35, 0.9, 1.0), "mods": {"atk": 1.8, "speed_pct": 0.05}, "desc": "+1.8 ATK, +5% Speed. HAUL: strikes drag foes to your reach."},
 	"marsh_claw": {"name": "Marsh Claw", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.6, 0.95, 0.4), "mods": {"atk": 1.9, "crit": 0.05}, "desc": "+1.9 ATK, +5% Crit. LEECHROOT: strikes slow foes 10% (stacks)."},
 	"searbrand": {"name": "Searbrand", "gltf": "Skeleton_Blade.gltf", "tint": Color(1.5, 0.45, 0.2), "mods": {"atk": 1.8, "crit": 0.05}, "desc": "+1.8 ATK, +5% Crit. IGNITE: hits set foes ablaze for 4s."},
 }
 
-const POOL := ["bone_axe", "twin_fang", "hex_staff", "war_blade", "storm_axe", "frost_fang", "ember_mace", "kings_edge", "grave_scythe", "moon_katana", "soul_reaver", "thronebreaker", "hollow_crown", "wisp_lantern", "gravebell", "titan_maul", "sunderfang", "searbrand", "duskblade", "oathbrand", "marsh_claw", "undertow", "keelspike", "pearlrazor", "snapdragon", "conchhorn", "moonshell", "kingfisher", "tidebrand", "harpoon"]
+const POOL := ["bone_axe", "twin_fang", "hex_staff", "war_blade", "storm_axe", "frost_fang", "ember_mace", "kings_edge", "grave_scythe", "moon_katana", "soul_reaver", "thronebreaker", "hollow_crown", "wisp_lantern", "gravebell", "titan_maul", "sunderfang", "searbrand", "duskblade", "oathbrand", "marsh_claw", "undertow", "keelspike", "pearlrazor", "snapdragon", "conchhorn", "moonshell", "kingfisher", "tidebrand", "harpoon", "driftnet"]
 
 
 static func get_w(id: String) -> Dictionary:

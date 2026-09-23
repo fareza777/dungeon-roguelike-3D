@@ -231,6 +231,7 @@ var _rope_active := false
 var _pilot_on := false
 var rope_kills := 0
 var harpoon_n := 0
+var net_n := 0
 var moonpool_run := 0
 var shellshield_used := false
 var tithe_armor := 0.0
@@ -832,6 +833,7 @@ func _reset_run_state() -> void:
 	_rope_active = false
 	rope_kills = 0
 	harpoon_n = 0
+	net_n = 0
 	wellread = false
 	tide_lends = false
 	pearl_fever = false
