@@ -2484,6 +2484,9 @@ func _on_enemy_died(e) -> void:
 				_quest_event("glasswalk")
 			if dread_tide:
 				_quest_event("dreadtide")
+				Stats.dread_survived += 1
+				if Stats.dread_survived >= 3:
+					_ach("dreadlord")
 			Stats.note_floor()
 			Stats.save_run()
 			for gi in gates:
