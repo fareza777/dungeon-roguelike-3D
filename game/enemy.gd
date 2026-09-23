@@ -71,6 +71,8 @@ var warlock := false
 var war_t := 5.0
 var gnawer := false
 var bride := false
+var cantor := false
+var cantor_t := 6.5
 var bride_t := 5.5
 var healer := false
 var heal_t := 4.0
@@ -181,6 +183,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	warlock = bool(a.get("warlock", false))
 	gnawer = bool(a.get("gnawer", false))
 	bride = bool(a.get("bride", false))
+	cantor = bool(a.get("cantor", false))
 	healer = bool(a.get("healer", false))
 	crowned = bool(a.get("crowned", false))
 	tither = bool(a.get("tither", false))
@@ -545,6 +548,11 @@ func _physics_process(delta: float) -> void:
 		if bride_t <= 0.0:
 			bride_t = 5.5
 			_bride_pulse()
+	if cantor and activated:
+		cantor_t -= delta
+		if cantor_t <= 0.0:
+			cantor_t = 6.5
+			_cantor_call()
 	if is_warper and activated:
 		warp_t -= delta
 		if warp_t <= 0.0:
@@ -1063,6 +1071,20 @@ func _bride_pulse() -> void:
 		if int(e5.get("spd_boost")) < 3:
 			e5.set("speed", float(e5.get("speed")) * 1.08)
 			e5.set("spd_boost", int(e5.get("spd_boost")) + 1)
+
+
+func _cantor_call() -> void:
+	# salt cantor: panggilannya membangunkan seluruh ruangan
+	var mb := get_tree().current_scene
+	if mb != null and mb.has_method("_damage_number"):
+		mb._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "THE CALL", Color(0.6, 0.9, 0.8), true)
+	Sfx.play("roar")
+	for e6 in get_tree().get_nodes_in_group("enemies"):
+		if e6 == self or not is_instance_valid(e6) or String(e6.get("state")) == "dead":
+			continue
+		if int(e6.get("room_idx")) != room_idx:
+			continue
+		e6.set("activated", true)
 
 
 func _caller_pulse() -> void:
