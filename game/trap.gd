@@ -220,7 +220,10 @@ func _physics_process(delta: float) -> void:
 							if mw.has_method("_damage_number"):
 								mw._damage_number(p.global_position + Vector3(0, 0.7 * tile, 0), "KEEL MENDS", Color(0.5, 0.95, 0.7), true)
 						else:
-							p.take_hit(global_position, (3 if bool(get_tree().current_scene.get("salted_deck")) else 2) if bool(get_tree().current_scene.get("bilge_run")) else (2 if bool(get_tree().current_scene.get("salted_deck")) else 1))
+							var td_: int = (3 if bool(get_tree().current_scene.get("salted_deck")) else 2) if bool(get_tree().current_scene.get("bilge_run")) else (2 if bool(get_tree().current_scene.get("salted_deck")) else 1)
+							if bool(get_tree().current_scene.get("wet_wool")):
+								td_ = maxi(0, td_ - 1)
+							p.take_hit(global_position, td_)
 
 	# sentuh jebakan saat fase tidur untuk melucutinya (kecuali lentera)
 	if not up and armed and kind != 4:
@@ -320,7 +323,10 @@ func _physics_process(delta: float) -> void:
 						if mw2.has_method("_damage_number"):
 							mw2._damage_number(p3.global_position + Vector3(0, 0.7 * tile, 0), "WRAPPED", Color(0.7, 0.8, 1.0), true)
 					else:
-						p3.take_hit(global_position, (3 if bool(get_tree().current_scene.get("salted_deck")) else 2) if bool(get_tree().current_scene.get("bilge_run")) else (2 if bool(get_tree().current_scene.get("salted_deck")) else 1))
+						var td2_: int = (3 if bool(get_tree().current_scene.get("salted_deck")) else 2) if bool(get_tree().current_scene.get("bilge_run")) else (2 if bool(get_tree().current_scene.get("salted_deck")) else 1)
+						if bool(get_tree().current_scene.get("wet_wool")):
+							td2_ = maxi(0, td2_ - 1)
+						p3.take_hit(global_position, td2_)
 					bn.queue_free()
 					bolts.remove_at(i)
 
