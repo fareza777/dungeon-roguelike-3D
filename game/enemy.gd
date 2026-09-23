@@ -28,6 +28,7 @@ var is_bomber := false
 var is_summoner := false
 var proj_speed := 0.0
 var kb_resist := 0.0
+var dmg_reduce := 0.0
 var speed := 4.0
 var dmg := 1
 var windup_t := 0.45
@@ -245,7 +246,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				xp_val = int(xp_val * 1.25)
 			"barnacled":
 				# kerak: perisai baja, gerak berat
-				armor += 2
+				dmg_reduce = 0.25
 				speed *= 0.8
 				hp *= 1.1
 				xp_val = int(xp_val * 1.3)
@@ -888,6 +889,8 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 			var mq := get_tree().current_scene
 			if mq != null and mq.has_method("_quest_event"):
 				mq._quest_event("shellcrack")
+	if dmg_reduce > 0.0 and dmg_taken > 0.0:
+		dmg_taken *= (1.0 - dmg_reduce)
 	hp -= dmg_taken
 	if affix == "sirensong" and not _siren_pulled and not Stats.relics.has("deaf_cap") and hp > 0.0 and hp <= hp_max * 0.4:
 		_siren_pulled = true
