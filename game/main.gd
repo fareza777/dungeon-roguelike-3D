@@ -246,6 +246,7 @@ var long_watch := false
 var fog_lantern_d := false
 var crowns_rest := false
 var salted_deck := false
+var pale_scrip := false
 var shoal_spd := false
 var dead_weight := false
 var hymn_delta := 0.0
@@ -1527,7 +1528,7 @@ func _new_run(new_seed: int) -> void:
 	dead_weight = not choir and not dread_tide and not starved_deep and not abyssal_hymn and not dead_calm and not boss_floor and Stats.floor_num >= 14 and rng.randf() < 0.08
 	Stats.dead_weight = dead_weight
 	shell_game = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not umbral_tide and not abyssal_patience and not choir and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
-	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe", "tar_smear", "black_calm", "bilge_iron", "gun_smoke", "greedy_tide", "drift_wreck", "chorus_cut", "long_watch", "fog_lantern_d", "crowns_rest", "salted_deck"]:
+	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe", "tar_smear", "black_calm", "bilge_iron", "gun_smoke", "greedy_tide", "drift_wreck", "chorus_cut", "long_watch", "fog_lantern_d", "crowns_rest", "salted_deck", "pale_scrip"]:
 		if get(evf):
 			events_run[evf] = true
 			break
@@ -3555,6 +3556,9 @@ func _on_enemy_died(e) -> void:
 	if run_state == "playing":
 		if _room_alive(e.room_idx) == 0:
 			rooms_cleared += 1
+			if pale_scrip:
+				Stats.earn_souls(1)
+				_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), "SCRIP +1", Color(0.8, 0.85, 0.6), false)
 			_quest_event("room_clear")
 			_quest_event("clear_floor")
 			_set_room_gates(e.room_idx, true)
@@ -7029,11 +7033,12 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Brine Graft — pay 4 souls: salt in the wounds — +10% Max HP this floor"},
 		{"text": "Mist Ration — pay 3 souls: bottle the morning fog — +10% XP this floor"},
 		{"text": "Fog Lantern — pay 3 souls: the light marks the strong — elites pay +1 soul"},
+		{"text": "Pale Scrip — pay 2 souls: every room you clear this floor pays +1 soul"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 21:
+	if idx == 22:
 		toast("The water settles back into the stone")
 		return
 	if idx == 12:
@@ -7221,6 +7226,16 @@ func _drowned_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		_ach("seaworthy")
 		toast("DROWNED TITHE — +8 souls, −10% Max HP")
+	if idx == 21:
+		if Stats.souls < _soul_cost(2):
+			toast("Two souls — the scrip's not free")
+			return
+		Stats.souls -= _soul_cost(2)
+		_souls_l()
+		pale_scrip = true
+		Sfx.play("shrine")
+		toast("PALE SCRIP — the drowned keep accounts")
+		return
 	if idx == 20:
 		if Stats.souls < _soul_cost(3):
 			toast("Three souls — the lantern's oil isn't free")
