@@ -101,6 +101,7 @@ const ACH_DEF := {
 	"trap5": "Saboteur (defused 5 traps)",
 	"omen1": "Oathbound (swore an Omen)",
 	"pawn1": "Pawn Star (sold a relic to Mahzan)",
+	"lore10": "Crypt Chronicler (gathered 10 whispers)",
 }
 
 const META_DEF := {
