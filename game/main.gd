@@ -3320,6 +3320,9 @@ func _on_enemy_died(e) -> void:
 		if stolen > 0:
 			_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), "MISER -%d" % stolen, Color(0.85, 0.7, 0.2), true)
 		_quest_event("miser_loss", stolen)
+	if Stats.relics.has("crow_claw") and combo >= 5:
+		Stats.earn_souls(1)
+		_damage_number(e.global_position + Vector3(0, 1.4 * info.tile, 0), "CLAW +1", Color(0.5, 0.8, 0.6), false)
 	if e.affix == "keelmark":
 		spawn_weapon_drop(e.global_position, WDB.roll_drop(rng, Stats.weapon_id))
 	for f2 in get_tree().get_nodes_in_group("enemies"):
