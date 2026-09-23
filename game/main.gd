@@ -216,6 +216,7 @@ var urns_floor := 0
 var clams_run := 0
 var rooms_floor := 0
 var still_t := 0.0
+var _rope_active := false
 var moonpool_run := 0
 var shellshield_used := false
 var tithe_armor := 0.0
@@ -7772,6 +7773,10 @@ func _process(delta: float) -> void:
 				Stats.buff_armor -= 2
 				player.refresh_stats()
 		still_t = still_t + delta if player.move_input == Vector2.ZERO else 0.0
+		var rope_on := Stats.relics.has("steady_rope") and still_t >= 1.0
+		if rope_on != _rope_active:
+			_rope_active = rope_on
+			Stats.buff_atk_pct += 0.08 if rope_on else -0.08
 		if not pool_positions.is_empty() and pool_healed < 4.0 and player.hp < Stats.get_stat("max_hp"):
 			for pp in pool_positions:
 				if player.global_position.distance_to(pp["pos"]) < float(pp["r"]) + 0.3 * info.tile:
