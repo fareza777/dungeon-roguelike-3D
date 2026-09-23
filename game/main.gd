@@ -208,6 +208,7 @@ var umbral_tide := false
 var moonwrit := false
 var barnacle_sense := false
 var brine_callus := false
+var bosun_ledger := false
 var deadweight := false
 var undertow_grip := false
 var lookout := false
@@ -857,6 +858,7 @@ func _reset_run_state() -> void:
 	moonwrit = false
 	barnacle_sense = false
 	brine_callus = false
+	bosun_ledger = false
 	deadweight = false
 	undertow_grip = false
 	lookout = false
@@ -2378,6 +2380,10 @@ func _on_enemy_died(e) -> void:
 	if dread_tide and not e.is_boss:
 		Stats.earn_souls(1)
 		_souls_l()
+	if bosun_ledger and floor_kills % 5 == 0:
+		Stats.earn_souls(1)
+		_souls_l()
+		_damage_number(e.global_position + Vector3(0, 0.8 * info.tile, 0), "LEDGER +1", Color(0.9, 0.7, 0.3), false)
 	if Stats.relics.has("dead_knot") and floor_kills % 8 == 0:
 		Stats.earn_souls(1)
 		_souls_l()
@@ -4607,6 +4613,9 @@ func _on_dlg_choice(idx: int) -> void:
 		26:
 			Stats.buff_xp_pct += 0.15
 			toast("Wake Runner: the deep fills your lungs — +15% XP")
+		27:
+			bosun_ledger = true
+			toast("Bosun's Ledger: every fifth kill each floor pays +1 soul")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -6258,6 +6267,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Ironwood Hull — +1 Armor, −5% speed"},
 			{"text": "Bosun's Mark — your crew swings a fifth harder"},
 			{"text": "Wake Runner — +15% XP this run"},
+			{"text": "Bosun's Ledger — every fifth kill each floor pays +1 soul"},
 		]
 	)
 
