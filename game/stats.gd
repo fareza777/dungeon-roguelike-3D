@@ -106,6 +106,8 @@ const ACH_DEF := {
 	"pawn1": "Pawn Star (sold a relic to Mahzan)",
 	"lore10": "Crypt Chronicler (gathered 10 whispers)",
 	"wisp8": "Soul Shepherd (caught 8 wandering wisps)",
+	"forge5": "Blade Saint (forged a weapon to +5)",
+	"mirror1": "Gazer (let the Mirror trade your blade)",
 }
 
 const META_DEF := {

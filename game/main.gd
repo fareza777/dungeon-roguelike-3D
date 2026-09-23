@@ -2991,6 +2991,8 @@ func _forge_deal(idx: int) -> void:
 	Stats.save_game()
 	Sfx.play("levelup")
 	toast("%s forged to +%d" % [wname, int(Stats.weapon_lv[wid]) - 1])
+	if int(Stats.weapon_lv[wid]) >= 6:
+		_ach("forge5")
 	_refresh_buffs()
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
@@ -3028,6 +3030,7 @@ func _mirror_deal(idx: int) -> void:
 	Stats.save_game()
 	Sfx.play("levelup")
 	toast("The mirror trades — %s drawn" % String(WDB.get_w(nid)["name"]))
+	_ach("mirror1")
 	if player != null and is_instance_valid(player):
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(0.5, 0.7, 1.0))
 
