@@ -228,6 +228,7 @@ var clams_run := 0
 var rooms_floor := 0
 var still_t := 0.0
 var _rope_active := false
+var _pilot_on := false
 var rope_kills := 0
 var harpoon_n := 0
 var moonpool_run := 0
@@ -854,6 +855,9 @@ func _reset_run_state() -> void:
 	if callus_on:
 		Stats.buff_armor -= 2
 		callus_on = false
+	if _pilot_on:
+		Stats.buff_speed_pct -= 0.08
+		_pilot_on = false
 	tide_kills = 0
 	reliquary_wisps = 0
 	flawless_run = 0
@@ -7977,6 +7981,16 @@ func _process(delta: float) -> void:
 			elif not under_half and callus_on:
 				callus_on = false
 				Stats.buff_armor -= 2
+				player.refresh_stats()
+		if Stats.relics.has("pilot_fish"):
+			var wounded: bool = player.hp < Stats.get_stat("max_hp") * 0.5
+			if wounded and not _pilot_on:
+				_pilot_on = true
+				Stats.buff_speed_pct += 0.08
+				player.refresh_stats()
+			elif not wounded and _pilot_on:
+				_pilot_on = false
+				Stats.buff_speed_pct -= 0.08
 				player.refresh_stats()
 		still_t = still_t + delta if player.move_input == Vector2.ZERO else 0.0
 		var rope_on := Stats.relics.has("steady_rope") and still_t >= 1.0

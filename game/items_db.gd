@@ -76,6 +76,7 @@ const DB := {
 	"keel_mark": {"name": "Keel Mark", "chip": "KM", "desc": "Foes you keelhaul are marked — each marked kill pays +1 soul", "rarity": 1, "mods": {}},
 	"grave_rose": {"name": "Grave Rose", "chip": "GR", "desc": "Your first blow on every foe is always a crit", "rarity": 2, "mods": {}},
 	"shellback": {"name": "Shellback", "chip": "SB", "desc": "Standing still for a heartbeat hardens you — 30% less damage taken", "rarity": 1, "mods": {}},
+	"pilot_fish": {"name": "Pilot Fish", "chip": "PF", "desc": "It leads you to open water — +8% Speed while you're under half HP", "rarity": 1, "mods": {}},
 	"bilge_rat": {"name": "Bilge Rat", "chip": "BR", "desc": "Every trap you disarm frees a wandering soul wisp", "rarity": 2, "mods": {}},
 	"ferry_token": {"name": "Ferry Token", "chip": "FT", "desc": "The Ferryman's six-soul toll is halved for token-holders", "rarity": 1, "mods": {}},
 	"float_suit": {"name": "Float Suit", "chip": "FS", "desc": "Venom and poison ticks bite at half strength", "rarity": 1, "mods": {}},
