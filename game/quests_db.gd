@@ -88,6 +88,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 	if Stats.floor_num >= 13 and Stats.floor_num % 7 == 1:
 		steps.append({"title": "Commuter of the Dead", "desc": "Let the Ferryman carry you (0/1)", "kind": "ferry", "need": 1})
 	if Stats.floor_num >= 14 and Stats.floor_num % 8 == 6:
+		steps.append({"title": "Piked It", "desc": "Slay 5 foes with Salt Pike (0/5)", "kind": "kill_salt_pike", "need": 5})
 		steps.append({"title": "Unbowed", "desc": "Slay 3 CRUSHING elites (0/3)", "kind": "affix_crushing", "need": 3})
 		steps.append({"title": "Bilge Dancer", "desc": "Clear 2 BILGE RUN floors (0/2)", "kind": "bilgewalk", "need": 2})
 		steps.append({"title": "Coral Crusher", "desc": "Slay 5 foes with Coral Bludgeon (0/5)", "kind": "kill_coral_bludgeon", "need": 5})

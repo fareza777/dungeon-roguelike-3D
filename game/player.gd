@@ -325,6 +325,18 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						f.take_hit(global_position, dmg * 0.4)
 					if mw.has_method("_damage_number"):
 						mw._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "SAWED", Color(1.0, 0.7, 0.3), false)
+		"salt_pike": # GAFF — tiap tebasan ke-4 pada elite mencongkel +1 jiwa
+			if bool(f.get("elite")):
+				var gp_ := get_tree().current_scene
+				if gp_ != null:
+					gp_.set("net_n", int(gp_.get("net_n")) + 1)
+					if int(gp_.get("net_n")) >= 4:
+						gp_.set("net_n", 0)
+						Stats.earn_souls(1)
+						if gp_.has_method("_souls_l"):
+							gp_._souls_l()
+						if gp_.has_method("_damage_number"):
+							gp_._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "GAFF +1", Color(0.6, 0.9, 0.8), false)
 		"coral_bludgeon": # REEFING — tiap tebasan ke-5 +8% speed 4s
 			var cb_ := get_tree().current_scene
 			if cb_ != null:
