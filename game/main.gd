@@ -131,6 +131,7 @@ var grave_hunger := false
 var giant_hall := false
 var shrouded := false
 var ossuary := false
+var shrine_kind := 0
 var bounty_ref: Enemy = null
 var bounty_epic := false
 var ferry_skip := false
@@ -1167,6 +1168,7 @@ func _spawn_shrine(last_room: int) -> void:
 		skind = 2
 	s.setup(info.tile, skind)
 	shrine_ref = s
+	shrine_kind = skind
 	if ossuary:
 		var rooms2: Array = info.get("rooms", [])
 		for oc in range(mini(4, rooms2.size())):
@@ -4032,7 +4034,7 @@ func _build_minimap() -> void:
 	# penanda altar (cyan), batu lore (ungu), dan tujuan akhir lantai (emas besar)
 	if shrine_ref != null and is_instance_valid(shrine_ref):
 		var sd := ColorRect.new()
-		sd.color = Color(0.45, 0.85, 1.0)
+		sd.color = [Color(1.0, 0.8, 0.3), Color(0.45, 0.65, 1.0), Color(1.0, 0.2, 0.15), Color(1.0, 0.55, 0.15), Color(0.55, 0.75, 1.0), Color(1.0, 0.5, 0.1), Color(0.95, 0.85, 0.3), Color(0.4, 0.55, 1.0)][shrine_kind]
 		sd.size = Vector2(5, 5)
 		sd.position = _map_pos(shrine_ref.global_position, sc)
 		mv.add_child(sd)
