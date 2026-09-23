@@ -54,6 +54,7 @@ const DB := {
 	"relik_tempo": {"name": "Relic of Tempo", "chip": "RT", "desc": "Your combo window lasts 45% longer", "rarity": 1, "mods": {}},
 	"soulsmith": {"name": "Soulsmith Band", "chip": "SS", "desc": "Soul Forge prices drop 2 souls", "rarity": 1, "mods": {}},
 	"leech_seed": {"name": "Leech Seed", "chip": "LS", "desc": "Every 6th kill at full HP ripens into +1 soul", "rarity": 0, "mods": {}},
+	"chalice_dust": {"name": "Chalice of Dust", "chip": "CD", "desc": "+2 souls from every kill", "rarity": 2, "mods": {"soul_bonus": 2}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
