@@ -94,6 +94,7 @@ const ACH_DEF := {
 	"scholar": "Crypt Scholar (filled the bestiary)",
 	"st5": "Death's Edge (5 kills at death's door)",
 	"hex1": "Hex Plunderer (cracked a Cursed Chest)",
+	"nem1": "Debt Collector (slew your nemesis)",
 }
 
 const META_DEF := {

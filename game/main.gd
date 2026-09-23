@@ -1285,6 +1285,7 @@ func _on_enemy_died(e) -> void:
 		_burst(e.global_position, Color(0.9, 0.15, 0.25))
 		_lvl_banner("◆ NEMESIS SLAIN — +10 souls")
 		_damage_number(e.global_position + Vector3(0, 0.9 * info.tile, 0), "YOUR DEBT IS PAID", Color(1.0, 0.85, 0.35), true)
+		_ach("nem1")
 	# weapon mastery: 25 kill dengan senjata yang sama -> +1 ATK permanen
 	var wid := Stats.weapon_id
 	var wk_old: int = int(Stats.weapon_kills.get(wid, 0))
@@ -1445,6 +1446,7 @@ func _on_boss_died(_e) -> void:
 		Stats.nemesis_name = ""
 		Stats.souls += 10
 		_lvl_banner("◆ NEMESIS SLAIN — the King's debt is paid (+10 souls)")
+		_ach("nem1")
 	_souls_l()
 	Stats.save_game()
 	Sfx.play("victory")
