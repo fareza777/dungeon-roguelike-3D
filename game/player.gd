@@ -239,6 +239,8 @@ func _strike() -> void:
 				dmg *= 2.0
 			if Stats.weapon_id == "war_blade" and f.hp < f.hp_max * 0.35:
 				dmg *= 1.5
+			if Stats.weapon_id == "nightfang" and not bool(f.get("activated")):
+				dmg *= 1.3
 			if Stats.weapon_id == "hullbreaker" and f.hp >= f.hp_max * 0.95:
 				dmg *= 1.25
 			if Stats.weapon_id == "king_gavel":
