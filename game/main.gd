@@ -4363,10 +4363,13 @@ func _on_ferry_invoked(s) -> void:
 
 func _ferry_deal(idx: int) -> void:
 	if idx == 2:
-		if Stats.souls < _soul_cost(10):
+		var fare := _soul_cost(10)
+		if Stats.relics.has("drowned_oar"):
+			fare = maxi(fare - 3, 1)
+		if Stats.souls < fare:
 			toast("Ten souls for the long route — the Ferryman waits")
 			return
-		Stats.souls -= _soul_cost(10)
+		Stats.souls -= fare
 		_souls_l()
 		_ferry_used = true
 		ferry_skip = true
@@ -4394,10 +4397,13 @@ func _ferry_deal(idx: int) -> void:
 	if idx != 0:
 		toast("The Ferryman's lantern fades without you")
 		return
-	if Stats.souls < _soul_cost(6):
+	var fare6 := _soul_cost(6)
+	if Stats.relics.has("drowned_oar"):
+		fare6 = maxi(fare6 - 3, 1)
+	if Stats.souls < fare6:
 		toast("Six souls — the Ferryman doesn't haggle")
 		return
-	Stats.souls -= _soul_cost(6)
+	Stats.souls -= fare6
 	_souls_l()
 	_ferry_used = true
 	ferry_skip = true
