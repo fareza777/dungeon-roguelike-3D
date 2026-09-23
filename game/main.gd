@@ -1514,7 +1514,7 @@ func _cast_skill(id: String) -> void:
 				toast("No foe in reach")
 			trauma = 0.55
 			print("SKILL judge")
-	skill_cd[id] = float(SK.DB[id]["cd"])
+	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0)))
 
 
 func _heavy_attack() -> void:

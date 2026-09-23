@@ -63,7 +63,7 @@ var bestiary := {} # arch_id -> jumlah kill sepanjang masa (codex)
 var weapon_kills := {} # weapon_id -> kill sepanjang masa (mastery progress)
 var mastered := {} # weapon_id -> 1 bila mastery tercapai (+1 ATK permanen)
 const MASTERY_N := 25
-var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0}
+var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0}
 
 const META_DEF := {
 	"vital": {"name": "Vitality", "max": 5, "desc": "+1 Max HP per level"},
@@ -71,6 +71,7 @@ const META_DEF := {
 	"swift": {"name": "Swiftness", "max": 4, "desc": "+3% Speed per level"},
 	"magnet": {"name": "Magnetism", "max": 3, "desc": "+20% soul-pull per level"},
 	"wind": {"name": "Second Wind", "max": 1, "desc": "Begin every run with a revive"},
+	"arcane": {"name": "Arcane Edge", "max": 3, "desc": "Skills recharge 8% faster per level"},
 }
 
 # dipakai menu -> game
@@ -313,7 +314,7 @@ func wipe_progress() -> void:
 	bestiary = {}
 	weapon_kills = {}
 	mastered = {}
-	meta = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0}
+	meta = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0}
 	reset_run()
 	save_game()
 
