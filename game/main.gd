@@ -410,6 +410,8 @@ var salvage_ct := 0
 var lucky_net := false
 var deeproot := false
 var still_waters := false
+var bone_veil := false
+var veil_used := false
 var _souls_seen := 0
 var _souls_net := 0
 var dlg: DialogueUI = null
@@ -685,6 +687,7 @@ func _reset_run_state() -> void:
 	pawn_discount = false
 	golden_fate = false
 	trap_wrapped = 0
+	veil_used = false
 	perfect_dodges = 0
 	leech_charge = 0
 	legion_omen = false
@@ -696,6 +699,7 @@ func _reset_run_state() -> void:
 	lucky_net = false
 	deeproot = false
 	still_waters = false
+	bone_veil = false
 	_souls_seen = Stats.souls
 	_souls_net = 0
 	ashborn = false
@@ -4015,6 +4019,9 @@ func _on_dlg_choice(idx: int) -> void:
 		15:
 			still_waters = true
 			toast("Still Waters: traps doze 40% longer")
+		16:
+			bone_veil = true
+			toast("Bone Veil: the first hit each floor is nothing")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -5246,6 +5253,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Lucky Net — every tenth soul you earn pays +1"},
 			{"text": "Deeproot — every urn spills +1 soul"},
 			{"text": "Still Waters — traps doze 40% longer"},
+			{"text": "Bone Veil — the first hit each floor does nothing"},
 		]
 	)
 

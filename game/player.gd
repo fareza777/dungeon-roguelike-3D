@@ -461,6 +461,14 @@ func take_hit(from_pos: Vector3, dmg_taken: int) -> void:
 		if dash_t > 0.0:
 			_perfect_dodge(from_pos)
 		return
+	# berkat Bone Veil: pukulan pertama tiap lantai ditolak
+	var mv := get_tree().current_scene
+	if mv != null and bool(mv.get("bone_veil")) and not bool(mv.get("veil_used")):
+		mv.set("veil_used", true)
+		Sfx.play("shrine")
+		if mv.has_method("_damage_number"):
+			mv._damage_number(global_position, "VEILED", Color(0.85, 0.8, 0.5), true)
+		return
 	# relic Fase Hantu: peluang menghindar penuh
 	if Stats.dodge > 0.0 and randf() < Stats.dodge:
 		invuln = 0.5
