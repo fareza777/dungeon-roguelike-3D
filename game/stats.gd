@@ -29,10 +29,14 @@ var buff_atk_pct := 0.0 # berkat altar: run ini saja
 var buff_armor := 0 # berkat altar: armor datar run ini
 var buff_speed_pct := 0.0 # omen Feather Step
 var buff_xp_pct := 0.0
-var soul_gain_pct := 0.0 # omen Rich Soil / Tide's Toll blessing
+var soul_gain_pct := 0.0
+var dead_weight := false # omen Rich Soil / Tide's Toll blessing
 
 func earn_souls(n: int) -> void:
-	souls += int(ceilf(n * (1.0 + soul_gain_pct)))
+	var pay := n
+	if dead_weight and n > 0:
+		pay = maxi(0, n - 1)
+	souls += int(ceilf(pay * (1.0 + soul_gain_pct)))
 var buff_lifesteal := 0.0 # berkat altar Vampiric: run ini saja
 var buff_maxhp_pct := 0.0 # omen Leeching Vein: pengorbanan Max HP
 var buff_aspd := 0.0 # berkat altar Fury: run ini saja
@@ -358,6 +362,7 @@ func reset_run() -> void:
 	buff_speed_pct = 0.0
 	buff_xp_pct = 0.0
 	soul_gain_pct = 0.0
+	dead_weight = false
 	buff_lifesteal = 0.0
 	buff_maxhp_pct = 0.0
 	buff_aspd = 0.0

@@ -158,6 +158,7 @@ var low_tide := false
 var glass_sea := false
 var abyssal_hymn := false
 var dead_calm := false
+var dead_weight := false
 var hymn_delta := 0.0
 var rotgut_drunk := false
 var pale_drunk := false
@@ -990,8 +991,10 @@ func _new_run(new_seed: int) -> void:
 		Stats.event_soul_bonus = 1
 	if abyssal_hymn:
 		Stats.event_soul_bonus = 1
+	dead_weight = not choir and not dread_tide and not starved_deep and not abyssal_hymn and not dead_calm and not boss_floor and Stats.floor_num >= 14 and rng.randf() < 0.08
+	Stats.dead_weight = dead_weight
 	shell_game = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not umbral_tide and not abyssal_patience and not choir and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
-	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm"]:
+	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight"]:
 		if get(evf):
 			events_run[evf] = true
 			break
@@ -2801,6 +2804,8 @@ func _on_enemy_died(e) -> void:
 	var xp_bonus := 1.0 + minf(float(combo), 10.0) * 0.05
 	if soul_rush:
 		xp_bonus *= 1.6
+	if dead_weight:
+		xp_bonus *= 1.15
 	if ossuary:
 		xp_bonus *= 2.0
 	if mirror_hall:
@@ -6087,6 +6092,8 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 				evline = "One voice beneath the rest, Kael — a hymn that turns your legs to lead. But the dead pay in full tonight."
 			elif dead_calm:
 				evline = "Flat water, Kael — even the traps have fallen asleep. Walk soft; it's a mercy that won't last."
+			elif dead_weight:
+				evline = "The drowned cling to your purse tonight, Kael — every soul comes light, but the killing pays rich."
 			elif sunken_tide:
 				evline = "The water is rising through the graves, Kael — the drowned will come slow, but they come rich."
 			elif wolfsbane:
@@ -7422,6 +7429,8 @@ func _refresh_buffs() -> void:
 		list.append(["☗ HYMN", Color(0.5, 0.7, 1.0)])
 	elif dead_calm:
 		list.append(["≈ CALM", Color(0.55, 0.85, 0.9)])
+	elif dead_weight:
+		list.append(["≈ WEIGHT", Color(0.5, 0.55, 0.75)])
 	elif wolfsbane:
 		list.append(["☽ PACK", Color(0.65, 0.7, 0.95)])
 	if Stats.soul_sealed:
