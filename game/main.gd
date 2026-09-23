@@ -174,6 +174,7 @@ var abyssal_patience := false
 var umbral_tide := false
 var moonwrit := false
 var salt_purse := false
+var sirensong_deal := false
 var crown_oath := false
 var pinch_n := 0
 var tide_kills := 0
@@ -778,6 +779,7 @@ func _new_run(new_seed: int) -> void:
 	pool_healed = 0.0
 	keelh_floor = 0
 	salt_purse = false
+	sirensong_deal = false
 	pool_touched = false
 	pray_t = 0.0
 	prayed = false
@@ -2643,6 +2645,10 @@ func _on_enemy_died(e) -> void:
 			Stats.earn_souls(2)
 			_souls_l()
 			_damage_number(e.global_position + Vector3(0, 1.1 * info.tile, 0), "LEDGER +2", Color(0.5, 0.95, 0.85), false)
+		if sirensong_deal:
+			Stats.earn_souls(4)
+			_souls_l()
+			_damage_number(e.global_position + Vector3(0, 1.5 * info.tile, 0), "SIREN PAID — +4", Color(0.7, 0.5, 1.15), false)
 		if crown_oath:
 			crown_oath = false
 	pinch_n = 0
@@ -4498,6 +4504,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Last Rites — pay 12 souls: one resurrection, on credit"},
 			{"text": "Pearl Insurance — pay 4 souls: your next 2 trap hits do nothing"},
 			{"text": "Abyssal Jar — pay 8 souls: a trinket dredged from the deep"},
+			{"text": "Sirensong — pay 4 souls: this floor's elites pay +4 souls"},
 		]
 	)
 
@@ -5328,6 +5335,15 @@ func _mahzan_deal(idx: int) -> void:
 				Stats.add_relic(jrid)
 				Sfx.play("shrine")
 				toast("ABYSSAL JAR — dredged up " + String(ITEMS.DB[jrid]["name"]))
+		16:
+			if Stats.souls < _soul_cost(4):
+				toast("Four souls — the song isn't free")
+			else:
+				Stats.souls -= _soul_cost(4)
+				_souls_l()
+				sirensong_deal = true
+				Sfx.play("shrine")
+				toast("SIRENSONG — this floor's elites sing a richer tune")
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
 		player.refresh_stats()
