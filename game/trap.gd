@@ -1,8 +1,11 @@
 extends Node3D
-# Jebakan duri: plat gelap + 9 duri tulang naik-turun berirama.
-# Nyalanya memberi getar 0.22s sebagai telegraph; kena = 1 dmg + knockback.
+# Jebakan: kind 0 = plat duri tulang naik-turun; kind 1 = semburan api berirama
+# (lingkaran membara = telegraph, cone api muncul saat aktif). Kena = 1 dmg.
 
 var spikes: Node3D
+var jet: MeshInstance3D = null
+var glow: MeshInstance3D = null
+var kind := 0 # 0 = duri, 1 = api
 var tile := 4.0
 var t := 0.0
 var phase := 0.0 # offset irama
@@ -11,20 +14,51 @@ var armed := true
 var warn_tw: Tween = null
 
 
-func setup(p_tile: float, offset: float) -> void:
+func setup(p_tile: float, offset: float, p_kind := 0) -> void:
 	tile = p_tile
 	phase = offset
+	kind = p_kind
 	# plat dasar
 	var base := MeshInstance3D.new()
 	var bm := BoxMesh.new()
 	bm.size = Vector3(0.5 * tile, 0.03 * tile, 0.5 * tile)
 	var bmat := StandardMaterial3D.new()
-	bmat.albedo_color = Color(0.09, 0.09, 0.12)
+	bmat.albedo_color = Color(0.09, 0.09, 0.12) if kind == 0 else Color(0.16, 0.07, 0.04)
 	bmat.metallic = 0.3
 	bm.material = bmat
 	base.mesh = bm
 	base.position.y = 0.015 * tile
 	add_child(base)
+	if kind == 1:
+		# lingkaran emas membara (telegraph api)
+		glow = MeshInstance3D.new()
+		var gm := PlaneMesh.new()
+		gm.size = Vector2(0.42 * tile, 0.42 * tile)
+		var gmat := StandardMaterial3D.new()
+		gmat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		gmat.albedo_color = Color(1.0, 0.35, 0.08, 0.85)
+		gmat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		gm.material = gmat
+		glow.mesh = gm
+		glow.position.y = 0.035 * tile
+		add_child(glow)
+		# sembur api (cone)
+		jet = MeshInstance3D.new()
+		var jm := CylinderMesh.new()
+		jm.top_radius = 0.05 * tile
+		jm.bottom_radius = 0.22 * tile
+		jm.height = 0.75 * tile
+		var jmat := StandardMaterial3D.new()
+		jmat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		jmat.albedo_color = Color(1.0, 0.45, 0.1, 0.8)
+		jmat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		jm.material = jmat
+		jet.mesh = jm
+		jet.position.y = 0.375 * tile
+		jet.scale = Vector3(1, 0.001, 1)
+		jet.visible = false
+		add_child(jet)
+		return
 	# lubang duri (lubang gelap biar kelihatan ada jebakan)
 	var holes := MeshInstance3D.new()
 	var hm := PlaneMesh.new()
@@ -67,7 +101,17 @@ func _physics_process(delta: float) -> void:
 		target = -0.29 * tile
 	var prev_up := up
 	up = cyc >= 0.9 and cyc < 1.1
-	spikes.position.y = lerpf(spikes.position.y, target, delta * (22.0 if up else 10.0))
+	if kind == 1:
+		if jet != null:
+			jet.visible = up or jet.scale.y > 0.05
+			var jscale: float = lerpf(jet.scale.y, 1.0 if up else 0.001, delta * (20.0 if up else 12.0))
+			jet.scale = Vector3(1.0 + 0.25 * randf(), jscale, 1.0 + 0.25 * randf())
+			jet.rotation.y += delta * 7.0
+		if glow != null:
+			var gm2: StandardMaterial3D = glow.mesh.material
+			gm2.albedo_color.a = 0.5 + 0.5 * sin(t * 9.0) if not up else 1.0
+	else:
+		spikes.position.y = lerpf(spikes.position.y, target, delta * (22.0 if up else 10.0))
 	if up and not prev_up:
 		Sfx.play("trap")
 	if up and armed:
@@ -77,10 +121,14 @@ func _physics_process(delta: float) -> void:
 			if p.get("dead") != true and p.get("invuln") <= 0.0:
 				var d: Vector3 = p.global_position - global_position
 				d.y = 0
-				if d.length() < 0.28 * tile:
+				if d.length() < (0.3 * tile if kind == 1 else 0.28 * tile):
 					p.take_hit(global_position, 1)
 
 
 func disarm() -> void:
 	armed = false
-	spikes.position.y = -0.29 * tile
+	if kind == 1:
+		if jet != null:
+			jet.visible = false
+	else:
+		spikes.position.y = -0.29 * tile

@@ -617,7 +617,7 @@ func _spawn_traps(last_room: int) -> void:
 		var tr = TRAP.new()
 		room.add_child(tr)
 		tr.global_position = pos
-		tr.setup(info.tile, rng.randf_range(0.0, 1.9))
+		tr.setup(info.tile, rng.randf_range(0.0, 1.9), 1 if rng.randf() < 0.35 else 0)
 
 
 # altar arwah di ruangan terakhir — 45% kesempatan, sekali pakai
