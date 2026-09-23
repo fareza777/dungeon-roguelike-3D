@@ -158,6 +158,7 @@ const ACH_DEF := {
 	"wellread": "Well Read (read 5 lore stones in one run)",
 	"keelhaul5": "Catch & Release (keelhauled 5 foes at once)",
 	"bombsquad": "Bomb Squad (disarmed 5 traps in one run)",
+	"lantern_lit": "Lantern Lit (took 20 shrine blessings in one run)",
 	"w8": "Full Arsenal (carried 8 weapons at once)",
 	"toothdeck": "Tooth Deck (cleared 30 foes on a single floor)",
 	"birdkeeper": "Birdkeeper (felled 12 Keelbeaks across your runs)",

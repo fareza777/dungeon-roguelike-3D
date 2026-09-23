@@ -5237,6 +5237,8 @@ func _on_mahzan_invoked(s) -> void:
 	shrine_count += 1
 	if shrine_count >= 10:
 		_ach("pilgrim")
+	if shrine_count >= 20:
+		_ach("lantern_lit")
 	s.consume()
 	Sfx.play("shrine")
 	dlg_pending_choice = 1
@@ -5307,6 +5309,8 @@ func _on_forge_invoked(s) -> void:
 	shrine_count += 1
 	if shrine_count >= 10:
 		_ach("pilgrim")
+	if shrine_count >= 20:
+		_ach("lantern_lit")
 	s.consume()
 	Sfx.play("shrine")
 	dlg_pending_choice = 6
@@ -5406,6 +5410,8 @@ func _on_mirror_invoked(s) -> void:
 	shrine_count += 1
 	if shrine_count >= 10:
 		_ach("pilgrim")
+	if shrine_count >= 20:
+		_ach("lantern_lit")
 	s.consume()
 	Sfx.play("shrine")
 	dlg_pending_choice = 7
@@ -5484,6 +5490,8 @@ func _on_bounty_invoked(s) -> void:
 	shrine_count += 1
 	if shrine_count >= 10:
 		_ach("pilgrim")
+	if shrine_count >= 20:
+		_ach("lantern_lit")
 	s.consume()
 	Sfx.play("shrine")
 	dlg_pending_choice = 8
@@ -5602,6 +5610,8 @@ func _on_well_invoked(s) -> void:
 	shrine_count += 1
 	if shrine_count >= 10:
 		_ach("pilgrim")
+	if shrine_count >= 20:
+		_ach("lantern_lit")
 	s.consume()
 	Sfx.play("shrine")
 	dlg_pending_choice = 11
@@ -5666,6 +5676,8 @@ func _on_cache_invoked(s) -> void:
 	shrine_count += 1
 	if shrine_count >= 10:
 		_ach("pilgrim")
+	if shrine_count >= 20:
+		_ach("lantern_lit")
 	s.consume()
 	Sfx.play("shrine")
 	dlg_pending_choice = 12
@@ -5697,6 +5709,8 @@ func _on_fountain_invoked(s) -> void:
 	shrine_count += 1
 	if shrine_count >= 10:
 		_ach("pilgrim")
+	if shrine_count >= 20:
+		_ach("lantern_lit")
 	s.consume()
 	Sfx.play("shrine")
 	dlg_pending_choice = 13
@@ -5743,6 +5757,8 @@ func _on_drowned_invoked(s) -> void:
 	shrine_count += 1
 	if shrine_count >= 10:
 		_ach("pilgrim")
+	if shrine_count >= 20:
+		_ach("lantern_lit")
 	s.consume()
 	Sfx.play("shrine")
 	dlg_pending_choice = 14
@@ -5898,6 +5914,8 @@ func _on_vault_invoked(s) -> void:
 	shrine_count += 1
 	if shrine_count >= 10:
 		_ach("pilgrim")
+	if shrine_count >= 20:
+		_ach("lantern_lit")
 	s.consume()
 	Sfx.play("shrine")
 	dlg_pending_choice = 9
@@ -6335,6 +6353,8 @@ func _on_keel_invoked(s) -> void:
 	shrine_count += 1
 	if shrine_count >= 10:
 		_ach("pilgrim")
+	if shrine_count >= 20:
+		_ach("lantern_lit")
 	s.consume()
 	Sfx.play("shrine")
 	dlg_pending_choice = 15
@@ -6459,6 +6479,8 @@ func _on_moonpool_invoked(s) -> void:
 	shrine_count += 1
 	if shrine_count >= 10:
 		_ach("pilgrim")
+	if shrine_count >= 20:
+		_ach("lantern_lit")
 	s.consume()
 	Sfx.play("shrine")
 	if player != null and is_instance_valid(player):
@@ -6481,6 +6503,8 @@ func _on_qm_invoked(s) -> void:
 	shrine_count += 1
 	if shrine_count >= 10:
 		_ach("pilgrim")
+	if shrine_count >= 20:
+		_ach("lantern_lit")
 	s.consume()
 	Sfx.play("shrine")
 	dlg_pending_choice = 17
@@ -6559,6 +6583,8 @@ func _on_siren_invoked(sh) -> void:
 	shrine_count += 1
 	if shrine_count >= 10:
 		_ach("pilgrim")
+	if shrine_count >= 20:
+		_ach("lantern_lit")
 	sh.consume()
 	Sfx.play("shrine")
 	dlg_pending_choice = 18
@@ -6648,6 +6674,8 @@ func _on_throne_invoked(s) -> void:
 	shrine_count += 1
 	if shrine_count >= 10:
 		_ach("pilgrim")
+	if shrine_count >= 20:
+		_ach("lantern_lit")
 	s.consume()
 	Sfx.play("shrine")
 	dlg_pending_choice = 16
@@ -6766,6 +6794,8 @@ func _on_shrine_invoked(s) -> void:
 	shrine_count += 1
 	if shrine_count >= 10:
 		_ach("pilgrim")
+	if shrine_count >= 20:
+		_ach("lantern_lit")
 	s.consume()
 	Sfx.play("shrine")
 	var mlines := [
