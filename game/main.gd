@@ -228,6 +228,7 @@ var bilge_run := false
 var pale_squall := false
 var soul_flush := false
 var kings_tithe := false
+var tar_smear := false
 var shoal_spd := false
 var dead_weight := false
 var hymn_delta := 0.0
@@ -1444,7 +1445,7 @@ func _new_run(new_seed: int) -> void:
 	dead_weight = not choir and not dread_tide and not starved_deep and not abyssal_hymn and not dead_calm and not boss_floor and Stats.floor_num >= 14 and rng.randf() < 0.08
 	Stats.dead_weight = dead_weight
 	shell_game = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not umbral_tide and not abyssal_patience and not choir and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
-	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe"]:
+	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe", "tar_smear"]:
 		if get(evf):
 			events_run[evf] = true
 			break
@@ -2161,6 +2162,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.speed *= 1.15
 		e.hp *= 0.9
 		e.hp_max = e.hp
+	if tar_smear and not e.is_boss:
+		e.speed *= 0.9
 	if kings_tithe:
 		e.dmg += maxi(1, int(ceilf(e.dmg * 0.2)))
 		e.xp_val = int(e.xp_val * 1.1)
@@ -7715,11 +7718,12 @@ func _on_qm_invoked(s) -> void:
 		{"text": "Powder Keg — pay 4 souls: your next 3 kills detonate on their neighbors"},
 		{"text": "Splice Bonus — pay 3 souls: your next 5 kills this floor pay +1 soul each"},
 		{"text": "Rope & Rum — pay 3 souls: +10% Speed and mend 20% HP"},
+		{"text": "Tar Smear — pay 4 souls: +1 Armor, the tar slows the dead −10% this floor"},
 		{"text": "Walk away"}])
 
 
 func _qm_deal(idx: int) -> void:
-	if idx == 8:
+	if idx == 9:
 		toast("The post shutters its stores")
 		return
 	if idx == 5:
@@ -7742,6 +7746,17 @@ func _qm_deal(idx: int) -> void:
 		_quest_event("qm")
 		Sfx.play("shrine")
 		toast("SPLICE BONUS — the next five kills pay a splice share")
+		return
+	if idx == 8:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the tar pot isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		Stats.buff_armor += 1
+		tar_smear = true
+		Sfx.play("shrine")
+		toast("TAR SMEAR — the deck drinks their speed")
 		return
 	if idx == 7:
 		if Stats.souls < _soul_cost(3):
