@@ -1830,6 +1830,9 @@ func _on_enemy_died(e) -> void:
 		_damage_number(e.global_position, "LUCKY ×3", Color(1.0, 0.85, 0.3), true)
 	if e.elite:
 		_quest_event("elite_kill", 1)
+		if not e.is_boss:
+			Engine.time_scale = 0.45
+			get_tree().create_timer(0.18, true, false, true).timeout.connect(func() -> void: Engine.time_scale = 1.0)
 	# bonus XP dari kombo aktif: +5% per streak (maks +50%)
 	var xp_bonus := 1.0 + minf(float(combo), 10.0) * 0.05
 	if soul_rush:
