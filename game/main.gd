@@ -1614,6 +1614,9 @@ const WHISPERS := [
 	"His patience thins with every room you clear.",
 	"The deeper you descend, the louder his ledger turns.",
 	"Every cage you break, the crown counts twice.",
+	"Salt is just water that learned to keep score.",
+	"The widows spin even here — their webs hold more than bones.",
+	"He counts powder kegs like prayers, Kael. Mind the sparks.",
 ]
 
 # bisikan sekali-per-run saat arketipe pertama kali muncul
