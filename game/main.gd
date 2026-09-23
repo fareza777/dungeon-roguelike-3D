@@ -1679,9 +1679,9 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		if Stats.ng_plus > 0:
 			wtxt = "Umbral " + wtxt
 		_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), wtxt, Color(0.55, 1.0, 0.75), true)
-	if elite and not _warned.has("affix_" + String(e.affix)) and {"venomed": "Its bite seeps venom — kill it before it closes.", "tidal": "It sings the tide into its allies' wounds — cut it first.", "riptide": "Its blows carry the undertow — guard your footing.", "barnacled": "Barnacle-armored — it shrugs your steel, but drags its feet."}.has(String(e.affix)) and player != null:
+	if elite and not _warned.has("affix_" + String(e.affix)) and {"venomed": "Its bite seeps venom — kill it before it closes.", "tidal": "It sings the tide into its allies' wounds — cut it first.", "riptide": "Its blows carry the undertow — guard your footing.", "brinebound": "Salt-crusted — its death spills the souls it hoarded.", "barnacled": "Barnacle-armored — it shrugs your steel, but drags its feet."}.has(String(e.affix)) and player != null:
 		_warned["affix_" + String(e.affix)] = 1
-		_damage_number(player.global_position + Vector3(0, 1.1 * info.tile, 0), String({"venomed": "Its bite seeps venom — kill it before it closes.", "tidal": "It sings the tide into its allies' wounds — cut it first.", "riptide": "Its blows carry the undertow — guard your footing.", "barnacled": "Barnacle-armored — it shrugs your steel, but drags its feet."}[e.affix]), Color(0.6, 0.95, 0.7), true)
+		_damage_number(player.global_position + Vector3(0, 1.1 * info.tile, 0), String({"venomed": "Its bite seeps venom — kill it before it closes.", "tidal": "It sings the tide into its allies' wounds — cut it first.", "riptide": "Its blows carry the undertow — guard your footing.", "brinebound": "Salt-crusted — its death spills the souls it hoarded.", "barnacled": "Barnacle-armored — it shrugs your steel, but drags its feet."}[e.affix]), Color(0.6, 0.95, 0.7), true)
 	if e.is_boss:
 		boss_ref = e
 		var tier := _boss_tier()
@@ -2631,6 +2631,10 @@ func _on_enemy_died(e) -> void:
 	if e.get("affix") == "hoarded":
 		spawn_weapon_drop(e.global_position, WDB.roll_drop(rng, Stats.weapon_id))
 		_damage_number(e.global_position + Vector3(0, 0.7 * info.tile, 0), "HOARDED!", Color(1.0, 0.85, 0.35), true)
+	if e.get("affix") == "brinebound":
+		Stats.earn_souls(2)
+		_souls_l()
+		_damage_number(e.global_position + Vector3(0, 0.7 * info.tile, 0), "BRINE PAY +2", Color(0.45, 0.8, 0.9), true)
 	if e.get("affix") == "regal":
 		_spawn_gems(e.global_position, int(e.xp_val * 1.5))
 		_damage_number(e.global_position + Vector3(0, 0.7 * info.tile, 0), "REGAL SPOILS!", Color(1.0, 0.9, 0.3), true)
