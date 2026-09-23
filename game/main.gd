@@ -188,6 +188,7 @@ var pinch_n := 0
 var abyss_n := 0
 var lore_run := 0
 var disarm_run := 0
+var events_run := {}
 var shellshield_used := false
 var tithe_armor := 0.0
 var tide_kills := 0
@@ -731,6 +732,7 @@ func _reset_run_state() -> void:
 	abyss_n = 0
 	lore_run = 0
 	disarm_run = 0
+	events_run = {}
 	shellshield_used = false
 	perfect_dodges = 0
 	leech_charge = 0
@@ -950,6 +952,12 @@ func _new_run(new_seed: int) -> void:
 	if abyssal_hymn:
 		Stats.event_soul_bonus = 1
 	shell_game = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not umbral_tide and not abyssal_patience and not choir and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
+	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn"]:
+		if get(evf):
+			events_run[evf] = true
+			break
+	if events_run.size() >= 5:
+		_ach("stormwatcher")
 	if glass_sea:
 		Stats.buff_atk_pct += 0.10
 	if wolfsbane:
