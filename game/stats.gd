@@ -163,6 +163,10 @@ func add_relic(id: String) -> void:
 		soul_bonus += int(mods["soul_bonus"])
 	if mods.has("burn_proc"):
 		relic_burn += float(mods["burn_proc"])
+	if mods.has("xp_pct"):
+		curse_xp += float(mods["xp_pct"])
+	if id == "tangan_tukang":
+		weapon_lv[weapon_id] = int(weapon_lv.get(weapon_id, 1)) + 1
 	relics_changed.emit()
 
 
@@ -185,6 +189,8 @@ func remove_relic(id: String) -> void:
 		soul_bonus = maxi(0, soul_bonus - int(mods["soul_bonus"]))
 	if mods.has("burn_proc"):
 		relic_burn = maxf(0.0, relic_burn - float(mods["burn_proc"]))
+	if mods.has("xp_pct"):
+		curse_xp = maxf(0.0, curse_xp - float(mods["xp_pct"]))
 	relics_changed.emit()
 
 
