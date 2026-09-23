@@ -276,6 +276,7 @@ var line_splice := false
 var salt_rosary := false
 var moonwater := false
 var tar_knots := false
+var salt_sheath := false
 var pilgrims_purse := false
 var crows_toll := false
 var crowns_decree := false
@@ -1333,6 +1334,9 @@ func _new_run(new_seed: int) -> void:
 		pale_drunk = false
 	if tar_knots:
 		tar_knots = false
+	if salt_sheath:
+		Stats.buff_crit -= 0.08
+		salt_sheath = false
 	if deck_manifest:
 		Stats.soul_gain_pct -= 0.15
 		deck_manifest = false
@@ -8361,12 +8365,24 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Line Splice — pay 3 souls: rigged steady — the dead's throws push you half as far"},
 		{"text": "Hull Wick — pay 4 souls: tarred hemp in your grip — +15% attack speed this run"},
 		{"text": "Tar Knots — pay 3 souls: ropework lessons — your blows shove them 30% further this floor"},
+		{"text": "Salt Sheath — pay 3 souls: the blade remembers its salt — +8% crit this floor"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 20:
+	if idx == 21:
 		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 20:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the sheath isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		salt_sheath = true
+		Stats.buff_crit += 0.08
+		Sfx.play("shrine")
+		toast("SALT SHEATH — the edge hums with old brine")
 		return
 	if idx == 19:
 		if Stats.souls < _soul_cost(3):
