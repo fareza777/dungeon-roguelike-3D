@@ -117,8 +117,9 @@ func _physics_process(delta: float) -> void:
 	cd = max(0.0, cd - delta)
 	invuln = max(0.0, invuln - delta)
 	anim_lock = max(0.0, anim_lock - delta)
-	chill_t = max(0.0, chill_t - delta)
-	root_t = max(0.0, root_t - delta)
+	var tick := delta * (2.0 if Stats.relics.has("pressure_suit") else 1.0)
+	chill_t = max(0.0, chill_t - tick)
+	root_t = max(0.0, root_t - tick)
 	silence_t = max(0.0, silence_t - delta)
 	var spd_eff: float = speed * (0.55 if chill_t > 0.0 else 1.0) * (0.0 if root_t > 0.0 else 1.0)
 	if dash_t > 0.0:

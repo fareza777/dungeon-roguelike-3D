@@ -62,6 +62,7 @@ const DB := {
 	"drowned_oar": {"name": "Drowned Oar", "chip": "DO", "desc": "The Ferryman charges 3 fewer souls", "rarity": 1, "mods": {}},
 	"soul_creel": {"name": "Soul Creel", "chip": "SC", "desc": "Wisps pay +1 soul when netted", "rarity": 1, "mods": {}},
 	"clamheart": {"name": "Clamheart", "chip": "CH", "desc": "Disarming a trap pays +1 soul", "rarity": 1, "mods": {}},
+	"pressure_suit": {"name": "Pressure Suit", "chip": "PS", "desc": "Roots and chills end twice as fast", "rarity": 1, "mods": {}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
