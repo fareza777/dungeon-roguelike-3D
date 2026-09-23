@@ -2782,7 +2782,11 @@ func _process(delta: float) -> void:
 					_burst(info.chest.global_position, Color(1.0, 0.85, 0.3))
 					_souls(info.chest.global_position, 8, Color(1.0, 0.8, 0.35))
 					M.paint(info.chest, M.toon(dungeon_tex, Color(0.45, 0.4, 0.32), 0.1))
-					toast("Treasure Chest: HP restored, +3 XP")
+					if QDB.is_boss_floor(Stats.floor_num):
+						spawn_weapon_drop(info.chest.global_position + Vector3(0.7 * info.tile, 0, 0.3 * info.tile), WDB.roll_drop(rng, Stats.weapon_id))
+						toast("King's spoils: HP restored, +3 XP — a weapon rests beside the chest")
+					else:
+						toast("Treasure Chest: HP restored, +3 XP")
 
 	if player != null and is_instance_valid(player) and cam != null:
 		var s: float = info.get("tile", 4.0)

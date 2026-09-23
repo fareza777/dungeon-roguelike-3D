@@ -108,6 +108,12 @@ func _build() -> void:
 		bg.set_anchors_preset(Control.PRESET_FULL_RECT)
 		bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(bg)
+		# ken burns: key art melayang pelan — rasa hidup di layar judul
+		bg.pivot_offset = bg.size * 0.5
+		var ktw := bg.create_tween()
+		ktw.set_loops()
+		ktw.tween_property(bg, "scale", Vector2(1.07, 1.07), 16.0).set_trans(Tween.TRANS_SINE)
+		ktw.tween_property(bg, "scale", Vector2.ONE, 16.0).set_trans(Tween.TRANS_SINE)
 	else:
 		var bg := ColorRect.new()
 		bg.color = Color(0.04, 0.03, 0.08)
