@@ -463,6 +463,14 @@ func _apply_biome() -> void:
 	elif grave_hunger:
 		env.fog_light_color = Color(0.1, 0.09, 0.14)
 		env.ambient_light_color = Color(0.45, 0.4, 0.65)
+	elif giant_hall:
+		env.fog_light_color = Color(0.14, 0.11, 0.08)
+		env.ambient_light_color = Color(0.6, 0.45, 0.3)
+	elif shrouded:
+		env.fog_density = float(biome["fog_d"]) * 1.5
+		env.fog_light_color = Color(0.1, 0.11, 0.13)
+		env.ambient_light_color = Color(0.3, 0.33, 0.42)
+		sun.light_energy = 0.6
 		sun.light_color = Color(0.7, 0.6, 1.05)
 		sun.light_energy = 1.05
 
