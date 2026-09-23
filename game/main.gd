@@ -2881,6 +2881,8 @@ func _on_enemy_died(e) -> void:
 			if low_water:
 				_ach("shoalwalker")
 				_quest_event("lowwalk")
+			if dark_water:
+				_quest_event("darkwalk")
 			if glass_sea:
 				_quest_event("glasswalk")
 			if dread_tide:
