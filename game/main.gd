@@ -2229,6 +2229,19 @@ func _on_enemy_died(e) -> void:
 	if Stats.total_kills >= 200:
 		_ach("k200")
 	_quest_event("kill")
+	if wid == "conchhorn":
+		var near_e = null
+		var near_d := 2.5 * info.tile
+		for fe in get_tree().get_nodes_in_group("enemies"):
+			if fe == e or fe.get("state") == "dead" or not bool(fe.get("activated")):
+				continue
+			var dd: float = fe.global_position.distance_to(e.global_position)
+			if dd < near_d:
+				near_d = dd
+				near_e = fe
+		if near_e != null:
+			near_e.take_hit(e.global_position, Stats.get_stat("atk") * 0.5)
+			_damage_number(near_e.global_position + Vector3(0, 0.7 * info.tile, 0), "ECHO", Color(0.75, 0.55, 1.0), false)
 	if e.arch_id == "gaoler":
 		_quest_event("gaoler_kill")
 	if e.arch_id == "keelhound":
