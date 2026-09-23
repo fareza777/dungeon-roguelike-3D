@@ -6344,7 +6344,7 @@ func _toggle_pause() -> void:
 	if paused_ui and ui.has("pause_stats"):
 		var pm := int(run_time) / 60
 		var ps := int(run_time) % 60
-		ui.pause_stats.text = "Floor %d  •  %d kills  •  best combo ×%d  •  %d:%02d" % [Stats.floor_num, kills_run, combo_max, pm, ps]
+		ui.pause_stats.text = "Floor %d  •  %d kills  •  best combo ×%d  •  %d:%02d  •  %+d souls" % [Stats.floor_num, kills_run, combo_max, pm, ps, Stats.souls - run_souls_start]
 	Sfx.play("click")
 
 
