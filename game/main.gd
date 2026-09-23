@@ -706,7 +706,6 @@ func _reset_run_state() -> void:
 	urn_count = 0
 	_biomes_run = {}
 	salvage_ct = 0
-	keelh_floor = 0
 	lucky_net = false
 	deeproot = false
 	still_waters = false
@@ -757,6 +756,7 @@ func _new_run(new_seed: int) -> void:
 	stain_positions.clear()
 	pool_positions.clear()
 	pool_healed = 0.0
+	keelh_floor = 0
 	pool_touched = false
 	pray_t = 0.0
 	prayed = false
