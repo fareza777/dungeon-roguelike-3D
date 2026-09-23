@@ -3815,10 +3815,27 @@ func _on_ferry_invoked(s) -> void:
 	dlg_pending_choice = 10
 	_say([{"who": "mahzan", "text": "The Ferryman rows the dark between floors. Six souls buys passage past one."}],
 		[{"text": "Pay 6 souls — skip the next floor"},
+		{"text": "Charon's Tithe — pay HALF your souls: skip the floor and arrive mended"},
 		{"text": "Refuse — walk the whole way down"}])
 
 
 func _ferry_deal(idx: int) -> void:
+	if idx == 1:
+		var tithe := int(ceil(Stats.souls * 0.5))
+		if Stats.souls < 2:
+			toast("The Ferryman spits — you have nothing worth half")
+			return
+		Stats.souls -= tithe
+		_souls_l()
+		_ferry_used = true
+		ferry_skip = true
+		if player != null and is_instance_valid(player):
+			player.hp = player.max_hp
+			player.hp_changed.emit(player.hp)
+		Sfx.play("soul")
+		_quest_event("ferry")
+		toast("CHARON'S TITHE — %d souls paid; you arrive whole" % tithe)
+		return
 	if idx != 0:
 		toast("The Ferryman's lantern fades without you")
 		return
