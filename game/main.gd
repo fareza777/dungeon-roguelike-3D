@@ -253,6 +253,7 @@ const VANE_BIOME := {
 	"Frozen Deep": "Aldric left me to freeze once. I prefer the sword.",
 	"Verdant Ruin": "The Oracle's gardens... she wept the day we walled them in.",
 	"The Abyss": "Down here even my chains feel heavier. Stay close.",
+	"Marrow Marsh": "A swamp of bone-meal. My company marched past worse.",
 }
 const KILLER_NAMES := {
 	"chaser": "a Skeleton Chaser", "rogue": "a Shadow Rogue", "mage": "a Bone Mage",
@@ -4884,6 +4885,12 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 				lines = [
 					{"who": "oracle", "text": "The Verdant Ruin — my old gardens. Even dead, they keep growing."},
 					{"who": "kael", "text": "Then something in this place still remembers you."},
+				]
+			"Marrow Marsh":
+				lines = [
+					{"who": "oracle", "text": "The Marrow Marsh — the court's refuse pit. Bones dissolve here into something that still remembers being people."},
+					{"who": "kael", "text": "Keep your wits, Oracle. A marsh is still just a floor."},
+					{"who": "mahzan", "text": "Watch the ground, buyer — the Marsh collects walkers for next century's walls."},
 				]
 			"The Abyss":
 				lines = [

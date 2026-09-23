@@ -35,6 +35,14 @@ const LIST := [
 		"enemies": ["brute", "mage", "chaser", "archer", "bomber", "necromancer", "crawler", "crawler", "gaoler", "weeper", "sentinel", "shade", "hexer", "spiker", "lurker", "golem", "maiden", "revenant", "shieldbearer", "herald", "batterer", "duelist", "hound", "hound", "moth", "orator", "crowned", "digger"],
 	},
 	{
+		"name": "Marrow Marsh",
+		"floor": Color(0.7, 0.78, 0.62), "wall": Color(0.78, 0.82, 0.66), "prop": Color(0.85, 0.8, 0.6),
+		"fog": Color(0.06, 0.08, 0.04), "fog_d": 0.034, "ambient": Color(0.3, 0.36, 0.22),
+		"sun": Color(0.9, 0.95, 0.6), "torch": Color(0.7, 0.95, 0.45), "torch_e": 1.1, "torch_r": 5.0,
+		"bg": Color(0.03, 0.05, 0.02),
+		"enemies": ["brute", "rogue", "archer", "bomber", "necromancer", "crawler", "crawler", "crawler", "weeper", "sentinel", "hexer", "spiker", "lurker", "maiden", "revenant", "batterer", "duelist", "hound", "hound", "moth", "orator", "digger", "digger"],
+	},
+	{
 		"name": "The Abyss",
 		"floor": Color(0.7, 0.62, 0.95), "wall": Color(0.75, 0.7, 1.0), "prop": Color(0.8, 0.72, 1.0),
 		"fog": Color(0.07, 0.04, 0.12), "fog_d": 0.03, "ambient": Color(0.2, 0.16, 0.38),
