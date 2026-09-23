@@ -416,6 +416,7 @@ func _set_room_gates(ri: int, open: bool) -> void:
 			var g = gates[gi]
 			if g.open != open:
 				g.set_open(open)
+				_update_minimap()
 				if open:
 					Sfx.play("door")
 				else:
@@ -1968,6 +1969,25 @@ func _build_minimap() -> void:
 		cd.size = Vector2(5, 5)
 		cd.position = _map_pos(info.chest.global_position, sc)
 		mv.add_child(cd)
+	# penanda altar (cyan), batu lore (ungu), dan tujuan akhir lantai (emas besar)
+	if shrine_ref != null and is_instance_valid(shrine_ref):
+		var sd := ColorRect.new()
+		sd.color = Color(0.45, 0.85, 1.0)
+		sd.size = Vector2(5, 5)
+		sd.position = _map_pos(shrine_ref.global_position, sc)
+		mv.add_child(sd)
+	if lore_ref != null and is_instance_valid(lore_ref):
+		var ld := ColorRect.new()
+		ld.color = Color(0.75, 0.55, 1.0)
+		ld.size = Vector2(4, 4)
+		ld.position = _map_pos(lore_ref.global_position, sc)
+		mv.add_child(ld)
+	var lr2: Dictionary = info.ranges[info.ranges.size() - 1]
+	var xd := ColorRect.new()
+	xd.color = Color(1.0, 0.85, 0.35)
+	xd.size = Vector2(7, 7)
+	xd.position = _map_pos(Vector3((lr2["x0"] + lr2["x1"]) * 0.5, 0, lr2["z1"] + 0.8 * info.tile), sc)
+	mv.add_child(xd)
 	var pd := ColorRect.new()
 	pd.color = Color(1.0, 1.0, 1.0)
 	pd.size = Vector2(6, 6)
@@ -1993,6 +2013,16 @@ func _update_minimap() -> void:
 		d.position = _map_pos(f.global_position, sc) + Vector2(1, 1)
 		ui.map_view.add_child(d)
 		map_dots.append(d)
+	# titik gerbang: hijau = terbuka, merah gelap = terkunci
+	for g in gates.values():
+		if not is_instance_valid(g):
+			continue
+		var gd := ColorRect.new()
+		gd.color = Color(0.35, 0.95, 0.5) if g.open else Color(0.6, 0.2, 0.22)
+		gd.size = Vector2(4, 4)
+		gd.position = _map_pos(g.global_position, sc)
+		ui.map_view.add_child(gd)
+		map_dots.append(gd)
 
 
 # ---------------- UI ----------------
