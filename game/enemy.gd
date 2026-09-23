@@ -72,6 +72,8 @@ var war_t := 5.0
 var gnawer := false
 var bride := false
 var cantor := false
+var husk := false
+var husk_shell := false
 var cantor_t := 6.5
 var bride_t := 5.5
 var healer := false
@@ -184,6 +186,8 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	gnawer = bool(a.get("gnawer", false))
 	bride = bool(a.get("bride", false))
 	cantor = bool(a.get("cantor", false))
+	husk = bool(a.get("husk", false))
+	husk_shell = husk
 	healer = bool(a.get("healer", false))
 	crowned = bool(a.get("crowned", false))
 	tither = bool(a.get("tither", false))
@@ -1149,6 +1153,16 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 		return
 	if is_lurker and not lurk_revealed:
 		_lurk_reveal()
+	if husk_shell:
+		# kelter husk: pukulan pertama pecahkan cangkang saja
+		husk_shell = false
+		dmg_taken = 0.0
+		var mh_ := get_tree().current_scene
+		if mh_ != null and mh_.has_method("_burst"):
+			mh_._burst(global_position + Vector3(0, 0.5 * room_tile, 0), Color(0.8, 0.75, 0.5))
+		if mh_ != null and mh_.has_method("_damage_number"):
+			mh_._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "HUSK CRACKED", Color(0.85, 0.8, 0.55), false)
+		Sfx.play("hit")
 	if hex_t > 0.0:
 		dmg_taken *= 1.25
 	if sunder_t > 0.0:
