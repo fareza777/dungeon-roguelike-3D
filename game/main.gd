@@ -3462,6 +3462,7 @@ func _offer_omens() -> void:
 			{"text": "BARGAINER — your first Mahzan deal this run comes with 6 free souls"},
 			{"text": "HOLLOW CROWN — +40% ATK, but every relic melts into +3 souls"},
 			{"text": "SPITEFUL — each of your kills wounds a nearby foe for 1 HP"},
+			{"text": "KAEL'S WAGER — every soul is doubled... but you live on a single drop of blood"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -3494,7 +3495,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 25 if Stats.nemesis != "" else 24
+	var osize := 26 if Stats.nemesis != "" else 25
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -3606,6 +3607,13 @@ func _omen_deal(idx: int) -> void:
 			Stats.spiteful = true
 			oname = "SPITEFUL"
 		24:
+			Stats.kaels_wager = true
+			Stats.buff_maxhp_pct = -0.99
+			if player != null and is_instance_valid(player):
+				player.hp = minf(player.hp, 2.0)
+				player.hp_changed.emit(player.hp)
+			oname = "KAEL'S WAGER"
+		25:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -3654,6 +3662,7 @@ func _omen_deal(idx: int) -> void:
 		"GOLDEN FATE": "Every lock will gleam. Mind the teeth on some.",
 		"HOLLOW CROWN": "Crown of nothing. The Oracle admires your appetite anyway.",
 		"SPITEFUL": "Your hate is contagious, Kael. The dead will share it.",
+		"KAEL'S WAGER": "A king's ransom on a single heartbeat. Even the Oracle holds her breath.",
 		"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 	}
 	var rline: String = String(reacts.get(oname, "An oath is an oath."))

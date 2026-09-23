@@ -50,6 +50,7 @@ var event_soul_bonus := 0
 var soul_sealed := false
 var hollow_crown := false
 var spiteful := false
+var kaels_wager := false
 var reaper_tithe := false
 var deathwish := false # omen: +40% ATK, +30% dmg taken
 var relic_burn := 0.0 # Ember Brand: peluang bakar di semua senjata
@@ -289,7 +290,7 @@ func count_kill() -> void:
 	kills += 1
 	total_kills += 1
 	if not soul_sealed and not (reaper_tithe and randf() < 0.1):
-		souls += int(roundf(float(1 + soul_bonus + event_soul_bonus) * (1.0 + 0.1 * float(meta.get("greed", 0)))))
+		souls += int(roundf(float(1 + soul_bonus + event_soul_bonus) * (1.0 + 0.1 * float(meta.get("greed", 0))) * (2.0 if kaels_wager else 1.0)))
 
 
 func reset_run() -> void:
@@ -329,6 +330,7 @@ func reset_run() -> void:
 	deathwish = false
 	hollow_crown = false
 	spiteful = false
+	kaels_wager = false
 	relic_burn = 0.0
 	cd_reduction = 0.0
 	current_hp = get_stat("max_hp")
