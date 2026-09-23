@@ -8829,16 +8829,27 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Melody Ledger — pay 3 souls: every fifth note pays — each 5th kill +2 souls"},
 		{"text": "Dirge Note — pay 3 souls: each kill's echo staggers the rest — near foes slowed 1s"},
 		{"text": "Requiem Rest — pay 4 souls: the last verse mends what the sea broke — full mend, all ailments washed"},
+		{"text": "Wake Whistle — pay 4 souls: a shanty whistled fast — +10% attack speed this run"},
 		{"text": "Walk away"}])
 
 
 func _siren_deal(idx: int) -> void:
-	if idx == 16:
+	if idx == 17:
 		Stats.earn_souls(2)
 		_souls_l()
 		_quest_event("siren")
 		Sfx.play("soul")
 		toast("UNSUNG — you walk, and the conch pays +2 souls for your silence")
+		return
+	if idx == 16:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the whistle isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		Stats.buff_aspd += 0.1
+		Sfx.play("shrine")
+		toast("WAKE WHISTLE — the shanty runs double-time")
 		return
 	if idx == 15:
 		if Stats.souls < _soul_cost(4):
