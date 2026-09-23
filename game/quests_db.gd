@@ -188,6 +188,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Undertow Dancer", "desc": "Slay 2 RIPTIDE elites without being swept (0/2)", "kind": "affix_riptide", "need": 2})
 		steps.append({"title": "Deep Tithe", "desc": "Earn 3 souls back from Soul Tithe kills (0/3)", "kind": "tithe", "need": 3})
 		steps.append({"title": "Still Harvest", "desc": "Clear 2 floors in Low Water (0/2)", "kind": "lowwalk", "need": 2})
+		steps.append({"title": "Net Mender", "desc": "Slay 6 foes with the Driftnet (0/6)", "kind": "kill_driftnet", "need": 6})
 	if Stats.floor_num == 11:
 		steps.append({"title": "Soul Fisher", "desc": "Net three drifting wisps (0/3)", "kind": "wisp", "need": 3})
 	if Stats.floor_num >= 13 and Stats.floor_num % 8 == 5:
