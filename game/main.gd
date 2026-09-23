@@ -6280,6 +6280,10 @@ func _on_dlg_choice(idx: int) -> void:
 		59:
 			pilgrims_purse = true
 			toast("Pilgrim's Purse: +2 souls at each floor's start")
+		60:
+			Stats.buff_armor += 1
+			Stats.buff_atk_pct += 0.08
+			toast("Powder Ballast: shot and powder in the pockets — +1 Armor, +8% ATK this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -9293,6 +9297,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Salt Lamp — souls shine brighter in the dark: +15% souls this run"},
 			{"text": "Crow's Toll — elites yield +50% XP this run"},
 			{"text": "Pilgrim's Purse — the alms-bowl travels with you: +2 souls at each floor's start"},
+			{"text": "Powder Ballast — shot and powder in the pockets: +1 Armor, +8% ATK this run"},
 		]
 	)
 
