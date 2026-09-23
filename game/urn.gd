@@ -56,6 +56,11 @@ func smash(from_pos: Vector3) -> void:
 			m._quest_event("urn")
 		if m.has_method("_burst"):
 			m._burst(global_position + Vector3(0, 0.2 * tile, 0), Color(0.9, 0.85, 0.6))
+		var ub: Dictionary = m.get("biome") if m.get("biome") is Dictionary else {}
+		if String(ub.get("name", "")) == "Sunken Reliquary":
+			Stats.souls += 1
+			if m.has_method("_souls_l"):
+				m._souls_l()
 		if randf() < 0.15:
 			var ps := get_tree().get_nodes_in_group("player")
 			if not ps.is_empty() and ps[0].get("dead") != true:
