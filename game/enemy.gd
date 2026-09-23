@@ -122,7 +122,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon"][randi() % 4]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile"][randi() % 5]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -132,6 +132,9 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 			"siphon":
 				# pukulan elite ini menyedot kombo pemain sampai nol
 				xp_val = int(xp_val * 1.25)
+			"volatile":
+				# meledak saat mati — bonus XP sebagai imbalan bahayanya
+				xp_val = int(xp_val * 1.5)
 	scale = Vector3.ONE * sc
 	_base_scale = scale
 	hp_max = hp
@@ -565,6 +568,19 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 				dv.y = 0
 				if dv.length() < 1.0 * room_tile:
 					p.take_hit(global_position, dmg * 0.6)
+		if affix == "volatile":
+			var p2 := _player()
+			if p2 != null and p2.get("dead") != true:
+				var dv2: Vector3 = p2.global_position - global_position
+				dv2.y = 0
+				if dv2.length() < 1.6 * room_tile:
+					p2.take_hit(global_position, dmg * 0.8)
+			var mm2 := get_tree().current_scene
+			if mm2 != null:
+				if mm2.has_method("_shock_ring"):
+					mm2._shock_ring(global_position)
+				if mm2.has_method("_burst"):
+					mm2._burst(global_position, Color(1.0, 0.4, 1.0))
 		anim_lock = M.play_action(ap, ["death"], 1.0)
 		died.emit(self)
 	else:

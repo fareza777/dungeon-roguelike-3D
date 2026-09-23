@@ -189,6 +189,7 @@ const TIPS := [
 	"The Soul Risen relic revives you once.",
 	"Hold ATK to slash — release after the button glows for a HEAVY hit.",
 	"SIPHON-tagged elites drain your whole combo on hit — kill them first.",
+	"VOLATILE elites detonate when they die — finish them from a step away.",
 	"When the moon turns red, the dead hunger — and drop more XP.",
 	"A chest that gleams brighter is gilded — relics hide inside.",
 	"When the mist turns violet, the dead weep gems — reap them while it lasts.",
