@@ -960,6 +960,9 @@ func _new_run(new_seed: int) -> void:
 		if get(evf):
 			events_run[evf] = true
 			break
+	if events_run.size() > 0 and Stats.relics.has("tide_lock"):
+		Stats.earn_souls(1)
+		_souls_l()
 	if events_run.size() >= 5:
 		_ach("stormwatcher")
 	if glass_sea:
