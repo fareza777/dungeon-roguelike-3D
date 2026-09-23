@@ -90,7 +90,7 @@ var _burn_acc := 0.0
 
 
 func stun(t: float) -> void:
-	if state == "dead":
+	if state == "dead" or affix == "adamant":
 		return
 	stun_t = maxf(stun_t, t)
 	state = "recover"
@@ -145,7 +145,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric"][randi() % 15]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant"][randi() % 16]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -190,6 +190,10 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 			"vampiric":
 				# elite ini minum darah — 35% lukanya kembali sebagai HP
 				hp *= 1.15
+				xp_val = int(xp_val * 1.3)
+			"adamant":
+				# elite ini tak bisa di-stun sama sekali
+				hp *= 1.4
 				xp_val = int(xp_val * 1.3)
 	scale = Vector3.ONE * sc
 	_base_scale = scale
