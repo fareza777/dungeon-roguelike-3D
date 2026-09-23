@@ -15,6 +15,7 @@ const WDB = preload("res://weapons_db.gd")
 const WPICK = preload("res://weapon_pickup.gd")
 const GATE = preload("res://gate.gd")
 const GEM = preload("res://xp_gem.gd")
+const HORB = preload("res://health_orb.gd")
 const SK = preload("res://skills_db.gd")
 const QDB = preload("res://quests_db.gd")
 const DLG = preload("res://dialogue.gd")
@@ -585,6 +586,13 @@ func spawn_weapon_drop(pos: Vector3, wid: String) -> Node3D:
 	return pk
 
 
+func _spawn_health_orb(pos: Vector3) -> void:
+	var orb = HORB.new()
+	room.add_child(orb)
+	orb.global_position = pos + Vector3(0, 0.5, 0)
+	orb.setup(1.0, info.tile)
+
+
 func _spawn_gems(pos: Vector3, total: int) -> void:
 	var n := mini(maxi(total, 1), 4)
 	var per := int(total / n)
@@ -622,6 +630,14 @@ func _on_enemy_died(e) -> void:
 		spawn_weapon_drop(e.global_position, WDB.roll_drop(rng, Stats.weapon_id))
 	elif e.arch_id == "brute" and rng.randf() < 0.25:
 		spawn_weapon_drop(e.global_position, WDB.roll_drop(rng, Stats.weapon_id))
+	# drop kesehatan: sumber sustain utama mid-run
+	if e.is_boss:
+		for _i in range(2):
+			_spawn_health_orb(e.global_position + Vector3(randf_range(-0.5, 0.5) * info.tile, 0, randf_range(-0.5, 0.5) * info.tile))
+	elif e.elite and rng.randf() < 0.25:
+		_spawn_health_orb(e.global_position)
+	elif rng.randf() < 0.06:
+		_spawn_health_orb(e.global_position)
 	var tw := create_tween()
 	tw.tween_property(e, "scale", Vector3(0.01, 0.01, 0.01), 0.35).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
 	tw.set_parallel(false)
@@ -680,12 +696,14 @@ func _on_boss_died(_e) -> void:
 			{"who": "raja", "text": "...impossible... my throne... cracking..."},
 			{"who": "oracle", "text": "He will rise again five floors deeper — stronger. Keep descending, Kael."},
 		]))
-	_damage_number(_e.global_position, "BOSS TUMBANG", Color(1.0, 0.5, 0.2), true)
+	_damage_number(_e.global_position, "BOSS DOWN", Color(1.0, 0.5, 0.2), true)
 
 
 func _on_player_died() -> void:
 	print("PLAYER DIED floor=%d" % Stats.floor_num)
 	run_state = "dead"
+	Engine.time_scale = 0.3
+	get_tree().create_timer(0.55, true, false, true).timeout.connect(func() -> void: Engine.time_scale = 1.0)
 	var new_record := Stats.floor_num >= Stats.best_floor
 	Stats.note_floor()
 	Stats.clear_run()
@@ -1334,6 +1352,12 @@ func _combo_set(n: int) -> void:
 		tw.tween_property(ui.combo_l, "scale", Vector2.ONE, 0.18)
 		if combo >= 5:
 			Sfx.play("combo")
+		if combo == 8:
+			_lvl_banner("RAMPAGE!")
+		elif combo == 15:
+			_lvl_banner("MASSACRE!")
+		elif combo == 25:
+			_lvl_banner("UNSTOPPABLE!")
 	else:
 		ui.combo_l.visible = false
 
