@@ -342,6 +342,12 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 				var kn: Variant = m18.get("knight_ref")
 				if (al != null and is_instance_valid(al)) or (kn != null and is_instance_valid(kn)):
 					f.take_hit(global_position, dmg * 0.2)
+		"keelspike": # DROWN — musuh sekarat tenggelam lebih cepat
+			if float(f.get("hp")) > 0.0 and float(f.get("hp")) <= 0.3 * float(f.get("hp_max")):
+				f.take_hit(global_position, dmg * 0.4)
+				var m21 := get_tree().current_scene
+				if m21 != null and randf() < 0.25 and m21.has_method("_damage_number"):
+					m21._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "DROWNED", Color(0.3, 0.7, 1.0), false)
 		"undertow": # HAUL — tebasan menyeret musuh ke jangkauanmu
 			var hp2: Vector3 = (global_position - f.global_position)
 			hp2.y = 0
