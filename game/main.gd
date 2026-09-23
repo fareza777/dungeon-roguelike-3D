@@ -252,6 +252,7 @@ var salted_deck := false
 var crows_tide := false
 var long_night := false
 var wet_wool := false
+var ballast_beads := false
 var melody_ledger := false
 var pale_scrip := false
 var rat_ration := false
@@ -1565,7 +1566,7 @@ func _new_run(new_seed: int) -> void:
 	dead_weight = not choir and not dread_tide and not starved_deep and not abyssal_hymn and not dead_calm and not boss_floor and Stats.floor_num >= 14 and rng.randf() < 0.08
 	Stats.dead_weight = dead_weight
 	shell_game = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not umbral_tide and not abyssal_patience and not choir and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
-	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe", "tar_smear", "black_calm", "bilge_iron", "gun_smoke", "greedy_tide", "drift_wreck", "chorus_cut", "long_watch", "fog_lantern_d", "crowns_rest", "salted_deck", "pale_scrip", "rat_ration", "crows_tide", "powder_toll", "wet_wool", "melody_ledger", "long_night"]:
+	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe", "tar_smear", "black_calm", "bilge_iron", "gun_smoke", "greedy_tide", "drift_wreck", "chorus_cut", "long_watch", "fog_lantern_d", "crowns_rest", "salted_deck", "pale_scrip", "rat_ration", "crows_tide", "powder_toll", "wet_wool", "melody_ledger", "long_night", "ballast_beads"]:
 		if get(evf):
 			events_run[evf] = true
 			break
@@ -2322,6 +2323,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 	if tar_smear and not e.is_boss:
 		e.speed *= 0.9
 	# bilge_iron: +2 armor via Stats.buff_armor
+	if ballast_beads:
+		e.aggro_range = float(e.aggro_range) * 0.8
 	if long_watch:
 		e.aggro_range = float(e.aggro_range) * 1.4
 	if crowns_rest and not e.is_boss:
@@ -8017,12 +8020,26 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Bilge Iron — pay 4 souls: iron strakes for your hull — +2 Armor this floor"},
 		{"text": "Rope Ladder — pay 3 souls: climb the rigging — −1s on every skill charge"},
 		{"text": "Powder Toll — pay 4 souls: your blade hums with gunpowder — +15% ATK this floor"},
+		{"text": "Ballast Beads — pay 4 souls: +1 Armor and the dead notice you −20% later"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 16:
+	if idx == 17:
 		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 16:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the beads aren't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		ballast_beads = true
+		Stats.buff_armor += 1
+		if player != null and is_instance_valid(player):
+			player.refresh_stats()
+		Sfx.play("shrine")
+		toast("BALLAST BEADS — heavy pockets, light footfall")
 		return
 	if idx == 15:
 		if Stats.souls < _soul_cost(4):
