@@ -96,6 +96,7 @@ var omen_done2 := false # pakta kedua di lantai 11
 var omen_hp_mult := 1.0
 var omen_name := ""
 var fatehand := false
+var nemesis_bounty := false
 var _warned := {}
 var champ_room := -1 # sarang sang juara: elite terjamin + drop lebih baik
 var ambush_room := -1 # ruangan "kosong" yang ternyata penyergapan
@@ -490,6 +491,7 @@ func _reset_run_state() -> void:
 	omen_name = ""
 	omen_hp_mult = 1.0
 	fatehand = false
+	nemesis_bounty = false
 	nemesis_warned = false
 
 
@@ -940,6 +942,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		nemesis_spawned = true
 		e.nemesis = true
 		e.hp *= 1.6
+		if nemesis_bounty:
+			e.hp *= 1.25
 		e.hp_max = e.hp
 		e.speed *= 1.12
 		e.dmg += 1
@@ -1471,6 +1475,16 @@ func _on_enemy_died(e) -> void:
 		_say([{"who": "oracle", "text": "The ledger crosses a name tonight, Kael. Yours is still being written."}])
 		_damage_number(e.global_position + Vector3(0, 0.9 * info.tile, 0), "YOUR DEBT IS PAID", Color(1.0, 0.85, 0.35), true)
 		_ach("nem1")
+		if nemesis_bounty:
+			nemesis_bounty = false
+			var npool: Array = []
+			for rid7 in ITEMS.DB:
+				if int(ITEMS.DB[rid7]["rarity"]) >= 2 and not Stats.relics.has(rid7):
+					npool.append(rid7)
+			if not npool.is_empty():
+				var rid8: String = npool[rng.randi_range(0, npool.size() - 1)]
+				Stats.add_relic(rid8)
+				toast("BLOOD DEBT COLLECTED — epic relic: " + String(ITEMS.DB[rid8]["name"]))
 	# weapon mastery: 25 kill dengan senjata yang sama -> +1 ATK permanen
 	var wid := Stats.weapon_id
 	var wk_old: int = int(Stats.weapon_kills.get(wid, 0))
@@ -3000,7 +3014,7 @@ func _offer_omens() -> void:
 			{"text": "STORMGLASS — +20% Skill Recharge, -15% Max HP"},
 			{"text": "OATH OF SILENCE — +30% ATK, skills recharge 35% slower"},
 			{"text": "FATEHAND — drafts show a 4th relic, -1 Armor"},
-		]
+		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else [])
 	)
 
 
