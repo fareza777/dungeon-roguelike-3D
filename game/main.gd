@@ -8659,16 +8659,31 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Final Overture — pay 5 souls: every charge rings full and ready, right now"},
 		{"text": "Melody Ledger — pay 3 souls: every fifth note pays — each 5th kill +2 souls"},
 		{"text": "Dirge Note — pay 3 souls: each kill's echo staggers the rest — near foes slowed 1s"},
+		{"text": "Requiem Rest — pay 4 souls: the last verse mends what the sea broke — full mend, all ailments washed"},
 		{"text": "Walk away"}])
 
 
 func _siren_deal(idx: int) -> void:
-	if idx == 15:
+	if idx == 16:
 		Stats.earn_souls(2)
 		_souls_l()
 		_quest_event("siren")
 		Sfx.play("soul")
 		toast("UNSUNG — you walk, and the conch pays +2 souls for your silence")
+		return
+	if idx == 15:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the rest isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		if player != null and is_instance_valid(player):
+			player.hp = player.max_hp
+			for ra_ in ["weak_t", "chill_t", "root_t", "venom_t", "silence_t", "rust_t"]:
+				player.set(ra_, 0.0)
+			player.hp_changed.emit(player.hp)
+		Sfx.play("shrine")
+		toast("REQUIEM REST — the deep lets you sleep a moment")
 		return
 	if idx == 14:
 		if Stats.souls < _soul_cost(3):
