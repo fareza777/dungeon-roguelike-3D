@@ -206,6 +206,12 @@ func _strike() -> void:
 		to2.y = 0
 		if to2.length() < reach and facing.dot(to2.normalized()) > 0.3:
 			u.smash(global_position)
+	# dread obelisk di busur yang sama: hancurkan sebelum ia minum darahmu
+	for ob in get_tree().get_nodes_in_group("obelisks"):
+		var to3: Vector3 = ob.global_position - global_position
+		to3.y = 0
+		if to3.length() < reach and facing.dot(to3.normalized()) > 0.3:
+			ob.smash(global_position)
 
 
 # efek unik tiap senjata, terpicu setiap tebasan yang kena

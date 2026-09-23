@@ -27,6 +27,7 @@ const SHRINE = preload("res://shrine.gd")
 const LSTONE = preload("res://lore_stone.gd")
 const CAGE = preload("res://cage.gd")
 const URN = preload("res://urn.gd")
+const OBEL = preload("res://dread_obelisk.gd")
 const DUNGEON := "res://assets/dungeon/"
 
 # baris lore dunia — bisikan Oracle saat menyentuh batu pengetahuan
@@ -225,6 +226,7 @@ const TIPS := [
 	"When the torches die, the dead run faster — finish the floor for the tithe.",
 	"A green-gold sigil mends one wound — step on its pulse.",
 	"Sleeping traps can be defused by a brave touch — walk over them on the off-beat.",
+	"Dread obelisks bleed the living — smash them before they drink you.",
 	"Spiked cadavers bite back — skills and storms kill thorns at range.",
 	"THORNED-tagged elites bleed your blade's wielder — strike from range.",
 ]
@@ -545,6 +547,7 @@ func _new_run(new_seed: int) -> void:
 		_spawn_lore_stone(last_room)
 		_spawn_cage(last_room)
 		_spawn_wisps(last_room)
+		_spawn_obelisks(last_room)
 		_spawn_motes()
 		if Stats.relics.has("tulang_kesatria"):
 			_spawn_squire()
@@ -1190,11 +1193,34 @@ func _spawn_health_orb(pos: Vector3) -> void:
 	orb.setup(1.0, info.tile)
 
 
+func _spawn_obelisks(last_room: int) -> void:
+	# dread obelisk: menara perusak jiwa — 60% satu di lantai 7+, 25% dua
+	if Stats.floor_num < 7 or rng.randf() > 0.6:
+		return
+	var ocount := 2 if rng.randf() < 0.42 else 1
+	for _oi in range(ocount):
+		var ri: int = rng.randi_range(1, last_room)
+		var r: Dictionary = info.ranges[ri]
+		var pos := Vector3(rng.randf_range(r["x0"] + 0.6 * info.tile, r["x1"] - 0.6 * info.tile), 0.0, rng.randf_range(r["z1"] + 1.0 * info.tile, r["z0"] - 1.0 * info.tile))
+		var ok := true
+		for pr in info.props:
+			if pr.global_position.distance_to(pos) < 0.9 * info.tile:
+				ok = false
+				break
+		if not ok:
+			continue
+		var ob := OBEL.new()
+		room.add_child(ob)
+		ob.global_position = pos
+		ob.setup(info.tile)
+
+
 func _spawn_wisps(last_room: int) -> void:
 	# kunang jiwa pengembara: 55% satu, 20% dua — +1 soul kalau disentuh
-	if rng.randf() > 0.55:
+	var guaranteed := Stats.floor_num >= 6 and Stats.floor_num % 4 == 0
+	if not guaranteed and rng.randf() > 0.55:
 		return
-	var wcount := 2 if rng.randf() < 0.36 else 1
+	var wcount := 2 if (guaranteed or rng.randf() < 0.36) else 1
 	for _wi in range(wcount):
 		var ri := rng.randi_range(1, last_room)
 		var rr: Dictionary = info.ranges[ri]
@@ -2519,6 +2545,10 @@ func _quest_event(kind: String, num: int = 1) -> void:
 		Stats.traps_defused += num
 		if Stats.traps_defused >= 5:
 			_ach("trap5")
+	if kind == "wisp":
+		Stats.wisps_caught += num
+		if Stats.wisps_caught >= 8:
+			_ach("wisp8")
 	if kind != "reach_room":
 		quest_counts[kind] = int(quest_counts.get(kind, 0)) + num
 	if quest_idx >= quest_steps.size():

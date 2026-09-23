@@ -63,6 +63,8 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 			steps.append({"title": "Hoard Diver", "desc": "Crack a GILDED chest", "kind": "gilded_chest", "need": 1})
 		if floor_num >= 7 and floor_num % 5 == 4:
 			steps.append({"title": "Dark Watch", "desc": "Slay 2 Dwellers after they reveal", "kind": "lurker_kill", "need": 2})
+		if floor_num >= 6 and floor_num % 4 == 0:
+			steps.append({"title": "Ghost Hunter", "desc": "Catch 2 wandering wisps", "kind": "wisp", "need": 2})
 		steps.append({"title": "Floor Sweep", "desc": "Clear %d rooms of skeletons" % room_count, "kind": "clear_floor", "need": room_count})
 		steps.append({"title": "Treasure Chest", "desc": "Find & open the chest in the final room", "kind": "open_chest", "need": 1})
 		steps.append({"title": "Descend", "desc": "Tap to descend to the next floor", "kind": "descend", "need": 1})

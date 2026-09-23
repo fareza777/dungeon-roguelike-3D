@@ -71,6 +71,8 @@ func _physics_process(delta: float) -> void:
 						m._burst(global_position, Color(0.45, 0.95, 0.85))
 					if m.has_method("_souls_l"):
 						m._souls_l()
+					if m.has_method("_quest_event"):
+						m._quest_event("wisp")
 					if m.has_method("_damage_number"):
 						m._damage_number(global_position + Vector3(0, 0.4 * tile, 0), "+1 ◈", Color(0.45, 0.95, 0.85), false)
 				queue_free()

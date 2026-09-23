@@ -53,6 +53,7 @@ var curse_xp := 0.0 # pakta obelisk: jiwa lebih kaya (stack)
 var best_floor := 0
 var total_kills := 0
 var traps_defused := 0
+var wisps_caught := 0
 var runs := 0
 var boss_kills := 0
 var ng_plus := 0 # New Game+: naik tiap kali menang di lantai 25
@@ -102,6 +103,7 @@ const ACH_DEF := {
 	"omen1": "Oathbound (swore an Omen)",
 	"pawn1": "Pawn Star (sold a relic to Mahzan)",
 	"lore10": "Crypt Chronicler (gathered 10 whispers)",
+	"wisp8": "Soul Shepherd (caught 8 wandering wisps)",
 }
 
 const META_DEF := {
@@ -372,6 +374,7 @@ func wipe_progress() -> void:
 	best_floor = 0
 	total_kills = 0
 	traps_defused = 0
+	wisps_caught = 0
 	runs = 0
 	boss_kills = 0
 	ng_plus = 0
@@ -396,6 +399,7 @@ func save_game() -> void:
 			"best_floor": best_floor, "total_kills": total_kills, "runs": runs,
 			"boss_kills": boss_kills, "ng_plus": ng_plus,
 			"traps_defused": traps_defused,
+	"wisps_caught": wisps_caught,
 			"tutorial_done": tutorial_done, "seen_cinematic": seen_cinematic,
 			"onboarded": onboarded, "rated": rated,
 			"quality": quality, "volume": volume,
@@ -422,6 +426,7 @@ func load_game() -> void:
 			runs = int(d.get("runs", 0))
 			boss_kills = int(d.get("boss_kills", 0))
 			traps_defused = int(d.get("traps_defused", 0))
+			wisps_caught = int(d.get("wisps_caught", 0))
 			ng_plus = int(d.get("ng_plus", 0))
 			tutorial_done = d.get("tutorial_done", false)
 			seen_cinematic = d.get("seen_cinematic", false)
