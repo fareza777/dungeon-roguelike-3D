@@ -400,6 +400,7 @@ func wipe_progress() -> void:
 	total_kills = 0
 	traps_defused = 0
 	wisps_caught = 0
+	prays = 0
 	forges_used = 0
 	runs = 0
 	boss_kills = 0
@@ -426,7 +427,7 @@ func save_game() -> void:
 			"best_floor": best_floor, "total_kills": total_kills, "runs": runs,
 			"boss_kills": boss_kills, "ng_plus": ng_plus,
 			"traps_defused": traps_defused,
-	"wisps_caught": wisps_caught, "forges_used": forges_used,
+	"wisps_caught": wisps_caught, "forges_used": forges_used, "prays": prays,
 			"tutorial_done": tutorial_done, "seen_cinematic": seen_cinematic,
 			"onboarded": onboarded, "rated": rated,
 			"quality": quality, "volume": volume,
