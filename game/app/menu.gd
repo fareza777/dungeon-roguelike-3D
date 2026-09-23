@@ -191,7 +191,7 @@ func _build() -> void:
 	var ach_txt := " • ◆ %d/%d" % [Stats.ach.size(), Stats.ACH_DEF.size()] if Stats.ach.size() > 0 else ""
 	var ng_txt := " • ♛ NG+%d" % Stats.ng_plus if Stats.ng_plus > 0 else ""
 	var lore_txt := " • Lore %d/33" % Stats.lore_seen.size() if Stats.lore_seen.size() > 0 else ""
-	var oath_txt := " • ☗ %d/21" % Stats.oaths_seen.size() if Stats.oaths_seen.size() > 0 else ""
+	var oath_txt := " • ☗ %d/22" % Stats.oaths_seen.size() if Stats.oaths_seen.size() > 0 else ""
 	var souls_txt := " • ◈ %d" % Stats.souls if Stats.souls > 0 else ""
 	var nem_txt := "\n☠ Nemesis: %s hunts you" % Stats.nemesis_name if Stats.nemesis_name != "" else ""
 	best.text = "Best: Floor %d • Total kills: %d%s%s%s%s%s%s%s" % [Stats.best_floor, Stats.total_kills, boss_txt, ach_txt, ng_txt, lore_txt, oath_txt, souls_txt, nem_txt]

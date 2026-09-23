@@ -48,7 +48,8 @@ var solo_xp := 0.0 # Kismet Thread: +1 reroll di tiap draft run ini
 var soul_bonus := 0 # Crown Shard: jiwa ekstra per kill
 var event_soul_bonus := 0
 var soul_sealed := false
-var reaper_tithe := false # omen: +1 soul/kill tapi tiap kill ke-10 tak membayar
+var reaper_tithe := false
+var deathwish := false # omen: +1 soul/kill tapi tiap kill ke-10 tak membayar
 var relic_burn := 0.0 # Ember Brand: peluang bakar di semua senjata
 var cd_reduction := 0.0 # Echo Bone: skill recharge lebih cepat
 var curse_dmg := 0.0 # pakta obelisk: musuh lebih keras (stack)
@@ -316,6 +317,7 @@ func reset_run() -> void:
 	event_soul_bonus = 0
 	soul_sealed = false
 	reaper_tithe = false
+	deathwish = false
 	relic_burn = 0.0
 	cd_reduction = 0.0
 	current_hp = get_stat("max_hp")
