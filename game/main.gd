@@ -3223,7 +3223,7 @@ func _offer_omens() -> void:
 			{"text": "PAWNBREAKER — all soul prices drop 1, -15% Max HP"},
 			{"text": "HEIRLOOM — carry a random trinket into the run, -1 Armor"},
 			{"text": "GOLDEN FATE — every chest is gilded, -2 Max HP"},
-		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else [])
+		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
 
@@ -3251,6 +3251,10 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
+	var osize := 14 if Stats.nemesis != "" else 13
+	if idx >= osize:
+		toast("You walk alone — the Oracle nods")
+		return
 	var oname := ""
 	match idx:
 		0:
