@@ -235,6 +235,7 @@ const BESTIARY := {
 	"hound": ["The Bone Hound", "All ribs and hunger — it hunts the marrow it lost."],
 	"moth": ["The Soul Moth", "A lantern that learned to fly — it carries a soul to whoever kills it."],
 	"orator": ["The Grave Orator", "It sings the dead awake — every chant makes the room hit harder."],
+	"crowned": ["The Crowned", "A fallen paladin — foes near it shrug off a quarter of your blows."],
 	"weeper": ["The Weeper", "A wailing priest who knits his flock's bones back together. Silence him first."],
 	"bone_king": ["The Kings", "One throne, many forms. Every five floors he waits."],
 }
@@ -248,7 +249,7 @@ const VANE_BIOME := {
 const KILLER_NAMES := {
 	"chaser": "a Skeleton Chaser", "rogue": "a Shadow Rogue", "mage": "a Bone Mage",
 	"brute": "a Bone Brute", "bomber": "a Boom Bones", "archer": "a Skeletal Archer",
-	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade", "hexer": "the Hex Priest", "spiker": "a Spiked Cadaver", "lurker": "the Dweller", "golem": "the Bone Golem", "maiden": "the Wailing Maiden", "revenant": "the Revenant", "shieldbearer": "the Shieldbearer", "herald": "the Herald", "batterer": "the Batterer", "duelist": "the Pale Duelist", "hound": "a Bone Hound", "moth": "a Soul Moth", "orator": "the Grave Orator",
+	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade", "hexer": "the Hex Priest", "spiker": "a Spiked Cadaver", "lurker": "the Dweller", "golem": "the Bone Golem", "maiden": "the Wailing Maiden", "revenant": "the Revenant", "shieldbearer": "the Shieldbearer", "herald": "the Herald", "batterer": "the Batterer", "duelist": "the Pale Duelist", "hound": "a Bone Hound", "moth": "a Soul Moth", "orator": "the Grave Orator", "crowned": "the Crowned",
 	"bone_king": "the King himself", "trap": "a hidden trap", "": "the dungeon itself"}
 const KILLER_TIPS := {
 	"chaser": "Tip: chasers are slow — kite them into a corner and cleave.",
@@ -276,6 +277,7 @@ const KILLER_TIPS := {
 	"hound": "Tip: Bone Hounds dart in quick — thin them early, they are fragile.",
 	"moth": "Tip: Soul Moths are harmless lanterns — swat them for the wisp inside.",
 	"orator": "Tip: Kill the Orator first — each chant sharpens every blade in the room.",
+	"crowned": "Tip: Cut the Crowned down first — while it stands, its allies resist your steel.",
 	"bone_king": "Tip: his slams telegraph red — dash through the shockwave.",
 	"trap": "Tip: traps pulse on a rhythm — cross on the off-beat.",
 	"": "Tip: blessings, relics and Sir Vane can still turn a doomed run.",
@@ -993,6 +995,7 @@ const FIRST_SEEN := {
 	"hound": "Bone Hounds circle — pack hunters. Break the circle before it closes.",
 	"moth": "A Soul Moth flutters free — catch its lantern before it drifts off.",
 	"orator": "A Grave Orator begins to sing — silence it before the whole room sharpens.",
+	"crowned": "A fallen paladin still wears its crown — the dead rally behind it.",
 }
 
 

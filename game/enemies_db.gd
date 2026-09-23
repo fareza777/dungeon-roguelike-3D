@@ -37,6 +37,8 @@ const DB := {
 	"revenant": {"glb": "Skeleton_Warrior.glb", "hp": 3.5, "spd": 0.8, "dmg": 1, "windup": 0.6, "reach": 0.8, "aggro": 4.0, "xp": 6, "tint": Color(0.65, 0.85, 0.7), "scale": 1.0, "kb_resist": 0.4, "revenant": true},
 	# maiden — pelayat berwajah porselen: tangis kematiannya membangunkan seluruh ruangan
 	"maiden": {"glb": "Skeleton_Minion.glb", "hp": 2.8, "spd": 0.9, "dmg": 1, "windup": 0.5, "reach": 0.7, "aggro": 4.0, "xp": 5, "tint": Color(0.9, 0.95, 1.3), "scale": 0.95, "kb_resist": 0.2, "wailer": true},
+	# crowned — paladin yang jatuh: musuh di ruangannya menerima 25% lebih sedikit damage
+	"crowned": {"glb": "Skeleton_Warrior.glb", "hp": 5.5, "spd": 0.7, "dmg": 2, "windup": 0.8, "reach": 0.9, "aggro": 4.5, "xp": 9, "tint": Color(0.8, 0.85, 1.1), "scale": 1.15, "kb_resist": 0.7, "crowned": true},
 	# lurker — penunggu kegelapan: tak terlihat sampai pemain mendekat, lalu menerkam
 	"lurker": {"glb": "Skeleton_Rogue.glb", "hp": 2.2, "spd": 1.5, "dmg": 1, "windup": 0.3, "reach": 0.65, "aggro": 5.0, "xp": 4, "tint": Color(0.75, 0.7, 1.05), "scale": 0.95, "kb_resist": 0.0, "lurks": true},
 	# BOSS: Raja Tulang — tiap lantai kelipatan 5

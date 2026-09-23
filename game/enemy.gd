@@ -62,6 +62,7 @@ var golden := false
 var nemesis := false
 var is_lurker := false
 var orator := false
+var crowned := false
 var pack_bounty := false
 var orator_t := 3.0
 var dmg_max := 0 # orator chant cap
@@ -142,6 +143,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	is_spiky = bool(a.get("spiky", false))
 	is_lurker = bool(a.get("lurks", false))
 	orator = bool(a.get("orator", false))
+	crowned = bool(a.get("crowned", false))
 	is_slammer = bool(a.get("slams", false))
 	wailer = bool(a.get("wailer", false))
 	wisp_drop = bool(a.get("wisp_drop", false))
@@ -778,6 +780,16 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 		dmg_taken *= 1.25
 	if sunder_t > 0.0:
 		dmg_taken *= 1.3
+	if not crowned and not is_boss:
+		# THE CROWNED: paladin yang mengangkat musuh-musuh di sekitarnya
+		for e3 in get_tree().get_nodes_in_group("enemies"):
+			if e3 != self and is_instance_valid(e3) and bool(e3.get("crowned")) and String(e3.get("state")) != "dead" and int(e3.get("room_idx")) == room_idx:
+				dmg_taken *= 0.75
+				if randf() < 0.3:
+					var mcr := get_tree().current_scene
+					if mcr != null and mcr.has_method("_damage_number"):
+						mcr._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "CROWNED", Color(0.75, 0.8, 1.0), false)
+				break
 	if shielded and dmg_taken > 0.0:
 		var fwd2: Vector3 = -global_transform.basis.z
 		var toh: Vector3 = from_pos - global_position
