@@ -2047,7 +2047,12 @@ func _run_victory() -> void:
 	var win_line := "The Bone King's crown shatters."
 	if Stats.ng_plus >= 2:
 		win_line = "The crown shatters AGAIN — somewhere deeper, it is already being reforged."
-	_show_banner("THE THRONE FALLS", "%s\n%d kills • Lv %d • %d relics • best combo ×%d • %d:%02d\nNG+%d unlocked — the depths grow crueler\nTap to return to the surface" % [win_line, kills_run, Stats.level, Stats.relics.size(), combo_max, mins, secs, Stats.ng_plus], Color(0.55, 1.0, 0.72))
+	var wname := String(WDB.get_w(Stats.weapon_id)["name"])
+	var relic_names: Array = []
+	for rid9 in Stats.relics:
+		relic_names.append(String(ITEMS.DB[rid9]["name"]))
+	var arsenal := "✦ %s%s" % [wname, ("\n◆ " + " • ".join(relic_names.slice(0, 4))) if relic_names.size() > 0 else ""]
+	_show_banner("THE THRONE FALLS", "%s\n%s\n%d kills • Lv %d • %d relics • best combo ×%d • %d:%02d\nNG+%d unlocked — the depths grow crueler\nTap to return to the surface" % [win_line, arsenal, kills_run, Stats.level, Stats.relics.size(), combo_max, mins, secs, Stats.ng_plus], Color(0.55, 1.0, 0.72))
 
 
 func _on_banner_tap() -> void:
