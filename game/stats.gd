@@ -121,6 +121,7 @@ const ACH_DEF := {
 	"centurion": "Centurion (100 kills in a single run)",
 	"untouchable": "Untouchable (three perfect dodges in a run)",
 	"pious": "Pious (five prayers over the fallen)",
+	"doubloath": "Twice-Sworn (carry two omens in one run)",
 }
 
 const META_DEF := {

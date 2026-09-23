@@ -136,6 +136,7 @@ var ashfall := false
 var legion_omen := false
 var wolf_omen := false
 var wolf_n := 0
+var omen_count := 0
 var shrine_kind := 0
 var bounty_ref: Enemy = null
 var bounty_epic := false
@@ -567,6 +568,7 @@ func _reset_run_state() -> void:
 	legion_omen = false
 	wolf_omen = false
 	wolf_n = 0
+	omen_count = 0
 	nemesis_warned = false
 
 
@@ -3443,7 +3445,10 @@ func _omen_deal(idx: int) -> void:
 	if not Stats.oaths_seen.has(oname):
 		Stats.oaths_seen.append(oname)
 		Stats.save_game()
+	omen_count += 1
 	_ach("omen1")
+	if omen_count >= 2:
+		_ach("doubloath")
 	Sfx.play("shrine")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
