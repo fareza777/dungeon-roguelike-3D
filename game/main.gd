@@ -4915,6 +4915,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Mudlark — pay 3 souls: every floor's end pays +1 soul for the run"},
 			{"text": "Bilge Wine — pay 3 souls: drink deep — 30% HP and a headful of XP"},
 			{"text": "Glass Compass — pay 5 souls: he shows you the whole floor, every room"},
+			{"text": "Sea Shanty — pay 4 souls: his song speeds your skills (+10% recharge this run)"},
 		]
 	)
 
@@ -5896,6 +5897,15 @@ func _mahzan_deal(idx: int) -> void:
 				_update_minimap()
 				Sfx.play("shrine")
 				toast("GLASS COMPASS — the floor lies bare before you")
+		23:
+			if Stats.souls < _soul_cost(4):
+				toast("Four souls — the shanty doesn't sing for free")
+			else:
+				Stats.souls -= _soul_cost(4)
+				_souls_l()
+				Stats.cd_reduction += 0.1
+				Sfx.play("shrine")
+				toast("SEA SHANTY — your skills flow with the tide")
 
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
