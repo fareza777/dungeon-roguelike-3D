@@ -119,6 +119,12 @@ var boss_name := "BONE KING"
 var atk_held := false
 var tip_l: Label = null
 
+const KILLER_NAMES := {
+	"chaser": "a Skeleton Chaser", "rogue": "a Shadow Rogue", "mage": "a Bone Mage",
+	"brute": "a Bone Brute", "bomber": "a Boom Bones", "archer": "a Skeletal Archer",
+	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler",
+	"bone_king": "the King himself", "trap": "a hidden trap", "": "the dungeon itself"}
+
 const TIPS := [
 	"Crimson-glowing elites grant double XP.",
 	"Red-eyed chests are mimics — beware.",
@@ -954,7 +960,10 @@ func _on_player_died() -> void:
 	var mins := int(run_time) / 60
 	var secs := int(run_time) % 60
 	var rec := "\nNEW RECORD!" if new_record and Stats.floor_num > 1 else ""
-	_show_banner("YOU DIED", "Floor %d • %s\n%d kills • Lv %d • %d relics • best combo ×%d • %d:%02d\nBest: Floor %d — tap to retry%s" % [Stats.floor_num, biome["name"], kills_run, Stats.level, Stats.relics.size(), combo_max, mins, secs, Stats.best_floor, rec], Color(1.0, 0.32, 0.28))
+	var killer: String = "the dungeon itself"
+	if player != null and is_instance_valid(player):
+		killer = String(KILLER_NAMES.get(player.last_killer, player.last_killer))
+	_show_banner("YOU DIED", "Floor %d • %s — slain by %s\n%d kills • Lv %d • %d relics • best combo ×%d • %d:%02d\nBest: Floor %d — tap to retry%s" % [Stats.floor_num, biome["name"], killer, kills_run, Stats.level, Stats.relics.size(), combo_max, mins, secs, Stats.best_floor, rec], Color(1.0, 0.32, 0.28))
 
 
 func _run_victory() -> void:

@@ -33,6 +33,7 @@ var body_cs: CollisionShape3D = null
 var dash_t := 0.0
 var dash_dir := Vector3.ZERO
 var step_t := 0.0
+var last_killer := ""
 
 
 func dash_burst(dir: Vector3) -> void:
@@ -208,6 +209,15 @@ func take_hit(from_pos: Vector3, dmg_taken: int) -> void:
 			var dtw := create_tween()
 			dtw.tween_property(mat, "shader_parameter/flash", 0.0, 0.25)
 		return
+	last_killer = ""
+	var bd2: float = 0.7 * room_tile
+	for f in get_tree().get_nodes_in_group("enemies"):
+		var dd: float = f.global_position.distance_to(from_pos)
+		if dd < bd2:
+			bd2 = dd
+			last_killer = "bone_king" if f.is_boss else String(f.arch_id)
+	if last_killer == "":
+		last_killer = "trap"
 	var eff := maxi(1, dmg_taken - int(Stats.get_stat("armor")))
 	hp -= eff
 	invuln = 0.9
