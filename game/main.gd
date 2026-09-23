@@ -264,6 +264,7 @@ var grim_charter := false
 var martyrs_oath := false
 var final_verse := false
 var cradle_deep := false
+var undertow := false
 var deep_breath := false
 var dash_fuel := false
 var powder_keg := 0
@@ -1021,6 +1022,7 @@ func _reset_run_state() -> void:
 	martyrs_oath = false
 	final_verse = false
 	cradle_deep = false
+	undertow = false
 	deep_breath = false
 	dash_fuel = false
 	powder_keg = 0
@@ -1097,6 +1099,7 @@ func _new_run(new_seed: int) -> void:
 		Stats.buff_speed_pct -= 0.08
 		pale_drunk = false
 	song_rust = false
+	undertow = false
 	gangway = false
 	penny_floor = false
 	if drift_line:
@@ -1972,6 +1975,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.speed *= 0.92
 	if song_rust:
 		e.speed *= 0.9
+	if undertow:
+		e.dmg = int(maxi(1, roundi(e.dmg * 0.9)))
 	if gale_tide:
 		e.speed *= 1.1
 	if mercy_tide:
@@ -6330,11 +6335,12 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Full Scrub — pay 3 souls: cleanse every ailment, rust and weakness included"},
 		{"text": "Deep Breath — pay 4 souls: the dead wade −5% slower for the rest of this run"},
 		{"text": "Deep Draw — pay 3 souls: fill your vial satchel"},
+		{"text": "Undertow — pay 4 souls: this floor's dead strike −10% softer"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 14:
+	if idx == 15:
 		toast("The water settles back into the stone")
 		return
 	if idx == 12:
@@ -6355,6 +6361,16 @@ func _drowned_deal(idx: int) -> void:
 		vials = (3 if wide_satchel else 2)
 		Sfx.play("shrine")
 		toast("DEEP DRAW — the tide fills every vial")
+	if idx == 14:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the undertow isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		undertow = true
+		_quest_event("drowned")
+		Sfx.play("shrine")
+		toast("UNDERTOW — the floor's dead lose their grip")
 		return
 	if idx == 11:
 		if Stats.souls < _soul_cost(3):
