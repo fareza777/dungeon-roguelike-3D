@@ -8499,6 +8499,10 @@ func _process(delta: float) -> void:
 							Stats.earn_souls(3)
 							_souls_l()
 							toast("THE TIDE LENDS — +3 souls")
+						if Stats.relics.has("gilded_keel"):
+							Stats.earn_souls(2)
+							_souls_l()
+							toast("GILDED KEEL — +2 souls")
 						toast("Gilded chest — relic inside: " + String(ITEMS.DB[rid2]["name"]) + "!")
 
 	if player != null and is_instance_valid(player) and cam != null:
