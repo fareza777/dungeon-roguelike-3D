@@ -6376,11 +6376,12 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Deep Breath — pay 4 souls: the dead wade −5% slower for the rest of this run"},
 		{"text": "Deep Draw — pay 3 souls: fill your vial satchel"},
 		{"text": "Undertow — pay 4 souls: this floor's dead telegraph slower (+12% windup)"},
+		{"text": "Salt Rinse — pay 2 souls: scrub venom & rust, mend 15% HP"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 15:
+	if idx == 16:
 		toast("The water settles back into the stone")
 		return
 	if idx == 12:
