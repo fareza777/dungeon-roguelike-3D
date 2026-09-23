@@ -4078,6 +4078,7 @@ func _cast_skill(id: String) -> void:
 			_shock_ring(player.global_position)
 			trauma = 0.6
 			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "SOULFALL! ×%d" % fhits, Color(0.9, 0.3, 0.4), true)
+			print("SKILL soulfall cost=%d dmg=%d hits=%d" % (cost, fdmg, fhits))
 		"keelsplit":
 			Sfx.play("thunder")
 			var kdir := Vector3(sin(player.rotation.y), 0, cos(player.rotation.y))
@@ -4099,7 +4100,6 @@ func _cast_skill(id: String) -> void:
 			trauma = 0.5
 			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "KEEL SPLIT! ×%d" % khits, Color(0.55, 0.8, 1.0), true)
 			print("SKILL keelsplit hits=%d" % khits)
-			print("SKILL soulfall cost=%d dmg=%d hits=%d" % (cost, fdmg, fhits))
 	skill_used_floor = true
 	skills_floor[id] = true
 	_quest_event("skill_" + id)
