@@ -223,6 +223,7 @@ var urnsworn := false
 var full_chart := false
 var iron_gullet := false
 var murk_fed := false
+var crew_oath := false
 var deadweight := false
 var undertow_grip := false
 var lookout := false
@@ -895,6 +896,7 @@ func _reset_run_state() -> void:
 	full_chart = false
 	iron_gullet = false
 	murk_fed = false
+	crew_oath = false
 	deadweight = false
 	undertow_grip = false
 	lookout = false
@@ -4820,6 +4822,9 @@ func _on_dlg_choice(idx: int) -> void:
 		33:
 			Stats.buff_xp_pct += 0.1
 			toast("Deep Water: the dead teach — +10% XP this run")
+		34:
+			crew_oath = true
+			toast("Crew's Oath: your squire fights like a boatswain — +50% bite")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -6730,6 +6735,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Iron Gullet — soul vials mend 45% HP"},
 			{"text": "Spirit Share — +10% souls from every source this run"},
 			{"text": "Deep Water — +10% XP from every source this run"},
+			{"text": "Crew's Oath — your squire bites +50% harder this run"},
 		]
 	)
 

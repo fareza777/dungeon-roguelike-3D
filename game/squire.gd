@@ -13,6 +13,9 @@ var life_t := -1.0 # >0 = THRALL ghost — memudar saat habis
 func setup(p_tile: float, p_dmg: float, p_tint := Color(0.95, 0.88, 0.6), p_orb := Color(1.0, 0.85, 0.3)) -> void:
 	tile = p_tile
 	dmg = p_dmg
+	var mh2 := get_tree().current_scene
+	if mh2 != null and bool(mh2.get("crew_oath")):
+		dmg *= 1.5
 	var model: Node3D = load("res://assets/characters/Skeleton_Minion.glb").instantiate()
 	model.scale = Vector3.ONE * 0.62
 	var mat := StandardMaterial3D.new()
