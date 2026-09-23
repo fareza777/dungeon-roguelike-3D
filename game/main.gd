@@ -133,6 +133,7 @@ var shrouded := false
 var ossuary := false
 var mirror_hall := false
 var ashfall := false
+var hungry_walls := false
 var legion_omen := false
 var wolf_omen := false
 var ashborn := false
@@ -531,6 +532,11 @@ func _apply_biome() -> void:
 		env.ambient_light_color = Color(0.55, 0.5, 0.44)
 		sun.light_color = Color(0.95, 0.85, 0.6)
 		sun.light_energy = 1.05
+	elif hungry_walls:
+		env.fog_light_color = Color(0.2, 0.1, 0.08)
+		env.ambient_light_color = Color(0.5, 0.38, 0.3)
+		sun.light_color = Color(0.9, 0.6, 0.45)
+		sun.light_energy = 1.0
 
 
 func _style_room() -> void:
@@ -641,6 +647,10 @@ func _new_run(new_seed: int) -> void:
 		Stats.event_soul_bonus = 1
 	if ashfall:
 		Stats.event_soul_bonus = 1
+	# event langka #14: hungry walls — lorong-lorong melahirkan musuh (lantai 12+): +45% musuh ekstra
+	hungry_walls = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and Stats.floor_num >= 12 and not boss_floor and rng.randf() < 0.05
+	if hungry_walls:
+		Stats.event_soul_bonus = 1
 	storm_t = 4.0
 	nemesis_spawned = false
 	_apply_biome()
@@ -686,6 +696,9 @@ func _new_run(new_seed: int) -> void:
 		if (mirror_hall or legion_omen) and not is_elite:
 			var mpos: Vector3 = sp["pos"] + Vector3(randf_range(-0.5, 0.5), 0, randf_range(-0.5, 0.5)) * info.tile * 0.5
 			_spawn_enemy({"pos": mpos, "room": int(sp.get("room", 0))}, arch_id, false)
+		elif hungry_walls and not is_elite and rng.randf() < 0.45:
+			var hpos: Vector3 = sp["pos"] + Vector3(randf_range(-0.5, 0.5), 0, randf_range(-0.5, 0.5)) * info.tile * 0.5
+			_spawn_enemy({"pos": hpos, "room": int(sp.get("room", 0))}, arch_id, false)
 	if boss_floor:
 		var lr: Dictionary = info.ranges[last_room]
 		_spawn_enemy({"pos": Vector3((lr["x0"] + lr["x1"]) * 0.5, 0.0, lr["z1"] + 1.6 * info.tile), "room": last_room}, "bone_king", false)
@@ -792,6 +805,10 @@ func _new_run(new_seed: int) -> void:
 	elif ashfall:
 		_lvl_banner("▲ ASHFALL — THE BURNED RAIN DOWN")
 		toast("Ash drifts gray • +1 soul per kill • +2 souls on clear")
+		Sfx.play("roar")
+	elif hungry_walls:
+		_lvl_banner("▲ HUNGRY WALLS — THE DEEP BREEDS")
+		toast("The corridors teem • +40% foes • +1 soul per kill")
 		Sfx.play("roar")
 	elif Stats.floor_num > 1:
 		_lvl_banner("FLOOR %d — %s" % [Stats.floor_num, String(biome["name"]).to_upper()])
@@ -1913,6 +1930,11 @@ func _on_enemy_died(e) -> void:
 				Stats.souls += 3
 				_souls_l()
 			elif ashfall:
+				Stats.souls += 2
+				_souls_l()
+				Stats.save_game()
+				toast("☠ OSSUARY TITHE — +3 souls")
+			elif hungry_walls:
 				Stats.souls += 2
 				_souls_l()
 				Stats.save_game()
@@ -4448,6 +4470,8 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 				evline = "A mirror hall, Kael. Every soul is followed by its reflection."
 			elif ashfall:
 				evline = "Ash falls from a fire that never stops burning. Every kill pays in full."
+			elif hungry_walls:
+				evline = "The walls breed the dead tonight, Kael. Feed them, or join them."
 			if evline != "":
 				lines = [{"who": "oracle", "text": evline}]
 		_say(lines)
@@ -5740,6 +5764,8 @@ func _refresh_buffs() -> void:
 		list.append(["◈ MIRROR", Color(0.6, 0.7, 1.0)])
 	elif ashfall:
 		list.append(["▲ ASHFALL", Color(0.85, 0.75, 0.6)])
+	elif hungry_walls:
+		list.append(["▲ HUNGRY", Color(0.95, 0.6, 0.4)])
 	if Stats.soul_sealed:
 		list.append(["PRICE", Color(0.9, 0.2, 0.25)])
 	if Stats.curse_dmg > 0.0:
