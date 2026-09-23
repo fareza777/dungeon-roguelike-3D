@@ -1853,6 +1853,8 @@ func _spawn_knight() -> void:
 	var vane_mult := 0.55 + minf(0.45, 0.04 * vane_floors)
 	knight_ref.setup(info.tile, maxf(1.0, Stats.get_stat("atk") * vane_mult), Color(0.62, 0.85, 1.0), Color(0.7, 0.95, 1.0))
 	knight_ref.set("is_vane", true)
+	if bosun_mark:
+		knight_ref.set("dmg", float(knight_ref.get("dmg")) * 1.2)
 	if vane_floors == 4 or vane_floors == 8 or vane_floors == 12:
 		toast("⚔ Sir Vane remembers his captain's forms (+%d%% ATK)" % int(vane_mult * 100.0))
 
