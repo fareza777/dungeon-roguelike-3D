@@ -139,7 +139,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare"][randi() % 10]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded"][randi() % 11]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -164,6 +164,9 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 			"nightmare":
 				# elite ini bangkit sekali lagi pada 40% HP — bonus XP
 				xp_val = int(xp_val * 1.6)
+			"hoarded":
+				# elite ini menelan senjata — dijatuhkan saat mati
+				xp_val = int(xp_val * 1.3)
 	scale = Vector3.ONE * sc
 	_base_scale = scale
 	hp_max = hp

@@ -43,6 +43,7 @@ var berserk := 0.0 # amukan: bonus ATK saat HP kritis
 var combo_atk := 0.0 # bonus ATK bertingkat dari streak kombo (8/15/25)
 var combo_aspd := 0.0 # bonus attack-speed dari streak kombo
 var mahzan_debt := 0.0 # hutang Max HP ke Mahzan (Leech's Bargain)
+var reroll_extra := 0 # Kismet Thread: +1 reroll di tiap draft run ini
 var soul_bonus := 0 # Crown Shard: jiwa ekstra per kill
 var event_soul_bonus := 0 # gilded tides: jiwa ekstra per kill (floor event, reset per floor)
 var relic_burn := 0.0 # Ember Brand: peluang bakar di semua senjata
@@ -289,6 +290,7 @@ func reset_run() -> void:
 	combo_aspd = 0.0
 	mahzan_debt = 0.0
 	curse_dmg = 0.0
+	reroll_extra = 0
 	curse_xp = 0.0
 	soul_bonus = 0
 	event_soul_bonus = 0

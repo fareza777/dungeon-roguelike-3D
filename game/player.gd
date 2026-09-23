@@ -303,6 +303,22 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						m11._souls_l()
 					if m11.has_method("_damage_number"):
 						m11._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "JAW +1", Color(1.1, 0.45, 0.3), false)
+		"gravebell": # TOLL — 25% korban membunyikan genta: 1x ATK ke tetangga
+			if float(f.get("hp")) <= 0.0 and randf() < 0.25:
+				var toll := 0
+				for f3 in get_tree().get_nodes_in_group("enemies"):
+					if f3 == f or String(f3.get("state")) == "dead":
+						continue
+					if f.global_position.distance_to(f3.global_position) < 1.1 * room_tile:
+						f3.take_hit(f.global_position, dmg)
+						toll += 1
+				if toll > 0:
+					var m12 := get_tree().current_scene
+					if m12 != null:
+						if m12.has_method("_shock_ring"):
+							m12._shock_ring(f.global_position)
+						if m12.has_method("_damage_number"):
+							m12._damage_number(f.global_position + Vector3(0, 0.7 * room_tile, 0), "TOLL ×%d" % toll, Color(0.85, 0.8, 1.2), true)
 		"wisp_lantern": # WISP — korban melepas wisp yang menggigit musuh lain
 			if float(f.get("hp")) <= 0.0:
 				var best3: Node3D = null

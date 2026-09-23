@@ -81,7 +81,7 @@ var autotest := false
 var rng := RandomNumberGenerator.new()
 var pending_drafts := 0
 var draft_choices: Array = []
-var draft_rerolled := false
+var draft_rerolls := 1
 var low_quality := false
 var blood_moon := false
 var soul_rush := false
@@ -1432,6 +1432,10 @@ func _on_enemy_died(e) -> void:
 		for _mi in range(2):
 			_spawn_enemy({"pos": e.global_position + Vector3(randf_range(-0.4, 0.4) * info.tile, 0, randf_range(-0.4, 0.4) * info.tile), "room": e.room_idx}, "crawler", false)
 		_damage_number(e.global_position, "SPLITS!", Color(0.7, 1.0, 0.5), true)
+	# HOARDED affix: elite menelan senjata — dijatuhkan saat mati
+	if e.get("affix") == "hoarded":
+		spawn_weapon_drop(e.global_position, WDB.roll_drop(rng, Stats.weapon_id))
+		_damage_number(e.global_position + Vector3(0, 0.7 * info.tile, 0), "HOARDED!", Color(1.0, 0.85, 0.35), true)
 	# NIGHTMARE affix: elite bangkit sekali pada 40% HP setelah 1.6 detik
 	if e.get("affix") == "nightmare":
 		var npos: Vector3 = e.global_position
@@ -1816,7 +1820,7 @@ func _try_open_draft() -> void:
 		return
 	Stats.draft_open = true
 	pending_drafts -= 1
-	draft_rerolled = false
+	draft_rerolls = 1 + Stats.reroll_extra
 	if ui.has("draft_reroll"):
 		ui.draft_reroll.visible = true
 	draft_choices = ITEMS.roll_choices(Stats.relics, rng)
@@ -1828,10 +1832,10 @@ func _try_open_draft() -> void:
 
 
 func _draft_reroll() -> void:
-	if not Stats.draft_open or draft_rerolled:
+	if not Stats.draft_open or draft_rerolls <= 0:
 		return
-	draft_rerolled = true
-	ui.draft_reroll.visible = false
+	draft_rerolls -= 1
+	ui.draft_reroll.visible = draft_rerolls > 0
 	Sfx.play("click")
 	draft_choices = ITEMS.roll_choices(Stats.relics, rng)
 	_build_draft_cards()
@@ -2885,6 +2889,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Vial Merchant — pay 5 souls for a full satchel"},
 			{"text": "Debt Settlement — pay 15 souls to lift your −%d Max HP debt" % int(Stats.mahzan_debt)},
 			{"text": "Curse Eater — pay 8 souls to shed one Blood Pact"},
+			{"text": "Kismet Thread — pay 8 souls: +1 reroll on every draft"},
 		]
 	)
 
@@ -2993,6 +2998,14 @@ func _mahzan_deal(idx: int) -> void:
 				Stats.curse_dmg = maxf(0.0, Stats.curse_dmg - 0.3)
 				Stats.curse_xp = maxf(0.0, Stats.curse_xp - 0.5)
 				toast("Curse eaten — the obelisk's hold weakens")
+		7:
+			if Stats.souls < 8:
+				toast("Not enough souls (need 8)")
+			else:
+				Stats.souls -= 8
+				_souls_l()
+				Stats.reroll_extra += 1
+				toast("Kismet Thread — every draft gains a second reroll")
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
 		player.refresh_stats()
