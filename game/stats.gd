@@ -58,6 +58,7 @@ var best_floor := 0
 var total_kills := 0
 var traps_defused := 0
 var wisps_caught := 0
+var prays := 0
 var forges_used := 0
 var runs := 0
 var boss_kills := 0
@@ -119,6 +120,7 @@ const ACH_DEF := {
 	"col10": "Collector (carried 10 relics in one run)",
 	"centurion": "Centurion (100 kills in a single run)",
 	"untouchable": "Untouchable (three perfect dodges in a run)",
+	"pious": "Pious (five prayers over the fallen)",
 }
 
 const META_DEF := {

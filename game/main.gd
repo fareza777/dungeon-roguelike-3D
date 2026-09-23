@@ -5672,6 +5672,9 @@ func _process(delta: float) -> void:
 				Sfx.play("whisper")
 				_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), "A PRAYER FOR THE FALLEN — +1 soul", Color(0.6, 0.85, 1.0), true)
 				_quest_event("pray")
+				Stats.prays += 1
+				if Stats.prays >= 5:
+					_ach("pious")
 		else:
 			pray_t = 0.0
 	# panah elite off-screen: arahkan ke elite teraktivasi terdekat
