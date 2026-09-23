@@ -7889,16 +7889,27 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Cradle Deep — pay 5 souls: the dead sleep-walk —8% HP for the rest of this run"},
 		{"text": "Storm Lull — pay 5 souls: the dead's strikes slow —15% windup this run"},
 		{"text": "Encore Echo — pay 4 souls: +10% crit for the rest of this run"},
+		{"text": "Echo Verse — pay 5 souls: your skills hum back 15% sooner this run"},
 		{"text": "Walk away"}])
 
 
 func _siren_deal(idx: int) -> void:
-	if idx == 10:
+	if idx == 11:
 		Stats.earn_souls(2)
 		_souls_l()
 		_quest_event("siren")
 		Sfx.play("soul")
 		toast("UNSUNG — you walk, and the conch pays +2 souls for your silence")
+		return
+	if idx == 10:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the verse wants its fee")
+			return
+		Stats.souls -= _soul_cost(5)
+		_souls_l()
+		Stats.cd_reduction += 0.15
+		Sfx.play("shrine")
+		toast("ECHO VERSE — the song's refrain quickens your hands")
 		return
 	if idx == 9:
 		if Stats.souls < _soul_cost(4):
