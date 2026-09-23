@@ -159,6 +159,7 @@ var glass_sea := false
 var abyssal_hymn := false
 var hymn_delta := 0.0
 var rotgut_drunk := false
+var pale_drunk := false
 var deep_current := false
 var dread_tide := false
 var starved_deep := false
@@ -826,6 +827,9 @@ func _new_run(new_seed: int) -> void:
 	if rotgut_drunk:
 		Stats.buff_maxhp_pct -= 0.15
 		rotgut_drunk = false
+	if pale_drunk:
+		Stats.buff_speed_pct -= 0.08
+		pale_drunk = false
 	Stats.buff_armor -= tithe_armor
 	tithe_armor = 0.0
 	pray_t = 0.0
@@ -4681,6 +4685,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Abyssal Jar — pay 8 souls: a trinket dredged from the deep"},
 			{"text": "Sirensong — pay 4 souls: this floor's elites pay +4 souls"},
 			{"text": "Rotgut Brew — pay 3 souls: +15% Max HP till the floor falls"},
+			{"text": "Pale Ale — pay 2 souls: +8% speed till the floor falls"},
 		]
 	)
 
@@ -5542,6 +5547,18 @@ func _mahzan_deal(idx: int) -> void:
 					player.refresh_stats()
 				Sfx.play("shrine")
 				toast("ROTGUT — the room spins. +15% Max HP this floor")
+		18:
+			if Stats.souls < _soul_cost(2):
+				toast("Two souls — the ale's not free")
+			else:
+				Stats.souls -= _soul_cost(2)
+				_souls_l()
+				Stats.buff_speed_pct += 0.08
+				pale_drunk = true
+				if player != null and is_instance_valid(player):
+					player.refresh_stats()
+				Sfx.play("shrine")
+				toast("PALE ALE — your feet forget the floor. +8% speed")
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
 		player.refresh_stats()
