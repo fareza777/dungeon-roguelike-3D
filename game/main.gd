@@ -2762,7 +2762,7 @@ func _quest_render() -> void:
 func _combo_set(n: int) -> void:
 	combo = n
 	combo_max = maxi(combo_max, n)
-	combo_t = 4.0
+	combo_t = 4.0 * (1.45 if Stats.relics.has("relik_tempo") else 1.0)
 	# tier buff nyata: streak tinggi = tambah kuat (hilang saat streak putus)
 	if combo == 8:
 		_quest_event("combo")
@@ -4878,7 +4878,7 @@ func _process(delta: float) -> void:
 			combo_t -= delta
 			if ui.has("combo_bar"):
 				var cbf: ColorRect = ui.combo_bar
-				var f2: float = clampf(combo_t / 4.0, 0.0, 1.0)
+				var f2: float = clampf(combo_t / (5.8 if Stats.relics.has("relik_tempo") else 4.0), 0.0, 1.0)
 				cbf.offset_right = -140 + 280.0 * f2
 				cbf.offset_left = -140
 				cbf.visible = combo >= 3
