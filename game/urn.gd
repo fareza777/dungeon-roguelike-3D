@@ -5,10 +5,12 @@ extends Node3D
 var tile := 4.0
 var smashed := false
 var bell := false
+var void_urn := false
 
 
-func setup(p_tile: float, p_bell := false) -> void:
+func setup(p_tile: float, p_bell := false, p_void := false) -> void:
 	bell = p_bell
+	void_urn = p_void
 	tile = p_tile
 	add_to_group("urns")
 	# badan guci: silinder gemuk
