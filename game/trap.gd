@@ -178,7 +178,7 @@ func _physics_process(delta: float) -> void:
 						elif kind == 3:
 							p.set("root_t", 1.0)
 						elif kind == 6:
-							p.set("root_t", 1.3)
+							p.set("root_t", 0.4 if Stats.relics.has("tidebound_anklet") else 1.3)
 						var mw := get_tree().current_scene
 						if mw != null and int(mw.get("trap_wrapped") or 0) > 0:
 							mw.set("trap_wrapped", int(mw.get("trap_wrapped")) - 1)
