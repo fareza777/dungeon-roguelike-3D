@@ -150,6 +150,7 @@ var shrine_kind := 0
 var bounty_ref: Enemy = null
 var bounty_epic := false
 var ferry_skip := false
+var ferry_extra := 0
 var _ferry_used := false
 var storm_t := 0.0
 var nemesis_spawned := false # musuh yang membunuhmu run lalu — kembali lebih kuat
@@ -2290,7 +2291,8 @@ func _on_banner_tap() -> void:
 		_quest_event("descend")
 		if ferry_skip:
 			ferry_skip = false
-			Stats.floor_num += 1
+			Stats.floor_num += 1 + ferry_extra
+			ferry_extra = 0
 			toast("The Ferryman rows you past a floor")
 		Stats.floor_num += 1
 		Stats.note_floor()
@@ -3978,10 +3980,24 @@ func _on_ferry_invoked(s) -> void:
 	_say([{"who": "mahzan", "text": "The Ferryman rows the dark between floors. Six souls buys passage past one."}],
 		[{"text": "Pay 6 souls — skip the next floor"},
 		{"text": "Charon's Tithe — pay HALF your souls: skip the floor and arrive mended"},
+		{"text": "Down the Long Dark — pay 10 souls: skip TWO floors"},
 		{"text": "Refuse — walk the whole way down"}])
 
 
 func _ferry_deal(idx: int) -> void:
+	if idx == 2:
+		if Stats.souls < _soul_cost(10):
+			toast("Ten souls for the long route — the Ferryman waits")
+			return
+		Stats.souls -= _soul_cost(10)
+		_souls_l()
+		_ferry_used = true
+		ferry_skip = true
+		ferry_extra = 1
+		Sfx.play("soul")
+		_quest_event("ferry")
+		toast("THE LONG DARK — two floors will pass under the keel")
+		return
 	if idx == 1:
 		var tithe := int(ceil(Stats.souls * 0.5))
 		if Stats.souls < 2:
