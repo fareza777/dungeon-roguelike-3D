@@ -8754,7 +8754,7 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 	elif Stats.floor_num == 6 and Stats.ng_plus >= 1:
 		lines = [
 			{"who": "vane", "text": "Back again, knight? The first court remembers how you broke it."},
-			{"who": "kael", "text": "Tell it to keep the throne warm, Vane. The crown's still mine to crack."},
+			{"who": "kael", "text": "Tell it to keep the throne warm, Aldric. The crown's still mine to crack."},
 			{"who": "oracle", "text": "Both of you walk circles the King can see — but cannot yet close."},
 		]
 	elif Stats.floor_num == 6:
