@@ -233,6 +233,7 @@ var urnsworn := false
 var full_chart := false
 var long_wake := false
 var dead_lantern := false
+var hull_song := false
 var iron_gullet := false
 var murk_fed := false
 var crew_oath := false
@@ -938,6 +939,7 @@ func _reset_run_state() -> void:
 	full_chart = false
 	long_wake = false
 	dead_lantern = false
+	hull_song = false
 	iron_gullet = false
 	murk_fed = false
 	crew_oath = false
@@ -1790,6 +1792,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 	if dead_lantern and bool(e.get("elite")):
 		e.hp *= 1.15
 		e.hp_max = e.hp
+	if hull_song:
+		e.speed *= 1.05
 		M.paint(e, M.toon(skeleton_tex, tint.lerp(Color(0.85, 0.08, 0.08), 0.4), 0.35, true))
 	# nemesis: arketipe yang membunuhmu run lalu — kembali lebih keras sampai dibunuh
 	if Stats.nemesis != "" and arch_id == Stats.nemesis and not e.is_boss and not nemesis_spawned:
@@ -5082,6 +5086,7 @@ func _offer_omens() -> void:
 			{"text": "LONG WAKE — the dead scent you from further... but +20% XP"},
 			{"text": "SALT FEVER — every soul pays +25%... but the dead grow +10% harder"},
 			{"text": "DEAD LANTERN — elites burn +15% brighter... but the urns pay +1 soul"},
+			{"text": "HULL SONG — skills recharge +15% faster... but the dead row +5% quicker"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -5118,7 +5123,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 48 if Stats.nemesis != "" else 47
+	var osize := 49 if Stats.nemesis != "" else 48
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -5318,6 +5323,10 @@ func _omen_deal(idx: int) -> void:
 			dead_lantern = true
 			oname = "DEAD LANTERN"
 		47:
+			hull_song = true
+			Stats.cd_reduction += 0.15
+			oname = "HULL SONG"
+		48:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -5368,6 +5377,7 @@ func _omen_deal(idx: int) -> void:
 		"LONG WAKE": "They smell the living on you, Kael — good, let them come. Lessons arrive faster that way.",
 		"SALT FEVER": "Greed salts the water, Kael — richer souls, meaner dead.",
 		"DEAD LANTERN": "Hang the lantern high, Kael — the urns will pay for what the elites will cost.",
+		"HULL SONG": "The ship sings through you, Kael — your arms answer quicker. So do theirs.",
 		"HEIRLOOM": "Someone carried that before you. They are still carrying it, in a way.",
 		"GOLDEN FATE": "Every lock will gleam. Mind the teeth on some.",
 		"HOLLOW CROWN": "Crown of nothing. The Oracle admires your appetite anyway.",
