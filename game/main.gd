@@ -1702,8 +1702,17 @@ func _build_ui() -> void:
 	atk.offset_top = -220
 	atk.offset_right = -40
 	atk.offset_bottom = -60
-	atk.button_down.connect(func() -> void: atk_held = true)
-	atk.button_up.connect(func() -> void: atk_held = false)
+	atk.pivot_offset = Vector2(80, 80)
+	atk.button_down.connect(func() -> void:
+		atk_held = true
+		var twd := atk.create_tween()
+		twd.tween_property(atk, "scale", Vector2(0.9, 0.9), 0.05)
+	)
+	atk.button_up.connect(func() -> void:
+		atk_held = false
+		var twu := atk.create_tween()
+		twu.tween_property(atk, "scale", Vector2.ONE, 0.14).set_trans(Tween.TRANS_BACK)
+	)
 	atk.pressed.connect(func() -> void:
 		if player != null and is_instance_valid(player):
 			player.attack()
@@ -2472,7 +2481,8 @@ func _set_low_hp(on: bool) -> void:
 
 func _update_xp(cur: int, need: int, lv: int) -> void:
 	ui.xp_bar.max_value = need
-	ui.xp_bar.value = cur
+	var xtw := create_tween()
+	xtw.tween_property(ui.xp_bar, "value", float(cur), 0.3).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	ui.lv_label.text = "Lv %d" % lv
 
 
