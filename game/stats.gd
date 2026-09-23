@@ -158,6 +158,7 @@ const ACH_DEF := {
 	"wellread": "Well Read (read 5 lore stones in one run)",
 	"keelhaul5": "Catch & Release (keelhauled 5 foes at once)",
 	"bombsquad": "Bomb Squad (disarmed 5 traps in one run)",
+	"rustproof": "Rustproof (felled 12 Rust Jaws)",
 	"wisp20": "Wispherd (caught 20 wisps across your runs)",
 	"thawed": "Thawed Out (felled 12 Bilge Witches across your runs)",
 	"lantern_lit": "Lantern Lit (took 20 shrine blessings in one run)",

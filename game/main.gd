@@ -2766,6 +2766,8 @@ func _on_enemy_died(e) -> void:
 			_ach("birdkeeper")
 	if e.arch_id == "rust_jaw":
 		_quest_event("rustjaw_kill")
+		if int(Stats.arch_kills.get("rust_jaw", 0)) >= 12:
+			_ach("rustproof")
 	if e.arch_id == "mireling":
 		_quest_event("mireling_kill")
 		if int(Stats.arch_kills.get("mireling", 0)) >= 15:
