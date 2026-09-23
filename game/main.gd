@@ -2572,6 +2572,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("tither_kill")
 	if e.arch_id == "mireling":
 		_quest_event("mireling_kill")
+		if int(Stats.arch_kills.get("mireling", 0)) >= 15:
+			_ach("ratlord")
 	if e.arch_id == "hound" and wolfsbane:
 		_quest_event("pack_hound")
 	if bool(e.get("elite")) and String(e.get("affix")) == "umbral":
