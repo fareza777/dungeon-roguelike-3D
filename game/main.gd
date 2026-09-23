@@ -3126,6 +3126,7 @@ func _forge_deal(idx: int) -> void:
 	Stats.save_game()
 	Sfx.play("levelup")
 	toast("%s forged to +%d" % [wname, int(Stats.weapon_lv[wid]) - 1])
+	_quest_event("forge")
 	if Stats.forges_used >= 3:
 		_ach("smith3")
 	if int(Stats.weapon_lv[wid]) >= 6:
