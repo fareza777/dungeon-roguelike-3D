@@ -288,6 +288,7 @@ var song_rust := false
 var gangway := false
 var splice_kills := 0
 var timber_shiver := false
+var hull_bonus := false
 var deadweight := false
 var undertow_grip := false
 var lookout := false
@@ -1137,6 +1138,7 @@ func _new_run(new_seed: int) -> void:
 	undertow = false
 	splice_kills = 0
 	timber_shiver = false
+	hull_bonus = false
 	gangway = false
 	penny_floor = false
 	if drift_line:
@@ -3668,6 +3670,10 @@ func _on_enemy_died(e) -> void:
 		if bool(e.get("keel_marked")):
 			Stats.earn_souls(1)
 			_souls_l()
+		if hull_bonus:
+			Stats.earn_souls(1)
+			_souls_l()
+			_damage_number(e.global_position + Vector3(0, 1.2 * info.tile, 0), "HULL BONUS +1", Color(0.9, 0.8, 0.4), false)
 		if choir:
 			_quest_event("choirkill")
 		if sirensong_deal:
@@ -7231,11 +7237,12 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Deck Fuel — pay 4 souls: your dash recharges 40% faster"},
 		{"text": "Tar Seal — pay 4 souls: mend 25% HP and scrub chill, root, rust"},
 		{"text": "Timber Shiver — pay 3 souls: this floor's dead lose −10% HP"},
+		{"text": "Hull Bonus — pay 3 souls: every elite this floor pays +1 soul extra"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 12:
+	if idx == 13:
 		toast("The stone settles — the sea keeps its bargains")
 		return
 	if idx == 9:
@@ -7257,6 +7264,16 @@ func _keel_deal(idx: int) -> void:
 		timber_shiver = true
 		Sfx.play("shrine")
 		toast("TIMBER SHIVER — the floor's dead creak a little lighter")
+		return
+	if idx == 11:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the bonus isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		hull_bonus = true
+		Sfx.play("shrine")
+		toast("HULL BONUS — this floor's elites pay a dividend")
 		return
 	if idx == 10:
 		if Stats.souls < _soul_cost(4):
