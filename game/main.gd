@@ -2334,6 +2334,8 @@ func _run_victory() -> void:
 	_souls_l()
 	Stats.save_game()
 	_ach("s25")
+	if Stats.kaels_wager:
+		_ach("onedrop")
 	_tut_hide()
 	if player != null and is_instance_valid(player):
 		_burst(player.global_position, Color(0.6, 1.0, 0.75))
