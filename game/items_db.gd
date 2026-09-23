@@ -55,6 +55,7 @@ const DB := {
 	"soulsmith": {"name": "Soulsmith Band", "chip": "SS", "desc": "Soul Forge prices drop 2 souls", "rarity": 1, "mods": {}},
 	"leech_seed": {"name": "Leech Seed", "chip": "LS", "desc": "Every 6th kill at full HP ripens into +1 soul", "rarity": 0, "mods": {}},
 	"chalice_dust": {"name": "Chalice of Dust", "chip": "CD", "desc": "+2 souls from every kill", "rarity": 2, "mods": {"soul_bonus": 2}},
+	"second_wind": {"name": "Second Wind", "chip": "SW", "desc": "Clearing a floor mends 20% Max HP", "rarity": 1, "mods": {}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }

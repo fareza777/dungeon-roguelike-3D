@@ -1902,6 +1902,12 @@ func _on_enemy_died(e) -> void:
 			if knight_ref != null and is_instance_valid(knight_ref):
 				var vbark2 := ["Onward, boy — the dark is thick below.", "That's the floor, lad. One less between you and the crown.", "Good cleaving. My old company would've sung."]
 				_damage_number(knight_ref.global_position + Vector3(0, 1.0 * info.tile, 0), vbark2[rng.randi_range(0, vbark2.size() - 1)], Color(0.7, 0.9, 1.1), false)
+			if Stats.relics.has("second_wind") and player != null and is_instance_valid(player):
+				var wind_heal: float = Stats.get_stat("max_hp") * 0.2
+				player.hp = minf(player.max_hp, player.hp + wind_heal)
+				player.hp_changed.emit(player.hp)
+				_damage_number(player.global_position + Vector3(0, 0.8, 0), "SECOND WIND +%d" % int(ceil(wind_heal)), Color(0.5, 1.0, 0.7), true)
+				Sfx.play("heal")
 			_show_banner("FLOOR %d CLEARED" % Stats.floor_num, "%d kills this run • best combo ×%d • %d:%02d — tap to descend to Floor %d" % [kills_run, combo_max, int(run_time) / 60, int(run_time) % 60, Stats.floor_num + 1])
 			if player != null and is_instance_valid(player):
 				_burst(player.global_position, Color(1.0, 0.85, 0.3))
