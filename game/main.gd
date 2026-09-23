@@ -98,6 +98,7 @@ var cursed_chest := false
 var storm_cellar := false
 var storm_t := 0.0
 var nemesis_spawned := false # musuh yang membunuhmu run lalu — kembali lebih kuat
+var nemesis_warned := false # nemesis story beat — 1だけ
 var toast_tween: Tween = null
 
 # polish r2: pause, ringkasan run, transisi fade, juice vfx
@@ -1547,6 +1548,7 @@ func _on_player_died() -> void:
 		killer = String(KILLER_NAMES.get(player.last_killer, player.last_killer))
 		Stats.nemesis = String(player.last_killer)
 		Stats.nemesis_name = killer.capitalize()
+		nemesis_warned = false
 	var ktip: String = ""
 	if player != null and is_instance_valid(player):
 		ktip = "\n" + String(KILLER_TIPS.get(player.last_killer, ""))
@@ -1609,6 +1611,7 @@ func _finalize_death() -> void:
 		killer = String(KILLER_NAMES.get(player.last_killer, player.last_killer))
 		Stats.nemesis = String(player.last_killer)
 		Stats.nemesis_name = killer.capitalize()
+		nemesis_warned = false
 	var ktip: String = ""
 	if player != null and is_instance_valid(player):
 		ktip = "\n" + String(KILLER_TIPS.get(player.last_killer, ""))
@@ -2933,6 +2936,12 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			{"who": "oracle", "text": "One floor below waits the throne beneath all thrones. He knows you're coming, Kael."},
 			{"who": "kael", "text": "Tell him to keep the crown warm."},
 			{"who": "mahzan", "text": "Twenty-four floors of carnage. Even I feel... almost... sentimental."},
+		]
+	elif Stats.nemesis != "" and not nemesis_warned:
+		nemesis_warned = true
+		lines = [
+			{"who": "oracle", "text": "Kael — %s walks these halls again. The one that ended you last descent." % Stats.nemesis_name},
+			{"who": "kael", "text": "Then the ledger and I both have a page to close."},
 		]
 	elif not _biomes_seen.get(String(biome.get("name", "")), false):
 		_biomes_seen[String(biome.get("name", ""))] = true
