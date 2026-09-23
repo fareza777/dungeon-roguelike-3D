@@ -18,7 +18,7 @@ var salvage_n := 0
 var ambushed_ids := {}
 var root_t := 0.0 # Gaoler: terjerat, tak bisa bergerak (dash masih bisa kabur)
 var silence_t := 0.0
-var venom_t := 0.0 # Hex Priest: skill terkunci sementara
+var venom_t := 0.0
 var hp := 5.0
 var max_hp := 5.0
 var attack_cooldown := 0.45
@@ -124,6 +124,12 @@ func _physics_process(delta: float) -> void:
 	chill_t = max(0.0, chill_t - tick)
 	root_t = max(0.0, root_t - tick)
 	silence_t = max(0.0, silence_t - delta)
+	if venom_t > 0.0:
+		venom_t = max(0.0, venom_t - delta)
+		hp -= delta * 0.6
+		hp_changed.emit(hp)
+		if hp <= 0.0:
+			die()
 	var spd_eff: float = speed * (0.55 if chill_t > 0.0 else 1.0) * (0.0 if root_t > 0.0 else 1.0)
 	if dash_t > 0.0:
 		dash_t -= delta
