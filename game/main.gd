@@ -1620,11 +1620,14 @@ func _spawn_traps(last_room: int) -> void:
 		tr.global_position = pos
 		var rk := rng.randf()
 		var clam := String(biome.get("name", "")) == "Sunken Reliquary"
-		var tkind: int = 7 if (Stats.floor_num >= 13 and rk < 0.1) else (4 if rk < 0.18 else (5 if rk < 0.28 else ((6 if clam else 3) if rk < 0.42 else (2 if rk < 0.56 else (1 if rk < 0.72 else 0)))))
+		var tkind: int = 8 if (Stats.floor_num >= 15 and rk < 0.05) else (7 if (Stats.floor_num >= 13 and rk < 0.14) else (4 if rk < 0.18 else (5 if rk < 0.28 else ((6 if clam else 3) if rk < 0.42 else (2 if rk < 0.56 else (1 if rk < 0.72 else 0))))))
 		tr.setup(info.tile, rng.randf_range(0.0, 1.9), tkind)
 		if tkind == 7 and not _warned.has("pincher"):
 			_warned["pincher"] = true
 			toast("Something under the sand is breathing... stay clear of the pinchers.")
+		elif tkind == 8 and not _warned.has("siphon"):
+			_warned["siphon"] = true
+			toast("Soul Siphons drink the purse right off your belt — disarm them while they doze.")
 
 
 func _spawn_urns(last_room: int) -> void:
