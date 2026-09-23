@@ -342,6 +342,14 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 				var kn: Variant = m18.get("knight_ref")
 				if (al != null and is_instance_valid(al)) or (kn != null and is_instance_valid(kn)):
 					f.take_hit(global_position, dmg * 0.2)
+		"undertow": # HAUL — tebasan menyeret musuh ke jangkauanmu
+			var hp2: Vector3 = (global_position - f.global_position)
+			hp2.y = 0
+			if hp2.length() > 0.4 * room_tile:
+				f.global_position += hp2.normalized() * 0.5 * room_tile
+			var m20 := get_tree().current_scene
+			if m20 != null and randf() < 0.15 and m20.has_method("_damage_number"):
+				m20._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "HAULED", Color(0.35, 0.9, 1.0), false)
 		"marsh_claw": # LEECHROOT — tiap tebasan melilit kaki musuh (speed -10%, menumpuk)
 			var slw := float(f.get("speed"))
 			f.set("speed", maxf(slw * 0.9, 0.3 * room_tile))

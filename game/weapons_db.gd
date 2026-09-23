@@ -26,11 +26,12 @@ const DB := {
 	"sunderfang": {"name": "Sunderfang", "gltf": "Skeleton_Blade.gltf", "tint": Color(1.2, 0.6, 0.3), "mods": {"atk": 2.1, "atk_speed_pct": 0.05}, "desc": "+2.1 ATK, +5% AS. REND: 25% of hits tear armor — foe takes +25% dmg for 4s."},
 	"duskblade": {"name": "Duskblade", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.55, 0.45, 1.15), "mods": {"atk": 2.2, "atk_speed_pct": 0.06}, "desc": "+2.2 ATK, +6% AS. DUSKSTRIDE: strikes within 1.5s of a dash echo for 60%."},
 	"oathbrand": {"name": "Oathbrand", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.5, 1.2, 0.9), "mods": {"atk": 1.6, "max_hp": 6.0}, "desc": "+1.6 ATK, +6 HP. BOND: +20% dmg while a sworn ally walks beside you."},
+	"undertow": {"name": "Undertow", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.35, 0.9, 1.0), "mods": {"atk": 1.8, "speed_pct": 0.05}, "desc": "+1.8 ATK, +5% Speed. HAUL: strikes drag foes to your reach."},
 	"marsh_claw": {"name": "Marsh Claw", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.6, 0.95, 0.4), "mods": {"atk": 1.9, "crit": 0.05}, "desc": "+1.9 ATK, +5% Crit. LEECHROOT: strikes slow foes 10% (stacks)."},
 	"searbrand": {"name": "Searbrand", "gltf": "Skeleton_Blade.gltf", "tint": Color(1.5, 0.45, 0.2), "mods": {"atk": 1.8, "crit": 0.05}, "desc": "+1.8 ATK, +5% Crit. IGNITE: hits set foes ablaze for 4s."},
 }
 
-const POOL := ["bone_axe", "twin_fang", "hex_staff", "war_blade", "storm_axe", "frost_fang", "ember_mace", "kings_edge", "grave_scythe", "moon_katana", "soul_reaver", "thronebreaker", "hollow_crown", "wisp_lantern", "gravebell", "titan_maul", "sunderfang", "searbrand", "duskblade", "oathbrand", "marsh_claw"]
+const POOL := ["bone_axe", "twin_fang", "hex_staff", "war_blade", "storm_axe", "frost_fang", "ember_mace", "kings_edge", "grave_scythe", "moon_katana", "soul_reaver", "thronebreaker", "hollow_crown", "wisp_lantern", "gravebell", "titan_maul", "sunderfang", "searbrand", "duskblade", "oathbrand", "marsh_claw", "undertow"]
 
 
 static func get_w(id: String) -> Dictionary:
