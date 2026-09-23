@@ -284,6 +284,7 @@ var lantern_healed := 0.0
 var lantern_touched := false
 var gravetide := false
 var mudlark := false
+var crows_share := false
 var netgain_n := 0
 var blood_drawn := false
 var skill_used_floor := false
@@ -899,6 +900,7 @@ func _reset_run_state() -> void:
 	_ferry_used = false
 	gravetide = false
 	mudlark = false
+	crows_share = false
 	netgain_n = 0
 	_rope_active = false
 	rope_kills = 0
@@ -3108,6 +3110,8 @@ func _on_enemy_died(e) -> void:
 			if gravetide:
 				Stats.earn_souls(2)
 			if mudlark:
+				Stats.earn_souls(1)
+			if crows_share:
 				Stats.earn_souls(1)
 			if Stats.souls >= 40:
 				_quest_event("fatpurse")
@@ -5421,6 +5425,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Sea Shanty — pay 4 souls: his song speeds your skills (+10% recharge this run)"},
 			{"text": "Deck Prayer — pay 4 souls: +12% ATK this run"},
 			{"text": "Lantern Oil — pay 3 souls: hearts and lanterns mend half again this run"},
+			{"text": "Crow's Share — pay 5 souls: every floor you clear pays +1 soul this run"},
 		]
 	)
 
@@ -6475,6 +6480,15 @@ func _mahzan_deal(idx: int) -> void:
 				lantern_oil = true
 				Sfx.play("shrine")
 				toast("LANTERN OIL — the wicks burn brighter (+50% mending)")
+		26:
+			if Stats.souls < _soul_cost(5):
+				toast("Five souls — the crow takes no credit")
+			else:
+				Stats.souls -= _soul_cost(5)
+				_souls_l()
+				crows_share = true
+				Sfx.play("shrine")
+				toast("CROW'S SHARE — every floor you clear pays the crow and the crow pays you")
 
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
