@@ -56,6 +56,7 @@ var stun_t := 0.0
 var enraged := false
 var golden := false
 var affix := ""
+var _base_scale := Vector3.ONE
 var slam_t := 4.0
 var summon_t := 11.0
 
@@ -66,6 +67,7 @@ func stun(t: float) -> void:
 	stun_t = maxf(stun_t, t)
 	state = "recover"
 	state_t = maxf(state_t, t)
+	scale = _base_scale
 	if mat != null:
 		mat.set_shader_parameter("flash", 0.6)
 
@@ -107,6 +109,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				hp *= 1.5
 				xp_val = int(xp_val * 1.25)
 	scale = Vector3.ONE * sc
+	_base_scale = scale
 	hp_max = hp
 	if elite:
 		print("SPAWN ELITE ", arch_id)
@@ -291,6 +294,7 @@ func _physics_process(delta: float) -> void:
 				state = "windup"
 				state_t = windup_t
 				velocity = Vector3.ZERO
+				scale = _base_scale * 1.06
 				if mat != null:
 					mat.set_shader_parameter("flash", 0.4)
 				if anim_lock <= 0.0:
@@ -308,8 +312,12 @@ func _physics_process(delta: float) -> void:
 			rotation.y = lerp_angle(rotation.y, atan2(to.x, to.z), delta * 6.0)
 			if is_bomber and mat != null:
 				mat.set_shader_parameter("flash", 0.4 + 0.5 * absf(sin(state_t * 22.0)))
+			# squash antisipasi: balik ke ukuran normal begitu strike tiba
+			var wp := clampf(state_t / maxf(windup_t, 0.001), 0.0, 1.0)
+			scale = _base_scale * (1.0 + 0.06 * wp)
 			if state_t <= 0.0:
 				state = "strike"
+				scale = _base_scale
 				if mat != null:
 					var tw := create_tween()
 					tw.tween_property(mat, "shader_parameter/flash", 0.0, 0.1)
