@@ -79,6 +79,8 @@ func smash(from_pos: Vector3) -> void:
 				m.toast("BELL URN — +5 souls and a wisp!")
 		elif void_urn:
 			Stats.souls -= mini(Stats.souls, 2)
+			if m.has_method("_quest_event"):
+				m._quest_event("voidurn")
 			Stats.add_xp(8)
 			if m.has_method("_souls_l"):
 				m._souls_l()
