@@ -83,6 +83,7 @@ const DB := {
 	"oyster_king": {"name": "Oyster King", "chip": "OK", "desc": "Snap Clams never bite you and pay +1 soul when pried", "rarity": 2, "mods": {}},
 	"fog_lantern": {"name": "Fog Lantern", "chip": "FL", "desc": "Rolling Fog rolls twice as long for the dead — and twice as deep", "rarity": 1, "mods": {}},
 	"galley_whip": {"name": "Galley Whip", "chip": "GW", "desc": "Keelhauled foes arrive tenderized — +25% damage taken for 2s", "rarity": 1, "mods": {}},
+	"sextant": {"name": "Dead Reckoning", "chip": "SX", "desc": "Your map reads a room ahead — entering a hall charts the next one too", "rarity": 1, "mods": {}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }

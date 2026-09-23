@@ -7850,6 +7850,9 @@ func _process(delta: float) -> void:
 			current_room = ri
 			if not discovered.has(ri):
 				discovered[ri] = true
+				if Stats.relics.has("sextant") and ri + 1 < info.ranges.size():
+					discovered[ri + 1] = true
+				_update_minimap()
 			_on_room_enter(ri)
 
 		# preview hero ikut muter walau game pause? tidak perlu, layar hero punya sendiri
