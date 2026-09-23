@@ -2191,6 +2191,12 @@ func _on_enemy_died(e) -> void:
 			if gravetide:
 				Stats.souls += 2
 				_souls_l()
+			if ashfall:
+				_ach("ashfall")
+			if bone_chorus:
+				_ach("chorus")
+			if wolfsbane:
+				_ach("wolfsbane")
 			Stats.note_floor()
 			Stats.save_run()
 			for gi in gates:
