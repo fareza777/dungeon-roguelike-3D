@@ -5693,6 +5693,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Lantern Oil — pay 3 souls: hearts and lanterns mend half again this run"},
 			{"text": "Crow's Share — pay 5 souls: every floor you clear pays +1 soul this run"},
 			{"text": "Grave Meal — pay 4 souls: the dead feed you (mend 40% Max HP)"},
+			{"text": "Crow's Feast — pay 4 souls: +20% souls for the rest of this run"},
 		]
 	)
 
@@ -6791,6 +6792,15 @@ func _mahzan_deal(idx: int) -> void:
 				player.hp_changed.emit(player.hp)
 				Sfx.play("shrine")
 				toast("GRAVE MEAL — the dead set your table")
+		28:
+			if Stats.souls < _soul_cost(4):
+				toast("Four souls — the crow eats first")
+			else:
+				Stats.souls -= _soul_cost(4)
+				_souls_l()
+				Stats.soul_gain_pct += 0.2
+				Sfx.play("shrine")
+				toast("CROW'S FEAST — every scrap is yours now (+20% souls)")
 
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
