@@ -59,7 +59,9 @@ const LORE_LINES := [
 	"The Shade was the King's champion duelist. He blinked once too often, and the dark kept him.",
 	"Kael's name is already in the ledger — only the page number is still being written.",
 	"The Golem was every fallen knight at once — it swings with all their weight, and none of their mercy.",
-	"Somewhere below, the Soul Forge still burns for a smith who never came back for his blade."
+	"Somewhere below, the Soul Forge still burns for a smith who never came back for his blade.",
+	"The Wailing Maidens were choir-sisters once. They still sing — only at funerals now.",
+	"Mahzan's ledger has one page he refuses to sell — the one with his own name on it."
 ]
 
 var dungeon_tex: Texture2D
@@ -3025,9 +3027,12 @@ func _forge_deal(idx: int) -> void:
 	else:
 		return
 	_souls_l()
+	Stats.forges_used += 1
 	Stats.save_game()
 	Sfx.play("levelup")
 	toast("%s forged to +%d" % [wname, int(Stats.weapon_lv[wid]) - 1])
+	if Stats.forges_used >= 3:
+		_ach("forge3")
 	if int(Stats.weapon_lv[wid]) >= 6:
 		_ach("forge5")
 	_refresh_buffs()
