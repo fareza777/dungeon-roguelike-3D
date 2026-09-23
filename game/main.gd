@@ -270,6 +270,7 @@ var black_sails := false
 var grim_charter := false
 var martyrs_oath := false
 var slim_pickings := false
+var sworn_hull := false
 var final_verse := false
 var cradle_deep := false
 var undertow := false
@@ -2053,6 +2054,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 	if timber_shiver and not e.is_boss:
 		e.hp *= 0.9
 		e.hp_max = e.hp
+	if sworn_hull and not e.is_boss:
+		e.speed *= 1.1
 	if mire_hollow and not e.is_boss:
 		e.hp *= 1.1
 		e.hp_max = e.hp
@@ -5577,6 +5580,7 @@ func _offer_omens() -> void:
 			{"text": "GRIM CHARTER — elites stalk you +10% more often... but each pays +50% XP"},
 			{"text": "MARTYR'S OATH — you take +10% damage... but every kill mends 1% HP"},
 			{"text": "SLIM PICKINGS — your skills recharge +10% slower... but souls pay +25% more"},
+			{"text": "SWORN HULL — the dead hunt +10% faster... but +1 Armor wraps your bones"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -5620,7 +5624,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 58 if Stats.nemesis != "" else 57
+	var osize := 59 if Stats.nemesis != "" else 58
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -5857,6 +5861,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct += 0.25
 			oname = "SLIM PICKINGS"
 		57:
+			sworn_hull = true
+			Stats.buff_armor += 1
+			oname = "SWORN HULL"
+		58:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -5917,6 +5925,7 @@ func _omen_deal(idx: int) -> void:
 		"LOOSE BALLAST": "A loose hull rolls hard, Kael — you'll feel every blow, but they'll feel the drag too.",
 		"BLACK SAILS": "Fast sails mean fast foes, Kael — but their pockets run heavier for the chase.",
 		"GRIM CHARTER": "The charter calls the captains out, Kael — heavier crowns, richer spoils.",
+		"SWORN HULL": "The hull thickens and the chase quickens — even trade.",
 		"SLIM PICKINGS": "The lean tide still pays, Kael — slower hands, heavier purse.",
 		"MARTYR'S OATH": "Bleed for them and they feed you, Kael — the martyrs' ledger is fair.",
 		"HEIRLOOM": "Someone carried that before you. They are still carrying it, in a way.",
