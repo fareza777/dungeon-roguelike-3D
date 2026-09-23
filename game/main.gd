@@ -102,6 +102,7 @@ var cursed_chest := false
 var storm_cellar := false
 var gilded_tides := false
 var soul_drift := false
+var grave_hunger := false
 var storm_t := 0.0
 var nemesis_spawned := false # musuh yang membunuhmu run lalu — kembali lebih kuat
 var nemesis_warned := false # nemesis story beat — 1だけ
@@ -439,6 +440,11 @@ func _apply_biome() -> void:
 		env.ambient_light_color = Color(0.25, 0.6, 0.5)
 		sun.light_color = Color(0.5, 1.0, 0.85)
 		sun.light_energy = 1.0
+	elif grave_hunger:
+		env.fog_light_color = Color(0.1, 0.09, 0.14)
+		env.ambient_light_color = Color(0.45, 0.4, 0.65)
+		sun.light_color = Color(0.7, 0.6, 1.05)
+		sun.light_energy = 1.05
 
 
 func _style_room() -> void:
@@ -498,6 +504,7 @@ func _new_run(new_seed: int) -> void:
 		Stats.event_soul_bonus = 1
 	# event langka #8: soul drift — nafas orang mati mengembara (lantai 13+): kunang berlimpah
 	soul_drift = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and Stats.floor_num >= 13 and not boss_floor and rng.randf() < 0.05
+	grave_hunger = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and Stats.floor_num >= 15 and not boss_floor and rng.randf() < 0.05
 	storm_t = 4.0
 	nemesis_spawned = false
 	_apply_biome()
@@ -623,6 +630,10 @@ func _new_run(new_seed: int) -> void:
 		_lvl_banner("☆ SOUL DRIFT — THE DEAD'S BREATH WANDERS")
 		toast("Wisps abound • +3 souls on clear")
 		Sfx.play("xp")
+	elif grave_hunger:
+		_lvl_banner("☠ GRAVE HUNGER — THE DEAD LOOSE THEIR SOULS")
+		toast("Kills may release wisps • +2 souls on clear")
+		Sfx.play("roar")
 	elif Stats.floor_num > 1:
 		_lvl_banner("FLOOR %d — %s" % [Stats.floor_num, String(biome["name"]).to_upper()])
 
@@ -1251,10 +1262,14 @@ func _spawn_wisps(last_room: int) -> void:
 	for _wi in range(wcount):
 		var ri := rng.randi_range(1, last_room)
 		var rr: Dictionary = info.ranges[ri]
-		var w := WISP.new()
-		w.setup(info.tile)
-		w.position = Vector3((rr["x0"] + rr["x1"]) * 0.5 + randf_range(-0.8, 0.8) * info.tile, 0.0, (rr["z0"] + rr["z1"]) * 0.5 + randf_range(-0.8, 0.8) * info.tile)
-		room.add_child(w)
+		_spawn_wisp_at(Vector3((rr["x0"] + rr["x1"]) * 0.5 + randf_range(-0.8, 0.8) * info.tile, 0.0, (rr["z0"] + rr["z1"]) * 0.5 + randf_range(-0.8, 0.8) * info.tile))
+
+
+func _spawn_wisp_at(pos: Vector3) -> void:
+	var w := WISP.new()
+	w.setup(info.tile)
+	room.add_child(w)
+	w.global_position = pos
 
 
 func _spawn_vial(pos: Vector3) -> void:
@@ -1446,6 +1461,8 @@ func _on_enemy_died(e) -> void:
 	if e.get("affix") == "hoarded":
 		spawn_weapon_drop(e.global_position, WDB.roll_drop(rng, Stats.weapon_id))
 		_damage_number(e.global_position + Vector3(0, 0.7 * info.tile, 0), "HOARDED!", Color(1.0, 0.85, 0.35), true)
+	if grave_hunger and not e.get("is_boss") and rng.randf() < 0.12:
+		_spawn_wisp_at(e.global_position + Vector3(0, 0.3, 0))
 	# NIGHTMARE affix: elite bangkit sekali pada 40% HP setelah 1.6 detik
 	if e.get("affix") == "nightmare":
 		var npos: Vector3 = e.global_position
@@ -1537,6 +1554,11 @@ func _on_enemy_died(e) -> void:
 				_souls_l()
 				Stats.save_game()
 				toast("☆ DRIFT TITHE — +3 souls")
+			elif grave_hunger:
+				Stats.souls += 2
+				_souls_l()
+				Stats.save_game()
+				toast("☠ HUNGER TITHE — +2 souls")
 			# bonus sapuan kilat: lantai bersih di bawah 90 detik
 			if floor_t < 90.0 and Stats.floor_num > 1:
 				Stats.souls += 2
@@ -4544,6 +4566,8 @@ func _refresh_buffs() -> void:
 		list.append(["★ GILDED", Color(1.0, 0.8, 0.3)])
 	elif soul_drift:
 		list.append(["☆ DRIFT", Color(0.5, 0.95, 0.85)])
+	elif grave_hunger:
+		list.append(["☠ HUNGER", Color(0.75, 0.65, 1.0)])
 	if omen_name != "":
 		list.append(["☗ " + omen_name, Color(0.9, 0.7, 1.0)])
 	if player.get("root_t") != null and player.root_t > 0.0:
