@@ -116,7 +116,9 @@ const LORE_LINES := [
 	"The Bilge Witches sang in the choirs once — the water took their voices and gave back cold.",
 	"A gauntlet floor is the King's way of counting how badly he wants you — answer accordingly.",
 	"The Rust Jaws were smiths once — the dungeon keeps their trade but not their memory.",
-	"When the water kneels, Kael, do not thank it. The sea only bows before it pulls."
+	"When the water kneels, Kael, do not thank it. The sea only bows before it pulls.",
+	"The Heralds were criers once — the salt still announces them, whether they wish it or not.",
+	"Skill comes back like the tide, Kael — the trick is to be standing when it does."
 ]
 
 var dungeon_tex: Texture2D
