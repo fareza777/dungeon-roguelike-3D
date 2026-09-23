@@ -1919,6 +1919,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("duelist_kill")
 	if e.arch_id == "orator":
 		_quest_event("orator_kill")
+	if e.arch_id == "crowned":
+		_quest_event("crowned_kill")
 	if bool(e.get("elite")) and String(e.get("affix")) == "umbral":
 		_quest_event("umbral_kill")
 	if String(e.affix) == "shattered":
