@@ -3472,6 +3472,8 @@ func _soul_cost(n: int) -> int:
 		disc += 1
 	if mahzan_met >= 4:
 		disc += 1
+	if Stats.relics.has("pact_broker"):
+		disc += 1
 	return maxi(1, n - disc)
 
 
