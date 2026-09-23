@@ -330,15 +330,22 @@ func _build_settings() -> void:
 	vb.add_child(ts)
 
 	var ql := Label.new()
-	ql.text = "Kualitas grafis"
+	ql.text = "Graphics quality"
 	ql.add_theme_font_size_override("font_size", 18)
 	ql.modulate = Color(1, 1, 1, 0.7)
 	vb.add_child(ql)
 	var qual_opt := OptionButton.new()
-	qual_opt.add_item("Otomatis", 0)
-	qual_opt.add_item("Hemat (HP kentang)", 1)
-	qual_opt.add_item("Indah", 2)
+	qual_opt.add_item("Auto", 0)
+	qual_opt.add_item("Low", 1)
+	qual_opt.add_item("High", 2)
 	qual_opt.selected = clampi(Stats.quality + 1, 0, 2)
+	qual_opt.add_theme_font_size_override("font_size", 17)
+	var qsb := StyleBoxFlat.new()
+	qsb.bg_color = Color(0.1, 0.09, 0.16, 0.95)
+	qsb.border_color = Color(0.9, 0.75, 0.3, 0.5)
+	qsb.set_border_width_all(2)
+	qsb.set_corner_radius_all(10)
+	qual_opt.add_theme_stylebox_override("normal", qsb)
 	qual_opt.item_selected.connect(func(ix: int) -> void:
 		Stats.quality = ix - 1
 		Stats.save_game()
