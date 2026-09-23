@@ -4190,6 +4190,8 @@ func _hero_equip(wid: String) -> void:
 	Sfx.play("pickup")
 	if Stats.owned_weapons.size() >= 5:
 		_ach("w5")
+	if Stats.owned_weapons.size() >= 8:
+		_ach("w8")
 	_refresh_hero()
 
 
