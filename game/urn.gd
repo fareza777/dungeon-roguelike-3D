@@ -110,6 +110,14 @@ func smash(from_pos: Vector3) -> void:
 			Stats.earn_souls(1)
 		if bool(m.get("urnsworn")) and not dry:
 			Stats.earn_souls(1)
+		if bool(m.get("hungry_urns")):
+			if not dry:
+				Stats.earn_souls(1)
+			var pp := m.get("player")
+			if pp != null and is_instance_valid(pp) and pp.has_method("take_hit"):
+				pp.take_hit(global_position, 1)
+				if m.has_method("toast"):
+					m.toast("THE POT BITES — −1 HP")
 		if m.has_method("_souls_l"):
 			m._souls_l()
 		if randf() < 0.15:
