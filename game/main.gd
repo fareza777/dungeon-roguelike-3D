@@ -2336,10 +2336,10 @@ func _on_enemy_died(e) -> void:
 				Stats.save_game()
 				toast("≈ DROWNED TITHE — +3 souls")
 			elif String(biome.get("name", "")) == "Sunken Reliquary":
-				Stats.souls += 3
+				Stats.souls += 3 + 2 * int(Stats.meta.get("diver", 0))
 				_souls_l()
 				Stats.save_game()
-				toast("♛ COURT TITHE — +3 souls")
+				toast("♛ COURT TITHE — +%d souls" % (3 + 2 * int(Stats.meta.get("diver", 0))))
 			# bonus sapuan kilat: lantai bersih di bawah 90 detik
 			if floor_t < 90.0 and Stats.floor_num > 1:
 				Stats.souls += 2
