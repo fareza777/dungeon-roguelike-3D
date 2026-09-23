@@ -39,7 +39,7 @@ func earn_souls(n: int) -> void:
 	souls += int(ceilf(pay * (1.0 + soul_gain_pct) * (1.0 + 0.04 * float(meta.get("salvor", 0))) * (1.0 + 0.02 * float(meta.get("ferry", 0)))))
 	souls_run += int(ceilf(pay * (1.0 + soul_gain_pct) * (1.0 + 0.04 * float(meta.get("salvor", 0))) * (1.0 + 0.02 * float(meta.get("ferry", 0)))))
 	if souls >= 60:
-		achievements["deeppurse"] = true
+		ach["deeppurse"] = true
 var buff_lifesteal := 0.0 # berkat altar Vampiric: run ini saja
 var buff_maxhp_pct := 0.0 # omen Leeching Vein: pengorbanan Max HP
 var buff_aspd := 0.0 # berkat altar Fury: run ini saja
