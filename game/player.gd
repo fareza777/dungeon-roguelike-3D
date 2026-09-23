@@ -325,6 +325,19 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						f.take_hit(global_position, dmg * 0.4)
 					if mw.has_method("_damage_number"):
 						mw._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "SAWED", Color(1.0, 0.7, 0.3), false)
+		"coral_bludgeon": # REEFING — tiap tebasan ke-5 +8% speed 4s
+			var cb_ := get_tree().current_scene
+			if cb_ != null:
+				cb_.set("net_n", int(cb_.get("net_n")) + 1)
+				if int(cb_.get("net_n")) >= 5:
+					cb_.set("net_n", 0)
+					Stats.buff_speed_pct += 0.08
+					refresh_stats()
+					await get_tree().create_timer(4.0).timeout
+					Stats.buff_speed_pct -= 0.08
+					refresh_stats()
+					if cb_.has_method("_damage_number"):
+						cb_._damage_number(global_position + Vector3(0, 0.8 * room_tile, 0), "REEFING", Color(1.0, 0.65, 0.5), false)
 		"quarterstaff": # SWEEP — tiap tebasan ke-8 mendorong semua musuh dekat
 			var qst := get_tree().current_scene
 			if qst != null:
