@@ -662,7 +662,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0, "riptide": 0.0, "soultithe": 0.0, "anchordrop": 0.0, "soulfall": 0.0, "keelsplit": 0.0, "bloodtide": 0.0, "sealegs": 0.0, "deadreckon": 0.0, "becalm": 0.0, "irontide": 0.0, "dragline": 0.0, "deadlight": 0.0, "broadside": 0.0, "fogsong": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0, "riptide": 0.0, "soultithe": 0.0, "anchordrop": 0.0, "soulfall": 0.0, "keelsplit": 0.0, "bloodtide": 0.0, "sealegs": 0.0, "deadreckon": 0.0, "becalm": 0.0, "irontide": 0.0, "dragline": 0.0, "deadlight": 0.0, "broadside": 0.0, "fogsong": 0.0, "saltbomb": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -4864,6 +4864,25 @@ func _cast_skill(id: String) -> void:
 			Sfx.play("shrine")
 			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "DEAD RECKONING — %d marked" % rkn, Color(0.75, 0.6, 1.0), true)
 			print("SKILL deadreckon marked=%d" % rkn)
+		"saltbomb":
+			Sfx.play("whirl")
+			var sb_ := Vector3(sin(player.rotation.y), 0, cos(player.rotation.y))
+			var sc_ := player.global_position + sb_ * 1.5 * info.tile
+			var sbn := 0
+			for sb2 in get_tree().get_nodes_in_group("enemies"):
+				if sb2.get("state") == "dead" or not bool(sb2.get("activated")):
+					continue
+				if sb2.global_position.distance_to(sc_) < 2.0 * info.tile:
+					if sb2.has_method("take_hit"):
+						sb2.take_hit(player.global_position, Stats.get_stat("atk") * 0.8)
+					sb2.set("slow_t", 3.0)
+					sb2.set("hex_t", 3.0)
+					sbn += 1
+			_burst(sc_ + Vector3(0, 0.5 * info.tile, 0), Color(0.95, 0.9, 0.7))
+			trauma = 0.35
+			_damage_number(sc_ + Vector3(0, 0.9 * info.tile, 0), "SALT BOMB ×%d" % sbn, Color(0.95, 0.9, 0.6), true)
+			if sbn == 0:
+				toast("SALT BOMB — nothing but spray")
 		"fogsong":
 			Sfx.play("whirl")
 			for fg_ in get_tree().get_nodes_in_group("enemies"):
