@@ -308,6 +308,7 @@ func reset_run() -> void:
 	curse_xp = 0.0
 	soul_bonus = 0
 	event_soul_bonus = 0
+	soul_sealed = false
 	relic_burn = 0.0
 	cd_reduction = 0.0
 	current_hp = get_stat("max_hp")

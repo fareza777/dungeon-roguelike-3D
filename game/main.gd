@@ -3511,7 +3511,7 @@ func _curse_deal(idx: int) -> void:
 		toast("BLOOD PRICE — the living stops paying, the blade gets heavier")
 		_burst(player.global_position, Color(0.9, 0.1, 0.15))
 		Sfx.play("roar")
-		_chip("PRICE")
+		_refresh_buffs()
 
 
 func _mahzan_deal(idx: int) -> void:
@@ -5117,6 +5117,8 @@ func _refresh_buffs() -> void:
 		list.append(["▲ GIANT", Color(1.0, 0.7, 0.4)])
 	elif shrouded:
 		list.append(["◈ SHROUD", Color(0.55, 0.6, 0.7)])
+	if Stats.soul_sealed:
+		list.append(["PRICE", Color(0.9, 0.2, 0.25)])
 	if omen_name != "":
 		list.append(["☗ " + omen_name, Color(0.9, 0.7, 1.0)])
 	if player.get("root_t") != null and player.root_t > 0.0:
