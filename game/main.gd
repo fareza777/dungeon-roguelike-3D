@@ -457,10 +457,26 @@ func _set_room_gates(ri: int, open: bool) -> void:
 					_burst(g.global_position + Vector3(0, 0.2, 0), Color(0.7, 0.65, 0.6))
 
 
+const WHISPERS := [
+	"He knows your name, Kael. He has always known.",
+	"The bones here once served a kinder crown.",
+	"Don't linger — the dark takes interest.",
+	"Somewhere below, his throne is listening.",
+	"Spirits mark you, warrior. Even Mahzan noticed.",
+	"You bleed and they remember — every drop.",
+	"A hero once died at that very spot.",
+	"His patience thins with every room you clear.",
+]
+
+
 func _on_room_enter(ri: int) -> void:
 	for e in get_tree().get_nodes_in_group("enemies"):
 		e.activated = e.room_idx == ri
 	_quest_event("reach_room", ri)
+	# bisikan Oracle: atmosfer ambient di ruangan yang hidup (bukan lantai bos)
+	if Stats.floor_num >= 2 and not QDB.is_boss_floor(Stats.floor_num) and ri > 0 and _room_alive(ri) > 0 and rng.randf() < 0.14 and player != null:
+		Sfx.play("page")
+		_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), WHISPERS[rng.randi_range(0, WHISPERS.size() - 1)], Color(0.55, 1.0, 0.75), true)
 	if boss_ref != null and is_instance_valid(boss_ref) and boss_ref.activated:
 		Sfx.play("roar")
 		Sfx.play_music("boss")
