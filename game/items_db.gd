@@ -58,6 +58,7 @@ const DB := {
 	"second_wind": {"name": "Second Wind", "chip": "SW", "desc": "Clearing a floor mends 20% Max HP", "rarity": 1, "mods": {}},
 	"echo_strike": {"name": "Echo Strike", "chip": "ES", "desc": "Every 4th hit lands twice", "rarity": 2, "mods": {}},
 	"pact_broker": {"name": "Pact Broker", "chip": "PB", "desc": "All soul prices -1", "rarity": 1, "mods": {}},
+	"kings_ledger": {"name": "King's Ledger", "chip": "KL", "desc": "Every elite slain pays +2 souls", "rarity": 1, "mods": {}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }

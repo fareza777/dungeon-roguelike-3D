@@ -2363,6 +2363,10 @@ func _on_enemy_died(e) -> void:
 		_damage_number(e.global_position + Vector3(0, 0.9 * info.tile, 0), "COURT'S HOARD — +4 souls", Color(0.5, 0.95, 0.85), true)
 	if e.elite:
 		_quest_event("elite_kill", 1)
+		if Stats.relics.has("kings_ledger"):
+			Stats.souls += 2
+			_souls_l()
+			_damage_number(e.global_position + Vector3(0, 1.1 * info.tile, 0), "LEDGER +2", Color(0.5, 0.95, 0.85), false)
 		if not e.is_boss:
 			Engine.time_scale = 0.45
 			get_tree().create_timer(0.18, true, false, true).timeout.connect(func() -> void: Engine.time_scale = 1.0)
