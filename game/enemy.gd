@@ -67,6 +67,8 @@ var golden := false
 var nemesis := false
 var is_lurker := false
 var orator := false
+var warlock := false
+var war_t := 5.0
 var healer := false
 var heal_t := 4.0
 var crowned := false
@@ -172,6 +174,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	is_spiky = bool(a.get("spiky", false))
 	is_lurker = bool(a.get("lurks", false))
 	orator = bool(a.get("orator", false))
+	warlock = bool(a.get("warlock", false))
 	healer = bool(a.get("healer", false))
 	crowned = bool(a.get("crowned", false))
 	tither = bool(a.get("tither", false))
@@ -517,6 +520,11 @@ func _physics_process(delta: float) -> void:
 		if heal_t <= 0.0:
 			heal_t = 4.5
 			_jack_pulse()
+	if warlock and activated:
+		war_t -= delta
+		if war_t <= 0.0:
+			war_t = 5.0
+			_caller_pulse()
 	if is_warper and activated:
 		warp_t -= delta
 		if warp_t <= 0.0:
@@ -995,6 +1003,23 @@ func _jack_pulse() -> void:
 		if int(e3.get("room_idx")) != room_idx:
 			continue
 		e3.hp = minf(float(e3.hp) + 1.0, float(e3.hp_max))
+
+
+func _caller_pulse() -> void:
+	# karang pemanggil: setiap denyut memberi sekutu ruangan +1 dmg (hingga +4)
+	var mw := get_tree().current_scene
+	if mw != null and mw.has_method("_burst"):
+		mw._burst(global_position + Vector3(0, 0.6 * room_tile, 0), Color(0.95, 0.5, 0.3))
+	if mw != null and mw.has_method("_damage_number"):
+		mw._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "CALL OF THE REEF", Color(0.95, 0.6, 0.35), false)
+	Sfx.play("shrine")
+	for e4 in get_tree().get_nodes_in_group("enemies"):
+		if e4 == self or not is_instance_valid(e4) or String(e4.get("state")) == "dead":
+			continue
+		if int(e4.get("room_idx")) != room_idx:
+			continue
+		if int(e4.get("dmg")) < int(e4.get("dmg_max")):
+			e4.set("dmg", int(e4.get("dmg")) + 1)
 
 
 func _orator_pulse() -> void:

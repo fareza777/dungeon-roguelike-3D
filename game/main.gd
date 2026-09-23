@@ -428,6 +428,7 @@ const BESTIARY := {
 	"salt_herald": ["The Salt Herald", "A swollen mound of brine-bone — cut it down and the salt spawns its get."],
 	"hull_widow": ["The Hull Widow", "She weaves the deck into a snare — her bite roots your feet where you stand."],
 	"deck_gunner": ["The Deck Gunner", "A powder-skeleton with twin-loaded sinews — two shots come, never one."],
+	"reef_caller": ["The Reef Caller", "A singing lump of living coral — each pulse makes the dead hit harder. Silence it first."],
 	"mireling": ["The Mireling", "A marsh rat grown fat on drowned men's boots — its nip chills the blood."],
 	"saltghast": ["The Saltghast", "A ghost blown through with sea-salt — it blinks to your blind side and pours a soul out when felled."],
 	"waver": ["The Waver", "A bloated tide-priest — its bolt numbs your arm and your swing goes soft."],
@@ -446,7 +447,7 @@ const VANE_BIOME := {
 const KILLER_NAMES := {
 	"chaser": "a Skeleton Chaser", "rogue": "a Shadow Rogue", "mage": "a Bone Mage",
 	"brute": "a Bone Brute", "bomber": "a Boom Bones", "archer": "a Skeletal Archer",
-	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade", "hexer": "the Hex Priest", "spiker": "a Spiked Cadaver", "lurker": "the Dweller", "golem": "the Bone Golem", "maiden": "the Wailing Maiden", "revenant": "the Revenant", "shieldbearer": "the Shieldbearer", "herald": "the Herald", "batterer": "the Batterer", "duelist": "the Pale Duelist", "hound": "a Bone Hound", "moth": "a Soul Moth", "orator": "the Grave Orator", "crowned": "the Crowned", "tither": "the Tithing", "digger": "the Gravedigger", "drowned": "the Drowned One", "keelhound": "a Keelhound", "maw": "a Barnacle Maw", "siren": "the Void Siren", "gargoyle": "a Pearl Gargoyle", "mireling": "a Mireling", "saltghast": "a Saltghast", "waver": "a Waver", "keelbeak": "a Keelbeak", "bilge_witch": "a Bilge Witch", "rust_jaw": "a Rust Jaw", "salt_herald": "a Salt Herald", "hull_widow": "a Hull Widow", "deck_gunner": "a Deck Gunner",
+	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade", "hexer": "the Hex Priest", "spiker": "a Spiked Cadaver", "lurker": "the Dweller", "golem": "the Bone Golem", "maiden": "the Wailing Maiden", "revenant": "the Revenant", "shieldbearer": "the Shieldbearer", "herald": "the Herald", "batterer": "the Batterer", "duelist": "the Pale Duelist", "hound": "a Bone Hound", "moth": "a Soul Moth", "orator": "the Grave Orator", "crowned": "the Crowned", "tither": "the Tithing", "digger": "the Gravedigger", "drowned": "the Drowned One", "keelhound": "a Keelhound", "maw": "a Barnacle Maw", "siren": "the Void Siren", "gargoyle": "a Pearl Gargoyle", "mireling": "a Mireling", "saltghast": "a Saltghast", "waver": "a Waver", "keelbeak": "a Keelbeak", "bilge_witch": "a Bilge Witch", "rust_jaw": "a Rust Jaw", "salt_herald": "a Salt Herald", "hull_widow": "a Hull Widow", "deck_gunner": "a Deck Gunner", "reef_caller": "a Reef Caller",
 	"bone_king": "the King himself", "trap": "a hidden trap", "": "the dungeon itself"}
 const KILLER_TIPS := {
 	"chaser": "Tip: chasers are slow — kite them into a corner and cleave.",
@@ -486,6 +487,7 @@ const KILLER_TIPS := {
 	"keelbeak": "Tip: Keelbeaks hop back after every peck — strike where they land.",
 	"rust_jaw": "Tip: Rust Jaw bites corrode your blade — your strikes land softer for a breath. Space them.",
 	"deck_gunner": "Tip: the Gunner fires twice in a breath — sidestep the second shot, not just the first.",
+	"reef_caller": "Tip: each Reef Caller's song sharpens every blade in the room — silence it before the chorus swells.",
 	"hull_widow": "Tip: the Widow's webs root your feet — dash the moment she spits, or cut her down at range.",
 	"salt_herald": "Tip: Salt Heralds split when slain — keep a swing ready for the mirelings inside.",
 	"mireling": "Tip: Mirelings are quick — dash through them, don't fence them.",
@@ -3007,6 +3009,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("gunner_kill")
 	if e.arch_id == "lantern_jack":
 		_quest_event("jack_kill")
+	if e.arch_id == "reef_caller":
+		_quest_event("caller_kill")
 	if e.arch_id == "salt_herald":
 		var sri := int(e.get("room_idx"))
 		for sp_off in [Vector3(0.4, 0, 0), Vector3(-0.4, 0, 0)]:
