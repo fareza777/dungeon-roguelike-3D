@@ -1440,6 +1440,11 @@ func _on_boss_died(_e) -> void:
 	boss_ref = null
 	Stats.boss_kills += 1
 	Stats.souls += 15
+	if Stats.nemesis == "bone_king":
+		Stats.nemesis = ""
+		Stats.nemesis_name = ""
+		Stats.souls += 10
+		_lvl_banner("◆ NEMESIS SLAIN — the King's debt is paid (+10 souls)")
 	_souls_l()
 	Stats.save_game()
 	Sfx.play("victory")
@@ -2811,10 +2816,13 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 		]
 	elif boss_floor:
 		var tier := _boss_tier()
+		var tline: String = String(tier["taunt"])
+		if Stats.nemesis == "bone_king":
+			tline = "I'VE ALREADY SPLIT YOUR SKULL ONCE, LITTLE THING. The throne remembers."
 		lines = [
 			{"who": "oracle", "text": String(tier["warn"])},
 			{"who": "kael", "text": "Then he's dying again."},
-			{"who": "raja", "text": String(tier["taunt"])},
+			{"who": "raja", "text": tline},
 		]
 		if knight_ref != null and is_instance_valid(knight_ref):
 			lines.append({"who": "knight", "text": "That crown has my name's dust on it, boy. Let me help you shake it loose."})
