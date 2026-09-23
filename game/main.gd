@@ -3108,6 +3108,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Kismet Thread — pay 8 souls: +1 reroll on every draft"},
 			{"text": "Pale Pawn — pay 6 souls: +30% XP this run"},
 			{"text": "Bone Lottery — pay 5 souls: a random blade from the hoard"},
+			{"text": "Fool's Trove — pay 3 souls: a trinket, fair or foul"},
 		]
 	)
 
@@ -3370,6 +3371,24 @@ func _mahzan_deal(idx: int) -> void:
 					Stats.save_game()
 					Sfx.play("levelup")
 					toast("Bone Lottery pays out — %s" % String(WDB.get_w(nid)["name"]))
+		10:
+			if Stats.souls < 3:
+				toast("Mahzan demands three souls — you lack the coin")
+			else:
+				var tpool: Array = []
+				for rid9 in ITEMS.DB:
+					if int(ITEMS.DB[rid9]["rarity"]) <= 1 and not Stats.relics.has(rid9):
+						tpool.append(rid9)
+				if tpool.is_empty():
+					toast("His trove is picked clean — your souls return")
+				else:
+					Stats.souls -= 3
+					_souls_l()
+					var rid10: String = String(tpool[rng.randi() % tpool.size()])
+					Stats.add_relic(rid10)
+					Stats.save_game()
+					Sfx.play("shrine")
+					toast("Fool's Trove — " + String(ITEMS.DB[rid10]["name"]))
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
 		player.refresh_stats()
