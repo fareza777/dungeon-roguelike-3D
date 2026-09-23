@@ -129,7 +129,8 @@ func _physics_process(delta: float) -> void:
 		hp -= delta * 0.6
 		hp_changed.emit(hp)
 		if hp <= 0.0:
-			die()
+			dead = true
+			died.emit()
 	var spd_eff: float = speed * (0.55 if chill_t > 0.0 else 1.0) * (0.0 if root_t > 0.0 else 1.0)
 	if dash_t > 0.0:
 		dash_t -= delta
