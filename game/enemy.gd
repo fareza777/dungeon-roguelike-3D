@@ -74,6 +74,7 @@ var bride := false
 var cantor := false
 var husk := false
 var fanatic := false
+var brood := false
 var husk_shell := false
 var cantor_t := 6.5
 var bride_t := 5.5
@@ -192,6 +193,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	husk = bool(a.get("husk", false))
 	husk_shell = husk
 	fanatic = bool(a.get("fanatic", false))
+	brood = bool(a.get("brood", false))
 	healer = bool(a.get("healer", false))
 	crowned = bool(a.get("crowned", false))
 	tither = bool(a.get("tither", false))
