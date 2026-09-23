@@ -174,6 +174,7 @@ var abyssal_patience := false
 var umbral_tide := false
 var moonwrit := false
 var crown_oath := false
+var pinch_n := 0
 var tide_kills := 0
 var reliquary_wisps := 0
 var omen_refusals := 0
@@ -774,6 +775,7 @@ func _new_run(new_seed: int) -> void:
 	pool_positions.clear()
 	pool_healed = 0.0
 	keelh_floor = 0
+	pinch_n = 0
 	pool_touched = false
 	pray_t = 0.0
 	prayed = false
@@ -3838,6 +3840,10 @@ func _quest_event(kind: String, num: int = 1) -> void:
 		Stats.wisps_caught += num
 		if Stats.wisps_caught >= 8:
 			_ach("wisp8")
+	if kind == "pinch":
+		pinch_n += num
+		if pinch_n >= 3:
+			_ach("pinch3")
 	if kind != "reach_room":
 		quest_counts[kind] = int(quest_counts.get(kind, 0)) + num
 	if quest_idx >= quest_steps.size():
