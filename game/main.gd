@@ -1046,10 +1046,37 @@ func _refresh_hero() -> void:
 
 func _on_hit_landed(pos: Vector3, dmg: float, crit: bool) -> void:
 	trauma = 0.65 if crit else 0.5
+	_hit_spark(pos, crit)
 	_damage_number(pos, str(int(round(dmg))), Color(1.0, 0.5, 0.15) if crit else Color(1.0, 0.85, 0.3), crit)
 	Engine.time_scale = 0.08
 	await get_tree().create_timer(0.09 if crit else 0.05, true, false, true).timeout
 	Engine.time_scale = 1.0
+
+
+func _hit_spark(pos: Vector3, crit: bool) -> void:
+	var sm := SphereMesh.new()
+	sm.radial_segments = 6
+	sm.rings = 4
+	sm.radius = 0.12 * info.tile * (1.6 if crit else 1.0)
+	sm.height = sm.radius * 2.0
+	var mt := StandardMaterial3D.new()
+	mt.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	mt.albedo_color = Color(1.0, 0.65, 0.2, 0.9) if crit else Color(1.0, 0.95, 0.7, 0.8)
+	mt.emission_enabled = true
+	mt.emission = mt.albedo_color
+	mt.emission_energy_multiplier = 3.0
+	mt.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	var m := MeshInstance3D.new()
+	m.mesh = sm
+	m.material_override = mt
+	add_child(m)
+	m.global_position = pos + Vector3(0, 0.5 * info.tile, 0)
+	var tw := m.create_tween()
+	tw.set_parallel(true)
+	tw.tween_property(m, "scale", Vector3(1.7, 1.7, 1.7), 0.12)
+	tw.tween_property(mt, "albedo_color:a", 0.0, 0.14)
+	tw.set_parallel(false)
+	tw.tween_callback(m.queue_free)
 
 
 func _damage_number(pos: Vector3, txt: String, col: Color, big := false) -> void:
@@ -2113,6 +2140,7 @@ func _process(delta: float) -> void:
 					mimic_pending = false
 					Sfx.play("mimic")
 					trauma = 0.8
+					_burst(info.chest.global_position, Color(1.0, 0.35, 0.2))
 					toast("PETI PALSU! Itu bergerak!")
 					for mk in range(2):
 						var off := Vector3((mk - 0.5) * 0.9 * info.tile, 0, 0.7 * info.tile)
@@ -2122,6 +2150,9 @@ func _process(delta: float) -> void:
 					player.hp_changed.emit(player.hp)
 					Stats.add_xp(3)
 					Sfx.play("chest")
+					_burst(info.chest.global_position, Color(1.0, 0.85, 0.3))
+					_souls(info.chest.global_position, 8, Color(1.0, 0.8, 0.35))
+					M.paint(info.chest, M.toon(dungeon_tex, Color(0.45, 0.4, 0.32), 0.1))
 					toast("Peti Harta: HP pulih penuh, +3 XP")
 
 	if player != null and is_instance_valid(player) and cam != null:
