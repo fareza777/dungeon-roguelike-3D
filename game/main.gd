@@ -301,7 +301,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -2204,6 +2204,25 @@ func _cast_skill(id: String) -> void:
 			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "SEISMIC! ×%d" % hit, Color(1.0, 0.7, 0.3), true)
 			_quest_event("seismic")
 			print("SKILL seismic hit=%d" % hit)
+		"kingsfall":
+			Sfx.play("thunder")
+			var dmgk := Stats.get_stat("atk") * 3.0
+			var hits := 0
+			for f in get_tree().get_nodes_in_group("enemies"):
+				if f.get("state") == "dead" or not bool(f.get("activated")):
+					continue
+				var d := dmgk
+				if bool(f.get("is_boss")):
+					d *= 1.5
+				f.take_hit(player.global_position, d)
+				_burst(f.global_position + Vector3(0, 0.5 * info.tile, 0), Color(1.0, 0.85, 0.4))
+				hits += 1
+			_shock_ring(player.global_position)
+			_shock_ring(player.global_position + Vector3(0, 0.3 * info.tile, 0))
+			trauma = 1.0
+			_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), "KINGSFALL! ×%d" % hits, Color(1.0, 0.85, 0.35), true)
+			_quest_event("kingsfall")
+			print("SKILL kingsfall hits=%d" % hits)
 		"rites":
 			Sfx.play("roar")
 			var dmgr := Stats.get_stat("atk")

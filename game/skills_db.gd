@@ -43,13 +43,14 @@ const DB := {
 		"desc": "Her thread closes wounds: restore 2 HP and shake off chill and chains.",
 	},
 	"seismic": {"name": "Seismic Slam", "short": "SEIS", "cd": 30.0, "unlock": 23, "desc": "Slam the dungeon floor — nearby foes take 1.8x ATK and are stunned."},
+	"kingsfall": {"name": "Kingsfall", "short": "KING", "cd": 45.0, "unlock": 25, "desc": "Bring down the crown — 3x ATK to all awake foes; bosses take half again."},
 	"rites": {
 		"name": "Reaper's Toll", "short": "TOLL", "cd": 34.0, "unlock": 21,
 		"desc": "Ring the toll: awake foes below 25% HP die outright; the rest take 1x ATK.",
 	},
 }
 
-const ORDER := ["dash", "whirl", "thunder", "warcry", "nova", "judge", "sunder", "chains", "storm", "mend", "rites", "seismic"]
+const ORDER := ["dash", "whirl", "thunder", "warcry", "nova", "judge", "sunder", "chains", "storm", "mend", "rites", "seismic", "kingsfall"]
 
 
 static func get_s(id: String) -> Dictionary:
