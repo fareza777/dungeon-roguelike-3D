@@ -4517,6 +4517,9 @@ func _on_dlg_choice(idx: int) -> void:
 			if squire_ref != null and is_instance_valid(squire_ref):
 				squire_ref.dmg *= 1.2
 			toast("Bosun's Mark: your crew swings a fifth harder")
+		26:
+			Stats.buff_xp_pct += 0.15
+			toast("Wake Runner: the deep fills your lungs — +15% XP")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -6115,6 +6118,8 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Undertow Grip — your pulls reach half again as far"},
 			{"text": "Lookout — the first sight of each foe kind pays +1 soul"},
 			{"text": "Ironwood Hull — +1 Armor, −5% speed"},
+			{"text": "Bosun's Mark — your crew swings a fifth harder"},
+			{"text": "Wake Runner — +15% XP this run"},
 		]
 	)
 
