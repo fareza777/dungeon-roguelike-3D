@@ -201,6 +201,7 @@ var disarm_run := 0
 var events_run := {}
 var riptide_n := 0
 var steps_done_run := 0
+var urns_run := 0
 var shellshield_used := false
 var tithe_armor := 0.0
 var tide_kills := 0
