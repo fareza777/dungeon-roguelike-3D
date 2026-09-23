@@ -797,14 +797,14 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 			banter_75 = true
 			if mb != null and mb.has_method("_boss_banter"):
 				mb._boss_banter(0)
-		elif not banter_25 and frac <= 0.25:
-			banter_25 = true
-			if mb != null and mb.has_method("_boss_banter"):
-				mb._boss_banter(1)
 		elif not banter_10 and frac <= 0.1:
 			banter_10 = true
 			if mb != null and mb.has_method("_boss_banter"):
 				mb._boss_banter(2)
+		elif not banter_25 and frac <= 0.25:
+			banter_25 = true
+			if mb != null and mb.has_method("_boss_banter"):
+				mb._boss_banter(1)
 	var away: Vector3 = global_position - from_pos
 	away.y = 0
 	kb = away.normalized() * room_tile * 1.4 * (1.0 - kb_resist)
