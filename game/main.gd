@@ -3721,6 +3721,7 @@ func _offer_omens() -> void:
 			{"text": "SPITEFUL — each of your kills wounds a nearby foe for 1 HP"},
 			{"text": "KAEL'S WAGER — every soul is doubled... but you live on a single drop of blood"},
 			{"text": "GRAVETIDE — +2 souls at every floor's end, but the dead grow +10% tougher"},
+			{"text": "MARROW PACT — fortify: +2 armor... but your blood thins (−2 Max HP)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -3753,7 +3754,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 27 if Stats.nemesis != "" else 26
+	var osize := 28 if Stats.nemesis != "" else 27
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -3877,6 +3878,10 @@ func _omen_deal(idx: int) -> void:
 			omen_hp_mult += 0.1
 			oname = "GRAVETIDE"
 		26:
+			Stats.buff_armor += 2
+			Stats.buff_maxhp_pct -= 0.2
+			oname = "MARROW PACT"
+		27:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -3927,6 +3932,7 @@ func _omen_deal(idx: int) -> void:
 		"SPITEFUL": "Your hate is contagious, Kael. The dead will share it.",
 		"KAEL'S WAGER": "A king's ransom on a single heartbeat. Even the Oracle holds her breath.",
 		"GRAVETIDE": "The tide comes in for you, Kael — and everything it carries is hungry.",
+		"MARROW PACT": "Bone will have to do what blood cannot. The King respects a thrifty heart.",
 		"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 	}
 	var rline: String = String(reacts.get(oname, "An oath is an oath."))
