@@ -88,6 +88,7 @@ var hookshot := false
 var eel := false
 var slow_immune := false
 var fey := false
+var sawblade := false
 var fey_t := 2.0
 var eel_t := 0.0
 var eel_dash_t := 0.0
@@ -221,6 +222,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	warden_bell = bool(a.get("warden_bell", false))
 	hookshot = bool(a.get("hookshot", false))
 	eel = bool(a.get("eel", false))
+	sawblade = bool(a.get("sawblade", false))
 	healer = bool(a.get("healer", false))
 	crowned = bool(a.get("crowned", false))
 	tither = bool(a.get("tither", false))
@@ -968,6 +970,8 @@ func _physics_process(delta: float) -> void:
 									p.set("weak_t", 3.0)
 								if affix == "drowning" and q == p:
 									p.set("chill_t", 2.0)
+								if sawblade and q == p:
+									p.set("rust_t", 4.0)
 								if affix == "tarred" and q == p:
 									p.set("chill_t", maxf(float(p.get("chill_t")), 1.5))
 								if leech and q == p:

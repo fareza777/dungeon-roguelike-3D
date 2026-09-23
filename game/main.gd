@@ -531,6 +531,7 @@ const BESTIARY := {
 	"bell_warden": ["The Bell Warden", "He keeps the drowned bells — every toll chills the blood in your legs."],
 	"hookfin": ["The Hookfin", "A spear-fisher of the flooded decks — his barb drags you onto his friends' blades."],
 	"wrack_eel": ["The Wrack Eel", "A lash of cold muscle — it strikes across the room in a blink."],
+	"rust_saw": ["The Rust Saw", "A blade gone to rot and tetanus — its wounds fester long after the cut."],
 	"mireling": ["The Mireling", "A marsh rat grown fat on drowned men's boots — its nip chills the blood."],
 	"saltghast": ["The Saltghast", "A ghost blown through with sea-salt — it blinks to your blind side and pours a soul out when felled."],
 	"waver": ["The Waver", "A bloated tide-priest — its bolt numbs your arm and your swing goes soft."],
@@ -549,7 +550,7 @@ const VANE_BIOME := {
 const KILLER_NAMES := {
 	"chaser": "a Skeleton Chaser", "rogue": "a Shadow Rogue", "mage": "a Bone Mage",
 	"brute": "a Bone Brute", "bomber": "a Boom Bones", "archer": "a Skeletal Archer",
-	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade", "hexer": "the Hex Priest", "spiker": "a Spiked Cadaver", "lurker": "the Dweller", "golem": "the Bone Golem", "maiden": "the Wailing Maiden", "revenant": "the Revenant", "shieldbearer": "the Shieldbearer", "herald": "the Herald", "batterer": "the Batterer", "duelist": "the Pale Duelist", "hound": "a Bone Hound", "moth": "a Soul Moth", "orator": "the Grave Orator", "crowned": "the Crowned", "tither": "the Tithing", "digger": "the Gravedigger", "drowned": "the Drowned One", "keelhound": "a Keelhound", "maw": "a Barnacle Maw", "siren": "the Void Siren", "gargoyle": "a Pearl Gargoyle", "mireling": "a Mireling", "saltghast": "a Saltghast", "waver": "a Waver", "keelbeak": "a Keelbeak", "bilge_witch": "a Bilge Witch", "rust_jaw": "a Rust Jaw", "salt_herald": "a Salt Herald", "hull_widow": "a Hull Widow", "deck_gunner": "a Deck Gunner", "reef_caller": "a Reef Caller", "chum_gnawer": "a Chum Gnawer", "rotting_bride": "a Rotting Bride", "salt_cantor": "a Salt Cantor", "kelter_husk": "a Kelter Husk", "deck_brood": "a Deck Brood", "rust_fanatic": "a Rust Fanatic", "chimehead": "a Chimehead", "bilge_sprite": "a Bilge Sprite", "salt_leech": "a Salt Leech", "gutter_chaplain": "a Gutter Chaplain", "bell_warden": "a Bell Warden", "hookfin": "a Hookfin", "wrack_eel": "a Wrack Eel",
+	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade", "hexer": "the Hex Priest", "spiker": "a Spiked Cadaver", "lurker": "the Dweller", "golem": "the Bone Golem", "maiden": "the Wailing Maiden", "revenant": "the Revenant", "shieldbearer": "the Shieldbearer", "herald": "the Herald", "batterer": "the Batterer", "duelist": "the Pale Duelist", "hound": "a Bone Hound", "moth": "a Soul Moth", "orator": "the Grave Orator", "crowned": "the Crowned", "tither": "the Tithing", "digger": "the Gravedigger", "drowned": "the Drowned One", "keelhound": "a Keelhound", "maw": "a Barnacle Maw", "siren": "the Void Siren", "gargoyle": "a Pearl Gargoyle", "mireling": "a Mireling", "saltghast": "a Saltghast", "waver": "a Waver", "keelbeak": "a Keelbeak", "bilge_witch": "a Bilge Witch", "rust_jaw": "a Rust Jaw", "salt_herald": "a Salt Herald", "hull_widow": "a Hull Widow", "deck_gunner": "a Deck Gunner", "reef_caller": "a Reef Caller", "chum_gnawer": "a Chum Gnawer", "rotting_bride": "a Rotting Bride", "salt_cantor": "a Salt Cantor", "kelter_husk": "a Kelter Husk", "deck_brood": "a Deck Brood", "rust_fanatic": "a Rust Fanatic", "chimehead": "a Chimehead", "bilge_sprite": "a Bilge Sprite", "salt_leech": "a Salt Leech", "gutter_chaplain": "a Gutter Chaplain", "bell_warden": "a Bell Warden", "hookfin": "a Hookfin", "wrack_eel": "a Wrack Eel", "rust_saw": "a Rust Saw",
 	"bone_king": "the King himself", "trap": "a hidden trap", "": "the dungeon itself"}
 const KILLER_TIPS := {
 	"chaser": "Tip: chasers are slow — kite them into a corner and cleave.",
@@ -603,6 +604,7 @@ const KILLER_TIPS := {
 	"bell_warden": "Tip: the Bell Warden's toll chills your legs at range — close fast or keep your distance.",
 	"hookfin": "Tip: the Hookfin's harpoon hauls you into the melee — sidestep the barb.",
 	"wrack_eel": "Tip: the Wrack Eel coils then lunges across the deck — keep circling, never back-pedal.",
+	"rust_saw": "Tip: the Rust Saw's blade leaves rot in the wound — end the fight fast or bleed rust.",
 	"hull_widow": "Tip: the Widow's webs root your feet — dash the moment she spits, or cut her down at range.",
 	"salt_herald": "Tip: Salt Heralds split when slain — keep a swing ready for the mirelings inside.",
 	"mireling": "Tip: Mirelings are quick — dash through them, don't fence them.",
@@ -3525,6 +3527,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("hookfin_kill")
 	if e.arch_id == "wrack_eel":
 		_quest_event("eel_kill")
+	if e.arch_id == "rust_saw":
+		_quest_event("saw_kill")
 	if e.arch_id == "chum_gnawer":
 		_quest_event("gnawer_kill")
 	if e.arch_id == "salt_herald":
