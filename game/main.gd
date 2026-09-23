@@ -5402,6 +5402,8 @@ func _omen_deal(idx: int) -> void:
 		_ach("doubloath")
 	if omen_count >= 8:
 		_ach("oathkeeper")
+	if Stats.oaths_sworn >= 25:
+		_ach("quarteroath")
 	Sfx.play("shrine")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
