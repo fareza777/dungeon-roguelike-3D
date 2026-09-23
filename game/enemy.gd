@@ -31,6 +31,7 @@ var kb_resist := 0.0
 var dmg_reduce := 0.0
 var tidal_t := 0.0
 var was_low := false
+var fs_hit := false
 var speed := 4.0
 var dmg := 1
 var windup_t := 0.45

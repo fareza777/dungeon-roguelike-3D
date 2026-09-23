@@ -197,6 +197,9 @@ func _strike() -> void:
 		if to.length() < reach and facing.dot(to.normalized()) > 0.3:
 			var dmg: float = Stats.get_stat("atk") * (1.0 + Stats.buff_atk_pct)
 			var crit := randf() < Stats.get_stat("crit")
+			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
+				crit = true
+				f.set("fs_hit", true)
 			if crit:
 				dmg *= 2.0
 			if Stats.weapon_id == "war_blade" and f.hp < f.hp_max * 0.35:
