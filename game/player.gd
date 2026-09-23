@@ -237,6 +237,8 @@ func _strike() -> void:
 				dmg *= 2.0
 			if Stats.weapon_id == "war_blade" and f.hp < f.hp_max * 0.35:
 				dmg *= 1.5
+			if Stats.weapon_id == "hullbreaker" and f.hp >= f.hp_max * 0.95:
+				dmg *= 1.25
 			f.take_hit(global_position, dmg)
 			hit_n += 1
 			if Stats.relics.has("echo_strike") and hit_n % 4 == 0:
