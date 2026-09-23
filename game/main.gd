@@ -643,6 +643,7 @@ func _reset_run_state() -> void:
 	legion_omen = false
 	wolf_omen = false
 	wolf_n = 0
+	shrine_count = 0
 	ashborn = false
 	lonecrown = false
 	lc_delta = 0.0
@@ -752,7 +753,6 @@ func _new_run(new_seed: int) -> void:
 	boss_ref = null
 	shrine_ref = null
 	shrine_used = false
-	shrine_count = 0
 	chest_opened = false
 	mimic_pending = Stats.floor_num >= 2 and rng.randf() < 0.35
 	# peti berlapis emas (12%, lantai 4+, bukan mimic): berisi relic langka+
