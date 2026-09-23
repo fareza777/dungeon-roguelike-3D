@@ -568,6 +568,7 @@ var rampage_t := -9.0
 var mimic_pending := false
 var shrine_used := false
 var shrine_count := 0
+var blessings_run := 0
 var urn_count := 0
 var salvage_ct := 0
 var keelh_floor := 0
@@ -939,6 +940,7 @@ func _reset_run_state() -> void:
 	wolf_omen = false
 	wolf_n = 0
 	shrine_count = 0
+	blessings_run = 0
 	urn_count = 0
 	_biomes_run = {}
 	salvage_ct = 0
@@ -5234,6 +5236,9 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_aspd += 0.12
 			Stats.buff_speed_pct += 0.08
 			toast("Storm-eye: the gale moves through you — +12% attack speed, +8% speed this run")
+	blessings_run += 1
+	if blessings_run >= 5:
+		_ach("bless5")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))

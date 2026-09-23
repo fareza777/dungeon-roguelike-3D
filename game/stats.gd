@@ -137,6 +137,7 @@ const ACH_DEF := {
 	"smith3": "Master Smith (forged blades at 3 Soul Forges)",
 	"bounty1": "Contract Killer (claimed a Bounty Stone relic)",
 	"ng2": "Twice-Crowned (reached NG+2)", "ng4": "Ever-Drowning (reached NG+4)", "ng7": "Grave's Delver (reached NG+7)",
+	"bless5": "Favored of the Deep (5 blessings in one run)",
 	"lore30": "Deep Chronicler (read 30 dungeon whispers)",
 	"lore32": "Archivist (heard every whispered line)",
 	"col10": "Collector (carried 10 relics in one run)",
