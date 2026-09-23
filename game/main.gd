@@ -1085,6 +1085,10 @@ func _new_run(new_seed: int) -> void:
 		_lvl_banner("☗ CHOIR BELOW — TEN THOUSAND VOICES")
 		toast("The drowned choir rehearses • enemy shots fly 40% faster")
 		Sfx.play("souls")
+		if Stats.relics.has("choir_alms"):
+			Stats.earn_souls(3)
+			_souls_l()
+			toast("CHOIR ALMS — the drowned pay the singer's toll: +3 souls")
 		toast("The dark pays out • +1 soul per kill • foes strike +10% harder")
 		Sfx.play("roar")
 		toast("The dead smell you from across the halls • +50% sight • +1 soul per kill")
