@@ -1822,7 +1822,7 @@ func _on_player_died() -> void:
 	var ktip: String = ""
 	if player != null and is_instance_valid(player):
 		ktip = "\n" + String(KILLER_TIPS.get(player.last_killer, ""))
-	_show_banner("YOU DIED", "Floor %d • %s — slain by %s\n%d kills • Lv %d • %d relics • best combo ×%d • %d:%02d\nBest: Floor %d — tap to retry%s%s" % [Stats.floor_num, biome["name"], killer, kills_run, Stats.level, Stats.relics.size(), combo_max, mins, secs, Stats.best_floor, rec, ktip], Color(1.0, 0.32, 0.28))
+	_show_banner("YOU DIED", "Floor %d • %s — slain by %s\n%d kills • Lv %d • %d relics • best combo ×%d • %d:%02d\n+%d souls banked • Best: Floor %d — tap to retry%s%s" % [Stats.floor_num, biome["name"], killer, kills_run, Stats.level, Stats.relics.size(), combo_max, mins, secs, Stats.souls - run_souls_start, Stats.best_floor, rec, ktip], Color(1.0, 0.32, 0.28))
 
 
 func _offer_oracle_bargain() -> void:
@@ -1887,7 +1887,7 @@ func _finalize_death() -> void:
 	var ktip: String = ""
 	if player != null and is_instance_valid(player):
 		ktip = "\n" + String(KILLER_TIPS.get(player.last_killer, ""))
-	_show_banner("YOU DIED", "Floor %d • %s — slain by %s\n%d kills • Lv %d • %d relics • best combo ×%d • %d:%02d\nBest: Floor %d — tap to retry%s%s" % [Stats.floor_num, biome["name"], killer, kills_run, Stats.level, Stats.relics.size(), combo_max, mins, secs, Stats.best_floor, rec, ktip], Color(1.0, 0.32, 0.28))
+	_show_banner("YOU DIED", "Floor %d • %s — slain by %s\n%d kills • Lv %d • %d relics • best combo ×%d • %d:%02d\n+%d souls banked • Best: Floor %d — tap to retry%s%s" % [Stats.floor_num, biome["name"], killer, kills_run, Stats.level, Stats.relics.size(), combo_max, mins, secs, Stats.souls - run_souls_start, Stats.best_floor, rec, ktip], Color(1.0, 0.32, 0.28))
 
 
 func _run_victory() -> void:
