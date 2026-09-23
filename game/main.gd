@@ -409,6 +409,7 @@ var urn_count := 0
 var salvage_ct := 0
 var lucky_net := false
 var deeproot := false
+var still_waters := false
 var _souls_seen := 0
 var _souls_net := 0
 var dlg: DialogueUI = null
@@ -694,6 +695,7 @@ func _reset_run_state() -> void:
 	salvage_ct = 0
 	lucky_net = false
 	deeproot = false
+	still_waters = false
 	_souls_seen = Stats.souls
 	_souls_net = 0
 	ashborn = false
@@ -4008,6 +4010,9 @@ func _on_dlg_choice(idx: int) -> void:
 		14:
 			deeproot = true
 			toast("Deeproot: urns spill +1 soul")
+		15:
+			still_waters = true
+			toast("Still Waters: traps doze 40% longer")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -5238,6 +5243,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Bone Wrap — the next trap hit does nothing (stacks)"},
 			{"text": "Lucky Net — every tenth soul you earn pays +1"},
 			{"text": "Deeproot — every urn spills +1 soul"},
+			{"text": "Still Waters — traps doze 40% longer"},
 		]
 	)
 

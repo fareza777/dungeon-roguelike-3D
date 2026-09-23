@@ -126,7 +126,9 @@ func setup(p_tile: float, offset: float, p_kind := 0) -> void:
 
 func _physics_process(delta: float) -> void:
 	t += delta
-	var cyc: float = fmod(t + phase, 1.9)
+	var msw := get_tree().current_scene
+	var calmdown := msw != null and bool(msw.get("still_waters"))
+	var cyc: float = fmod(t + phase, 1.9 * (1.4 if calmdown else 1.0))
 	var target: float
 	if cyc < 0.9:
 		target = -0.29 * tile # tidur
