@@ -61,6 +61,7 @@ var total_kills := 0
 var traps_defused := 0
 var wisps_caught := 0
 var prays := 0
+var oaths_sworn := 0
 var forges_used := 0
 var runs := 0
 var boss_kills := 0
@@ -124,6 +125,7 @@ const ACH_DEF := {
 	"untouchable": "Untouchable (three perfect dodges in a run)",
 	"pious": "Pious (five prayers over the fallen)",
 	"doubloath": "Twice-Sworn (carry two omens in one run)",
+	"fatebound": "Fatebound (five oaths sworn across your descents)",
 }
 
 const META_DEF := {
@@ -406,6 +408,7 @@ func wipe_progress() -> void:
 	traps_defused = 0
 	wisps_caught = 0
 	prays = 0
+	oaths_sworn = 0
 	forges_used = 0
 	runs = 0
 	boss_kills = 0
@@ -432,7 +435,7 @@ func save_game() -> void:
 			"best_floor": best_floor, "total_kills": total_kills, "runs": runs,
 			"boss_kills": boss_kills, "ng_plus": ng_plus,
 			"traps_defused": traps_defused,
-	"wisps_caught": wisps_caught, "forges_used": forges_used, "prays": prays,
+	"wisps_caught": wisps_caught, "forges_used": forges_used, "prays": prays, "oaths_sworn": oaths_sworn,
 			"tutorial_done": tutorial_done, "seen_cinematic": seen_cinematic,
 			"onboarded": onboarded, "rated": rated,
 			"quality": quality, "volume": volume,
@@ -461,6 +464,7 @@ func load_game() -> void:
 			traps_defused = int(d.get("traps_defused", 0))
 			wisps_caught = int(d.get("wisps_caught", 0))
 			prays = int(d.get("prays", 0))
+		oaths_sworn = int(d.get("oaths_sworn", 0))
 			forges_used = int(d.get("forges_used", 0))
 			ng_plus = int(d.get("ng_plus", 0))
 			tutorial_done = d.get("tutorial_done", false)

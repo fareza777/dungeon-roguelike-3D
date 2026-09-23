@@ -3495,6 +3495,9 @@ func _omen_deal(idx: int) -> void:
 		Stats.oaths_seen.append(oname)
 		Stats.save_game()
 	omen_count += 1
+	Stats.oaths_sworn += 1
+	if Stats.oaths_sworn >= 5:
+		_ach("fatebound")
 	_ach("omen1")
 	if omen_count >= 2:
 		_ach("doubloath")
