@@ -59,6 +59,8 @@ func _physics_process(delta: float) -> void:
 			Sfx.play("levelup")
 			if m != null and m.has_method("toast"):
 				m.toast("FORGED! %s +1 ATK (Lv %d)" % [w["name"], lv])
+			if lv >= 3 and m != null and m.has_method("_ach"):
+				m._ach("forge3")
 		else:
 			p.equip_weapon(weapon_id)
 			Sfx.play("pickup")

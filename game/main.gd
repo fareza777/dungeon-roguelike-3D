@@ -92,6 +92,10 @@ const ACH := {
 	"r5": "Relic Collector (5 relics)",
 	"w5": "Arsenal (5 weapons)",
 	"s25": "Crown Taker (clear Floor 25)",
+	"soul1": "Soulbound (bound a meta upgrade)",
+	"pact1": "Bloodletter (swore a Blood Pact)",
+	"defiant": "Defiant (spat in the King's face)",
+	"forge3": "Arms Master (forged a weapon to Lv 3)",
 }
 const BOSS_TIERS := [
 	{"name": "BONE KING", "tint": Color(1.05, 1.05, 1.05),
@@ -226,6 +230,10 @@ func _ready() -> void:
 		combo_max = 0
 	Stats.pending_restore = false
 	Stats.runs += 1
+	for v in Stats.meta.values():
+		if int(v) > 0:
+			_ach("soul1")
+			break
 	Stats.save_game()
 	Stats.xp_changed.connect(_update_xp)
 	Stats.leveled_up.connect(_on_leveled_up)
@@ -1873,6 +1881,7 @@ func _on_curse_invoked(s) -> void:
 func _defiance_deal(idx: int) -> void:
 	if idx != 0:
 		return
+	_ach("defiant")
 	Stats.buff_atk_pct += 0.25
 	if boss_ref != null and is_instance_valid(boss_ref):
 		boss_ref.enraged = true
@@ -1891,6 +1900,7 @@ func _curse_deal(idx: int) -> void:
 		Stats.curse_dmg += 0.3
 		Stats.curse_xp += 0.5
 		toast("BLOOD PACT — the dark bites deeper, souls run richer")
+		_ach("pact1")
 		_burst(player.global_position, Color(0.8, 0.05, 0.1))
 		Sfx.play("roar")
 		Input.vibrate_handheld(220)
