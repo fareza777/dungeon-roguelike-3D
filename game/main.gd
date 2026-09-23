@@ -4601,13 +4601,26 @@ func _on_drowned_invoked(s) -> void:
 	_say([{"who": "oracle", "text": "A drowned altar, Kael — the sea still hears prayers down here. The tide always collects, but it also gives."}],
 		[{"text": "Tide Baptism — pay 4 souls: full HP +10% speed this run"},
 		{"text": "Drowned Tithe — take +8 souls, but the water takes −10% Max HP"},
+		{"text": "Sea-Glass Ward — pay 5 souls: the floor's foes lose 15% HP"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 2:
+	if idx == 3:
 		toast("The water settles back into the stone")
 		return
+	if idx == 2:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the ward isn't free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_souls_l()
+		for f in get_tree().get_nodes_in_group("enemies"):
+			if f.get("state") != "dead" and not bool(f.get("is_boss")):
+				f.hp *= 0.85
+				f.hp_max = f.hp
+		Sfx.play("shrine")
+		toast("SEA-GLASS WARD — the drowned rot faster")
 	if idx == 0:
 		if Stats.souls < _soul_cost(4):
 			toast("Four souls — the tide won't lift an empty purse")
