@@ -216,6 +216,9 @@ func _strike() -> void:
 				dmg *= 0.75
 			if rust_t > 0.0:
 				dmg *= 0.8
+			var msh := get_tree().current_scene
+			if msh != null and bool(msh.get("salt_shear")) and float(f.get("slow_t")) > 0.0:
+				dmg *= 1.25
 			var crit := randf() < Stats.get_stat("crit")
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
