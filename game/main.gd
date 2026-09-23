@@ -3220,6 +3220,24 @@ func _omen_deal(idx: int) -> void:
 		player.refresh_stats()
 	_refresh_buffs()
 	toast("Omen sworn: " + omen_name)
+	var reacts := {
+		"WARPATH": "All edge, no hilt. Swing like you mean to be feared.",
+		"FEATHER": "A lighter coffin, then. Sensible.",
+		"RICH SOIL": "The dungeon will feed you well — keep chewing.",
+		"LEECHING": "Your blood will not stay yours, but at least it circles back.",
+		"ECLIPSE": "One sunrise bought. Do not spend it cheaply.",
+		"IRONSIDE": "Heavy steps, stubborn heart — a knight's own bargain.",
+		"STORMGLASS": "Faster storms, thinner skin. Fair trade.",
+		"OATH OF SILENCE": "Silent hands, louder blade. I approve.",
+		"FATEHAND": "More doors for fate to walk through — watch which one you open.",
+		"SOLITARY": "Alone, then. Even ghosts respect a debt they didn't choose.",
+		"PAWNBREAKER": "His prices will sting less. He'll hate that.",
+		"HEIRLOOM": "Someone carried that before you. They are still carrying it, in a way.",
+		"GOLDEN FATE": "Every lock will gleam. Mind the teeth on some.",
+		"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
+	}
+	var rline: String = String(reacts.get(oname, "An oath is an oath."))
+	_say([{"who": "oracle", "text": rline}])
 
 
 func _on_mahzan_invoked(s) -> void:
