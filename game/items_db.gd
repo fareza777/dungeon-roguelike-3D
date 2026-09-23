@@ -76,6 +76,7 @@ const DB := {
 	"keel_mark": {"name": "Keel Mark", "chip": "KM", "desc": "Foes you keelhaul are marked — each marked kill pays +1 soul", "rarity": 1, "mods": {}},
 	"grave_rose": {"name": "Grave Rose", "chip": "GR", "desc": "Your first blow on every foe is always a crit", "rarity": 2, "mods": {}},
 	"shellback": {"name": "Shellback", "chip": "SB", "desc": "Standing still for a heartbeat hardens you — 30% less damage taken", "rarity": 1, "mods": {}},
+	"bilge_rat": {"name": "Bilge Rat", "chip": "BR", "desc": "Every trap you disarm frees a wandering soul wisp", "rarity": 2, "mods": {}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }

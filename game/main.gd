@@ -4017,6 +4017,8 @@ func _quest_event(kind: String, num: int = 1) -> void:
 	# total per-kind dihitung apa pun langkah aktifnya — langkah berurutan
 	# tidak boleh kehilangan progres yang terjadi sebelum gilirannya
 	if kind == "trap_disarm":
+		if Stats.relics.has("bilge_rat"):
+			_spawn_wisp_at(player.global_position + Vector3(0.5 * info.tile, 0, 0))
 		disarm_run += 1
 		if disarm_run >= 5:
 			_ach("bombsquad")
