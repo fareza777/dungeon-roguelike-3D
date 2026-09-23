@@ -2331,6 +2331,7 @@ func _on_enemy_died(e) -> void:
 	if Stats.total_kills >= 200:
 		_ach("k200")
 	_quest_event("kill")
+	_quest_event("kill_" + Stats.weapon_id)
 	if wid == "moonshell":
 		_quest_event("moonkill")
 	if wid == "moonshell" and rng.randf() < 0.15:
