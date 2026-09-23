@@ -81,6 +81,8 @@ var omen_hp_mult := 1.0
 var omen_name := ""
 var _warned := {}
 var champ_room := -1 # sarang sang juara: elite terjamin + drop lebih baik
+var ambush_room := -1 # ruangan "kosong" yang ternyata penyergapan
+var ambushed_room := -1 # ruangan yang ambush-nya sudah meletus
 var chest_opened := false
 var gilded_chest := false
 var toast_tween: Tween = null
@@ -432,9 +434,17 @@ func _new_run(new_seed: int) -> void:
 	var last_room: int = int(info.get("room_count", 1)) - 1
 	var elite_chance: float = minf(0.08 + 0.02 * Stats.floor_num, 0.3)
 	var table: Array = biome["enemies"]
+	# penyergapan (lantai 5+, non-bos): satu ruangan tampak kosong — tulang bangkit saat kau masuk
+	ambush_room = -1
+	ambushed_room = -1
+	if not boss_floor and Stats.floor_num >= 5 and int(info.get("room_count", 1)) >= 4 and rng.randf() < 0.35:
+		ambush_room = rng.randi_range(1, last_room - 1)
 	for sp in info.enemy_spawns:
 		# di lantai boss, ruangan terakhir hanya untuk Raja Tulang
 		if boss_floor and int(sp.get("room", 0)) == last_room:
+			continue
+		# ruangan ambush sengaja dikosongkan — kejutan saat masuk
+		if int(sp.get("room", 0)) == ambush_room:
 			continue
 		var is_elite := rng.randf() < elite_chance
 		_spawn_enemy(sp, table[rng.randi_range(0, table.size() - 1)], is_elite, not is_elite and rng.randf() < 0.05)
@@ -446,6 +456,8 @@ func _new_run(new_seed: int) -> void:
 		champ_room = -1
 		if Stats.floor_num >= 6 and last_room >= 2:
 			champ_room = rng.randi_range(1, last_room - 1)
+			if champ_room == ambush_room:
+				champ_room = last_room - 1 if ambush_room != last_room - 1 else 1
 			var cr: Dictionary = info.ranges[champ_room]
 			var cpos := Vector3((cr["x0"] + cr["x1"]) * 0.5, 0.0, (cr["z0"] + cr["z1"]) * 0.5)
 			_spawn_enemy({"pos": cpos, "room": champ_room}, table[rng.randi_range(0, table.size() - 1)], true)
@@ -567,7 +579,23 @@ const FIRST_SEEN := {
 }
 
 
+func _ambush(ri: int) -> void:
+	ambushed_room = ri
+	Sfx.play("roar")
+	_lvl_banner("AMBUSH!")
+	var r: Dictionary = info.ranges[ri]
+	var table: Array = biome["enemies"]
+	var n := 3 + (1 if Stats.floor_num >= 10 else 0)
+	for i in range(n):
+		var p := Vector3(rng.randf_range(r["x0"], r["x1"]), 0.0, rng.randf_range(r["z0"], r["z1"]))
+		_spawn_enemy({"pos": p, "room": ri}, table[rng.randi_range(0, table.size() - 1)], rng.randf() < 0.2)
+
+
 func _on_room_enter(ri: int) -> void:
+	# penyergapan meletus — spawn dulu supaya loop aktivasi di bawah menyalakan mereka
+	if ri == ambush_room:
+		ambush_room = -1
+		_ambush(ri)
 	for e in get_tree().get_nodes_in_group("enemies"):
 		e.activated = e.room_idx == ri
 	_quest_event("reach_room", ri)
@@ -586,6 +614,8 @@ func _on_room_enter(ri: int) -> void:
 			elif ri == champ_room:
 				Sfx.play("roar")
 				toast("A CHAMPION holds this room — best him for better spoils!")
+			elif ri == ambushed_room:
+				toast("AMBUSH! The bones rise — hold your ground!")
 			else:
 				toast("Room locked — slay all skeletons!")
 		print("RUANGAN %d TERKUNCI (musuh=%d)" % [ri, _room_alive(ri)])
