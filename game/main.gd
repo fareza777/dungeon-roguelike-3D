@@ -159,6 +159,7 @@ var gravetide := false
 var skill_used_floor := false
 var rooms_cleared := 0
 var flawless_run := 0
+var well_rolls := 0
 var storm_t := 0.0
 var nemesis_spawned := false # musuh yang membunuhmu run lalu — kembali lebih kuat
 var nemesis_warned := false # nemesis story beat — 1だけ
@@ -619,6 +620,7 @@ func _reset_run_state() -> void:
 	_ferry_used = false
 	gravetide = false
 	flawless_run = 0
+	well_rolls = 0
 
 
 func _new_run(new_seed: int) -> void:
