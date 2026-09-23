@@ -706,6 +706,7 @@ func _reset_run_state() -> void:
 	urn_count = 0
 	_biomes_run = {}
 	salvage_ct = 0
+	keelh_floor = 0
 	lucky_net = false
 	deeproot = false
 	still_waters = false
