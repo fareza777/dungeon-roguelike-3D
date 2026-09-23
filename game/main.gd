@@ -7847,12 +7847,24 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Timber Shiver — pay 3 souls: this floor's dead lose −10% HP"},
 		{"text": "Hull Bonus — pay 3 souls: every elite this floor pays +1 soul extra"},
 		{"text": "Bilge Iron — pay 4 souls: iron strakes for your hull — +2 Armor this floor"},
+		{"text": "Rope Ladder — pay 3 souls: climb the rigging — −1s on every skill charge"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 14:
+	if idx == 15:
 		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 14:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the ropes aren't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		for rk_ in skill_cd.keys():
+			skill_cd[rk_] = maxf(0.0, float(skill_cd[rk_]) - 1.0)
+		Sfx.play("shrine")
+		toast("ROPE LADDER — up the rigging you go")
 		return
 	if idx == 13:
 		if Stats.souls < _soul_cost(4):
