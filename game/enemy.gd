@@ -866,7 +866,7 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 			if msh != null and msh.has_method("_damage_number"):
 				msh._damage_number(global_position + Vector3(0, 1.0 * room_tile, 0), "BLOCKED", Color(0.55, 0.7, 1.0), false)
 	hp -= dmg_taken
-	if affix == "sirensong" and not _siren_pulled and hp > 0.0 and hp <= hp_max * 0.4:
+	if affix == "sirensong" and not _siren_pulled and not Stats.relics.has("deaf_cap") and hp > 0.0 and hp <= hp_max * 0.4:
 		_siren_pulled = true
 		var p5 := _player()
 		if p5 != null and p5.get("dead") != true:
