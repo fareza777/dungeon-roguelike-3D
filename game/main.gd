@@ -151,7 +151,7 @@ const LORE_LINES := [
 	"The drowned court never adjourned — they just stopped hearing appeals.",
 	"The bell wardens rang tide-changes once. Now they toll for the dead who stopped counting.",
 	"A hookfin's harpoon never misses twice — the sea teaches each predator one perfect trick.",
-	"The Bone King does not chase. He knows the stairs only go down, and they all end at his feet."
+	"The Bone King does not chase. He knows the stairs only go down, and they all end at his feet.",
 	"Somewhere below the salt line the drowned keep their own court — the King tolerates it, as one tolerates a debt owed to the sea.",
 	"The Bell Warden tolls for every soul that sinks past the lantern line — he stopped counting whose long ago.",
 	"Gutter chaplains preach to the drowned. The drowned, being dead, find his sermons considerably shorter.",]
