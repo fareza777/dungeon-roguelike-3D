@@ -4939,6 +4939,12 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			{"who": "kael", "text": "Most heroes didn't have your prices to keep them honest."},
 			{"who": "oracle", "text": "Careful, Kael — the deep listens when you joke."},
 		]
+	elif Stats.floor_num == 13:
+		lines = [
+			{"who": "oracle", "text": "You climbed out of the drowned vaults richer, Kael — but the Abyss below the vaults is not so easily paid."},
+			{"who": "kael", "text": "Then I'll keep climbing. Debt collectors never stop halfway."},
+			{"who": "mahzan", "text": "The Abyss doesn't sell, buyer — it only lends, and the interest is legs."},
+		]
 	elif Stats.floor_num == 14:
 		lines = [
 			{"who": "kael", "text": "Oracle — the halls whisper back down here. Are they yours?"},
