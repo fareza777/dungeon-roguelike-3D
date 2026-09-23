@@ -149,6 +149,7 @@ const ACH_DEF := {
 	"fullpurse": "Full Purse (held 150 souls at once)",
 	"cart6": "Deep Cartographer (walked all six biomes in one run)",
 	"pinch3": "Pinch Hitter (escaped 3 Void Pinchers in one run)",
+	"abyss3": "Void Shepherd (cleared 3 Abyss floors in one run)",
 	"pilgrim": "Pilgrim (10 shrine visits in one run)",
 	"seaworthy": "Seaworthy (drank the Drowned Tithe)",
 	"drowned20": "Drowned Court (20 kills under the Sunken Tide)",

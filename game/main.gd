@@ -177,6 +177,7 @@ var salt_purse := false
 var sirensong_deal := false
 var crown_oath := false
 var pinch_n := 0
+var abyss_n := 0
 var tide_kills := 0
 var reliquary_wisps := 0
 var omen_refusals := 0
@@ -715,6 +716,7 @@ func _reset_run_state() -> void:
 	veil_used = false
 	crown_oath = false
 	pinch_n = 0
+	abyss_n = 0
 	perfect_dodges = 0
 	leech_charge = 0
 	legion_omen = false
@@ -2591,6 +2593,10 @@ func _on_enemy_died(e) -> void:
 			if gravetide:
 				Stats.earn_souls(2)
 				_souls_l()
+			if Stats.floor_num >= 13 and not QDB.is_boss_floor(Stats.floor_num):
+				abyss_n += 1
+				if abyss_n >= 3:
+					_ach("abyss3")
 			var rk: int = int(Stats.meta.get("reckon", 0))
 			if rk > 0:
 				Stats.earn_souls(rk)
@@ -2657,6 +2663,7 @@ func _on_enemy_died(e) -> void:
 		if crown_oath:
 			crown_oath = false
 	pinch_n = 0
+	abyss_n = 0
 			Stats.earn_souls(8)
 			_souls_l()
 			_damage_number(e.global_position + Vector3(0, 1.3 * info.tile, 0), "CROWN PAID — +8 souls", Color(1.0, 0.8, 0.3), true)
