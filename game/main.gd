@@ -251,6 +251,7 @@ var salt_ledger := false
 var wide_satchel := false
 var slow_clock := false
 var deck_alms := false
+var loose_ballast := false
 var final_verse := false
 var dash_fuel := false
 var powder_keg := 0
@@ -986,6 +987,7 @@ func _reset_run_state() -> void:
 	wide_satchel = false
 	slow_clock = false
 	deck_alms = false
+	loose_ballast = false
 	final_verse = false
 	dash_fuel = false
 	powder_keg = 0
@@ -1919,6 +1921,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.speed *= 0.92
 	if deck_alms:
 		e.speed *= 1.1
+	if loose_ballast:
+		e.speed *= 0.9
 	if final_verse:
 		e.dmg *= 0.85
 	if gangway and not e.is_boss:
@@ -5258,6 +5262,7 @@ func _offer_omens() -> void:
 			{"text": "DEEP TOLL — the dead endure +15% longer... but every lesson pays +30% XP"},
 			{"text": "SLOW CLOCK — your skills recharge a fifth slower... but the dead wade −8% slower too"},
 			{"text": "DECK ALMS — every price drops −1 soul... but the dead run +10% quicker"},
+			{"text": "LOOSE BALLAST — you take +15% damage... but the dead wade −10% slower"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -5301,7 +5306,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 53 if Stats.nemesis != "" else 52
+	var osize := 54 if Stats.nemesis != "" else 53
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -5519,6 +5524,10 @@ func _omen_deal(idx: int) -> void:
 			deck_alms = true
 			oname = "DECK ALMS"
 		52:
+			loose_ballast = true
+			Stats.curse_dmg += 0.15
+			oname = "LOOSE BALLAST"
+		53:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -5576,6 +5585,7 @@ func _omen_deal(idx: int) -> void:
 		"DEEP TOLL": "The deep taxes endurance, Kael — the dead last longer and so do their lessons.",
 		"SLOW CLOCK": "Time runs thick down here, Kael — for your arts and for their feet alike.",
 		"DECK ALMS": "The keel blesses the generous, Kael — the dealers soften, and the dead hurry to collect.",
+		"LOOSE BALLAST": "A loose hull rolls hard, Kael — you'll feel every blow, but they'll feel the drag too.",
 		"HEIRLOOM": "Someone carried that before you. They are still carrying it, in a way.",
 		"GOLDEN FATE": "Every lock will gleam. Mind the teeth on some.",
 		"HOLLOW CROWN": "Crown of nothing. The Oracle admires your appetite anyway.",
