@@ -8197,12 +8197,23 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Powder Toll — pay 4 souls: your blade hums with gunpowder — +15% ATK this floor"},
 		{"text": "Ballast Beads — pay 4 souls: +1 Armor and the dead notice you −20% later"},
 		{"text": "Line Splice — pay 3 souls: rigged steady — the dead's throws push you half as far"},
+		{"text": "Hull Wick — pay 4 souls: tarred hemp in your grip — +15% attack speed this run"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 18:
+	if idx == 19:
 		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 18:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the wick isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		Stats.buff_aspd += 0.15
+		Sfx.play("shrine")
+		toast("HULL WICK — your arm moves like a lit fuse")
 		return
 	if idx == 17:
 		if Stats.souls < _soul_cost(3):
