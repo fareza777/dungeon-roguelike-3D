@@ -184,6 +184,7 @@ var umbral_tide := false
 var moonwrit := false
 var barnacle_sense := false
 var brine_callus := false
+var deadweight := false
 var callus_on := false
 var salt_purse := false
 var sirensong_deal := false
@@ -782,6 +783,7 @@ func _reset_run_state() -> void:
 	moonwrit = false
 	barnacle_sense = false
 	brine_callus = false
+	deadweight = false
 	if callus_on:
 		Stats.buff_armor -= 2
 		callus_on = false
@@ -3531,6 +3533,10 @@ func _heavy_attack() -> void:
 	for f in get_tree().get_nodes_in_group("enemies"):
 		if f.global_position.distance_to(player.global_position) < 1.0 * info.tile:
 			f.take_hit(player.global_position, dmg)
+			if deadweight and f.has_method("stun"):
+				f.stun(0.6)
+	if deadweight:
+		_burst(player.global_position, Color(0.4, 0.6, 1.0))
 	trauma = 0.7
 	_damage_number(player.global_position, "HEAVY!", Color(1.0, 0.85, 0.3), true)
 	_quest_event("heavy")
@@ -4300,6 +4306,9 @@ func _on_dlg_choice(idx: int) -> void:
 		20:
 			brine_callus = true
 			toast("Brine Callus: +2 Armor while under half health")
+		21:
+			deadweight = true
+			toast("Deadweight: your heavy hits slow foes")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -5704,6 +5713,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Moonwrit — wisps you net pay +1 soul each"},
 			{"text": "Barnacle Sense — disarm sleeping traps from half again as far"},
 			{"text": "Brine Callus — +2 Armor while you're under half health"},
+			{"text": "Deadweight — your HEAVY hits drag foes to half speed for 2s"},
 		]
 	)
 
