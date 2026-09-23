@@ -1542,7 +1542,7 @@ func _on_enemy_died(e) -> void:
 	_souls(e.global_position, 22 if e.is_boss else 7, Color(1.0, 0.5, 0.3) if e.is_boss else Color(0.6, 0.85, 1.0))
 	if e.is_boss:
 		for wi in range(4):
-			var woff := Vector3(cos(wi * PI * 0.5), 0.4, sin(wi * PI * 0.5)) * info.tile * 0.7
+			var woff: Vector3 = Vector3(cos(wi * PI * 0.5), 0.4, sin(wi * PI * 0.5)) * info.tile * 0.7
 			_spawn_wisp_at(e.global_position + woff)
 	Sfx.play("death")
 	kills_run += 1
