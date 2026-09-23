@@ -1824,6 +1824,10 @@ func _spawn_shrine(last_room: int) -> void:
 		skind = 10 # Soul Fountain terjamin di lantai %12==8
 	elif Stats.floor_num >= 13 and Stats.floor_num % 10 == 8:
 		skind = 13 # Throne's Offering — the King buys tribute in the deep
+	elif Stats.floor_num >= 8 and Stats.floor_num % 6 == 3:
+		skind = 15 # Quartermaster's Post — armory terjamin di lantai %6==3
+	elif Stats.floor_num >= 7 and rng.randf() < 0.07:
+		skind = 15 # Quartermaster's Post acak
 	elif Stats.floor_num >= 14 and rng.randf() < 0.10:
 		skind = 14 # Moonpool — kolam cahaya bulan di kedalaman
 	elif Stats.floor_num >= 5 and Stats.floor_num % 5 == 1:
@@ -1884,6 +1888,8 @@ func _spawn_shrine(last_room: int) -> void:
 			s.invoked.connect(_on_throne_invoked)
 		14:
 			s.invoked.connect(_on_moonpool_invoked)
+		15:
+			s.invoked.connect(_on_qm_invoked)
 		_:
 			s.invoked.connect(_on_shrine_invoked)
 
@@ -4531,6 +4537,10 @@ func _on_dlg_choice(idx: int) -> void:
 		return
 	elif dlg_pending_choice == 16:
 		_throne_deal(idx)
+	elif dlg_pending_choice == 17:
+		dlg_pending_choice = -1
+		_qm_deal(idx)
+		return
 	elif dlg_pending_choice == 15:
 		dlg_pending_choice = -1
 		_keel_deal(idx)
@@ -6166,6 +6176,59 @@ func _on_moonpool_invoked(s) -> void:
 	_damage_number(player.global_position + Vector3(0, 1.0 * info.tile, 0), "+30% HP • wisps freed", Color(0.7, 0.85, 1.1), true)
 
 
+func _on_qm_invoked(s) -> void:
+	shrine_used = true
+	shrine_count += 1
+	if shrine_count >= 10:
+		_ach("pilgrim")
+	s.consume()
+	Sfx.play("shrine")
+	dlg_pending_choice = 17
+	_say([{"who": "mahzan", "text": "A Quartermaster's Post, buyer — dead sailors' arms, all of it still sharp. Name your steel."}],
+		[{"text": "Arm Me — pay 8 souls: a weapon drops from the hold"},
+		{"text": "Hone the Crew — pay 4 souls: +10% ATK this run"},
+		{"text": "Provisions — pay 3 souls: mend 25% HP"},
+		{"text": "Walk away"}])
+
+
+func _qm_deal(idx: int) -> void:
+	if idx == 3:
+		toast("The post shutters its stores")
+		return
+	if idx == 0:
+		if Stats.souls < _soul_cost(8):
+			toast("Eight souls — the quartermaster doesn't loan")
+			return
+		Stats.souls -= _soul_cost(8)
+		_souls_l()
+		spawn_weapon_drop(player.global_position + Vector3(0, 0, -0.6 * info.tile), WDB.roll_drop(rng, Stats.weapon_id))
+		Sfx.play("shrine")
+		toast("ARMED — steel from the hold")
+	elif idx == 1:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the whetstone isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		Stats.buff_atk_pct += 0.1
+		if player != null and is_instance_valid(player):
+			player.refresh_stats()
+		Sfx.play("shrine")
+		toast("HONED — +10% ATK this run")
+	elif idx == 2:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the biscuit isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		if player != null and is_instance_valid(player):
+			player.hp = minf(Stats.get_stat("max_hp"), player.hp + Stats.get_stat("max_hp") * 0.25)
+			player.hp_changed.emit(player.hp)
+		Sfx.play("shrine")
+		toast("PROVISIONS — the crew eats")
+	_quest_event("qm")
+
+
 func _on_throne_invoked(s) -> void:
 	shrine_used = true
 	shrine_count += 1
@@ -6645,7 +6708,7 @@ func _build_minimap() -> void:
 	# penanda altar (cyan), batu lore (ungu), dan tujuan akhir lantai (emas besar)
 	if shrine_ref != null and is_instance_valid(shrine_ref):
 		var sd := ColorRect.new()
-		sd.color = [Color(1.0, 0.8, 0.3), Color(0.45, 0.65, 1.0), Color(1.0, 0.2, 0.15), Color(1.0, 0.55, 0.15), Color(0.55, 0.75, 1.0), Color(1.0, 0.5, 0.1), Color(0.95, 0.85, 0.3), Color(0.4, 0.55, 1.0), Color(0.7, 0.95, 0.25), Color(0.85, 0.6, 0.3), Color(0.35, 0.95, 0.85), Color(0.4, 0.85, 1.0), Color(0.5, 0.7, 1.05), Color(0.65, 0.25, 0.95), Color(0.75, 0.85, 1.05)][shrine_kind]
+		sd.color = [Color(1.0, 0.8, 0.3), Color(0.45, 0.65, 1.0), Color(1.0, 0.2, 0.15), Color(1.0, 0.55, 0.15), Color(0.55, 0.75, 1.0), Color(1.0, 0.5, 0.1), Color(0.95, 0.85, 0.3), Color(0.4, 0.55, 1.0), Color(0.7, 0.95, 0.25), Color(0.85, 0.6, 0.3), Color(0.35, 0.95, 0.85), Color(0.4, 0.85, 1.0), Color(0.5, 0.7, 1.05), Color(0.65, 0.25, 0.95), Color(0.75, 0.85, 1.05), Color(0.6, 0.9, 0.45)][shrine_kind]
 		sd.size = Vector2(5, 5)
 		sd.position = _map_pos(shrine_ref.global_position, sc)
 		mv.add_child(sd)
