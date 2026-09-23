@@ -136,6 +136,7 @@ var ashfall := false
 var hungry_walls := false
 var candlelit := false
 var verdant := false
+var bone_chorus := false
 var legion_omen := false
 var wolf_omen := false
 var ashborn := false
@@ -554,6 +555,11 @@ func _apply_biome() -> void:
 		env.ambient_light_color = Color(0.4, 0.6, 0.4)
 		sun.light_color = Color(0.75, 1.0, 0.7)
 		sun.light_energy = 1.1
+	elif bone_chorus:
+		env.fog_light_color = Color(0.2, 0.12, 0.22)
+		env.ambient_light_color = Color(0.55, 0.4, 0.55)
+		sun.light_color = Color(0.9, 0.7, 0.95)
+		sun.light_energy = 1.0
 
 
 func _style_room() -> void:
@@ -679,6 +685,10 @@ func _new_run(new_seed: int) -> void:
 	# event langka #16: verdant bloom — rerumputan menelan lorong (lantai 14+): musuh lambat, jiwa melimpah
 	verdant = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and Stats.floor_num >= 14 and not boss_floor and rng.randf() < 0.05
 	if verdant:
+		Stats.event_soul_bonus = 1
+	# event langka #17: bone chorus — paduan suara kematian (lantai 15+): orator di tiap ruangan
+	bone_chorus = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and Stats.floor_num >= 15 and not boss_floor and rng.randf() < 0.05
+	if bone_chorus:
 		Stats.event_soul_bonus = 1
 	storm_t = 4.0
 	nemesis_spawned = false
@@ -858,6 +868,10 @@ func _new_run(new_seed: int) -> void:
 		_lvl_banner("☆ VERDANT BLOOM — LIFE RECLAIMS")
 		toast("Roots and moss slow the dead • foes −18% speed • +1 soul per kill")
 		Sfx.play("shrine")
+	elif bone_chorus:
+		_lvl_banner("◆ BONE CHORUS — THE DEEP SINGS")
+		toast("An Orator chants in every hall • silence them first • +1 soul per kill")
+		Sfx.play("roar")
 	elif Stats.floor_num > 1:
 		_lvl_banner("FLOOR %d — %s" % [Stats.floor_num, String(biome["name"]).to_upper()])
 
@@ -1142,6 +1156,14 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.hp_max = e.hp
 	if verdant and not e.is_boss:
 		e.speed *= 0.82
+	if bone_chorus:
+		# satu orator per ruangan — paduan suara penggugah perang
+		for bci in range(info.ranges.size()):
+			if bci == last_room and boss_floor:
+				continue
+			var bcr: Dictionary = info.ranges[bci]
+			var bcp := Vector3((bcr["x0"] + bcr["x1"]) * 0.5 * info.tile, 0.0, (bcr["z0"] + bcr["z1"]) * 0.5 * info.tile)
+			_spawn_enemy({"pos": bcp, "room": bci}, "orator", false)
 	if giant_hall and not e.is_boss:
 		e.scale *= 1.3
 		e._base_scale = e.scale
@@ -2071,6 +2093,11 @@ func _on_enemy_died(e) -> void:
 				Stats.save_game()
 				toast("☠ OSSUARY TITHE — +3 souls")
 			elif verdant:
+				Stats.souls += 2
+				_souls_l()
+				Stats.save_game()
+				toast("☠ OSSUARY TITHE — +3 souls")
+			elif bone_chorus:
 				Stats.souls += 2
 				_souls_l()
 				Stats.save_game()
@@ -4701,6 +4728,8 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 				evline = "Someone lit every wick in the deep. The dead shrink from the light — cut quickly."
 			elif verdant:
 				evline = "Green creeps over the bones, Kael. Even the dungeon forgets to be dead sometimes."
+			elif bone_chorus:
+				evline = "Hear it? The dead are singing war-songs. Find the choir-masters before the chorus swells."
 			if evline != "":
 				lines = [{"who": "oracle", "text": evline}]
 		_say(lines)
@@ -6012,6 +6041,8 @@ func _refresh_buffs() -> void:
 		list.append(["☆ CANDLELIT", Color(1.0, 0.85, 0.5)])
 	elif verdant:
 		list.append(["☆ VERDANT", Color(0.55, 0.95, 0.55)])
+	elif bone_chorus:
+		list.append(["◆ CHORUS", Color(0.85, 0.55, 0.95)])
 	if Stats.soul_sealed:
 		list.append(["PRICE", Color(0.9, 0.2, 0.25)])
 	if Stats.curse_dmg > 0.0:
