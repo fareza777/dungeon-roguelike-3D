@@ -1,14 +1,15 @@
 extends Control
-# Menu utama v2: key art backdrop, tombol styled, bara api melayang,
-# pengaturan (volume + kualitas + uji suara).
+# Menu utama v5: key art, Lanjutkan/Game Baru, Pengaturan (musik+SFX terpisah,
+# kualitas, reset), Tentang, Bagikan, Nilai Play Store, Keluar, label versi.
 
 var autotest := false
 var settings_panel: CenterContainer = null
-var vol_slider: HSlider = null
-var qual_opt: OptionButton = null
+var about_panel: CenterContainer = null
+var toast_l: Label = null
 
 const GOLD := Color(0.95, 0.78, 0.35)
 const INK := Color(0.07, 0.06, 0.12, 0.88)
+const STORE_URL := "https://play.google.com/store/apps/details?id="
 
 
 func _ready() -> void:
@@ -17,7 +18,7 @@ func _ready() -> void:
 			autotest = true
 	Stats.load_game()
 	Sfx.set_volume(Stats.volume)
-	Sfx.play_music()
+	Sfx.play_music("menu")
 	_build()
 	if autotest:
 		_shell_autotest()
@@ -26,8 +27,8 @@ func _ready() -> void:
 func _make_btn(txt: String, big := true) -> Button:
 	var b := Button.new()
 	b.text = txt
-	b.custom_minimum_size = Vector2(380, 84 if big else 64)
-	b.add_theme_font_size_override("font_size", 28 if big else 20)
+	b.custom_minimum_size = Vector2(380, 78 if big else 60)
+	b.add_theme_font_size_override("font_size", 26 if big else 19)
 	b.add_theme_color_override("font_color", Color(1, 0.97, 0.9))
 	b.add_theme_color_override("font_hover_color", Color(1, 1, 1))
 	var sb := StyleBoxFlat.new()
@@ -58,6 +59,16 @@ func _btn_punch(b: Button) -> void:
 	tw.tween_property(b, "scale", Vector2.ONE, 0.12).set_trans(Tween.TRANS_BACK)
 
 
+func _toast(txt: String) -> void:
+	toast_l.text = txt
+	toast_l.visible = true
+	toast_l.modulate.a = 1.0
+	var tw := create_tween()
+	tw.tween_interval(1.6)
+	tw.tween_property(toast_l, "modulate:a", 0.0, 0.4)
+	tw.tween_callback(func() -> void: toast_l.visible = false)
+
+
 func _build() -> void:
 	# key art backdrop
 	if ResourceLoader.exists("res://assets/ui/menu_bg.png"):
@@ -73,7 +84,6 @@ func _build() -> void:
 		bg.color = Color(0.04, 0.03, 0.08)
 		bg.set_anchors_preset(Control.PRESET_FULL_RECT)
 		add_child(bg)
-	# overlay gelap bawah supaya teks kebaca
 	var shade := ColorRect.new()
 	shade.color = Color(0.02, 0.02, 0.05, 0.45)
 	shade.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -104,7 +114,7 @@ func _build() -> void:
 	add_child(cc)
 	var vb := VBoxContainer.new()
 	vb.alignment = BoxContainer.ALIGNMENT_CENTER
-	vb.add_theme_constant_override("separation", 18)
+	vb.add_theme_constant_override("separation", 12)
 	cc.add_child(vb)
 
 	var title := Label.new()
@@ -132,7 +142,8 @@ func _build() -> void:
 	vb.add_child(sub)
 
 	var best := Label.new()
-	best.text = "Terbaik: Lantai %d • Total kill: %d" % [Stats.best_floor, Stats.total_kills]
+	var boss_txt := " • Boss ditumbangkan: %d" % Stats.boss_kills if Stats.boss_kills > 0 else ""
+	best.text = "Terbaik: Lantai %d • Total kill: %d%s" % [Stats.best_floor, Stats.total_kills, boss_txt]
 	best.add_theme_font_size_override("font_size", 17)
 	best.modulate = Color(1.0, 0.9, 0.6, 0.85)
 	best.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -142,7 +153,7 @@ func _build() -> void:
 	vb.add_child(best)
 
 	var sp := Control.new()
-	sp.custom_minimum_size = Vector2(0, 26)
+	sp.custom_minimum_size = Vector2(0, 10)
 	vb.add_child(sp)
 
 	if Stats.has_run():
@@ -154,16 +165,39 @@ func _build() -> void:
 	bn.pressed.connect(_on_new)
 	vb.add_child(bn)
 
+	var row := HBoxContainer.new()
+	row.alignment = BoxContainer.ALIGNMENT_CENTER
+	row.add_theme_constant_override("separation", 10)
+	vb.add_child(row)
 	var bs := _make_btn("PENGATURAN", false)
+	bs.custom_minimum_size = Vector2(184, 60)
 	bs.pressed.connect(func() -> void: settings_panel.visible = true)
-	vb.add_child(bs)
+	row.add_child(bs)
+	var ba := _make_btn("TENTANG", false)
+	ba.custom_minimum_size = Vector2(184, 60)
+	ba.pressed.connect(func() -> void: about_panel.visible = true)
+	row.add_child(ba)
+
+	var row2 := HBoxContainer.new()
+	row2.alignment = BoxContainer.ALIGNMENT_CENTER
+	row2.add_theme_constant_override("separation", 10)
+	vb.add_child(row2)
+	var bsh := _make_btn("BAGIKAN", false)
+	bsh.custom_minimum_size = Vector2(184, 60)
+	bsh.pressed.connect(_on_share)
+	row2.add_child(bsh)
+	var br := _make_btn("NILAI ★", false)
+	br.custom_minimum_size = Vector2(184, 60)
+	br.pressed.connect(_on_rate)
+	row2.add_child(br)
 
 	var bq := _make_btn("KELUAR", false)
+	bq.custom_minimum_size = Vector2(184, 60)
 	bq.pressed.connect(func() -> void: get_tree().quit())
 	vb.add_child(bq)
 
 	var ver := Label.new()
-	ver.text = "v0.4.0"
+	ver.text = "v" + Stats.VERSION
 	ver.anchor_left = 0.5
 	ver.anchor_right = 0.5
 	ver.anchor_top = 1.0
@@ -176,7 +210,41 @@ func _build() -> void:
 	ver.modulate = Color(1, 1, 1, 0.35)
 	add_child(ver)
 
+	toast_l = Label.new()
+	toast_l.anchor_left = 0.5
+	toast_l.anchor_right = 0.5
+	toast_l.anchor_top = 1.0
+	toast_l.anchor_bottom = 1.0
+	toast_l.offset_left = -220
+	toast_l.offset_right = 220
+	toast_l.offset_top = -140
+	toast_l.offset_bottom = -100
+	toast_l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	toast_l.add_theme_font_size_override("font_size", 20)
+	toast_l.modulate = Color(1.0, 0.9, 0.5)
+	toast_l.visible = false
+	add_child(toast_l)
+
 	_build_settings()
+	_build_about()
+
+
+# ---------------- pengaturan ----------------
+
+func _vol_row(vb: VBoxContainer, label: String, cur: float, on_change: Callable) -> void:
+	var l := Label.new()
+	l.text = label
+	l.add_theme_font_size_override("font_size", 18)
+	l.modulate = Color(1, 1, 1, 0.7)
+	vb.add_child(l)
+	var s := HSlider.new()
+	s.min_value = 0.0
+	s.max_value = 1.0
+	s.step = 0.05
+	s.value = cur
+	s.custom_minimum_size = Vector2(0, 32)
+	s.value_changed.connect(on_change)
+	vb.add_child(s)
 
 
 func _build_settings() -> void:
@@ -184,6 +252,10 @@ func _build_settings() -> void:
 	settings_panel.set_anchors_preset(Control.PRESET_FULL_RECT)
 	settings_panel.visible = false
 	add_child(settings_panel)
+	var dim := ColorRect.new()
+	dim.set_anchors_preset(Control.PRESET_FULL_RECT)
+	dim.color = Color(0, 0, 0, 0.55)
+	settings_panel.add_child(dim)
 	var panel := PanelContainer.new()
 	var psb := StyleBoxFlat.new()
 	psb.bg_color = Color(0.08, 0.07, 0.12, 0.98)
@@ -194,7 +266,7 @@ func _build_settings() -> void:
 	panel.add_theme_stylebox_override("panel", psb)
 	settings_panel.add_child(panel)
 	var vb := VBoxContainer.new()
-	vb.add_theme_constant_override("separation", 16)
+	vb.add_theme_constant_override("separation", 12)
 	vb.custom_minimum_size = Vector2(430, 0)
 	panel.add_child(vb)
 
@@ -205,21 +277,16 @@ func _build_settings() -> void:
 	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vb.add_child(t)
 
-	var vl := Label.new()
-	vl.text = "Volume"
-	vl.add_theme_font_size_override("font_size", 20)
-	vb.add_child(vl)
-	vol_slider = HSlider.new()
-	vol_slider.min_value = 0.0
-	vol_slider.max_value = 1.0
-	vol_slider.step = 0.05
-	vol_slider.value = Stats.volume
-	vol_slider.value_changed.connect(func(v: float) -> void:
-		Sfx.set_volume(v)
-		Stats.volume = v
+	_vol_row(vb, "Musik", Stats.mus_vol(), func(v: float) -> void:
+		Stats.music_volume = v
+		Sfx.set_music_volume(v)
 		Stats.save_game()
 	)
-	vb.add_child(vol_slider)
+	_vol_row(vb, "Efek suara", Stats.sfx_vol(), func(v: float) -> void:
+		Stats.sfx_volume = v
+		Sfx.set_volume(v)
+		Stats.save_game()
+	)
 
 	var ts := _make_btn("Uji Suara", false)
 	ts.pressed.connect(func() -> void:
@@ -231,9 +298,10 @@ func _build_settings() -> void:
 
 	var ql := Label.new()
 	ql.text = "Kualitas grafis"
-	ql.add_theme_font_size_override("font_size", 20)
+	ql.add_theme_font_size_override("font_size", 18)
+	ql.modulate = Color(1, 1, 1, 0.7)
 	vb.add_child(ql)
-	qual_opt = OptionButton.new()
+	var qual_opt := OptionButton.new()
 	qual_opt.add_item("Otomatis", 0)
 	qual_opt.add_item("Hemat (HP kentang)", 1)
 	qual_opt.add_item("Indah", 2)
@@ -244,9 +312,80 @@ func _build_settings() -> void:
 	)
 	vb.add_child(qual_opt)
 
+	var wr := _make_btn("Reset Semua Progres", false)
+	wr.add_theme_color_override("font_color", Color(1.0, 0.5, 0.45))
+	wr.pressed.connect(func() -> void:
+		Stats.wipe_progress()
+		_toast("Semua progres dihapus")
+		Sfx.play("hurt")
+	)
+	vb.add_child(wr)
+
 	var back := _make_btn("Tutup", false)
 	back.pressed.connect(func() -> void: settings_panel.visible = false)
 	vb.add_child(back)
+
+
+# ---------------- tentang ----------------
+
+func _build_about() -> void:
+	about_panel = CenterContainer.new()
+	about_panel.set_anchors_preset(Control.PRESET_FULL_RECT)
+	about_panel.visible = false
+	add_child(about_panel)
+	var dim := ColorRect.new()
+	dim.set_anchors_preset(Control.PRESET_FULL_RECT)
+	dim.color = Color(0, 0, 0, 0.55)
+	about_panel.add_child(dim)
+	var panel := PanelContainer.new()
+	var psb := StyleBoxFlat.new()
+	psb.bg_color = Color(0.08, 0.07, 0.12, 0.98)
+	psb.border_color = GOLD
+	psb.set_border_width_all(2)
+	psb.set_corner_radius_all(16)
+	psb.set_content_margin_all(28)
+	panel.add_theme_stylebox_override("panel", psb)
+	about_panel.add_child(panel)
+	var vb := VBoxContainer.new()
+	vb.add_theme_constant_override("separation", 12)
+	vb.custom_minimum_size = Vector2(440, 0)
+	panel.add_child(vb)
+	var t := Label.new()
+	t.text = "TENTANG"
+	t.add_theme_font_size_override("font_size", 30)
+	t.modulate = GOLD
+	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	vb.add_child(t)
+	var body := Label.new()
+	body.text = "DUNGEONSLICE v%s\n\nRoguelike aksi di kedalaman bumi. Setiap 5 lantai Raja Tulang menunggu di singgasananya — kalahkan dia atau jadi bagian dari takhtanya.\n\n— Tim Kecil Tapi Nekat —\nModel: KayKit Skeleton Pack\nPatung altar: Meshy AI\nMusik & SFX: ElevenLabs\nEngine: Godot 4.7" % Stats.VERSION
+	body.add_theme_font_size_override("font_size", 17)
+	body.modulate = Color(1, 1, 1, 0.85)
+	body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	vb.add_child(body)
+	var back := _make_btn("Tutup", false)
+	back.pressed.connect(func() -> void: about_panel.visible = false)
+	vb.add_child(back)
+
+
+# ---------------- aksi ----------------
+
+func _on_share() -> void:
+	var url := STORE_URL + Stats.STORE_ID
+	DisplayServer.clipboard_set("Main DungeonSlice — roguelike tulang-belulang! " + url)
+	_toast("Tautan game disalin — tempelkan ke temanmu!")
+	Sfx.play("click")
+
+
+func _on_rate() -> void:
+	Stats.rated = true
+	Stats.save_game()
+	var ok := OS.shell_open("market://details?id=" + Stats.STORE_ID)
+	if ok != OK:
+		ok = OS.shell_open(STORE_URL + Stats.STORE_ID)
+	if ok != OK:
+		_toast("Buka Play Store: " + Stats.STORE_ID)
+	else:
+		_toast("Terima kasih atas ulasannya!")
 
 
 func _on_continue() -> void:
@@ -268,4 +407,11 @@ func _shell_autotest() -> void:
 	var img := get_viewport().get_texture().get_image()
 	img.save_png("res://out_shell_2_menu.png")
 	print("SAVED MENU")
+	# bukti panel pengaturan render
+	settings_panel.visible = true
+	await get_tree().process_frame
+	await get_tree().process_frame
+	img = get_viewport().get_texture().get_image()
+	img.save_png("res://out_shell_3_settings.png")
+	settings_panel.visible = false
 	_on_new()

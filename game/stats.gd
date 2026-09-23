@@ -1,6 +1,6 @@
 extends Node
 # Autoload "Stats": sheet stat run, XP/level, relic, senjata, snapshot run,
-# pengaturan (volume/kualitas), dan save file user://save.json.
+# pengaturan (musik/sfx/kualitas), flag onboarding, dan save user://save.json.
 
 signal xp_changed(cur, need, level)
 signal leveled_up(level)
@@ -10,6 +10,8 @@ signal weapon_changed
 const ITEMS = preload("res://items_db.gd")
 const WDB = preload("res://weapons_db.gd")
 const SAVE_PATH := "user://save.json"
+const VERSION := "1.0.0"
+const STORE_ID := "com.kimi.dungeonslice"
 
 var floor_num := 1
 var level := 1
@@ -21,14 +23,25 @@ var weapon_id := "rusty_blade"
 var owned_weapons: Array = ["rusty_blade"]
 var draft_open := false
 
+# buff sementara (hilang saat run reset / turun lantai sesuai flag)
+var buff_atk_pct := 0.0 # berkat altar: run ini saja
+var buff_armor := 0 # berkat altar: armor datar run ini
+var revive_left := 0 # jiwa bangkit: hidup lagi sekali per run
+var thorns := 0.0 # duri pantulan: balikkan dmg
+
 # meta (tersimpan)
 var best_floor := 0
 var total_kills := 0
 var runs := 0
+var boss_kills := 0
 var tutorial_done := false
 var seen_cinematic := false
+var onboarded := false
+var rated := false
 var quality := -1 # -1 auto, 0 hemat, 1 indah
-var volume := 0.8
+var volume := 0.8 # legacy: dipakai kalau music/sfx belum pernah diset
+var music_volume := -1.0
+var sfx_volume := -1.0
 var saved_run := {}
 
 # dipakai menu -> game
@@ -51,7 +64,19 @@ func get_stat(n: String) -> float:
 		flat += wmods[n]
 	if wmods.has(n + "_pct"):
 		mult += wmods[n + "_pct"]
+	if n == "atk":
+		mult += buff_atk_pct
+	if n == "armor":
+		flat += buff_armor
 	return flat * mult
+
+
+func mus_vol() -> float:
+	return volume if music_volume < 0.0 else music_volume
+
+
+func sfx_vol() -> float:
+	return volume if sfx_volume < 0.0 else sfx_volume
 
 
 func xp_need() -> int:
@@ -69,6 +94,11 @@ func add_xp(n: int) -> void:
 
 func add_relic(id: String) -> void:
 	relics.append(id)
+	var mods: Dictionary = ITEMS.DB[id]["mods"]
+	if mods.has("revive"):
+		revive_left += int(mods["revive"])
+	if mods.has("thorns"):
+		thorns += float(mods["thorns"])
 	relics_changed.emit()
 
 
@@ -92,6 +122,10 @@ func reset_run() -> void:
 	kills = 0
 	weapon_id = "rusty_blade"
 	owned_weapons = ["rusty_blade"]
+	buff_atk_pct = 0.0
+	buff_armor = 0
+	revive_left = 0
+	thorns = 0.0
 	current_hp = get_stat("max_hp")
 	draft_open = false
 	saved_run = {}
@@ -114,7 +148,7 @@ func note_floor() -> void:
 
 # snapshot run supaya tombol "Lanjutkan" di menu berarti
 func save_run() -> void:
-	saved_run = {"floor": floor_num, "level": level, "xp": xp, "relics": relics.duplicate(), "weapon_id": weapon_id, "owned": owned_weapons.duplicate(), "hp": current_hp, "kills": kills}
+	saved_run = {"floor": floor_num, "level": level, "xp": xp, "relics": relics.duplicate(), "weapon_id": weapon_id, "owned": owned_weapons.duplicate(), "hp": current_hp, "kills": kills, "revive": revive_left, "thorns": thorns}
 	save_game()
 
 
@@ -138,6 +172,9 @@ func restore_run() -> bool:
 	var ow = saved_run.get("owned", [])
 	owned_weapons = ow if ow is Array and not ow.is_empty() else [weapon_id]
 	kills = int(saved_run.get("kills", 0))
+	revive_left = int(saved_run.get("revive", 0))
+	thorns = float(saved_run.get("thorns", 0.0))
+	buff_atk_pct = 0.0
 	current_hp = float(saved_run.get("hp", get_stat("max_hp")))
 	draft_open = false
 	relics_changed.emit()
@@ -146,13 +183,30 @@ func restore_run() -> bool:
 	return true
 
 
+func wipe_progress() -> void:
+	best_floor = 0
+	total_kills = 0
+	runs = 0
+	boss_kills = 0
+	tutorial_done = false
+	onboarded = false
+	rated = false
+	saved_run = {}
+	reset_run()
+	save_game()
+
+
 func save_game() -> void:
 	var f := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if f != null:
 		f.store_string(JSON.stringify({
 			"best_floor": best_floor, "total_kills": total_kills, "runs": runs,
+			"boss_kills": boss_kills,
 			"tutorial_done": tutorial_done, "seen_cinematic": seen_cinematic,
-			"quality": quality, "volume": volume, "run": saved_run,
+			"onboarded": onboarded, "rated": rated,
+			"quality": quality, "volume": volume,
+			"music_volume": music_volume, "sfx_volume": sfx_volume,
+			"run": saved_run,
 		}))
 
 
@@ -163,10 +217,15 @@ func load_game() -> void:
 			best_floor = int(d.get("best_floor", 0))
 			total_kills = int(d.get("total_kills", 0))
 			runs = int(d.get("runs", 0))
+			boss_kills = int(d.get("boss_kills", 0))
 			tutorial_done = d.get("tutorial_done", false)
 			seen_cinematic = d.get("seen_cinematic", false)
+			onboarded = d.get("onboarded", false)
+			rated = d.get("rated", false)
 			quality = int(d.get("quality", -1))
 			volume = float(d.get("volume", 0.8))
+			music_volume = float(d.get("music_volume", -1.0))
+			sfx_volume = float(d.get("sfx_volume", -1.0))
 			var r = d.get("run", {})
 			if r is Dictionary:
 				saved_run = r

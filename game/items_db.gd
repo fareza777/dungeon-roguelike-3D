@@ -18,12 +18,14 @@ const DB := {
 	"jantung_badak": {"name": "Jantung Badak", "chip": "JB", "desc": "+4 HP Maks", "rarity": 1, "mods": {"max_hp": 4.0}},
 	"refleks_kucing": {"name": "Refleks Kucing", "chip": "RC", "desc": "+25% Kecepatan Serang", "rarity": 1, "mods": {"atk_speed_pct": 0.25}},
 	"sisik_naga": {"name": "Sisik Naga", "chip": "SN", "desc": "+1 Armor, +15% HP Maks", "rarity": 1, "mods": {"armor": 1.0, "max_hp_pct": 0.15}},
+	"duri_pantulan": {"name": "Duri Pantulan", "chip": "DP", "desc": "Balikkan 30% dmg ke penyerang", "rarity": 1, "mods": {"thorns": 0.3}},
 	# ---- epic ----
 	"amarah_dewa": {"name": "Amarah Dewa", "chip": "AD", "desc": "+50% ATK", "rarity": 2, "mods": {"atk_pct": 0.5}},
 	"raja_kritis": {"name": "Raja Kritis", "chip": "RT", "desc": "+25% Crit", "rarity": 2, "mods": {"crit": 0.25}},
 	"hidup_abadi": {"name": "Hidup Abadi", "chip": "HA", "desc": "+50% HP Maks, +5% Lifesteal", "rarity": 2, "mods": {"max_hp_pct": 0.5, "lifesteal": 0.05}},
 	"angin_topan": {"name": "Angin Topan", "chip": "AT", "desc": "+30% Kecepatan Serang, +15% Kecepatan", "rarity": 2, "mods": {"atk_speed_pct": 0.3, "speed_pct": 0.15}},
 	"tulang_naga": {"name": "Tulang Naga", "chip": "TN", "desc": "+3 ATK, +2 HP Maks", "rarity": 2, "mods": {"atk": 3.0, "max_hp": 2.0}},
+	"jiwa_bangkit": {"name": "Jiwa Bangkit", "chip": "JB+", "desc": "Hidup lagi 1× (50% HP)", "rarity": 2, "mods": {"revive": 1}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Berkat Pandai Besi", "chip": "B+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }

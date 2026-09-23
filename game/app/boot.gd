@@ -1,5 +1,6 @@
 extends Control
-# Splash: logo fade in -> tahan -> fade out -> menu.
+# Splash: ikon game + bar loading kecil -> rute:
+# belum onboarded -> onboarding, sudah -> menu.
 
 func _ready() -> void:
 	var fast := false
@@ -15,7 +16,16 @@ func _ready() -> void:
 	add_child(cc)
 	var vb := VBoxContainer.new()
 	vb.alignment = BoxContainer.ALIGNMENT_CENTER
+	vb.add_theme_constant_override("separation", 10)
 	cc.add_child(vb)
+	# ikon app
+	if ResourceLoader.exists("res://assets/ui/icon.png"):
+		var ic := TextureRect.new()
+		ic.texture = load("res://assets/ui/icon.png")
+		ic.custom_minimum_size = Vector2(190, 190)
+		ic.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		ic.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
+		vb.add_child(ic)
 	var t1 := Label.new()
 	t1.text = "DUNGEON"
 	t1.add_theme_font_size_override("font_size", 84)
@@ -33,9 +43,30 @@ func _ready() -> void:
 	t3.modulate = Color(1, 1, 1, 0.4)
 	t3.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vb.add_child(t3)
+	# bar loading tipis
+	var bar := ProgressBar.new()
+	bar.custom_minimum_size = Vector2(320, 8)
+	bar.show_percentage = false
+	bar.max_value = 1.0
+	bar.value = 0.0
+	var bf := StyleBoxFlat.new()
+	bf.bg_color = Color(1.0, 0.8, 0.3)
+	bf.set_corner_radius_all(4)
+	bar.add_theme_stylebox_override("fill", bf)
+	var bb := StyleBoxFlat.new()
+	bb.bg_color = Color(0.12, 0.1, 0.16)
+	bb.set_corner_radius_all(4)
+	bar.add_theme_stylebox_override("background", bb)
+	vb.add_child(bar)
 	modulate.a = 0.0
 	var tw := create_tween()
 	tw.tween_property(self, "modulate:a", 1.0, 0.1 if fast else 0.5)
-	tw.tween_interval(0.05 if fast else 1.0)
+	tw.set_parallel(true)
+	tw.tween_property(bar, "value", 1.0, 0.1 if fast else 1.1)
+	tw.set_parallel(false)
+	tw.tween_interval(0.05 if fast else 0.15)
 	tw.tween_property(self, "modulate:a", 0.0, 0.1 if fast else 0.4)
-	tw.tween_callback(func() -> void: get_tree().change_scene_to_file("res://app/menu.tscn"))
+	tw.tween_callback(func() -> void:
+		Stats.load_game()
+		get_tree().change_scene_to_file("res://app/onboarding.tscn" if not Stats.onboarded else "res://app/menu.tscn")
+	)

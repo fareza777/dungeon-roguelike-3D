@@ -5,6 +5,7 @@
 
 config/name="DungeonSlice"
 run/main_scene="res://app/boot.tscn"
+config/icon="res://assets/ui/icon.png"
 
 [autoload]
 

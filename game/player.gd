@@ -171,7 +171,7 @@ func _strike() -> void:
 		var to: Vector3 = f.global_position - global_position
 		to.y = 0
 		if to.length() < reach and facing.dot(to.normalized()) > 0.3:
-			var dmg: float = Stats.get_stat("atk")
+			var dmg: float = Stats.get_stat("atk") * (1.0 + Stats.buff_atk_pct)
 			var crit := randf() < Stats.get_stat("crit")
 			if crit:
 				dmg *= 2.0
@@ -191,6 +191,13 @@ func take_hit(from_pos: Vector3, dmg_taken: int) -> void:
 	invuln = 0.9
 	Sfx.play("hurt")
 	hp_changed.emit(hp)
+	# relic Duri Pantulan: sebagian damage dibalik ke penyerang sekitar
+	if Stats.thorns > 0.0:
+		var reach2 := room_tile * 1.1
+		for f in get_tree().get_nodes_in_group("enemies"):
+			var d2: float = f.global_position.distance_to(global_position)
+			if d2 < reach2:
+				f.take_hit(global_position, dmg_taken * Stats.thorns)
 	var away: Vector3 = global_position - from_pos
 	away.y = 0
 	kb = away.normalized() * room_tile * 1.6
@@ -199,6 +206,19 @@ func take_hit(from_pos: Vector3, dmg_taken: int) -> void:
 		var tw := create_tween()
 		tw.tween_property(mat, "shader_parameter/flash", 0.0, 0.18)
 	if hp <= 0:
+		# relic Jiwa Bangkit: sekali per run, hidup lagi dengan setengah HP
+		if Stats.revive_left > 0:
+			Stats.revive_left -= 1
+			hp = int(maxi(1.0, max_hp * 0.5))
+			invuln = 2.2
+			hp_changed.emit(hp)
+			Sfx.play("victory")
+			if mat != null:
+				mat.set_shader_parameter("flash", 1.0)
+				var tw2 := create_tween()
+				tw2.tween_property(mat, "shader_parameter/flash", 0.0, 0.6)
+			anim_lock = max(anim_lock, M.play_action(ap, ["hit_"], 1.4))
+			return
 		dead = true
 		if body_cs != null:
 			body_cs.set_deferred("disabled", true)
@@ -206,3 +226,8 @@ func take_hit(from_pos: Vector3, dmg_taken: int) -> void:
 		died.emit()
 	else:
 		anim_lock = max(anim_lock, M.play_action(ap, ["hit_"], 1.4) * 0.6)
+
+
+func heal_to_full() -> void:
+	hp = max_hp
+	hp_changed.emit(hp)

@@ -1,5 +1,6 @@
 extends Node
-# Autoload "Sfx": bank SFX + musik. Kalau file audio belum ada, diam saja (aman).
+# Autoload "Sfx": bank SFX + bank musik, volume terpisah.
+# File yang belum ada di-skip dengan aman.
 
 const BANK := {
 	"swing": "res://assets/audio/sfx/swing.wav",
@@ -17,17 +18,32 @@ const BANK := {
 	"chest": "res://assets/audio/sfx/chest.wav",
 	"gate": "res://assets/audio/sfx/gate.wav",
 	"deny": "res://assets/audio/sfx/deny.wav",
+	"quest": "res://assets/audio/sfx/quest.mp3",
+	"page": "res://assets/audio/sfx/page.mp3",
+	"shrine": "res://assets/audio/sfx/shrine.mp3",
+	"trap": "res://assets/audio/sfx/trap.mp3",
+	"roar": "res://assets/audio/sfx/roar.mp3",
+	"victory": "res://assets/audio/sfx/victory.mp3",
+	"combo": "res://assets/audio/sfx/combo.mp3",
+	"mimic": "res://assets/audio/sfx/mimic.mp3",
 }
-const MUSIC := "res://assets/audio/music/dungeon.mp3"
+const MUSIC_BANK := {
+	"menu": "res://assets/audio/music/menu.mp3",
+	"dungeon": "res://assets/audio/music/dungeon.mp3",
+	"boss": "res://assets/audio/music/boss.mp3",
+}
+const MUSIC := MUSIC_BANK["dungeon"] # kompat lama
 
 var pool: Array = []
 var music_player: AudioStreamPlayer
-var volume := 0.8
+var volume := 0.8 # legacy getter lama — jangan dipakai lagi
 var last_played := ""
+var current_track := ""
+var _mus_tw: Tween = null
 
 
 func _ready() -> void:
-	for i in range(10):
+	for i in range(12):
 		var p := AudioStreamPlayer.new()
 		add_child(p)
 		pool.append(p)
@@ -44,7 +60,7 @@ func play(n: String) -> void:
 	for p in pool:
 		if not p.playing:
 			p.stream = load(path)
-			p.volume_db = linear_to_db(maxf(volume, 0.001))
+			p.volume_db = linear_to_db(maxf(Stats.sfx_vol(), 0.001))
 			p.play()
 			last_played = n
 			return
@@ -57,19 +73,32 @@ func any_playing() -> bool:
 	return false
 
 
-func play_music() -> void:
-	if not ResourceLoader.exists(MUSIC):
+func play_music(track := "dungeon") -> void:
+	var path: String = MUSIC_BANK.get(track, MUSIC)
+	if not ResourceLoader.exists(path):
 		return
-	if music_player.playing:
+	if music_player.playing and current_track == track:
 		return
-	music_player.stream = load(MUSIC)
+	current_track = track
+	music_player.stream = load(path)
 	if music_player.stream != null and music_player.stream is AudioStreamMP3:
 		music_player.stream.loop = true
-	music_player.volume_db = linear_to_db(maxf(volume * 0.75, 0.001))
+	music_player.volume_db = linear_to_db(maxf(Stats.mus_vol() * 0.75, 0.001))
 	music_player.play()
 
 
+func stop_music() -> void:
+	music_player.stop()
+	current_track = ""
+
+
 func set_volume(v: float) -> void:
-	volume = clampf(v, 0.0, 1.0)
+	# kompat: atur dua-duanya bila dipanggil lewat kode lama
+	Stats.music_volume = clampf(v, 0.0, 1.0)
+	Stats.sfx_volume = clampf(v, 0.0, 1.0)
+	set_music_volume(Stats.music_volume)
+
+
+func set_music_volume(v: float) -> void:
 	if music_player.playing:
-		music_player.volume_db = linear_to_db(maxf(volume * 0.75, 0.001))
+		music_player.volume_db = linear_to_db(maxf(v * 0.75, 0.001))

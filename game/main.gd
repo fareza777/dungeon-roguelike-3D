@@ -1,7 +1,9 @@
 extends Node3D
-# Orchestrator roguelike v4: lantai multi-ruangan + gerbang portcullis (kunci
-# arena), skill aktif bercooldown, permata XP magnet, draft relic, biome,
-# tutorial, layar hero dengan preview 3D + inventaris senjata, autotest v4.
+# Orchestrator roguelike v5: lantai multi-ruangan + gerbang portcullis, skill
+# aktif, draft relic, biome, tutorial, layar hero — plus rantai quest berurutan
+# per lantai, dialog karakter berpotret, lantai BOSS tiap kelipatan 5 (Raja
+# Tulang: enrage + slam + summon), jebakan duri, altar arwah, peti mimic,
+# kombo kill, minimap, dan musik adaptif (dungeon/boss).
 
 const CHARS := "res://assets/characters/"
 const M = preload("res://materials.gd")
@@ -14,6 +16,10 @@ const WPICK = preload("res://weapon_pickup.gd")
 const GATE = preload("res://gate.gd")
 const GEM = preload("res://xp_gem.gd")
 const SK = preload("res://skills_db.gd")
+const QDB = preload("res://quests_db.gd")
+const DLG = preload("res://dialogue.gd")
+const TRAP = preload("res://trap.gd")
+const SHRINE = preload("res://shrine.gd")
 const DUNGEON := "res://assets/dungeon/"
 
 var dungeon_tex: Texture2D
@@ -39,6 +45,19 @@ var low_quality := false
 var chest_opened := false
 var toast_tween: Tween = null
 
+# v5: boss + quest + kombo + altar + peti mimic + dialog + minimap
+var boss_ref = null
+var quest_steps: Array = []
+var quest_idx := 0
+var combo := 0
+var combo_t := 0.0
+var mimic_pending := false
+var shrine_used := false
+var dlg: DialogueUI = null
+var dlg_pending_choice := -1
+var map_dots: Array = []
+var map_t := 0.0
+
 # gerbang / ruangan
 var gates := {}
 var current_room := -1
@@ -52,6 +71,9 @@ var tut_active := false
 var tut_step := 0
 var moved_accum := 0.0
 var tut_last_pos := Vector3.ZERO
+var quest_moved := 0.0
+var quest_last_p := Vector3.ZERO
+var shrine_ref = null
 
 
 func _ready() -> void:
@@ -78,7 +100,6 @@ func _ready() -> void:
 	Stats.leveled_up.connect(_on_leveled_up)
 	Stats.relics_changed.connect(_rebuild_chips)
 	_new_run(seed_val)
-	Sfx.play_music()
 	if autotest:
 		_run_autotest()
 
@@ -181,10 +202,29 @@ func _new_run(new_seed: int) -> void:
 	_style_room()
 	_build_gates()
 	_spawn_player(info.player_pos)
+	var boss_floor: bool = QDB.is_boss_floor(Stats.floor_num)
+	boss_ref = null
+	shrine_ref = null
+	shrine_used = false
+	chest_opened = false
+	mimic_pending = Stats.floor_num >= 2 and rng.randf() < 0.35
+	var last_room: int = int(info.get("room_count", 1)) - 1
 	var elite_chance: float = minf(0.08 + 0.02 * Stats.floor_num, 0.3)
 	var table: Array = biome["enemies"]
 	for sp in info.enemy_spawns:
+		# di lantai boss, ruangan terakhir hanya untuk Raja Tulang
+		if boss_floor and int(sp.get("room", 0)) == last_room:
+			continue
 		_spawn_enemy(sp, table[rng.randi_range(0, table.size() - 1)], rng.randf() < elite_chance)
+	if boss_floor:
+		var lr: Dictionary = info.ranges[last_room]
+		_spawn_enemy({"pos": Vector3((lr["x0"] + lr["x1"]) * 0.5, 0.0, lr["z1"] + 1.6 * info.tile), "room": last_room}, "bone_king", false)
+	else:
+		_spawn_traps(last_room)
+		_spawn_shrine(last_room)
+	_start_quests(boss_floor, int(info.get("room_count", 1)))
+	_build_minimap()
+	Sfx.play_music("boss" if boss_floor else "dungeon")
 	ui.floor_label.text = "Lantai %d • %s" % [Stats.floor_num, biome["name"]]
 	_update_hp(Stats.current_hp)
 	_update_xp(Stats.xp, Stats.xp_need(), Stats.level)
@@ -194,6 +234,8 @@ func _new_run(new_seed: int) -> void:
 	tut_active = not Stats.tutorial_done and Stats.floor_num == 1 and not autotest
 	tut_step = 0
 	moved_accum = 0.0
+	quest_moved = 0.0
+	quest_last_p = info.player_pos
 	if tut_active:
 		_tut_show("Geser jempolmu di sisi kiri layar untuk bergerak")
 		tut_last_pos = player.global_position
@@ -201,7 +243,10 @@ func _new_run(new_seed: int) -> void:
 		_tut_hide()
 	if Stats.floor_num > 1:
 		Sfx.play("door")
-	print("ROOM seed=%d floor=%d biome=%s rooms=%d enemies=%d gates=%d" % [seed_val, Stats.floor_num, biome["name"], info.get("room_count", 1), info.enemy_spawns.size(), gates.size()])
+	_boss_bar_hide()
+	_combo_set(0)
+	print("ROOM seed=%d floor=%d biome=%s rooms=%d enemies=%d gates=%d boss=%s" % [seed_val, Stats.floor_num, biome["name"], info.get("room_count", 1), info.enemy_spawns.size(), gates.size(), str(QDB.is_boss_floor(Stats.floor_num))])
+	_floor_intro_lines(boss_floor)
 
 
 func _build_gates() -> void:
@@ -250,10 +295,17 @@ func _set_room_gates(ri: int, open: bool) -> void:
 func _on_room_enter(ri: int) -> void:
 	for e in get_tree().get_nodes_in_group("enemies"):
 		e.activated = e.room_idx == ri
+	_quest_event("reach_room", ri)
+	if boss_ref != null and is_instance_valid(boss_ref) and boss_ref.activated:
+		Sfx.play("roar")
+		Sfx.play_music("boss")
 	if _room_alive(ri) > 0:
 		_set_room_gates(ri, false)
 		if ri > 0:
-			toast("Ruangan terkunci — habisi semua skeleton!")
+			if boss_ref != null and is_instance_valid(boss_ref) and boss_ref.room_idx == ri:
+				toast("RAJA TULANG MENGHADANG — bunuh dia!")
+			else:
+				toast("Ruangan terkunci — habisi semua skeleton!")
 		print("RUANGAN %d TERKUNCI (musuh=%d)" % [ri, _room_alive(ri)])
 
 
@@ -295,6 +347,63 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool) -> void:
 	e.activated = false
 	room.add_child(e)
 	e.died.connect(_on_enemy_died)
+	if e.is_boss:
+		boss_ref = e
+		e.summon_requested.connect(_on_boss_summon)
+
+
+# boss memanggil 2 antek; dibatasi supaya ruangan tidak banjir
+func _on_boss_summon(boss) -> void:
+	var alive := _room_alive(boss.room_idx)
+	if alive >= 7:
+		return
+	Sfx.play("roar")
+	toast("Raja Tulang memanggil antek-anteknya!")
+	for k in range(2):
+		var off := Vector3((k - 0.5) * 0.8 * info.tile, 0, 0.5 * info.tile)
+		_spawn_enemy({"pos": boss.global_position + off, "room": boss.room_idx}, "chaser", false)
+
+
+# jebakan duri di ruang-ruang tengah (tidak di ruang spawn / ruang boss)
+func _spawn_traps(last_room: int) -> void:
+	var count: int = mini(maxi(Stats.floor_num - 1, 0), 3)
+	for i in range(count):
+		var ri: int = rng.randi_range(1, last_room)
+		var r: Dictionary = info.ranges[ri]
+		var pos := Vector3.ZERO
+		var ok := false
+		for t in range(14):
+			pos = Vector3(rng.randf_range(r["x0"] + 0.6 * info.tile, r["x1"] - 0.6 * info.tile), 0.0, rng.randf_range(r["z1"] + 0.9 * info.tile, r["z0"] - 0.9 * info.tile))
+			ok = true
+			for pr in info.props:
+				if pr.global_position.distance_to(pos) < 0.8 * info.tile:
+					ok = false
+					break
+			if ok:
+				break
+		if not ok:
+			continue
+		var tr = TRAP.new()
+		room.add_child(tr)
+		tr.global_position = pos
+		tr.setup(info.tile, rng.randf_range(0.0, 1.9))
+
+
+# altar arwah di ruangan terakhir — 45% kesempatan, sekali pakai
+func _spawn_shrine(last_room: int) -> void:
+	if rng.randf() >= 0.45:
+		return
+	var r: Dictionary = info.ranges[last_room]
+	var pos := Vector3((r["x0"] + r["x1"]) * 0.5, 0.0, r["z0"] - 1.1 * info.tile)
+	for pr in info.props:
+		if pr.global_position.distance_to(pos) < 1.0 * info.tile:
+			return
+	var s = SHRINE.new()
+	room.add_child(s)
+	s.global_position = pos
+	s.setup(info.tile)
+	shrine_ref = s
+	s.invoked.connect(_on_shrine_invoked)
 
 
 func spawn_weapon_drop(pos: Vector3, wid: String) -> Node3D:
@@ -326,6 +435,10 @@ func _on_enemy_died(e) -> void:
 	_burst(e.global_position)
 	Sfx.play("death")
 	Stats.count_kill()
+	_quest_event("kill")
+	_combo_set(combo + 1)
+	if e.is_boss:
+		_on_boss_died(e)
 	if e.elite and rng.randf() < 0.6:
 		spawn_weapon_drop(e.global_position, WDB.roll_drop(rng, Stats.weapon_id))
 	elif e.arch_id == "brute" and rng.randf() < 0.25:
@@ -340,6 +453,7 @@ func _on_enemy_died(e) -> void:
 		await get_tree().process_frame
 	if run_state == "playing":
 		if _room_alive(e.room_idx) == 0:
+			_quest_event("clear_floor")
 			_set_room_gates(e.room_idx, true)
 			if not get_tree().get_nodes_in_group("enemies").is_empty():
 				toast("Ruangan bersih — gerbang terbuka!")
@@ -359,6 +473,17 @@ func _on_enemy_died(e) -> void:
 	_spawn_gems(e.global_position, e.xp_val)
 
 
+func _on_boss_died(_e) -> void:
+	boss_ref = null
+	Stats.boss_kills += 1
+	Sfx.play("victory")
+	Sfx.play_music("dungeon")
+	_quest_event("boss_kill")
+	_boss_bar_hide()
+	toast("Raja Tulang roboh! +15 XP")
+	_damage_number(_e.global_position, "BOSS TUMBANG", Color(1.0, 0.5, 0.2), true)
+
+
 func _on_player_died() -> void:
 	print("PLAYER DIED floor=%d" % Stats.floor_num)
 	run_state = "dead"
@@ -372,6 +497,7 @@ func _on_player_died() -> void:
 
 func _on_banner_tap() -> void:
 	if run_state == "cleared":
+		_quest_event("descend")
 		Stats.floor_num += 1
 		Stats.note_floor()
 		_new_run(rng.randi())
@@ -875,6 +1001,226 @@ func _lvl_banner(txt: String) -> void:
 	tw.tween_callback(func() -> void: l.visible = false)
 
 
+# ---------------- quest berurutan ----------------
+
+func _start_quests(boss_floor: bool, room_count: int) -> void:
+	quest_steps = QDB.for_floor(Stats.floor_num, room_count)
+	for st in quest_steps:
+		st["done"] = 0
+	quest_idx = 0
+	_quest_render()
+
+
+func _quest_event(kind: String, num: int = 1) -> void:
+	if quest_idx >= quest_steps.size():
+		return
+	var st: Dictionary = quest_steps[quest_idx]
+	if String(st["kind"]) != kind:
+		return
+	if kind == "reach_room":
+		# reach_room selesai saat pemain sampai ruangan ke-"need"
+		if num < int(st["need"]):
+			return
+		st["done"] = int(st["need"])
+	else:
+		st["done"] = int(st.get("done", 0)) + num
+	if int(st["done"]) >= int(st["need"]):
+		quest_idx += 1
+		Sfx.play("quest")
+	_quest_render()
+
+
+func _quest_render() -> void:
+	if not ui.has("quest_l"):
+		return
+	if quest_idx >= quest_steps.size():
+		ui.quest_box.visible = false
+		return
+	var st: Dictionary = quest_steps[quest_idx]
+	ui.quest_box.visible = true
+	ui.quest_l.text = "◆ %d/%d %s" % [quest_idx + 1, quest_steps.size(), String(st["title"])]
+	var desc := String(st["desc"])
+	if int(st["need"]) > 1:
+		desc += "  (%d/%d)" % [int(st["done"]), int(st["need"])]
+	ui.quest_d.text = desc
+
+
+# ---------------- kombo kill ----------------
+
+func _combo_set(n: int) -> void:
+	combo = n
+	combo_t = 4.0
+	if not ui.has("combo_l"):
+		return
+	if combo >= 3:
+		ui.combo_l.visible = true
+		ui.combo_l.text = "KOMBO ×%d" % combo
+		ui.combo_l.pivot_offset = ui.combo_l.size * 0.5
+		ui.combo_l.scale = Vector2(1.35, 1.35)
+		var tw := create_tween()
+		tw.tween_property(ui.combo_l, "scale", Vector2.ONE, 0.18)
+		if combo >= 5:
+			Sfx.play("combo")
+	else:
+		ui.combo_l.visible = false
+
+
+# ---------------- bar HP boss ----------------
+
+func _boss_bar_show() -> void:
+	ui.boss_bar.visible = true
+
+
+func _boss_bar_hide() -> void:
+	if ui.has("boss_bar"):
+		ui.boss_bar.visible = false
+
+
+# ---------------- dialog + altar ----------------
+
+func _say(lines: Array, choices: Array = []) -> void:
+	if dlg == null or lines.is_empty() or dlg.active:
+		return
+	Stats.draft_open = true
+	get_tree().paused = true
+	ui.dim.visible = true
+	if choices.is_empty():
+		dlg.play(lines)
+	else:
+		dlg.play_choices(lines, choices)
+	if autotest:
+		# autotest: lewati semua dialog otomatis supaya alur tak pernah diam
+		for _i in range(80):
+			if not dlg.active or dlg._choice_box.visible:
+				break
+			dlg._advance()
+			await get_tree().process_frame
+
+
+func _on_dlg_end() -> void:
+	get_tree().paused = false
+	Stats.draft_open = false
+	if run_state == "playing":
+		ui.dim.visible = false
+	_try_open_draft()
+
+
+func _on_dlg_choice(idx: int) -> void:
+	match idx:
+		0:
+			Stats.buff_atk_pct += 0.15
+			toast("Berkat Perang: +15% ATK")
+		1:
+			Stats.buff_armor += 1
+			toast("Berkat Besi: +1 Armor")
+		2:
+			if player != null and is_instance_valid(player):
+				player.heal_to_full()
+			toast("Berkat Darah: HP pulih penuh")
+	if player != null and is_instance_valid(player):
+		player.refresh_stats()
+		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
+
+
+func _on_shrine_invoked(s) -> void:
+	shrine_used = true
+	s.consume()
+	Sfx.play("shrine")
+	_say(
+		[{"who": "mahzan", "text": "Arwah-arwah tua masih menghormati tulang pemberani. Pilih satu berkat, jangan serakah."}],
+		[
+			{"text": "Berkat Perang — +15% ATK run ini"},
+			{"text": "Berkat Besi — +1 Armor run ini"},
+			{"text": "Berkat Darah — pulihkan HP penuh"},
+		]
+	)
+
+
+func _floor_intro_lines(boss_floor: bool) -> void:
+	var lines: Array = []
+	if Stats.floor_num == 1:
+		lines = [
+			{"who": "oracle", "text": "Kael... kau sudah bangun. Kedalaman ini sekarang milik Raja Tulang."},
+			{"who": "kael", "text": "Aku turun bukan untuk mati, Peramal. Tunjukkan jalannya."},
+			{"who": "oracle", "text": "Setiap lima lantai dia menunggu di singgasananya. Patung arwah di lorong masih mendengar — sentuh, dan mintalah berkat."},
+		]
+	elif boss_floor:
+		lines = [
+			{"who": "oracle", "text": "Hati-hati — Raja Tulang ada di ujung lorong ini. Bila tanah bergetar merah, MINGGIR."},
+			{"who": "raja", "text": "KAU LAGI, SI KECIL YANG WANGI. Aku akan menambahkan tulangmu ke singgasanaku."},
+		]
+	elif Stats.floor_num > 1 and rng.randf() < 0.3:
+		var tips := [
+			"Duri di lantai itu hidup — perhatikan iramanya sebelum melangkah.",
+			"Peti tak selalu peti. Yang bergigi disebut mimic, dan ia lapar.",
+			"Elite berpendar merah. Jangan biarkan mereka mengepungmu.",
+			"Rantai pembunuhan tanpa jeda — kombo. Musik untuk telinga Raja Tulang.",
+		]
+		lines = [{"who": "oracle", "text": tips[rng.randi_range(0, tips.size() - 1)]}]
+	if lines.is_empty():
+		return
+	_say(lines)
+
+
+# ---------------- minimap ----------------
+
+func _map_pos(wp: Vector3, sc: float) -> Vector2:
+	return Vector2((wp.x - info["min_x"]) * sc - 3.0, (wp.z - info["min_z"]) * sc - 3.0)
+
+
+func _build_minimap() -> void:
+	if not ui.has("map_view"):
+		return
+	var mv: Control = ui.map_view
+	for c in mv.get_children():
+		c.queue_free()
+	map_dots.clear()
+	var xs: float = info["max_x"] - info["min_x"]
+	var zs: float = info["max_z"] - info["min_z"]
+	if xs < 0.1 or zs < 0.1:
+		ui.map.visible = false
+		return
+	ui.map.visible = true
+	var sc: float = minf(130.0 / xs, 178.0 / zs)
+	for r in info.ranges:
+		var rc := ColorRect.new()
+		rc.color = Color(0.32, 0.3, 0.42, 0.9)
+		rc.position = Vector2((r["x0"] - info["min_x"]) * sc, (r["z1"] - info["min_z"]) * sc)
+		rc.size = Vector2(maxf((r["x1"] - r["x0"]) * sc, 4.0), maxf((r["z0"] - r["z1"]) * sc, 4.0))
+		mv.add_child(rc)
+	if info.get("chest") != null:
+		var cd := ColorRect.new()
+		cd.color = Color(1.0, 0.8, 0.2)
+		cd.size = Vector2(5, 5)
+		cd.position = _map_pos(info.chest.global_position, sc)
+		mv.add_child(cd)
+	var pd := ColorRect.new()
+	pd.color = Color(1.0, 1.0, 1.0)
+	pd.size = Vector2(6, 6)
+	mv.add_child(pd)
+	ui["map_pdot"] = pd
+	ui["map_scale"] = sc
+	_update_minimap()
+
+
+func _update_minimap() -> void:
+	if not ui.has("map_view") or not ui.map.visible or player == null or not is_instance_valid(player):
+		return
+	var sc: float = ui["map_scale"]
+	ui.map_pdot.position = _map_pos(player.global_position, sc)
+	for d in map_dots:
+		if is_instance_valid(d):
+			d.queue_free()
+	map_dots.clear()
+	for f in get_tree().get_nodes_in_group("enemies"):
+		var d := ColorRect.new()
+		d.color = Color(1.0, 0.3, 0.3)
+		d.size = Vector2(4, 4)
+		d.position = _map_pos(f.global_position, sc) + Vector2(1, 1)
+		ui.map_view.add_child(d)
+		map_dots.append(d)
+
+
 # ---------------- UI ----------------
 
 func _build_ui() -> void:
@@ -976,6 +1322,128 @@ func _build_ui() -> void:
 	chips.add_theme_constant_override("separation", 6)
 	layer.add_child(chips)
 	ui["chips"] = chips
+
+	# angka HP di samping sel
+	var ht := Label.new()
+	ht.add_theme_font_size_override("font_size", 18)
+	ht.modulate = Color(1.0, 0.85, 0.8)
+	hb.add_child(ht)
+	ui["hp_text"] = ht
+
+	# kotak quest kiri atas
+	var qb := PanelContainer.new()
+	qb.position = Vector2(16, 96)
+	var qsb := StyleBoxFlat.new()
+	qsb.bg_color = Color(0.06, 0.06, 0.11, 0.72)
+	qsb.border_color = Color(0.9, 0.75, 0.3, 0.55)
+	qsb.set_border_width_all(2)
+	qsb.set_corner_radius_all(10)
+	qsb.set_content_margin_all(9)
+	qb.add_theme_stylebox_override("panel", qsb)
+	var qvb := VBoxContainer.new()
+	qvb.add_theme_constant_override("separation", 2)
+	var ql := Label.new()
+	ql.add_theme_font_size_override("font_size", 17)
+	ql.modulate = Color(1.0, 0.85, 0.4)
+	var qd := Label.new()
+	qd.add_theme_font_size_override("font_size", 13)
+	qd.modulate = Color(1, 1, 1, 0.72)
+	qd.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	qvb.add_child(ql)
+	qvb.add_child(qd)
+	qb.add_child(qvb)
+	layer.add_child(qb)
+	ui["quest_box"] = qb
+	ui["quest_l"] = ql
+	ui["quest_d"] = qd
+
+	# bar HP boss di atas tengah
+	var bb := PanelContainer.new()
+	bb.anchor_left = 0.5
+	bb.anchor_right = 0.5
+	bb.offset_left = -200
+	bb.offset_right = 200
+	bb.offset_top = 150
+	var bsb := StyleBoxFlat.new()
+	bsb.bg_color = Color(0.07, 0.04, 0.05, 0.85)
+	bsb.border_color = Color(1.0, 0.3, 0.25)
+	bsb.set_border_width_all(2)
+	bsb.set_corner_radius_all(10)
+	bsb.set_content_margin_all(8)
+	bb.add_theme_stylebox_override("panel", bsb)
+	var bvb := VBoxContainer.new()
+	var bn := Label.new()
+	bn.text = "☠ RAJA TULANG"
+	bn.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	bn.add_theme_font_size_override("font_size", 16)
+	bn.modulate = Color(1.0, 0.55, 0.45)
+	var bf := ProgressBar.new()
+	bf.max_value = 100
+	bf.value = 100
+	bf.custom_minimum_size = Vector2(0, 14)
+	bf.show_percentage = false
+	var bff := StyleBoxFlat.new()
+	bff.bg_color = Color(0.85, 0.2, 0.15)
+	bff.set_corner_radius_all(4)
+	bf.add_theme_stylebox_override("fill", bff)
+	var bfb := StyleBoxFlat.new()
+	bfb.bg_color = Color(0.15, 0.08, 0.08)
+	bfb.set_corner_radius_all(4)
+	bf.add_theme_stylebox_override("background", bfb)
+	bvb.add_child(bn)
+	bvb.add_child(bf)
+	bb.add_child(bvb)
+	bb.visible = false
+	layer.add_child(bb)
+	ui["boss_bar"] = bb
+	ui["boss_fill"] = bf
+
+	# label kombo
+	var cl := Label.new()
+	cl.anchor_left = 0.5
+	cl.anchor_right = 0.5
+	cl.anchor_top = 1.0
+	cl.anchor_bottom = 1.0
+	cl.offset_left = -160
+	cl.offset_right = 160
+	cl.offset_top = -370
+	cl.offset_bottom = -326
+	cl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	cl.add_theme_font_size_override("font_size", 30)
+	cl.modulate = Color(1.0, 0.7, 0.25)
+	cl.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.8))
+	cl.add_theme_constant_override("shadow_offset_x", 2)
+	cl.add_theme_constant_override("shadow_offset_y", 2)
+	cl.visible = false
+	layer.add_child(cl)
+	ui["combo_l"] = cl
+
+	# minimap kanan atas
+	var mp := PanelContainer.new()
+	mp.anchor_left = 1.0
+	mp.anchor_right = 1.0
+	mp.offset_left = -162
+	mp.offset_right = -12
+	mp.offset_top = 100
+	var msb := StyleBoxFlat.new()
+	msb.bg_color = Color(0.05, 0.05, 0.09, 0.6)
+	msb.border_color = Color(1, 1, 1, 0.25)
+	msb.set_border_width_all(1)
+	msb.set_corner_radius_all(8)
+	msb.set_content_margin_all(6)
+	mp.add_theme_stylebox_override("panel", msb)
+	var mv := Control.new()
+	mv.custom_minimum_size = Vector2(140, 190)
+	mp.add_child(mv)
+	layer.add_child(mp)
+	ui["map"] = mp
+	ui["map_view"] = mv
+
+	# dialog karakter (selalu di atas segalanya)
+	dlg = DLG.new()
+	layer.add_child(dlg)
+	dlg.finished.connect(_on_dlg_end)
+	dlg.choice_made.connect(_on_dlg_choice)
 
 	# kartu tutorial
 	var tut := PanelContainer.new()
@@ -1184,9 +1652,12 @@ func _update_hp(hp: float) -> void:
 			r.custom_minimum_size = Vector2(cw, 26)
 			hb.add_child(r)
 			cells.append(r)
+		hb.move_child(ui.hp_text, hb.get_child_count() - 1)
 	var full := int(ceil(hp))
 	for i in range(cells.size()):
 		cells[i].color = Color(0.85, 0.15, 0.2) if i < full else Color(0.25, 0.1, 0.12)
+	if ui.has("hp_text"):
+		ui.hp_text.text = "%d/%d" % [maxi(int(ceil(hp)), 0), maxh]
 
 
 func _update_xp(cur: int, need: int, lv: int) -> void:
@@ -1266,16 +1737,54 @@ func _process(delta: float) -> void:
 			if moved_accum > 1.2 * info.tile:
 				tut_step = 1
 				_tut_show("Ketuk tombol ATK merah untuk menebas")
+				_quest_event("moved")
 
-		# peti harta
+		# quest "moved": akumulasi gerak pemain
+		if quest_idx < quest_steps.size() and String(quest_steps[quest_idx].get("kind", "")) == "moved":
+			quest_moved += player.global_position.distance_to(quest_last_p)
+			quest_last_p = player.global_position
+			if quest_moved > 1.2 * info.tile:
+				_quest_event("moved")
+
+		# kombo kill: decay + label
+		if combo_t > 0.0:
+			combo_t -= delta
+			if combo_t <= 0.0:
+				_combo_set(0)
+
+		# bar HP boss mengikuti sisa nyawa
+		if boss_ref != null and is_instance_valid(boss_ref) and boss_ref.activated:
+			_boss_bar_show()
+			var frac: float = clampf(boss_ref.hp / boss_ref.hp_max, 0.0, 1.0)
+			ui.boss_fill.value = frac * 100.0
+		else:
+			_boss_bar_hide()
+
+		# titik musuh di minimap
+		map_t -= delta
+		if map_t <= 0.0:
+			map_t = 0.25
+			_update_minimap()
+
+		# peti harta — atau peti PALSU (mimic): 35% mulai lantai 2
 		if not chest_opened and info.get("chest") != null and is_instance_valid(info.chest):
 			if player.global_position.distance_to(info.chest.global_position) < 0.6 * info.tile:
 				chest_opened = true
-				player.hp = Stats.get_stat("max_hp")
-				player.hp_changed.emit(player.hp)
-				Stats.add_xp(3)
-				Sfx.play("chest")
-				toast("Peti Harta: HP pulih penuh, +3 XP")
+				_quest_event("open_chest")
+				if mimic_pending:
+					mimic_pending = false
+					Sfx.play("mimic")
+					trauma = 0.8
+					toast("PETI PALSU! Itu bergerak!")
+					for mk in range(2):
+						var off := Vector3((mk - 0.5) * 0.9 * info.tile, 0, 0.7 * info.tile)
+						_spawn_enemy({"pos": info.chest.global_position + off, "room": int(info.get("room_count", 1)) - 1}, "chaser", false)
+				else:
+					player.hp = Stats.get_stat("max_hp")
+					player.hp_changed.emit(player.hp)
+					Stats.add_xp(3)
+					Sfx.play("chest")
+					toast("Peti Harta: HP pulih penuh, +3 XP")
 
 	if player != null and is_instance_valid(player) and cam != null:
 		var s: float = info.get("tile", 4.0)
@@ -1511,7 +2020,58 @@ func _run_autotest() -> void:
 	for i in range(12):
 		await get_tree().process_frame
 	print("RETRY floor=%d state=%s" % [Stats.floor_num, run_state])
+	# ---- v5: lantai BOSS (loncat ke 5 lewat jalur normal) ----
+	Stats.floor_num = 4
+	run_state = "cleared"
+	_on_banner_tap()
+	for i in range(16):
+		await get_tree().process_frame
+	var boss = null
+	for e in get_tree().get_nodes_in_group("enemies"):
+		if e.is_boss:
+			boss = e
+	print("BOSS spawned=%s quest_idx=%d steps=%d" % [str(boss != null), quest_idx, quest_steps.size()])
+	if boss != null:
+		# aktifkan boss + cek bar HP
+		player.global_position = boss.global_position + Vector3(0, 0, 3.0 * info.tile)
+		await get_tree().create_timer(0.4).timeout
+		print("BOSS activated=%s bar=%s hp=%.0f/%.0f" % [str(boss.activated), str(ui.boss_bar.visible), boss.hp, boss.hp_max])
+		_shot("res://out_v5_9_boss.png")
+		# enrage saat hp < 50%
+		player.invuln = 9.0
+		boss.hp = boss.hp_max * 0.45
+		await get_tree().create_timer(0.4).timeout
+		print("BOSS enraged=%s (harus true)" % str(boss.enraged))
+		# slam AoE
+		player.global_position = boss.global_position + Vector3(0.5 * info.tile, 0, 0.5 * info.tile)
+		boss.slam_t = 0.0
+		await get_tree().create_timer(1.3).timeout
+		_shot("res://out_v5_10_slam.png")
+		# summon antek
+		var n0 := get_tree().get_nodes_in_group("enemies").size()
+		boss.summon_t = 0.0
+		await get_tree().create_timer(0.35).timeout
+		var n1 := get_tree().get_nodes_in_group("enemies").size()
+		print("BOSS summon %d -> %d (harus naik)" % [n0, n1])
+		# bunuh boss -> quest boss_kill + victory
+		boss.take_hit(player.global_position, 9999)
+		await get_tree().create_timer(0.9).timeout
+		print("BOSS dead=%s boss_kills=%d quest_idx=%d" % [str(boss_ref == null), Stats.boss_kills, quest_idx])
+		_shot("res://out_v5_11_bossdown.png")
+
+	# altar: kalau ada di lantai ini, picu + pilih berkat
+	if shrine_ref != null and is_instance_valid(shrine_ref):
+		_on_shrine_invoked(shrine_ref)
+		for i in range(24):
+			await get_tree().process_frame
+			if dlg == null or not dlg.active:
+				break
+			if i > 4 and dlg._choices.size() > 0:
+				dlg.choose(0)
+		await get_tree().process_frame
+		print("SHRINE buff_atk=%.2f paused=%s" % [Stats.buff_atk_pct, str(get_tree().paused)])
+
 	print("FPS=", Engine.get_frames_per_second())
 	print("SAVE=", FileAccess.get_file_as_string("user://save.json"))
-	print("AUTOTEST V4 DONE")
+	print("AUTOTEST V5 DONE")
 	get_tree().quit()
