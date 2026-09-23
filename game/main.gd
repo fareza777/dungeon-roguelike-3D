@@ -241,6 +241,7 @@ var lantern_oil := false
 var bloodwarm := false
 var salt_shear := false
 var song_rust := false
+var gangway := false
 var deadweight := false
 var undertow_grip := false
 var lookout := false
@@ -1012,6 +1013,7 @@ func _new_run(new_seed: int) -> void:
 		Stats.buff_speed_pct -= 0.08
 		pale_drunk = false
 	song_rust = false
+	gangway = false
 	if drift_line:
 		Stats.buff_atk_pct -= 0.1
 		drift_line = false
@@ -1834,6 +1836,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.speed *= 0.92
 	if song_rust:
 		e.speed *= 0.9
+	if gangway and not e.is_boss:
+		e.xp_val = int(ceilf(e.xp_val * 1.15))
 	if Stats.relics.has("brine_whistle"):
 		e.slow_t = 2.5
 	if long_wake:
@@ -6564,10 +6568,24 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Hull Net — pay 4 souls: +30% XP for the rest of this run"},
 		{"text": "Rigging Plates — pay 3 souls: +1 Armor this run"},
 		{"text": "Fair Wind — pay 3 souls: +15% souls for the rest of this run"},
+		{"text": "Gangway Toll — pay 3 souls: this floor's dead are worth +15% XP"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
+	if idx == 9:
+		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 8:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the toll isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		gangway = true
+		Sfx.play("shrine")
+		toast("GANGWAY TOLL — the floor's dead carry fatter lessons")
+		return
 	if idx == 8:
 		toast("The stone settles — the sea keeps its bargains")
 		return
