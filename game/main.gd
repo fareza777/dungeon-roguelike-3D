@@ -220,6 +220,7 @@ var bosun_ledger := false
 var urnsworn := false
 var full_chart := false
 var iron_gullet := false
+var murk_fed := false
 var deadweight := false
 var undertow_grip := false
 var lookout := false
@@ -889,6 +890,7 @@ func _reset_run_state() -> void:
 	urnsworn = false
 	full_chart = false
 	iron_gullet = false
+	murk_fed = false
 	deadweight = false
 	undertow_grip = false
 	lookout = false
@@ -1045,6 +1047,10 @@ func _new_run(new_seed: int) -> void:
 		vials = 1
 		_vial_btn()
 		toast("SEA BISCUIT — the crumbed vial found its way back")
+	if Stats.relics.has("murk_pearl") and Stats.event_soul_bonus > 0 and not murk_fed:
+		murk_fed = true
+		Stats.buff_xp_pct += 0.15
+		toast("MURK PEARL — the storm feeds your lessons (+15% XP)")
 	_apply_biome()
 	_style_room()
 	_build_gates()
