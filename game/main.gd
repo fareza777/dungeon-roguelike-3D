@@ -1069,11 +1069,14 @@ func _on_cage_freed(s) -> void:
 			{"who": "knight", "text": "Bah. Blade, then — one more floor."},
 		])
 	else:
-		_say([
+		var vlines := [
 			{"who": "knight", "text": "A thousand years in these bars... and you walk right up?"},
 			{"who": "kael", "text": "Can you still swing a blade, old ghost?"},
 			{"who": "knight", "text": "Watch me. Until this floor ends — my sword is yours."},
-		])
+		]
+		if Stats.nemesis != "":
+			vlines.append({"who": "knight", "text": "And I hear %s prowls these halls — the thing that felled you last. Point me at it, boy." % Stats.nemesis_name})
+		_say(vlines)
 	_ach("knight1")
 
 
