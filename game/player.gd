@@ -303,6 +303,11 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						m11._souls_l()
 					if m11.has_method("_damage_number"):
 						m11._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "JAW +1", Color(1.1, 0.45, 0.3), false)
+		"searbrand": # IGNITE — tiap tebasan membakar target (burn_t 4s)
+			f.set("burn_t", 4.0)
+			var m15 := get_tree().current_scene
+			if m15 != null and randf() < 0.2 and m15.has_method("_burst"):
+				m15._burst(f.global_position + Vector3(0, 0.4 * room_tile, 0), Color(1.0, 0.5, 0.15))
 		"sunderfang": # REND — 25% pukulan merobek pertahanan (sunder_t)
 			if randf() < 0.25:
 				f.set("sunder_t", 4.0)
