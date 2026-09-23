@@ -76,6 +76,9 @@ var draft_rerolled := false
 var low_quality := false
 var blood_moon := false
 var soul_rush := false
+var omen_done := false
+var omen_hp_mult := 1.0
+var omen_name := ""
 var _warned := {}
 var champ_room := -1 # sarang sang juara: elite terjamin + drop lebih baik
 var chest_opened := false
@@ -720,6 +723,9 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.hp_max = e.hp
 		e.xp_val = int(ceilf(e.xp_val * 1.5))
 		e.speed *= 1.08
+	if omen_hp_mult > 1.0 and not e.is_boss:
+		e.hp *= omen_hp_mult
+		e.hp_max = e.hp
 		M.paint(e, M.toon(skeleton_tex, tint.lerp(Color(0.85, 0.08, 0.08), 0.4), 0.35, true))
 	e.position = sp["pos"]
 	e.room_idx = int(sp.get("room", 0))
@@ -2210,6 +2216,10 @@ func _on_dlg_end() -> void:
 	if run_state == "playing":
 		ui.dim.visible = false
 	_try_open_draft()
+	# OMEN: pact run pertama — ditawar Oracle begitu dialog intro lantai 1 selesai
+	if run_state == "playing" and Stats.floor_num == 1 and not omen_done:
+		omen_done = true
+		_offer_omens()
 
 
 func _on_dlg_choice(idx: int) -> void:
@@ -2228,6 +2238,10 @@ func _on_dlg_choice(idx: int) -> void:
 	elif dlg_pending_choice == 4:
 		dlg_pending_choice = -1
 		_oracle_deal(idx)
+		return
+	elif dlg_pending_choice == 5:
+		dlg_pending_choice = -1
+		_omen_deal(idx)
 		return
 	match idx:
 		0:
@@ -2248,6 +2262,39 @@ func _on_dlg_choice(idx: int) -> void:
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
+
+
+func _offer_omens() -> void:
+	dlg_pending_choice = 5
+	_say(
+		[{"who": "oracle", "text": "Before you bleed for him, choose the omen you carry — every path has a price."}],
+		[
+			{"text": "WARPATH — +30% ATK, -1 Armor"},
+			{"text": "FEATHER STEP — +15% Speed, -25% ATK"},
+			{"text": "RICH SOIL — +35% XP, foes +10% HP"},
+		]
+	)
+
+
+func _omen_deal(idx: int) -> void:
+	match idx:
+		0:
+			Stats.buff_atk_pct += 0.3
+			Stats.buff_armor -= 1
+			omen_name = "WARPATH"
+		1:
+			Stats.buff_speed_pct += 0.15
+			Stats.buff_atk_pct -= 0.25
+			omen_name = "FEATHER"
+		2:
+			Stats.buff_xp_pct += 0.35
+			omen_hp_mult = 1.1
+			omen_name = "RICH SOIL"
+	Sfx.play("shrine")
+	if player != null and is_instance_valid(player):
+		player.refresh_stats()
+	_refresh_buffs()
+	toast("Omen sworn: " + omen_name)
 
 
 func _on_mahzan_invoked(s) -> void:
@@ -3649,6 +3696,8 @@ func _refresh_buffs() -> void:
 		list.append(["☽ BLOOD MOON", Color(0.9, 0.15, 0.2)])
 	elif soul_rush:
 		list.append(["✦ SOUL RUSH", Color(0.7, 0.45, 1.0)])
+	if omen_name != "":
+		list.append(["☗ " + omen_name, Color(0.9, 0.7, 1.0)])
 	if player.get("root_t") != null and player.root_t > 0.0:
 		list.append(["CAGED", Color(0.6, 0.4, 1.0)])
 	if combo >= 8:

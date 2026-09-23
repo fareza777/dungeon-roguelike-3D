@@ -27,6 +27,8 @@ var draft_open := false
 # buff sementara (hilang saat run reset / turun lantai sesuai flag)
 var buff_atk_pct := 0.0 # berkat altar: run ini saja
 var buff_armor := 0 # berkat altar: armor datar run ini
+var buff_speed_pct := 0.0 # omen Feather Step
+var buff_xp_pct := 0.0 # omen Rich Soil
 var warcry_t := 0.0 # skill War Cry: +50% ATK sementara
 var revive_left := 0 # jiwa bangkit: hidup lagi sekali per run
 var ach := {} # prestasi terbuka: id -> true (persist lintas run)
@@ -111,7 +113,7 @@ func get_stat(n: String) -> float:
 	if n == "armor":
 		flat += buff_armor
 	if n == "speed":
-		mult += float(meta.get("swift", 0)) * 0.03
+		mult += float(meta.get("swift", 0)) * 0.03 + buff_speed_pct
 	return flat * mult
 
 
@@ -133,7 +135,7 @@ func xp_need() -> int:
 
 
 func add_xp(n: int) -> void:
-	xp += int(ceilf(n * (1.0 + curse_xp)))
+	xp += int(ceilf(n * (1.0 + curse_xp + buff_xp_pct)))
 	while xp >= xp_need():
 		xp -= xp_need()
 		level += 1
@@ -207,6 +209,8 @@ func reset_run() -> void:
 	weapon_lv = {}
 	buff_atk_pct = 0.0
 	buff_armor = 0
+	buff_speed_pct = 0.0
+	buff_xp_pct = 0.0
 	warcry_t = 0.0
 	revive_left = int(meta.get("wind", 0))
 	thorns = 0.0
