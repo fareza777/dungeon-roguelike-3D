@@ -5145,6 +5145,7 @@ func _offer_omens() -> void:
 			{"text": "DEAD LANTERN — elites burn +15% brighter... but the urns pay +1 soul"},
 			{"text": "HULL SONG — skills recharge +15% faster... but the dead row +5% quicker"},
 			{"text": "SALT LEDGER — every price climbs +1 soul... but each floor's end pays +3"},
+			{"text": "DEEP TOLL — the dead endure +15% longer... but every lesson pays +30% XP"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -5186,7 +5187,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 50 if Stats.nemesis != "" else 49
+	var osize := 51 if Stats.nemesis != "" else 50
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -5393,6 +5394,10 @@ func _omen_deal(idx: int) -> void:
 			salt_ledger = true
 			oname = "SALT LEDGER"
 		49:
+			omen_hp_mult += 0.15
+			Stats.curse_xp += 0.3
+			oname = "DEEP TOLL"
+		50:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -5447,6 +5452,7 @@ func _omen_deal(idx: int) -> void:
 		"DEAD LANTERN": "Hang the lantern high, Kael — the urns will pay for what the elites will cost.",
 		"HULL SONG": "The ship sings through you, Kael — your arms answer quicker. So do theirs.",
 		"SALT LEDGER": "The sea keeps books, Kael — she'll overcharge the dealers and pay you interest on the back.",
+		"DEEP TOLL": "The deep taxes endurance, Kael — the dead last longer and so do their lessons.",
 		"HEIRLOOM": "Someone carried that before you. They are still carrying it, in a way.",
 		"GOLDEN FATE": "Every lock will gleam. Mind the teeth on some.",
 		"HOLLOW CROWN": "Crown of nothing. The Oracle admires your appetite anyway.",
