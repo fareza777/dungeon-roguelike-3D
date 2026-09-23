@@ -222,6 +222,7 @@ var brine_callus := false
 var bosun_ledger := false
 var urnsworn := false
 var full_chart := false
+var long_wake := false
 var iron_gullet := false
 var murk_fed := false
 var crew_oath := false
@@ -900,6 +901,7 @@ func _reset_run_state() -> void:
 	bosun_ledger = false
 	urnsworn = false
 	full_chart = false
+	long_wake = false
 	iron_gullet = false
 	murk_fed = false
 	crew_oath = false
@@ -1749,6 +1751,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.wisp_drop = true
 	if gauntlet:
 		e.dmg = int(ceil(e.dmg * 1.15))
+	if long_wake:
+		e.aggro_range *= 1.4
 	room.add_child(e)
 	# spawn-in: muncul pop supaya tidak hard-cut
 	var esc: Vector3 = e.scale
@@ -4915,6 +4919,7 @@ func _offer_omens() -> void:
 			{"text": "FATHOMLESS — +30% XP... but the dead grow +15% harder"},
 			{"text": "FULL CHART — every floor lies fully charted... but the dead grow +10% harder"},
 			{"text": "WET POWDER — your strikes hit +15% harder... but the skills recharge 20% slower"},
+			{"text": "LONG WAKE — the dead scent you from further... but +20% XP"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -4951,7 +4956,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 45 if Stats.nemesis != "" else 44
+	var osize := 46 if Stats.nemesis != "" else 45
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -5140,6 +5145,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.cd_reduction -= 0.2
 			oname = "WET POWDER"
 		44:
+			long_wake = true
+			Stats.curse_xp += 0.2
+			oname = "LONG WAKE"
+		45:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -5187,6 +5196,7 @@ func _omen_deal(idx: int) -> void:
 		"FATHOMLESS": "Deep lessons, deep bruises. The sea teaches both.",
 		"FULL CHART": "No corner unmapped, Kael — the deep cannot hide from you now, nor you from it.",
 		"WET POWDER": "Wet powder, dry blade, Kael — the sword remembers, the tricks forget.",
+		"LONG WAKE": "They smell the living on you, Kael — good, let them come. Lessons arrive faster that way.",
 		"HEIRLOOM": "Someone carried that before you. They are still carrying it, in a way.",
 		"GOLDEN FATE": "Every lock will gleam. Mind the teeth on some.",
 		"HOLLOW CROWN": "Crown of nothing. The Oracle admires your appetite anyway.",
