@@ -173,6 +173,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Wisp Wrangler", "desc": "Catch 6 wandering wisps (0/6)", "kind": "wisp", "need": 6})
 		steps.append({"title": "Barnacle Bill", "desc": "Scrape off 3 BARNACLED elites (0/3)", "kind": "affix_barnacled", "need": 3})
 		steps.append({"title": "Salvage Boss", "desc": "Slay a TIDAL elite and its flock (0/2)", "kind": "affix_tidal", "need": 2})
+		steps.append({"title": "Night Shift", "desc": "Slay 3 foes while an omen floor event runs (0/3)", "kind": "eventkill", "need": 3})
 	if Stats.floor_num == 11:
 		steps.append({"title": "Soul Fisher", "desc": "Net three drifting wisps (0/3)", "kind": "wisp", "need": 3})
 	if Stats.floor_num >= 13 and Stats.floor_num % 8 == 5:

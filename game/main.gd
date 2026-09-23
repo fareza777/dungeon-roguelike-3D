@@ -2352,6 +2352,8 @@ func _on_enemy_died(e) -> void:
 		_ach("k200")
 	_quest_event("kill")
 	_quest_event("kill_" + Stats.weapon_id)
+	if not events_run.is_empty():
+		_quest_event("eventkill")
 	if wid == "moonshell":
 		_quest_event("moonkill")
 	if wid == "moonshell" and rng.randf() < 0.15:
