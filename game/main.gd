@@ -609,14 +609,14 @@ func _new_run(new_seed: int) -> void:
 		_spawn_shrine(last_room)
 		_spawn_lore_stone(last_room)
 		if not solitary:
-		_spawn_cage(last_room)
+			_spawn_cage(last_room)
 		_spawn_wisps(last_room)
 		_spawn_obelisks(last_room)
 		_spawn_motes()
-		if Stats.relics.has("tulang_kesatria"):
+		if Stats.relics.has("tulang_kesatria") and not solitary:
 			_spawn_squire()
 	# Sir Vane yang terbebaskan bertempur di setiap lantai hingga run berakhir
-	if vane_freed_n > 0:
+	if vane_freed_n > 0 and not solitary:
 		_spawn_knight()
 	else:
 		vane_floors = 0
