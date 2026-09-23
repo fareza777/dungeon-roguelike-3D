@@ -29,6 +29,7 @@ var buff_atk_pct := 0.0 # berkat altar: run ini saja
 var buff_armor := 0 # berkat altar: armor datar run ini
 var buff_speed_pct := 0.0 # omen Feather Step
 var buff_xp_pct := 0.0 # omen Rich Soil
+var buff_lifesteal := 0.0 # berkat altar Vampiric: run ini saja
 var warcry_t := 0.0 # skill War Cry: +50% ATK sementara
 var revive_left := 0 # jiwa bangkit: hidup lagi sekali per run
 var ach := {} # prestasi terbuka: id -> true (persist lintas run)
@@ -66,7 +67,7 @@ var bestiary := {} # arch_id -> jumlah kill sepanjang masa (codex)
 var weapon_kills := {} # weapon_id -> kill sepanjang masa (mastery progress)
 var mastered := {} # weapon_id -> 1 bila mastery tercapai (+1 ATK permanen)
 const MASTERY_N := 25
-var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0}
+var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0}
 
 const META_DEF := {
 	"vital": {"name": "Vitality", "max": 5, "desc": "+1 Max HP per level"},
@@ -118,6 +119,8 @@ func get_stat(n: String) -> float:
 		flat -= mahzan_debt
 	if n == "armor":
 		flat += buff_armor + float(meta.get("adamant", 0))
+	if n == "lifesteal":
+		flat += buff_lifesteal
 	if n == "speed":
 		mult += float(meta.get("swift", 0)) * 0.03 + buff_speed_pct
 	return flat * mult
@@ -227,6 +230,7 @@ func reset_run() -> void:
 	buff_armor = 0
 	buff_speed_pct = 0.0
 	buff_xp_pct = 0.0
+	buff_lifesteal = 0.0
 	warcry_t = 0.0
 	revive_left = int(meta.get("wind", 0))
 	thorns = 0.0
@@ -336,7 +340,7 @@ func wipe_progress() -> void:
 	bestiary = {}
 	weapon_kills = {}
 	mastered = {}
-	meta = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0}
+	meta = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0}
 	reset_run()
 	save_game()
 
