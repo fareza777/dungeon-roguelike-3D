@@ -3101,6 +3101,7 @@ func _refresh_hero() -> void:
 		["Attack Speed", "%.0f%%" % (Stats.get_stat("atk_speed") * 100.0)],
 		["Dodge", "%.0f%%" % (Stats.dodge * 100.0)],
 		["Pickup Range", "+%.0f%%" % (Stats.magnet * 100.0)],
+		["Omens", omen_name if omen_name != "" else "—"],
 	]
 	var grid := GridContainer.new()
 	grid.columns = 2
