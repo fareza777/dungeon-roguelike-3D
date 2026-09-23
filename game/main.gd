@@ -270,6 +270,7 @@ var black_sails := false
 var grim_charter := false
 var martyrs_oath := false
 var slim_pickings := false
+var whale_lung := false
 var sworn_hull := false
 var final_verse := false
 var cradle_deep := false
@@ -4598,7 +4599,7 @@ func _cast_skill(id: String) -> void:
 	_quest_event("skill_" + id)
 	if skills_floor.size() >= 3:
 		_quest_event("witching")
-	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0) * (0.6 if id == "dash" and umbral_tide else 1.0) * (0.7 if id == "dash" and brisk else 1.0) * (0.6 if id == "dash" and dash_fuel else 1.0) * (0.75 if oarsworn else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("powdermonk", 0))) * (1.15 if sodden else 1.0) * (1.1 if slim_pickings else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("belaypin", 0)) if id == "dash" else 1.0)
+	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0) * (0.6 if id == "dash" and umbral_tide else 1.0) * (0.7 if id == "dash" and brisk else 1.0) * (0.6 if id == "dash" and dash_fuel else 1.0) * (0.75 if oarsworn else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("powdermonk", 0))) * (1.15 if sodden else 1.0) * (1.1 if slim_pickings else 1.0) * (0.75 if id == "dash" and whale_lung else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("belaypin", 0)) if id == "dash" else 1.0)
 	casts_run += 1
 	if casts_run >= 40:
 		_ach("fortyknells")
@@ -5517,6 +5518,9 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_crit += 0.1
 			Stats.buff_armor += 1
 			toast("Sharp Hull: barnacle blades in the prow — +10% crit, +1 Armor this run")
+		if idx == 49:
+			whale_lung = true
+			toast("Whale Lung: a deeper breath than any sailor's — dash recharges 25% faster this run")
 	blessings_run += 1
 	if blessings_run >= 5:
 		_ach("bless5")
@@ -7908,6 +7912,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Leech's Tithe — the old blood answers: +8% crit, +3% lifesteal this run"},
 			{"text": "Iron Prow — the bow splits the sea: +1 Armor, +10% speed this run"},
 			{"text": "Sharp Hull — barnacle blades in the prow: +10% crit, +1 Armor this run"},
+			{"text": "Whale Lung — a deep-sea breath: dash recharges 25% faster this run"},
 		]
 	)
 
