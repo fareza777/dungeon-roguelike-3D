@@ -574,6 +574,7 @@ var mimic_pending := false
 var shrine_used := false
 var shrine_count := 0
 var blessings_run := 0
+var dice_wins := 0
 var urn_count := 0
 var salvage_ct := 0
 var keelh_floor := 0
@@ -950,6 +951,7 @@ func _reset_run_state() -> void:
 	wolf_n = 0
 	shrine_count = 0
 	blessings_run = 0
+	dice_wins = 0
 	urn_count = 0
 	_biomes_run = {}
 	salvage_ct = 0
@@ -6920,6 +6922,9 @@ func _mahzan_deal(idx: int) -> void:
 					_souls_l()
 					Sfx.play("souls")
 					toast("EVEN — the dice pay out +12 souls")
+					dice_wins += 1
+					if dice_wins >= 3:
+						_ach("dice3")
 				else:
 					_souls_l()
 					Sfx.play("deny")
