@@ -81,6 +81,8 @@ var leech := false
 var charged := false
 var chaplain := false
 var chap_t := 0.0
+var warden_bell := false
+var bell_t := 0.0
 var chime_t := 7.0
 var husk_shell := false
 var cantor_t := 6.5
@@ -206,6 +208,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	sprite = bool(a.get("sprite", false))
 	leech = bool(a.get("leech", false))
 	chaplain = bool(a.get("chaplain", false))
+	warden_bell = bool(a.get("warden_bell", false))
 	healer = bool(a.get("healer", false))
 	crowned = bool(a.get("crowned", false))
 	tither = bool(a.get("tither", false))
@@ -547,6 +550,16 @@ func _physics_process(delta: float) -> void:
 		return
 	anim_lock = max(0.0, anim_lock - delta)
 	hex_t = maxf(0.0, hex_t - delta)
+	if warden_bell:
+		bell_t += delta
+		if bell_t >= 6.0:
+			bell_t = 0.0
+			var bpl_ = get_tree().get_first_node_in_group("player")
+			if bpl_ != null and global_position.distance_to(bpl_.global_position) < 5.0 * room_tile:
+				bpl_.set("chill_t", maxf(float(bpl_.get("chill_t")), 2.0))
+				var bsc_ = get_tree().current_scene
+				if bsc_ != null and bsc_.has_method("_damage_number"):
+					bsc_._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "TOLLED!", Color(0.85, 0.7, 0.3), false)
 	if chaplain:
 		chap_t += delta
 		if chap_t >= 4.0:
