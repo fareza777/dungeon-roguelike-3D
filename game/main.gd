@@ -1064,7 +1064,11 @@ func _spawn_shrine(last_room: int) -> void:
 	s.global_position = pos
 	# lantai 3+: 30% Mahzan; lantai 2+: 22% obelisk terkutuk; sisanya altar berkat
 	var skind := 0
-	if Stats.floor_num >= 7 and rng.randf() < 0.1:
+	if Stats.floor_num >= 7 and Stats.floor_num % 7 == 0:
+		skind = 5 # lantai quest Bounty Hunter — batu kontrak terjamin
+	elif Stats.floor_num >= 5 and Stats.floor_num % 5 == 1:
+		skind = 3 # lantai quest Forge-Fed — soul forge terjamin
+	elif Stats.floor_num >= 7 and rng.randf() < 0.1:
 		skind = 5
 	elif Stats.floor_num >= 6 and rng.randf() < 0.12:
 		skind = 4
