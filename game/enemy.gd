@@ -30,6 +30,7 @@ var proj_speed := 0.0
 var kb_resist := 0.0
 var dmg_reduce := 0.0
 var tidal_t := 0.0
+var was_low := false
 var speed := 4.0
 var dmg := 1
 var windup_t := 0.45
@@ -905,6 +906,7 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 				mq._quest_event("shellcrack")
 	if dmg_reduce > 0.0 and dmg_taken > 0.0:
 		dmg_taken *= (1.0 - dmg_reduce)
+	was_low = hp > 0.0 and hp <= hp_max * 0.3
 	hp -= dmg_taken
 	if affix == "sirensong" and not _siren_pulled and not Stats.relics.has("deaf_cap") and hp > 0.0 and hp <= hp_max * 0.4:
 		_siren_pulled = true

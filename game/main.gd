@@ -2341,7 +2341,7 @@ func _on_enemy_died(e) -> void:
 		sq.life_t = 4.0
 		_damage_number(e.global_position + Vector3(0, 0.9 * info.tile, 0), "THRALL", Color(0.6, 0.8, 1.1), false)
 		_quest_event("thrall")
-	if wid == "tidebrand" and float(e.hp) <= float(e.get("hp_max")) * 0.3:
+	if wid == "tidebrand" and bool(e.get("was_low")):
 		Stats.earn_souls(1)
 		_souls_l()
 		_damage_number(e.global_position + Vector3(0, 1.0 * info.tile, 0), "SALVAGE +1", Color(0.85, 0.75, 0.35), false)
