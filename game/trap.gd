@@ -206,6 +206,8 @@ func _physics_process(delta: float) -> void:
 									ms._souls_l()
 								if ms.has_method("_damage_number"):
 									ms._damage_number(p.global_position + Vector3(0, 0.7 * tile, 0), "SIPHONED −%d ◈" % drained, Color(0.75, 0.5, 1.1), true)
+								if ms.has_method("_quest_event"):
+									ms._quest_event("siphon_hit")
 						var mw := get_tree().current_scene
 						if mw != null and int(mw.get("trap_wrapped") or 0) > 0:
 							mw.set("trap_wrapped", int(mw.get("trap_wrapped")) - 1)

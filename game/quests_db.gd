@@ -164,6 +164,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Bone General", "desc": "Raise 3 thralls with the Moonshell (0/3)", "kind": "thrall", "need": 3})
 		steps.append({"title": "Siphon Stopper", "desc": "Seal a Soul Siphon while it dozes (0/1)", "kind": "siphon", "need": 1})
 		steps.append({"title": "Purse Snatcher", "desc": "Pocket 5 soul vials (0/5)", "kind": "vial", "need": 5})
+		steps.append({"title": "Tithe Collector", "desc": "Survive a Soul Siphon's drain (0/1)", "kind": "siphon_hit", "need": 1})
 	if Stats.floor_num == 11:
 		steps.append({"title": "Soul Fisher", "desc": "Net three drifting wisps (0/3)", "kind": "wisp", "need": 3})
 	if Stats.floor_num >= 13 and Stats.floor_num % 8 == 5:
