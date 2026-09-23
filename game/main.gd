@@ -2235,6 +2235,13 @@ func _on_enemy_died(e) -> void:
 	if Stats.total_kills >= 200:
 		_ach("k200")
 	_quest_event("kill")
+	if wid == "moonshell" and rng.randf() < 0.15:
+		var sq = SQUIRE.new()
+		room.add_child(sq)
+		sq.global_position = e.global_position
+		sq.setup(info.tile, Stats.get_stat("atk") * 0.35, Color(0.6, 0.75, 1.1), Color(0.6, 0.8, 1.1))
+		sq.life_t = 4.0
+		_damage_number(e.global_position + Vector3(0, 0.9 * info.tile, 0), "THRALL", Color(0.6, 0.8, 1.1), false)
 	if wid == "conchhorn":
 		var near_e = null
 		var near_d := 2.5 * info.tile

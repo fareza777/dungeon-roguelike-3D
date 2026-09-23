@@ -7,6 +7,7 @@ var atk_cd := 0.0
 var t := 0.0
 var dmg := 1.0
 var is_vane := false # Sir Vane: kadang bicara setelah menebas
+var life_t := -1.0 # >0 = THRALL ghost — memudar saat habis
 
 
 func setup(p_tile: float, p_dmg: float, p_tint := Color(0.95, 0.88, 0.6), p_orb := Color(1.0, 0.85, 0.3)) -> void:
@@ -45,6 +46,12 @@ func _paint(n: Node, mat: Material) -> void:
 
 func _physics_process(delta: float) -> void:
 	t += delta
+	if life_t > 0.0:
+		life_t -= delta
+		modulate = Color(1, 1, 1, clampf(life_t / 4.0, 0.0, 1.0) * 0.75 + 0.15)
+		if life_t <= 0.0:
+			queue_free()
+			return
 	atk_cd -= delta
 	var ps := get_tree().get_nodes_in_group("player")
 	if ps.is_empty():
