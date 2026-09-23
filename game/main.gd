@@ -676,6 +676,7 @@ func _new_run(new_seed: int) -> void:
 		Stats.event_soul_bonus = 1
 	storm_t = 4.0
 	nemesis_spawned = false
+	_ferry_used = false
 	_apply_biome()
 	_style_room()
 	_build_gates()
