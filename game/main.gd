@@ -90,6 +90,17 @@ const TIPS := [
 ]
 
 
+func _biome_track() -> String:
+	match String(biome["name"]):
+		"Ember Crypt":
+			return "ember"
+		"Frozen Deep":
+			return "frozen"
+		"Verdant Ruin":
+			return "verdant"
+	return "dungeon"
+
+
 func _boss_tier() -> Dictionary:
 	return BOSS_TIERS[(Stats.floor_num / 5 - 1) % BOSS_TIERS.size()]
 
@@ -284,7 +295,7 @@ func _new_run(new_seed: int) -> void:
 		_spawn_shrine(last_room)
 	_start_quests(boss_floor, int(info.get("room_count", 1)))
 	_build_minimap()
-	Sfx.play_music("boss" if boss_floor else "dungeon")
+	Sfx.play_music("boss" if boss_floor else _biome_track())
 	ui.floor_label.text = "Lantai %d • %s" % [Stats.floor_num, biome["name"]]
 	_update_hp(Stats.current_hp)
 	_update_xp(Stats.xp, Stats.xp_need(), Stats.level)
@@ -650,7 +661,7 @@ func _on_boss_died(_e) -> void:
 	Stats.boss_kills += 1
 	Stats.save_game()
 	Sfx.play("victory")
-	Sfx.play_music("dungeon")
+	Sfx.play_music(_biome_track())
 	_quest_event("boss_kill")
 	if Stats.boss_kills >= 1:
 		_ach("b1")
