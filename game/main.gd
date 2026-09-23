@@ -1824,6 +1824,19 @@ func _toggle_hero(open: bool) -> void:
 		Sfx.play("click")
 
 
+func _swap_weapon() -> void:
+	if Stats.owned_weapons.size() < 2:
+		Sfx.play("deny")
+		toast("Only one blade owned — find drops to swap")
+		return
+	if run_state != "playing" or Stats.draft_open:
+		return
+	var idx: int = Stats.owned_weapons.find(Stats.weapon_id)
+	var nxt: String = String(Stats.owned_weapons[(idx + 1) % Stats.owned_weapons.size()])
+	_hero_equip(nxt)
+	toast("Swapped to " + String(WDB.get_w(nxt)["name"]))
+
+
 func _hero_equip(wid: String) -> void:
 	if player != null and is_instance_valid(player):
 		player.equip_weapon(wid)
@@ -2832,6 +2845,22 @@ func _build_ui() -> void:
 	pbtn.add_theme_stylebox_override("normal", psbb)
 	pbtn.pressed.connect(_toggle_pause)
 	layer.add_child(pbtn)
+
+	# tombol SWAP: ganti senjata cepat tanpa buka panel HERO
+	var swb := Button.new()
+	swb.text = "SWAP"
+	swb.add_theme_font_size_override("font_size", 15)
+	swb.anchor_left = 1.0
+	swb.anchor_right = 1.0
+	swb.offset_left = -132
+	swb.offset_top = 94
+	swb.offset_right = -12
+	swb.offset_bottom = 132
+	var swsb := hsb.duplicate() as StyleBoxFlat
+	swb.add_theme_stylebox_override("normal", swsb)
+	swb.add_theme_color_override("font_color", Color(0.75, 0.9, 1.0))
+	swb.pressed.connect(_swap_weapon)
+	layer.add_child(swb)
 
 	var chips := HBoxContainer.new()
 	chips.anchor_top = 1.0
