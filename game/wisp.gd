@@ -79,6 +79,8 @@ func _physics_process(delta: float) -> void:
 					wp += 1
 				if Stats.relics.has("soul_creel"):
 					wp += 1
+				if m0 != null and bool(m0.get("waxpale")):
+					wp *= 2
 				Stats.earn_souls(wp)
 				if m0 != null and m0.get("biome") is Dictionary and String(m0.biome.get("name", "")) == "Sunken Reliquary":
 					m0.reliquary_wisps += wp

@@ -173,6 +173,7 @@ var pearl_fever := false
 var muckraker := false
 var abyssal_patience := false
 var bone_market := false
+var waxpale := false
 var umbral_tide := false
 var moonwrit := false
 var barnacle_sense := false
@@ -758,6 +759,7 @@ func _reset_run_state() -> void:
 	muckraker = false
 	abyssal_patience = false
 	bone_market = false
+	waxpale = false
 	umbral_tide = false
 	moonwrit = false
 	barnacle_sense = false
@@ -4253,6 +4255,7 @@ func _offer_omens() -> void:
 			{"text": "ABYSSAL PATIENCE — every chest pays +4 souls... but urns run dry"},
 			{"text": "UMBRAL TIDE — your dash recharges 40% faster... but the dead swim 20% quicker"},
 			{"text": "BONE MARKET — chests pay double souls... but every lid bites 5% of your Max HP"},
+			{"text": "WAXPALE — the wisps pay double... but the dead grow 10% harder"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -4287,7 +4290,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 35 if Stats.nemesis != "" else 34
+	var osize := 36 if Stats.nemesis != "" else 35
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -4438,6 +4441,10 @@ func _omen_deal(idx: int) -> void:
 			bone_market = true
 			oname = "BONE MARKET"
 		34:
+			waxpale = true
+			omen_hp_mult += 0.1
+			oname = "WAXPALE"
+		35:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -4497,6 +4504,7 @@ func _omen_deal(idx: int) -> void:
 		"ABYSSAL PATIENCE": "Patience, fisher — let the heavy chests fill your purse; leave the pots for the crabs.",
 		"UMBRAL TIDE": "Step light, Kael — the black water is thick tonight, and everything in it is coming for you.",
 		"BONE MARKET": "Everything here has a price on its lid. Try not to lose a finger haggling.",
+		"WAXPALE": "Pale as tallow, hungry as the tide — the little lights will feed you well tonight.",
 	}
 	var rline: String = String(reacts.get(oname, "An oath is an oath."))
 	_say([{"who": "oracle", "text": rline}])
