@@ -145,7 +145,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper"][randi() % 14]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric"][randi() % 15]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -186,6 +186,10 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 			"reaper":
 				# elite ini mengincar nyawa — +50% dmg ke pemain sekarat
 				dmg += 1
+				xp_val = int(xp_val * 1.3)
+			"vampiric":
+				# elite ini minum darah — 35% lukanya kembali sebagai HP
+				hp *= 1.15
 				xp_val = int(xp_val * 1.3)
 	scale = Vector3.ONE * sc
 	_base_scale = scale
@@ -523,6 +527,8 @@ func _physics_process(delta: float) -> void:
 									if mm6 != null and mm6.has_method("_damage_number"):
 										mm6._damage_number(q.global_position + Vector3(0, 0.8 * room_tile, 0), "REAPED!", Color(1.0, 0.3, 0.2), true)
 								q.take_hit(global_position, dmg * dmulti)
+								if affix == "vampiric":
+									hp = minf(hp_max, hp + dmg * dmulti * 0.35)
 								if is_slammer:
 									_shock()
 								if jailer and q.get("dead") != true:
