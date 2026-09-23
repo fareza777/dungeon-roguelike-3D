@@ -243,6 +243,12 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 				var m := get_tree().current_scene
 				if m != null and m.has_method("_shock_ring"):
 					m._shock_ring(f.global_position)
+		"gaoler_brand": # WARDEN — 12% peluang menjaring musuh di tempat
+			if randf() < 0.12 and not bool(f.get("is_boss")):
+				f.stun(1.2)
+				var m4 := get_tree().current_scene
+				if m4 != null and m4.has_method("_damage_number"):
+					m4._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "CAGED", Color(0.6, 0.45, 1.0), true)
 	# Ember Brand: senjata apapun punya 12% peluang membakar sasaran
 	if Stats.relic_burn > 0.0 and Stats.weapon_id != "ember_mace" and randf() < 0.12:
 		f.set("burn_t", maxf(float(f.get("burn_t")), 1.8))

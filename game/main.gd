@@ -1009,6 +1009,8 @@ func _on_enemy_died(e) -> void:
 		spawn_weapon_drop(e.global_position, WDB.roll_drop(rng, Stats.weapon_id))
 	elif e.arch_id == "brute" and rng.randf() < 0.25:
 		spawn_weapon_drop(e.global_position, WDB.roll_drop(rng, Stats.weapon_id))
+	elif e.arch_id == "gaoler" and Stats.weapon_id != "gaoler_brand" and rng.randf() < 0.35:
+		spawn_weapon_drop(e.global_position, "gaoler_brand")
 	# drop kesehatan: sumber sustain utama mid-run
 	if e.is_boss:
 		for _i in range(2):
