@@ -95,4 +95,11 @@ func _physics_process(delta: float) -> void:
 			Sfx.play("pickup")
 			if m != null and m.has_method("toast"):
 				m.toast("%s — %s" % [w["name"], w["desc"]])
+			# senjata baru terasa hidup: +15% ATK selama 60 detik untuk "memanaskan"
+			if m != null:
+				m.trial_atk_t = 60.0
+				Stats.buff_atk_pct += 0.15
+				p.refresh_stats()
+				if m.has_method("_damage_number"):
+					m._damage_number(p.global_position + Vector3(0, 1.0 * tile, 0), "TRIAL BLADE — +15% ATK 60s", Color(0.6, 0.9, 1.0), false)
 		queue_free()

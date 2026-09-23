@@ -185,6 +185,7 @@ var vign: TextureRect = null
 var vign_tween: Tween = null
 var prev_hp := -1.0
 var floor_hurt := false
+var trial_atk_t := 0.0
 
 # prestasi lintas run (definisi di stats.gd: ACH_DEF) + varian bos per 5 lantai
 const BOSS_TIERS := [
@@ -633,6 +634,9 @@ func _reset_run_state() -> void:
 	gravetide = false
 	flawless_run = 0
 	well_rolls = 0
+	if trial_atk_t > 0.0:
+		Stats.buff_atk_pct -= 0.15
+		trial_atk_t = 0.0
 
 
 func _new_run(new_seed: int) -> void:
@@ -6306,6 +6310,12 @@ func _process(delta: float) -> void:
 	if player != null and is_instance_valid(player) and run_state == "playing":
 		run_time += delta
 		floor_t += delta
+		if trial_atk_t > 0.0:
+			trial_atk_t -= delta
+			if trial_atk_t <= 0.0:
+				Stats.buff_atk_pct -= 0.15
+				player.refresh_stats()
+				toast("The new blade cools — trial over")
 		if ui.has("time_label"):
 			ui.time_label.text = "%d:%02d" % [int(run_time) / 60, int(run_time) % 60]
 		for ln2 in lanterns:
