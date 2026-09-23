@@ -201,6 +201,12 @@ func _physics_process(delta: float) -> void:
 							mw.set("trap_wrapped", int(mw.get("trap_wrapped")) - 1)
 							if mw.has_method("_damage_number"):
 								mw._damage_number(p.global_position + Vector3(0, 0.7 * tile, 0), "WRAPPED", Color(0.7, 0.8, 1.0), true)
+						elif mw != null and bool(mw.get("keel_prayer")):
+							mw.set("keel_prayer", false)
+							p.hp = minf(p.max_hp, p.hp + 2.0)
+							p.hp_changed.emit(p.hp)
+							if mw.has_method("_damage_number"):
+								mw._damage_number(p.global_position + Vector3(0, 0.7 * tile, 0), "KEEL MENDS", Color(0.5, 0.95, 0.7), true)
 						else:
 							p.take_hit(global_position, 1)
 
