@@ -41,7 +41,9 @@ const LORE_LINES := [
 	"Kael, he knew your name before you ever drew your blade.",
 	"The last hero left his sword in the Bone King's chest. It is still there.",
 	"Skeletons don't dream — yet they all march in the same direction.",
-	"Beneath the thirtieth floor, even the stone forgets the sun."
+	"Beneath the thirtieth floor, even the stone forgets the sun.",
+	"The cages were built by a gaoler with no face — he collects what the King forgets.",
+	"Sir Vane died defending the nursery door. The bars never forgave him."
 ]
 
 var dungeon_tex: Texture2D
@@ -145,6 +147,19 @@ const KILLER_NAMES := {
 	"brute": "a Bone Brute", "bomber": "a Boom Bones", "archer": "a Skeletal Archer",
 	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler",
 	"bone_king": "the King himself", "trap": "a hidden trap", "": "the dungeon itself"}
+const KILLER_TIPS := {
+	"chaser": "Tip: chasers are slow — kite them into a corner and cleave.",
+	"rogue": "Tip: rogues dash — dash THROUGH their lunge for a perfect counter.",
+	"mage": "Tip: bone mages flinch when hit — rush them before their cast lands.",
+	"brute": "Tip: brutes wind up heavy — watch the red flash, then dash away.",
+	"bomber": "Tip: bombers detonate on contact — keep moving, let them chase.",
+	"archer": "Tip: archers fire from afar — break line-of-sight and flank.",
+	"necromancer": "Tip: kill the Necromancer first — his minions never stop rising.",
+	"crawler": "Tip: crawlers swarm — a HEAVY attack clears the whole pack.",
+	"bone_king": "Tip: his slams telegraph red — dash through the shockwave.",
+	"trap": "Tip: traps pulse on a rhythm — cross on the off-beat.",
+	"": "Tip: blessings, relics and Sir Vane can still turn a doomed run.",
+}
 
 const TIPS := [
 	"Crimson-glowing elites grant double XP.",
@@ -1120,7 +1135,10 @@ func _on_player_died() -> void:
 	var killer: String = "the dungeon itself"
 	if player != null and is_instance_valid(player):
 		killer = String(KILLER_NAMES.get(player.last_killer, player.last_killer))
-	_show_banner("YOU DIED", "Floor %d • %s — slain by %s\n%d kills • Lv %d • %d relics • best combo ×%d • %d:%02d\nBest: Floor %d — tap to retry%s" % [Stats.floor_num, biome["name"], killer, kills_run, Stats.level, Stats.relics.size(), combo_max, mins, secs, Stats.best_floor, rec], Color(1.0, 0.32, 0.28))
+	var ktip: String = ""
+	if player != null and is_instance_valid(player):
+		ktip = "\n" + String(KILLER_TIPS.get(player.last_killer, ""))
+	_show_banner("YOU DIED", "Floor %d • %s — slain by %s\n%d kills • Lv %d • %d relics • best combo ×%d • %d:%02d\nBest: Floor %d — tap to retry%s%s" % [Stats.floor_num, biome["name"], killer, kills_run, Stats.level, Stats.relics.size(), combo_max, mins, secs, Stats.best_floor, rec, ktip], Color(1.0, 0.32, 0.28))
 
 
 func _run_victory() -> void:
