@@ -734,6 +734,7 @@ func _reset_run_state() -> void:
 	abyss_n = 0
 	lore_run = 0
 	disarm_run = 0
+	salt_tithe = false
 	events_run = {}
 	shellshield_used = false
 	perfect_dodges = 0
@@ -806,7 +807,6 @@ func _new_run(new_seed: int) -> void:
 	keelh_floor = 0
 	salt_purse = false
 	sirensong_deal = false
-	salt_tithe = false
 	pool_touched = false
 	shellshield_used = false
 	if rotgut_drunk:
