@@ -38,6 +38,15 @@ Runs ~3-4 min, prints markers (ROOM/COLLISION/ATK_ANIM/GATE*/PICKUP/DRAFT/RELIK/
 - A full-rect ColorRect/Container with MOUSE_FILTER_STOP added *after* a dialog will both hide it and eat every click (later children draw/steal first). Order matters in `_build_ui`.
 - Children of a "tap anywhere" root (bg rects, PanelContainers) with default STOP filter swallow taps before the parent's `gui_input` — taps only reach the parent's exposed rect. Make non-interactive children MOUSE_FILTER_IGNORE.
 - Emoji: system font renders ⚑/☠ but 🗡 shows as a missing-glyph box on Linux.
+- Container subclasses (PanelContainer/VBox/HBox/CenterContainer) default to MOUSE_FILTER_IGNORE already — explicit IGNORE on them is a no-op. The real tap-swallowers are leaf Controls (Label, RichTextLabel, TextureRect, ColorRect, Button) which default STOP.
+
+## Level navigation (room-lock arena flow)
+- Rooms stack vertically, contiguous, ONE door in each room's north wall (random column). Wall-mounted torches always flank the door (door_i±1) — follow the torch to find the exit.
+- On entering a room with live enemies: "Ruangan terkunci" toast + portcullis gates slam (behind AND ahead). Kill all room enemies → "Ruangan bersih — gerbang terbuka!". `_room_at(z)` is z-only (x-blind) — trigger is crossing the room's z-band by ~0.3 tile.
+- Enemies steer straight at the player via move_and_slide (no navmesh) — they slide along walls but can't find far gaps; they only ACTIVATE when you enter their room, so walls of enemies you see while locked-out just idle-wander.
+- Gate portcullis is dark bars that SINK when open (open doorway = bare arch); a solid RED double-door prop is a different decoration, not a gate.
+- Stdout prints `RUANGAN <i> TERKUNCI (musuh=n)` + `ENEMY DIED arch=…` — redirect the game log (`>/tmp/ds.log 2>&1`) to track room/lock/kill state live during interactive runs.
+- Interactive floor-clear at ~5fps is near-impossible legit (enemies act during tool click latency). For evidence runs patch temporarily, e.g. in `_new_run`: `Stats.buff_atk_pct=20.0` (one-shot), `Stats.base["lifesteal"]=0.5`, and/or an early `return` at the top of `player.gd take_hit` (god-mode — armor can't fully block, damage is clamped min 1). ALWAYS revert + verify `git diff` clean after.
 
 ## Useful paths
 - Repo: `/home/ubuntu/repos/dungeon-roguelike-3D` (game code in `game/`, e.g. `main.gd`, `dialogue.gd`, `stats.gd`, `app/menu.gd`)
