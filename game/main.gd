@@ -1712,10 +1712,10 @@ func _spawn_obelisks(last_room: int) -> void:
 
 func _spawn_wisps(last_room: int) -> void:
 	# kunang jiwa pengembara: 55% satu, 20% dua — +1 soul kalau disentuh
-	var guaranteed := (Stats.floor_num >= 6 and Stats.floor_num % 4 == 0) or soul_drift
+	var guaranteed := (Stats.floor_num >= 6 and Stats.floor_num % 4 == 0) or soul_drift or blood_moon
 	if not guaranteed and rng.randf() > 0.55:
 		return
-	var wcount := 4 if soul_drift else (2 if (guaranteed or rng.randf() < 0.36) else 1)
+	var wcount := 4 if soul_drift else (3 if blood_moon else (2 if (guaranteed or rng.randf() < 0.36) else 1))
 	for _wi in range(wcount):
 		var ri := rng.randi_range(1, last_room)
 		var rr: Dictionary = info.ranges[ri]
