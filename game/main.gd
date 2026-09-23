@@ -3455,6 +3455,7 @@ func _on_forge_invoked(s) -> void:
 		[{"text": "Quench the Blade — pay 6 souls: +1 weapon level"},
 		{"text": "Sharpen Fully — pay 10 souls: +2 weapon levels"},
 		{"text": "Temper the Wielder — pay 4 souls: the forge's heat seals your wounds"},
+		{"text": "Bind Two Souls — sacrifice two common relics for a greater one"},
 		{"text": "Leave the cold anvil"}])
 
 
@@ -3494,6 +3495,34 @@ func _forge_deal(idx: int) -> void:
 		if player != null and is_instance_valid(player):
 			player.hp_changed.emit(player.hp)
 			_burst(player.global_position + Vector3(0, 0.6, 0), Color(1.0, 0.6, 0.25))
+		return
+	elif idx == 3:
+		var commons: Array = []
+		for ridc in Stats.relics:
+			if ITEMS.DB.has(ridc) and int(ITEMS.DB[ridc]["rarity"]) == 0:
+				commons.append(ridc)
+		if commons.size() < 2:
+			toast("The binding needs two common relics")
+			return
+		Stats.relics.erase(commons[0])
+		Stats.relics.erase(commons[1])
+		Stats.relics_changed.emit()
+		var bpool: Array = []
+		for ridb in ITEMS.DB:
+			if int(ITEMS.DB[ridb]["rarity"]) >= 1 and not Stats.relics.has(ridb):
+				bpool.append(ridb)
+		if bpool.is_empty():
+			toast("No relic left to bind — the souls return")
+			Stats.relics.append(commons[0])
+			Stats.relics.append(commons[1])
+			Stats.relics_changed.emit()
+			return
+		var bound: String = bpool[rng.randi_range(0, bpool.size() - 1)]
+		Stats.add_relic(bound)
+		Sfx.play("levelup")
+		toast("BOUND SOUL — relic forged: " + String(ITEMS.DB[bound]["name"]))
+		_quest_event("forge")
+		_refresh_buffs()
 		return
 	else:
 		return
