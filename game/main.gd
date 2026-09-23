@@ -126,7 +126,9 @@ const LORE_LINES := [
 	"The Widow's webs outlast her — clear them or they will outlast you.",
 	"A slow clock still strikes, Kael — it only asks that you be patient enough to hear it.",
 	"The Gunners were the King's own powder crews — he drowned them mid-salute, and they are still firing.",
-	"Every tide that favors you, Kael, the sea writes down twice: once as a gift, once as a debt."
+	"Every tide that favors you, Kael, the sea writes down twice: once as a gift, once as a debt.",
+	"Powder crews fired in pairs by tradition — one barrel for the foe, one for luck.",
+	"A loose ship still floats, Kael — she just reminds you how thin the hull is."
 ]
 
 var dungeon_tex: Texture2D
