@@ -6318,10 +6318,25 @@ func _on_qm_invoked(s) -> void:
 		[{"text": "Arm Me — pay 8 souls: a weapon drops from the hold"},
 		{"text": "Hone the Crew — pay 4 souls: +10% ATK this run"},
 		{"text": "Provisions — pay 3 souls: mend 25% HP"},
+		{"text": "Rope Ration — pay 3 souls: +1 soul vial for the road"},
 		{"text": "Walk away"}])
 
 
 func _qm_deal(idx: int) -> void:
+	if idx == 4:
+		toast("The post shutters its stores")
+		return
+	if idx == 3:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the ration isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		vials += 1
+		_vial_btn()
+		Sfx.play("shrine")
+		toast("ROPE RATION — +1 ⚗ vial tucked for the road")
+		return
 	if idx == 3:
 		toast("The post shutters its stores")
 		return
