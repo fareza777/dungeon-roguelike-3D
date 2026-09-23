@@ -597,6 +597,7 @@ func _new_run(new_seed: int) -> void:
 	stain_positions.clear()
 	pray_t = 0.0
 	prayed = false
+	umbral_seen = false
 	var boss_floor: bool = QDB.is_boss_floor(Stats.floor_num)
 	Stats.buff_atk_pct -= lc_delta
 	lc_delta = (0.2 if boss_floor else -0.05) if lonecrown else 0.0
@@ -890,6 +891,10 @@ func _on_room_enter(ri: int) -> void:
 		_ambush(ri)
 	for e in get_tree().get_nodes_in_group("enemies"):
 		e.activated = e.room_idx == ri
+		if e.activated and not umbral_seen and bool(e.get("elite")) and String(e.get("affix")) == "umbral":
+			umbral_seen = true
+			Sfx.play("whisper")
+			_damage_number(player.global_position + Vector3(0, 1.0 * info.tile, 0), "UMBRAL — it was never really there", Color(0.6, 0.5, 1.1), true)
 	_quest_event("reach_room", ri)
 	# bisikan Oracle: atmosfer ambient di ruangan yang hidup (bukan lantai bos)
 	if Stats.floor_num >= 2 and not QDB.is_boss_floor(Stats.floor_num) and ri > 0 and _room_alive(ri) > 0 and rng.randf() < 0.14 and player != null:
@@ -1257,6 +1262,7 @@ var stain_count := 0
 var stain_positions: Array = []
 var pray_t := 0.0
 var prayed := false
+var umbral_seen := false
 var leech_charge := 0
 var squire_ref: Node3D = null
 var knight_ref: Node3D = null
