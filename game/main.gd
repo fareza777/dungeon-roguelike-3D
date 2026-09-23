@@ -2655,6 +2655,8 @@ func _on_enemy_died(e) -> void:
 				_quest_event("starved")
 			if choir:
 				_quest_event("choirfloor")
+			if abyssal_hymn:
+				_quest_event("hymnfloor")
 				Stats.dread_survived += 1
 				if Stats.dread_survived >= 3:
 					_ach("dreadlord")
