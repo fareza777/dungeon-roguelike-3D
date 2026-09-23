@@ -67,6 +67,8 @@ var golden := false
 var nemesis := false
 var is_lurker := false
 var orator := false
+var healer := false
+var heal_t := 4.0
 var crowned := false
 var tither := false
 var digger := false
@@ -170,6 +172,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	is_spiky = bool(a.get("spiky", false))
 	is_lurker = bool(a.get("lurks", false))
 	orator = bool(a.get("orator", false))
+	healer = bool(a.get("healer", false))
 	crowned = bool(a.get("crowned", false))
 	tither = bool(a.get("tither", false))
 	digger = bool(a.get("digger", false))
@@ -504,6 +507,11 @@ func _physics_process(delta: float) -> void:
 		if orator_t <= 0.0:
 			orator_t = 6.0
 			_orator_pulse()
+	if healer and activated:
+		heal_t -= delta
+		if heal_t <= 0.0:
+			heal_t = 4.5
+			_jack_pulse()
 	if is_warper and activated:
 		warp_t -= delta
 		if warp_t <= 0.0:
@@ -964,6 +972,22 @@ func _explode() -> void:
 		mat.set_shader_parameter("flash", 1.0)
 	anim_lock = M.play_action(ap, ["death"], 1.2)
 	died.emit(self)
+
+
+func _jack_pulse() -> void:
+	# lentera hijau: semua musuh di ruangan ini pulih +1 HP (hingga max)
+	var mj := get_tree().current_scene
+	if mj != null and mj.has_method("_burst"):
+		mj._burst(global_position + Vector3(0, 0.6 * room_tile, 0), Color(0.4, 0.95, 0.5))
+	if mj != null and mj.has_method("_damage_number"):
+		mj._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "LANTERN GLOW", Color(0.45, 0.95, 0.5), false)
+	Sfx.play("shrine")
+	for e3 in get_tree().get_nodes_in_group("enemies"):
+		if e3 == self or not is_instance_valid(e3) or String(e3.get("state")) == "dead":
+			continue
+		if int(e3.get("room_idx")) != room_idx:
+			continue
+		e3.hp = minf(float(e3.hp) + 1.0, float(e3.hp_max))
 
 
 func _orator_pulse() -> void:

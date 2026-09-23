@@ -2946,10 +2946,13 @@ func _on_enemy_died(e) -> void:
 		_quest_event("herald_kill")
 	if e.arch_id == "hull_widow":
 		_quest_event("widow_kill")
-	if e.arch_id == "deck_gunner":
-		_quest_event("gunner_kill")
 		if float(Stats.arch_kills.get("hull_widow", 0)) >= 10:
 			_ach("websurgeon")
+	if e.arch_id == "deck_gunner":
+		_quest_event("gunner_kill")
+	if e.arch_id == "lantern_jack":
+		_quest_event("jack_kill")
+	if e.arch_id == "salt_herald":
 		var sri := int(e.get("room_idx"))
 		for sp_off in [Vector3(0.4, 0, 0), Vector3(-0.4, 0, 0)]:
 			var mpos: Vector3 = e.global_position + sp_off * info.tile * 0.5
