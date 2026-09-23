@@ -280,7 +280,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -1839,6 +1839,18 @@ func _cast_skill(id: String) -> void:
 				return
 			trauma = 0.6
 			print("SKILL sunder")
+		"chains":
+			Sfx.play("gate")
+			var dmgc := Stats.get_stat("atk") * 0.8
+			var bound := 0
+			for f in get_tree().get_nodes_in_group("enemies"):
+				if f.global_position.distance_to(player.global_position) < 1.6 * info.tile:
+					f.stun(2.2)
+					f.take_hit(player.global_position, dmgc)
+					bound += 1
+			_burst(player.global_position + Vector3(0, 0.4, 0), Color(0.6, 0.45, 1.0))
+			trauma = 0.5
+			print("SKILL chains bound=%d" % bound)
 	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0)
 
 
