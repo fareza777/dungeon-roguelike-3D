@@ -759,6 +759,15 @@ func _tier_slam() -> void:
 			var p3 := _player()
 			if p3 != null and p3.get("dead") != true:
 				p3.set("chill_t", 2.5)
+				# UNDYING: seruan siren — slam juga menarik pemain ke mulutnya
+				var pull: Vector3 = global_position - p3.global_position
+				pull.y = 0
+				if pull.length() > 1.0 * room_tile:
+					p3.global_position += pull.normalized() * 0.7 * room_tile
+				p3.velocity += pull.normalized() * room_tile * 4.0
+				var mu := get_tree().current_scene
+				if mu != null and mu.has_method("_damage_number"):
+					mu._damage_number(p3.global_position + Vector3(0, 0.8 * room_tile, 0), "CALLED", Color(0.7, 0.5, 1.15), false)
 			speed = minf(speed * 1.08, 4.5 * room_tile)
 
 
