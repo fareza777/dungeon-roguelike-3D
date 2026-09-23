@@ -282,7 +282,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -1987,6 +1987,19 @@ func _cast_skill(id: String) -> void:
 			trauma = 1.0
 			_quest_event("storm")
 			print("SKILL storm struck=%d" % struck)
+		"mend":
+			if player.hp >= player.max_hp and player.chill_t <= 0.0 and player.root_t <= 0.0:
+				Sfx.play("deny")
+				toast("Nothing to mend")
+				return
+			player.chill_t = 0.0
+			player.root_t = 0.0
+			player.hp = minf(player.max_hp, player.hp + 2.0)
+			player.hp_changed.emit(player.hp)
+			Sfx.play("pickup")
+			_burst(player.global_position + Vector3(0, 0.5, 0), Color(0.55, 1.0, 0.75))
+			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "MENDED", Color(0.55, 1.0, 0.75), true)
+			print("SKILL mend")
 	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0)
 
 
