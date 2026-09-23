@@ -35,6 +35,8 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 			steps.append({"title": "Skillful Hands", "desc": "Unleash 2 skills", "kind": "skill", "need": 2})
 		if floor_num >= 8 and floor_num % 4 == 3:
 			steps.append({"title": "Grave Robbing", "desc": "Smash 2 bone urns", "kind": "urn", "need": 2})
+		if floor_num >= 13 and floor_num % 4 == 1:
+			steps.append({"title": "Porcelain Storm", "desc": "Smash 4 bone urns", "kind": "urn", "need": 4})
 		if floor_num >= 10 and floor_num % 4 == 2:
 			steps.append({"title": "Gaoler Breaker", "desc": "Slay 2 faceless Gaolers", "kind": "gaoler_kill", "need": 2})
 		if floor_num >= 12 and floor_num % 4 == 0:
