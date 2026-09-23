@@ -207,7 +207,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack"][randi() % 40]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing"][randi() % 41]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -345,6 +345,11 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				hp *= 1.2
 				speed *= 0.9
 				xp_val = int(xp_val * 1.3)
+			"crushing":
+				# pukulan berat — mendorongmu jauh ke belakang
+				hp *= 1.15
+				speed *= 0.85
+				xp_val = int(xp_val * 1.25)
 			"tideworn":
 				# usang air asin: lambat namun berlapis — matinya mentitahkan 1 jiwa
 				hp *= 1.3
@@ -814,6 +819,10 @@ func _physics_process(delta: float) -> void:
 									p.set("weak_t", 3.0)
 								if affix == "drowning" and q == p:
 									p.set("chill_t", 2.0)
+								if affix == "crushing" and q == p:
+									var cdir: Vector3 = p.global_position - global_position
+									cdir.y = 0
+									p.kb += cdir.normalized() * room_tile * 5.0
 								if affix == "wrack" and q == p:
 									var mw_ := get_tree().current_scene
 									if mw_ != null and mw_.get("skill_cd") is Dictionary:
