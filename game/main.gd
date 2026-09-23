@@ -196,6 +196,7 @@ var abyss_n := 0
 var lore_run := 0
 var disarm_run := 0
 var events_run := {}
+var riptide_n := 0
 var shellshield_used := false
 var tithe_armor := 0.0
 var tide_kills := 0
@@ -3514,6 +3515,9 @@ func _cast_skill(id: String) -> void:
 			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "RIPTIDE! ×%d" % rhits, Color(0.3, 0.8, 1.0), true)
 			if rhits >= 4:
 				_quest_event("riptide4")
+			riptide_n += 1
+			if riptide_n >= 5:
+				_ach("tideturner")
 			print("SKILL riptide hits=%d" % rhits)
 	skill_used_floor = true
 	skills_floor[id] = true

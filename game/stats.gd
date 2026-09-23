@@ -154,6 +154,7 @@ const ACH_DEF := {
 	"keelhaul5": "Catch & Release (keelhauled 5 foes at once)",
 	"bombsquad": "Bomb Squad (disarmed 5 traps in one run)",
 	"stormwatcher": "Storm Watcher (survived 5 different floor events in one run)",
+	"tideturner": "Tide Turner (cast Riptide 5 times in one run)",
 	"pilgrim": "Pilgrim (10 shrine visits in one run)",
 	"seaworthy": "Seaworthy (drank the Drowned Tithe)",
 	"drowned20": "Drowned Court (20 kills under the Sunken Tide)",
