@@ -118,7 +118,9 @@ const LORE_LINES := [
 	"The Rust Jaws were smiths once — the dungeon keeps their trade but not their memory.",
 	"When the water kneels, Kael, do not thank it. The sea only bows before it pulls.",
 	"The Heralds were criers once — the salt still announces them, whether they wish it or not.",
-	"Skill comes back like the tide, Kael — the trick is to be standing when it does."
+	"Skill comes back like the tide, Kael — the trick is to be standing when it does.",
+	"The gales test rigging and sailor alike — in this dungeon, Kael, you are both.",
+	"Salt preserves what it touches. Ask the Salted ones what it preserved of them — then ask what spilled."
 ]
 
 var dungeon_tex: Texture2D
