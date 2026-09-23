@@ -193,6 +193,7 @@ var lantern_healed := 0.0
 var lantern_touched := false
 var gravetide := false
 var skill_used_floor := false
+var skills_floor := {}
 var rooms_cleared := 0
 var flawless_run := 0
 var well_rolls := 0
@@ -804,6 +805,7 @@ func _new_run(new_seed: int) -> void:
 	storm_cellar = not blood_moon and not soul_rush and not fading_light and not echoing and Stats.floor_num >= 10 and not boss_floor and rng.randf() < 0.05
 	Stats.event_soul_bonus = 0
 	skill_used_floor = false
+	skills_floor = {}
 	rooms_cleared = 0
 	well_rolls = 0
 	# event langka #6: gilded tides — timbunan muncul ke permukaan (lantai 12+): peti gilded + jiwa +1/kill
@@ -3395,6 +3397,9 @@ func _cast_skill(id: String) -> void:
 				_quest_event("seal5")
 			print("SKILL graveseal sealed=%d" % gseal)
 	skill_used_floor = true
+	skills_floor[id] = true
+	if skills_floor.size() >= 3:
+		_quest_event("witching")
 	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0) * (0.6 if id == "dash" and umbral_tide else 1.0)
 
 
