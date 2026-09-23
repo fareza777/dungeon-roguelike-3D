@@ -126,7 +126,7 @@ func _physics_process(delta: float) -> void:
 	silence_t = max(0.0, silence_t - delta)
 	if venom_t > 0.0:
 		venom_t = max(0.0, venom_t - delta)
-		hp -= delta * 0.6
+		hp -= delta * (0.3 if Stats.relics.has("float_suit") else 0.6)
 		hp_changed.emit(hp)
 		if hp <= 0.0:
 			dead = true
