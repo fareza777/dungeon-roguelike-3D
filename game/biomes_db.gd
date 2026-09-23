@@ -24,7 +24,7 @@ const LIST := [
 		"fog": Color(0.06, 0.1, 0.16), "fog_d": 0.02, "ambient": Color(0.25, 0.35, 0.5),
 		"sun": Color(0.75, 0.88, 1.0), "torch": Color(0.6, 0.8, 1.0), "torch_e": 1.2, "torch_r": 5.5,
 		"bg": Color(0.02, 0.04, 0.07),
-		"enemies": ["mage", "rogue", "brute", "archer", "bomber", "necromancer", "crawler", "crawler", "gaoler", "weeper", "sentinel"],
+		"enemies": ["mage", "rogue", "brute", "archer", "bomber", "necromancer", "crawler", "crawler", "gaoler", "weeper", "sentinel", "maiden"],
 	},
 	{
 		"name": "Verdant Ruin",
@@ -32,7 +32,7 @@ const LIST := [
 		"fog": Color(0.05, 0.12, 0.06), "fog_d": 0.026, "ambient": Color(0.22, 0.4, 0.25),
 		"sun": Color(0.85, 1.0, 0.7), "torch": Color(0.7, 1.0, 0.5), "torch_e": 1.2, "torch_r": 5.5,
 		"bg": Color(0.02, 0.06, 0.03),
-		"enemies": ["brute", "mage", "chaser", "archer", "bomber", "necromancer", "crawler", "crawler", "gaoler", "weeper", "sentinel", "shade", "hexer", "spiker", "lurker", "golem"],
+		"enemies": ["brute", "mage", "chaser", "archer", "bomber", "necromancer", "crawler", "crawler", "gaoler", "weeper", "sentinel", "shade", "hexer", "spiker", "lurker", "golem", "maiden"],
 	},
 	{
 		"name": "The Abyss",

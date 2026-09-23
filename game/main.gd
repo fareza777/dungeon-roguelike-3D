@@ -168,6 +168,7 @@ const BESTIARY := {
 	"spiker": ["Spiked Cadaver", "Wrapped in grave-iron thorns — every cut you land cuts you back."],
 	"lurker": ["The Dweller", "It waits in the dark wearing invisibility — you will only ever see its lunge."],
 	"golem": ["The Bone Golem", "A wall of fused dead — its fists shake the floor itself."],
+	"maiden": ["The Wailing Maiden", "Kill her and her scream wakes every sleeper in the room."],
 	"weeper": ["The Weeper", "A wailing priest who knits his flock's bones back together. Silence him first."],
 	"bone_king": ["The Kings", "One throne, many forms. Every five floors he waits."],
 }
@@ -1463,6 +1464,18 @@ func _on_enemy_died(e) -> void:
 		_damage_number(e.global_position + Vector3(0, 0.7 * info.tile, 0), "HOARDED!", Color(1.0, 0.85, 0.35), true)
 	if grave_hunger and not e.get("is_boss") and rng.randf() < 0.12:
 		_spawn_wisp_at(e.global_position + Vector3(0, 0.3, 0))
+	# WAILING MAIDEN: tangis kematian membangunkan semua musuh di ruangan yang sama
+	if bool(e.get("wailer")):
+		var woken := 0
+		for f in get_tree().get_nodes_in_group("enemies"):
+			if f == e or f.get("state") == "dead" or bool(f.get("activated")):
+				continue
+			if int(f.get("room_idx")) == int(e.room_idx):
+				f.activated = true
+				woken += 1
+		if woken > 0:
+			Sfx.play("roar")
+			_damage_number(e.global_position + Vector3(0, 0.9 * info.tile, 0), "WAILING! ×%d" % woken, Color(0.9, 0.9, 1.1), true)
 	# NIGHTMARE affix: elite bangkit sekali pada 40% HP setelah 1.6 detik
 	if e.get("affix") == "nightmare":
 		var npos: Vector3 = e.global_position
