@@ -8,6 +8,7 @@ const PROJ = preload("res://projectile.gd")
 # AI: idle -> chase (mage jaga jarak) -> windup (telegraph) -> strike -> recover.
 
 signal died(enemy)
+const FPOOL = preload("res://fire_pool.gd")
 signal summon_requested(boss)
 
 var arch_id := "chaser"
@@ -22,6 +23,7 @@ var prefer_range := 0.0
 var ranged := false
 var dash := false
 var is_boss := false
+var tier_idx := 0
 var is_bomber := false
 var is_summoner := false
 var proj_speed := 0.0
@@ -369,6 +371,7 @@ func _physics_process(delta: float) -> void:
 				if dto2.length() < 1.35 * room_tile and p.get("dead") != true:
 					p.take_hit(global_position, dmg + 1)
 				_shock()
+				_tier_slam()
 				state = "recover"
 				state_t = 0.8
 		"strike":
@@ -430,6 +433,33 @@ func _shock() -> void:
 	tw.tween_property(mi, "scale", Vector3.ONE * 1.6 * room_tile, 0.3).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	tw.tween_property(m, "albedo_color:a", 0.0, 0.2)
 	tw.tween_callback(mi.queue_free)
+
+
+# gimmick per-tipe raja setelah slam
+func _tier_slam() -> void:
+	match tier_idx:
+		1:  # EMBER — meneteskan 3 kolam api bertahan 4s
+			for _i in range(3):
+				var fp := FPOOL.new()
+				get_parent().add_child(fp)
+				fp.global_position = global_position + Vector3(randf_range(-1.1, 1.1), 0, randf_range(-1.1, 1.1)) * room_tile
+				fp.setup(room_tile)
+		2:  # FROST — membekukan: pemain 55% speed selama 3s
+			var p2 := _player()
+			if p2 != null and p2.get("dead") != true:
+				p2.set("chill_t", 3.0)
+		3:  # FERAL — makin cepat setiap slam
+			speed = minf(speed * 1.12, 4.5 * room_tile)
+		_:  # UNDYING (lantai 25) — mewarisi semua kekuatan
+			for _i in range(2):
+				var fp2 := FPOOL.new()
+				get_parent().add_child(fp2)
+				fp2.global_position = global_position + Vector3(randf_range(-1.1, 1.1), 0, randf_range(-1.1, 1.1)) * room_tile
+				fp2.setup(room_tile)
+			var p3 := _player()
+			if p3 != null and p3.get("dead") != true:
+				p3.set("chill_t", 2.5)
+			speed = minf(speed * 1.08, 4.5 * room_tile)
 
 
 # bomber: meledak — luka player DAN musuh lain di radius

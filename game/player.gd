@@ -13,6 +13,7 @@ signal stepped(pos)
 signal revived
 
 var speed := 6.0
+var chill_t := 0.0
 var hp := 5.0
 var max_hp := 5.0
 var attack_cooldown := 0.45
@@ -109,9 +110,11 @@ func _physics_process(delta: float) -> void:
 	cd = max(0.0, cd - delta)
 	invuln = max(0.0, invuln - delta)
 	anim_lock = max(0.0, anim_lock - delta)
+	chill_t = max(0.0, chill_t - delta)
+	var spd_eff: float = speed * (0.55 if chill_t > 0.0 else 1.0)
 	if dash_t > 0.0:
 		dash_t -= delta
-		velocity = dash_dir * speed * 4.2
+		velocity = dash_dir * spd_eff * 4.2
 		move_and_slide()
 		global_position.x = clamp(global_position.x, bounds.get("min_x", -100.0), bounds.get("max_x", 100.0))
 		global_position.z = clamp(global_position.z, bounds.get("min_z", -100.0), bounds.get("max_z", 100.0))
@@ -121,7 +124,7 @@ func _physics_process(delta: float) -> void:
 	if dir.length() > 1.0:
 		dir = dir.normalized()
 	# akselerasi halus: kecepatan mengejar target, bukan langsung penuh
-	base_v = base_v.lerp(dir * speed, 1.0 - pow(0.0005, delta))
+	base_v = base_v.lerp(dir * spd_eff, 1.0 - pow(0.0005, delta))
 	velocity = base_v + kb
 	kb = kb.move_toward(Vector3.ZERO, delta * room_tile * 8.0)
 	move_and_slide()

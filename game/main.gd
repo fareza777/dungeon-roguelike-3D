@@ -576,6 +576,7 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		boss_ref = e
 		var tier := _boss_tier()
 		boss_name = String(tier["name"])
+		e.tier_idx = 4 if Stats.floor_num >= 25 else (Stats.floor_num / 5 - 1) % 4
 		M.paint(e, M.toon(skeleton_tex, tier["tint"], 0.35, true))
 		if ui.has("boss_name"):
 			ui.boss_name.text = "☠ " + boss_name
