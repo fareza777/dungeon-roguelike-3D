@@ -478,7 +478,7 @@ func _new_run(new_seed: int) -> void:
 	chest_opened = false
 	mimic_pending = Stats.floor_num >= 2 and rng.randf() < 0.35
 	# peti berlapis emas (12%, lantai 4+, bukan mimic): berisi relic langka+
-	gilded_chest = not mimic_pending and Stats.floor_num >= 4 and rng.randf() < 0.12
+	gilded_chest = (not mimic_pending and Stats.floor_num >= 4 and rng.randf() < 0.12) or (not mimic_pending and Stats.floor_num >= 2 and Stats.relics.has("kunci_osuarium"))
 	if gilded_chest and info.get("chest") != null:
 		M.paint(info.chest, M.toon(dungeon_tex, Color(1.35, 1.15, 0.55), 0.55))
 	# peti terkutuk (10%, lantai 6+, bukan mimic/gilded): penyergapan demi relic epic
