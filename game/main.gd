@@ -278,6 +278,7 @@ var bloodwarm := false
 var salt_shear := false
 var song_rust := false
 var gangway := false
+var splice_kills := 0
 var deadweight := false
 var undertow_grip := false
 var lookout := false
@@ -1105,6 +1106,7 @@ func _new_run(new_seed: int) -> void:
 		pale_drunk = false
 	song_rust = false
 	undertow = false
+	splice_kills = 0
 	gangway = false
 	penny_floor = false
 	if drift_line:
@@ -3082,6 +3084,11 @@ func _on_enemy_died(e) -> void:
 		_damage_number(e.global_position + Vector3(0, 0.7 * info.tile, 0), "TIDE TITHE +1", Color(0.5, 0.8, 0.7), false)
 	if bloodtide_t > 0:
 		Stats.earn_souls(1)
+	if splice_kills > 0:
+		splice_kills -= 1
+		Stats.earn_souls(1)
+		_souls_l()
+		_damage_number(e.global_position + Vector3(0, 0.6 * info.tile, 0), "SPLICE +1", Color(0.9, 0.8, 0.4), false)
 	if martyrs_oath and player != null and is_instance_valid(player) and not player.dead:
 		player.hp = minf(Stats.get_stat("max_hp"), player.hp + Stats.get_stat("max_hp") * 0.01)
 		player.hp_changed.emit(player.hp)
@@ -7237,11 +7244,12 @@ func _on_qm_invoked(s) -> void:
 		{"text": "Rope Ration — pay 3 souls: +1 soul vial for the road"},
 		{"text": "Chipped Compass — pay 4 souls: the post charts this floor for you"},
 		{"text": "Powder Keg — pay 4 souls: your next 3 kills detonate on their neighbors"},
+		{"text": "Splice Bonus — pay 3 souls: your next 5 kills this floor pay +1 soul each"},
 		{"text": "Walk away"}])
 
 
 func _qm_deal(idx: int) -> void:
-	if idx == 6:
+	if idx == 7:
 		toast("The post shutters its stores")
 		return
 	if idx == 5:
@@ -7254,6 +7262,16 @@ func _qm_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("POWDER KEG — your next three kills go off like a deck fire")
 		return
+	if idx == 6:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the splice isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		splice_kills = 5
+		_quest_event("qm")
+		Sfx.play("shrine")
+		toast("SPLICE BONUS — the next five kills pay a splice share")
 	if idx == 4:
 		if Stats.souls < _soul_cost(4):
 			toast("Four souls — the compass isn't free")
