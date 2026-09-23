@@ -148,7 +148,9 @@ const LORE_LINES := [
 
 	"The Oracle's stone was carved from the same quarry as the throne — the King keeps his counselors close, and closer still.",
 	"Vane's vow was to guard the door, not the crown. He still can't say which one he failed.",
-	"Somewhere below the salt line the drowned keep their own court — the King tolerates it, as one tolerates a debt owed to the sea.",]
+	"Somewhere below the salt line the drowned keep their own court — the King tolerates it, as one tolerates a debt owed to the sea.",
+	"The Bell Warden tolls for every soul that sinks past the lantern line — he stopped counting whose long ago.",
+	"Gutter chaplains preach to the drowned. The drowned, being dead, find his sermons considerably shorter.",]
 
 var dungeon_tex: Texture2D
 var skeleton_tex: Texture2D
