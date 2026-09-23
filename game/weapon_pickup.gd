@@ -8,6 +8,7 @@ var weapon_id := ""
 var tile := 4.0
 var t := 0.0
 var mesh_holder: Node3D
+var beam: MeshInstance3D = null
 
 
 func setup(id: String, tex: Texture2D, p_tile: float) -> void:
@@ -35,6 +36,21 @@ func setup(id: String, tex: Texture2D, p_tile: float) -> void:
 	ring.mesh = torus
 	ring.position.y = 0.12
 	add_child(ring)
+	# pilar cahaya loot — kelihatan dari seberang ruangan
+	beam = MeshInstance3D.new()
+	var bcm := CylinderMesh.new()
+	bcm.top_radius = 0.09 * tile
+	bcm.bottom_radius = 0.24 * tile
+	bcm.height = 3.2
+	var bmm := StandardMaterial3D.new()
+	bmm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	bmm.albedo_color = Color(1.0, 0.8, 0.35, 0.14)
+	bmm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	bmm.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
+	bcm.material = bmm
+	beam.mesh = bcm
+	beam.position.y = 1.6
+	add_child(beam)
 	var nl := Label3D.new()
 	nl.text = String(w["name"]).to_upper()
 	nl.font_size = 38
@@ -50,6 +66,10 @@ func _physics_process(delta: float) -> void:
 	t += delta
 	mesh_holder.rotation.y += delta * 1.6
 	mesh_holder.position.y = 0.7 + sin(t * 3.0) * 0.08
+	if beam != null:
+		beam.rotation.y -= delta * 0.8
+		var bm2: StandardMaterial3D = beam.mesh.material
+		bm2.albedo_color.a = 0.1 + 0.07 * sin(t * 4.0)
 	if Stats.draft_open:
 		return
 	var ps := get_tree().get_nodes_in_group("player")
