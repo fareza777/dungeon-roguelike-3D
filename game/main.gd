@@ -6574,6 +6574,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Grave Cheer — pay 4 souls: a vial and a long pull (+1 vial, mend 15% HP)"},
 			{"text": "Tar Rum — pay 3 souls: thick and black — +5% ATK this run"},
 			{"text": "Galley Scraps — pay 3 souls: peel off silence, roots and weakness"},
+			{"text": "Rat Ration — pay 2 souls: stale but hearty — full mend when the next floor begins"},
 		]
 	)
 
@@ -7856,6 +7857,15 @@ func _mahzan_deal(idx: int) -> void:
 					player.hp_changed.emit(player.hp)
 				Sfx.play("shrine")
 				toast("GALLEY SCRAPS — grease, salt, freedom")
+		34:
+			if Stats.souls < _soul_cost(2):
+				toast("Two souls — even rats cost something")
+			else:
+				Stats.souls -= _soul_cost(2)
+				_souls_l()
+				rat_ration = true
+				Sfx.play("shrine")
+				toast("RAT RATION — wrapped in wax, mostly rat")
 
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
