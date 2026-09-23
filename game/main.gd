@@ -6118,6 +6118,12 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 		]
 		if knight_ref != null and is_instance_valid(knight_ref):
 			lines.append({"who": "knight", "text": "That crown has my name's dust on it, boy. Let me help you shake it loose."})
+	elif Stats.floor_num == 2:
+		lines = [
+			{"who": "oracle", "text": "You breathe hard already, Kael. The first floor is only the dungeon's handshake."},
+			{"who": "kael", "text": "Let it shake harder. I came for a throne, not a tour."},
+			{"who": "oracle", "text": "Then learn this early: the dead here remember the living they once were. Pity them — and strike."},
+		]
 	elif Stats.floor_num == 3:
 		lines = [
 			{"who": "kael", "text": "Oracle... how do you know these halls so well?"},
