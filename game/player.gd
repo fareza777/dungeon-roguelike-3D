@@ -325,6 +325,15 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						f.take_hit(global_position, dmg * 0.4)
 					if mw.has_method("_damage_number"):
 						mw._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "SAWED", Color(1.0, 0.7, 0.3), false)
+		"bilge_saw": # SAWED — tiap tebasan ke-5 membakar luka
+			var bs_ := get_tree().current_scene
+			if bs_ != null:
+				bs_.set("net_n", int(bs_.get("net_n")) + 1)
+				if int(bs_.get("net_n")) >= 5:
+					bs_.set("net_n", 0)
+					f.set("burn_t", 3.0)
+					if bs_.has_method("_damage_number"):
+						bs_._damage_number(f.global_position + Vector3(0, 0.8 * room_tile, 0), "SAWED", Color(1.0, 0.55, 0.3), false)
 		"salt_pike": # GAFF — tiap tebasan ke-4 pada elite mencongkel +1 jiwa
 			if bool(f.get("elite")):
 				var gp_ := get_tree().current_scene
