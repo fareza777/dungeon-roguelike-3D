@@ -3530,7 +3530,10 @@ func _omen_deal(idx: int) -> void:
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 	_refresh_buffs()
-	toast("Omen sworn: " + omen_name)
+	if omen_count >= 3:
+		toast("Three oaths. The Oracle whispers: 'Your soul is a ledger of pacts, Kael.'")
+	else:
+		toast("Omen sworn: " + omen_name)
 	var reacts := {
 		"WARPATH": "All edge, no hilt. Swing like you mean to be feared.",
 		"LEGION": "More dead to cut. The deeps oblige your hunger.",
