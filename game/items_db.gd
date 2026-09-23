@@ -85,6 +85,7 @@ const DB := {
 	"galley_whip": {"name": "Galley Whip", "chip": "GW", "desc": "Keelhauled foes arrive tenderized — +25% damage taken for 2s", "rarity": 1, "mods": {}},
 	"sextant": {"name": "Dead Reckoning", "chip": "SX", "desc": "Your map reads a room ahead — entering a hall charts the next one too", "rarity": 1, "mods": {}},
 	"steady_rope": {"name": "Steady Rope", "chip": "SR", "desc": "Plant your feet — hold still a breath and your arm swings +8% harder", "rarity": 1, "mods": {}},
+	"barbed_line": {"name": "Barbed Line", "chip": "BL", "desc": "Your REACH bites quicker — the Harpoon drags foes every second strike", "rarity": 1, "mods": {}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }

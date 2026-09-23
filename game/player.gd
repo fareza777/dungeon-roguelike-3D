@@ -263,7 +263,8 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 			var mh := get_tree().current_scene
 			if mh != null:
 				mh.set("harpoon_n", int(mh.get("harpoon_n")) + 1)
-				if int(mh.get("harpoon_n")) >= 3:
+				var reach_at: int = 2 if Stats.relics.has("barbed_line") else 3
+				if int(mh.get("harpoon_n")) >= reach_at:
 					mh.set("harpoon_n", 0)
 					var hdist: float = f.global_position.distance_to(global_position)
 					if hdist > 1.2 * room_tile:
