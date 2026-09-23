@@ -625,7 +625,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0, "riptide": 0.0, "soultithe": 0.0, "anchordrop": 0.0, "soulfall": 0.0, "keelsplit": 0.0, "bloodtide": 0.0, "sealegs": 0.0, "deadreckon": 0.0, "becalm": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0, "riptide": 0.0, "soultithe": 0.0, "anchordrop": 0.0, "soulfall": 0.0, "keelsplit": 0.0, "bloodtide": 0.0, "sealegs": 0.0, "deadreckon": 0.0, "becalm": 0.0, "irontide": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -4612,6 +4612,14 @@ func _cast_skill(id: String) -> void:
 			Sfx.play("shrine")
 			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "DEAD RECKONING — %d marked" % rkn, Color(0.75, 0.6, 1.0), true)
 			print("SKILL deadreckon marked=%d" % rkn)
+		"irontide":
+			player.anim_lock = M.play_action(player.ap, ["spellcast", "idle_combat", "idle"], 1.1)
+			Sfx.play("roar")
+			Stats.irontide_t = 5.0
+			Stats.thorns += 0.5
+			_shock_ring(player.global_position)
+			toast("IRON TIDE! strikes bounce off your hull for 5s")
+			trauma = 0.4
 		"becalm":
 			var bcl := 0
 			for bf in get_tree().get_nodes_in_group("enemies"):

@@ -43,6 +43,7 @@ var buff_maxhp_pct := 0.0 # omen Leeching Vein: pengorbanan Max HP
 var buff_aspd := 0.0 # berkat altar Fury: run ini saja
 var buff_crit := 0.0 # berkat altar Eagle's Eye: run ini saja
 var warcry_t := 0.0 # skill War Cry: +50% ATK sementara
+var irontide_t := 0.0 # skill Iron Tide: pukulan terpantul sementara
 var revive_left := 0 # jiwa bangkit: hidup lagi sekali per run
 var ach := {} # prestasi terbuka: id -> true (persist lintas run)
 var thorns := 0.0 # duri pantulan: balikkan dmg
@@ -301,6 +302,10 @@ func get_stat(n: String) -> float:
 func _process(delta: float) -> void:
 	if warcry_t > 0.0:
 		warcry_t = maxf(0.0, warcry_t - delta)
+	if irontide_t > 0.0:
+		irontide_t = maxf(0.0, irontide_t - delta)
+		if irontide_t <= 0.0:
+			thorns -= 0.5
 
 
 func mus_vol() -> float:
