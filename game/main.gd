@@ -2178,6 +2178,8 @@ func _run_victory() -> void:
 	for rid9 in Stats.relics:
 		relic_names.append(String(ITEMS.DB[rid9]["name"]))
 	var arsenal := "✦ %s%s" % [wname, ("\n◆ " + " • ".join(relic_names.slice(0, 4))) if relic_names.size() > 0 else ""]
+	if omen_name != "":
+		arsenal += "\n☗ " + omen_name
 	_show_banner("THE THRONE FALLS", "%s\n%s\n%d kills • Lv %d • %d relics • best combo ×%d • %d:%02d\nNG+%d unlocked — the depths grow crueler\nTap to return to the surface" % [win_line, arsenal, kills_run, Stats.level, Stats.relics.size(), combo_max, mins, secs, Stats.ng_plus], Color(0.55, 1.0, 0.72))
 
 
