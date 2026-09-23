@@ -725,6 +725,7 @@ func _new_run(new_seed: int) -> void:
 	stain_positions.clear()
 	pool_positions.clear()
 	pool_healed = 0.0
+	pool_touched = false
 	pray_t = 0.0
 	prayed = false
 	umbral_seen = false
@@ -1570,6 +1571,7 @@ var stain_count := 0
 var stain_positions: Array = []
 var pool_positions: Array = []
 var pool_healed := 0.0
+var pool_touched := false
 var pray_t := 0.0
 var prayed := false
 var umbral_seen := false
@@ -6778,6 +6780,9 @@ func _process(delta: float) -> void:
 					player.hp = minf(Stats.get_stat("max_hp"), player.hp + delta * 0.45)
 					player.hp_changed.emit(player.hp)
 					pool_healed += delta * 0.45
+					if not pool_touched:
+						pool_touched = true
+						_quest_event("pool")
 					break
 		for ln2 in lanterns:
 			if is_instance_valid(ln2) and player.global_position.distance_to(ln2.global_position) < 3.0 * info.tile:
