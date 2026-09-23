@@ -1569,6 +1569,13 @@ func _on_enemy_died(e) -> void:
 		_quest_event("revenant_kill")
 	if e.arch_id == "shieldbearer":
 		_quest_event("shield_kill")
+	if String(e.affix) == "shattered":
+		for sc in range(2):
+			var off4 := Vector3((sc - 0.5) * 0.7 * info.tile, 0, 0.3 * info.tile)
+			var se := _spawn_enemy({"pos": e.global_position + off4, "room": int(e.room_idx)}, "crawler")
+			if se != null:
+				se.activated = true
+		_damage_number(e.global_position + Vector3(0, 1.0 * info.tile, 0), "SHATTERED!", Color(0.6, 0.9, 0.6), true)
 		_spawn_tomb(e.global_position, "revenant", int(e.room_idx))
 	if bounty_ref != null and e == bounty_ref:
 		bounty_ref = null

@@ -148,7 +148,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant"][randi() % 16]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered"][randi() % 17]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -198,6 +198,10 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				# elite ini tak bisa di-stun sama sekali
 				hp *= 1.4
 				xp_val = int(xp_val * 1.3)
+			"shattered":
+				# elite ini pecah jadi dua crawler saat mati
+				hp *= 0.9
+				xp_val = int(xp_val * 1.2)
 	scale = Vector3.ONE * sc
 	_base_scale = scale
 	hp_max = hp
