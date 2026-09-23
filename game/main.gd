@@ -3140,6 +3140,7 @@ func _on_curse_invoked(s) -> void:
 	dlg_pending_choice = 2
 	_say([{"who": "oracle", "text": "A cursed obelisk... it hums with hungry promises, Kael."}],
 		[{"text": "Blood Pact — foes hit 30% harder, souls pay +50% XP"},
+		{"text": "Blood Offering — bleed 2 HP now, gain +50% XP"},
 		{"text": "Refuse — leave the whispering stone"}])
 
 
@@ -3169,6 +3170,14 @@ func _curse_deal(idx: int) -> void:
 		_burst(player.global_position, Color(0.8, 0.05, 0.1))
 		Sfx.play("roar")
 		Input.vibrate_handheld(220)
+	elif idx == 1:
+		if player != null and is_instance_valid(player):
+			player.hp = maxf(1.0, player.hp - 2.0)
+			player.hp_changed.emit(player.hp)
+		Stats.curse_xp += 0.5
+		toast("BLOOD OFFERING — the stone drinks your pulse, XP +50%")
+		_burst(player.global_position, Color(0.8, 0.05, 0.1))
+		Sfx.play("hurt")
 
 
 func _mahzan_deal(idx: int) -> void:
