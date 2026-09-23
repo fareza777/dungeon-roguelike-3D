@@ -684,7 +684,7 @@ func _new_run(new_seed: int) -> void:
 	if cursed_chest and info.get("chest") != null:
 		M.paint(info.chest, M.toon(dungeon_tex, Color(0.5, 0.3, 0.75), 0.5))
 	var last_room: int = int(info.get("room_count", 1)) - 1
-	var elite_chance: float = minf(0.08 + 0.02 * Stats.floor_num, 0.3)
+	var elite_chance: float = minf(0.08 + 0.02 * Stats.floor_num + 0.1 * maxi(0, Stats.ng_plus - 2), 0.4)
 	var table: Array = biome["enemies"]
 	# penyergapan (lantai 5+, non-bos): satu ruangan tampak kosong — tulang bangkit saat kau masuk
 	ambush_room = -1
