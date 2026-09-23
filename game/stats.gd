@@ -128,6 +128,7 @@ const ACH_DEF := {
 	"centurion": "Centurion (100 kills in a single run)",
 	"untouchable": "Untouchable (three perfect dodges in a run)",
 	"pious": "Pious (five prayers over the fallen)",
+	"devout": "Devout (fifteen prayers over the fallen)",
 	"doubloath": "Twice-Sworn (carry two omens in one run)",
 	"fatebound": "Fatebound (five oaths sworn across your descents)",
 	"unstoppable": "Unstoppable (a ×50 kill streak in one run)",

@@ -6217,6 +6217,8 @@ func _process(delta: float) -> void:
 				Stats.prays += 1
 				if Stats.prays >= 5:
 					_ach("pious")
+				if Stats.prays >= 15:
+					_ach("devout")
 		else:
 			pray_t = 0.0
 	# panah elite off-screen: arahkan ke elite teraktivasi terdekat
