@@ -1969,6 +1969,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("orator_kill")
 	if e.arch_id == "crowned":
 		_quest_event("crowned_kill")
+	if e.arch_id == "tither":
+		_quest_event("tither_kill")
 	if e.arch_id == "hound" and wolfsbane:
 		_quest_event("pack_hound")
 	if bool(e.get("elite")) and String(e.get("affix")) == "umbral":
