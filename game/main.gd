@@ -328,6 +328,8 @@ var high_water := false
 var ballast_oath := false
 var thin_hull := false
 var cold_toll := false
+var oarlocks := false
+var omen_cd_add := 0.0
 var final_verse := false
 var cradle_deep := false
 var undertow := false
@@ -1229,6 +1231,7 @@ func _reset_run_state() -> void:
 	undertow_grip = false
 	lookout = false
 	bosun_mark = false
+	omen_cd_add = 0.0
 	if callus_on:
 		Stats.buff_armor -= 2
 		callus_on = false
@@ -5219,7 +5222,7 @@ func _cast_skill(id: String) -> void:
 	_quest_event("skill_" + id)
 	if skills_floor.size() >= 3:
 		_quest_event("witching")
-	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0) * (0.6 if id == "dash" and umbral_tide else 1.0) * (0.7 if id == "dash" and brisk else 1.0) * (0.6 if id == "dash" and dash_fuel else 1.0) * (0.75 if oarsworn else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("powdermonk", 0))) * (1.15 if sodden else 1.0) * (1.1 if slim_pickings else 1.0) * (0.92 if Stats.relics.has("bosun_whistle") else 1.0) * (0.95 if Stats.relics.has("signal_flag") else 1.0) * (0.75 if id == "dash" and whale_lung else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("belaypin", 0)) if id == "dash" else 1.0)
+	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0) * (0.6 if id == "dash" and umbral_tide else 1.0) * (0.7 if id == "dash" and brisk else 1.0) * (0.6 if id == "dash" and dash_fuel else 1.0) * (0.75 if oarsworn else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("powdermonk", 0))) * (1.15 if sodden else 1.0) * (1.1 if slim_pickings else 1.0) * (0.92 if Stats.relics.has("bosun_whistle") else 1.0) * (0.95 if Stats.relics.has("signal_flag") else 1.0) * (0.75 if id == "dash" and whale_lung else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("belaypin", 0)) if id == "dash" else 1.0) + omen_cd_add
 	casts_run += 1
 	if casts_run >= 40:
 		_ach("fortyknells")
@@ -6254,6 +6257,7 @@ func _offer_omens() -> void:
 			{"text": "BALLAST OATH — iron in your boots (−10% speed)... but stone in your ribs (+2 Armor)"},
 			{"text": "THIN HULL — your planks run one plank short (−1 Armor)... but your edge sings (+15% ATK)"},
 			{"text": "COLD TOLL — the sea takes its warmth (−5% speed)... but the cold teaches (＋10% XP)"},
+			{"text": "OARLOCKS — iron rowlocks bite your hands (skills charge +1s)... but your ribs are stout (+1 Armor)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -6302,7 +6306,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 67 if Stats.nemesis != "" else 66
+	var osize := 68 if Stats.nemesis != "" else 67
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -6582,6 +6586,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_xp_pct += 0.10
 			oname = "COLD TOLL"
 		66:
+			oarlocks = true
+			Stats.buff_armor += 1
+			omen_cd_add = 1.0
+			oname = "OARLOCKS"
+		67:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -6653,6 +6662,7 @@ func _omen_deal(idx: int) -> void:
 		"BALLAST OATH": "Heavy feet, steady hull — let them bounce off you.",
 		"THIN HULL": "Lose the plank, keep the edge — everything's a trade at sea.",
 		"COLD TOLL": "Cold fingers, sharp mind — you'll learn faster shivering.",
+		"OARLOCKS": "Sore hands, sound hull — nobody rows for free.",
 		"OLD SALT": "Lighter purse, heavier arm — the old hands swear by it.",
 		"SWORN HULL": "The hull thickens and the chase quickens — even trade.",
 		"SLIM PICKINGS": "The lean tide still pays, Kael — slower hands, heavier purse.",
