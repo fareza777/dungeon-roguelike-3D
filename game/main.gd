@@ -99,6 +99,7 @@ var gilded_chest := false
 var cursed_chest := false
 var storm_cellar := false
 var gilded_tides := false
+var soul_drift := false
 var storm_t := 0.0
 var nemesis_spawned := false # musuh yang membunuhmu run lalu — kembali lebih kuat
 var nemesis_warned := false # nemesis story beat — 1だけ
@@ -430,6 +431,11 @@ func _apply_biome() -> void:
 		env.ambient_light_color = Color(0.65, 0.5, 0.22)
 		sun.light_color = Color(1.2, 0.95, 0.55)
 		sun.light_energy = 1.15
+	elif soul_drift:
+		env.fog_light_color = Color(0.05, 0.14, 0.12)
+		env.ambient_light_color = Color(0.25, 0.6, 0.5)
+		sun.light_color = Color(0.5, 1.0, 0.85)
+		sun.light_energy = 1.0
 
 
 func _style_room() -> void:
@@ -487,6 +493,8 @@ func _new_run(new_seed: int) -> void:
 	gilded_tides = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and Stats.floor_num >= 12 and not boss_floor and rng.randf() < 0.05
 	if gilded_tides:
 		Stats.event_soul_bonus = 1
+	# event langka #8: soul drift — nafas orang mati mengembara (lantai 13+): kunang berlimpah
+	soul_drift = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and Stats.floor_num >= 13 and not boss_floor and rng.randf() < 0.05
 	storm_t = 4.0
 	nemesis_spawned = false
 	_apply_biome()
@@ -608,6 +616,10 @@ func _new_run(new_seed: int) -> void:
 		_lvl_banner("★ GILDED TIDES — THE HOARD SURFACES")
 		toast("Every chest gilded • +1 soul per kill")
 		Sfx.play("quest")
+	elif soul_drift:
+		_lvl_banner("☆ SOUL DRIFT — THE DEAD'S BREATH WANDERS")
+		toast("Wisps abound • +3 souls on clear")
+		Sfx.play("xp")
 	elif Stats.floor_num > 1:
 		_lvl_banner("FLOOR %d — %s" % [Stats.floor_num, String(biome["name"]).to_upper()])
 
@@ -969,7 +981,7 @@ func _spawn_traps(last_room: int) -> void:
 		room.add_child(tr)
 		tr.global_position = pos
 		var rk := rng.randf()
-		tr.setup(info.tile, rng.randf_range(0.0, 1.9), 4 if rk < 0.08 else (3 if rk < 0.23 else (2 if rk < 0.38 else (1 if rk < 0.6 else 0))))
+		tr.setup(info.tile, rng.randf_range(0.0, 1.9), 4 if rk < 0.08 else (5 if rk < 0.2 else (3 if rk < 0.34 else (2 if rk < 0.48 else (1 if rk < 0.68 else 0)))))
 
 
 func _spawn_urns(last_room: int) -> void:
@@ -1198,7 +1210,8 @@ func _spawn_health_orb(pos: Vector3) -> void:
 
 func _spawn_obelisks(last_room: int) -> void:
 	# dread obelisk: menara perusak jiwa — 60% satu di lantai 7+, 25% dua
-	if Stats.floor_num < 7 or rng.randf() > 0.6:
+	var oquest := Stats.floor_num >= 7 and Stats.floor_num % 5 == 2
+	if Stats.floor_num < 7 or (not oquest and rng.randf() > 0.6):
 		return
 	var ocount := 2 if rng.randf() < 0.42 else 1
 	for _oi in range(ocount):
@@ -1220,10 +1233,10 @@ func _spawn_obelisks(last_room: int) -> void:
 
 func _spawn_wisps(last_room: int) -> void:
 	# kunang jiwa pengembara: 55% satu, 20% dua — +1 soul kalau disentuh
-	var guaranteed := Stats.floor_num >= 6 and Stats.floor_num % 4 == 0
+	var guaranteed := (Stats.floor_num >= 6 and Stats.floor_num % 4 == 0) or soul_drift
 	if not guaranteed and rng.randf() > 0.55:
 		return
-	var wcount := 2 if (guaranteed or rng.randf() < 0.36) else 1
+	var wcount := 4 if soul_drift else (2 if (guaranteed or rng.randf() < 0.36) else 1)
 	for _wi in range(wcount):
 		var ri := rng.randi_range(1, last_room)
 		var rr: Dictionary = info.ranges[ri]
@@ -1504,6 +1517,11 @@ func _on_enemy_died(e) -> void:
 				_souls_l()
 				Stats.save_game()
 				toast("⚡ STORM TITHE — +2 souls")
+			elif soul_drift:
+				Stats.souls += 3
+				_souls_l()
+				Stats.save_game()
+				toast("☆ DRIFT TITHE — +3 souls")
 			# bonus sapuan kilat: lantai bersih di bawah 90 detik
 			if floor_t < 90.0 and Stats.floor_num > 1:
 				Stats.souls += 2
@@ -2089,6 +2107,7 @@ func _cast_skill(id: String) -> void:
 						grazed += 1
 			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "REAPER'S TOLL ×%d" % culled, Color(0.9, 0.35, 0.9), true)
 			trauma = 1.0
+			_quest_event("rites")
 			print("SKILL rites culled=%d grazed=%d" % [culled, grazed])
 	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0)
 
@@ -4384,6 +4403,8 @@ func _refresh_buffs() -> void:
 		list.append(["⚡ STORM", Color(0.6, 0.55, 1.15)])
 	elif gilded_tides:
 		list.append(["★ GILDED", Color(1.0, 0.8, 0.3)])
+	elif soul_drift:
+		list.append(["☆ DRIFT", Color(0.5, 0.95, 0.85)])
 	if omen_name != "":
 		list.append(["☗ " + omen_name, Color(0.9, 0.7, 1.0)])
 	if player.get("root_t") != null and player.root_t > 0.0:

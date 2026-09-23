@@ -13,6 +13,7 @@ var phase := 0.0 # offset irama
 var up := false
 var armed := true
 var warn_tw: Tween = null
+var bolts: Array = [] # anak panah sigil busur (kind 5)
 
 
 func setup(p_tile: float, offset: float, p_kind := 0) -> void:
@@ -24,7 +25,7 @@ func setup(p_tile: float, offset: float, p_kind := 0) -> void:
 	var bm := BoxMesh.new()
 	bm.size = Vector3(0.5 * tile, 0.03 * tile, 0.5 * tile)
 	var bmat := StandardMaterial3D.new()
-	bmat.albedo_color = Color(0.16, 0.07, 0.04) if kind == 1 else (Color(0.05, 0.1, 0.2) if kind == 2 else (Color(0.14, 0.05, 0.2) if kind == 3 else (Color(0.05, 0.14, 0.08) if kind == 4 else Color(0.09, 0.09, 0.12))))
+	bmat.albedo_color = Color(0.16, 0.07, 0.04) if kind == 1 else (Color(0.05, 0.1, 0.2) if kind == 2 else (Color(0.14, 0.05, 0.2) if kind == 3 else (Color(0.05, 0.14, 0.08) if kind == 4 else (Color(0.04, 0.12, 0.11) if kind == 5 else Color(0.09, 0.09, 0.12)))))
 	bmat.metallic = 0.3
 	bm.material = bmat
 	base.mesh = bm
@@ -60,20 +61,20 @@ func setup(p_tile: float, offset: float, p_kind := 0) -> void:
 		jet.visible = false
 		add_child(jet)
 		return
-	if kind == 2 or kind == 3 or kind == 4:
+	if kind == 2 or kind == 3 or kind == 4 or kind == 5:
 		# sigil beku / void / lentera — cincin telegraph berdenyut
 		glow = MeshInstance3D.new()
 		var gm3 := PlaneMesh.new()
 		gm3.size = Vector2(0.44 * tile, 0.44 * tile)
 		var gmat3 := StandardMaterial3D.new()
 		gmat3.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-		gmat3.albedo_color = Color(0.4, 0.75, 1.0, 0.8) if kind == 2 else (Color(0.5, 1.0, 0.55, 0.85) if kind == 4 else Color(0.75, 0.3, 1.0, 0.8))
+		gmat3.albedo_color = Color(0.4, 0.75, 1.0, 0.8) if kind == 2 else (Color(0.5, 1.0, 0.55, 0.85) if kind == 4 else (Color(0.35, 0.95, 0.85, 0.85) if kind == 5 else Color(0.75, 0.3, 1.0, 0.8)))
 		gmat3.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 		gm3.material = gmat3
 		glow.mesh = gm3
 		glow.position.y = 0.035 * tile
 		add_child(glow)
-		if kind == 4:
+		if kind == 4 or kind == 5:
 			return
 	# lubang duri (lubang gelap biar kelihatan ada jebakan)
 	var holes := MeshInstance3D.new()
@@ -134,7 +135,9 @@ func _physics_process(delta: float) -> void:
 			spikes.position.y = lerpf(spikes.position.y, target, delta * (22.0 if up else 10.0))
 	if up and not prev_up:
 		Sfx.play("trap")
-	if up and armed:
+		if kind == 5 and armed:
+			_fire_bolts()
+	if up and armed and kind != 5:
 		var ps := get_tree().get_nodes_in_group("player")
 		if not ps.is_empty():
 			var p: Node3D = ps[0]
@@ -178,7 +181,61 @@ func _physics_process(delta: float) -> void:
 						if ml2.has_method("_burst"):
 							ml2._burst(global_position + Vector3(0, 0.3, 0), Color(0.6, 0.8, 1.0))
 
+	# anak panah sigil: bergerak lurus, 1 dmg bila kena, hilang setelah ~3 tile
+	for i in range(bolts.size() - 1, -1, -1):
+		var bd: Dictionary = bolts[i]
+		var bn: Node3D = bd["node"]
+		if not is_instance_valid(bn):
+			bolts.remove_at(i)
+			continue
+		bd["dist"] = float(bd["dist"]) + 2.6 * tile * delta
+		bn.global_position += bd["dir"] * 2.6 * tile * delta
+		bn.rotation.y += delta * 6.0
+		if float(bd["dist"]) > 3.2 * tile:
+			bn.queue_free()
+			bolts.remove_at(i)
+			continue
+		var ps3 := get_tree().get_nodes_in_group("player")
+		if not ps3.is_empty():
+			var p3: Node3D = ps3[0]
+			if p3.get("dead") != true and p3.get("invuln") <= 0.0:
+				var d3: Vector3 = p3.global_position - bn.global_position
+				d3.y = 0
+				if d3.length() < 0.2 * tile:
+					p3.take_hit(global_position, 1)
+					bn.queue_free()
+					bolts.remove_at(i)
 
+
+func _fire_bolts() -> void:
+	var psb := get_tree().get_nodes_in_group("player")
+	if psb.is_empty() or psb[0].get("dead") == true:
+		return
+	var tgt: Vector3 = psb[0].global_position
+	if tgt.distance_to(global_position) > 2.6 * tile:
+		return
+	var bdir: Vector3 = (tgt - global_position)
+	bdir.y = 0
+	bdir = bdir.normalized()
+	for bi in range(-1, 2):
+		var bn := MeshInstance3D.new()
+		var bm: CylinderMesh = CylinderMesh.new()
+		bm.top_radius = 0.02 * tile
+		bm.bottom_radius = 0.055 * tile
+		bm.height = 0.16 * tile
+		var bmat := StandardMaterial3D.new()
+		bmat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		bmat.albedo_color = Color(0.4, 1.0, 0.9)
+		bmat.emission_enabled = true
+		bmat.emission = Color(0.3, 0.95, 0.85)
+		bmat.emission_energy_multiplier = 2.2
+		bm.material = bmat
+		bn.mesh = bm
+		get_parent().add_child(bn)
+		bn.global_position = global_position + Vector3(0, 0.35 * tile, 0)
+		var bd2: Vector3 = bdir.rotated(Vector3.UP, float(bi) * 0.22)
+		bn.rotation.x = PI / 2.0
+		bolts.append({"node": bn, "dir": bd2, "dist": 0.0})
 func disarm() -> void:
 	armed = false
 	if kind == 1:
