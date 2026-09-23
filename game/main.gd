@@ -217,6 +217,7 @@ var barnacle_sense := false
 var brine_callus := false
 var bosun_ledger := false
 var urnsworn := false
+var iron_gullet := false
 var deadweight := false
 var undertow_grip := false
 var lookout := false
@@ -879,6 +880,7 @@ func _reset_run_state() -> void:
 	brine_callus = false
 	bosun_ledger = false
 	urnsworn = false
+	iron_gullet = false
 	deadweight = false
 	undertow_grip = false
 	lookout = false
@@ -2289,8 +2291,9 @@ func _use_vial() -> void:
 		toast("HP already full")
 		return
 	vials -= 1
-	var healed := minf(mh - player.hp, mh * 0.3)
-	player.hp = minf(mh, player.hp + mh * 0.3)
+	var vfrac := 0.45 if iron_gullet else 0.3
+	var healed := minf(mh - player.hp, mh * vfrac)
+	player.hp = minf(mh, player.hp + mh * vfrac)
 	player.hp_changed.emit(player.hp)
 	_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), "+%d" % int(ceil(healed)), Color(0.4, 1.0, 0.6), true)
 	Sfx.play("shrine")
@@ -4732,6 +4735,9 @@ func _on_dlg_choice(idx: int) -> void:
 		30:
 			urnsworn = true
 			toast("Urnsworn: the pots know you — every urn spills +1 soul")
+		31:
+			iron_gullet = true
+			toast("Iron Gullet: the vials go down easier — they mend half your HP")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -6606,6 +6612,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Quarterdeck — +8% skill recharge this run"},
 			{"text": "Crow's Nest — +8% crit chance this run"},
 			{"text": "Urnsworn — every urn spills +1 soul this run"},
+			{"text": "Iron Gullet — soul vials mend 45% HP"},
 		]
 	)
 
