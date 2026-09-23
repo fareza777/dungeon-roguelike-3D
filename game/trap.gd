@@ -188,6 +188,8 @@ func _physics_process(delta: float) -> void:
 							ml2.toast("Trap defused!")
 						if kind == 6:
 							Stats.souls += 2
+							if ml2.has_method("_quest_event"):
+								ml2._quest_event("clam")
 							if ml2.has_method("_souls_l"):
 								ml2._souls_l()
 							if ml2.has_method("toast"):
