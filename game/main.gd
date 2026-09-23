@@ -241,6 +241,7 @@ var shellshield_used := false
 var tithe_armor := 0.0
 var tide_kills := 0
 var floor_kills := 0
+var knot_n := 0
 var reliquary_wisps := 0
 var omen_refusals := 0
 var bargainer := false
@@ -868,6 +869,7 @@ func _reset_run_state() -> void:
 		_pilot_on = false
 	tide_kills = 0
 	floor_kills = 0
+	knot_n = 0
 	reliquary_wisps = 0
 	flawless_run = 0
 	well_rolls = 0
@@ -2380,6 +2382,9 @@ func _on_enemy_died(e) -> void:
 		Stats.earn_souls(1)
 		_souls_l()
 		_damage_number(e.global_position + Vector3(0, 0.8 * info.tile, 0), "KNOT +1", Color(0.9, 0.7, 0.3), false)
+		knot_n += 1
+		if knot_n >= 8:
+			_ach("knotmaster")
 	if String(e.arch_id) == "drowned":
 		Stats.earn_souls(1)
 		_souls_l()

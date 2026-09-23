@@ -181,6 +181,7 @@ const ACH_DEF := {
 	"veilwalker": "Veil Walker (cleared a floor through the Thin Veil)",
 	"tideprovides": "The Tide Provides (took an Undertow Cache)",
 	"shoalwalker": "Shoalwalker (cleared a floor in Low Water)",
+	"knotmaster": "Knotmaster (8 Dead Man's Knot payouts in a run)",
 	"slayer150": "Reaper of Ranks (150 kills in a single run)",
 	"slayer250": "The Bone Harvest (250 kills in a single run)",
 	"doubloath": "Twice-Sworn (carry two omens in one run)",
