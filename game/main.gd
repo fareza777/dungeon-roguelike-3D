@@ -6760,6 +6760,14 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			"Red orbs mend flesh — the dead still owe you a few favors.",
 			"Mahzan trades blessings for attention. He misses being worshipped.",
 			"The deeper you go, the stronger his throne grows. So must you.",
+			"A Quartermaster's Post still sells steel — the dead keep their inventory honest.",
+			"The Siren's Conch sings for souls, not coin. Choose a verse you can afford.",
+			"Saltghasts blink, Kael. Swing at where they land, never where they were.",
+			"A Guthook bites slow but bites deep — its fifth swing pays you back in blood.",
+			"Feral things feed on the falling. Kill them before their pack thins, or after it is gone.",
+			"When the drift tide runs, the purses sink deeper. Walk heavier; collect more.",
+			"Mahzan's songs cost souls — his silences cost more. Walk away when the price is wrong.",
+			"Anchors, Kael — the sea's own argument for staying in one place.",
 		]
 		lines = [{"who": "oracle", "text": tips[rng.randi_range(0, tips.size() - 1)]}]
 	if lines.is_empty():
