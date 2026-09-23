@@ -275,6 +275,7 @@ var sworn_hull := false
 var final_verse := false
 var cradle_deep := false
 var undertow := false
+var storm_lull := false
 var deep_breath := false
 var dash_fuel := false
 var powder_keg := 0
@@ -2056,6 +2057,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.speed *= 0.9
 	if undertow:
 		e.windup_t *= 1.12
+	if storm_lull:
+		e.windup_t *= 1.15
 	if timber_shiver and not e.is_boss:
 		e.hp *= 0.9
 		e.hp_max = e.hp
@@ -7569,11 +7572,12 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Song of Rust — pay 3 souls: this floor's foes wade -10% speed"},
 		{"text": "Final Verse — pay 5 souls: the dead strike 15% softer for the rest of this run"},
 		{"text": "Cradle Deep — pay 5 souls: the dead sleep-walk —8% HP for the rest of this run"},
+		{"text": "Storm Lull — pay 5 souls: the dead's strikes slow —15% windup this run"},
 		{"text": "Walk away"}])
 
 
 func _siren_deal(idx: int) -> void:
-	if idx == 8:
+	if idx == 9:
 		Stats.earn_souls(2)
 		_souls_l()
 		_quest_event("siren")
@@ -7590,6 +7594,16 @@ func _siren_deal(idx: int) -> void:
 		_quest_event("siren")
 		Sfx.play("shrine")
 		toast("FINAL VERSE — the dead sing softer now")
+		return
+	if idx == 8:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the lull isn't free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_souls_l()
+		storm_lull = true
+		Sfx.play("shrine")
+		toast("STORM LULL — every strike you'll see coming, this whole run")
 		return
 	if idx == 7:
 		if Stats.souls < _soul_cost(5):
