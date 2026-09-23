@@ -221,7 +221,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide"][randi() % 44]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark"][randi() % 45]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -379,6 +379,11 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				hp *= 1.3
 				speed *= 0.9
 				xp_val = int(xp_val * 1.45)
+			"keelmark":
+				# membawa besi perbekalan kapal — matinya menjatuhkan senjata
+				hp *= 1.15
+				speed *= 0.95
+				xp_val = int(xp_val * 1.3)
 			"tideworn":
 				# usang air asin: lambat namun berlapis — matinya mentitahkan 1 jiwa
 				hp *= 1.3
