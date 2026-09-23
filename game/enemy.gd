@@ -73,6 +73,7 @@ var gnawer := false
 var bride := false
 var cantor := false
 var husk := false
+var fanatic := false
 var husk_shell := false
 var cantor_t := 6.5
 var bride_t := 5.5
@@ -189,6 +190,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	cantor = bool(a.get("cantor", false))
 	husk = bool(a.get("husk", false))
 	husk_shell = husk
+	fanatic = bool(a.get("fanatic", false))
 	healer = bool(a.get("healer", false))
 	crowned = bool(a.get("crowned", false))
 	tither = bool(a.get("tither", false))
@@ -834,6 +836,8 @@ func _physics_process(delta: float) -> void:
 									p.set("weak_t", 3.0)
 								if affix == "drowning" and q == p:
 									p.set("chill_t", 2.0)
+								if fanatic and q == p:
+									p.set("rust_t", maxf(float(p.get("rust_t")), 3.0))
 								if affix == "crushing" and q == p:
 									var cdir: Vector3 = p.global_position - global_position
 									cdir.y = 0
