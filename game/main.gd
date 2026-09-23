@@ -102,6 +102,7 @@ var pause_panel: PanelContainer = null
 var vign: TextureRect = null
 var vign_tween: Tween = null
 var prev_hp := -1.0
+var floor_hurt := false
 
 # prestasi lintas run + varian bos per 5 lantai
 const ACH := {
@@ -215,6 +216,7 @@ const TIPS := [
 	"Near death, fury answers — Last Stand adds +25% ATK.",
 	"Soul Vials drop from the dead — hold two, drink when it counts.",
 	"MOTHER-tagged elites split in two when slain — brace for the brood.",
+	"Take no damage on a floor for an Untouched tithe of souls.",
 	"When the mist turns violet, the dead weep gems — reap them while it lasts.",
 	"When the torches die, the dead run faster — finish the floor for the tithe.",
 ]
@@ -468,6 +470,7 @@ func _new_run(new_seed: int) -> void:
 	ambush_room = -1
 	ambushed_room = -1
 	floor_t = 0.0
+	floor_hurt = false
 	if not boss_floor and Stats.floor_num >= 5 and int(info.get("room_count", 1)) >= 4 and rng.randf() < 0.35:
 		ambush_room = rng.randi_range(1, last_room - 1)
 	for sp in info.enemy_spawns:
@@ -1299,6 +1302,11 @@ func _on_enemy_died(e) -> void:
 				_souls_l()
 				Stats.save_game()
 				toast("⚡ SWEEP BONUS — cleared in %ds (+2 souls)" % int(floor_t))
+			if not floor_hurt and Stats.floor_num > 1:
+				Stats.souls += 3
+				_souls_l()
+				Stats.save_game()
+				toast("★ UNTOUCHED — flawless floor (+3 souls)")
 			Stats.note_floor()
 			Stats.save_run()
 			for gi in gates:
@@ -3899,6 +3907,7 @@ func _update_hp(hp: float) -> void:
 	if prev_hp >= 0.0 and hp < prev_hp - 0.001:
 		trauma = maxf(trauma, 0.6)
 		_vign_flash()
+		floor_hurt = true
 	prev_hp = hp
 	_set_low_hp(hp <= 1.0 and hp > 0.0)
 
