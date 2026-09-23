@@ -158,7 +158,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral"][randi() % 18]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn"][randi() % 19]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -211,6 +211,9 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 			"shattered":
 				# elite ini pecah jadi dua crawler saat mati
 				hp *= 0.9
+				xp_val = int(xp_val * 1.2)
+			"wispsborn":
+				# mati menumpahkan kunang jiwa — bonus XP
 				xp_val = int(xp_val * 1.2)
 			"umbral":
 				# elite ini tak terlihat sampai jarak dekat — seperti dweller
@@ -835,6 +838,12 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 					mm2._shock_ring(global_position)
 				if mm2.has_method("_burst"):
 					mm2._burst(global_position, Color(1.0, 0.4, 1.0))
+		if affix == "wispsborn":
+			var mm3 := get_tree().current_scene
+			if mm3 != null and mm3.has_method("_spawn_wisp_at"):
+				for wi in range(2):
+					var woff := Vector3((wi - 0.5) * 0.6 * room_tile, 0, 0.3 * room_tile)
+					mm3._spawn_wisp_at(global_position + woff)
 		anim_lock = M.play_action(ap, ["death"], 1.0)
 		died.emit(self)
 	else:
