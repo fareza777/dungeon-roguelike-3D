@@ -2738,6 +2738,8 @@ func _spawn_tidepools() -> void:
 
 
 func _souls_l() -> void:
+	if Stats.souls >= 50:
+		_ach("deepvault")
 	if Stats.souls >= 100:
 		_ach("accountant")
 	if Stats.souls >= 150:

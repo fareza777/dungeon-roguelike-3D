@@ -208,6 +208,7 @@ const ACH_DEF := {
 	"doubloath": "Twice-Sworn (carry two omens in one run)",
 	"fatebound": "Fatebound (five oaths sworn across your descents)",
 	"unstoppable": "Unstoppable (a ×50 kill streak in one run)",
+	"deepvault": "Deep Vault (held 50 souls at once)",
 	"ngdeep": "Void Warden (reached floor 20 in New Game+)",
 	"oathkeeper": "Oathkeeper (eight omens in a single descent)",
 }
