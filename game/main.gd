@@ -7083,6 +7083,8 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			"Anchors, Kael — the sea's own argument for staying in one place.",
 			"A fathomless purse buys fathomless bruises — I keep both ledgers, boy.",
 			"The rusted ones wade slow. Do not waste your hurry on them.",
+			"Keelbound things cannot be pushed. Plant your feet and trade, or walk around.",
+			"The beaked ones never linger, Kael — wait for the hop, then answer.",
 		]
 		lines = [{"who": "oracle", "text": tips[rng.randi_range(0, tips.size() - 1)]}]
 	if lines.is_empty():
