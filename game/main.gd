@@ -146,12 +146,13 @@ const BESTIARY := {
 	"necromancer": ["The Necromancer", "Death is a door he keeps propping open. Kill him first."],
 	"crawler": ["Crypt Crawler", "Small, quick, and never alone."],
 	"gaoler": ["The Gaoler", "A faceless warden. His blows cage you where you stand — dash out of them."],
+	"weeper": ["The Weeper", "A wailing priest who knits his flock's bones back together. Silence him first."],
 	"bone_king": ["The Kings", "One throne, many forms. Every five floors he waits."],
 }
 const KILLER_NAMES := {
 	"chaser": "a Skeleton Chaser", "rogue": "a Shadow Rogue", "mage": "a Bone Mage",
 	"brute": "a Bone Brute", "bomber": "a Boom Bones", "archer": "a Skeletal Archer",
-	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler",
+	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper",
 	"bone_king": "the King himself", "trap": "a hidden trap", "": "the dungeon itself"}
 const KILLER_TIPS := {
 	"chaser": "Tip: chasers are slow — kite them into a corner and cleave.",
@@ -163,6 +164,7 @@ const KILLER_TIPS := {
 	"necromancer": "Tip: kill the Necromancer first — his minions never stop rising.",
 	"crawler": "Tip: crawlers swarm — a HEAVY attack clears the whole pack.",
 	"gaoler": "Tip: the Gaoler's swing roots you — dash THROUGH him instead.",
+	"weeper": "Tip: the Weeper heals his flock every few seconds — always cut him down first.",
 	"bone_king": "Tip: his slams telegraph red — dash through the shockwave.",
 	"trap": "Tip: traps pulse on a rhythm — cross on the off-beat.",
 	"": "Tip: blessings, relics and Sir Vane can still turn a doomed run.",

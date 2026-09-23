@@ -60,6 +60,8 @@ var enraged := false
 var golden := false
 var affix := ""
 var jailer := false
+var is_weeper := false
+var chant_t := 2.5
 var _base_scale := Vector3.ONE
 var slam_t := 4.0
 var summon_t := 11.0
@@ -109,6 +111,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	is_bomber = a.get("bomber", false)
 	is_summoner = a.get("summoner", false)
 	jailer = bool(a.get("jailer", false))
+	is_weeper = bool(a.get("chanter", false))
 	if is_summoner:
 		summon_t = 9.0
 	var sc: float = a["scale"]
@@ -279,6 +282,11 @@ func _physics_process(delta: float) -> void:
 	to.y = 0
 	var dist := to.length()
 	state_t -= delta
+	if is_weeper:
+		chant_t -= delta
+		if chant_t <= 0.0:
+			chant_t = 3.0
+			_chant()
 
 	if p.get("dead") == true and state != "idle":
 		state = "idle"
@@ -561,3 +569,22 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 	else:
 		anim_lock = max(anim_lock, M.play_action(ap, ["hit_"], 1.4) * 0.6)
 	_upd_hpbar()
+
+
+func _chant() -> void:
+	var m := get_tree().current_scene
+	var healed := 0
+	for f in get_tree().get_nodes_in_group("enemies"):
+		if f == self or f.get("state") == "dead":
+			continue
+		if f.global_position.distance_to(global_position) < 2.0 * room_tile and float(f.hp) < float(f.hp_max):
+			f.hp = minf(f.hp_max, f.hp + 1.0)
+			healed += 1
+			if m != null and m.has_method("_damage_number"):
+				m._damage_number(f.global_position + Vector3(0, 0.7 * room_tile, 0), "+1", Color(0.4, 1.0, 0.55), false)
+	if healed > 0:
+		Sfx.play("shrine")
+		if m != null and m.has_method("_shock_ring"):
+			m._shock_ring(global_position)
+		if m != null and m.has_method("_damage_number"):
+			m._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "WAILS...", Color(0.5, 1.0, 0.6), true)

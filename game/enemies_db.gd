@@ -14,6 +14,8 @@ const DB := {
 	"necromancer": {"glb": "Skeleton_Mage.glb", "hp": 3.5, "spd": 0.75, "dmg": 1, "windup": 0.6, "reach": 2.4, "prefer": 2.6, "aggro": 4.2, "xp": 3, "tint": Color(0.85, 0.6, 1.25), "scale": 1.05, "ranged": true, "proj_speed": 3.2, "summoner": true, "kb_resist": 0.1},
 	# crawler — gerombolan kecil cepat: windup sangat singkat, datang berpasangan
 	"crawler": {"glb": "Skeleton_Minion.glb", "hp": 1.2, "spd": 1.85, "dmg": 1, "windup": 0.22, "reach": 0.5, "aggro": 4.0, "xp": 1, "tint": Color(0.55, 0.9, 0.5), "scale": 0.5, "kb_resist": 0.0},
+	# weeper — pendeta ratapan: menyembuhkan musuh sekitar tiap ~3s; prioritas bunuh
+	"weeper": {"glb": "Skeleton_Mage.glb", "hp": 3.0, "spd": 0.8, "dmg": 1, "windup": 0.65, "reach": 2.2, "prefer": 2.0, "aggro": 3.8, "xp": 3, "tint": Color(0.55, 1.1, 0.6), "scale": 1.0, "ranged": true, "proj_speed": 2.6, "chanter": true, "kb_resist": 0.0},
 	# gaoler — sipir tanpa wajah dari lore: pukulannya MENJERAT pemain (root 1.2s)
 	"gaoler": {"glb": "Skeleton_Warrior.glb", "hp": 7.0, "spd": 0.6, "dmg": 2, "windup": 0.65, "reach": 0.7, "aggro": 3.0, "xp": 4, "tint": Color(0.6, 0.45, 1.05), "scale": 1.1, "jailer": true, "kb_resist": 0.5},
 	# BOSS: Raja Tulang — tiap lantai kelipatan 5
