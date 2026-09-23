@@ -2779,6 +2779,8 @@ func _on_enemy_died(e) -> void:
 				_quest_event("gate_open")
 			if skeleton_crew:
 				_quest_event("crewfloor")
+			if rolling_fog:
+				_ach("fogwalker")
 			if tut_active and tut_step >= 2:
 				tut_active = false
 				Stats.tutorial_done = true
