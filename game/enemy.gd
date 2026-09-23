@@ -43,6 +43,7 @@ var anim_lock := 0.0
 var hpbar_bg: Sprite3D = null
 var hpbar_fg: Sprite3D = null
 var hpbar_tag: Label3D = null
+var mark_tag: Label3D = null
 static var _bar_tex: Texture2D = null
 const BAR_W := 0.6
 
@@ -262,6 +263,31 @@ func _physics_process(delta: float) -> void:
 	hex_t = maxf(0.0, hex_t - delta)
 	slow_t = maxf(0.0, slow_t - delta)
 	sunder_t = maxf(0.0, sunder_t - delta)
+	# tanda debuff melayang: BURNING / HEXED / SUNDERED
+	var mtxt := ""
+	var mcol := Color(1.0, 0.55, 0.4)
+	if burn_t > 0.0:
+		mtxt = "BURNING"
+	elif hex_t > 0.0:
+		mtxt = "HEXED"
+		mcol = Color(0.9, 0.5, 1.0)
+	elif sunder_t > 0.0:
+		mtxt = "SUNDERED"
+		mcol = Color(1.0, 0.8, 0.35)
+	if mtxt != "":
+		if mark_tag == null:
+			mark_tag = Label3D.new()
+			mark_tag.font_size = 38
+			mark_tag.outline_size = 10
+			mark_tag.outline_modulate = Color(0.08, 0.02, 0.08, 0.9)
+			mark_tag.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+			mark_tag.position = Vector3(0, 1.0 * room_tile, 0)
+			add_child(mark_tag)
+		mark_tag.text = mtxt
+		mark_tag.modulate = mcol
+		mark_tag.visible = true
+	elif mark_tag != null:
+		mark_tag.visible = false
 	if burn_t > 0.0:
 		burn_t -= delta
 		_burn_acc += delta
