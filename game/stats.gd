@@ -486,8 +486,8 @@ func buy_meta(id: String) -> bool:
 
 
 func note_floor() -> void:
-	if floor_num >= 50:
-		_ach("halfcentury")
+	if floor_num >= 50 and not ach.has("halfcentury"):
+		ach["halfcentury"] = true
 	if floor_num > best_floor:
 		best_floor = floor_num
 	save_game()
