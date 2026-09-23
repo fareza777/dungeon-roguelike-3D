@@ -157,6 +157,7 @@ var wolf_n := 0
 var omen_count := 0
 var wellread := false
 var tide_lends := false
+var pearl_fever := false
 var tide_kills := 0
 var reliquary_wisps := 0
 var omen_refusals := 0
@@ -676,6 +677,7 @@ func _reset_run_state() -> void:
 	gravetide = false
 	wellread = false
 	tide_lends = false
+	pearl_fever = false
 	tide_kills = 0
 	reliquary_wisps = 0
 	flawless_run = 0
@@ -3902,6 +3904,7 @@ func _offer_omens() -> void:
 			{"text": "MARROW PACT — fortify: +2 armor... but your blood thins (−20% Max HP)"},
 			{"text": "WELLREAD — every lore stone also pays 1 soul... but the Oracle's voice grows faint"},
 			{"text": "THE TIDE LENDS — every gilded chest pays +3 souls... but the King's notice hardens the dead (+8% HP)"},
+			{"text": "PEARL FEVER — every urn spills +1 soul... but the salt eats your armor (−1 Armor)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -3935,7 +3938,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 30 if Stats.nemesis != "" else 29
+	var osize := 31 if Stats.nemesis != "" else 30
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -4070,6 +4073,10 @@ func _omen_deal(idx: int) -> void:
 			omen_hp_mult += 0.08
 			oname = "THE TIDE LENDS"
 		29:
+			pearl_fever = true
+			Stats.buff_armor -= 1
+			oname = "PEARL FEVER"
+		30:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -4124,6 +4131,7 @@ func _omen_deal(idx: int) -> void:
 		"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
+		"PEARL FEVER": "Crack every shell you find, Kael — just mind the salt between the seams.",
 	}
 	var rline: String = String(reacts.get(oname, "An oath is an oath."))
 	_say([{"who": "oracle", "text": rline}])

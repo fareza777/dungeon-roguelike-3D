@@ -59,6 +59,10 @@ func smash(from_pos: Vector3) -> void:
 		var ub: Dictionary = m.get("biome") if m.get("biome") is Dictionary else {}
 		if String(ub.get("name", "")) == "Sunken Reliquary":
 			Stats.souls += 2 if bool(m.get("low_tide")) else 1
+		if bool(m.get("pearl_fever")):
+			Stats.souls += 1
+			if m.has_method("_souls_l"):
+				m._souls_l()
 			if m.has_method("_souls_l"):
 				m._souls_l()
 		if randf() < 0.15:
