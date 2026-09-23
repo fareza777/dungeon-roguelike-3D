@@ -2966,6 +2966,11 @@ func _quest_event(kind: String, num: int = 1) -> void:
 	if int(st["done"]) >= int(st["need"]):
 		quest_idx += 1
 		Sfx.play("quest")
+		Stats.souls += 2
+		_souls_l()
+		toast("QUEST STEP DONE — +2 souls")
+		if player != null and is_instance_valid(player):
+			_souls(player.global_position + Vector3(0, 0.8, 0), 4, Color(0.6, 0.85, 1.0))
 		if ui.has("quest_box"):
 			var qb: Control = ui.quest_box
 			qb.pivot_offset = qb.size * 0.5
