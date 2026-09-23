@@ -5240,13 +5240,27 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Sea Legs — pay 6 souls: all skills recharge instantly"},
 		{"text": "Salt Purse — pay 3 souls: this floor's urns each spill +1 soul"},
 		{"text": "Salt Tithe — pay 2 souls: every urn this RUN spills +1 soul"},
+		{"text": "Brine Wash — pay 2 souls: cleanse venom, chill, root and silence"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 6:
+	if idx == 7:
 		toast("The water settles back into the stone")
 		return
+	if idx == 6:
+		if Stats.souls < _soul_cost(2):
+			toast("Two souls — the brine isn't free")
+			return
+		Stats.souls -= _soul_cost(2)
+		_souls_l()
+		if player != null and is_instance_valid(player):
+			player.set("venom_t", 0.0)
+			player.set("chill_t", 0.0)
+			player.set("root_t", 0.0)
+			player.set("silence_t", 0.0)
+		Sfx.play("shrine")
+		toast("BRINE WASH — the salt strips every clinging curse")
 	if idx == 2:
 		if Stats.souls < _soul_cost(5):
 			toast("Five souls — the ward isn't free")
