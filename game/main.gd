@@ -7853,7 +7853,7 @@ func _process(delta: float) -> void:
 			if not discovered.has(ri):
 				discovered[ri] = true
 				rooms_floor += 1
-				_quest_event("roomfloor", rooms_floor)
+				_quest_event("roomfloor")
 				if Stats.relics.has("sextant") and ri + 1 < info.ranges.size():
 					discovered[ri + 1] = true
 				_update_minimap()
