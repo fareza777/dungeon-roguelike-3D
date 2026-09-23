@@ -32,6 +32,17 @@ const TOMB = preload("res://tombstone.gd")
 const DUNGEON := "res://assets/dungeon/"
 
 # baris lore dunia — bisikan Oracle saat menyentuh batu pengetahuan
+const EPITAPHS := [
+	"The dark keeps what it catches.",
+	"Not an ending — a counting pause.",
+	"The throne applauds another empty chair.",
+	"Souls remember. Floors forget.",
+	"He was so close, the stone sighed.",
+	"Down here, even a brave death is just... a death.",
+	"The Ferryman hums. He's seen your name.",
+	"Bones don't argue. They wait.",
+]
+
 const LORE_LINES := [
 	"The Bone King was King Aldric once — the crown still sits on his skull.",
 	"He buried this kingdom to keep it. Now you dig through his grave.",
@@ -1930,9 +1941,10 @@ func _on_player_died() -> void:
 		Stats.nemesis_name = String(KILLER_NAMES.get(player.last_killer, player.last_killer)).capitalize()
 		nemesis_warned = false
 	var ktip: String = ""
+	var epit: String = "\n'" + EPITAPHS[rng.randi_range(0, EPITAPHS.size() - 1)] + "'"
 	if player != null and is_instance_valid(player):
 		ktip = "\n" + String(KILLER_TIPS.get(player.last_killer, ""))
-	_show_banner("YOU DIED", "Floor %d • %s — slain by %s\n%d kills • Lv %d • %d relics • best combo ×%d • %d:%02d\n+%d souls banked • Best: Floor %d — tap to retry%s%s" % [Stats.floor_num, biome["name"], killer, kills_run, Stats.level, Stats.relics.size(), combo_max, mins, secs, Stats.souls - run_souls_start, Stats.best_floor, rec, ktip], Color(1.0, 0.32, 0.28))
+	_show_banner("YOU DIED", "Floor %d • %s — slain by %s\n%d kills • Lv %d • %d relics • best combo ×%d • %d:%02d\n+%d souls banked • Best: Floor %d — tap to retry%s%s" % [Stats.floor_num, biome["name"], killer, kills_run, Stats.level, Stats.relics.size(), combo_max, mins, secs, Stats.souls - run_souls_start, Stats.best_floor, rec, ktip, epit], Color(1.0, 0.32, 0.28))
 
 
 func _offer_oracle_bargain() -> void:
@@ -1995,9 +2007,10 @@ func _finalize_death() -> void:
 		Stats.nemesis_name = String(KILLER_NAMES.get(player.last_killer, player.last_killer)).capitalize()
 		nemesis_warned = false
 	var ktip: String = ""
+	var epit: String = "\n'" + EPITAPHS[rng.randi_range(0, EPITAPHS.size() - 1)] + "'"
 	if player != null and is_instance_valid(player):
 		ktip = "\n" + String(KILLER_TIPS.get(player.last_killer, ""))
-	_show_banner("YOU DIED", "Floor %d • %s — slain by %s\n%d kills • Lv %d • %d relics • best combo ×%d • %d:%02d\n+%d souls banked • Best: Floor %d — tap to retry%s%s" % [Stats.floor_num, biome["name"], killer, kills_run, Stats.level, Stats.relics.size(), combo_max, mins, secs, Stats.souls - run_souls_start, Stats.best_floor, rec, ktip], Color(1.0, 0.32, 0.28))
+	_show_banner("YOU DIED", "Floor %d • %s — slain by %s\n%d kills • Lv %d • %d relics • best combo ×%d • %d:%02d\n+%d souls banked • Best: Floor %d — tap to retry%s%s" % [Stats.floor_num, biome["name"], killer, kills_run, Stats.level, Stats.relics.size(), combo_max, mins, secs, Stats.souls - run_souls_start, Stats.best_floor, rec, ktip, epit], Color(1.0, 0.32, 0.28))
 
 
 func _run_victory() -> void:
