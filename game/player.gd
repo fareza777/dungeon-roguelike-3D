@@ -297,6 +297,30 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						hp = minf(mh, hp + mh * 0.05)
 						if mg.has_method("_damage_number"):
 							mg._damage_number(global_position + Vector3(0, 0.6 * room_tile, 0), "REND +HP", Color(1.0, 0.4, 0.4), false)
+		"scourge": # LASH — tiap tebasan ke-4 menyeret musuh terdekat mendekat
+			var ml := get_tree().current_scene
+			if ml != null:
+				ml.set("net_n", int(ml.get("net_n")) + 1)
+				if int(ml.get("net_n")) >= 4:
+					ml.set("net_n", 0)
+					var tug: Vector3 = (global_position - f.global_position)
+					tug.y = 0.0
+					f.global_position += tug * 0.35
+					var nearest: Node3D = null
+					var nd := room_tile * 2.4
+					for f2 in get_tree().get_nodes_in_group("enemies"):
+						if f2 == f:
+							continue
+						var d2: float = f2.global_position.distance_to(f.global_position)
+						if d2 < nd:
+							nd = d2
+							nearest = f2
+					if nearest != null:
+						var tug2: Vector3 = (global_position - nearest.global_position)
+						tug2.y = 0.0
+						nearest.global_position += tug2 * 0.35
+					if ml.has_method("_damage_number"):
+						ml._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "LASHED", Color(0.8, 0.5, 1.0), false)
 		"driftnet": # NETS — tiap tebasan ke-4 melilit target: −40% speed 2s
 			var mn := get_tree().current_scene
 			if mn != null:
