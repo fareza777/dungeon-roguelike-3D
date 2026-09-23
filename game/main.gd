@@ -6312,6 +6312,9 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_armor += 1
 			Stats.buff_atk_pct += 0.08
 			toast("Powder Ballast: shot and powder in the pockets — +1 Armor, +8% ATK this run")
+		61:
+			Stats.dodge += 0.08
+			toast("Slick Wake: you slide through the swell — +8% dodge this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -9354,6 +9357,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Crow's Toll — elites yield +50% XP this run"},
 			{"text": "Pilgrim's Purse — the alms-bowl travels with you: +2 souls at each floor's start"},
 			{"text": "Powder Ballast — shot and powder in the pockets: +1 Armor, +8% ATK this run"},
+			{"text": "Slick Wake — you slide through the swell: +8% dodge this run"},
 		]
 	)
 
