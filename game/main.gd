@@ -3467,6 +3467,7 @@ func _on_curse_invoked(s) -> void:
 	_say([{"who": "oracle", "text": "A cursed obelisk... it hums with hungry promises, Kael."}],
 		[{"text": "Blood Pact — foes hit 30% harder, souls pay +50% XP"},
 		{"text": "Blood Offering — bleed 2 HP now, gain +50% XP"},
+		{"text": "Blood Price — kills stop paying souls this run, but +40% ATK"},
 		{"text": "Refuse — leave the whispering stone"}])
 
 
@@ -3504,6 +3505,13 @@ func _curse_deal(idx: int) -> void:
 		toast("BLOOD OFFERING — the stone drinks your pulse, XP +50%")
 		_burst(player.global_position, Color(0.8, 0.05, 0.1))
 		Sfx.play("hurt")
+	elif idx == 2:
+		Stats.soul_sealed = true
+		Stats.buff_atk_pct += 0.4
+		toast("BLOOD PRICE — the living stops paying, the blade gets heavier")
+		_burst(player.global_position, Color(0.9, 0.1, 0.15))
+		Sfx.play("roar")
+		_chip("PRICE")
 
 
 func _mahzan_deal(idx: int) -> void:
