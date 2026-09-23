@@ -117,6 +117,8 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Tax Revolt", "desc": "Refuse two Tithings (0/2)", "kind": "tither_kill", "need": 2})
 	if Stats.floor_num >= 7 and Stats.floor_num % 6 == 3:
 		steps.append({"title": "Wisp Hunt", "desc": "Catch three wandering wisps (0/3)", "kind": "wisp", "need": 3})
+	if Stats.floor_num >= 20 and Stats.floor_num % 9 == 4:
+		steps.append({"title": "Tide Caller", "desc": "Call the drowned tide once (0/1)", "kind": "tidecall", "need": 1})
 	if Stats.floor_num >= 18 and Stats.floor_num % 11 == 7:
 		steps.append({"title": "Steel Scrounger", "desc": "Take a blade from a Scavenger's Cache (0/1)", "kind": "cache", "need": 1})
 	if Stats.floor_num >= 7 and Stats.floor_num % 7 == 0:
