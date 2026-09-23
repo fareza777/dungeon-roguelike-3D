@@ -197,6 +197,9 @@ func take_hit(from_pos: Vector3, dmg_taken: int) -> void:
 	if Stats.dodge > 0.0 and randf() < Stats.dodge:
 		invuln = 0.5
 		Sfx.play("dash")
+		var m2 := get_tree().current_scene
+		if m2 != null and m2.has_method("_damage_number"):
+			m2._damage_number(global_position, "DODGED", Color(0.55, 0.9, 1.0), false)
 		if mat != null:
 			mat.set_shader_parameter("flash", 0.5)
 			var dtw := create_tween()

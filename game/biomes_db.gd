@@ -34,6 +34,14 @@ const LIST := [
 		"bg": Color(0.02, 0.06, 0.03),
 		"enemies": ["brute", "mage", "chaser", "archer", "bomber"],
 	},
+	{
+		"name": "The Abyss",
+		"floor": Color(0.7, 0.62, 0.95), "wall": Color(0.75, 0.7, 1.0), "prop": Color(0.8, 0.72, 1.0),
+		"fog": Color(0.07, 0.04, 0.12), "fog_d": 0.03, "ambient": Color(0.2, 0.16, 0.38),
+		"sun": Color(0.85, 0.7, 1.0), "torch": Color(0.85, 0.5, 1.0), "torch_e": 1.4, "torch_r": 6.0,
+		"bg": Color(0.03, 0.02, 0.06),
+		"enemies": ["brute", "mage", "rogue", "archer", "bomber", "bomber"],
+	},
 ]
 
 
