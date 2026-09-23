@@ -3782,10 +3782,25 @@ func _on_bounty_invoked(s) -> void:
 	_say([{"who": "oracle", "text": "A bounty stone — the dungeon's own bounty board. Summon a marked foe; its skull pays a relic."}],
 		[{"text": "Call the Marked — summon a bounty elite (drops a rare relic)"},
 		{"text": "Deadman's Fee — pay 4 souls: the Marked drops an epic relic"},
+		{"text": "Sic the Pack — summon TWO marked elites (each drops a rare relic)"},
 		{"text": "Walk on"}])
 
 
 func _bounty_deal(idx: int) -> void:
+	if idx == 2:
+		var table2: Array = biome["enemies"]
+		for bp in range(2):
+			var barch := String(table2[rng.randi_range(0, table2.size() - 1)])
+			var bpos := shrine_ref.global_position + Vector3((0.7 + bp * 0.8) * info.tile, 0, (0.3 + bp * 0.4) * info.tile)
+			var be := _spawn_enemy({"pos": bpos, "room": current_room}, barch, true)
+			if be != null:
+				be.hp *= 1.2
+				be.hp_max = be.hp
+				be.activated = true
+				_damage_number(be.global_position + Vector3(0, 1.0 * info.tile, 0), "PACK MARKED!", Color(1.0, 0.6, 0.25), true)
+		Sfx.play("roar")
+		toast("THE PACK ANSWERS — two marks walk")
+		return
 	if idx > 1:
 		return
 	if idx == 1:
