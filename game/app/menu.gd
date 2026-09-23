@@ -193,6 +193,7 @@ func _build() -> void:
 	var ng_txt := " • ♛ NG+%d" % Stats.ng_plus if Stats.ng_plus > 0 else ""
 	var lore_txt := " • Lore %d/37" % Stats.lore_seen.size() if Stats.lore_seen.size() > 0 else ""
 	var oath_txt := " • ☗ %d/29" % Stats.oaths_seen.size() if Stats.oaths_seen.size() > 0 else ""
+	var best_txt := " • ⚔ %d kinds slain" % Stats.arch_kills.size() if Stats.arch_kills.size() > 0 else ""
 	var souls_txt := " • ◈ %d" % Stats.souls if Stats.souls > 0 else ""
 	var nem_txt := "\n☠ Nemesis: %s hunts you" % Stats.nemesis_name if Stats.nemesis_name != "" else ""
 	var bname := String(BIO.for_floor(maxi(Stats.best_floor, 1)).get("name", "")) if Stats.best_floor > 0 else ""
@@ -207,7 +208,7 @@ func _build() -> void:
 		rank = "CRYPT RUNNER"
 	elif Stats.best_floor >= 3:
 		rank = "GRAVE DIGGER"
-	best.text = "Best: Floor %d%s • Total kills: %d%s%s%s%s%s%s%s%s" % [Stats.best_floor, (" (" + bname + ")") if bname != "" else "", Stats.total_kills, boss_txt, ach_txt, ng_txt, lore_txt, oath_txt, souls_txt, nem_txt, ("
+	best.text = "Best: Floor %d%s • Total kills: %d%s%s%s%s%s%s%s%s%s" % [Stats.best_floor, (" (" + bname + ")") if bname != "" else "", Stats.total_kills, boss_txt, ach_txt, ng_txt, lore_txt, oath_txt, souls_txt, nem_txt, best_txt, ("
 ✦ Rank: " + rank) if rank != "" else ""]
 	best.add_theme_font_size_override("font_size", 17)
 	best.modulate = Color(1.0, 0.9, 0.6, 0.85)
