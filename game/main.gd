@@ -4241,6 +4241,7 @@ func _process(delta: float) -> void:
 						_spawn_enemy({"pos": info.chest.global_position + off, "room": int(info.get("room_count", 1)) - 1}, "chaser", false)
 				elif cursed_chest:
 					cursed_chest = false
+					_quest_event("cursed_chest")
 					Sfx.play("roar")
 					trauma = 0.9
 					_lvl_banner("☠ CURSED HOARD — THE DEAD OBJECT")
