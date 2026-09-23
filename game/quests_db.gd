@@ -199,7 +199,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Choir Member", "desc": "Take 2 deals at a Siren's Conch (0/2)", "kind": "siren", "need": 2})
 		steps.append({"title": "Deep Drifter", "desc": "Clear 2 floors under a DRIFT TIDE (0/2)", "kind": "driftwalk", "need": 2})
 		steps.append({"title": "Full Hammer", "desc": "Forge your blade 3 times (0/3)", "kind": "forge", "need": 3})
-		steps.append({"title": "Conch Holder", "desc": "Bank 25 souls at once (0/25)", "kind": "fatpurse", "need": 25})
+		steps.append({"title": "Conch Holder", "desc": "End 2 floors holding 40+ souls (0/2)", "kind": "fatpurse", "need": 2})
 	if Stats.floor_num == 11:
 		steps.append({"title": "Soul Fisher", "desc": "Net three drifting wisps (0/3)", "kind": "wisp", "need": 3})
 	if Stats.floor_num >= 13 and Stats.floor_num % 8 == 5:
