@@ -115,6 +115,7 @@ const ACH_DEF := {
 	"ng2": "Twice-Crowned (reached NG+2)", "ng4": "Ever-Drowning (reached NG+4)", "ng7": "Grave's Delver (reached NG+7)",
 	"lore32": "Archivist (heard every whispered line)",
 	"col10": "Collector (carried 10 relics in one run)",
+	"centurion": "Centurion (100 kills in a single run)",
 }
 
 const META_DEF := {

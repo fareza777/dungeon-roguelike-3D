@@ -1484,6 +1484,10 @@ func _on_enemy_died(e) -> void:
 	if ui.has("kills_label"):
 		ui.kills_label.text = "☠ %d" % kills_run
 	# Sir Vane: celoteh perang tiap ~15 kill bersama
+	if kills_run >= 100:
+		_ach("centurion")
+	if kills_run % 50 == 0:
+		_damage_number(player.global_position + Vector3(0, 1.1 * info.tile, 0), "☠ %d KILLS" % kills_run, Color(1.0, 0.8, 0.3), true)
 	if kills_run % 15 == 0 and knight_ref != null and is_instance_valid(knight_ref):
 		var vbarks := [
 			"FOR THE OLD KINGDOM!",
