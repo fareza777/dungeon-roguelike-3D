@@ -1246,6 +1246,12 @@ func _on_cage_freed(s) -> void:
 			{"who": "kael", "text": "Can you still swing a blade, old ghost?"},
 			{"who": "knight", "text": "Watch me. Until this floor ends — my sword is yours."},
 		]
+		if Stats.ng_plus > 0:
+			vlines = [
+				{"who": "knight", "text": "You carry the throne's shadow now, boy — I can smell the crown-bone on you."},
+				{"who": "kael", "text": "It broke once, Sir Vane. It'll break again."},
+				{"who": "knight", "text": "Then break it a hundred times. A king that won't stay dead needs a knight that won't stay caged."},
+			]
 		if Stats.nemesis != "":
 			vlines.append({"who": "knight", "text": "And I hear %s prowls these halls — the thing that felled you last. Point me at it, boy." % Stats.nemesis_name})
 		_say(vlines)
