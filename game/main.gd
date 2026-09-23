@@ -4482,12 +4482,6 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			{"who": "oracle", "text": "Every floor you clear digs me a little closer to free. That is all I will say of it."},
 			{"who": "kael", "text": "Then hold on. I'm two floors from his throne."},
 		]
-	elif Stats.floor_num == 22:
-		lines = [
-			{"who": "mahzan", "text": "Twenty-two floors, little customer. The deep has started pricing your survival very differently."},
-			{"who": "kael", "text": "Then the deep should buy better odds."},
-			{"who": "oracle", "text": "Careful, Kael — even jokes echo louder this close to the throne."},
-		]
 	elif Stats.floor_num == 24:
 		lines = [
 			{"who": "oracle", "text": "One floor below waits the throne beneath all thrones. He knows you're coming, Kael."},
