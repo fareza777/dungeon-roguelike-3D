@@ -3291,6 +3291,7 @@ func _offer_omens() -> void:
 			{"text": "HEIRLOOM — carry a random trinket into the run, -1 Armor"},
 			{"text": "GOLDEN FATE — every chest is gilded, -2 Max HP"},
 			{"text": "LEGION — the halls swarm with an extra foe in every room; +15% XP"},
+			{"text": "LASTBORN — start the run wounded (-35% Max HP) but carry two extra soul vials"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -3319,7 +3320,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 15 if Stats.nemesis != "" else 14
+	var osize := 16 if Stats.nemesis != "" else 15
 	if idx >= osize:
 		toast("You walk alone — the Oracle nods")
 		return
@@ -3391,6 +3392,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_xp_pct += 0.15
 			oname = "LEGION"
 		14:
+			Stats.buff_maxhp_pct -= 0.35
+			vials += 2
+			oname = "LASTBORN"
+		15:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -3406,6 +3411,7 @@ func _omen_deal(idx: int) -> void:
 	var reacts := {
 		"WARPATH": "All edge, no hilt. Swing like you mean to be feared.",
 		"LEGION": "More dead to cut. The deeps oblige your hunger.",
+		"LASTBORN": "Born fragile, armed thrice. Drink deep when it matters.",
 		"FEATHER": "A lighter coffin, then. Sensible.",
 		"RICH SOIL": "The dungeon will feed you well — keep chewing.",
 		"LEECHING": "Your blood will not stay yours, but at least it circles back.",
