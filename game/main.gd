@@ -8751,6 +8751,12 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			{"who": "kael", "text": "Then I kneel to nothing. Let him try me."},
 			{"who": "oracle", "text": "Careful, Kael. His court remembers how you fought the first four floors."},
 		]
+	elif Stats.floor_num == 6 and Stats.ng_plus >= 1:
+		lines = [
+			{"who": "vane", "text": "Back again, knight? The first court remembers how you broke it."},
+			{"who": "kael", "text": "Tell it to keep the throne warm, Aldric. The crown's still mine to crack."},
+			{"who": "oracle", "text": "Both of you walk circles the King can see — but cannot yet close."},
+		]
 	elif Stats.floor_num == 6:
 		lines = [
 			{"who": "vane", "text": "Faster now, knight — the King grows nervous when a challenger outlives the first court."},
