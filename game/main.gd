@@ -136,6 +136,8 @@ var ashfall := false
 var legion_omen := false
 var wolf_omen := false
 var ashborn := false
+var lonecrown := false
+var lc_delta := 0.0
 var wolf_n := 0
 var omen_count := 0
 var shrine_kind := 0
@@ -570,6 +572,8 @@ func _reset_run_state() -> void:
 	wolf_omen = false
 	wolf_n = 0
 	ashborn = false
+	lonecrown = false
+	lc_delta = 0.0
 	omen_count = 0
 	nemesis_warned = false
 
@@ -594,6 +598,9 @@ func _new_run(new_seed: int) -> void:
 	pray_t = 0.0
 	prayed = false
 	var boss_floor: bool = QDB.is_boss_floor(Stats.floor_num)
+	Stats.buff_atk_pct -= lc_delta
+	lc_delta = (0.2 if boss_floor else -0.05) if lonecrown else 0.0
+	Stats.buff_atk_pct += lc_delta
 	# event langka: blood moon — langit merah, musuh lebih keras, XP lebih kaya
 	blood_moon = Stats.floor_num >= 3 and not boss_floor and rng.randf() < 0.07
 	# event langka #2: soul rush — kabut ungu, permata XP berlimpah, tithe jiwa saat clear
@@ -3340,6 +3347,7 @@ func _offer_omens() -> void:
 			{"text": "HEAVYHAND — +20% ATK, but swings come 20% slower"},
 			{"text": "WOLF OF THE HALLS — each kill quickens you +1% (up to +20%)"},
 			{"text": "ASHBORN — the ash rain follows you; every floor 10+ is ashfall, -10% Max HP"},
+			{"text": "LONE CROWN — +20% ATK on boss floors, -5% ATK on all others"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -3368,7 +3376,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 19 if Stats.nemesis != "" else 18
+	var osize := 20 if Stats.nemesis != "" else 19
 	if idx >= osize:
 		toast("You walk alone — the Oracle nods")
 		return
@@ -3455,6 +3463,9 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_maxhp_pct -= 0.1
 			oname = "ASHBORN"
 		18:
+			lonecrown = true
+			oname = "LONE CROWN"
+		19:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -3477,6 +3488,7 @@ func _omen_deal(idx: int) -> void:
 		"HEAVYHAND": "Slow hands, heavy graves. Make each cut count.",
 		"WOLF": "The pack runs faster after every feed.",
 		"ASHBORN": "Carry the fire's memory. The rain will find you.",
+		"LONE CROWN": "Save your sharpest edge for thrones.",
 		"FEATHER": "A lighter coffin, then. Sensible.",
 		"RICH SOIL": "The dungeon will feed you well — keep chewing.",
 		"LEECHING": "Your blood will not stay yours, but at least it circles back.",
