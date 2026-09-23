@@ -12,6 +12,8 @@ const DB := {
 	"archer": {"glb": "Skeleton_Rogue.glb", "hp": 1.5, "spd": 0.95, "dmg": 1, "windup": 0.55, "reach": 3.2, "prefer": 2.8, "aggro": 4.0, "xp": 2, "tint": Color(0.75, 1.0, 0.9), "scale": 0.95, "ranged": true, "proj_speed": 4.5, "kb_resist": 0.0},
 	# necromancer — memanggil antek tulang berkala; bunuh duluan
 	"necromancer": {"glb": "Skeleton_Mage.glb", "hp": 3.5, "spd": 0.75, "dmg": 1, "windup": 0.6, "reach": 2.4, "prefer": 2.6, "aggro": 4.2, "xp": 3, "tint": Color(0.85, 0.6, 1.25), "scale": 1.05, "ranged": true, "proj_speed": 3.2, "summoner": true, "kb_resist": 0.1},
+	# crawler — gerombolan kecil cepat: windup sangat singkat, datang berpasangan
+	"crawler": {"glb": "Skeleton_Minion.glb", "hp": 1.2, "spd": 1.85, "dmg": 1, "windup": 0.22, "reach": 0.5, "aggro": 4.0, "xp": 1, "tint": Color(0.55, 0.9, 0.5), "scale": 0.5, "kb_resist": 0.0},
 	# BOSS: Raja Tulang — tiap lantai kelipatan 5
 	"bone_king": {"glb": "Skeleton_Warrior.glb", "hp": 42.0, "spd": 0.8, "dmg": 2, "windup": 0.85, "reach": 0.95, "aggro": 9.9, "xp": 15, "tint": Color(1.15, 0.45, 0.4), "scale": 1.85, "kb_resist": 0.9, "boss": true},
 }

@@ -8,7 +8,7 @@ const LIST := [
 		"fog": Color(0.09, 0.08, 0.16), "fog_d": 0.024, "ambient": Color(0.25, 0.28, 0.45),
 		"sun": Color(1.0, 0.86, 0.68), "torch": Color(1.0, 0.55, 0.22), "torch_e": 1.4, "torch_r": 7.0,
 		"bg": Color(0.04, 0.03, 0.08),
-		"enemies": ["chaser", "chaser", "rogue", "archer"],
+		"enemies": ["chaser", "chaser", "rogue", "archer", "crawler", "crawler"],
 	},
 	{
 		"name": "Ember Crypt",
@@ -16,7 +16,7 @@ const LIST := [
 		"fog": Color(0.08, 0.045, 0.035), "fog_d": 0.02, "ambient": Color(0.3, 0.26, 0.28),
 		"sun": Color(1.0, 0.82, 0.62), "torch": Color(1.0, 0.5, 0.18), "torch_e": 1.0, "torch_r": 4.2,
 		"bg": Color(0.05, 0.03, 0.03),
-		"enemies": ["rogue", "chaser", "mage", "bomber"],
+		"enemies": ["rogue", "chaser", "mage", "bomber", "crawler", "crawler"],
 	},
 	{
 		"name": "Frozen Deep",
@@ -24,7 +24,7 @@ const LIST := [
 		"fog": Color(0.06, 0.1, 0.16), "fog_d": 0.02, "ambient": Color(0.25, 0.35, 0.5),
 		"sun": Color(0.75, 0.88, 1.0), "torch": Color(0.6, 0.8, 1.0), "torch_e": 1.2, "torch_r": 5.5,
 		"bg": Color(0.02, 0.04, 0.07),
-		"enemies": ["mage", "rogue", "brute", "archer", "bomber", "necromancer"],
+		"enemies": ["mage", "rogue", "brute", "archer", "bomber", "necromancer", "crawler", "crawler"],
 	},
 	{
 		"name": "Verdant Ruin",
@@ -32,7 +32,7 @@ const LIST := [
 		"fog": Color(0.05, 0.12, 0.06), "fog_d": 0.026, "ambient": Color(0.22, 0.4, 0.25),
 		"sun": Color(0.85, 1.0, 0.7), "torch": Color(0.7, 1.0, 0.5), "torch_e": 1.2, "torch_r": 5.5,
 		"bg": Color(0.02, 0.06, 0.03),
-		"enemies": ["brute", "mage", "chaser", "archer", "bomber", "necromancer"],
+		"enemies": ["brute", "mage", "chaser", "archer", "bomber", "necromancer", "crawler", "crawler"],
 	},
 	{
 		"name": "The Abyss",
@@ -40,7 +40,7 @@ const LIST := [
 		"fog": Color(0.07, 0.04, 0.12), "fog_d": 0.03, "ambient": Color(0.2, 0.16, 0.38),
 		"sun": Color(0.85, 0.7, 1.0), "torch": Color(0.85, 0.5, 1.0), "torch_e": 1.4, "torch_r": 6.0,
 		"bg": Color(0.03, 0.02, 0.06),
-		"enemies": ["brute", "mage", "rogue", "archer", "bomber", "bomber", "necromancer", "necromancer"],
+		"enemies": ["brute", "mage", "rogue", "archer", "bomber", "bomber", "necromancer", "necromancer", "crawler", "crawler", "crawler"],
 	},
 ]
 
