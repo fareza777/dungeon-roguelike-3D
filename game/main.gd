@@ -698,7 +698,7 @@ func _on_player_died() -> void:
 	var mins := int(run_time) / 60
 	var secs := int(run_time) % 60
 	var rec := "\nNEW RECORD!" if new_record and Stats.floor_num > 1 else ""
-	_show_banner("YOU DIED", "Floor %d • %s\n%d kills • Lv %d • %d relics • %d:%02d\nBest: Floor %d — tap to retry%s" % [Stats.floor_num, biome["name"], kills_run, Stats.level, Stats.relics.size(), mins, secs, Stats.best_floor, rec])
+	_show_banner("YOU DIED", "Floor %d • %s\n%d kills • Lv %d • %d relics • %d:%02d\nBest: Floor %d — tap to retry%s" % [Stats.floor_num, biome["name"], kills_run, Stats.level, Stats.relics.size(), mins, secs, Stats.best_floor, rec], Color(1.0, 0.32, 0.28))
 
 
 func _on_banner_tap() -> void:
@@ -768,6 +768,9 @@ func _try_open_draft() -> void:
 		sb.set_border_width_all(3)
 		sb.set_corner_radius_all(12)
 		sb.set_content_margin_all(10)
+		sb.shadow_color = Color(0, 0, 0, 0.65)
+		sb.shadow_size = 10
+		sb.shadow_offset = Vector2(0, 5)
 		card.add_theme_stylebox_override("panel", sb)
 		var cvb := VBoxContainer.new()
 		cvb.add_theme_constant_override("separation", 8)
@@ -778,6 +781,7 @@ func _try_open_draft() -> void:
 		chip.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		var nl := Label.new()
 		nl.text = String(it["name"])
+		nl.modulate = ITEMS.RARITY_COLORS[int(it["rarity"])].lightened(0.35)
 		nl.add_theme_font_size_override("font_size", 18)
 		nl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		nl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -935,7 +939,11 @@ func _build_skill_buttons(layer: CanvasLayer) -> void:
 		sb.border_color = Color(0.45, 0.75, 1.0)
 		sb.set_border_width_all(2)
 		sb.set_corner_radius_all(12)
+		sb.shadow_color = Color(0, 0, 0, 0.5)
+		sb.shadow_size = 5
+		sb.shadow_offset = Vector2(0, 3)
 		b.add_theme_stylebox_override("normal", sb)
+		b.add_theme_color_override("font_color", Color(0.85, 0.95, 1.0))
 		var sbp := sb.duplicate() as StyleBoxFlat
 		sbp.bg_color = Color(0.25, 0.4, 0.55, 0.95)
 		b.add_theme_stylebox_override("pressed", sbp)
@@ -1144,10 +1152,7 @@ func _refresh_hero() -> void:
 		sl2.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		vb.add_child(sl2)
 
-	var hclose := Button.new()
-	hclose.text = "Close"
-	hclose.add_theme_font_size_override("font_size", 22)
-	hclose.custom_minimum_size = Vector2(0, 52)
+	var hclose := _pause_btn("CLOSE")
 	hclose.pressed.connect(func() -> void: _toggle_hero(false))
 	vb.add_child(hclose)
 
@@ -1244,14 +1249,14 @@ func _burst(pos: Vector3, col := Color(0.95, 0.95, 1.0)) -> void:
 
 func toast(txt: String) -> void:
 	ui.toast.text = txt
-	ui.toast.visible = true
-	ui.toast.modulate.a = 1.0
+	ui.toast_panel.visible = true
+	ui.toast_panel.modulate.a = 1.0
 	if toast_tween != null and toast_tween.is_valid():
 		toast_tween.kill()
 	toast_tween = create_tween()
 	toast_tween.tween_interval(1.6)
-	toast_tween.tween_property(ui.toast, "modulate:a", 0.0, 0.4)
-	toast_tween.tween_callback(func() -> void: ui.toast.visible = false)
+	toast_tween.tween_property(ui.toast_panel, "modulate:a", 0.0, 0.4)
+	toast_tween.tween_callback(func() -> void: ui.toast_panel.visible = false)
 
 
 func _lvl_banner(txt: String) -> void:
@@ -1507,11 +1512,20 @@ func _build_ui() -> void:
 	atk.add_theme_font_size_override("font_size", 30)
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = Color(0.5, 0.12, 0.14, 0.85)
-	sb.set_corner_radius_all(14)
+	sb.border_color = Color(1.0, 0.78, 0.4, 0.85)
+	sb.set_border_width_all(2)
+	sb.set_corner_radius_all(20)
+	sb.shadow_color = Color(0, 0, 0, 0.6)
+	sb.shadow_size = 8
+	sb.shadow_offset = Vector2(0, 4)
 	atk.add_theme_stylebox_override("normal", sb)
 	var sb2 := sb.duplicate() as StyleBoxFlat
-	sb2.bg_color = Color(0.75, 0.2, 0.2, 0.95)
+	sb2.bg_color = Color(0.8, 0.24, 0.22, 0.95)
+	sb2.border_color = Color(1.0, 0.9, 0.6)
 	atk.add_theme_stylebox_override("pressed", sb2)
+	atk.add_theme_color_override("font_color", Color(1.0, 0.92, 0.75))
+	atk.add_theme_color_override("font_outline_color", Color(0.15, 0.02, 0.02, 1.0))
+	atk.add_theme_constant_override("outline_size", 6)
 	atk.anchor_left = 1.0
 	atk.anchor_top = 1.0
 	atk.anchor_right = 1.0
@@ -1530,10 +1544,21 @@ func _build_ui() -> void:
 
 	_build_skill_buttons(layer)
 
+	var hpwrap := PanelContainer.new()
+	hpwrap.position = Vector2(10, 10)
+	hpwrap.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var hwsb := StyleBoxFlat.new()
+	hwsb.bg_color = Color(0.05, 0.05, 0.1, 0.55)
+	hwsb.border_color = Color(0.9, 0.75, 0.3, 0.35)
+	hwsb.set_border_width_all(1)
+	hwsb.set_corner_radius_all(8)
+	hwsb.set_content_margin_all(6)
+	hpwrap.add_theme_stylebox_override("panel", hwsb)
+	layer.add_child(hpwrap)
 	var hb := HBoxContainer.new()
-	hb.position = Vector2(16, 16)
-	hb.add_theme_constant_override("separation", 6)
-	layer.add_child(hb)
+	hb.add_theme_constant_override("separation", 4)
+	hb.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	hpwrap.add_child(hb)
 	ui["hp_box"] = hb
 	ui["hp_cells"] = []
 
@@ -1556,12 +1581,16 @@ func _build_ui() -> void:
 	lvl.position = Vector2(16, 72)
 	lvl.add_theme_font_size_override("font_size", 22)
 	lvl.modulate = Color(1.0, 0.9, 0.5)
+	lvl.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
+	lvl.add_theme_constant_override("outline_size", 5)
 	layer.add_child(lvl)
 	ui["lv_label"] = lvl
 
 	var fl := Label.new()
 	fl.add_theme_font_size_override("font_size", 18)
 	fl.modulate = Color(1, 1, 1, 0.6)
+	fl.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.8))
+	fl.add_theme_constant_override("outline_size", 3)
 	fl.anchor_left = 1.0
 	fl.anchor_right = 1.0
 	fl.offset_left = -280
@@ -1582,8 +1611,11 @@ func _build_ui() -> void:
 	hero_btn.offset_bottom = 88
 	var hsb := StyleBoxFlat.new()
 	hsb.bg_color = Color(0.16, 0.15, 0.24, 0.85)
+	hsb.border_color = Color(0.9, 0.75, 0.3, 0.5)
+	hsb.set_border_width_all(2)
 	hsb.set_corner_radius_all(10)
 	hero_btn.add_theme_stylebox_override("normal", hsb)
+	hero_btn.add_theme_color_override("font_color", Color(1.0, 0.9, 0.6))
 	hero_btn.pressed.connect(func() -> void: _toggle_hero(true))
 	layer.add_child(hero_btn)
 
@@ -1620,6 +1652,8 @@ func _build_ui() -> void:
 	var ht := Label.new()
 	ht.add_theme_font_size_override("font_size", 18)
 	ht.modulate = Color(1.0, 0.85, 0.8)
+	ht.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
+	ht.add_theme_constant_override("outline_size", 3)
 	hb.add_child(ht)
 	ui["hp_text"] = ht
 
@@ -1629,7 +1663,10 @@ func _build_ui() -> void:
 	var qsb := StyleBoxFlat.new()
 	qsb.bg_color = Color(0.06, 0.06, 0.11, 0.72)
 	qsb.border_color = Color(0.9, 0.75, 0.3, 0.55)
-	qsb.set_border_width_all(2)
+	qsb.border_width_left = 4
+	qsb.border_width_top = 1
+	qsb.border_width_right = 1
+	qsb.border_width_bottom = 1
 	qsb.set_corner_radius_all(10)
 	qsb.set_content_margin_all(9)
 	qb.add_theme_stylebox_override("panel", qsb)
@@ -1666,7 +1703,7 @@ func _build_ui() -> void:
 	bb.add_theme_stylebox_override("panel", bsb)
 	var bvb := VBoxContainer.new()
 	var bn := Label.new()
-	bn.text = "☠ RAJA TULANG"
+	bn.text = "☠ BONE KING"
 	ui["boss_name"] = bn
 	bn.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	bn.add_theme_font_size_override("font_size", 16)
@@ -1674,7 +1711,7 @@ func _build_ui() -> void:
 	var bf := ProgressBar.new()
 	bf.max_value = 100
 	bf.value = 100
-	bf.custom_minimum_size = Vector2(0, 14)
+	bf.custom_minimum_size = Vector2(0, 16)
 	bf.show_percentage = false
 	var bff := StyleBoxFlat.new()
 	bff.bg_color = Color(0.85, 0.2, 0.15)
@@ -1705,6 +1742,8 @@ func _build_ui() -> void:
 	cl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	cl.add_theme_font_size_override("font_size", 30)
 	cl.modulate = Color(1.0, 0.7, 0.25)
+	cl.add_theme_color_override("font_outline_color", Color(0.25, 0.08, 0.0, 1.0))
+	cl.add_theme_constant_override("outline_size", 6)
 	cl.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.8))
 	cl.add_theme_constant_override("shadow_offset_x", 2)
 	cl.add_theme_constant_override("shadow_offset_y", 2)
@@ -1721,7 +1760,7 @@ func _build_ui() -> void:
 	mp.offset_top = 100
 	var msb := StyleBoxFlat.new()
 	msb.bg_color = Color(0.05, 0.05, 0.09, 0.6)
-	msb.border_color = Color(1, 1, 1, 0.25)
+	msb.border_color = Color(0.9, 0.75, 0.3, 0.4)
 	msb.set_border_width_all(1)
 	msb.set_corner_radius_all(8)
 	msb.set_content_margin_all(6)
@@ -1759,22 +1798,38 @@ func _build_ui() -> void:
 	ui["tut"] = tut
 	ui["tut_label"] = tl
 
-	# toast
+	# toast pil: panel gelap + teks emas di tengah bawah
+	var tstp := PanelContainer.new()
+	tstp.anchor_left = 0.5
+	tstp.anchor_right = 0.5
+	tstp.anchor_top = 1.0
+	tstp.anchor_bottom = 1.0
+	tstp.offset_left = -270
+	tstp.offset_right = 270
+	tstp.offset_top = -316
+	tstp.offset_bottom = -262
+	tstp.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var tstsb := StyleBoxFlat.new()
+	tstsb.bg_color = Color(0.05, 0.05, 0.1, 0.85)
+	tstsb.border_color = Color(0.9, 0.75, 0.3, 0.7)
+	tstsb.set_border_width_all(2)
+	tstsb.set_corner_radius_all(16)
+	tstsb.set_content_margin_all(10)
+	tstsb.shadow_color = Color(0, 0, 0, 0.6)
+	tstsb.shadow_size = 6
+	tstsb.shadow_offset = Vector2(0, 3)
+	tstp.add_theme_stylebox_override("panel", tstsb)
+	tstp.visible = false
+	layer.add_child(tstp)
 	var tst := Label.new()
-	tst.anchor_left = 0.5
-	tst.anchor_right = 0.5
-	tst.anchor_top = 1.0
-	tst.anchor_bottom = 1.0
-	tst.offset_left = -260
-	tst.offset_right = 260
-	tst.offset_top = -300
-	tst.offset_bottom = -260
 	tst.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	tst.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	tst.add_theme_font_size_override("font_size", 22)
 	tst.modulate = Color(1.0, 0.9, 0.5, 1.0)
 	tst.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	tst.visible = false
-	layer.add_child(tst)
+	tst.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	tstp.add_child(tst)
+	ui["toast_panel"] = tstp
 	ui["toast"] = tst
 
 	# banner naik level (non-blokir)
@@ -1789,7 +1844,9 @@ func _build_ui() -> void:
 	lb.offset_bottom = -210
 	lb.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	lb.add_theme_font_size_override("font_size", 44)
-	lb.modulate = Color(1.0, 0.85, 0.3)
+	lb.modulate = Color(1.0, 0.88, 0.38)
+	lb.add_theme_color_override("font_outline_color", Color(0.22, 0.1, 0.0, 1.0))
+	lb.add_theme_constant_override("outline_size", 8)
 	lb.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.8))
 	lb.add_theme_constant_override("shadow_offset_x", 3)
 	lb.add_theme_constant_override("shadow_offset_y", 3)
@@ -1821,9 +1878,13 @@ func _build_ui() -> void:
 	var t := Label.new()
 	t.add_theme_font_size_override("font_size", 64)
 	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	t.add_theme_color_override("font_outline_color", Color(0.1, 0.03, 0.0, 1.0))
+	t.add_theme_constant_override("outline_size", 10)
 	var sub := Label.new()
 	sub.add_theme_font_size_override("font_size", 24)
 	sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	sub.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
+	sub.add_theme_constant_override("outline_size", 4)
 	for ll in [t, sub]:
 		ll.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		vb.add_child(ll)
@@ -1846,14 +1907,22 @@ func _build_ui() -> void:
 	var panel := PanelContainer.new()
 	var psb := StyleBoxFlat.new()
 	psb.bg_color = Color(0.08, 0.07, 0.12, 0.97)
+	psb.border_color = Color(0.9, 0.75, 0.3, 0.7)
+	psb.set_border_width_all(3)
 	psb.set_corner_radius_all(18)
 	psb.set_content_margin_all(22)
+	psb.shadow_color = Color(0, 0, 0, 0.7)
+	psb.shadow_size = 14
+	psb.shadow_offset = Vector2(0, 6)
 	panel.add_theme_stylebox_override("panel", psb)
 	var dvb := VBoxContainer.new()
 	dvb.add_theme_constant_override("separation", 18)
 	var dt := Label.new()
 	dt.text = "LEVEL UP — pick one"
 	dt.add_theme_font_size_override("font_size", 34)
+	dt.modulate = Color(1.0, 0.88, 0.45)
+	dt.add_theme_color_override("font_outline_color", Color(0.18, 0.08, 0.0, 1.0))
+	dt.add_theme_constant_override("outline_size", 6)
 	dt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	dvb.add_child(dt)
 	var cards := HBoxContainer.new()
@@ -1984,6 +2053,8 @@ func _build_ui() -> void:
 	pt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	pt.add_theme_font_size_override("font_size", 30)
 	pt.modulate = Color(1.0, 0.85, 0.4)
+	pt.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.85))
+	pt.add_theme_constant_override("outline_size", 5)
 	pt.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	pvb.add_child(pt)
 	_pause_vol_row(pvb, "Music", Stats.mus_vol(), func(v: float) -> void:
@@ -2061,10 +2132,39 @@ func _pause_vol_row(vb: VBoxContainer, label: String, cur: float, on_change: Cal
 	s.value = cur
 	s.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	s.custom_minimum_size = Vector2(0, 32)
+	_style_slider(s)
 	s.value_changed.connect(on_change)
 	hb.add_child(l)
 	hb.add_child(s)
 	vb.add_child(hb)
+
+
+func _style_slider(s: HSlider) -> void:
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(0.1, 0.1, 0.16, 0.9)
+	sb.set_corner_radius_all(4)
+	sb.content_margin_top = 4
+	sb.content_margin_bottom = 4
+	s.add_theme_stylebox_override("slider", sb)
+	var hi := StyleBoxFlat.new()
+	hi.bg_color = Color(0.9, 0.75, 0.3)
+	hi.set_corner_radius_all(4)
+	hi.content_margin_top = 4
+	hi.content_margin_bottom = 4
+	s.add_theme_stylebox_override("grabber_area", hi)
+	s.add_theme_stylebox_override("grabber_area_highlight", hi)
+	s.add_theme_icon_override("grabber", _make_grabber())
+	s.add_theme_icon_override("grabber_highlight", _make_grabber())
+
+
+func _make_grabber() -> ImageTexture:
+	var img := Image.create(16, 16, false, Image.FORMAT_RGBA8)
+	for y in range(16):
+		for x in range(16):
+			var d := Vector2(x - 7.5, y - 7.5).length()
+			if d <= 7.5:
+				img.set_pixel(x, y, Color(1.0, 0.9, 0.6) if d <= 6.0 else Color(0.6, 0.45, 0.2))
+	return ImageTexture.create_from_image(img)
 
 
 func _pause_btn(txt: String) -> Button:
@@ -2072,6 +2172,20 @@ func _pause_btn(txt: String) -> Button:
 	b.text = txt
 	b.custom_minimum_size = Vector2(0, 56)
 	b.add_theme_font_size_override("font_size", 21)
+	b.add_theme_color_override("font_color", Color(1, 0.97, 0.9))
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(0.1, 0.09, 0.16, 0.95)
+	sb.border_color = Color(0.9, 0.75, 0.3, 0.55)
+	sb.set_border_width_all(2)
+	sb.set_corner_radius_all(12)
+	b.add_theme_stylebox_override("normal", sb)
+	var sbh := sb.duplicate() as StyleBoxFlat
+	sbh.bg_color = Color(0.18, 0.15, 0.24, 0.98)
+	sbh.border_color = Color(1.0, 0.88, 0.5, 0.9)
+	b.add_theme_stylebox_override("hover", sbh)
+	var sbp := sb.duplicate() as StyleBoxFlat
+	sbp.bg_color = Color(0.3, 0.24, 0.12, 1.0)
+	b.add_theme_stylebox_override("pressed", sbp)
 	return b
 
 
@@ -2135,7 +2249,7 @@ func _update_hp(hp: float) -> void:
 		hb.move_child(ui.hp_text, hb.get_child_count() - 1)
 	var full := int(ceil(hp))
 	for i in range(cells.size()):
-		cells[i].color = Color(0.85, 0.15, 0.2) if i < full else Color(0.25, 0.1, 0.12)
+		cells[i].color = Color(0.9, 0.16, 0.22) if i < full else Color(0.28, 0.12, 0.14)
 	if ui.has("hp_text"):
 		ui.hp_text.text = "%d/%d" % [maxi(int(ceil(hp)), 0), maxh]
 	if prev_hp >= 0.0 and hp < prev_hp - 0.001:
@@ -2200,8 +2314,9 @@ func _rebuild_chips() -> void:
 		_ach("r5")
 
 
-func _show_banner(title: String, sub: String) -> void:
+func _show_banner(title: String, sub: String, col: Color = Color(1.0, 0.85, 0.4)) -> void:
 	ui.banner_t.text = title
+	ui.banner_t.modulate = col
 	ui.banner_sub.text = sub
 	ui.banner.visible = true
 	ui.dim.visible = true

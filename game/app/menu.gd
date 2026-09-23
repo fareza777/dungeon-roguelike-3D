@@ -70,6 +70,34 @@ func _toast(txt: String) -> void:
 	tw.tween_callback(func() -> void: toast_l.visible = false)
 
 
+func _style_slider(s: HSlider) -> void:
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(0.1, 0.1, 0.16, 0.9)
+	sb.set_corner_radius_all(4)
+	sb.content_margin_top = 4
+	sb.content_margin_bottom = 4
+	s.add_theme_stylebox_override("slider", sb)
+	var hi := StyleBoxFlat.new()
+	hi.bg_color = Color(0.9, 0.75, 0.3)
+	hi.set_corner_radius_all(4)
+	hi.content_margin_top = 4
+	hi.content_margin_bottom = 4
+	s.add_theme_stylebox_override("grabber_area", hi)
+	s.add_theme_stylebox_override("grabber_area_highlight", hi)
+	s.add_theme_icon_override("grabber", _make_grabber())
+	s.add_theme_icon_override("grabber_highlight", _make_grabber())
+
+
+func _make_grabber() -> ImageTexture:
+	var img := Image.create(16, 16, false, Image.FORMAT_RGBA8)
+	for y in range(16):
+		for x in range(16):
+			var d := Vector2(x - 7.5, y - 7.5).length()
+			if d <= 7.5:
+				img.set_pixel(x, y, Color(1.0, 0.9, 0.6) if d <= 6.0 else Color(0.6, 0.45, 0.2))
+	return ImageTexture.create_from_image(img)
+
+
 func _build() -> void:
 	# key art backdrop
 	if ResourceLoader.exists("res://assets/ui/menu_bg.png"):
@@ -123,6 +151,8 @@ func _build() -> void:
 	title.add_theme_font_size_override("font_size", 80)
 	title.modulate = GOLD
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.add_theme_color_override("font_outline_color", Color(0.22, 0.1, 0.0, 1.0))
+	title.add_theme_constant_override("outline_size", 10)
 	title.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.9))
 	title.add_theme_constant_override("shadow_offset_x", 4)
 	title.add_theme_constant_override("shadow_offset_y", 4)
@@ -245,6 +275,7 @@ func _vol_row(vb: VBoxContainer, label: String, cur: float, on_change: Callable)
 	s.step = 0.05
 	s.value = cur
 	s.custom_minimum_size = Vector2(0, 32)
+	_style_slider(s)
 	s.value_changed.connect(on_change)
 	vb.add_child(s)
 

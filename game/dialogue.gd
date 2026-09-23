@@ -69,6 +69,8 @@ func _ready() -> void:
 	pf.custom_minimum_size = Vector2(132, 132)
 	var pf_sb := StyleBoxFlat.new()
 	pf_sb.bg_color = Color(0.1, 0.09, 0.16)
+	pf_sb.border_color = Color(0.95, 0.78, 0.35, 0.7)
+	pf_sb.set_border_width_all(2)
 	pf_sb.set_corner_radius_all(12)
 	pf.add_theme_stylebox_override("panel", pf_sb)
 	pf.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -85,7 +87,9 @@ func _ready() -> void:
 	vb.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hb.add_child(vb)
 	_name_l = Label.new()
-	_name_l.add_theme_font_size_override("font_size", 20)
+	_name_l.add_theme_font_size_override("font_size", 22)
+	_name_l.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.85))
+	_name_l.add_theme_constant_override("outline_size", 4)
 	_name_l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	vb.add_child(_name_l)
 	_text_l = RichTextLabel.new()
