@@ -1968,7 +1968,10 @@ func _run_victory() -> void:
 	Input.vibrate_handheld(400)
 	var mins := int(run_time) / 60
 	var secs := int(run_time) % 60
-	_show_banner("THE THRONE FALLS", "The Bone King's crown shatters.\n%d kills • Lv %d • %d relics • best combo ×%d • %d:%02d\nNG+%d unlocked — the depths grow crueler\nTap to return to the surface" % [kills_run, Stats.level, Stats.relics.size(), combo_max, mins, secs, Stats.ng_plus], Color(0.55, 1.0, 0.72))
+	var win_line := "The Bone King's crown shatters."
+	if Stats.ng_plus >= 2:
+		win_line = "The crown shatters AGAIN — somewhere deeper, it is already being reforged."
+	_show_banner("THE THRONE FALLS", "%s\n%d kills • Lv %d • %d relics • best combo ×%d • %d:%02d\nNG+%d unlocked — the depths grow crueler\nTap to return to the surface" % [win_line, kills_run, Stats.level, Stats.relics.size(), combo_max, mins, secs, Stats.ng_plus], Color(0.55, 1.0, 0.72))
 
 
 func _on_banner_tap() -> void:
