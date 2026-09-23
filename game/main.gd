@@ -52,7 +52,9 @@ const LORE_LINES := [
 	"The King's ledger lists every hero who ever fell — page after page, all in his own hand.",
 	"The Weeper was the court's choir-master. He still can't bear to hear bones break.",
 	"The Sentinels were archers who swore never to retreat — the King took the words literally.",
-	"Mahzan once bet the Bone King a throne could be bought. He is still collecting."
+	"Mahzan once bet the Bone King a throne could be bought. He is still collecting.",
+	"The Hex Priests were Aldric's confessors — they still silence prayer itself.",
+	"The Shade was the King's champion duelist. He blinked once too often, and the dark kept him."
 ]
 
 var dungeon_tex: Texture2D
