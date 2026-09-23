@@ -35,6 +35,7 @@ const DB := {
 	"tidebrand": {"name": "Tidebrand", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.85, 0.7, 0.3), "mods": {"atk": 1.8}, "desc": "+1.8 ATK. SALVAGE: killing a foe under 30% HP pays +1 soul."},
 	"whelk_maul": {"name": "Whelk Maul", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.55, 0.45, 0.85), "mods": {"atk": 3.0, "atk_speed_pct": -0.18, "speed_pct": -0.08}, "desc": "+3.0 ATK, −18% Attack Speed, −8% Speed. BREACH: every 5th strike breaks through — +60% damage."},
 	"guthook": {"name": "Guthook", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.9, 0.35, 0.35), "mods": {"atk": 2.2, "atk_speed_pct": -0.12}, "desc": "+2.2 ATK, −12% Attack Speed. BLEED: every 5th strike rends — heals you 5% Max HP."},
+	"silkfang": {"name": "Silkfang", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.62, 0.55, 0.78), "mods": {"atk": 1.7, "atk_speed_pct": 0.1}, "desc": "+1.7 ATK, +10% Attack Speed. SNARE: every 4th strike webs the foe — slowed 1.5s."},
 	"brine_cutlass": {"name": "Brine Cutlass", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.55, 0.75, 0.7), "mods": {"atk": 1.9, "atk_speed_pct": -0.05}, "desc": "+1.9 ATK, -5% Attack Speed. BRINE: every 6th strike soaks the foe — slowed for 2s."},
 	"bilge_hook": {"name": "Bilge Hook", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.5, 0.55, 0.6), "mods": {"atk": 1.5}, "desc": "+1.5 ATK. GUT: every 5th strike hooks a soul loose — +1 soul."},
 	"oarblade": {"name": "Oarblade", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.65, 0.55, 0.4), "mods": {"atk": 1.8, "atk_speed_pct": -0.05}, "desc": "+1.8 ATK, -5% Attack Speed. SLAP: every 3rd strike slams flat — hurls the foe back a full tile."},
@@ -49,7 +50,7 @@ const DB := {
 	"searbrand": {"name": "Searbrand", "gltf": "Skeleton_Blade.gltf", "tint": Color(1.5, 0.45, 0.2), "mods": {"atk": 1.8, "crit": 0.05}, "desc": "+1.8 ATK, +5% Crit. IGNITE: hits set foes ablaze for 4s."},
 }
 
-const POOL := ["bone_axe", "twin_fang", "hex_staff", "war_blade", "storm_axe", "frost_fang", "ember_mace", "kings_edge", "grave_scythe", "moon_katana", "soul_reaver", "thronebreaker", "hollow_crown", "wisp_lantern", "gravebell", "titan_maul", "sunderfang", "searbrand", "duskblade", "oathbrand", "marsh_claw", "undertow", "keelspike", "pearlrazor", "snapdragon", "conchhorn", "moonshell", "kingfisher", "tidebrand", "harpoon", "driftnet", "guthook", "whelk_maul", "scourge", "chain_anchor", "tide_shear", "whale_saw", "oarblade", "bilge_hook", "brine_cutlass"]
+const POOL := ["bone_axe", "twin_fang", "hex_staff", "war_blade", "storm_axe", "frost_fang", "ember_mace", "kings_edge", "grave_scythe", "moon_katana", "soul_reaver", "thronebreaker", "hollow_crown", "wisp_lantern", "gravebell", "titan_maul", "sunderfang", "searbrand", "duskblade", "oathbrand", "marsh_claw", "undertow", "keelspike", "pearlrazor", "snapdragon", "conchhorn", "moonshell", "kingfisher", "tidebrand", "harpoon", "driftnet", "guthook", "whelk_maul", "scourge", "chain_anchor", "tide_shear", "whale_saw", "oarblade", "bilge_hook", "brine_cutlass", "silkfang"]
 
 
 static func get_w(id: String) -> Dictionary:

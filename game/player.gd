@@ -315,6 +315,15 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						f.take_hit(global_position, dmg * 0.4)
 					if mw.has_method("_damage_number"):
 						mw._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "SAWED", Color(1.0, 0.7, 0.3), false)
+		"silkfang": # SNARE — tiap tebasan ke-4 mengikat target: slow 1.5s
+			var msf := get_tree().current_scene
+			if msf != null:
+				msf.set("net_n", int(msf.get("net_n")) + 1)
+				if int(msf.get("net_n")) >= 4:
+					msf.set("net_n", 0)
+					f.slow_t = 1.5
+					if msf.has_method("_damage_number"):
+						msf._damage_number(f.global_position + Vector3(0, 0.7 * room_tile, 0), "SNARED", Color(0.62, 0.55, 0.78), false)
 		"brine_cutlass": # BRINE — tiap tebasan ke-6 encharca o alvo: slow 2s
 			var mbc := get_tree().current_scene
 			if mbc != null:
