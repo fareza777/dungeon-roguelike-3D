@@ -762,7 +762,6 @@ func _reset_run_state() -> void:
 	riptide_n = 0
 	steps_done_run = 0
 	urns_run = 0
-	urns_floor = 0
 	moonpool_run = 0
 	shellshield_used = false
 	perfect_dodges = 0
@@ -846,6 +845,7 @@ func _new_run(new_seed: int) -> void:
 	keelh_floor = 0
 	salt_purse = false
 	disarm_floor = 0
+	urns_floor = 0
 	sirensong_deal = false
 	pool_touched = false
 	shellshield_used = false
