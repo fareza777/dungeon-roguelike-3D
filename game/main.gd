@@ -5792,6 +5792,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Crow's Share — pay 5 souls: every floor you clear pays +1 soul this run"},
 			{"text": "Grave Meal — pay 4 souls: the dead feed you (mend 40% Max HP)"},
 			{"text": "Crow's Feast — pay 4 souls: +20% souls for the rest of this run"},
+			{"text": "Bone Dice — stake 5 souls: even or odd, the dice decide (+12 or lose the stake)"},
 		]
 	)
 
@@ -6909,6 +6910,20 @@ func _mahzan_deal(idx: int) -> void:
 				Stats.soul_gain_pct += 0.2
 				Sfx.play("shrine")
 				toast("CROW'S FEAST — every scrap is yours now (+20% souls)")
+		29:
+			if Stats.souls < _soul_cost(5):
+				toast("Five souls — the dice only roll for paying customers")
+			else:
+				Stats.souls -= _soul_cost(5)
+				if rng.randf() < 0.5:
+					Stats.earn_souls(12)
+					_souls_l()
+					Sfx.play("souls")
+					toast("EVEN — the dice pay out +12 souls")
+				else:
+					_souls_l()
+					Sfx.play("deny")
+					toast("ODD — the dice keep your stake")
 
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
