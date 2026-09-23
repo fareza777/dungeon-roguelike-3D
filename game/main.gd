@@ -794,6 +794,9 @@ func _new_run(new_seed: int) -> void:
 	salt_purse = false
 	sirensong_deal = false
 	pool_touched = false
+	shellshield_used = false
+	Stats.buff_armor -= tithe_armor
+	tithe_armor = 0.0
 	pray_t = 0.0
 	prayed = false
 	umbral_seen = false
