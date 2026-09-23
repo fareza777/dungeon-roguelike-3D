@@ -131,6 +131,7 @@ const ACH_DEF := {
 	"devout": "Devout (fifteen prayers over the fallen)",
 	"pacifist": "Blade Only (a floor cleared without skills)",
 	"onedrop": "One Drop Left (took the throne on a single drop of blood)",
+	"untouch": "Untouchable (three flawless floors in one run)",
 	"doubloath": "Twice-Sworn (carry two omens in one run)",
 	"fatebound": "Fatebound (five oaths sworn across your descents)",
 	"unstoppable": "Unstoppable (a ×50 kill streak in one run)",

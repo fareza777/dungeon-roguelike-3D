@@ -158,6 +158,7 @@ var lantern_healed := 0.0
 var gravetide := false
 var skill_used_floor := false
 var rooms_cleared := 0
+var flawless_run := 0
 var storm_t := 0.0
 var nemesis_spawned := false # musuh yang membunuhmu run lalu — kembali lebih kuat
 var nemesis_warned := false # nemesis story beat — 1だけ
@@ -657,6 +658,7 @@ func _new_run(new_seed: int) -> void:
 	Stats.event_soul_bonus = 0
 	skill_used_floor = false
 	rooms_cleared = 0
+	flawless_run = 0
 	# event langka #6: gilded tides — timbunan muncul ke permukaan (lantai 12+): peti gilded + jiwa +1/kill
 	gilded_tides = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and Stats.floor_num >= 12 and not boss_floor and rng.randf() < 0.05
 	if gilded_tides:
@@ -2121,6 +2123,9 @@ func _on_enemy_died(e) -> void:
 				Stats.souls += 3
 				_souls_l()
 				Stats.save_game()
+				flawless_run += 1
+				if flawless_run >= 3:
+					_ach("untouch")
 				toast("★ UNTOUCHED — flawless floor (+3 souls)")
 			if not skill_used_floor and Stats.floor_num >= 3 and not boss_floor:
 				_ach("pacifist")
