@@ -3068,6 +3068,11 @@ func _on_banner_tap() -> void:
 			_ach("f20")
 		if Stats.floor_num >= 24:
 			_ach("f24")
+		var q_heal := Stats.get_stat("max_hp") * 0.05 * int(Stats.meta.get("quarter", 0))
+		if q_heal > 0.0 and player != null and is_instance_valid(player):
+			player.hp = minf(Stats.get_stat("max_hp"), player.hp + q_heal)
+			player.hp_changed.emit(player.hp)
+			toast("QUARTERMASTER — your wounds were dressed on the way down")
 		await _fade_to(1.0, 0.3)
 		_new_run(rng.randi())
 		_fade_to(0.0, 0.45)
@@ -3082,6 +3087,11 @@ func _on_banner_tap() -> void:
 		combo_max = 0
 		mahzan_met = 0
 		vane_floors = 0
+		var q_heal := Stats.get_stat("max_hp") * 0.05 * int(Stats.meta.get("quarter", 0))
+		if q_heal > 0.0 and player != null and is_instance_valid(player):
+			player.hp = minf(Stats.get_stat("max_hp"), player.hp + q_heal)
+			player.hp_changed.emit(player.hp)
+			toast("QUARTERMASTER — your wounds were dressed on the way down")
 		await _fade_to(1.0, 0.3)
 		_new_run(rng.randi())
 		_fade_to(0.0, 0.45)
