@@ -4867,7 +4867,7 @@ func _cast_skill(id: String) -> void:
 		"saltbomb":
 			Sfx.play("whirl")
 			var sb_ := Vector3(sin(player.rotation.y), 0, cos(player.rotation.y))
-			var sc_ := player.global_position + sb_ * 1.5 * info.tile
+			var sc_: Vector3 = player.global_position + sb_ * 1.5 * info.tile
 			var sbn := 0
 			for sb2 in get_tree().get_nodes_in_group("enemies"):
 				if sb2.get("state") == "dead" or not bool(sb2.get("activated")):
