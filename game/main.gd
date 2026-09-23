@@ -198,6 +198,7 @@ var pinch_n := 0
 var abyss_n := 0
 var lore_run := 0
 var disarm_run := 0
+var disarm_floor := 0
 var events_run := {}
 var riptide_n := 0
 var steps_done_run := 0
@@ -829,6 +830,7 @@ func _new_run(new_seed: int) -> void:
 	pool_healed = 0.0
 	keelh_floor = 0
 	salt_purse = false
+	disarm_floor = 0
 	sirensong_deal = false
 	pool_touched = false
 	shellshield_used = false
@@ -4020,6 +4022,9 @@ func _quest_event(kind: String, num: int = 1) -> void:
 		if Stats.relics.has("bilge_rat"):
 			_spawn_wisp_at(player.global_position + Vector3(0.5 * info.tile, 0, 0))
 		disarm_run += 1
+		disarm_floor += 1
+		if disarm_floor >= 4:
+			_ach("wax_floor")
 		if disarm_run >= 5:
 			_ach("bombsquad")
 		if Stats.relics.has("bone_tithe"):
