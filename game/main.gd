@@ -142,6 +142,7 @@ var candlelit := false
 var verdant := false
 var bone_chorus := false
 var wolfsbane := false
+var sunken_tide := false
 var legion_omen := false
 var wolf_omen := false
 var ashborn := false
@@ -584,6 +585,11 @@ func _apply_biome() -> void:
 		env.ambient_light_color = Color(0.4, 0.4, 0.55)
 		sun.light_color = Color(0.7, 0.75, 0.95)
 		sun.light_energy = 0.85
+	elif sunken_tide:
+		env.fog_light_color = Color(0.06, 0.16, 0.15)
+		env.ambient_light_color = Color(0.25, 0.5, 0.45)
+		sun.light_color = Color(0.5, 0.9, 0.8)
+		sun.light_energy = 0.9
 
 
 func _style_room() -> void:
@@ -790,6 +796,7 @@ func _new_run(new_seed: int) -> void:
 			var bcr: Dictionary = info.ranges[bci]
 			var bcp := Vector3((bcr["x0"] + bcr["x1"]) * 0.5 * info.tile, 0.0, (bcr["z0"] + bcr["z1"]) * 0.5 * info.tile)
 			_spawn_enemy({"pos": bcp, "room": bci}, "orator", false)
+	sunken_tide = not wolfsbane and not boss_floor and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.18
 	if wolfsbane:
 		# PACK ALPHA — kawanan dipimpin induk raksasa di ruangan terakhir
 		var ar: Dictionary = info.ranges[last_room]
@@ -953,10 +960,15 @@ func _new_run(new_seed: int) -> void:
 		_lvl_banner("◆ BONE CHORUS — THE DEEP SINGS")
 		toast("An Orator chants in every hall • silence them first • +1 soul per kill")
 		Sfx.play("roar")
+	elif sunken_tide:
+		_lvl_banner("≈ SUNKEN TIDE — THE DROWNED RISE")
 	elif wolfsbane:
 		_lvl_banner("☽ WOLFSBANE — THE PACK HUNTS")
 		toast("Nothing but hounds this floor — keep your back to a wall • +1 soul per kill")
 		Sfx.play("roar")
+	elif sunken_tide:
+		toast("The drowned shuffle slower • +1 soul per kill")
+		Sfx.play("souls")
 	elif Stats.floor_num > 1:
 		_lvl_banner("FLOOR %d — %s" % [Stats.floor_num, String(biome["name"]).to_upper()])
 
@@ -1247,6 +1259,9 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.hp_max = e.hp
 	if verdant and not e.is_boss:
 		e.speed *= 0.82
+	if sunken_tide and not e.is_boss:
+		e.speed *= 0.85
+		e.xp_val = int(ceilf(e.xp_val * 1.2))
 	if giant_hall and not e.is_boss:
 		e.scale *= 1.3
 		e._base_scale = e.scale
@@ -1894,6 +1909,9 @@ func _on_enemy_died(e) -> void:
 		# FIRST BLOOD — kill pertama tiap run langsung menghangatkan kombo
 		_combo_set(maxi(combo, 2 + int(Stats.meta.get("veteran", 0)) * 2))
 		_damage_number(e.global_position + Vector3(0, 0.9 * info.tile, 0), "FIRST BLOOD", Color(1.0, 0.4, 0.3), false)
+	if sunken_tide and not e.is_boss:
+		Stats.souls += 1
+		_souls_l()
 	if wolf_omen and wolf_n < 20:
 		wolf_n += 1
 		Stats.buff_speed_pct += 0.01
@@ -2250,6 +2268,11 @@ func _on_enemy_died(e) -> void:
 				_souls_l()
 				Stats.save_game()
 				toast("☠ OSSUARY TITHE — +3 souls")
+			elif sunken_tide:
+				Stats.souls += 3
+				_souls_l()
+				Stats.save_game()
+				toast("≈ DROWNED TITHE — +3 souls")
 			elif String(biome.get("name", "")) == "Sunken Reliquary":
 				Stats.souls += 3
 				_souls_l()
@@ -5007,6 +5030,8 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 				evline = "Green creeps over the bones, Kael. Even the dungeon forgets to be dead sometimes."
 			elif bone_chorus:
 				evline = "Hear it? The dead are singing war-songs. Find the choir-masters before the chorus swells."
+			elif sunken_tide:
+				evline = "The water is rising through the graves, Kael — the drowned will come slow, but they come rich."
 			elif wolfsbane:
 				evline = "All claws, Kael — the pack has claimed this floor. Watch the flanks; hounds die easy but arrive together."
 			if evline != "":
@@ -6322,6 +6347,8 @@ func _refresh_buffs() -> void:
 		list.append(["☆ VERDANT", Color(0.55, 0.95, 0.55)])
 	elif bone_chorus:
 		list.append(["◆ CHORUS", Color(0.85, 0.55, 0.95)])
+	elif sunken_tide:
+		list.append(["≈ TIDE", Color(0.4, 0.9, 0.8)])
 	elif wolfsbane:
 		list.append(["☽ PACK", Color(0.65, 0.7, 0.95)])
 	if Stats.soul_sealed:
