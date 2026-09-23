@@ -92,6 +92,7 @@ const DB := {
 	"lucky_lantern": {"name": "Lucky Lantern", "chip": "LL", "desc": "A lantern that never empties — kills sometimes spill a wandering soul", "rarity": 1, "mods": {}},
 	"silk_greaves": {"name": "Silk Greaves", "chip": "SG", "desc": "Woven hull-silk — roots and webs wear off half again as fast", "rarity": 1, "mods": {}},
 	"warm_blood": {"name": "Warm Blood", "chip": "WB", "desc": "The furnace in your chest — chills and freezes wear off twice as fast", "rarity": 1, "mods": {}},
+	"bilge_pearl": {"name": "Bilge Pearl", "chip": "BP", "desc": "+15% Max HP, −5% Speed", "rarity": 1, "mods": {"max_hp_pct": 0.15, "speed_pct": -0.05}},
 	"sea_chart": {"name": "Sea Chart", "chip": "SC", "desc": "+10% Speed, +5% Crit", "rarity": 1, "mods": {"speed_pct": 0.1, "crit": 0.05}},
 	"sharktooth": {"name": "Sharktooth Pendant", "chip": "SH", "desc": "+8% Crit, +4% Lifesteal", "rarity": 1, "mods": {"crit": 0.08, "lifesteal": 0.04}},
 	"wormwood": {"name": "Wormwood Charm", "chip": "WW", "desc": "Bitter root sewn in sailcloth — venom cannot take hold in your blood", "rarity": 1, "mods": {}},
