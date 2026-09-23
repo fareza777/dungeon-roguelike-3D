@@ -253,6 +253,7 @@ var slow_clock := false
 var deck_alms := false
 var loose_ballast := false
 var final_verse := false
+var deep_breath := false
 var dash_fuel := false
 var powder_keg := 0
 var bloodtide_t := 0.0
@@ -989,6 +990,7 @@ func _reset_run_state() -> void:
 	deck_alms = false
 	loose_ballast = false
 	final_verse = false
+	deep_breath = false
 	dash_fuel = false
 	powder_keg = 0
 	bloodtide_t = 0.0
@@ -1925,6 +1927,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.speed *= 0.9
 	if final_verse:
 		e.dmg *= 0.85
+	if deep_breath:
+		e.speed *= 0.95
 	if gangway and not e.is_boss:
 		e.xp_val = int(ceilf(e.xp_val * 1.15))
 	if Stats.relics.has("brine_whistle"):
@@ -6158,12 +6162,23 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Salt Stitch — pay 3 souls: the brine knits your wounds (+8% lifesteal this run)"},
 		{"text": "Drift Line — pay 3 souls: +10% ATK till the floor falls"},
 		{"text": "Full Scrub — pay 3 souls: cleanse every ailment, rust and weakness included"},
+		{"text": "Deep Breath — pay 4 souls: the dead wade −5% slower for the rest of this run"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 12:
+	if idx == 13:
 		toast("The water settles back into the stone")
+		return
+	if idx == 12:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the breath isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		deep_breath = true
+		Sfx.play("shrine")
+		toast("DEEP BREATH — the water takes the edge off their step")
 		return
 	if idx == 11:
 		if Stats.souls < _soul_cost(3):
