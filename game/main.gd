@@ -217,6 +217,8 @@ const TIPS := [
 	"Take no damage on a floor for an Untouched tithe of souls.",
 	"When the mist turns violet, the dead weep gems — reap them while it lasts.",
 	"When the torches die, the dead run faster — finish the floor for the tithe.",
+	"A green-gold sigil mends one wound — step on its pulse.",
+	"Spiked cadavers bite back — skills and storms kill thorns at range.",
 ]
 
 
