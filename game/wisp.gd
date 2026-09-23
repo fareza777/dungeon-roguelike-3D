@@ -74,6 +74,8 @@ func _physics_process(delta: float) -> void:
 			if d.length() < 0.35 * tile:
 				absorbed = true
 				Stats.souls += 1
+				if Stats.relics.has("stoples_bara"):
+					Stats.add_xp(3)
 				Stats.save_game()
 				Sfx.play("xp")
 				var m := get_tree().current_scene

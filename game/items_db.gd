@@ -50,6 +50,7 @@ const DB := {
 	"taring_neraka": {"name": "Hellfang Spikes", "chip": "HF", "desc": "Reflect 60% dmg to attacker", "rarity": 2, "mods": {"thorns": 0.6}},
 	"mata_perenungan": {"name": "Watcher's Eye", "chip": "WE", "desc": "Dwellers reveal at double range — the dark knows it", "rarity": 2, "mods": {}},
 	"lensa_jiwa": {"name": "Soul Lens", "chip": "SL", "desc": "Wandering wisps drift to you", "rarity": 2, "mods": {}},
+	"stoples_bara": {"name": "Wispfire Jar", "chip": "WJ", "desc": "Wisps caught also grant +3 XP", "rarity": 1, "mods": {}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
