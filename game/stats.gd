@@ -58,6 +58,9 @@ var saved_run := {}
 var lore_seen: Array = [] # baris lore yang pernah ditemukan (codex, persist)
 var souls := 0 # mata uang meta — dari kill, dipakai di Hall of Souls
 var bestiary := {} # arch_id -> jumlah kill sepanjang masa (codex)
+var weapon_kills := {} # weapon_id -> kill sepanjang masa (mastery progress)
+var mastered := {} # weapon_id -> 1 bila mastery tercapai (+1 ATK permanen)
+const MASTERY_N := 25
 var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0}
 
 const META_DEF := {
@@ -90,6 +93,7 @@ func get_stat(n: String) -> float:
 		mult += wmods[n + "_pct"]
 	if n == "atk":
 		flat += float(weapon_lv.get(weapon_id, 1) - 1)
+		flat += float(mastered.get(weapon_id, 0))
 		mult += buff_atk_pct + combo_atk + float(meta.get("might", 0)) * 0.05
 		if warcry_t > 0.0:
 			mult += 0.5
@@ -295,6 +299,8 @@ func wipe_progress() -> void:
 	lore_seen = []
 	souls = 0
 	bestiary = {}
+	weapon_kills = {}
+	mastered = {}
 	meta = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0}
 	reset_run()
 	save_game()
@@ -316,6 +322,8 @@ func save_game() -> void:
 			"souls": souls,
 			"meta": meta,
 			"bestiary": bestiary,
+			"weapon_kills": weapon_kills,
+			"mastered": mastered,
 		}))
 
 
@@ -353,3 +361,9 @@ func load_game() -> void:
 			var be = d.get("bestiary", {})
 			if be is Dictionary:
 				bestiary = be
+			var wk = d.get("weapon_kills", {})
+			if wk is Dictionary:
+				weapon_kills = wk
+			var ms = d.get("mastered", {})
+			if ms is Dictionary:
+				mastered = ms

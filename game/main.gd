@@ -96,6 +96,7 @@ const ACH := {
 	"pact1": "Bloodletter (swore a Blood Pact)",
 	"defiant": "Defiant (spat in the King's face)",
 	"forge3": "Arms Master (forged a weapon to Lv 3)",
+	"master1": "Master at Arms (weapon mastered)",
 }
 const BOSS_TIERS := [
 	{"name": "BONE KING", "tint": Color(1.05, 1.05, 1.05),
@@ -848,6 +849,18 @@ func _on_enemy_died(e) -> void:
 	kills_run += 1
 	Stats.count_kill()
 	Stats.bestiary[e.arch_id] = int(Stats.bestiary.get(e.arch_id, 0)) + 1
+	# weapon mastery: 25 kill dengan senjata yang sama -> +1 ATK permanen
+	var wid := Stats.weapon_id
+	var wk_old: int = int(Stats.weapon_kills.get(wid, 0))
+	Stats.weapon_kills[wid] = wk_old + 1
+	if wk_old < Stats.MASTERY_N and wk_old + 1 >= Stats.MASTERY_N and not bool(Stats.mastered.get(wid, false)):
+		Stats.mastered[wid] = 1
+		Stats.save_game()
+		_lvl_banner("◆ WEAPON MASTERY — " + String(WDB.get_w(wid)["name"]) + " mastered")
+		Sfx.play("levelup")
+		_ach("master1")
+		if player != null and is_instance_valid(player):
+			player.refresh_stats()
 	if Stats.total_kills >= 1:
 		_ach("kill1")
 	if Stats.total_kills >= 50:
@@ -1485,7 +1498,9 @@ func _refresh_hero() -> void:
 		var wb := Button.new()
 		var cur: bool = wid == Stats.weapon_id
 		var wlv: int = int(Stats.weapon_lv.get(wid, 1))
-		wb.text = ("• " if cur else "") + wd["name"] + ("  Lv%d" % wlv if wlv > 1 else "") + "\n" + wd["desc"]
+		var wms := " ★" if int(Stats.mastered.get(wid, 0)) > 0 else ""
+		var wpr := " (%d/%d mastery)" % [mini(int(Stats.weapon_kills.get(wid, 0)), Stats.MASTERY_N), Stats.MASTERY_N] if wms == "" else ""
+		wb.text = ("• " if cur else "") + wd["name"] + wms + ("  Lv%d" % wlv if wlv > 1 else "") + wpr + "\n" + wd["desc"]
 		wb.add_theme_font_size_override("font_size", 14)
 		wb.custom_minimum_size = Vector2(0, 54)
 		var wsb := StyleBoxFlat.new()
