@@ -23,9 +23,10 @@ const DB := {
 	"mimic_fang": {"name": "Mimic Fang", "gltf": "Skeleton_Blade.gltf", "tint": Color(1.15, 0.35, 0.25), "mods": {"atk": 2.4, "crit": 0.1}, "desc": "+2.4 ATK, +10% Crit. JAW: 20% of kills bite a soul loose."},
 	"gravebell": {"name": "Gravebell", "gltf": "Skeleton_Staff.gltf", "tint": Color(0.9, 0.85, 1.3), "mods": {"atk": 1.9, "atk_speed_pct": -0.08}, "desc": "+1.9 ATK, -8% AS. TOLL: 25% of kills ring out — 1x ATK to nearby foes."},
 	"titan_maul": {"name": "Titan's Maul", "gltf": "Skeleton_Axe.gltf", "tint": Color(0.6, 0.5, 0.9), "mods": {"atk": 3.4, "atk_speed_pct": -0.18}, "desc": "+3.4 ATK, -18% AS. SHATTER: crits stun the target."},
+	"sunderfang": {"name": "Sunderfang", "gltf": "Skeleton_Blade.gltf", "tint": Color(1.2, 0.6, 0.3), "mods": {"atk": 2.1, "atk_speed_pct": 0.05}, "desc": "+2.1 ATK, +5% AS. REND: 25% of hits tear armor — foe takes +25% dmg for 4s."},
 }
 
-const POOL := ["bone_axe", "twin_fang", "hex_staff", "war_blade", "storm_axe", "frost_fang", "ember_mace", "kings_edge", "grave_scythe", "moon_katana", "soul_reaver", "thronebreaker", "hollow_crown", "wisp_lantern", "gravebell", "titan_maul"]
+const POOL := ["bone_axe", "twin_fang", "hex_staff", "war_blade", "storm_axe", "frost_fang", "ember_mace", "kings_edge", "grave_scythe", "moon_katana", "soul_reaver", "thronebreaker", "hollow_crown", "wisp_lantern", "gravebell", "titan_maul", "sunderfang"]
 
 
 static func get_w(id: String) -> Dictionary:

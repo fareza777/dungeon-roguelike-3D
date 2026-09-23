@@ -303,6 +303,12 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						m11._souls_l()
 					if m11.has_method("_damage_number"):
 						m11._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "JAW +1", Color(1.1, 0.45, 0.3), false)
+		"sunderfang": # REND — 25% pukulan merobek pertahanan (sunder_t)
+			if randf() < 0.25:
+				f.set("sunder_t", 4.0)
+				var m14 := get_tree().current_scene
+				if m14 != null and m14.has_method("_damage_number"):
+					m14._damage_number(f.global_position + Vector3(0, 0.65 * room_tile, 0), "RENDED", Color(1.0, 0.6, 0.3), true)
 		"titan_maul": # SHATTER — crit melempar musuh ke belakang & stun
 			if crit and f.has_method("stun"):
 				f.stun(0.9)
