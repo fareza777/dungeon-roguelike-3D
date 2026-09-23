@@ -2681,10 +2681,6 @@ func _on_enemy_died(e) -> void:
 			_damage_number(e.global_position + Vector3(0, 1.5 * info.tile, 0), "SIREN PAID — +4", Color(0.7, 0.5, 1.15), false)
 		if crown_oath:
 			crown_oath = false
-	pinch_n = 0
-	abyss_n = 0
-	lore_run = 0
-	shellshield_used = false
 			Stats.earn_souls(8)
 			_souls_l()
 			_damage_number(e.global_position + Vector3(0, 1.3 * info.tile, 0), "CROWN PAID — +8 souls", Color(1.0, 0.8, 0.3), true)
