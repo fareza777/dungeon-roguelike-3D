@@ -1824,6 +1824,8 @@ func _on_lore_stone(s) -> void:
 	lore_ref = null
 	Stats.add_xp(1)
 	_quest_event("page")
+	if String(biome.get("name", "")) == "Sunken Reliquary":
+		_quest_event("tidepage")
 	var line: String = LORE_LINES[rng.randi_range(0, LORE_LINES.size() - 1)]
 	if not Stats.lore_seen.has(line):
 		Stats.lore_seen.append(line)
