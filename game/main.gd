@@ -211,6 +211,7 @@ var mercy_tide := false
 var eel_tide := false
 var swell_tide := false
 var kelp_bed := false
+var barnacle_bloom := false
 var shoal_spd := false
 var dead_weight := false
 var hymn_delta := 0.0
@@ -860,6 +861,10 @@ func _apply_biome() -> void:
 		env.fog_light_color = Color(0.25, 0.5, 0.3)
 		env.ambient_light_color = Color(0.3, 0.55, 0.35)
 		sun.light_energy = 0.95
+	elif barnacle_bloom:
+		env.fog_light_color = Color(0.5, 0.55, 0.4)
+		env.ambient_light_color = Color(0.55, 0.6, 0.45)
+		sun.light_energy = 0.95
 	elif sunken_tide:
 		env.fog_light_color = Color(0.06, 0.16, 0.15)
 		env.ambient_light_color = Color(0.25, 0.5, 0.45)
@@ -1212,6 +1217,9 @@ func _new_run(new_seed: int) -> void:
 	kelp_bed = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and not wolfsbane and not thin_veil and not low_water and not drift_tide and not soul_swarm and not gauntlet and not brisk and not shoal_tide and not salvage_tide and not gale_tide and not mercy_tide and not eel_tide and not swell_tide and Stats.floor_num >= 8 and not boss_floor and rng.randf() < 0.035
 	if kelp_bed:
 		Stats.event_soul_bonus = 1
+	barnacle_bloom = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and not wolfsbane and not thin_veil and not low_water and not drift_tide and not soul_swarm and not gauntlet and not brisk and not shoal_tide and not salvage_tide and not gale_tide and not mercy_tide and not eel_tide and not swell_tide and not kelp_bed and Stats.floor_num >= 9 and not boss_floor and rng.randf() < 0.03
+	if barnacle_bloom:
+		Stats.event_soul_bonus = 1
 	storm_t = 4.0
 	nemesis_spawned = false
 	_ferry_used = false
@@ -1308,7 +1316,7 @@ func _new_run(new_seed: int) -> void:
 	dead_weight = not choir and not dread_tide and not starved_deep and not abyssal_hymn and not dead_calm and not boss_floor and Stats.floor_num >= 14 and rng.randf() < 0.08
 	Stats.dead_weight = dead_weight
 	shell_game = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not umbral_tide and not abyssal_patience and not choir and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
-	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed"]:
+	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom"]:
 		if get(evf):
 			events_run[evf] = true
 			break
@@ -1572,6 +1580,10 @@ func _new_run(new_seed: int) -> void:
 	elif kelp_bed:
 		_lvl_banner("≋ KELP BED — THE FLOOR GOES GREEN AND SLOW")
 		toast("The dead wade kelp-tangled −10% speed • but −10% sturdier • the floor tithes +1 soul")
+		Sfx.play("souls")
+	elif barnacle_bloom:
+		_lvl_banner("≋ BARNACLE BLOOM — THE DEAD GROW THICK SHELLS")
+		toast("The dead arrive barnacle-plated +15% HP • but their shells spill souls • the floor tithes +1")
 		Sfx.play("souls")
 	elif sunken_tide:
 		toast("The drowned shuffle slower • +1 soul per kill")
@@ -1970,6 +1982,9 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.hp *= 1.1
 		e.hp_max = e.hp
 		e.speed *= 0.9
+	if barnacle_bloom:
+		e.hp *= 1.15
+		e.hp_max = e.hp
 	if slow_clock:
 		e.speed *= 0.92
 	if deck_alms:
@@ -3057,6 +3072,10 @@ func _on_enemy_died(e) -> void:
 		trauma = 0.4
 	if eel_tide and rng.randf() < 0.07 and not e.is_boss:
 		_spawn_vial(e.global_position)
+	if barnacle_bloom and rng.randf() < 0.08 and not e.is_boss:
+		Stats.earn_souls(1)
+		_souls_l()
+		_damage_number(e.global_position + Vector3(0, 0.7 * info.tile, 0), "+1 soul", Color(0.7, 0.75, 0.4), false)
 	if Stats.relics.has("lucky_lantern") and rng.randf() < 0.04:
 		_spawn_wisp_at(e.global_position)
 	if e.get("affix") == "salted":
@@ -3321,6 +3340,11 @@ func _on_enemy_died(e) -> void:
 				_souls_l()
 				Stats.save_game()
 				toast("≋ KELP BED TITHE — +1 soul")
+			elif barnacle_bloom:
+				Stats.earn_souls(1)
+				_souls_l()
+				Stats.save_game()
+				toast("≋ BARNACLE BLOOM TITHE — +1 soul")
 			elif low_tide:
 				Stats.earn_souls(3)
 				_souls_l()
@@ -3432,6 +3456,8 @@ func _on_enemy_died(e) -> void:
 				_quest_event("swellwalk")
 			if kelp_bed:
 				_quest_event("kelpwalk")
+			if barnacle_bloom:
+				_quest_event("bloomwalk")
 			if dark_water:
 				_quest_event("darkwalk")
 			if glass_sea:
@@ -9237,6 +9263,8 @@ func _refresh_buffs() -> void:
 		list.append(["≋ SWELL", Color(0.35, 0.45, 0.7)])
 	elif kelp_bed:
 		list.append(["≋ KELP", Color(0.3, 0.6, 0.35)])
+	elif barnacle_bloom:
+		list.append(["≋ BLOOM", Color(0.6, 0.65, 0.4)])
 	if Stats.soul_sealed:
 		list.append(["PRICE", Color(0.9, 0.2, 0.25)])
 	if Stats.curse_dmg > 0.0:
