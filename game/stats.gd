@@ -129,6 +129,7 @@ const ACH_DEF := {
 	"doubloath": "Twice-Sworn (carry two omens in one run)",
 	"fatebound": "Fatebound (five oaths sworn across your descents)",
 	"unstoppable": "Unstoppable (a ×50 kill streak in one run)",
+	"oathkeeper": "Oathkeeper (eight omens in a single descent)",
 }
 
 const META_DEF := {
