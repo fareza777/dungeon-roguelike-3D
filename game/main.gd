@@ -281,6 +281,7 @@ var slim_pickings := false
 var whale_lung := false
 var sworn_hull := false
 var old_salt := false
+var full_sails := false
 var final_verse := false
 var cradle_deep := false
 var undertow := false
@@ -2138,6 +2139,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.hp_max = e.hp
 	if sworn_hull and not e.is_boss:
 		e.speed *= 1.1
+	if full_sails and not e.is_boss:
+		e.speed *= 1.15
 	if kneel_not:
 		e.kb_resist *= 0.5
 	if pale_squall and not e.is_boss:
@@ -5753,6 +5756,7 @@ func _offer_omens() -> void:
 			{"text": "SLIM PICKINGS — your skills recharge +10% slower... but souls pay +25% more"},
 			{"text": "SWORN HULL — the dead hunt +10% faster... but +1 Armor wraps your bones"},
 			{"text": "OLD SALT — souls pay −20% less... but your arm swings +10% harder"},
+			{"text": "FULL SAILS — the dead fly +15% faster... but souls pay +30% more"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -5799,7 +5803,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 60 if Stats.nemesis != "" else 59
+	var osize := 61 if Stats.nemesis != "" else 60
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -6045,6 +6049,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.2
 			oname = "OLD SALT"
 		59:
+			full_sails = true
+			Stats.soul_gain_pct += 0.3
+			oname = "FULL SAILS"
+		60:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -6107,6 +6115,7 @@ func _omen_deal(idx: int) -> void:
 		"LOOSE BALLAST": "A loose hull rolls hard, Kael — you'll feel every blow, but they'll feel the drag too.",
 		"BLACK SAILS": "Fast sails mean fast foes, Kael — but their pockets run heavier for the chase.",
 		"GRIM CHARTER": "The charter calls the captains out, Kael — heavier crowns, richer spoils.",
+		"FULL SAILS": "Speed for souls — the sea's oldest wager.",
 		"OLD SALT": "Lighter purse, heavier arm — the old hands swear by it.",
 		"SWORN HULL": "The hull thickens and the chase quickens — even trade.",
 		"SLIM PICKINGS": "The lean tide still pays, Kael — slower hands, heavier purse.",
