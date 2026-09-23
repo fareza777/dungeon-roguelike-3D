@@ -8676,6 +8676,13 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			{"who": "oracle", "text": "Even I don't know what waits below the twenty-fifth. No soul has returned to tell it."},
 			{"who": "kael", "text": "Then I'll be the first to come back and tell you."},
 		]
+	elif Stats.floor_num == 23 and Stats.ng_plus >= 1:
+		lines = [
+			{"who": "kael", "text": "Oracle — you never said how you ended up in that stone."},
+			{"who": "oracle", "text": "...I was his court's last honest voice, Kael. The King buried me where my counsel couldn't reach his crown."},
+			{"who": "oracle", "text": "Every floor you clear digs me a little closer to free. That is all I will say of it."},
+			{"who": "kael", "text": "Then hold on. I'm two floors from his throne."},
+		]
 	elif Stats.floor_num == 23:
 		lines = [
 			{"who": "raja", "text": "KAEL. THE HALL BELOW IS MINE — THE LAST DOOR BEFORE THE THRONE."},
@@ -8687,13 +8694,6 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			{"who": "oracle", "text": "His Heralds ride with you now, Kael — every floor they announce your title to the dead."},
 			{"who": "kael", "text": "Let them. The dead already know my name."},
 			{"who": "mahzan", "text": "A returning customer AND an entourage! Business is booming."},
-		]
-	elif Stats.floor_num == 23:
-		lines = [
-			{"who": "kael", "text": "Oracle — you never said how you ended up in that stone."},
-			{"who": "oracle", "text": "...I was his court's last honest voice, Kael. The King buried me where my counsel couldn't reach his crown."},
-			{"who": "oracle", "text": "Every floor you clear digs me a little closer to free. That is all I will say of it."},
-			{"who": "kael", "text": "Then hold on. I'm two floors from his throne."},
 		]
 	elif Stats.floor_num == 24:
 		lines = [
