@@ -281,6 +281,7 @@ var final_verse := false
 var cradle_deep := false
 var undertow := false
 var storm_lull := false
+var sea_burial := false
 var deep_breath := false
 var dash_fuel := false
 var powder_keg := 0
@@ -3841,7 +3842,7 @@ func _boss_enraged() -> void:
 
 func _on_player_died() -> void:
 	print("PLAYER DIED floor=%d" % Stats.floor_num)
-	if not oracle_bargained and Stats.souls >= 15:
+	if not oracle_bargained and Stats.souls >= (8 if sea_burial else 15):
 		oracle_bargained = true
 		_offer_oracle_bargain()
 		return
@@ -3884,15 +3885,15 @@ func _offer_oracle_bargain() -> void:
 	dlg_pending_choice = 4
 	_say(
 		[{"who": "oracle", "text": "Your thread frays, Kael — but I can knot it back. Fifteen souls, and you rise where you fell."}],
-		[{"text": "RISE AGAIN — pay 15 souls (◈ %d held)" % Stats.souls},
+		[{"text": "RISE AGAIN — pay %d souls (◈ %d held)" % [(8 if sea_burial else 15), Stats.souls]},
 		 {"text": "Let the dark take me"}])
 
 
 func _oracle_deal(idx: int) -> void:
-	if idx != 0 or Stats.souls < _soul_cost(15) or player == null or not is_instance_valid(player):
+	if idx != 0 or Stats.souls < _soul_cost(8 if sea_burial else 15) or player == null or not is_instance_valid(player):
 		_finalize_death()
 		return
-	Stats.souls -= _soul_cost(15)
+	Stats.souls -= _soul_cost(8 if sea_burial else 15)
 	Stats.save_game()
 	_souls_l()
 	run_state = "playing"
@@ -6587,12 +6588,13 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Deep Breath — pay 4 souls: the dead wade −5% slower for the rest of this run"},
 		{"text": "Deep Draw — pay 3 souls: fill your vial satchel"},
 		{"text": "Undertow — pay 4 souls: this floor's dead telegraph slower (+12% windup)"},
+		{"text": "Sea Burial — pay 4 souls: the Oracle's Bargain drops to 8 souls this run"},
 		{"text": "Salt Rinse — pay 2 souls: scrub venom & rust, mend 15% HP"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 16:
+	if idx == 17:
 		toast("The water settles back into the stone")
 		return
 	if idx == 12:
@@ -6613,6 +6615,16 @@ func _drowned_deal(idx: int) -> void:
 		vials = (3 if wide_satchel else 2)
 		Sfx.play("shrine")
 		toast("DEEP DRAW — the tide fills every vial")
+	if idx == 15:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the sea buries none cheaply")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		sea_burial = true
+		Sfx.play("shrine")
+		toast("SEA BURIAL — the Oracle's thread costs half as much")
+		return
 	if idx == 14:
 		if Stats.souls < _soul_cost(4):
 			toast("Four souls — the undertow isn't free")
@@ -6770,7 +6782,7 @@ func _drowned_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		_ach("seaworthy")
 		toast("DROWNED TITHE — +8 souls, −10% Max HP")
-	if idx == 15:
+	if idx == 16:
 		if Stats.souls < _soul_cost(2):
 			toast("Two souls — the rinse isn't free")
 			return
