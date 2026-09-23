@@ -199,6 +199,7 @@ const TIPS := [
 	"When the moon turns red, the dead hunger — and drop more XP.",
 	"A chest that gleams brighter is gilded — relics hide inside.",
 	"Clear a floor in under 90 seconds for a Sweep Bonus.",
+	"Violet sigils snare your feet — dash before the trap bites.",
 	"When the mist turns violet, the dead weep gems — reap them while it lasts.",
 ]
 
@@ -838,7 +839,7 @@ func _spawn_traps(last_room: int) -> void:
 		room.add_child(tr)
 		tr.global_position = pos
 		var rk := rng.randf()
-		tr.setup(info.tile, rng.randf_range(0.0, 1.9), 2 if rk < 0.18 else (1 if rk < 0.5 else 0))
+		tr.setup(info.tile, rng.randf_range(0.0, 1.9), 3 if rk < 0.15 else (2 if rk < 0.3 else (1 if rk < 0.55 else 0)))
 
 
 func _spawn_urns(last_room: int) -> void:
