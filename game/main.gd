@@ -3203,8 +3203,8 @@ func _cast_skill(id: String) -> void:
 					continue
 				if f.global_position.distance_to(player.global_position) < 1.7 * info.tile:
 					f.take_hit(player.global_position, dmgs)
-					if f.has_method("set_stun"):
-						f.set_stun(1.5)
+					if f.has_method("stun"):
+						f.stun(1.5)
 					shits += 1
 			_burst(player.global_position, Color(0.95, 0.95, 0.9))
 			trauma = 0.5
