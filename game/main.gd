@@ -5578,12 +5578,25 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Brine Wash — pay 2 souls: cleanse venom, chill, root and silence"},
 		{"text": "Net Gain — pay 5 souls: your next five kills pay double souls"},
 		{"text": "Undertow Cache — pay 4 souls: the sea drags a relic to the surface"},
+		{"text": "Salt Stitch — pay 3 souls: the brine knits your wounds (+8% lifesteal this run)"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 9:
+	if idx == 10:
 		toast("The water settles back into the stone")
+		return
+	if idx == 9:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the salt isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		Stats.buff_lifesteal += 0.08
+		if player != null and is_instance_valid(player):
+			player.refresh_stats()
+		Sfx.play("shrine")
+		toast("SALT STITCH — your wounds knit themselves")
 		return
 	if idx == 7:
 		if Stats.souls < _soul_cost(5):
