@@ -3818,10 +3818,14 @@ func _build_skill_buttons(layer: CanvasLayer) -> void:
 		b.anchor_right = 1.0
 		b.anchor_top = 1.0
 		b.anchor_bottom = 1.0
-		b.offset_left = -118
-		b.offset_right = -40
-		b.offset_top = -318 - (SK.ORDER.size() - 1 - i) * 88
-		b.offset_bottom = -240 - (SK.ORDER.size() - 1 - i) * 88
+		var ncol: int = 2 if SK.ORDER.size() > 10 else 1
+		var col: int = i / maxi(1, int(ceilf(SK.ORDER.size() / float(ncol))))
+		var crow: int = i - col * int(ceilf(SK.ORDER.size() / float(ncol)))
+		var coln: int = int(ceilf(SK.ORDER.size() / float(ncol)))
+		b.offset_left = -118 - col * 80
+		b.offset_right = -40 - col * 80
+		b.offset_top = -318 - (coln - 1 - crow) * 88
+		b.offset_bottom = -240 - (coln - 1 - crow) * 88
 		var cd := Label.new()
 		cd.set_anchors_preset(Control.PRESET_TOP_WIDE)
 		cd.offset_top = 2.0
