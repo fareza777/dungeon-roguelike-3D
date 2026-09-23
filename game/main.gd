@@ -2276,6 +2276,8 @@ func _on_enemy_died(e) -> void:
 			_ach("saltdog")
 	if e.arch_id == "maw":
 		_quest_event("maw_kill")
+	if e.arch_id == "gargoyle":
+		_quest_event("garg_kill")
 	if e.arch_id == "siren":
 		_quest_event("siren_kill")
 		if Stats.relics.has("siren_farewell"):
