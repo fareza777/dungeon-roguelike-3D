@@ -267,6 +267,7 @@ var dirge_note := false
 var line_splice := false
 var salt_rosary := false
 var moonwater := false
+var pilgrims_purse := false
 var crows_toll := false
 var crowns_decree := false
 var melody_ledger := false
@@ -1246,6 +1247,7 @@ func _reset_run_state() -> void:
 	omen_cd_add = 0.0
 	crows_toll = false
 	moonwater = false
+	pilgrims_purse = false
 	if callus_on:
 		Stats.buff_armor -= 2
 		callus_on = false
@@ -4468,6 +4470,8 @@ func _on_banner_tap() -> void:
 			ferry_extra = 0
 			toast("The Ferryman rows you past a floor")
 		Stats.floor_num += 1
+		if pilgrims_purse:
+			Stats.earn_souls(2)
 		Stats.note_floor()
 		if Stats.floor_num >= 5:
 			_ach("f5")
@@ -6224,6 +6228,9 @@ func _on_dlg_choice(idx: int) -> void:
 		58:
 			crows_toll = true
 			toast("Crow's Toll: the titled dead pay richer lessons — elites yield +50% XP this run")
+		59:
+			pilgrims_purse = true
+			toast("Pilgrim's Purse: +2 souls at each floor's start")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -9201,6 +9208,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Bosun's Fist — the old knuckle-trick: +5% crit this run"},
 			{"text": "Salt Lamp — souls shine brighter in the dark: +15% souls this run"},
 			{"text": "Crow's Toll — elites yield +50% XP this run"},
+			{"text": "Pilgrim's Purse — the alms-bowl travels with you: +2 souls at each floor's start"},
 		]
 	)
 
