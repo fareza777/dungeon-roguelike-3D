@@ -2397,7 +2397,10 @@ func _combo_set(n: int) -> void:
 	# tier buff nyata: streak tinggi = tambah kuat (hilang saat streak putus)
 	if combo == 8:
 		_quest_event("combo")
-	if combo >= 25:
+	if combo >= 40:
+		Stats.combo_atk = 0.4
+		Stats.combo_aspd = 0.35
+	elif combo >= 25:
 		Stats.combo_atk = 0.3
 		Stats.combo_aspd = 0.25
 	elif combo >= 15:
@@ -2426,6 +2429,12 @@ func _combo_set(n: int) -> void:
 			_lvl_banner("MASSACRE! +20% ATK +15% HASTE")
 		elif combo == 25:
 			_lvl_banner("UNSTOPPABLE! +30% ATK +25% HASTE")
+		elif combo == 40:
+			_lvl_banner("★ GODLIKE! +40% ATK +35% HASTE")
+			if player != null and is_instance_valid(player):
+				player.hp = minf(player.max_hp, player.hp + 1.0)
+				player.hp_changed.emit(player.hp)
+				_damage_number(player.global_position + Vector3(0, 1.1 * info.tile, 0), "+1 HP", Color(0.4, 1.0, 0.55), true)
 	else:
 		ui.combo_l.visible = false
 		if ui.has("combo_bar"):
