@@ -7,13 +7,17 @@ signal choice_picked(blessing)
 
 var tile := 4.0
 var used := false
+var kind := 0 # 0 = altar berkat emas, 1 = wujud Mahzan (toko spektral)
 var glow: OmniLight3D
+var statue_ref: Node3D = null
+var _statue_y := 0.0
 var t := 0.0
 const STATUE := "res://assets/dungeon/bone_king_statue.glb"
 
 
-func setup(p_tile: float) -> void:
+func setup(p_tile: float, p_kind := 0) -> void:
 	tile = p_tile
+	kind = p_kind
 	var statue: Node3D
 	if ResourceLoader.exists(STATUE):
 		statue = load(STATUE).instantiate()
@@ -28,14 +32,22 @@ func setup(p_tile: float) -> void:
 		statue = pillar
 		statue.scale = Vector3.ONE * 1.4
 	var mat := StandardMaterial3D.new()
-	mat.albedo_color = Color(0.9, 0.8, 0.55)
+	if kind == 1:
+		mat.albedo_color = Color(0.5, 0.62, 0.95)
+		mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		mat.emission = Color(0.2, 0.35, 0.8)
+		mat.emission_energy_multiplier = 1.2
+	else:
+		mat.albedo_color = Color(0.9, 0.8, 0.55)
+		mat.emission = Color(0.5, 0.38, 0.12)
+		mat.emission_energy_multiplier = 0.5
 	mat.metallic = 0.4
 	mat.roughness = 0.55
 	mat.emission_enabled = true
-	mat.emission = Color(0.5, 0.38, 0.12)
-	mat.emission_energy_multiplier = 0.5
 	_paint(statue, mat)
 	add_child(statue)
+	statue_ref = statue
+	_statue_y = statue.position.y
 	# lingkar cahaya dasar
 	var ring := MeshInstance3D.new()
 	var tor := TorusMesh.new()
@@ -43,9 +55,9 @@ func setup(p_tile: float) -> void:
 	tor.outer_radius = 0.58 * tile
 	var rm := StandardMaterial3D.new()
 	rm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	rm.albedo_color = Color(1.0, 0.8, 0.3, 0.7)
+	rm.albedo_color = Color(0.45, 0.65, 1.0, 0.7) if kind == 1 else Color(1.0, 0.8, 0.3, 0.7)
 	rm.emission_enabled = true
-	rm.emission = Color(1.0, 0.75, 0.25)
+	rm.emission = Color(0.35, 0.55, 1.0) if kind == 1 else Color(1.0, 0.75, 0.25)
 	rm.emission_energy_multiplier = 2.0
 	rm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	tor.material = rm
@@ -53,7 +65,7 @@ func setup(p_tile: float) -> void:
 	ring.position.y = 0.06 * tile
 	add_child(ring)
 	glow = OmniLight3D.new()
-	glow.light_color = Color(1.0, 0.75, 0.3)
+	glow.light_color = Color(0.45, 0.6, 1.0) if kind == 1 else Color(1.0, 0.75, 0.3)
 	glow.light_energy = 1.6
 	glow.omni_range = 2.2 * tile
 	glow.position.y = 1.0 * tile
@@ -102,6 +114,10 @@ func _physics_process(delta: float) -> void:
 	t += delta
 	if glow != null:
 		glow.light_energy = 1.4 + sin(t * 2.4) * 0.4
+	# wujud Mahzan melayang pelan
+	if kind == 1 and statue_ref != null and is_instance_valid(statue_ref):
+		statue_ref.position.y = _statue_y + sin(t * 1.8) * 0.05 * tile
+		statue_ref.rotation.y = sin(t * 0.9) * 0.12
 	if used:
 		return
 	var ps := get_tree().get_nodes_in_group("player")

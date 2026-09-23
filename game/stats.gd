@@ -35,6 +35,7 @@ var magnet := 0.0 # magnet jiwa: perbesar radius serap orb
 var berserk := 0.0 # amukan: bonus ATK saat HP kritis
 var combo_atk := 0.0 # bonus ATK bertingkat dari streak kombo (8/15/25)
 var combo_aspd := 0.0 # bonus attack-speed dari streak kombo
+var mahzan_debt := 0.0 # hutang Max HP ke Mahzan (Leech's Bargain)
 
 # meta (tersimpan)
 var best_floor := 0
@@ -80,6 +81,8 @@ func get_stat(n: String) -> float:
 			mult += berserk
 	if n == "atk_speed":
 		mult += combo_aspd
+	if n == "max_hp":
+		flat -= mahzan_debt
 	if n == "armor":
 		flat += buff_armor
 	return flat * mult
@@ -157,6 +160,7 @@ func reset_run() -> void:
 	berserk = 0.0
 	combo_atk = 0.0
 	combo_aspd = 0.0
+	mahzan_debt = 0.0
 	current_hp = get_stat("max_hp")
 	draft_open = false
 	saved_run = {}
@@ -179,7 +183,7 @@ func note_floor() -> void:
 
 # snapshot run supaya tombol "Lanjutkan" di menu berarti
 func save_run() -> void:
-	saved_run = {"floor": floor_num, "level": level, "xp": xp, "relics": relics.duplicate(), "weapon_id": weapon_id, "owned": owned_weapons.duplicate(), "hp": current_hp, "kills": kills, "revive": revive_left, "thorns": thorns, "dodge": dodge, "magnet": magnet, "berserk": berserk}
+	saved_run = {"floor": floor_num, "level": level, "xp": xp, "relics": relics.duplicate(), "weapon_id": weapon_id, "owned": owned_weapons.duplicate(), "hp": current_hp, "kills": kills, "revive": revive_left, "thorns": thorns, "dodge": dodge, "magnet": magnet, "berserk": berserk, "mahzan_debt": mahzan_debt}
 	save_game()
 
 
@@ -208,6 +212,7 @@ func restore_run() -> bool:
 	dodge = float(saved_run.get("dodge", 0.0))
 	magnet = float(saved_run.get("magnet", 0.0))
 	berserk = float(saved_run.get("berserk", 0.0))
+	mahzan_debt = float(saved_run.get("mahzan_debt", 0.0))
 	buff_atk_pct = 0.0
 	current_hp = float(saved_run.get("hp", get_stat("max_hp")))
 	draft_open = false

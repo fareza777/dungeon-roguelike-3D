@@ -632,9 +632,11 @@ func _spawn_shrine(last_room: int) -> void:
 	var s = SHRINE.new()
 	room.add_child(s)
 	s.global_position = pos
-	s.setup(info.tile)
+	# 30%: Mahzan sendiri yang menampakkan diri sebagai toko spektral (lantai 3+)
+	var is_mahzan := Stats.floor_num >= 3 and rng.randf() < 0.3
+	s.setup(info.tile, 1 if is_mahzan else 0)
 	shrine_ref = s
-	s.invoked.connect(_on_shrine_invoked)
+	s.invoked.connect(_on_mahzan_invoked if is_mahzan else _on_shrine_invoked)
 
 
 var lore_ref = null
@@ -1659,6 +1661,10 @@ func _on_dlg_end() -> void:
 
 
 func _on_dlg_choice(idx: int) -> void:
+	if dlg_pending_choice == 1:
+		dlg_pending_choice = -1
+		_mahzan_deal(idx)
+		return
 	match idx:
 		0:
 			Stats.buff_atk_pct += 0.15
@@ -1673,6 +1679,55 @@ func _on_dlg_choice(idx: int) -> void:
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
+
+
+func _on_mahzan_invoked(s) -> void:
+	shrine_used = true
+	s.consume()
+	Sfx.play("shrine")
+	dlg_pending_choice = 1
+	var mlines := [
+		"Ah — living blood in my halls. Rare merchandise... rarer currency. Pick a deal.",
+		"The Bone King pays me in bones. You'd pay in something warmer. Choose.",
+		"A customer! It's been a century since the last. Don't make me regret it, Kael.",
+	]
+	_say(
+		[{"who": "mahzan", "text": mlines[rng.randi_range(0, mlines.size() - 1)]}],
+		[
+			{"text": "Leech's Bargain — lose 2 Max HP, gain a rare relic"},
+			{"text": "Blood Tithe — lose 1 HP now, +20% ATK this run"},
+			{"text": "Mahzan's Gamble — a free relic... but he chooses it"},
+		]
+	)
+
+
+func _mahzan_deal(idx: int) -> void:
+	match idx:
+		0:
+			Stats.mahzan_debt += 2.0
+			var pool: Array = []
+			for id in ITEMS.DB:
+				var it: Dictionary = ITEMS.DB[id]
+				if int(it["rarity"]) == 1 and not Stats.relics.has(id):
+					pool.append(id)
+			var rid: String = pool[rng.randi_range(0, pool.size() - 1)] if not pool.is_empty() else "berkat_pandai_besi"
+			Stats.add_relic(rid)
+			toast("Leech's Bargain: -2 Max HP, gained " + String(ITEMS.DB[rid]["name"]))
+		1:
+			if player != null and is_instance_valid(player):
+				player.hp = maxf(1.0, player.hp - 1.0)
+				player.hp_changed.emit(player.hp)
+			Stats.buff_atk_pct += 0.2
+			toast("Blood Tithe: +20% ATK this run")
+		2:
+			var rid2: String = ITEMS.roll_choices(Stats.relics, rng, 1)[0]
+			Stats.add_relic(rid2)
+			toast("Mahzan's Gamble: " + String(ITEMS.DB[rid2]["name"]))
+	if player != null and is_instance_valid(player):
+		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
+		player.refresh_stats()
+		player.hp_changed.emit(player.hp)
+		_burst(player.global_position + Vector3(0, 0.5, 0), Color(0.5, 0.7, 1.0))
 
 
 func _on_shrine_invoked(s) -> void:
