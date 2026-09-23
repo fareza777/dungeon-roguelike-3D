@@ -158,6 +158,26 @@ func _physics_process(delta: float) -> void:
 							p.set("root_t", 1.0)
 						p.take_hit(global_position, 1)
 
+	# sentuh jebakan saat fase tidur untuk melucutinya (kecuali lentera)
+	if not up and armed and kind != 4:
+		var ps2 := get_tree().get_nodes_in_group("player")
+		if not ps2.is_empty():
+			var p2: Node3D = ps2[0]
+			if p2.get("dead") != true:
+				var d2: Vector3 = p2.global_position - global_position
+				d2.y = 0
+				if d2.length() < 0.26 * tile:
+					disarm()
+					Sfx.play("click")
+					var ml2 := get_tree().current_scene
+					if ml2 != null:
+						if ml2.has_method("_quest_event"):
+							ml2._quest_event("trap_disarm")
+						if ml2.has_method("toast"):
+							ml2.toast("Trap defused!")
+						if ml2.has_method("_burst"):
+							ml2._burst(global_position + Vector3(0, 0.3, 0), Color(0.6, 0.8, 1.0))
+
 
 func disarm() -> void:
 	armed = false

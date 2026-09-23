@@ -218,6 +218,7 @@ const TIPS := [
 	"When the mist turns violet, the dead weep gems — reap them while it lasts.",
 	"When the torches die, the dead run faster — finish the floor for the tithe.",
 	"A green-gold sigil mends one wound — step on its pulse.",
+	"Sleeping traps can be defused by a brave touch — walk over them on the off-beat.",
 	"Spiked cadavers bite back — skills and storms kill thorns at range.",
 	"THORNED-tagged elites bleed your blade's wielder — strike from range.",
 ]
