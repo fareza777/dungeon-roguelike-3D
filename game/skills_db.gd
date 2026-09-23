@@ -18,9 +18,13 @@ const DB := {
 		"name": "War Cry", "short": "CRY", "cd": 18.0, "unlock": 7,
 		"desc": "Roar that knocks enemies back and grants +50% ATK for 5s.",
 	},
+	"nova": {
+		"name": "Soul Nova", "short": "NOVA", "cd": 20.0, "unlock": 9,
+		"desc": "Soul blast: 2x ATK to all foes nearby — each kill mends 1 HP.",
+	},
 }
 
-const ORDER := ["dash", "whirl", "thunder", "warcry"]
+const ORDER := ["dash", "whirl", "thunder", "warcry", "nova"]
 
 
 static func get_s(id: String) -> Dictionary:

@@ -228,7 +228,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -1391,6 +1391,25 @@ func _cast_skill(id: String) -> void:
 			toast("WAR CRY! +50% ATK for 5s")
 			trauma = 0.5
 			print("SKILL warcry knocked=%d" % kd)
+		"nova":
+			player.anim_lock = M.play_action(player.ap, ["spellcast", "1h_melee_attack"], 1.4)
+			Sfx.play("thunder")
+			_shock_ring(player.global_position)
+			_burst(player.global_position + Vector3(0, 0.5, 0), Color(0.5, 1.0, 0.8))
+			var ndmg := Stats.get_stat("atk") * 2.0
+			var kills0 := kills_run
+			var nhit := 0
+			for f in get_tree().get_nodes_in_group("enemies"):
+				if f.global_position.distance_to(player.global_position) < 1.8 * info.tile:
+					f.take_hit(player.global_position, ndmg)
+					nhit += 1
+			var healed: int = kills_run - kills0
+			if healed > 0:
+				player.hp = minf(player.max_hp, player.hp + float(healed))
+				player.hp_changed.emit(player.hp)
+				toast("SOUL NOVA — %d soul%s mended you" % [healed, "s" if healed > 1 else ""])
+			trauma = 0.8
+			print("SKILL nova hit=%d heals=%d" % [nhit, healed])
 	skill_cd[id] = float(SK.DB[id]["cd"])
 
 
