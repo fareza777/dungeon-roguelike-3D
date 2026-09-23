@@ -723,6 +723,8 @@ func _new_run(new_seed: int) -> void:
 	info = RG.build_floor(room, seed_val, Stats.floor_num)
 	stain_count = 0
 	stain_positions.clear()
+	pool_positions.clear()
+	pool_healed = 0.0
 	pray_t = 0.0
 	prayed = false
 	umbral_seen = false
@@ -1566,6 +1568,8 @@ var lore_ref = null
 var motes_ref: GPUParticles3D = null
 var stain_count := 0
 var stain_positions: Array = []
+var pool_positions: Array = []
+var pool_healed := 0.0
 var pray_t := 0.0
 var prayed := false
 var umbral_seen := false
@@ -1964,6 +1968,7 @@ func _spawn_tidepools() -> void:
 	for tp_i in range(mini(4 + int(rng.randf() * 3), info.ranges.size())):
 		var tr2: Dictionary = info.ranges[tp_i]
 		var tpos := Vector3((tr2["x0"] + tr2["x1"]) * 0.5 * info.tile + randf_range(-0.6, 0.6) * info.tile, 0.015 * info.tile, (tr2["z0"] + tr2["z1"]) * 0.5 * info.tile + randf_range(-0.6, 0.6) * info.tile)
+		pool_positions.append({"pos": tpos, "r": tsz * 0.5})
 		var tm := MeshInstance3D.new()
 		var tpm := PlaneMesh.new()
 		var tsz: float = randf_range(0.5, 1.1) * info.tile
@@ -6764,6 +6769,13 @@ func _process(delta: float) -> void:
 				toast("The new blade cools — trial over")
 		if ui.has("time_label"):
 			ui.time_label.text = "%d:%02d" % [int(run_time) / 60, int(run_time) % 60]
+		if not pool_positions.is_empty() and pool_healed < 4.0 and player.hp < Stats.get_stat("max_hp"):
+			for pp in pool_positions:
+				if player.global_position.distance_to(pp["pos"]) < float(pp["r"]) + 0.3 * info.tile:
+					player.hp = minf(Stats.get_stat("max_hp"), player.hp + delta * 0.45)
+					player.hp_changed.emit(player.hp)
+					pool_healed += delta * 0.45
+					break
 		for ln2 in lanterns:
 			if is_instance_valid(ln2) and player.global_position.distance_to(ln2.global_position) < 3.0 * info.tile:
 				if player.hp < Stats.get_stat("max_hp"):
