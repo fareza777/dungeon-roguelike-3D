@@ -102,6 +102,7 @@ const ACH := {
 	"forge3": "Arms Master (forged a weapon to Lv 3)",
 	"master1": "Master at Arms (weapon mastered)",
 	"knight1": "Liberator (freed Sir Vane)",
+	"reborn": "Oracle's Chosen (bought back your life)",
 }
 const BOSS_TIERS := [
 	{"name": "BONE KING", "tint": Color(1.05, 1.05, 1.05),
@@ -222,6 +223,7 @@ var mimic_pending := false
 var shrine_used := false
 var dlg: DialogueUI = null
 var dlg_pending_choice := -1
+var oracle_bargained := false # Oracle's Bargain: sekali per run
 var map_dots: Array = []
 var map_t := 0.0
 
@@ -1126,6 +1128,70 @@ func _boss_enraged() -> void:
 
 func _on_player_died() -> void:
 	print("PLAYER DIED floor=%d" % Stats.floor_num)
+	if not oracle_bargained and Stats.souls >= 15:
+		oracle_bargained = true
+		_offer_oracle_bargain()
+		return
+	run_state = "dead"
+	Engine.time_scale = 0.3
+	get_tree().create_timer(0.55, true, false, true).timeout.connect(func() -> void: Engine.time_scale = 1.0)
+	var new_record := Stats.floor_num >= Stats.best_floor
+	Stats.note_floor()
+	Stats.clear_run()
+	Stats.runs += 1
+	Stats.save_game()
+	_tut_hide()
+	Input.vibrate_handheld(280)
+	if player != null and is_instance_valid(player):
+		_souls(player.global_position, 18, Color(0.85, 0.9, 1.0))
+	var mins := int(run_time) / 60
+	var secs := int(run_time) % 60
+	var rec := "\nNEW RECORD!" if new_record and Stats.floor_num > 1 else ""
+	var killer: String = "the dungeon itself"
+	if player != null and is_instance_valid(player):
+		killer = String(KILLER_NAMES.get(player.last_killer, player.last_killer))
+	var ktip: String = ""
+	if player != null and is_instance_valid(player):
+		ktip = "\n" + String(KILLER_TIPS.get(player.last_killer, ""))
+	_show_banner("YOU DIED", "Floor %d • %s — slain by %s\n%d kills • Lv %d • %d relics • best combo ×%d • %d:%02d\nBest: Floor %d — tap to retry%s%s" % [Stats.floor_num, biome["name"], killer, kills_run, Stats.level, Stats.relics.size(), combo_max, mins, secs, Stats.best_floor, rec, ktip], Color(1.0, 0.32, 0.28))
+
+
+func _offer_oracle_bargain() -> void:
+	run_state = "dead"
+	Engine.time_scale = 0.15
+	get_tree().create_timer(0.5, true, false, true).timeout.connect(func() -> void: Engine.time_scale = 1.0)
+	_tut_hide()
+	Input.vibrate_handheld(160)
+	dlg_pending_choice = 4
+	_say(
+		[{"who": "oracle", "text": "Your thread frays, Kael — but I can knot it back. Fifteen souls, and you rise where you fell."}],
+		[{"text": "RISE AGAIN — pay 15 souls (◈ %d held)" % Stats.souls},
+		 {"text": "Let the dark take me"}])
+
+
+func _oracle_deal(idx: int) -> void:
+	if idx != 0 or Stats.souls < 15 or player == null or not is_instance_valid(player):
+		_finalize_death()
+		return
+	Stats.souls -= 15
+	Stats.save_game()
+	_souls_l()
+	run_state = "playing"
+	player.dead = false
+	if player.body_cs != null:
+		player.body_cs.set_deferred("disabled", false)
+	player.hp = float(maxi(1.0, player.max_hp * 0.5))
+	player.invuln = 3.0
+	player.hp_changed.emit(player.hp)
+	_ach("reborn")
+	_shock_ring(player.global_position)
+	_burst(player.global_position + Vector3(0, 0.5, 0), Color(0.55, 1.0, 0.75))
+	_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), "RESURRECTED", Color(0.55, 1.0, 0.75), true)
+	Sfx.play("victory")
+	Sfx.play("shrine")
+
+
+func _finalize_death() -> void:
 	run_state = "dead"
 	Engine.time_scale = 0.3
 	get_tree().create_timer(0.55, true, false, true).timeout.connect(func() -> void: Engine.time_scale = 1.0)
@@ -2021,6 +2087,10 @@ func _on_dlg_choice(idx: int) -> void:
 	elif dlg_pending_choice == 3:
 		dlg_pending_choice = -1
 		_defiance_deal(idx)
+		return
+	elif dlg_pending_choice == 4:
+		dlg_pending_choice = -1
+		_oracle_deal(idx)
 		return
 	match idx:
 		0:
