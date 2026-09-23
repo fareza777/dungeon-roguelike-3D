@@ -5448,7 +5448,7 @@ func _process(delta: float) -> void:
 					be = f
 		var shown := false
 		if be != null:
-			var sp2: Vector2 = cam.unproject_position(be.global_position + Vector3(0, 0.8 * s, 0))
+			var sp2: Vector2 = cam.unproject_position(be.global_position + Vector3(0, 0.8 * info.get("tile", 4.0), 0))
 			var vp2: Vector2 = get_viewport().get_visible_rect().size
 			if sp2.x < -10.0 or sp2.x > vp2.x + 10.0 or sp2.y < -10.0 or sp2.y > vp2.y + 10.0:
 				var c2: Vector2 = vp2 * 0.5
