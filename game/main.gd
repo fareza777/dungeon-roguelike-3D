@@ -3721,7 +3721,7 @@ func _offer_omens() -> void:
 			{"text": "SPITEFUL — each of your kills wounds a nearby foe for 1 HP"},
 			{"text": "KAEL'S WAGER — every soul is doubled... but you live on a single drop of blood"},
 			{"text": "GRAVETIDE — +2 souls at every floor's end, but the dead grow +10% tougher"},
-			{"text": "MARROW PACT — fortify: +2 armor... but your blood thins (−2 Max HP)"},
+			{"text": "MARROW PACT — fortify: +2 armor... but your blood thins (−20% Max HP)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
