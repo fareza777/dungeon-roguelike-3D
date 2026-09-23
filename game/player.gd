@@ -273,6 +273,15 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						m7._souls_l()
 					if m7.has_method("_damage_number"):
 						m7._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "SIPHON", Color(0.5, 1.0, 0.75), false)
+		"hollow_crown": # USURPER — elite yang mati membayar 2 jiwa
+			if bool(f.get("elite")) and float(f.get("hp")) <= 0.0:
+				Stats.souls += 2
+				var m10 := get_tree().current_scene
+				if m10 != null:
+					if m10.has_method("_souls_l"):
+						m10._souls_l()
+					if m10.has_method("_damage_number"):
+						m10._damage_number(f.global_position + Vector3(0, 0.7 * room_tile, 0), "USURPER +2", Color(0.9, 0.7, 1.1), false)
 		"thronebreaker": # CROWNSPLITTER — +40% damage ke bos
 			if bool(f.get("is_boss")):
 				f.take_hit(global_position, dmg * 0.4)
