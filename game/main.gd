@@ -3501,6 +3501,7 @@ func _cast_skill(id: String) -> void:
 			print("SKILL riptide hits=%d" % rhits)
 	skill_used_floor = true
 	skills_floor[id] = true
+	_quest_event("skill_" + id)
 	if skills_floor.size() >= 3:
 		_quest_event("witching")
 	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0) * (0.6 if id == "dash" and umbral_tide else 1.0)
