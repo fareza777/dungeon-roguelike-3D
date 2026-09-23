@@ -2913,6 +2913,9 @@ func _on_dlg_choice(idx: int) -> void:
 		9:
 			Stats.cd_reduction += 0.2
 			toast("Tempest Blessing: +20% Skill Recharge")
+		10:
+			Stats.soul_bonus += 1
+			toast("Grave Tithe: +1 soul per kill")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -3271,6 +3274,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Titan's Blessing — +20% Max HP this run"},
 			{"text": "Eagle's Eye — +12% Crit this run"},
 			{"text": "Tempest Blessing — +20% Skill Recharge this run"},
+			{"text": "Grave Tithe — +1 soul per kill this run"},
 		]
 	)
 
