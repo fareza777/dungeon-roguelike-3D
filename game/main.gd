@@ -2395,6 +2395,8 @@ func _on_enemy_died(e) -> void:
 			_souls(e.global_position, 2)
 		if int(Stats.arch_kills.get("keelhound", 0)) >= 10:
 			_ach("saltdog")
+		if int(Stats.arch_kills.get("bomber", 0)) >= 8:
+			_ach("powdermonkey")
 	if e.arch_id == "maw":
 		_quest_event("maw_kill")
 	if e.arch_id == "gargoyle":
