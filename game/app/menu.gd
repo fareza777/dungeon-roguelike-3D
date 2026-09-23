@@ -144,7 +144,8 @@ func _build() -> void:
 
 	var best := Label.new()
 	var boss_txt := " • Boss ditumbangkan: %d" % Stats.boss_kills if Stats.boss_kills > 0 else ""
-	best.text = "Terbaik: Lantai %d • Total kill: %d%s" % [Stats.best_floor, Stats.total_kills, boss_txt]
+	var ach_txt := " • ◆ %d/10" % Stats.ach.size() if Stats.ach.size() > 0 else ""
+	best.text = "Terbaik: Lantai %d • Total kill: %d%s%s" % [Stats.best_floor, Stats.total_kills, boss_txt, ach_txt]
 	best.add_theme_font_size_override("font_size", 17)
 	best.modulate = Color(1.0, 0.9, 0.6, 0.85)
 	best.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

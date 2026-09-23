@@ -27,6 +27,7 @@ var draft_open := false
 var buff_atk_pct := 0.0 # berkat altar: run ini saja
 var buff_armor := 0 # berkat altar: armor datar run ini
 var revive_left := 0 # jiwa bangkit: hidup lagi sekali per run
+var ach := {} # prestasi terbuka: id -> true (persist lintas run)
 var thorns := 0.0 # duri pantulan: balikkan dmg
 
 # meta (tersimpan)
@@ -207,6 +208,7 @@ func save_game() -> void:
 			"quality": quality, "volume": volume,
 			"music_volume": music_volume, "sfx_volume": sfx_volume,
 			"run": saved_run,
+			"ach": ach,
 		}))
 
 
@@ -229,3 +231,6 @@ func load_game() -> void:
 			var r = d.get("run", {})
 			if r is Dictionary:
 				saved_run = r
+			var a2 = d.get("ach", {})
+			if a2 is Dictionary:
+				ach = a2

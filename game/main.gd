@@ -55,6 +55,40 @@ var vign: TextureRect = null
 var vign_tween: Tween = null
 var prev_hp := -1.0
 
+# prestasi lintas run + varian bos per 5 lantai
+const ACH := {
+	"kill1": "Pembantaian Pertama",
+	"k50": "Algojo Lorong (50 kill)",
+	"k200": "Penghuni Kubur (200 kill)",
+	"f5": "Penurun Nekara (Lantai 5)",
+	"f10": "Tanpa Takut (Lantai 10)",
+	"f20": "Jantung Kedalaman (Lantai 20)",
+	"b1": "Pemecah Singgasana",
+	"b3": "Pemburu Raja (3 bos)",
+	"r5": "Kolektor Relik (5 relik)",
+	"w5": "Gudang Senjata (5 senjata)",
+}
+const BOSS_TIERS := [
+	{"name": "RAJA TULANG", "tint": Color(1.05, 1.05, 1.05)},
+	{"name": "RAJA BARA", "tint": Color(1.4, 0.65, 0.4)},
+	{"name": "RAJA BEKU", "tint": Color(0.55, 0.85, 1.45)},
+	{"name": "RAJA LIAR", "tint": Color(0.65, 1.35, 0.55)},
+]
+var boss_name := "RAJA TULANG"
+
+
+func _boss_tier() -> Dictionary:
+	return BOSS_TIERS[(Stats.floor_num / 5 - 1) % BOSS_TIERS.size()]
+
+
+func _ach(id: String) -> void:
+	if Stats.ach.get(id, false):
+		return
+	Stats.ach[id] = true
+	Stats.save_game()
+	_lvl_banner("◆ PENCAPAIAN — " + String(ACH[id]))
+	Sfx.play("quest")
+
 # v5: boss + quest + kombo + altar + peti mimic + dialog + minimap
 var boss_ref = null
 var quest_steps: Array = []
@@ -316,7 +350,7 @@ func _on_room_enter(ri: int) -> void:
 		_set_room_gates(ri, false)
 		if ri > 0:
 			if boss_ref != null and is_instance_valid(boss_ref) and boss_ref.room_idx == ri:
-				toast("RAJA TULANG MENGHADANG — bunuh dia!")
+				toast(boss_name + " MENGHADANG — bunuh dia!")
 			else:
 				toast("Ruangan terkunci — habisi semua skeleton!")
 		print("RUANGAN %d TERKUNCI (musuh=%d)" % [ri, _room_alive(ri)])
@@ -455,6 +489,11 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool) -> void:
 	e.died.connect(_on_enemy_died)
 	if e.is_boss:
 		boss_ref = e
+		var tier := _boss_tier()
+		boss_name = String(tier["name"])
+		M.paint(e, M.toon(skeleton_tex, tier["tint"], 0.35, true))
+		if ui.has("boss_name"):
+			ui.boss_name.text = "☠ " + boss_name
 		e.summon_requested.connect(_on_boss_summon)
 
 
@@ -464,7 +503,7 @@ func _on_boss_summon(boss) -> void:
 	if alive >= 7:
 		return
 	Sfx.play("roar")
-	toast("Raja Tulang memanggil antek-anteknya!")
+	toast(boss_name + " memanggil antek-anteknya!")
 	for k in range(2):
 		var off := Vector3((k - 0.5) * 0.8 * info.tile, 0, 0.5 * info.tile)
 		_spawn_enemy({"pos": boss.global_position + off, "room": boss.room_idx}, "chaser", false)
@@ -543,6 +582,12 @@ func _on_enemy_died(e) -> void:
 	Sfx.play("death")
 	kills_run += 1
 	Stats.count_kill()
+	if Stats.total_kills >= 1:
+		_ach("kill1")
+	if Stats.total_kills >= 50:
+		_ach("k50")
+	if Stats.total_kills >= 200:
+		_ach("k200")
 	_quest_event("kill")
 	_combo_set(combo + 1)
 	if e.is_boss:
@@ -592,8 +637,21 @@ func _on_boss_died(_e) -> void:
 	Sfx.play("victory")
 	Sfx.play_music("dungeon")
 	_quest_event("boss_kill")
+	if Stats.boss_kills >= 1:
+		_ach("b1")
+	if Stats.boss_kills >= 3:
+		_ach("b3")
 	_boss_bar_hide()
-	toast("Raja Tulang roboh! +15 XP")
+	toast(boss_name + " roboh! +15 XP")
+	# epilog singkat setelah bos tumbang (kecuali pemain buru-buru turun)
+	var fl := Stats.floor_num
+	get_tree().create_timer(1.2).timeout.connect(func() -> void:
+		if Stats.floor_num != fl or Stats.draft_open or (dlg != null and dlg.active):
+			return
+		_say([
+			{"who": "raja", "text": "...tidak mungkin... singgasanaku... retak..."},
+			{"who": "oracle", "text": "Dia akan bangkit lagi lima lantai lebih dalam — lebih kuat. Terus turun, Kael."},
+		]))
 	_damage_number(_e.global_position, "BOSS TUMBANG", Color(1.0, 0.5, 0.2), true)
 
 
@@ -605,6 +663,7 @@ func _on_player_died() -> void:
 	Stats.runs += 1
 	Stats.save_game()
 	_tut_hide()
+	Input.vibrate_handheld(280)
 	if player != null and is_instance_valid(player):
 		_souls(player.global_position, 18, Color(0.85, 0.9, 1.0))
 	var mins := int(run_time) / 60
@@ -617,6 +676,12 @@ func _on_banner_tap() -> void:
 		_quest_event("descend")
 		Stats.floor_num += 1
 		Stats.note_floor()
+		if Stats.floor_num >= 5:
+			_ach("f5")
+		if Stats.floor_num >= 10:
+			_ach("f10")
+		if Stats.floor_num >= 20:
+			_ach("f20")
 		await _fade_to(1.0, 0.3)
 		_new_run(rng.randi())
 		_fade_to(0.0, 0.45)
@@ -927,6 +992,8 @@ func _hero_equip(wid: String) -> void:
 	else:
 		Stats.equip_weapon(wid)
 	Sfx.play("pickup")
+	if Stats.owned_weapons.size() >= 5:
+		_ach("w5")
 	_refresh_hero()
 
 
@@ -1061,6 +1128,7 @@ func _refresh_hero() -> void:
 func _on_hit_landed(pos: Vector3, dmg: float, crit: bool) -> void:
 	trauma = 0.65 if crit else 0.5
 	_hit_spark(pos, crit)
+	Input.vibrate_handheld(45 if crit else 25)
 	_damage_number(pos, str(int(round(dmg))), Color(1.0, 0.5, 0.15) if crit else Color(1.0, 0.85, 0.3), crit)
 	Engine.time_scale = 0.08
 	await get_tree().create_timer(0.09 if crit else 0.05, true, false, true).timeout
@@ -1567,6 +1635,7 @@ func _build_ui() -> void:
 	var bvb := VBoxContainer.new()
 	var bn := Label.new()
 	bn.text = "☠ RAJA TULANG"
+	ui["boss_name"] = bn
 	bn.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	bn.add_theme_font_size_override("font_size", 16)
 	bn.modulate = Color(1.0, 0.55, 0.45)
@@ -2072,6 +2141,8 @@ func _rebuild_chips() -> void:
 		l.add_theme_font_size_override("font_size", 16)
 		p.add_child(l)
 		ui.chips.add_child(p)
+	if Stats.relics.size() >= 5:
+		_ach("r5")
 
 
 func _show_banner(title: String, sub: String) -> void:
