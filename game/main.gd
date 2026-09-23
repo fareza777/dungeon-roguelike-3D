@@ -3036,6 +3036,8 @@ func _on_enemy_died(e) -> void:
 				Stats.earn_souls(1)
 			if Stats.souls >= 40:
 				_quest_event("fatpurse")
+			if Stats.souls >= 60:
+				_quest_event("soulrich")
 				_souls_l()
 			if Stats.floor_num >= 13 and not QDB.is_boss_floor(Stats.floor_num):
 				abyss_n += 1
