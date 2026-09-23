@@ -4565,9 +4565,10 @@ func _cast_skill(id: String) -> void:
 	if skills_floor.size() >= 3:
 		_quest_event("witching")
 	skill_cd[id] = float(SK.DB[id]["cd"])
+ * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0) * (0.6 if id == "dash" and umbral_tide else 1.0) * (0.7 if id == "dash" and brisk else 1.0) * (0.6 if id == "dash" and dash_fuel else 1.0) * (0.75 if oarsworn else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("powdermonk", 0))) * (1.15 if sodden else 1.0) * (1.1 if slim_pickings else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("belaypin", 0)) if id == "dash" else 1.0)
 	casts_run += 1
 	if casts_run >= 40:
-		_ach("fortyknells") * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0) * (0.6 if id == "dash" and umbral_tide else 1.0) * (0.7 if id == "dash" and brisk else 1.0) * (0.6 if id == "dash" and dash_fuel else 1.0) * (0.75 if oarsworn else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("powdermonk", 0))) * (1.15 if sodden else 1.0) * (1.1 if slim_pickings else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("belaypin", 0)) if id == "dash" else 1.0)
+		_ach("fortyknells")
 
 
 func _heavy_attack() -> void:
