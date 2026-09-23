@@ -265,6 +265,7 @@ var loose_ballast := false
 var black_sails := false
 var grim_charter := false
 var martyrs_oath := false
+var slim_pickings := false
 var final_verse := false
 var cradle_deep := false
 var undertow := false
@@ -4478,7 +4479,7 @@ func _cast_skill(id: String) -> void:
 	_quest_event("skill_" + id)
 	if skills_floor.size() >= 3:
 		_quest_event("witching")
-	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0) * (0.6 if id == "dash" and umbral_tide else 1.0) * (0.7 if id == "dash" and brisk else 1.0) * (0.6 if id == "dash" and dash_fuel else 1.0) * (0.75 if oarsworn else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("powdermonk", 0))) * (1.15 if sodden else 1.0)
+	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0) * (0.6 if id == "dash" and umbral_tide else 1.0) * (0.7 if id == "dash" and brisk else 1.0) * (0.6 if id == "dash" and dash_fuel else 1.0) * (0.75 if oarsworn else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("powdermonk", 0))) * (1.15 if sodden else 1.0) * (1.1 if slim_pickings else 1.0)
 
 
 func _heavy_attack() -> void:
@@ -5462,6 +5463,7 @@ func _offer_omens() -> void:
 			{"text": "BLACK SAILS — the dead come +15% faster... but every soul pays +20% more"},
 			{"text": "GRIM CHARTER — elites stalk you +10% more often... but each pays +50% XP"},
 			{"text": "MARTYR'S OATH — you take +10% damage... but every kill mends 1% HP"},
+			{"text": "SLIM PICKINGS — your skills recharge +10% slower... but souls pay +25% more"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -5505,7 +5507,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 57 if Stats.nemesis != "" else 56
+	var osize := 58 if Stats.nemesis != "" else 57
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -5738,6 +5740,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.curse_dmg += 0.1
 			oname = "MARTYR'S OATH"
 		56:
+			slim_pickings = true
+			Stats.soul_gain_pct += 0.25
+			oname = "SLIM PICKINGS"
+		57:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -5798,6 +5804,7 @@ func _omen_deal(idx: int) -> void:
 		"LOOSE BALLAST": "A loose hull rolls hard, Kael — you'll feel every blow, but they'll feel the drag too.",
 		"BLACK SAILS": "Fast sails mean fast foes, Kael — but their pockets run heavier for the chase.",
 		"GRIM CHARTER": "The charter calls the captains out, Kael — heavier crowns, richer spoils.",
+		"SLIM PICKINGS": "The lean tide still pays, Kael — slower hands, heavier purse.",
 		"MARTYR'S OATH": "Bleed for them and they feed you, Kael — the martyrs' ledger is fair.",
 		"HEIRLOOM": "Someone carried that before you. They are still carrying it, in a way.",
 		"GOLDEN FATE": "Every lock will gleam. Mind the teeth on some.",
