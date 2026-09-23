@@ -66,6 +66,7 @@ var crowned := false
 var tither := false
 var digger := false
 var keelh := false
+var siren := false
 var digger_dug := false
 var pack_bounty := false
 var orator_t := 3.0
@@ -151,6 +152,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	tither = bool(a.get("tither", false))
 	digger = bool(a.get("digger", false))
 	keelh = bool(a.get("keelh", false))
+	siren = bool(a.get("siren", false))
 	is_slammer = bool(a.get("slams", false))
 	wailer = bool(a.get("wailer", false))
 	wisp_drop = bool(a.get("wisp_drop", false))
@@ -564,15 +566,29 @@ func _physics_process(delta: float) -> void:
 					if state == "strike":
 						var q2 := _player()
 						if q2 != null and q2.get("dead") != true:
-							var pr = PROJ.new()
-							get_parent().add_child(pr)
-							if is_hexer:
-								pr.effect = "silence"
-								if pr.orb != null:
-									var hm: StandardMaterial3D = pr.orb.mesh.material
-									hm.albedo_color = Color(1.0, 0.25, 0.4)
-									hm.emission = Color(0.9, 0.2, 0.35)
-							pr.launch(global_position + Vector3(0, 1.0 * scale.x, 0), q2.global_position + Vector3(0, 0.9, 0), proj_speed, dmg, 0.35 * room_tile)
+							var pr = null
+							if not siren:
+								pr = PROJ.new()
+								get_parent().add_child(pr)
+								if is_hexer:
+									pr.effect = "silence"
+									if pr.orb != null:
+										var hm: StandardMaterial3D = pr.orb.mesh.material
+										hm.albedo_color = Color(1.0, 0.25, 0.4)
+										hm.emission = Color(0.9, 0.2, 0.35)
+							if siren:
+								# hisap: seret pemain ke arah sirene
+								var pd: Vector3 = global_position - q2.global_position
+								pd.y = 0
+								if pd.length() > 0.8 * room_tile:
+									q2.global_position += pd.normalized() * 1.1 * room_tile
+								q2.velocity += pd.normalized() * room_tile * 5.0
+								var msr := get_tree().current_scene
+								if msr != null and msr.has_method("_damage_number"):
+									msr._damage_number(q2.global_position + Vector3(0, 0.8 * room_tile, 0), "ENCHANTED", Color(0.7, 0.5, 1.15), false)
+								Sfx.play("souls")
+							else:
+								pr.launch(global_position + Vector3(0, 1.0 * scale.x, 0), q2.global_position + Vector3(0, 0.9, 0), proj_speed, dmg, 0.35 * room_tile)
 						state = "recover"
 						state_t = 1.1
 				else:

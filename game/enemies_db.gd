@@ -45,6 +45,8 @@ const DB := {
 	"drowned": {"glb": "Skeleton_Minion.glb", "hp": 3.5, "spd": 0.85, "dmg": 1, "windup": 0.55, "reach": 0.7, "aggro": 5.0, "xp": 7, "tint": Color(0.4, 0.85, 0.9), "scale": 1.0, "kb_resist": 0.2, "wisp_drop": true, "drowned": true},
 	# keelhound — anjing relikui: lebih gesit dari hound, giginya mencuri jiwa
 	"keelhound": {"glb": "Skeleton_Rogue.glb", "hp": 1.8, "spd": 2.05, "dmg": 1, "windup": 0.2, "reach": 0.62, "aggro": 5.0, "xp": 4, "tint": Color(0.45, 0.9, 0.95), "scale": 0.75, "dash": true, "kb_resist": 0.0, "keelh": true},
+	# void siren — penyanyi abyss: hisap pemain ke arahnya, lalu gigit
+	"siren": {"glb": "Skeleton_Mage.glb", "hp": 3.0, "spd": 0.8, "dmg": 1, "windup": 0.5, "reach": 2.8, "prefer": 2.4, "aggro": 6.0, "xp": 6, "tint": Color(0.7, 0.5, 1.15), "scale": 1.0, "ranged": true, "proj_speed": 0.0, "kb_resist": 0.2, "siren": true},
 	# barnacle maw — cangkang raksasa: tak bergerak, meludahkan pecahan mutiara
 	"maw": {"glb": "Skeleton_Warrior.glb", "hp": 5.0, "spd": 0.0, "dmg": 1, "windup": 0.7, "reach": 3.8, "prefer": 3.6, "aggro": 5.0, "xp": 5, "tint": Color(0.5, 0.95, 0.85), "scale": 1.1, "ranged": true, "proj_speed": 2.6, "kb_resist": 1.0},
 	# crowned — paladin yang jatuh: musuh di ruangannya menerima 25% lebih sedikit damage
