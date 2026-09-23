@@ -139,6 +139,9 @@ const LORE_LINES := [
 	"The Deck Brood carries its young inside the ribs — cracking it only wakes the hunger.",
 	"They say the King's tithe is still being collected — every soul you spend pays down his ledger.",
 	"The oathbound never break — they only run out of things to mend.",
+	"The slippery ones wear the sea like oil — the fourth blow always finds empty water.",
+	"Where the smoke drifts, the powder dries slow — but the hands that loaded it never rested.",
+	"Mahzan pays for secrets in souls — and buys them back cheaper than you'd think.",
 ]
 
 var dungeon_tex: Texture2D
