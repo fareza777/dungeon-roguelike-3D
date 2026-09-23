@@ -154,6 +154,7 @@ var ferry_extra := 0
 var _ferry_used := false
 var lanterns: Array = []
 var lantern_healed := 0.0
+var skill_used_floor := false
 var storm_t := 0.0
 var nemesis_spawned := false # musuh yang membunuhmu run lalu — kembali lebih kuat
 var nemesis_warned := false # nemesis story beat — 1だけ
@@ -645,6 +646,7 @@ func _new_run(new_seed: int) -> void:
 	echoing = not blood_moon and not soul_rush and not fading_light and Stats.floor_num >= 5 and not boss_floor and rng.randf() < 0.06
 	storm_cellar = not blood_moon and not soul_rush and not fading_light and not echoing and Stats.floor_num >= 10 and not boss_floor and rng.randf() < 0.05
 	Stats.event_soul_bonus = 0
+	skill_used_floor = false
 	# event langka #6: gilded tides — timbunan muncul ke permukaan (lantai 12+): peti gilded + jiwa +1/kill
 	gilded_tides = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and Stats.floor_num >= 12 and not boss_floor and rng.randf() < 0.05
 	if gilded_tides:
@@ -2080,6 +2082,8 @@ func _on_enemy_died(e) -> void:
 				_souls_l()
 				Stats.save_game()
 				toast("★ UNTOUCHED — flawless floor (+3 souls)")
+			if not skill_used_floor and Stats.floor_num >= 3 and not boss_floor:
+				_ach("pacifist")
 			if knight_ref != null and is_instance_valid(knight_ref) and player != null and is_instance_valid(player):
 				var vheal: float = Stats.get_stat("max_hp") * 0.08
 				if player.hp < Stats.get_stat("max_hp"):
@@ -2793,6 +2797,7 @@ func _cast_skill(id: String) -> void:
 			trauma = 1.0
 			_quest_event("rites")
 			print("SKILL rites culled=%d grazed=%d" % [culled, grazed])
+	skill_used_floor = true
 	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0)
 
 
