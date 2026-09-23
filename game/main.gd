@@ -4401,6 +4401,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Blood Velvet — pay 9 souls: +10% Max HP this run"},
 			{"text": "Last Rites — pay 12 souls: one resurrection, on credit"},
 			{"text": "Pearl Insurance — pay 4 souls: your next 2 trap hits do nothing"},
+			{"text": "Abyssal Jar — pay 8 souls: a trinket dredged from the deep"},
 		]
 	)
 
@@ -5209,6 +5210,18 @@ func _mahzan_deal(idx: int) -> void:
 				trap_wrapped += 2
 				Sfx.play("shrine")
 				toast("PEARL INSURANCE — your next two trap hits do nothing")
+		15:
+			if Stats.souls < _soul_cost(8):
+				toast("Eight souls — the deep doesn't dredge cheap")
+			else:
+				Stats.souls -= _soul_cost(8)
+				_souls_l()
+				var jpool := ["clamheart", "pressure_suit", "tidebound_anklet", "keelhook", "deaf_cap", "soul_creel", "drowned_oar", "kings_ledger"]
+				var open_j: Array = jpool.filter(func(j): return not Stats.relics.has(j))
+				var jrid := String(open_j[rng.randi() % open_j.size()]) if not open_j.is_empty() else "berkat_pandai_besi"
+				Stats.add_relic(jrid)
+				Sfx.play("shrine")
+				toast("ABYSSAL JAR — dredged up " + String(ITEMS.DB[jrid]["name"]))
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
 		player.refresh_stats()
