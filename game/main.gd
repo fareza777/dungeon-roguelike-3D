@@ -6926,11 +6926,12 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Salt Rinse — pay 2 souls: scrub venom & rust, mend 15% HP"},
 		{"text": "Kelp Wine — pay 3 souls: −1s on every skill charge, +5% speed this floor"},
 		{"text": "Brine Graft — pay 4 souls: salt in the wounds — +10% Max HP this floor"},
+		{"text": "Mist Ration — pay 3 souls: bottle the morning fog — +10% XP this floor"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 19:
+	if idx == 20:
 		toast("The water settles back into the stone")
 		return
 	if idx == 12:
@@ -7118,6 +7119,16 @@ func _drowned_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		_ach("seaworthy")
 		toast("DROWNED TITHE — +8 souls, −10% Max HP")
+	if idx == 19:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the mist's not free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		Stats.buff_xp_pct += 0.1
+		Sfx.play("shrine")
+		toast("MIST RATION — the fog teaches in whispers")
+		return
 	if idx == 18:
 		if Stats.souls < _soul_cost(4):
 			toast("Four souls — the graft's not free")
