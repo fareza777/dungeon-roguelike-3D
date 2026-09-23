@@ -228,6 +228,7 @@ var lanterns: Array = []
 var lantern_healed := 0.0
 var lantern_touched := false
 var gravetide := false
+var mudlark := false
 var skill_used_floor := false
 var skills_floor := {}
 var rooms_cleared := 0
@@ -790,6 +791,7 @@ func _reset_run_state() -> void:
 	ferry_extra = 0
 	_ferry_used = false
 	gravetide = false
+	mudlark = false
 	wellread = false
 	tide_lends = false
 	pearl_fever = false
@@ -2739,6 +2741,8 @@ func _on_enemy_died(e) -> void:
 					toast("♛ Sir Vane's salute — +8% HP")
 			if gravetide:
 				Stats.earn_souls(2)
+			if mudlark:
+				Stats.earn_souls(1)
 				_souls_l()
 			if Stats.floor_num >= 13 and not QDB.is_boss_floor(Stats.floor_num):
 				abyss_n += 1
@@ -4808,6 +4812,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Rotgut Brew — pay 3 souls: +15% Max HP till the floor falls"},
 			{"text": "Pale Ale — pay 2 souls: +8% speed till the floor falls"},
 			{"text": "Mystery Meat — pay 4 souls: a random blessing, sight unseen"},
+			{"text": "Mudlark — pay 3 souls: every floor's end pays +1 soul for the run"},
 		]
 	)
 
