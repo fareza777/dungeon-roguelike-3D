@@ -4570,6 +4570,11 @@ func _on_leveled_up(lv: int) -> void:
 	for id in SK.ORDER:
 		if int(SK.DB[id]["unlock"]) == lv:
 			toast("Skill unlocked: %s!" % SK.DB[id]["name"])
+	var mx_unlock := 1
+	for id2 in SK.ORDER:
+		mx_unlock = maxi(mx_unlock, int(SK.DB[id2]["unlock"]))
+	if lv >= mx_unlock:
+		_ach("arsenal_full")
 	if squire_ref != null and is_instance_valid(squire_ref):
 		squire_ref.dmg = maxf(1.0, Stats.get_stat("atk") * 0.35)
 		_souls(squire_ref.global_position, 4, Color(0.9, 0.85, 0.5))
