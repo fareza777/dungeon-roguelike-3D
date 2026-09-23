@@ -117,6 +117,8 @@ const BOSS_TIERS := [
 ]
 var boss_name := "BONE KING"
 var atk_held := false
+var atk_hold_t := 0.0
+var atk_charged := false
 var tip_l: Label = null
 
 const KILLER_NAMES := {
@@ -134,6 +136,7 @@ const TIPS := [
 	"Floor spikes have a rhythm — learn it before crossing.",
 	"An enraged King summons minions — keep your distance.",
 	"The Soul Risen relic revives you once.",
+	"Hold ATK to slash — release after the button glows for a HEAVY hit.",
 ]
 
 
@@ -1217,6 +1220,20 @@ func _cast_skill(id: String) -> void:
 	skill_cd[id] = float(SK.DB[id]["cd"])
 
 
+func _heavy_attack() -> void:
+	if player == null or not is_instance_valid(player) or player.dead or run_state != "playing":
+		return
+	player.anim_lock = M.play_action(player.ap, ["1h_melee_attack"], 1.2)
+	Sfx.play("whirl")
+	_shock_ring(player.global_position)
+	var dmg := Stats.get_stat("atk") * 2.5
+	for f in get_tree().get_nodes_in_group("enemies"):
+		if f.global_position.distance_to(player.global_position) < 1.0 * info.tile:
+			f.take_hit(player.global_position, dmg)
+	trauma = 0.7
+	_damage_number(player.global_position, "HEAVY!", Color(1.0, 0.85, 0.3), true)
+
+
 func _shock_ring(pos: Vector3) -> void:
 	var mi := MeshInstance3D.new()
 	var tm := TorusMesh.new()
@@ -2097,6 +2114,7 @@ func _build_ui() -> void:
 		var twd := atk.create_tween()
 		twd.tween_property(atk, "scale", Vector2(0.9, 0.9), 0.05)
 	)
+	ui["atk_btn"] = atk
 	atk.button_up.connect(func() -> void:
 		atk_held = false
 		var twu := atk.create_tween()
@@ -3119,8 +3137,20 @@ func _process(delta: float) -> void:
 			player.move_input = k.normalized()
 		else:
 			player.move_input = joystick.get_value()
-		if Input.is_key_pressed(KEY_SPACE) or atk_held:
+		var attacking: bool = Input.is_key_pressed(KEY_SPACE) or atk_held
+		if attacking:
+			atk_hold_t += delta
 			player.attack()
+			if atk_hold_t >= 0.6 and not atk_charged:
+				atk_charged = true
+				Input.vibrate_handheld(60)
+				ui.atk_btn.modulate = Color(1.35, 1.15, 0.6)
+		else:
+			if atk_hold_t >= 0.6:
+				_heavy_attack()
+			atk_hold_t = 0.0
+			atk_charged = false
+			ui.atk_btn.modulate = Color.WHITE
 		if Input.is_key_pressed(KEY_H):
 			_toggle_hero(true)
 
