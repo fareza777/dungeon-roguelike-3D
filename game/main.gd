@@ -235,7 +235,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -1489,6 +1489,31 @@ func _cast_skill(id: String) -> void:
 				toast("SOUL NOVA — %d soul%s mended you" % [healed, "s" if healed > 1 else ""])
 			trauma = 0.8
 			print("SKILL nova hit=%d heals=%d" % [nhit, healed])
+		"judge":
+			player.anim_lock = M.play_action(player.ap, ["1h_melee_attack", "slash"], 1.3)
+			Sfx.play("thunder")
+			var jt: Node3D = null
+			var jd: float = 2.2 * info.tile
+			for f in get_tree().get_nodes_in_group("enemies"):
+				var jdd: float = f.global_position.distance_to(player.global_position)
+				if jdd < jd:
+					jd = jdd
+					jt = f
+			if jt != null:
+				var jmiss: float = 1.0 - clampf(float(jt.hp) / maxf(1.0, float(jt.hp_max)), 0.0, 1.0)
+				var jdmg: float = Stats.get_stat("atk") * (3.0 + 2.0 * jmiss)
+				var jk0 := kills_run
+				jt.take_hit(player.global_position, jdmg)
+				_damage_number(jt.global_position + Vector3(0, 0.6 * info.tile, 0), "JUDGED", Color(1.0, 0.95, 0.5), true)
+				_burst(jt.global_position + Vector3(0, 0.4 * info.tile, 0), Color(1.0, 0.9, 0.4))
+				if kills_run > jk0:
+					Stats.souls += 2
+					_souls_l()
+					toast("JUDGMENT PASSED — +2 souls")
+			else:
+				toast("No foe in reach")
+			trauma = 0.55
+			print("SKILL judge")
 	skill_cd[id] = float(SK.DB[id]["cd"])
 
 
