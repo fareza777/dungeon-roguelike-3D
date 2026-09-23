@@ -345,7 +345,7 @@ func _ready() -> void:
 		Stats.reset_run()
 		_reset_run_state()
 		kills_run = 0
-	run_souls_start = Stats.souls
+		run_souls_start = Stats.souls
 		last_stand_kills = 0
 		vials = 1
 		run_time = 0.0
@@ -1962,7 +1962,7 @@ func _on_banner_tap() -> void:
 		Stats.reset_run()
 		_reset_run_state()
 		kills_run = 0
-	run_souls_start = Stats.souls
+		run_souls_start = Stats.souls
 		last_stand_kills = 0
 		vials = 1
 		run_time = 0.0
