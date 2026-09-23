@@ -23,6 +23,7 @@ var ranged := false
 var dash := false
 var is_boss := false
 var is_bomber := false
+var is_summoner := false
 var proj_speed := 0.0
 var kb_resist := 0.0
 var speed := 4.0
@@ -94,6 +95,9 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	kb_resist = a.get("kb_resist", 0.0)
 	is_boss = a.get("boss", false)
 	is_bomber = a.get("bomber", false)
+	is_summoner = a.get("summoner", false)
+	if is_summoner:
+		summon_t = 9.0
 	var sc: float = a["scale"]
 	if elite:
 		hp *= EDB.ELITE["hp_mult"]
@@ -278,6 +282,12 @@ func _physics_process(delta: float) -> void:
 			_slam_telegraph()
 		if summon_t <= 0.0:
 			summon_t = 15.0 if not enraged else 9.0
+			summon_requested.emit(self)
+	# necromancer: membangkitkan antek tulang berkala
+	if is_summoner and activated and state != "dead":
+		summon_t -= delta
+		if summon_t <= 0.0:
+			summon_t = 13.0
 			summon_requested.emit(self)
 
 	match state:
