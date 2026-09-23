@@ -150,6 +150,7 @@ var lc_delta := 0.0
 var wolf_n := 0
 var omen_count := 0
 var wellread := false
+var tide_lends := false
 var omen_refusals := 0
 var bargainer := false
 var bargain_used := false
@@ -640,6 +641,7 @@ func _reset_run_state() -> void:
 	_ferry_used = false
 	gravetide = false
 	wellread = false
+	tide_lends = false
 	flawless_run = 0
 	well_rolls = 0
 	if trial_atk_t > 0.0:
@@ -3760,6 +3762,7 @@ func _offer_omens() -> void:
 			{"text": "GRAVETIDE — +2 souls at every floor's end, but the dead grow +10% tougher"},
 			{"text": "MARROW PACT — fortify: +2 armor... but your blood thins (−20% Max HP)"},
 			{"text": "WELLREAD — every lore stone also pays 1 soul... but the Oracle's voice grows faint"},
+			{"text": "THE TIDE LENDS — every gilded chest pays +3 souls... but the King's notice hardens the dead (+8% HP)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -3792,7 +3795,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 29 if Stats.nemesis != "" else 28
+	var osize := 30 if Stats.nemesis != "" else 29
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -3923,6 +3926,10 @@ func _omen_deal(idx: int) -> void:
 			wellread = true
 			oname = "WELLREAD"
 		28:
+			tide_lends = true
+			omen_hp_mult += 0.08
+			oname = "THE TIDE LENDS"
+		29:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -3976,6 +3983,7 @@ func _omen_deal(idx: int) -> void:
 		"MARROW PACT": "Bone will have to do what blood cannot. The King respects a thrifty heart.",
 		"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
+		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
 	}
 	var rline: String = String(reacts.get(oname, "An oath is an oath."))
 	_say([{"who": "oracle", "text": rline}])
@@ -6584,6 +6592,10 @@ func _process(delta: float) -> void:
 						Stats.save_run()
 						_souls(info.chest.global_position, 14, Color(1.0, 0.85, 0.3))
 						_lvl_banner("☆ GILDED SPOILS")
+						if tide_lends:
+							Stats.souls += 3
+							_souls_l()
+							toast("THE TIDE LENDS — +3 souls")
 						toast("Gilded chest — relic inside: " + String(ITEMS.DB[rid2]["name"]) + "!")
 
 	if player != null and is_instance_valid(player) and cam != null:
