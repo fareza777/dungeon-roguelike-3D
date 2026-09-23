@@ -5808,7 +5808,8 @@ func _refresh_buffs() -> void:
 	if Stats.curse_xp > 0.0:
 		list.append(["+%d%% XP" % int(Stats.curse_xp * 100.0), Color(0.8, 0.55, 1.0)])
 	if omen_name != "":
-		list.append(["☗ " + omen_name, Color(0.9, 0.7, 1.0)])
+		var otxt := "☗ %d oaths" % omen_count if omen_count >= 3 else "☗ " + omen_name
+		list.append([otxt, Color(0.9, 0.7, 1.0)])
 	if player.get("root_t") != null and player.root_t > 0.0:
 		list.append(["CAGED", Color(0.6, 0.4, 1.0)])
 	if combo >= 8:
