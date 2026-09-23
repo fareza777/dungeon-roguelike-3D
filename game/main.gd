@@ -1102,6 +1102,8 @@ func _spawn_shrine(last_room: int) -> void:
 	var skind := 0
 	if Stats.floor_num >= 7 and Stats.floor_num % 7 == 0:
 		skind = 5 # lantai quest Bounty Hunter — batu kontrak terjamin
+	elif Stats.floor_num >= 10 and Stats.floor_num % 8 == 4:
+		skind = 6 # lantai quest Grave Robber — vault terjamin
 	elif Stats.floor_num >= 9 and rng.randf() < 0.1:
 		skind = 6
 	elif Stats.floor_num >= 5 and Stats.floor_num % 5 == 1:
