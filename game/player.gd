@@ -50,7 +50,7 @@ var kings_n := 0 # counter King's Edge: tiap hit ke-5 meledak
 func dash_burst(dir: Vector3) -> void:
 	if dead:
 		return
-	dash_t = 0.22
+	dash_t = 0.22 * (1.3 if Stats.relics.has("splintered_oar") else 1.0)
 	dash_atk_t = 1.5
 	dash_dir = Vector3(dir.x, 0, dir.z).normalized()
 	invuln = maxf(invuln, 0.4)
