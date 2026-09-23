@@ -101,6 +101,7 @@ var kiter := false
 var is_chiller := false
 var is_ruster := false
 var is_widow := false
+var burst := false
 var sheared := false
 var is_spiky := false
 var warp_t := 4.0
@@ -165,6 +166,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	is_chiller = bool(a.get("chiller", false))
 	is_ruster = bool(a.get("ruster", false))
 	is_widow = bool(a.get("widow", false))
+	burst = bool(a.get("burst", false))
 	is_spiky = bool(a.get("spiky", false))
 	is_lurker = bool(a.get("lurks", false))
 	orator = bool(a.get("orator", false))
@@ -696,6 +698,14 @@ func _physics_process(delta: float) -> void:
 								if msr != null and msr.has_method("_damage_number"):
 									msr._damage_number(q2.global_position + Vector3(0, 0.8 * room_tile, 0), "ENCHANTED", Color(0.7, 0.5, 1.15), false)
 								Sfx.play("souls")
+							elif burst:
+								# dua peluru berurutan — bidak pertama lurus, kedua mengejar
+								pr.launch(global_position + Vector3(0, 1.0 * scale.x, 0), q2.global_position + Vector3(0, 0.9, 0), proj_speed, dmg, 0.35 * room_tile)
+								await get_tree().create_timer(0.22).timeout
+								if state != "dead":
+									var pr2 = PROJ.new()
+									get_tree().current_scene.add_child(pr2)
+									pr2.launch(global_position + Vector3(0, 1.0 * scale.x, 0), q2.global_position + Vector3(0, 0.9, 0), proj_speed, dmg, 0.35 * room_tile)
 							else:
 								pr.launch(global_position + Vector3(0, 1.0 * scale.x, 0), q2.global_position + Vector3(0, 0.9, 0), proj_speed, dmg, 0.35 * room_tile)
 						state = "recover"
