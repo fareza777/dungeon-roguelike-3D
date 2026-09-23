@@ -5203,7 +5203,7 @@ func _on_dlg_choice(idx: int) -> void:
 			toast("Wide Satchel: the satchel stretches — carry +1 soul vial this run")
 		43:
 			Stats.buff_armor += 1
-			Stats.buff_hp_pct += 0.05
+			Stats.buff_maxhp_pct += 0.05
 			toast("Salt Hide: the brine cures your skin — +1 Armor, +5% Max HP this run")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
