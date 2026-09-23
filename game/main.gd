@@ -97,18 +97,22 @@ const BOSS_TIERS := [
 	{"name": "BONE KING", "tint": Color(1.05, 1.05, 1.05),
 		"warn": "Careful — the Bone King lurks at the end of this corridor. If the ground shakes red, GET OUT.",
 		"taunt": "YOU AGAIN, LITTLE FRAGRANT ONE. I'll add your bones to my throne.",
+		"banter": ["RATTLE ME HARDER, WORM.", "THE THRONE... TREMBLES?"],
 		"death": "...impossible... my throne... cracking..."},
 	{"name": "EMBER KING", "tint": Color(1.4, 0.65, 0.4),
 		"warn": "He rose from his own ashes — the Ember King burns through this floor.",
 		"taunt": "YOU AGAIN? I'LL BURN THE FLESH OFF YOUR BONES THIS TIME.",
+		"banter": ["YOUR FLESH SMELLS DONE ALREADY.", "ASHES... I NEED NO FLESH TO KILL YOU."],
 		"death": "...embers... dying... again..."},
 	{"name": "FROST KING", "tint": Color(0.55, 0.85, 1.45),
 		"warn": "His bones turned to ice — the Frost King chills the air itself.",
 		"taunt": "BONES DON'T SHIVER. YOURS WILL, WHEN I FREEZE THEM SOLID.",
+		"banter": ["FEEL YOUR BLOOD TURN TO ICE?", "COLD... I AM THE COLD ITSELF!"],
 		"death": "...cold... so cold... the throne... melts..."},
 	{"name": "FERAL KING", "tint": Color(0.65, 1.35, 0.55),
 		"warn": "Last warning — the Feral King has lost all patience. And all mercy.",
 		"taunt": "THE THRONE IS MINE FOREVER. I'LL WEAR YOUR SKULL AS A CROWN.",
+		"banter": ["RAAAGH! HOLD STILL, PREY!", "NO — NO PREY BITES THE KING!"],
 		"death": "...no... I was... ETERNAL..."},
 ]
 var boss_name := "BONE KING"
@@ -146,6 +150,7 @@ func _boss_tier() -> Dictionary:
 		return {"name": "THE UNDYING KING", "tint": Color(1.5, 0.3, 0.7),
 			"warn": "This is his deepest hall — the throne beneath all thrones. End this, Kael.",
 			"taunt": "I HAVE WORN A THOUSAND CROWNS. YOURS WILL BE THE FINEST.",
+			"banter": ["I HAVE DIED A THOUSAND DEATHS. YOURS IS NEXT.", "THE CROWN... WILL NOT... FALL!"],
 			"death": "...the throne... is yours now... Kael..."}
 	return BOSS_TIERS[(Stats.floor_num / 5 - 1) % BOSS_TIERS.size()]
 
@@ -898,6 +903,19 @@ func _on_boss_died(_e) -> void:
 			])
 	)
 	_damage_number(_e.global_position, "BOSS DOWN", Color(1.0, 0.5, 0.2), true)
+
+
+func _boss_banter(idx: int) -> void:
+	var lines: Array = _boss_tier().get("banter", ["..."])
+	var txt: String = String(lines[mini(idx, lines.size() - 1)])
+	var l: Label = ui.get("boss_banter")
+	if l == null:
+		return
+	l.text = boss_name + ": " + txt
+	l.modulate = Color(1.0, 0.5, 0.4, 1.0)
+	var tw := create_tween()
+	tw.tween_interval(2.2)
+	tw.tween_property(l, "modulate:a", 0.0, 0.5)
 
 
 func _boss_enraged() -> void:
@@ -2226,6 +2244,21 @@ func _build_ui() -> void:
 	layer.add_child(bb)
 	ui["boss_bar"] = bb
 	ui["boss_fill"] = bf
+
+	# banter bos melayang di bawah bar (tanpa pause)
+	var btl := Label.new()
+	btl.anchor_left = 0.5
+	btl.anchor_right = 0.5
+	btl.offset_left = -260
+	btl.offset_right = 260
+	btl.offset_top = 232
+	btl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	btl.add_theme_font_size_override("font_size", 24)
+	btl.modulate = Color(1.0, 0.5, 0.4, 0.0)
+	btl.add_theme_color_override("font_outline_color", Color(0.1, 0.0, 0.0, 0.95))
+	btl.add_theme_constant_override("outline_size", 6)
+	layer.add_child(btl)
+	ui["boss_banter"] = btl
 
 	# label kombo
 	var cl := Label.new()

@@ -62,6 +62,8 @@ var affix := ""
 var _base_scale := Vector3.ONE
 var slam_t := 4.0
 var summon_t := 11.0
+var banter_75 := false
+var banter_25 := false
 
 
 func stun(t: float) -> void:
@@ -493,6 +495,17 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 		return
 	hp -= dmg_taken
 	Sfx.play("hit")
+	if is_boss and hp > 0.0:
+		var frac: float = hp / hp_max
+		var mb := get_tree().current_scene
+		if not banter_75 and frac <= 0.75:
+			banter_75 = true
+			if mb != null and mb.has_method("_boss_banter"):
+				mb._boss_banter(0)
+		elif not banter_25 and frac <= 0.25:
+			banter_25 = true
+			if mb != null and mb.has_method("_boss_banter"):
+				mb._boss_banter(1)
 	var away: Vector3 = global_position - from_pos
 	away.y = 0
 	kb = away.normalized() * room_tile * 1.4 * (1.0 - kb_resist)
