@@ -241,6 +241,7 @@ var long_wake := false
 var dead_lantern := false
 var hull_song := false
 var salt_ledger := false
+var slow_clock := false
 var dash_fuel := false
 var bloodtide_t := 0.0
 var iron_gullet := false
@@ -965,6 +966,7 @@ func _reset_run_state() -> void:
 	dead_lantern = false
 	hull_song = false
 	salt_ledger = false
+	slow_clock = false
 	dash_fuel = false
 	bloodtide_t = 0.0
 	iron_gullet = false
@@ -1883,6 +1885,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 	if gale_tide:
 		e.speed *= 1.1
 	if mercy_tide:
+		e.speed *= 0.92
+	if slow_clock:
 		e.speed *= 0.92
 	if gangway and not e.is_boss:
 		e.xp_val = int(ceilf(e.xp_val * 1.15))
@@ -5187,6 +5191,7 @@ func _offer_omens() -> void:
 			{"text": "HULL SONG — skills recharge +15% faster... but the dead row +5% quicker"},
 			{"text": "SALT LEDGER — every price climbs +1 soul... but each floor's end pays +3"},
 			{"text": "DEEP TOLL — the dead endure +15% longer... but every lesson pays +30% XP"},
+			{"text": "SLOW CLOCK — your skills recharge a fifth slower... but the dead wade −8% slower too"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -5228,7 +5233,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 51 if Stats.nemesis != "" else 50
+	var osize := 52 if Stats.nemesis != "" else 51
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -5439,6 +5444,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.curse_xp += 0.3
 			oname = "DEEP TOLL"
 		50:
+			slow_clock = true
+			Stats.cd_reduction -= 0.2
+			oname = "SLOW CLOCK"
+		51:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -5494,6 +5503,7 @@ func _omen_deal(idx: int) -> void:
 		"HULL SONG": "The ship sings through you, Kael — your arms answer quicker. So do theirs.",
 		"SALT LEDGER": "The sea keeps books, Kael — she'll overcharge the dealers and pay you interest on the back.",
 		"DEEP TOLL": "The deep taxes endurance, Kael — the dead last longer and so do their lessons.",
+		"SLOW CLOCK": "Time runs thick down here, Kael — for your arts and for their feet alike.",
 		"HEIRLOOM": "Someone carried that before you. They are still carrying it, in a way.",
 		"GOLDEN FATE": "Every lock will gleam. Mind the teeth on some.",
 		"HOLLOW CROWN": "Crown of nothing. The Oracle admires your appetite anyway.",
