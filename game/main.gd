@@ -2163,6 +2163,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("gaoler_kill")
 	if e.arch_id == "keelhound":
 		_quest_event("keelhound_kill")
+	if e.arch_id == "maw":
+		_quest_event("maw_kill")
 		if int(Stats.arch_kills.get("keelhound", 0)) >= 10:
 			_ach("saltdog")
 	if e.arch_id == "sentinel":
