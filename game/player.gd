@@ -255,6 +255,13 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 				var m := get_tree().current_scene
 				if m != null and m.has_method("_shock_ring"):
 					m._shock_ring(f.global_position)
+		"moon_katana": # RIPOSTE — setelah perfect dodge, tebasan berikutnya 2×
+			if riposte_armed:
+				riposte_armed = false
+				f.take_hit(global_position, dmg)
+				var m6 := get_tree().current_scene
+				if m6 != null and m6.has_method("_damage_number"):
+					m6._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "RIPOSTE", Color(0.7, 0.85, 1.3), true)
 		"gaoler_brand": # WARDEN — 12% peluang menjaring musuh di tempat
 			if randf() < 0.12 and not bool(f.get("is_boss")):
 				f.stun(1.2)
@@ -267,7 +274,11 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 
 
 # dash melalui serangan tepat waktu: musuh ter- stun + kena counter
+var riposte_armed := false
+
+
 func _perfect_dodge(from_pos: Vector3) -> void:
+	riposte_armed = Stats.weapon_id == "moon_katana"
 	var best: Node3D = null
 	var bd := room_tile * 0.9
 	for f in get_tree().get_nodes_in_group("enemies"):

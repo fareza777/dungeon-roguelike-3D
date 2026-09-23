@@ -15,9 +15,10 @@ const DB := {
 	"kings_edge": {"name": "King's Edge", "gltf": "Skeleton_Blade.gltf", "tint": Color(1.25, 1.1, 0.55), "mods": {"atk": 4.0, "crit": 0.1, "speed_pct": -0.08}, "desc": "+4 ATK, +10% Crit, -8% Spd. KING'S WRATH: every 5th hit blasts."},
 	"grave_scythe": {"name": "Grave Scythe", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.6, 0.4, 0.95), "mods": {"atk": 2.0, "crit": 0.05}, "desc": "+2 ATK, +5% Crit. REAPER: slain foes return 1 HP."},
 	"gaoler_brand": {"name": "Gaoler's Brand", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.55, 0.4, 1.15), "mods": {"atk": 2.2}, "desc": "+2.2 ATK. WARDEN: 12% chance to cage a foe where it stands."},
+	"moon_katana": {"name": "Moonlit Katana", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.7, 0.85, 1.35), "mods": {"atk": 2.5, "atk_speed_pct": 0.1}, "desc": "+2.5 ATK, +10% AS. RIPOSTE: after a perfect dodge, the next strike deals double."},
 }
 
-const POOL := ["bone_axe", "twin_fang", "hex_staff", "war_blade", "storm_axe", "frost_fang", "ember_mace", "kings_edge", "grave_scythe"]
+const POOL := ["bone_axe", "twin_fang", "hex_staff", "war_blade", "storm_axe", "frost_fang", "ember_mace", "kings_edge", "grave_scythe", "moon_katana"]
 
 
 static func get_w(id: String) -> Dictionary:
