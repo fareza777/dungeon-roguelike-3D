@@ -136,6 +136,9 @@ const LORE_LINES := [
 	"The salt remembers every sailor — it keeps their names in the tide.",
 	"He built the dungeon to hold one prisoner, and got a thousand heroes instead.",
 	"Kael — the bride's song and the cantor's call were his wedding music once.",
+	"The Deck Brood carries its young inside the ribs — cracking it only wakes the hunger.",
+	"They say the King's tithe is still being collected — every soul you spend pays down his ledger.",
+	"The oathbound never break — they only run out of things to mend.",
 ]
 
 var dungeon_tex: Texture2D
