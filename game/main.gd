@@ -603,6 +603,8 @@ func _reset_run_state() -> void:
 	bargainer = false
 	bargain_used = false
 	nemesis_warned = false
+	ferry_extra = 0
+	_ferry_used = false
 
 
 func _new_run(new_seed: int) -> void:
