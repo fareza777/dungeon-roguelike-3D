@@ -5167,7 +5167,6 @@ func _cast_skill(id: String) -> void:
 				Sfx.play("whirl")
 			else:
 				toast("Nothing close enough to hook")
-				skill_cd["salvagehook"] = 0.0
 		"crowsdive":
 			var cdn := 0
 			for cd_ in get_tree().get_nodes_in_group("enemies"):
