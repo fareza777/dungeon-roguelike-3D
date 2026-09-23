@@ -173,6 +173,7 @@ var muckraker := false
 var abyssal_patience := false
 var umbral_tide := false
 var moonwrit := false
+var barnacle_sense := false
 var salt_purse := false
 var sirensong_deal := false
 var crown_oath := false
@@ -751,6 +752,7 @@ func _reset_run_state() -> void:
 	abyssal_patience = false
 	umbral_tide = false
 	moonwrit = false
+	barnacle_sense = false
 	tide_kills = 0
 	reliquary_wisps = 0
 	flawless_run = 0
@@ -4179,6 +4181,9 @@ func _on_dlg_choice(idx: int) -> void:
 		18:
 			moonwrit = true
 			toast("Moonwrit: the wisps pay you an extra soul")
+		19:
+			barnacle_sense = true
+			toast("Barnacle Sense: disarm reach half again as far")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -5529,6 +5534,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Bone Veil — the first hit each floor does nothing"},
 			{"text": "Tide's Toll — all soul gains +20%"},
 			{"text": "Moonwrit — wisps you net pay +1 soul each"},
+			{"text": "Barnacle Sense — disarm sleeping traps from half again as far"},
 		]
 	)
 

@@ -209,7 +209,10 @@ func _physics_process(delta: float) -> void:
 			if p2.get("dead") != true:
 				var d2: Vector3 = p2.global_position - global_position
 				d2.y = 0
-				if d2.length() < 0.26 * tile:
+				var disarm_reach: float = 0.26 * tile
+				if bool(ml2.get("barnacle_sense")):
+					disarm_reach *= 1.5
+				if d2.length() < disarm_reach:
 					disarm()
 					Sfx.play("click")
 					var ml2 := get_tree().current_scene
