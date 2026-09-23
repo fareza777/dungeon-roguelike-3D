@@ -4944,6 +4944,9 @@ func _on_dlg_choice(idx: int) -> void:
 		37:
 			bloodwarm = true
 			toast("Bloodwarm: the red orbs burn — they mend double")
+		38:
+			Stats.buff_armor += 2
+			toast("Deck Bones: the old planking holds — +2 Armor this run")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -6939,6 +6942,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Leech Line — strikes drink deep: +8% lifesteal this run"},
 			{"text": "Sea Wisdom — +5% crit and +5% XP this run"},
 			{"text": "Bloodwarm — the red orbs mend double this run"},
+			{"text": "Deck Bones — the planking remembers: +2 Armor this run"},
 		]
 	)
 
