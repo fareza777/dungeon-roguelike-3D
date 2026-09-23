@@ -5557,6 +5557,8 @@ func _process(delta: float) -> void:
 				var t2: float = minf(tx, ty)
 				earr2.position = c2 + d2v * t2
 				earr2.rotation = atan2(d2v.y, d2v.x) + PI * 0.5
+				earr2.pivot_offset = earr2.size * 0.5
+				earr2.scale = Vector2.ONE * (1.0 + 0.18 * sin(float(Time.get_ticks_msec()) * 0.012))
 				shown = true
 		earr2.visible = shown
 
