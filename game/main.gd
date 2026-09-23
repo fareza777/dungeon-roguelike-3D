@@ -75,6 +75,19 @@ const BOSS_TIERS := [
 	{"name": "RAJA LIAR", "tint": Color(0.65, 1.35, 0.55)},
 ]
 var boss_name := "RAJA TULANG"
+var atk_held := false
+var tip_l: Label = null
+
+const TIPS := [
+	"Elite berpendar merah memberi XP ganda.",
+	"Peti bermata merah itu mimic — waspada.",
+	"Dash memberi kekebalan sesaat.",
+	"Jeda combo memutus streak — tebas terus.",
+	"Altar arwah: pilih berkat sesuai gaya mainmu.",
+	"Duri lantai punya irama — pelajari sebelum lewat.",
+	"Raja yang marah memanggil antek — jaga jarak.",
+	"Relik Jiwa Bangkit menghidupkanmu sekali.",
+]
 
 
 func _boss_tier() -> Dictionary:
@@ -294,6 +307,8 @@ func _new_run(new_seed: int) -> void:
 	_combo_set(0)
 	print("ROOM seed=%d floor=%d biome=%s rooms=%d enemies=%d gates=%d boss=%s" % [seed_val, Stats.floor_num, biome["name"], info.get("room_count", 1), info.enemy_spawns.size(), gates.size(), str(QDB.is_boss_floor(Stats.floor_num))])
 	_floor_intro_lines(boss_floor)
+	if Stats.floor_num > 1:
+		_lvl_banner("LANTAI %d — %s" % [Stats.floor_num, String(biome["name"]).to_upper()])
 
 
 func _build_gates() -> void:
@@ -1490,6 +1505,8 @@ func _build_ui() -> void:
 	atk.offset_top = -220
 	atk.offset_right = -40
 	atk.offset_bottom = -60
+	atk.button_down.connect(func() -> void: atk_held = true)
+	atk.button_up.connect(func() -> void: atk_held = false)
 	atk.pressed.connect(func() -> void:
 		if player != null and is_instance_valid(player):
 			player.attack()
@@ -1995,6 +2012,24 @@ func _build_ui() -> void:
 	fade_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
 	layer.add_child(fade_rect)
 
+	# tips loading saat layar gelap antar lantai
+	tip_l = Label.new()
+	tip_l.visible = false
+	tip_l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	tip_l.process_mode = Node.PROCESS_MODE_ALWAYS
+	tip_l.set_anchors_preset(Control.PRESET_CENTER)
+	tip_l.anchor_left = 0.1
+	tip_l.anchor_right = 0.9
+	tip_l.offset_top = 360
+	tip_l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	tip_l.autowrap_mode = TextServer.AUTOWRAP_WORD
+	tip_l.add_theme_font_size_override("font_size", 15)
+	tip_l.modulate = Color(0.9, 0.82, 0.62, 0.9)
+	tip_l.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.9))
+	tip_l.add_theme_constant_override("shadow_offset_x", 1)
+	tip_l.add_theme_constant_override("shadow_offset_y", 2)
+	layer.add_child(tip_l)
+
 
 func _pause_vol_row(vb: VBoxContainer, label: String, cur: float, on_change: Callable) -> void:
 	var hb := HBoxContainer.new()
@@ -2047,9 +2082,14 @@ func _quit_to_menu() -> void:
 func _fade_to(a: float, dur: float) -> void:
 	if fade_rect == null:
 		return
+	if a > 0.5 and tip_l != null:
+		tip_l.text = "◆ " + TIPS[rng.randi() % TIPS.size()]
+		tip_l.visible = true
 	var tw := fade_rect.create_tween()
 	tw.tween_property(fade_rect, "modulate:a", a, dur)
 	await tw.finished
+	if a <= 0.05 and tip_l != null:
+		get_tree().create_timer(1.1).timeout.connect(func() -> void: tip_l.visible = false)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -2176,7 +2216,7 @@ func _process(delta: float) -> void:
 			player.move_input = k.normalized()
 		else:
 			player.move_input = joystick.get_value()
-		if Input.is_key_pressed(KEY_SPACE):
+		if Input.is_key_pressed(KEY_SPACE) or atk_held:
 			player.attack()
 		if Input.is_key_pressed(KEY_H):
 			_toggle_hero(true)

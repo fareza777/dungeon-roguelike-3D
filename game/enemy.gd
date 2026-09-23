@@ -35,6 +35,20 @@ var ap: AnimationPlayer
 var kb := Vector3.ZERO
 var state_t := 0.0
 var anim_lock := 0.0
+
+# bilah hp mini di atas kepala (khusus elite, muncul setelah kena hit)
+var hpbar_bg: Sprite3D = null
+var hpbar_fg: Sprite3D = null
+static var _bar_tex: Texture2D = null
+const BAR_W := 0.6
+
+
+static func _get_bar_tex() -> Texture2D:
+	if _bar_tex == null:
+		var img := Image.create(64, 8, false, Image.FORMAT_RGBA8)
+		img.fill(Color.WHITE)
+		_bar_tex = ImageTexture.create_from_image(img)
+	return _bar_tex
 var room_idx := 0
 var activated := true
 var stun_t := 0.0
@@ -105,7 +119,39 @@ func _ready() -> void:
 	add_child(cs)
 	collision_layer = 4
 	collision_mask = 1 | 2 | 4
+	if elite and not is_boss:
+		_mk_hpbar()
 	M.play_fuzzy(ap, ["idle"])
+
+
+func _mk_hpbar() -> void:
+	var t := _get_bar_tex()
+	var bw := BAR_W * room_tile
+	hpbar_bg = Sprite3D.new()
+	hpbar_bg.texture = t
+	hpbar_bg.pixel_size = bw / 64.0
+	hpbar_bg.modulate = Color(0.1, 0.08, 0.1, 0.85)
+	hpbar_bg.position = Vector3(0, 1.12 * room_tile, 0)
+	hpbar_bg.visible = false
+	add_child(hpbar_bg)
+	hpbar_fg = Sprite3D.new()
+	hpbar_fg.texture = t
+	hpbar_fg.pixel_size = bw / 64.0
+	hpbar_fg.modulate = Color(1.0, 0.3, 0.22, 0.95)
+	hpbar_fg.position = Vector3(0, 1.12 * room_tile, 0.02)
+	hpbar_fg.visible = false
+	add_child(hpbar_fg)
+
+
+func _upd_hpbar() -> void:
+	if hpbar_bg == null:
+		return
+	var frac := clampf(hp / hp_max, 0.0, 1.0)
+	var show := frac < 1.0 and frac > 0.0
+	hpbar_bg.visible = show
+	hpbar_fg.visible = show
+	hpbar_fg.scale.x = frac
+	hpbar_fg.position.x = -0.5 * BAR_W * room_tile * (1.0 - frac)
 
 
 func _player() -> Node3D:
@@ -360,3 +406,4 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 		died.emit(self)
 	else:
 		anim_lock = max(anim_lock, M.play_action(ap, ["hit_"], 1.4) * 0.6)
+	_upd_hpbar()
