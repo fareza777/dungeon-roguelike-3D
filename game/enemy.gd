@@ -62,6 +62,7 @@ var golden := false
 var nemesis := false
 var is_lurker := false
 var orator := false
+var pack_bounty := false
 var orator_t := 3.0
 var dmg_max := 0 # orator chant cap
 var is_slammer := false

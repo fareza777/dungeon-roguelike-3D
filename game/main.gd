@@ -1739,12 +1739,14 @@ func _on_enemy_died(e) -> void:
 				se.activated = true
 		_damage_number(e.global_position + Vector3(0, 1.0 * info.tile, 0), "SHATTERED!", Color(0.6, 0.9, 0.6), true)
 		_spawn_tomb(e.global_position, "revenant", int(e.room_idx))
-	if bounty_ref != null and e == bounty_ref:
-		bounty_ref = null
+	if bool(e.get("pack_bounty")) or (bounty_ref != null and e == bounty_ref):
+		if e == bounty_ref:
+			bounty_ref = null
+		var was_epic := bounty_epic
 		bounty_epic = false
 		var bpool: Array = []
 		for rid5 in ITEMS.DB:
-			if int(ITEMS.DB[rid5]["rarity"]) >= (2 if bounty_epic else 1) and not Stats.relics.has(rid5):
+			if int(ITEMS.DB[rid5]["rarity"]) >= (2 if was_epic else 1) and not Stats.relics.has(rid5):
 				bpool.append(rid5)
 		if not bpool.is_empty():
 			var rid6: String = bpool[rng.randi_range(0, bpool.size() - 1)]
@@ -3794,6 +3796,7 @@ func _bounty_deal(idx: int) -> void:
 			var bpos := shrine_ref.global_position + Vector3((0.7 + bp * 0.8) * info.tile, 0, (0.3 + bp * 0.4) * info.tile)
 			var be := _spawn_enemy({"pos": bpos, "room": current_room}, barch, true)
 			if be != null:
+				be.pack_bounty = true
 				be.hp *= 1.2
 				be.hp_max = be.hp
 				be.activated = true
