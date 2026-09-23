@@ -16,6 +16,7 @@ const STATUE := "res://assets/dungeon/bone_king_statue.glb"
 
 
 func setup(p_tile: float, p_kind := 0) -> void:
+	add_to_group("glints")
 	tile = p_tile
 	kind = p_kind
 	var statue: Node3D

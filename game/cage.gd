@@ -14,6 +14,7 @@ const MINION := "res://assets/characters/Skeleton_Minion.glb"
 
 
 func setup(p_tile: float) -> void:
+	add_to_group("glints")
 	tile = p_tile
 	# jeruji: 6 batang tipis melingkar
 	_bars = Node3D.new()

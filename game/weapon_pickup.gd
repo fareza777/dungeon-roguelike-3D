@@ -12,6 +12,7 @@ var beam: MeshInstance3D = null
 
 
 func setup(id: String, tex: Texture2D, p_tile: float) -> void:
+	add_to_group("glints")
 	weapon_id = id
 	tile = p_tile
 	mesh_holder = Node3D.new()

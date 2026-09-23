@@ -9,6 +9,7 @@ var absorbed := false
 
 
 func setup(p_tile: float) -> void:
+	add_to_group("glints")
 	tile = p_tile
 	# badan botol: bola memanjang
 	var mi := MeshInstance3D.new()

@@ -12,6 +12,7 @@ var t := 0.0
 
 
 func setup(p_tile: float) -> void:
+	add_to_group("glints")
 	tile = p_tile
 	crystal = MeshInstance3D.new()
 	var pm := PrismMesh.new()

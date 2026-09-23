@@ -17,6 +17,7 @@ func setup(p_tile: float, p_arch: String, p_room: int) -> void:
 	arch = p_arch
 	room_i = p_room
 	add_to_group("urns")
+	add_to_group("glints")
 	var slab := MeshInstance3D.new()
 	var bx := BoxMesh.new()
 	bx.size = Vector3(0.16 * tile, 0.45 * tile, 0.06 * tile)

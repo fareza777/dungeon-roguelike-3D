@@ -13,6 +13,7 @@ func setup(p_tile: float, p_bell := false, p_void := false) -> void:
 	void_urn = p_void
 	tile = p_tile
 	add_to_group("urns")
+	add_to_group("glints")
 	# badan guci: silinder gemuk
 	var body := MeshInstance3D.new()
 	var cm := CylinderMesh.new()

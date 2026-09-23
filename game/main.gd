@@ -9397,10 +9397,10 @@ func _update_minimap() -> void:
 		ui.map_view.add_child(gd)
 		map_dots.append(gd)
 	if dowser_knot:
-		for dw_ in get_tree().get_nodes_in_group("shrines") + get_tree().get_nodes_in_group("chests"):
+		for dw_ in get_tree().get_nodes_in_group("glints"):
 			if not is_instance_valid(dw_):
 				continue
-			var dri3 := int(dw_.get("room_idx")) if dw_.get("room_idx") != null else -1
+			var dri3: int = int(dw_.get("room_idx")) if dw_.get("room_idx") is int else -1
 			if dri3 >= 0 and not discovered.get(dri3, false):
 				continue
 			var dwd := ColorRect.new()
