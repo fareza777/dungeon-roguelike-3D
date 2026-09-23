@@ -12,6 +12,7 @@ const DB := {
 	"jimat_palu": {"name": "Hammer Charm", "chip": "HC", "desc": "+15% ATK", "rarity": 0, "mods": {"atk_pct": 0.15}},
 	"kantong_nyawa": {"name": "Life Pouch", "chip": "LP", "desc": "+25% Max HP", "rarity": 0, "mods": {"max_hp_pct": 0.25}},
 	"magnet_jiwa": {"name": "Soul Magnet", "chip": "MG", "desc": "+60% pickup range", "rarity": 0, "mods": {"magnet": 0.6}},
+	"debu_nisan": {"name": "Grave Dust", "chip": "GD", "desc": "+10% XP", "rarity": 0, "mods": {"xp_pct": 0.1}},
 	# ---- rare ----
 	"pedang_berkarat": {"name": "Rusty Sword", "chip": "RS", "desc": "+2 ATK", "rarity": 1, "mods": {"atk": 2.0}},
 	"pengisap_darah": {"name": "Blood Leech", "chip": "BL", "desc": "+5% Lifesteal", "rarity": 1, "mods": {"lifesteal": 0.05}},
@@ -46,6 +47,7 @@ const DB := {
 	"mahkota_darah": {"name": "Bloodied Crown", "chip": "BC", "desc": "+1 soul per kill, -20% Max HP", "rarity": 2, "mods": {"soul_bonus": 1, "max_hp_pct": -0.2}},
 	"liontin_dendam": {"name": "Avenger's Charm", "chip": "AV", "desc": "+25% ATK while your nemesis lives", "rarity": 2, "mods": {}},
 	"kunci_osuarium": {"name": "Ossuary Key", "chip": "OK", "desc": "Every chest you find is GILDED", "rarity": 2, "mods": {}},
+	"taring_neraka": {"name": "Hellfang Spikes", "chip": "HF", "desc": "Reflect 60% dmg to attacker", "rarity": 2, "mods": {"thorns": 0.6}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
