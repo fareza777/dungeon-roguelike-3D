@@ -190,6 +190,7 @@ var omen_name := ""
 var fatehand := false
 var nemesis_bounty := false
 var candle_tax := false
+var pilot_dead := false
 var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
@@ -1153,6 +1154,7 @@ func _reset_run_state() -> void:
 	fatehand = false
 	nemesis_bounty = false
 	candle_tax = false
+	pilot_dead = false
 	combo_rate_bonus = 0.0
 	solitary = false
 	pawn_discount = false
@@ -2414,6 +2416,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.hp_max *= 1.1
 	if wraiths_due:
 		e.aggro_range = float(e.aggro_range) * 1.15
+	if pilot_dead:
+		e.aggro_range = float(e.aggro_range) * 1.2
 	if long_watch:
 		e.aggro_range = float(e.aggro_range) * 1.4
 	if crowns_rest and not e.is_boss:
@@ -6395,6 +6399,7 @@ func _offer_omens() -> void:
 			{"text": "COLD TOLL — the sea takes its warmth (−5% speed)... but the cold teaches (＋10% XP)"},
 			{"text": "OARLOCKS — iron rowlocks bite your hands (skills charge +1s)... but your ribs are stout (+1 Armor)"},
 			{"text": "CANDLE TAX — every seller trims a soul off the price (all deals −1 soul)... but your kills pay −20% souls"},
+			{"text": "PILOT DEAD — the dead scent you a mile off (aggro +20%)... but their souls pay +15%"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -6445,7 +6450,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 69 if Stats.nemesis != "" else 68
+	var osize := 70 if Stats.nemesis != "" else 69
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -6730,10 +6735,14 @@ func _omen_deal(idx: int) -> void:
 			omen_cd_add = 1.0
 			oname = "OARLOCKS"
 		67:
+			pilot_dead = true
+			Stats.soul_gain_pct += 0.15
+			oname = "PILOT DEAD"
+		68:
 			candle_tax = true
 			Stats.soul_gain_pct -= 0.2
 			oname = "CANDLE TAX"
-		68:
+		69:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -6807,6 +6816,7 @@ func _omen_deal(idx: int) -> void:
 		"COLD TOLL": "Cold fingers, sharp mind — you'll learn faster shivering.",
 		"OARLOCKS": "Sore hands, sound hull — nobody rows for free.",
 		"CANDLE TAX": "Every lantern takes its tithe — cheaper passage, dimmer pay.",
+		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
 		"OLD SALT": "Lighter purse, heavier arm — the old hands swear by it.",
 		"SWORN HULL": "The hull thickens and the chase quickens — even trade.",
 		"SLIM PICKINGS": "The lean tide still pays, Kael — slower hands, heavier purse.",
