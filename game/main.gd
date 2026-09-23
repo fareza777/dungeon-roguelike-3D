@@ -723,6 +723,9 @@ func _spawn_cage(last_room: int) -> void:
 	s.freed.connect(_on_cage_freed)
 
 
+var vane_freed_n := 0
+
+
 func _on_cage_freed(s) -> void:
 	Sfx.play("gate")
 	# klon squire dengan tint spektral — bertempur sampai lantai berakhir
@@ -731,11 +734,25 @@ func _on_cage_freed(s) -> void:
 		room.add_child(knight_ref)
 		knight_ref.global_position = s.global_position
 		knight_ref.setup(info.tile, maxf(1.0, Stats.get_stat("atk") * 0.55), Color(0.62, 0.85, 1.0), Color(0.7, 0.95, 1.0))
-	_say([
-		{"who": "knight", "t": "A thousand years in these bars... and you walk right up?"},
-		{"who": "kael", "t": "Can you still swing a blade, old ghost?"},
-		{"who": "knight", "t": "Watch me. Until this floor ends — my sword is yours."},
-	])
+	vane_freed_n += 1
+	if vane_freed_n >= 3:
+		_say([
+			{"who": "knight", "t": "These bars keep FINDING me, warrior. Somewhere a gaoler laughs."},
+			{"who": "kael", "t": "Then keep breaking them, Sir Vane. It suits you."},
+			{"who": "knight", "t": "Until the King's own cell, friend. My blade remembers the way."},
+		])
+	elif vane_freed_n == 2:
+		_say([
+			{"who": "knight", "t": "You AGAIN? Do they build these prisons around me?"},
+			{"who": "kael", "t": "Or you keep wandering into them."},
+			{"who": "knight", "t": "Bah. Blade, then — one more floor."},
+		])
+	else:
+		_say([
+			{"who": "knight", "t": "A thousand years in these bars... and you walk right up?"},
+			{"who": "kael", "t": "Can you still swing a blade, old ghost?"},
+			{"who": "knight", "t": "Watch me. Until this floor ends — my sword is yours."},
+		])
 	_ach("knight1")
 
 
@@ -1907,6 +1924,10 @@ func _on_dlg_choice(idx: int) -> void:
 			if player != null and is_instance_valid(player):
 				player.heal_to_full()
 			toast("Blood Blessing: HP fully restored")
+		3:
+			Stats.souls += 12
+			Stats.save_game()
+			toast("Soul Blessing: +12 souls")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -2027,6 +2048,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "War Blessing — +15% ATK this run"},
 			{"text": "Iron Blessing — +1 Armor this run"},
 			{"text": "Blood Blessing — fully heal HP"},
+			{"text": "Soul Blessing — +12 souls for the Hall"},
 		]
 	)
 
