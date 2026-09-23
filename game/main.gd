@@ -51,6 +51,9 @@ var kills_run := 0
 var run_time := 0.0
 var fade_rect: ColorRect = null
 var pause_panel: PanelContainer = null
+var vign: TextureRect = null
+var vign_tween: Tween = null
+var prev_hp := -1.0
 
 # v5: boss + quest + kombo + altar + peti mimic + dialog + minimap
 var boss_ref = null
@@ -562,6 +565,10 @@ func _on_enemy_died(e) -> void:
 				Stats.save_game()
 				_tut_hide()
 			_show_banner("LANTAI %d BERSIH" % Stats.floor_num, "ketuk untuk turun ke Lantai %d" % [Stats.floor_num + 1])
+			if player != null and is_instance_valid(player):
+				_burst(player.global_position, Color(1.0, 0.85, 0.3))
+				_souls(player.global_position, 12, Color(1.0, 0.8, 0.35))
+				Sfx.play("victory")
 	# permata XP terakhir, supaya logika gerbang di atas tidak keganggu bila gem gagal
 	_spawn_gems(e.global_position, e.xp_val)
 
@@ -1787,6 +1794,27 @@ func _build_ui() -> void:
 	layer.add_child(hr)
 	ui["hero"] = hr
 
+	# vignette HP rendah: tepi merah berdenyut
+	var vg := Gradient.new()
+	vg.offsets = PackedFloat32Array([0.55, 1.0])
+	vg.colors = PackedColorArray([Color(0.6, 0.02, 0.05, 0.0), Color(0.6, 0.02, 0.05, 0.55)])
+	var gt := GradientTexture2D.new()
+	gt.gradient = vg
+	gt.fill = GradientTexture2D.FILL_RADIAL
+	gt.fill_from = Vector2(0.5, 0.5)
+	gt.fill_to = Vector2(0.5, 0.0)
+	gt.width = 540
+	gt.height = 1200
+	vign = TextureRect.new()
+	vign.texture = gt
+	vign.set_anchors_preset(Control.PRESET_FULL_RECT)
+	vign.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	vign.stretch_mode = TextureRect.STRETCH_SCALE
+	vign.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	vign.modulate.a = 0.0
+	vign.process_mode = Node.PROCESS_MODE_ALWAYS
+	layer.add_child(vign)
+
 	# panel JEDA (resume / restart lantai / volume / keluar ke menu)
 	var pp := PanelContainer.new()
 	pp.anchor_left = 0.5
@@ -1823,6 +1851,14 @@ func _build_ui() -> void:
 	_pause_vol_row(pvb, "Efek Suara", Stats.sfx_vol(), func(v: float) -> void:
 		Stats.sfx_volume = v
 		Stats.save_game())
+	var b_qual := _pause_btn("KUALITAS: " + ("HEMAT" if low_quality else "INDAH"))
+	b_qual.pressed.connect(func() -> void:
+		Stats.quality = 0 if not low_quality else 1
+		_apply_quality()
+		b_qual.text = "KUALITAS: " + ("HEMAT" if low_quality else "INDAH")
+		Stats.save_game()
+		Sfx.play("click"))
+	pvb.add_child(b_qual)
 	var b_resume := _pause_btn("LANJUT")
 	b_resume.pressed.connect(_toggle_pause)
 	pvb.add_child(b_resume)
@@ -1937,6 +1973,28 @@ func _update_hp(hp: float) -> void:
 		cells[i].color = Color(0.85, 0.15, 0.2) if i < full else Color(0.25, 0.1, 0.12)
 	if ui.has("hp_text"):
 		ui.hp_text.text = "%d/%d" % [maxi(int(ceil(hp)), 0), maxh]
+	if prev_hp >= 0.0 and hp < prev_hp - 0.001:
+		trauma = maxf(trauma, 0.6)
+	prev_hp = hp
+	_set_low_hp(hp <= 1.0 and hp > 0.0)
+
+
+func _set_low_hp(on: bool) -> void:
+	if vign == null:
+		return
+	if on:
+		if vign_tween == null or not vign_tween.is_valid():
+			vign_tween = vign.create_tween()
+			vign_tween.set_loops()
+			vign_tween.tween_property(vign, "modulate:a", 0.75, 0.55)
+			vign_tween.tween_property(vign, "modulate:a", 0.3, 0.55)
+	else:
+		if vign_tween != null and vign_tween.is_valid():
+			vign_tween.kill()
+		vign_tween = null
+		if vign.modulate.a > 0.01:
+			var tw := vign.create_tween()
+			tw.tween_property(vign, "modulate:a", 0.0, 0.4)
 
 
 func _update_xp(cur: int, need: int, lv: int) -> void:
