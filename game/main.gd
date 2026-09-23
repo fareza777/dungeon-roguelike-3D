@@ -266,6 +266,7 @@ var deck_manifest := false
 var dirge_note := false
 var line_splice := false
 var salt_rosary := false
+var crows_toll := false
 var crowns_decree := false
 var melody_ledger := false
 var pale_scrip := false
@@ -1240,6 +1241,7 @@ func _reset_run_state() -> void:
 	lookout = false
 	bosun_mark = false
 	omen_cd_add = 0.0
+	crows_toll = false
 	if callus_on:
 		Stats.buff_armor -= 2
 		callus_on = false
@@ -2265,6 +2267,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 	if golden:
 		e.golden = true
 		e.xp_val *= 3
+	if crows_toll and e.elite:
+		e.xp_val = int(ceilf(e.xp_val * 1.5))
 	if blood_moon and not e.is_boss:
 		e.hp *= 1.25
 		e.hp_max = e.hp
@@ -6198,6 +6202,9 @@ func _on_dlg_choice(idx: int) -> void:
 		57:
 			Stats.soul_gain_pct += 0.15
 			toast("Salt Lamp: souls shine brighter in the dark — +15% souls this run")
+		58:
+			crows_toll = true
+			toast("Crow's Toll: the titled dead pay richer lessons — elites yield +50% XP this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -9126,6 +9133,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Full Hull — every plank sealed tight: +20% Max HP this run"},
 			{"text": "Bosun's Fist — the old knuckle-trick: +5% crit this run"},
 			{"text": "Salt Lamp — souls shine brighter in the dark: +15% souls this run"},
+			{"text": "Crow's Toll — elites yield +50% XP this run"},
 		]
 	)
 
