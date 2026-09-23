@@ -6758,7 +6758,7 @@ func _omen_deal(idx: int) -> void:
 		"THIN HULL": "Lose the plank, keep the edge — everything's a trade at sea.",
 		"COLD TOLL": "Cold fingers, sharp mind — you'll learn faster shivering.",
 		"OARLOCKS": "Sore hands, sound hull — nobody rows for free.",
-		"CANDLE TAX": "Every lantern takes its tithe — cheaper passage, dimmer pay."
+		"CANDLE TAX": "Every lantern takes its tithe — cheaper passage, dimmer pay.",
 		"OLD SALT": "Lighter purse, heavier arm — the old hands swear by it.",
 		"SWORN HULL": "The hull thickens and the chase quickens — even trade.",
 		"SLIM PICKINGS": "The lean tide still pays, Kael — slower hands, heavier purse.",
