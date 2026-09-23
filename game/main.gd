@@ -9519,6 +9519,20 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			{"who": "knight", "text": "...Aye. First choice I've made in three hundred years."},
 			{"who": "oracle", "text": "Then make it count, both of you — the King's reach grows long down here."},
 		]
+	elif Stats.floor_num == 29 and Stats.ng_plus >= 2:
+		lines = [
+			{"who": "mahzan", "text": "Third descent, little sailor? Your ledger is longer than the King's now. Perhaps I should be charging HIM."},
+			{"who": "kael", "text": "Keep the ink wet, Mahzan. I'm not done spending."},
+			{"who": "oracle", "text": "The dungeon rewrites itself for you now, Kael — even the walls have started to watch."},
+			{"who": "raja", "text": "TWICE BENEATH ME AND STILL HE CRAWLS. THE SEA LEARNS SLOWLY, KAEL — BUT IT LEARNS."},
+		]
+	elif Stats.floor_num == 30 and Stats.ng_plus >= 1:
+		lines = [
+			{"who": "oracle", "text": "Thirty floors. Below the charts, below the hymns — even my sight thins here."},
+			{"who": "kael", "text": "Then walk blind with me, Oracle. I've gotten good at it."},
+			{"who": "knight", "text": "Blind he says, and walks straighter than any knight I served."},
+			{"who": "raja", "text": "COME, KAEL. THE LAST PAGE WAS ALWAYS MINE TO WRITE — BUT YOU MAY HOLD THE PEN A MOMENT LONGER."},
+		]
 	elif Stats.nemesis != "" and not nemesis_warned:
 		nemesis_warned = true
 		lines = [
