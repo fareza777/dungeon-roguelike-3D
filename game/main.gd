@@ -248,6 +248,7 @@ var long_wake := false
 var dead_lantern := false
 var hull_song := false
 var salt_ledger := false
+var wide_satchel := false
 var slow_clock := false
 var deck_alms := false
 var final_verse := false
@@ -982,6 +983,7 @@ func _reset_run_state() -> void:
 	dead_lantern = false
 	hull_song = false
 	salt_ledger = false
+	wide_satchel = false
 	slow_clock = false
 	deck_alms = false
 	final_verse = false
@@ -2496,7 +2498,7 @@ func _spawn_vial(pos: Vector3) -> void:
 
 func _add_vial() -> void:
 	_quest_event("vial")
-	if vials >= 2:
+	if vials >= (3 if wide_satchel else 2):
 		# satchel penuh — langsung diminum di tempat
 		if player != null and is_instance_valid(player):
 			var mh := Stats.get_stat("max_hp")
@@ -5184,6 +5186,9 @@ func _on_dlg_choice(idx: int) -> void:
 		41:
 			Stats.buff_speed_pct += 0.08
 			toast("Trade Wind: the floor itself hurries you on — +8% speed this run")
+		42:
+			wide_satchel = true
+			toast("Wide Satchel: the satchel stretches — carry +1 soul vial this run")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -7328,6 +7333,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Salt Shear — the slowed bleed deeper: +25% damage to them this run"},
 			{"text": "Crow's Tithe — the small gods take less: +5% souls this run"},
 			{"text": "Trade Wind — the floor hurries you on: +8% speed this run"},
+			{"text": "Wide Satchel — the satchel stretches: carry +1 soul vial this run"},
 		]
 	)
 
