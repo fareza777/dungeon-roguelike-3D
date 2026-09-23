@@ -37,6 +37,7 @@ func earn_souls(n: int) -> void:
 	if dead_weight and n > 0:
 		pay = maxi(0, n - 1)
 	souls += int(ceilf(pay * (1.0 + soul_gain_pct)))
+	souls_run += int(ceilf(pay * (1.0 + soul_gain_pct)))
 var buff_lifesteal := 0.0 # berkat altar Vampiric: run ini saja
 var buff_maxhp_pct := 0.0 # omen Leeching Vein: pengorbanan Max HP
 var buff_aspd := 0.0 # berkat altar Fury: run ini saja
@@ -91,7 +92,8 @@ var saved_run := {}
 var lore_seen: Array = [] # baris lore yang pernah ditemukan (codex, persist)
 var oaths_seen: Array = [] # omen yang pernah disumpah (persist)
 var drowned_deals := 0
-var souls := 0 # mata uang meta — dari kill, dipakai di Hall of Souls
+var souls := 0 # mata uang meta
+var souls_run := 0 # jiwa yang diperoleh run ini — dari kill, dipakai di Hall of Souls
 var nemesis := "" # arch_id pembunuh terakhir — kembali lebih kuat sampai dibunuh balik
 var nemesis_name := "" # nama tampilan untuk menu
 var bestiary := {} # arch_id -> jumlah kill sepanjang masa (codex)
@@ -158,6 +160,7 @@ const ACH_DEF := {
 	"wellread": "Well Read (read 5 lore stones in one run)",
 	"keelhaul5": "Catch & Release (keelhauled 5 foes at once)",
 	"bombsquad": "Bomb Squad (disarmed 5 traps in one run)",
+	"salt_merchant": "Salt Merchant (earned 150 souls in one run)",
 	"rustproof": "Rustproof (felled 12 Rust Jaws)",
 	"wisp20": "Wispherd (caught 20 wisps across your runs)",
 	"thawed": "Thawed Out (felled 12 Bilge Witches across your runs)",
@@ -393,6 +396,7 @@ func reset_run() -> void:
 	buff_xp_pct = 0.0
 	soul_gain_pct = 0.0
 	dead_weight = false
+	souls_run = 0
 	buff_lifesteal = 0.0
 	buff_maxhp_pct = 0.0
 	buff_aspd = 0.0
