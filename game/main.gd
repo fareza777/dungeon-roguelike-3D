@@ -2235,6 +2235,8 @@ func _on_enemy_died(e) -> void:
 	if Stats.total_kills >= 200:
 		_ach("k200")
 	_quest_event("kill")
+	if wid == "moonshell":
+		_quest_event("moonkill")
 	if wid == "moonshell" and rng.randf() < 0.15:
 		var sq = SQUIRE.new()
 		room.add_child(sq)
