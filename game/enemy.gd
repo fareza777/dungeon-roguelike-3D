@@ -390,9 +390,9 @@ func _physics_process(delta: float) -> void:
 	hex_t = maxf(0.0, hex_t - delta)
 	slow_t = maxf(0.0, slow_t - delta)
 	sunder_t = maxf(0.0, sunder_t - delta)
+	tender_t = maxf(0.0, tender_t - delta)
 	if affix == "tidal":
-		tender_t = maxf(0.0, tender_t - delta)
-	tidal_t += delta
+		tidal_t += delta
 		if tidal_t >= 2.0:
 			tidal_t = 0.0
 			for tf2 in get_tree().get_nodes_in_group("enemies"):
