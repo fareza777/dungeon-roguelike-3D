@@ -152,6 +152,7 @@ var bounty_epic := false
 var ferry_skip := false
 var ferry_extra := 0
 var _ferry_used := false
+var lanterns: Array = []
 var storm_t := 0.0
 var nemesis_spawned := false # musuh yang membunuhmu run lalu — kembali lebih kuat
 var nemesis_warned := false # nemesis story beat — 1だけ
@@ -746,6 +747,7 @@ func _new_run(new_seed: int) -> void:
 			_spawn_cage(last_room)
 		_spawn_wisps(last_room)
 		_spawn_obelisks(last_room)
+		_spawn_lanterns(last_room)
 		_spawn_motes()
 		if Stats.relics.has("tulang_kesatria") and not solitary:
 			_spawn_squire()
@@ -1476,6 +1478,54 @@ func _spawn_motes() -> void:
 	dm.emission_energy_multiplier = 1.6
 	dot.material = dm
 	p.draw_pass_1 = dot
+
+
+func _spawn_lanterns(last_room: int) -> void:
+	# lentera jiwa: aura penyembuh kecil di satu ruangan (lantai 8+, 40%)
+	lanterns = []
+	if Stats.floor_num < 8 or rng.randf() > 0.4:
+		return
+	var ri: int = rng.randi_range(1, last_room)
+	var r: Dictionary = info.ranges[ri]
+	var pos := Vector3((r["x0"] + r["x1"]) * 0.5 * info.tile, 0.0, (r["z0"] + r["z1"]) * 0.5 * info.tile)
+	for pr2 in info.props:
+		if pr2.global_position.distance_to(pos) < 1.2 * info.tile:
+			return
+	var ln := Node3D.new()
+	var pole := MeshInstance3D.new()
+	var cm := CylinderMesh.new()
+	cm.top_radius = 0.04 * info.tile
+	cm.bottom_radius = 0.06 * info.tile
+	cm.height = 0.9 * info.tile
+	var pmat := StandardMaterial3D.new()
+	pmat.albedo_color = Color(0.25, 0.22, 0.3)
+	pole.mesh = cm
+	pole.material = pmat
+	pole.position.y = 0.45 * info.tile
+	ln.add_child(pole)
+	var gl := MeshInstance3D.new()
+	var gs := SphereMesh.new()
+	gs.radius = 0.14 * info.tile
+	gs.height = 0.26 * info.tile
+	var gmat := StandardMaterial3D.new()
+	gmat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	gmat.albedo_color = Color(0.5, 0.9, 0.75)
+	gmat.emission_enabled = true
+	gmat.emission = Color(0.45, 0.95, 0.7)
+	gmat.emission_energy_multiplier = 2.2
+	gl.mesh = gs
+	gl.material = gmat
+	gl.position.y = 0.95 * info.tile
+	ln.add_child(gl)
+	var om := OmniLight3D.new()
+	om.light_color = Color(0.45, 0.95, 0.7)
+	om.light_energy = 0.7
+	om.omni_range = 4.0 * info.tile
+	om.position.y = 1.0 * info.tile
+	ln.add_child(om)
+	room.add_child(ln)
+	ln.global_position = pos
+	lanterns.append(ln)
 
 
 func _spawn_squire() -> void:
@@ -6039,6 +6089,14 @@ func _process(delta: float) -> void:
 		floor_t += delta
 		if ui.has("time_label"):
 			ui.time_label.text = "%d:%02d" % [int(run_time) / 60, int(run_time) % 60]
+		for ln2 in lanterns:
+			if is_instance_valid(ln2) and player.global_position.distance_to(ln2.global_position) < 3.0 * info.tile:
+				if player.hp < Stats.get_stat("max_hp"):
+					player.hp = minf(player.hp + Stats.get_stat("max_hp") * 0.02 * delta, Stats.get_stat("max_hp"))
+					player.hp_changed.emit(player.hp)
+				if not bool(ln2.get_meta("seen", false)):
+					ln2.set_meta("seen", true)
+					toast("☆ SOUL LANTERN — its light mends you")
 		# STORM CELLAR: petir menyambar musuh acak tiap ~4.5 detik
 		if storm_cellar:
 			storm_t -= delta
