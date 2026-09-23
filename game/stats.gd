@@ -164,6 +164,7 @@ const ACH_DEF := {
 	"wax_floor": "Waxworks (sealed four traps on one floor)",
 	"manifest": "Full Manifest (12 quest steps done in one run)",
 	"powdermonkey": "Powder Monkey (put down 8 Boom Bones)",
+	"moondisciple": "Moon Disciple (bathed in three Moonpools)",
 	"pilgrim": "Pilgrim (10 shrine visits in one run)",
 	"seaworthy": "Seaworthy (drank the Drowned Tithe)",
 	"drowned20": "Drowned Court (20 kills under the Sunken Tide)",

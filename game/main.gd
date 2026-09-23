@@ -209,6 +209,7 @@ var riptide_n := 0
 var steps_done_run := 0
 var urns_run := 0
 var still_t := 0.0
+var moonpool_run := 0
 var shellshield_used := false
 var tithe_armor := 0.0
 var tide_kills := 0
@@ -758,6 +759,7 @@ func _reset_run_state() -> void:
 	riptide_n = 0
 	steps_done_run = 0
 	urns_run = 0
+	moonpool_run = 0
 	shellshield_used = false
 	perfect_dodges = 0
 	leech_charge = 0
@@ -5817,6 +5819,9 @@ func _on_moonpool_invoked(s) -> void:
 	Stats.earn_souls(2)
 	_souls_l()
 	_quest_event("moonpool")
+	moonpool_run += 1
+	if moonpool_run >= 3:
+		_ach("moondisciple")
 	toast("MOONPOOL — cold light closes your wounds; freed wisps scatter")
 	_damage_number(player.global_position + Vector3(0, 1.0 * info.tile, 0), "+30% HP • wisps freed", Color(0.7, 0.85, 1.1), true)
 
