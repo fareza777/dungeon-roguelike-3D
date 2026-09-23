@@ -69,6 +69,7 @@ var keelh := false
 var siren := false
 var _siren_pulled := false
 var _shell_cracked := false
+var _shell_hits := 0
 var digger_dug := false
 var pack_bounty := false
 var orator_t := 3.0
@@ -871,11 +872,13 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 			if msh != null and msh.has_method("_damage_number"):
 				msh._damage_number(global_position + Vector3(0, 1.0 * room_tile, 0), "BLOCKED", Color(0.55, 0.7, 1.0), false)
 	if affix == "pearlbound" and not _shell_cracked and dmg_taken > 0.0:
-		_shell_cracked = true
+		_shell_hits += 1
 		dmg_taken *= 0.5
-		var msh2 := get_tree().current_scene
-		if msh2 != null and msh2.has_method("_damage_number"):
-			msh2._damage_number(global_position + Vector3(0, 1.1 * room_tile, 0), "SHELL CRACKED", Color(0.9, 0.95, 1.0), true)
+		if _shell_hits >= 3:
+			_shell_cracked = true
+			var msh2 := get_tree().current_scene
+			if msh2 != null and msh2.has_method("_damage_number"):
+				msh2._damage_number(global_position + Vector3(0, 1.1 * room_tile, 0), "SHELL CRACKED", Color(0.9, 0.95, 1.0), true)
 	hp -= dmg_taken
 	if affix == "sirensong" and not _siren_pulled and not Stats.relics.has("deaf_cap") and hp > 0.0 and hp <= hp_max * 0.4:
 		_siren_pulled = true
