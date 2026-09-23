@@ -183,7 +183,7 @@ func _physics_process(delta: float) -> void:
 							p.set("chill_t", 2.0)
 						elif kind == 3:
 							p.set("root_t", 1.0)
-						elif kind == 6:
+						elif kind == 6 and not Stats.relics.has("oyster_king"):
 							p.set("root_t", 0.4 if Stats.relics.has("tidebound_anklet") else 1.3)
 							var mc := get_tree().current_scene
 							if mc != null and mc.has_method("_ach"):
@@ -252,6 +252,8 @@ func _physics_process(delta: float) -> void:
 							ml2.toast("Trap defused!")
 						if kind == 6:
 							var pearl_pay: int = 4 if bool(ml2.get("shell_game")) else 2
+							if Stats.relics.has("oyster_king"):
+								pearl_pay += 1
 							if Stats.relics.has("shellshield") and not bool(ml2.get("shellshield_used")):
 								ml2.set("shellshield_used", true)
 								pearl_pay += 2

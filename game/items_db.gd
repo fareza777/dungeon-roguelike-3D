@@ -80,6 +80,7 @@ const DB := {
 	"ferry_token": {"name": "Ferry Token", "chip": "FT", "desc": "The Ferryman's six-soul toll is halved for token-holders", "rarity": 1, "mods": {}},
 	"float_suit": {"name": "Float Suit", "chip": "FS", "desc": "Venom and poison ticks bite at half strength", "rarity": 1, "mods": {}},
 	"signal_fire": {"name": "Signal Fire", "chip": "SF", "desc": "Casting Whirl lights the whole floor on your map", "rarity": 1, "mods": {}},
+	"oyster_king": {"name": "Oyster King", "chip": "OK", "desc": "Snap Clams never bite you and pay +1 soul when pried", "rarity": 2, "mods": {}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
