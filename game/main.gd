@@ -4837,6 +4837,19 @@ func _build_ui() -> void:
 	layer.add_child(kl)
 	ui["kills_label"] = kl
 	kl.text = ""
+	var tl2 := Label.new()
+	tl2.add_theme_font_size_override("font_size", 16)
+	tl2.add_theme_color_override("font_color", Color(0.8, 0.8, 0.9, 0.75))
+	tl2.add_theme_constant_override("outline_size", 3)
+	tl2.anchor_left = 1.0
+	tl2.anchor_right = 1.0
+	tl2.offset_left = -280
+	tl2.offset_top = 82
+	tl2.offset_right = -140
+	tl2.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	layer.add_child(tl2)
+	ui["time_label"] = tl2
+	tl2.text = ""
 
 	var earr := Label.new()
 	earr.text = "▲"
@@ -5974,6 +5987,8 @@ func _process(delta: float) -> void:
 	if player != null and is_instance_valid(player) and run_state == "playing":
 		run_time += delta
 		floor_t += delta
+		if ui.has("time_label"):
+			ui.time_label.text = "%d:%02d" % [int(run_time) / 60, int(run_time) % 60]
 		# STORM CELLAR: petir menyambar musuh acak tiap ~4.5 detik
 		if storm_cellar:
 			storm_t -= delta
