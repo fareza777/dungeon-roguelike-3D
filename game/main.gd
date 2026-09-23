@@ -2087,6 +2087,17 @@ func _on_enemy_died(e) -> void:
 		Stats.souls += 3
 		_souls_l()
 		_damage_number(e.global_position + Vector3(0, 0.9 * info.tile, 0), "◈ ITS HOARD — +3 souls", Color(0.5, 0.95, 0.6), false)
+	if e.arch_id == "crowned" and rng.randf() < 0.25:
+		# CROWN JEWEL: paladin gugur menjaga relik di dalam armor mereka
+		var rpool: Array = []
+		for rid9 in ITEMS.DB:
+			if not Stats.relics.has(rid9):
+				rpool.append(rid9)
+		if not rpool.is_empty():
+			var rc: String = String(rpool[rng.randi() % rpool.size()])
+			Stats.add_relic(rc)
+			_lvl_banner("♛ CROWN JEWEL — " + String(ITEMS.DB[rc]["name"]))
+			Sfx.play("shrine")
 	elif e.arch_id == "brute" and rng.randf() < 0.25:
 		spawn_weapon_drop(e.global_position, WDB.roll_drop(rng, Stats.weapon_id))
 	elif e.arch_id == "gaoler" and Stats.weapon_id != "gaoler_brand" and rng.randf() < 0.35:
