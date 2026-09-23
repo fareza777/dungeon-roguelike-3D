@@ -2424,6 +2424,8 @@ func _on_enemy_died(e) -> void:
 				_ach("chorus")
 			if wolfsbane:
 				_ach("wolfsbane")
+			if glass_sea:
+				_quest_event("glasswalk")
 			Stats.note_floor()
 			Stats.save_run()
 			for gi in gates:
