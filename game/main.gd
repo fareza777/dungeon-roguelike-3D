@@ -107,6 +107,7 @@ var storm_cellar := false
 var gilded_tides := false
 var soul_drift := false
 var grave_hunger := false
+var giant_hall := false
 var bounty_ref: Enemy = null
 var storm_t := 0.0
 var nemesis_spawned := false # musuh yang membunuhmu run lalu — kembali lebih kuat
@@ -524,6 +525,7 @@ func _new_run(new_seed: int) -> void:
 	# event langka #8: soul drift — nafas orang mati mengembara (lantai 13+): kunang berlimpah
 	soul_drift = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and Stats.floor_num >= 13 and not boss_floor and rng.randf() < 0.05
 	grave_hunger = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and Stats.floor_num >= 15 and not boss_floor and rng.randf() < 0.05
+	giant_hall = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and Stats.floor_num >= 16 and not boss_floor and rng.randf() < 0.04
 	storm_t = 4.0
 	nemesis_spawned = false
 	_apply_biome()
@@ -652,6 +654,10 @@ func _new_run(new_seed: int) -> void:
 	elif grave_hunger:
 		_lvl_banner("☠ GRAVE HUNGER — THE DEAD LOOSE THEIR SOULS")
 		toast("Kills may release wisps • +2 souls on clear")
+		Sfx.play("roar")
+	elif giant_hall:
+		_lvl_banner("▲ GIANT'S HALL — THE DEAD GROW TALL")
+		toast("Foes tower larger • double XP • +3 souls on clear")
 		Sfx.play("roar")
 	elif Stats.floor_num > 1:
 		_lvl_banner("FLOOR %d — %s" % [Stats.floor_num, String(biome["name"]).to_upper()])
@@ -919,6 +925,12 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.speed *= 1.08
 	if fading_light and not e.is_boss:
 		e.speed *= 1.12
+	if giant_hall and not e.is_boss:
+		e.scale *= 1.3
+		e._base_scale = e.scale
+		e.hp *= 1.3
+		e.hp_max = e.hp
+		e.xp_val = int(e.xp_val * 2)
 	if omen_hp_mult > 1.0 and not e.is_boss:
 		e.hp *= omen_hp_mult
 		e.hp_max = e.hp
@@ -1635,6 +1647,11 @@ func _on_enemy_died(e) -> void:
 				_souls_l()
 				Stats.save_game()
 				toast("☠ HUNGER TITHE — +2 souls")
+			elif giant_hall:
+				Stats.souls += 3
+				_souls_l()
+				Stats.save_game()
+				toast("▲ GIANT TITHE — +3 souls")
 			# bonus sapuan kilat: lantai bersih di bawah 90 detik
 			if floor_t < 90.0 and Stats.floor_num > 1:
 				Stats.souls += 2
@@ -4764,6 +4781,8 @@ func _refresh_buffs() -> void:
 		list.append(["☆ DRIFT", Color(0.5, 0.95, 0.85)])
 	elif grave_hunger:
 		list.append(["☠ HUNGER", Color(0.75, 0.65, 1.0)])
+	elif giant_hall:
+		list.append(["▲ GIANT", Color(1.0, 0.7, 0.4)])
 	if omen_name != "":
 		list.append(["☗ " + omen_name, Color(0.9, 0.7, 1.0)])
 	if player.get("root_t") != null and player.root_t > 0.0:
