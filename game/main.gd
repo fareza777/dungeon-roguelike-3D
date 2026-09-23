@@ -76,6 +76,7 @@ var blood_moon := false
 var _warned := {}
 var champ_room := -1 # sarang sang juara: elite terjamin + drop lebih baik
 var chest_opened := false
+var gilded_chest := false
 var toast_tween: Tween = null
 
 # polish r2: pause, ringkasan run, transisi fade, juice vfx
@@ -186,6 +187,7 @@ const TIPS := [
 	"Hold ATK to slash — release after the button glows for a HEAVY hit.",
 	"SIPHON-tagged elites drain your whole combo on hit — kill them first.",
 	"When the moon turns red, the dead hunger — and drop more XP.",
+	"A chest that gleams brighter is gilded — relics hide inside.",
 ]
 
 
@@ -404,6 +406,10 @@ func _new_run(new_seed: int) -> void:
 	shrine_used = false
 	chest_opened = false
 	mimic_pending = Stats.floor_num >= 2 and rng.randf() < 0.35
+	# peti berlapis emas (12%, lantai 4+, bukan mimic): berisi relic langka+
+	gilded_chest = not mimic_pending and Stats.floor_num >= 4 and rng.randf() < 0.12
+	if gilded_chest and info.get("chest") != null:
+		M.paint(info.chest, M.toon(dungeon_tex, Color(1.35, 1.15, 0.55), 0.55))
 	var last_room: int = int(info.get("room_count", 1)) - 1
 	var elite_chance: float = minf(0.08 + 0.02 * Stats.floor_num, 0.3)
 	var table: Array = biome["enemies"]
@@ -3793,6 +3799,18 @@ func _process(delta: float) -> void:
 						toast("King's spoils: HP restored, +3 XP — a weapon rests beside the chest")
 					else:
 						toast("Treasure Chest: HP restored, +3 XP")
+					if gilded_chest:
+						gilded_chest = false
+						var pool: Array = []
+						for rid in ITEMS.DB:
+							if int(ITEMS.DB[rid]["rarity"]) >= 1:
+								pool.append(rid)
+						var rid2: String = pool[rng.randi_range(0, pool.size() - 1)]
+						Stats.add_relic(rid2)
+						Stats.save_run()
+						_souls(info.chest.global_position, 14, Color(1.0, 0.85, 0.3))
+						_lvl_banner("☆ GILDED SPOILS")
+						toast("Gilded chest — relic inside: " + String(ITEMS.DB[rid2]["name"]) + "!")
 
 	if player != null and is_instance_valid(player) and cam != null:
 		var s: float = info.get("tile", 4.0)
