@@ -2586,7 +2586,7 @@ func _on_enemy_died(e) -> void:
 	if e.arch_id == "tither":
 		_quest_event("tither_kill")
 	for f2 in get_tree().get_nodes_in_group("enemies"):
-		if is_instance_valid(f2) and f2 != e and bool(f2.get("elite")) and String(f2.get("affix")) == "feral" and not bool(f2.get("dead", false)):
+		if is_instance_valid(f2) and f2 != e and bool(f2.get("elite")) and String(f2.get("affix")) == "feral" and not bool(f2.get("dead")):
 			f2.speed *= 1.1
 			f2.dmg += 1 if f2.dmg < 3 else 0
 			_damage_number(f2.global_position + Vector3(0, 0.9 * info.tile, 0), "FRENZIES", Color(1.0, 0.45, 0.3), true)
@@ -4989,7 +4989,7 @@ func _omen_deal(idx: int) -> void:
 		"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
-		"DARK WATER": "The black water pays its tolls gladly, Kael — it only asks that you carry more of it."
+		"DARK WATER": "The black water pays its tolls gladly, Kael — it only asks that you carry more of it.",
 		"PEARL FEVER": "Crack every shell you find, Kael — just mind the salt between the seams.",
 		"MUCKRAKER": "The deep pays its scavengers well — if they can keep their fingers.",
 		"ABYSSAL PATIENCE": "Patience, fisher — let the heavy chests fill your purse; leave the pots for the crabs.",
