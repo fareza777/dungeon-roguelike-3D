@@ -5836,6 +5836,14 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			{"who": "kael", "text": "Oracle — the halls whisper back down here. Are they yours?"},
 			{"who": "oracle", "text": "Not all of them, Kael. Some of them are his."},
 		]
+	elif Stats.floor_num == 15:
+		lines = [
+			{"who": "raja", "text": "FIFTEEN STEPS, LITTLE SLICER. The throne grows restless — I can feel your blade through the stone."},
+			{"who": "oracle", "text": "He's watching you now, Kael. Not through eyes — through the weight of every crown his dead still wear."},
+			{"who": "kael", "text": "Then give him a good show."},
+		]
+		if vane_floors > 0:
+			lines.append({"who": "knight", "text": "Let the old bones watch, boy. We'll give them a war worth remembering."})
 	elif Stats.floor_num == 16:
 		lines = [
 			{"who": "oracle", "text": "Halfway to his deepest hall. The air itself is starting to hate you."},
