@@ -57,6 +57,7 @@ const DB := {
 	"deadreckon": {"name": "Dead Reckoning", "short": "RECK", "cd": 20.0, "unlock": 51, "desc": "Chart every foe in the room — they take +25% damage for 6s."},
 	"becalm": {"name": "Becalm", "short": "CALM", "cd": 18.0, "unlock": 53, "desc": "The sea goes still — every foe in the room drags at half speed for 6s."},
 	"irontide": {"name": "Iron Tide", "short": "IRON", "cd": 24.0, "unlock": 55, "desc": "Skin turns to hull-plating — for 5s, every blow against you bites its striker back for half."},
+	"riptidesnare": {"name": "Riptide Snare", "short": "SNARE", "cd": 13.0, "unlock": 77, "desc": "A rip current knots beneath you — foes near you are rooted where they stand."},
 	"salvagehook": {"name": "Salvage Hook", "short": "HOOK", "cd": 11.0, "unlock": 75, "desc": "Fling the boarding hook — the nearest foe is dragged to your blade and stunned."},
 	"crowsdive": {"name": "Crow's Dive", "short": "DIVE", "cd": 9.0, "unlock": 73, "desc": "Spring into the rigging and drop — landing stuns foes near you and quickens your next strikes."},
 	"hullsplinter": {"name": "Hullsplinter", "short": "SPLNT", "cd": 15.0, "unlock": 71, "desc": "Crack the deck — shrapnel flies in a ring around you, wounding every foe in reach."},
@@ -75,7 +76,7 @@ const DB := {
 	},
 }
 
-const ORDER := ["dash", "whirl", "thunder", "warcry", "nova", "judge", "sunder", "chains", "storm", "mend", "rites", "seismic", "kingsfall", "lance", "gravestep", "tidecall", "snapjaw", "graveseal", "riptide", "soultithe", "anchordrop", "soulfall", "keelsplit", "bloodtide", "sealegs", "deadreckon", "becalm", "irontide", "dragline", "deadlight", "broadside", "fogsong", "saltbomb", "deadweight", "keelram", "hullsplinter", "crowsdive", "salvagehook"]
+const ORDER := ["dash", "whirl", "thunder", "warcry", "nova", "judge", "sunder", "chains", "storm", "mend", "rites", "seismic", "kingsfall", "lance", "gravestep", "tidecall", "snapjaw", "graveseal", "riptide", "soultithe", "anchordrop", "soulfall", "keelsplit", "bloodtide", "sealegs", "deadreckon", "becalm", "irontide", "dragline", "deadlight", "broadside", "fogsong", "saltbomb", "deadweight", "keelram", "hullsplinter", "crowsdive", "salvagehook", "riptidesnare"]
 
 
 static func get_s(id: String) -> Dictionary:
