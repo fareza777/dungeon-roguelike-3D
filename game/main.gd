@@ -261,7 +261,7 @@ var loose_ballast := false
 var black_sails := false
 var grim_charter := false
 var final_verse := false
-var lullaby := false
+var cradle_deep := false
 var deep_breath := false
 var dash_fuel := false
 var powder_keg := 0
@@ -1013,7 +1013,7 @@ func _reset_run_state() -> void:
 	black_sails = false
 	grim_charter = false
 	final_verse = false
-	lullaby = false
+	cradle_deep = false
 	deep_breath = false
 	dash_fuel = false
 	powder_keg = 0
@@ -1978,7 +1978,7 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.speed *= 0.9
 	if black_sails:
 		e.speed *= 1.15
-	if lullaby:
+	if cradle_deep:
 		e.hp *= 0.92
 		e.hp_max = e.hp
 	if grim_charter and e.elite:
@@ -7223,7 +7223,7 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Shanty of Depths — pay 4 souls: +15% XP this run"},
 		{"text": "Song of Rust — pay 3 souls: this floor's foes wade -10% speed"},
 		{"text": "Final Verse — pay 5 souls: the dead strike 15% softer for the rest of this run"},
-		{"text": "Lullaby — pay 5 souls: the dead sleep-walk —8% HP for the rest of this run"},
+		{"text": "Cradle Deep — pay 5 souls: the dead sleep-walk —8% HP for the rest of this run"},
 		{"text": "Walk away"}])
 
 
@@ -7248,14 +7248,14 @@ func _siren_deal(idx: int) -> void:
 		return
 	if idx == 7:
 		if Stats.souls < _soul_cost(5):
-			toast("Five souls — the lullaby isn't free")
+			toast("Five souls — the cradle isn't free")
 			return
 		Stats.souls -= _soul_cost(5)
 		_souls_l()
-		lullaby = true
+		cradle_deep = true
 		_quest_event("siren")
 		Sfx.play("shrine")
-		toast("LULLABY — the dead walk half-asleep now")
+		toast("CRADLE DEEP — the dead walk half-asleep now")
 		return
 	if idx == 5:
 		if Stats.souls < _soul_cost(3):
