@@ -64,7 +64,9 @@ var is_lurker := false # arketipe penyergap: sembunyi sampai pemain mendekat
 var is_slammer := false
 var wailer := false
 var revenant := false
-var shielded := false # golem: pukulannya mengguncang tanah di radius lebar
+var shielded := false
+var herald := false
+var herald_buffed := false # golem: pukulannya mengguncang tanah di radius lebar
 var lurk_revealed := false
 var lurk_warned := false
 var model_ref: Node3D = null
@@ -136,6 +138,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	wailer = bool(a.get("wailer", false))
 	revenant = bool(a.get("revenant", false))
 	shielded = bool(a.get("shielded", false))
+	herald = bool(a.get("herald", false))
 	if is_summoner:
 		summon_t = 9.0
 	var sc: float = a["scale"]
@@ -423,6 +426,18 @@ func _physics_process(delta: float) -> void:
 		if anim_lock <= 0.0:
 			M.play_fuzzy(ap, ["idle"])
 
+	if herald and activated and not herald_buffed and state != "dead":
+		herald_buffed = true
+		Sfx.play("roar")
+		for h in get_tree().get_nodes_in_group("enemies"):
+			if h == self or String(h.get("state")) == "dead":
+				continue
+			if int(h.get("room_idx")) == int(room_idx):
+				h.dmg += 1
+				h.speed *= 1.12
+		var mh := get_tree().current_scene
+		if mh != null and mh.has_method("_damage_number"):
+			mh._damage_number(global_position + Vector3(0, 1.1 * room_tile, 0), "HERALD'S CRY", Color(1.05, 0.95, 0.4), true)
 	# boss: fase 2 enrage + timer slam + panggil anak buah
 	if is_boss and activated and state != "dead":
 		if not enraged and hp <= hp_max * 0.5:

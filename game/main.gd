@@ -185,6 +185,7 @@ const BESTIARY := {
 	"maiden": ["The Wailing Maiden", "Kill her and her scream wakes every sleeper in the room."],
 	"revenant": ["The Revenant", "His tombstone must be shattered, or he rises again — once."],
 	"shieldbearer": ["The Shieldbearer", "His gate-bone shield turns your steel aside — strike from behind."],
+	"herald": ["The Herald", "His war-cry hardens every gravemate in the room — silence him first."],
 	"weeper": ["The Weeper", "A wailing priest who knits his flock's bones back together. Silence him first."],
 	"bone_king": ["The Kings", "One throne, many forms. Every five floors he waits."],
 }
@@ -198,7 +199,7 @@ const VANE_BIOME := {
 const KILLER_NAMES := {
 	"chaser": "a Skeleton Chaser", "rogue": "a Shadow Rogue", "mage": "a Bone Mage",
 	"brute": "a Bone Brute", "bomber": "a Boom Bones", "archer": "a Skeletal Archer",
-	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade", "hexer": "the Hex Priest", "spiker": "a Spiked Cadaver", "lurker": "the Dweller", "golem": "the Bone Golem", "maiden": "the Wailing Maiden", "revenant": "the Revenant", "shieldbearer": "the Shieldbearer",
+	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade", "hexer": "the Hex Priest", "spiker": "a Spiked Cadaver", "lurker": "the Dweller", "golem": "the Bone Golem", "maiden": "the Wailing Maiden", "revenant": "the Revenant", "shieldbearer": "the Shieldbearer", "herald": "the Herald",
 	"bone_king": "the King himself", "trap": "a hidden trap", "": "the dungeon itself"}
 const KILLER_TIPS := {
 	"chaser": "Tip: chasers are slow — kite them into a corner and cleave.",
@@ -220,6 +221,7 @@ const KILLER_TIPS := {
 	"maiden": "Tip: kill the Wailing Maiden last — her death-scream wakes the whole room.",
 	"revenant": "Tip: the Revenant leaves a tombstone — smash it in three seconds or he rises.",
 	"shieldbearer": "Tip: the Shieldbearer blocks frontal blows — dash behind him or use skills.",
+	"herald": "Tip: kill the Herald before his cry — he sharpens every gravemate in the room.",
 	"bone_king": "Tip: his slams telegraph red — dash through the shockwave.",
 	"trap": "Tip: traps pulse on a rhythm — cross on the off-beat.",
 	"": "Tip: blessings, relics and Sir Vane can still turn a doomed run.",
@@ -767,6 +769,7 @@ const FIRST_SEEN := {
 	"maiden": "A pale mourner drifts ahead — kill her last, or her cry raises the room.",
 	"revenant": "A Revenant stands guard — shatter his tombstone before he climbs out.",
 	"shieldbearer": "A Shieldbearer holds the lane — his shield drinks frontal steel; flank him.",
+	"herald": "A Herald strides ahead — his cry will harden the room; silence him first.",
 }
 
 
