@@ -101,7 +101,10 @@ const LORE_LINES := [
 	"Mahzan owes the Bone King a debt older than the throne — and a debt that old, both of them swear, can never be allowed to close.",
 	"When the Veil runs thin, the drowned can see the living shore — and every one of them remembers wanting to walk on it.",
 	"The Glass Compass was ground from a drowned navigator's lens. Mahzan swears it still points the way the tide went out.",
-	"Barbed Lines were fished from the last crew's hold — the hooks still hunger for whatever escapes the deck."
+	"Barbed Lines were fished from the last crew's hold — the hooks still hunger for whatever escapes the deck.",
+	"The Pilot Fish never leaves a sinking ship — it simply finds a slower one. Keep it close and dying gets harder.",
+	"When the tide draws out, even the King's court wades slower — the shallows remember everyone who drowned in them.",
+	"Cartographers in the deep don't draw rooms — they draw debts. Every charted hall is a promise the floor means to keep."
 ]
 
 var dungeon_tex: Texture2D
