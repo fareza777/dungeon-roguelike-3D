@@ -5,7 +5,7 @@ extends Node3D
 var spikes: Node3D
 var jet: MeshInstance3D = null
 var glow: MeshInstance3D = null
-var kind := 0 # 0 = duri, 1 = api
+var kind := 0 # 0 = duri, 1 = api, 2 = sigil beku
 var tile := 4.0
 var t := 0.0
 var phase := 0.0 # offset irama
@@ -23,7 +23,7 @@ func setup(p_tile: float, offset: float, p_kind := 0) -> void:
 	var bm := BoxMesh.new()
 	bm.size = Vector3(0.5 * tile, 0.03 * tile, 0.5 * tile)
 	var bmat := StandardMaterial3D.new()
-	bmat.albedo_color = Color(0.09, 0.09, 0.12) if kind == 0 else Color(0.16, 0.07, 0.04)
+	bmat.albedo_color = Color(0.16, 0.07, 0.04) if kind == 1 else (Color(0.05, 0.1, 0.2) if kind == 2 else Color(0.09, 0.09, 0.12))
 	bmat.metallic = 0.3
 	bm.material = bmat
 	base.mesh = bm
@@ -59,6 +59,19 @@ func setup(p_tile: float, offset: float, p_kind := 0) -> void:
 		jet.visible = false
 		add_child(jet)
 		return
+	if kind == 2:
+		# sigil beku — cincin biru pucat sebagai telegraph
+		glow = MeshInstance3D.new()
+		var gm3 := PlaneMesh.new()
+		gm3.size = Vector2(0.44 * tile, 0.44 * tile)
+		var gmat3 := StandardMaterial3D.new()
+		gmat3.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		gmat3.albedo_color = Color(0.4, 0.75, 1.0, 0.8)
+		gmat3.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		gm3.material = gmat3
+		glow.mesh = gm3
+		glow.position.y = 0.035 * tile
+		add_child(glow)
 	# lubang duri (lubang gelap biar kelihatan ada jebakan)
 	var holes := MeshInstance3D.new()
 	var hm := PlaneMesh.new()
@@ -74,7 +87,7 @@ func setup(p_tile: float, offset: float, p_kind := 0) -> void:
 	spikes = Node3D.new()
 	add_child(spikes)
 	var smat := StandardMaterial3D.new()
-	smat.albedo_color = Color(0.85, 0.82, 0.7)
+	smat.albedo_color = Color(0.6, 0.85, 1.15) if kind == 2 else Color(0.85, 0.82, 0.7)
 	for i in range(3):
 		for j in range(3):
 			var s := MeshInstance3D.new()
@@ -111,6 +124,9 @@ func _physics_process(delta: float) -> void:
 			var gm2: StandardMaterial3D = glow.mesh.material
 			gm2.albedo_color.a = 0.5 + 0.5 * sin(t * 9.0) if not up else 1.0
 	else:
+		if kind == 2 and glow != null:
+			var gm4: StandardMaterial3D = glow.mesh.material
+			gm4.albedo_color.a = 0.45 + 0.45 * sin(t * 7.0) if not up else 1.0
 		spikes.position.y = lerpf(spikes.position.y, target, delta * (22.0 if up else 10.0))
 	if up and not prev_up:
 		Sfx.play("trap")
@@ -122,6 +138,8 @@ func _physics_process(delta: float) -> void:
 				var d: Vector3 = p.global_position - global_position
 				d.y = 0
 				if d.length() < (0.3 * tile if kind == 1 else 0.28 * tile):
+					if kind == 2:
+						p.set("chill_t", 2.0)
 					p.take_hit(global_position, 1)
 
 
@@ -132,3 +150,5 @@ func disarm() -> void:
 			jet.visible = false
 	else:
 		spikes.position.y = -0.29 * tile
+		if glow != null:
+			glow.visible = false
