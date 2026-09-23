@@ -170,6 +170,7 @@ var glass_sea := false
 var abyssal_hymn := false
 var dead_calm := false
 var thin_veil := false
+var low_water := false
 var dead_weight := false
 var hymn_delta := 0.0
 var rotgut_drunk := false
@@ -707,6 +708,11 @@ func _apply_biome() -> void:
 		env.ambient_light_color = Color(0.55, 0.3, 0.65)
 		sun.light_color = Color(0.9, 0.55, 1.1)
 		sun.light_energy = 1.0
+	elif low_water:
+		env.fog_light_color = Color(0.05, 0.18, 0.2)
+		env.ambient_light_color = Color(0.35, 0.6, 0.65)
+		sun.light_color = Color(0.4, 0.8, 0.85)
+		sun.light_energy = 0.9
 	elif sunken_tide:
 		env.fog_light_color = Color(0.06, 0.16, 0.15)
 		env.ambient_light_color = Color(0.25, 0.5, 0.45)
@@ -973,6 +979,9 @@ func _new_run(new_seed: int) -> void:
 	thin_veil = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and not wolfsbane and Stats.floor_num >= 18 and not boss_floor and rng.randf() < 0.05
 	if thin_veil:
 		Stats.event_soul_bonus = 2
+	low_water = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and not wolfsbane and not thin_veil and Stats.floor_num >= 12 and not boss_floor and rng.randf() < 0.05
+	if low_water:
+		Stats.event_soul_bonus = 2
 	storm_t = 4.0
 	nemesis_spawned = false
 	_ferry_used = false
@@ -1059,7 +1068,7 @@ func _new_run(new_seed: int) -> void:
 	dead_weight = not choir and not dread_tide and not starved_deep and not abyssal_hymn and not dead_calm and not boss_floor and Stats.floor_num >= 14 and rng.randf() < 0.08
 	Stats.dead_weight = dead_weight
 	shell_game = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not umbral_tide and not abyssal_patience and not choir and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
-	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil"]:
+	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water"]:
 		if get(evf):
 			events_run[evf] = true
 			break
@@ -1273,6 +1282,10 @@ func _new_run(new_seed: int) -> void:
 	elif thin_veil:
 		_lvl_banner("◈ THIN VEIL — THE DEAD SHINE THROUGH")
 		toast("The dead are +15% harder to fell — but the floor tithes +2 souls")
+		Sfx.play("souls")
+	elif low_water:
+		_lvl_banner("≈ LOW WATER — THE TIDE RETREATS")
+		toast("The dead wade slower through the shallows • the floor tithes +2 souls")
 		Sfx.play("souls")
 	elif sunken_tide:
 		toast("The drowned shuffle slower • +1 soul per kill")
@@ -1627,6 +1640,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 	if thin_veil:
 		e.hp *= 1.15
 		e.hp_max = e.hp
+	if low_water:
+		e.speed *= 0.88
 	room.add_child(e)
 	# spawn-in: muncul pop supaya tidak hard-cut
 	var esc: Vector3 = e.scale
@@ -2774,6 +2789,11 @@ func _on_enemy_died(e) -> void:
 				_souls_l()
 				Stats.save_game()
 				toast("◈ THIN VEIL TITHE — +2 souls")
+			elif low_water:
+				Stats.earn_souls(2)
+				_souls_l()
+				Stats.save_game()
+				toast("≈ LOW WATER TITHE — +2 souls")
 			elif low_tide:
 				Stats.earn_souls(3)
 				_souls_l()
@@ -6499,6 +6519,8 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 				evline = "All claws, Kael — the pack has claimed this floor. Watch the flanks; hounds die easy but arrive together."
 			elif thin_veil:
 				evline = "The veil is threadbare tonight, Kael — you can almost see their old lives on them. They strike truer too."
+			elif low_water:
+				evline = "The tide has drawn back, Kael — the dead drag through the shallows, slow and sorry. Harvest them gently."
 			if evline != "":
 				lines = [{"who": "oracle", "text": evline}]
 		_say(lines)
@@ -7836,6 +7858,8 @@ func _refresh_buffs() -> void:
 		list.append(["☽ PACK", Color(0.65, 0.7, 0.95)])
 	elif thin_veil:
 		list.append(["◈ VEIL", Color(0.8, 0.5, 1.0)])
+	elif low_water:
+		list.append(["≈ LOW", Color(0.4, 0.85, 0.9)])
 	if Stats.soul_sealed:
 		list.append(["PRICE", Color(0.9, 0.2, 0.25)])
 	if Stats.curse_dmg > 0.0:
