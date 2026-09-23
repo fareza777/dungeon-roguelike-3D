@@ -1547,7 +1547,7 @@ func _spawn_traps(last_room: int) -> void:
 		tr.global_position = pos
 		var rk := rng.randf()
 		var clam := String(biome.get("name", "")) == "Sunken Reliquary"
-		tr.setup(info.tile, rng.randf_range(0.0, 1.9), 4 if rk < 0.08 else (5 if rk < 0.2 else ((6 if clam else 3) if rk < 0.34 else (2 if rk < 0.48 else (1 if rk < 0.68 else 0)))))
+		tr.setup(info.tile, rng.randf_range(0.0, 1.9), 7 if (Stats.floor_num >= 13 and rk < 0.1) else (4 if rk < 0.18 else (5 if rk < 0.28 else ((6 if clam else 3) if rk < 0.42 else (2 if rk < 0.56 else (1 if rk < 0.72 else 0))))))
 
 
 func _spawn_urns(last_room: int) -> void:
