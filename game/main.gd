@@ -1514,7 +1514,7 @@ func toast(txt: String) -> void:
 func _lvl_banner(txt: String) -> void:
 	var l: Label = ui.lvl_banner
 	l.text = txt
-	l.add_theme_font_size_override("font_size", 44 if txt.length() <= 20 else 30)
+	l.add_theme_font_size_override("font_size", 44 if txt.length() <= 16 else (32 if txt.length() <= 26 else 26))
 	l.visible = true
 	l.modulate.a = 1.0
 	l.pivot_offset = l.size * 0.5
@@ -2287,6 +2287,7 @@ func _build_ui() -> void:
 	lb.offset_top = -260
 	lb.offset_bottom = -210
 	lb.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	lb.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	lb.add_theme_font_size_override("font_size", 44)
 	lb.modulate = Color(1.0, 0.88, 0.38)
 	lb.add_theme_color_override("font_outline_color", Color(0.22, 0.1, 0.0, 1.0))
@@ -2800,6 +2801,9 @@ func _rebuild_chips() -> void:
 func _show_banner(title: String, sub: String, col: Color = Color(1.0, 0.85, 0.4)) -> void:
 	ui.banner_t.text = title
 	ui.banner_t.modulate = col
+	# judul panjang mengecil biar tak pernah kepotong tepi 540px
+	var tl := title.length()
+	ui.banner_t.add_theme_font_size_override("font_size", 64 if tl <= 12 else (52 if tl <= 17 else 40))
 	ui.banner_sub.text = sub
 	ui.banner.visible = true
 	ui.dim.visible = true
