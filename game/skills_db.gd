@@ -57,6 +57,7 @@ const DB := {
 	"deadreckon": {"name": "Dead Reckoning", "short": "RECK", "cd": 20.0, "unlock": 51, "desc": "Chart every foe in the room — they take +25% damage for 6s."},
 	"becalm": {"name": "Becalm", "short": "CALM", "cd": 18.0, "unlock": 53, "desc": "The sea goes still — every foe in the room drags at half speed for 6s."},
 	"irontide": {"name": "Iron Tide", "short": "IRON", "cd": 24.0, "unlock": 55, "desc": "Skin turns to hull-plating — for 5s, every blow against you bites its striker back for half."},
+	"hullsplinter": {"name": "Hullsplinter", "short": "SPLNT", "cd": 15.0, "unlock": 71, "desc": "Crack the deck — shrapnel flies in a ring around you, wounding every foe in reach."},
 	"keelram": {"name": "Keel Ram", "short": "RAM", "cd": 11.0, "unlock": 69, "desc": "Charge like a hull through surf — slam every foe in a line for 1.5× ATK and drive them back."},
 	"deadweight": {"name": "Deadweight", "short": "DWGT", "cd": 18.0, "unlock": 67, "desc": "Anchor the room — every foe on the floor staggers, stunned 1.5s."},
 	"saltbomb": {"name": "Salt Bomb", "short": "SALT", "cd": 13.0, "unlock": 65, "desc": "Hurl a fist of blessed salt ahead — the dead caught in it are blinded and slowed 3s."},
@@ -72,7 +73,7 @@ const DB := {
 	},
 }
 
-const ORDER := ["dash", "whirl", "thunder", "warcry", "nova", "judge", "sunder", "chains", "storm", "mend", "rites", "seismic", "kingsfall", "lance", "gravestep", "tidecall", "snapjaw", "graveseal", "riptide", "soultithe", "anchordrop", "soulfall", "keelsplit", "bloodtide", "sealegs", "deadreckon", "becalm", "irontide", "dragline", "deadlight", "broadside", "fogsong", "saltbomb", "deadweight", "keelram"]
+const ORDER := ["dash", "whirl", "thunder", "warcry", "nova", "judge", "sunder", "chains", "storm", "mend", "rites", "seismic", "kingsfall", "lance", "gravestep", "tidecall", "snapjaw", "graveseal", "riptide", "soultithe", "anchordrop", "soulfall", "keelsplit", "bloodtide", "sealegs", "deadreckon", "becalm", "irontide", "dragline", "deadlight", "broadside", "fogsong", "saltbomb", "deadweight", "keelram", "hullsplinter"]
 
 
 static func get_s(id: String) -> Dictionary:
