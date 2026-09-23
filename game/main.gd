@@ -3610,7 +3610,8 @@ func _omen_deal(idx: int) -> void:
 			Stats.kaels_wager = true
 			Stats.buff_maxhp_pct = -0.99
 			if player != null and is_instance_valid(player):
-				player.hp = minf(player.hp, 2.0)
+				player.refresh_stats()
+				player.hp = minf(player.hp, Stats.get_stat("max_hp"))
 				player.hp_changed.emit(player.hp)
 			oname = "KAEL'S WAGER"
 		25:
