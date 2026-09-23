@@ -1683,8 +1683,8 @@ func _spawn_shrine(last_room: int) -> void:
 		skind = 1 # Mahzan selalu menjual sebelum takhta terakhir
 	elif Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.6:
 		skind = 11 # Drowned Altar — relikui tenggelam menjual kehendak laut
-	elif Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.25:
-		skind = 12 # Keelstone — batu sauh: kesepakatan pelaut tenggelam
+	elif Stats.floor_num == 12:
+		skind = 12 # Keelstone — batu sauh: selalu hadir di lantai 12
 	elif Stats.floor_num >= 7 and Stats.floor_num % 7 == 0:
 		skind = 5 # lantai quest Bounty Hunter — batu kontrak terjamin
 	elif Stats.floor_num >= 10 and Stats.floor_num % 8 == 4:
