@@ -4001,6 +4001,7 @@ func _forge_cost(n: int) -> int:
 		disc += 1
 	if Stats.relics.has("soulsmith"):
 		disc += 2
+	disc += int(Stats.meta.get("foundry", 0))
 	return maxi(1, n - disc)
 
 
