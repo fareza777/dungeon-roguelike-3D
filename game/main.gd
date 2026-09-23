@@ -2028,6 +2028,8 @@ func _spawn_tidepools() -> void:
 func _souls_l() -> void:
 	if Stats.souls >= 100:
 		_ach("accountant")
+	if Stats.souls >= 150:
+		_ach("fullpurse")
 	if lucky_net and Stats.souls > _souls_seen:
 		_souls_net += Stats.souls - _souls_seen
 		while _souls_net >= 10:
