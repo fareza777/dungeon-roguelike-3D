@@ -37,6 +37,8 @@ const DB := {
 	"revenant": {"glb": "Skeleton_Warrior.glb", "hp": 3.5, "spd": 0.8, "dmg": 1, "windup": 0.6, "reach": 0.8, "aggro": 4.0, "xp": 6, "tint": Color(0.65, 0.85, 0.7), "scale": 1.0, "kb_resist": 0.4, "revenant": true},
 	# maiden — pelayat berwajah porselen: tangis kematiannya membangunkan seluruh ruangan
 	"maiden": {"glb": "Skeleton_Minion.glb", "hp": 2.8, "spd": 0.9, "dmg": 1, "windup": 0.5, "reach": 0.7, "aggro": 4.0, "xp": 5, "tint": Color(0.9, 0.95, 1.3), "scale": 0.95, "kb_resist": 0.2, "wailer": true},
+	# digger — penggali makam: meninggalkan sigil void saat terbangun
+	"digger": {"glb": "Skeleton_Minion.glb", "hp": 3.0, "spd": 0.9, "dmg": 1, "windup": 0.6, "reach": 0.7, "aggro": 4.5, "xp": 7, "tint": Color(0.6, 0.5, 0.35), "scale": 1.05, "kb_resist": 0.3, "digger": true},
 	# tither — kolektor jiwa Raja: pukulannya mencuri jiwa pemain
 	"tither": {"glb": "Skeleton_Rogue.glb", "hp": 3.2, "spd": 1.1, "dmg": 1, "windup": 0.5, "reach": 0.75, "aggro": 6.0, "xp": 8, "tint": Color(0.5, 1.0, 0.65), "scale": 1.0, "kb_resist": 0.2, "tither": true},
 	# crowned — paladin yang jatuh: musuh di ruangannya menerima 25% lebih sedikit damage

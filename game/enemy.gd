@@ -64,6 +64,8 @@ var is_lurker := false
 var orator := false
 var crowned := false
 var tither := false
+var digger := false
+var digger_dug := false
 var pack_bounty := false
 var orator_t := 3.0
 var dmg_max := 0 # orator chant cap
@@ -146,6 +148,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	orator = bool(a.get("orator", false))
 	crowned = bool(a.get("crowned", false))
 	tither = bool(a.get("tither", false))
+	digger = bool(a.get("digger", false))
 	is_slammer = bool(a.get("slams", false))
 	wailer = bool(a.get("wailer", false))
 	wisp_drop = bool(a.get("wisp_drop", false))
@@ -504,6 +507,11 @@ func _physics_process(delta: float) -> void:
 			velocity = Vector3.ZERO
 			if dist < aggro_range:
 				state = "chase"
+				if digger and not digger_dug:
+					digger_dug = true
+					var mdig := get_tree().current_scene
+					if mdig != null and mdig.has_method("_dig_trap"):
+						mdig._dig_trap(global_position)
 		"chase":
 			rotation.y = lerp_angle(rotation.y, atan2(to.x, to.z), delta * 10.0)
 			var engage := attack_range

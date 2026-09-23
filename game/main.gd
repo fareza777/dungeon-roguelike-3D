@@ -243,6 +243,7 @@ const BESTIARY := {
 	"orator": ["The Grave Orator", "It sings the dead awake — every chant makes the room hit harder."],
 	"crowned": ["The Crowned", "A fallen paladin — foes near it shrug off a quarter of your blows."],
 	"tither": ["The Tithing", "A soul-collector — its strikes skim the souls from your purse."],
+	"digger": ["The Gravedigger", "It digs where the dead should lie — and where you now stand."],
 	"weeper": ["The Weeper", "A wailing priest who knits his flock's bones back together. Silence him first."],
 	"bone_king": ["The Kings", "One throne, many forms. Every five floors he waits."],
 }
@@ -256,7 +257,7 @@ const VANE_BIOME := {
 const KILLER_NAMES := {
 	"chaser": "a Skeleton Chaser", "rogue": "a Shadow Rogue", "mage": "a Bone Mage",
 	"brute": "a Bone Brute", "bomber": "a Boom Bones", "archer": "a Skeletal Archer",
-	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade", "hexer": "the Hex Priest", "spiker": "a Spiked Cadaver", "lurker": "the Dweller", "golem": "the Bone Golem", "maiden": "the Wailing Maiden", "revenant": "the Revenant", "shieldbearer": "the Shieldbearer", "herald": "the Herald", "batterer": "the Batterer", "duelist": "the Pale Duelist", "hound": "a Bone Hound", "moth": "a Soul Moth", "orator": "the Grave Orator", "crowned": "the Crowned", "tither": "the Tithing",
+	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade", "hexer": "the Hex Priest", "spiker": "a Spiked Cadaver", "lurker": "the Dweller", "golem": "the Bone Golem", "maiden": "the Wailing Maiden", "revenant": "the Revenant", "shieldbearer": "the Shieldbearer", "herald": "the Herald", "batterer": "the Batterer", "duelist": "the Pale Duelist", "hound": "a Bone Hound", "moth": "a Soul Moth", "orator": "the Grave Orator", "crowned": "the Crowned", "tither": "the Tithing", "digger": "the Gravedigger",
 	"bone_king": "the King himself", "trap": "a hidden trap", "": "the dungeon itself"}
 const KILLER_TIPS := {
 	"chaser": "Tip: chasers are slow — kite them into a corner and cleave.",
@@ -286,6 +287,7 @@ const KILLER_TIPS := {
 	"orator": "Tip: Kill the Orator first — each chant sharpens every blade in the room.",
 	"crowned": "Tip: Cut the Crowned down first — while it stands, its allies resist your steel.",
 	"tither": "Tip: The Tithing steals souls with every hit — kill it before it robs you.",
+	"digger": "Tip: Gravediggers seed the floor with void sigils — move before you commit.",
 	"bone_king": "Tip: his slams telegraph red — dash through the shockwave.",
 	"trap": "Tip: traps pulse on a rhythm — cross on the off-beat.",
 	"": "Tip: blessings, relics and Sir Vane can still turn a doomed run.",
@@ -1030,6 +1032,7 @@ const FIRST_SEEN := {
 	"orator": "A Grave Orator begins to sing — silence it before the whole room sharpens.",
 	"crowned": "A fallen paladin still wears its crown — the dead rally behind it.",
 	"tither": "A Tithing comes to collect — the King's tax, paid in souls.",
+	"digger": "A Gravedigger wakes — it buried something where you're standing.",
 }
 
 
@@ -1319,6 +1322,14 @@ func _on_boss_summon(boss) -> void:
 
 
 # jebakan duri di ruang-ruang tengah (tidak di ruang spawn / ruang boss)
+func _dig_trap(pos: Vector3) -> void:
+	var tr2 = TRAP.new()
+	room.add_child(tr2)
+	tr2.global_position = pos
+	tr2.setup(info.tile, 0.0, 3)
+	toast("The Gravedigger plants a void sigil!")
+
+
 func _spawn_traps(last_room: int) -> void:
 	var count: int = mini(maxi(Stats.floor_num - 1, 0), 3)
 	for i in range(count):
