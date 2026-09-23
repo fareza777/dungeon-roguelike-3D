@@ -90,7 +90,9 @@ const LORE_LINES := [
 	"The Drowned Altar was the sailors' shrine before the kingdom forgot it had sailors.",
 	"The Emissary was the last tax-collector to enter the Reliquary. He's still collecting.",
 	"Sir Vane led the King's vanguard once — the only knight who refused to kneel to a skull. So they chained him in light.",
-	"Vane's cell was carved from the throne's own foundation stone. The King keeps his bravest prisoner closest."
+	"Vane's cell was carved from the throne's own foundation stone. The King keeps his bravest prisoner closest.",
+	"The Keelhounds were the harbor's watchdogs once. They drowned loyal, and loyal still — now they guard every purse that sinks.",
+	"Mahzan keeps one contract he never speaks of: whatever the Bone King owes him is worth more than a throne."
 ]
 
 var dungeon_tex: Texture2D
