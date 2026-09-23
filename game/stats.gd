@@ -96,6 +96,7 @@ const ACH_DEF := {
 	"f5": "Depth Diver (Floor 5)",
 	"f10": "Fearless (Floor 10)",
 	"f20": "Heart of the Deep (Floor 20)",
+	"f24": "Throneside (Floor 24)",
 	"b1": "Throne Breaker",
 	"b3": "King Hunter (3 bosses)",
 	"r5": "Relic Collector (5 relics)",

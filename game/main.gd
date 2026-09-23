@@ -2273,6 +2273,8 @@ func _on_banner_tap() -> void:
 			_ach("f10")
 		if Stats.floor_num >= 20:
 			_ach("f20")
+		elif Stats.floor_num >= 24:
+			_ach("f24")
 		await _fade_to(1.0, 0.3)
 		_new_run(rng.randi())
 		_fade_to(0.0, 0.45)
