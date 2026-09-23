@@ -3285,11 +3285,18 @@ func _on_mahzan_invoked(s) -> void:
 			"Back already? You spend souls like water, Kael. I approve.",
 			"Twice in one descent. The crown must be worried about you.",
 		]
-	elif mahzan_met >= 3:
+	elif mahzan_met == 3:
 		mlines = [
 			"My most faithful customer. When you take the throne, remember who stocked your satchel.",
 			"Kael. Again. I'd offer you credit, but the dead don't have wallets.",
 		]
+	elif mahzan_met >= 4:
+		mlines = [
+			"Royal patronage! Kael, you're the best thing to happen to this ledger in centuries. Take a tip — three souls, on the house.",
+			"Fourth visit? Fifth? I've stopped counting. You're practically family now — family pays a little less.",
+		]
+		Stats.souls += 3
+		_souls_l()
 	_say(
 		[{"who": "mahzan", "text": mlines[rng.randi_range(0, mlines.size() - 1)]}],
 		[
