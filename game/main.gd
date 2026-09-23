@@ -3358,6 +3358,7 @@ func _offer_omens() -> void:
 			{"text": "WOLF OF THE HALLS — each kill quickens you +1% (up to +20%)"},
 			{"text": "ASHBORN — the ash rain follows you; every floor 10+ is ashfall, -10% Max HP"},
 			{"text": "LONE CROWN — +20% ATK on boss floors, -5% ATK on all others"},
+			{"text": "REAPER'S TITHE — +1 soul per kill, but every 10th kill pays nothing"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -3386,7 +3387,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 20 if Stats.nemesis != "" else 19
+	var osize := 21 if Stats.nemesis != "" else 20
 	if idx >= osize:
 		toast("You walk alone — the Oracle nods")
 		return
@@ -3476,6 +3477,10 @@ func _omen_deal(idx: int) -> void:
 			lonecrown = true
 			oname = "LONE CROWN"
 		19:
+			Stats.soul_bonus += 1
+			Stats.reaper_tithe = true
+			oname = "REAPER'S TITHE"
+		20:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -3499,6 +3504,7 @@ func _omen_deal(idx: int) -> void:
 		"WOLF": "The pack runs faster after every feed.",
 		"ASHBORN": "Carry the fire's memory. The rain will find you.",
 		"LONE CROWN": "Save your sharpest edge for thrones.",
+		"REAPER'S TITHE": "The reaper skims every tenth soul. Still worth it.",
 		"FEATHER": "A lighter coffin, then. Sensible.",
 		"RICH SOIL": "The dungeon will feed you well — keep chewing.",
 		"LEECHING": "Your blood will not stay yours, but at least it circles back.",
