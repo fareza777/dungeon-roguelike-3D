@@ -34,9 +34,13 @@ const DB := {
 		"name": "Grave Chains", "short": "CHN", "cd": 16.0, "unlock": 15,
 		"desc": "Spectral chains bind all nearby foes for 2.2s + 0.8x ATK.",
 	},
+	"storm": {
+		"name": "Soul Storm", "short": "STORM", "cd": 28.0, "unlock": 17,
+		"desc": "Call the deep's fury: lightning smites EVERY awake foe for 1.5x ATK.",
+	},
 }
 
-const ORDER := ["dash", "whirl", "thunder", "warcry", "nova", "judge", "sunder", "chains"]
+const ORDER := ["dash", "whirl", "thunder", "warcry", "nova", "judge", "sunder", "chains", "storm"]
 
 
 static func get_s(id: String) -> Dictionary:

@@ -273,7 +273,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -1932,6 +1932,18 @@ func _cast_skill(id: String) -> void:
 			_burst(player.global_position + Vector3(0, 0.4, 0), Color(0.6, 0.45, 1.0))
 			trauma = 0.5
 			print("SKILL chains bound=%d" % bound)
+		"storm":
+			Sfx.play("thunder")
+			var dmgs := Stats.get_stat("atk") * 1.5
+			var struck := 0
+			for f in get_tree().get_nodes_in_group("enemies"):
+				if f.get("state") != "dead" and bool(f.get("activated")):
+					f.take_hit(f.global_position + Vector3(0, 2.0, 0), dmgs)
+					_burst(f.global_position + Vector3(0, 0.6, 0), Color(0.6, 0.55, 1.15))
+					struck += 1
+			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "SOUL STORM ×%d" % struck, Color(0.6, 0.55, 1.15), true)
+			trauma = 1.0
+			print("SKILL storm struck=%d" % struck)
 	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0)
 
 
