@@ -5372,32 +5372,6 @@ func _cam_snap() -> void:
 	if player != null and cam != null:
 		cam.global_position = player.global_position + Vector3(0.0, 3.0 * s, 2.6 * s)
 		cam.look_at(player.global_position + Vector3(0, 0, -0.9 * s))
-	# panah elite off-screen: arahkan ke elite teraktivasi terdekat
-	if ui.has("elite_arrow"):
-		var earr2: Label = ui["elite_arrow"]
-		var be: Node3D = null
-		var bd2 := INF
-		for f in get_tree().get_nodes_in_group("enemies"):
-			if f.get("elite") == true and String(f.get("state")) != "dead" and bool(f.get("activated")):
-				var dd: float = f.global_position.distance_to(player.global_position)
-				if dd < bd2:
-					bd2 = dd
-					be = f
-		var shown := false
-		if be != null:
-			var sp2: Vector2 = cam.unproject_position(be.global_position + Vector3(0, 0.8 * s, 0))
-			var vp2: Vector2 = get_viewport().get_visible_rect().size
-			if sp2.x < -10.0 or sp2.x > vp2.x + 10.0 or sp2.y < -10.0 or sp2.y > vp2.y + 10.0:
-				var c2: Vector2 = vp2 * 0.5
-				var d2v: Vector2 = (sp2 - c2).normalized()
-				var marg := 46.0
-				var tx: float = (vp2.x * 0.5 - marg) / maxf(0.001, absf(d2v.x))
-				var ty: float = (vp2.y * 0.5 - marg) / maxf(0.001, absf(d2v.y))
-				var t2: float = minf(tx, ty)
-				earr2.position = c2 + d2v * t2
-				earr2.rotation = atan2(d2v.y, d2v.x) + PI * 0.5
-				shown = true
-		earr2.visible = shown
 
 
 # ---------------- autotest v4 ----------------
