@@ -3708,6 +3708,7 @@ func _on_mirror_invoked(s) -> void:
 	_say([{"who": "oracle", "text": "The mirror shows not your face, Kael — but another warrior's blade. Feed it and it will trade yours."}],
 		[{"text": "Gaze — pay 4 souls: swap %s for a stranger's blade" % wname},
 		{"text": "Look away"},
+		{"text": "Peer Deeper — pay 6 souls: the mirror grants a relic of equal worth"},
 		{"text": "Smash it — +8 souls, but the mirror's shards wake three horrors"}])
 
 
@@ -3724,6 +3725,30 @@ func _mirror_deal(idx: int) -> void:
 			_spawn_enemy({"pos": shrine_ref.global_position + off3, "room": current_room}, String(table3[rng.randi_range(0, table3.size() - 1)]), mk3 == 0)
 		if player != null and is_instance_valid(player):
 			_burst(player.global_position + Vector3(0, 0.5, 0), Color(0.6, 0.75, 1.0))
+		return
+	if idx == 3:
+		if Stats.souls < _soul_cost(6):
+			toast("Not enough souls (need 6)")
+			return
+		if Stats.relics.is_empty():
+			toast("The mirror needs a relic to reflect")
+			return
+		var proto: String = Stats.relics[rng.randi_range(0, Stats.relics.size() - 1)]
+		var prar := int(ITEMS.DB[proto]["rarity"]) if ITEMS.DB.has(proto) else 0
+		var ppool: Array = []
+		for ridm in ITEMS.DB:
+			if int(ITEMS.DB[ridm]["rarity"]) == prar and not Stats.relics.has(ridm):
+				ppool.append(ridm)
+		if ppool.is_empty():
+			toast("The mirror finds nothing of equal worth")
+			return
+		Stats.souls -= _soul_cost(6)
+		_souls_l()
+		var mirrored: String = ppool[rng.randi_range(0, ppool.size() - 1)]
+		Stats.add_relic(mirrored)
+		Sfx.play("levelup")
+		toast("REFLECTION — the mirror grants " + String(ITEMS.DB[mirrored]["name"]))
+		_refresh_buffs()
 		return
 	if idx != 0:
 		return
