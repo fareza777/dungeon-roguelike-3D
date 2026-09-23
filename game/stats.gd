@@ -132,6 +132,7 @@ const ACH_DEF := {
 	"devout": "Devout (fifteen prayers over the fallen)",
 	"pacifist": "Blade Only (a floor cleared without skills)",
 	"onedrop": "One Drop Left (took the throne on a single drop of blood)",
+	"loaded_dice": "Loaded Dice (5 well tosses in one run)",
 	"salvager": "Salvager (15 Reliquary wisp souls)",
 	"accountant": "Soul Accountant (100 souls held)",
 	"pilgrim": "Pilgrim (10 shrine visits in one run)",

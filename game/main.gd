@@ -175,6 +175,7 @@ var skill_used_floor := false
 var rooms_cleared := 0
 var flawless_run := 0
 var well_rolls := 0
+var well_rolls_run := 0
 var storm_t := 0.0
 var nemesis_spawned := false # musuh yang membunuhmu run lalu — kembali lebih kuat
 var nemesis_warned := false # nemesis story beat — 1だけ
@@ -678,6 +679,7 @@ func _reset_run_state() -> void:
 	reliquary_wisps = 0
 	flawless_run = 0
 	well_rolls = 0
+	well_rolls_run = 0
 	if trial_atk_t > 0.0:
 		Stats.buff_atk_pct -= 0.15
 		trial_atk_t = 0.0
@@ -4526,6 +4528,9 @@ func _well_deal(idx: int) -> void:
 	_quest_event("well")
 	# Deep Pockets: tiga lemparan dalam satu lantai memuaskan questnya
 	well_rolls += 1
+	well_rolls_run += 1
+	if well_rolls_run >= 5:
+		_ach("loaded_dice")
 	if well_rolls >= 3:
 		_quest_event("deep_pockets")
 
