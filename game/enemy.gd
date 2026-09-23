@@ -79,6 +79,8 @@ var chime := false
 var sprite := false
 var leech := false
 var charged := false
+var chaplain := false
+var chap_t := 0.0
 var chime_t := 7.0
 var husk_shell := false
 var cantor_t := 6.5
@@ -203,6 +205,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	chime = bool(a.get("chime", false))
 	sprite = bool(a.get("sprite", false))
 	leech = bool(a.get("leech", false))
+	chaplain = bool(a.get("chaplain", false))
 	healer = bool(a.get("healer", false))
 	crowned = bool(a.get("crowned", false))
 	tither = bool(a.get("tither", false))
@@ -538,6 +541,16 @@ func _physics_process(delta: float) -> void:
 		return
 	anim_lock = max(0.0, anim_lock - delta)
 	hex_t = maxf(0.0, hex_t - delta)
+	if chaplain:
+		chap_t += delta
+		if chap_t >= 4.0:
+			chap_t = 0.0
+			var cpl_ = get_tree().get_first_node_in_group("player")
+			if cpl_ != null and global_position.distance_to(cpl_.global_position) < 6.0 * room_tile:
+				cpl_.set("weak_t", maxf(float(cpl_.get("weak_t")), 3.0))
+				var csc_ = get_tree().current_scene
+				if csc_ != null and csc_.has_method("_damage_number"):
+					csc_._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "LITANY!", Color(0.6, 0.4, 0.8), false)
 	if affix == "tidebound":
 		slow_t = 0.0
 	slow_t = maxf(0.0, slow_t - delta)

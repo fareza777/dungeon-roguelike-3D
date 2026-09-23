@@ -503,6 +503,7 @@ const BESTIARY := {
 	"chimehead": ["The Chimehead", "Its bell tolls the room awake — silence it before the whole floor hears."],
 	"bilge_sprite": ["The Bilge Sprite", "Fast, greedy fingers — every touch skims a soul from your purse."],
 	"salt_leech": ["The Salt Leech", "It drinks what it cuts — every wound it deals mends its own."],
+	"gutter_chaplain": ["The Gutter Chaplain", "He reads the drowned liturgy — stay close and his words take the edge off your arm."],
 	"mireling": ["The Mireling", "A marsh rat grown fat on drowned men's boots — its nip chills the blood."],
 	"saltghast": ["The Saltghast", "A ghost blown through with sea-salt — it blinks to your blind side and pours a soul out when felled."],
 	"waver": ["The Waver", "A bloated tide-priest — its bolt numbs your arm and your swing goes soft."],
@@ -521,7 +522,7 @@ const VANE_BIOME := {
 const KILLER_NAMES := {
 	"chaser": "a Skeleton Chaser", "rogue": "a Shadow Rogue", "mage": "a Bone Mage",
 	"brute": "a Bone Brute", "bomber": "a Boom Bones", "archer": "a Skeletal Archer",
-	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade", "hexer": "the Hex Priest", "spiker": "a Spiked Cadaver", "lurker": "the Dweller", "golem": "the Bone Golem", "maiden": "the Wailing Maiden", "revenant": "the Revenant", "shieldbearer": "the Shieldbearer", "herald": "the Herald", "batterer": "the Batterer", "duelist": "the Pale Duelist", "hound": "a Bone Hound", "moth": "a Soul Moth", "orator": "the Grave Orator", "crowned": "the Crowned", "tither": "the Tithing", "digger": "the Gravedigger", "drowned": "the Drowned One", "keelhound": "a Keelhound", "maw": "a Barnacle Maw", "siren": "the Void Siren", "gargoyle": "a Pearl Gargoyle", "mireling": "a Mireling", "saltghast": "a Saltghast", "waver": "a Waver", "keelbeak": "a Keelbeak", "bilge_witch": "a Bilge Witch", "rust_jaw": "a Rust Jaw", "salt_herald": "a Salt Herald", "hull_widow": "a Hull Widow", "deck_gunner": "a Deck Gunner", "reef_caller": "a Reef Caller", "chum_gnawer": "a Chum Gnawer", "rotting_bride": "a Rotting Bride", "salt_cantor": "a Salt Cantor", "kelter_husk": "a Kelter Husk", "deck_brood": "a Deck Brood", "rust_fanatic": "a Rust Fanatic", "chimehead": "a Chimehead", "bilge_sprite": "a Bilge Sprite", "salt_leech": "a Salt Leech",
+	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade", "hexer": "the Hex Priest", "spiker": "a Spiked Cadaver", "lurker": "the Dweller", "golem": "the Bone Golem", "maiden": "the Wailing Maiden", "revenant": "the Revenant", "shieldbearer": "the Shieldbearer", "herald": "the Herald", "batterer": "the Batterer", "duelist": "the Pale Duelist", "hound": "a Bone Hound", "moth": "a Soul Moth", "orator": "the Grave Orator", "crowned": "the Crowned", "tither": "the Tithing", "digger": "the Gravedigger", "drowned": "the Drowned One", "keelhound": "a Keelhound", "maw": "a Barnacle Maw", "siren": "the Void Siren", "gargoyle": "a Pearl Gargoyle", "mireling": "a Mireling", "saltghast": "a Saltghast", "waver": "a Waver", "keelbeak": "a Keelbeak", "bilge_witch": "a Bilge Witch", "rust_jaw": "a Rust Jaw", "salt_herald": "a Salt Herald", "hull_widow": "a Hull Widow", "deck_gunner": "a Deck Gunner", "reef_caller": "a Reef Caller", "chum_gnawer": "a Chum Gnawer", "rotting_bride": "a Rotting Bride", "salt_cantor": "a Salt Cantor", "kelter_husk": "a Kelter Husk", "deck_brood": "a Deck Brood", "rust_fanatic": "a Rust Fanatic", "chimehead": "a Chimehead", "bilge_sprite": "a Bilge Sprite", "salt_leech": "a Salt Leech", "gutter_chaplain": "a Gutter Chaplain",
 	"bone_king": "the King himself", "trap": "a hidden trap", "": "the dungeon itself"}
 const KILLER_TIPS := {
 	"chaser": "Tip: chasers are slow — kite them into a corner and cleave.",
@@ -571,6 +572,7 @@ const KILLER_TIPS := {
 	"chimehead": "Tip: the Chimehead's toll wakes every sleeper in earshot — kill it first, quietly.",
 	"bilge_sprite": "Tip: the Bilge Sprite skims souls on contact — swat it before it reaches you.",
 	"salt_leech": "Tip: the Salt Leech heals off every cut it lands — never trade blows with it.",
+	"gutter_chaplain": "Tip: the Gutter Chaplain weakens your arm while his litany reaches you — silence him early.",
 	"hull_widow": "Tip: the Widow's webs root your feet — dash the moment she spits, or cut her down at range.",
 	"salt_herald": "Tip: Salt Heralds split when slain — keep a swing ready for the mirelings inside.",
 	"mireling": "Tip: Mirelings are quick — dash through them, don't fence them.",
@@ -3417,6 +3419,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("sprite_kill")
 	if e.arch_id == "salt_leech":
 		_quest_event("leech_kill")
+	if e.arch_id == "gutter_chaplain":
+		_quest_event("chaplain_kill")
 	if e.arch_id == "chum_gnawer":
 		_quest_event("gnawer_kill")
 	if e.arch_id == "salt_herald":
