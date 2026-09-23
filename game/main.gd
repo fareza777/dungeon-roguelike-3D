@@ -5518,7 +5518,7 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_crit += 0.1
 			Stats.buff_armor += 1
 			toast("Sharp Hull: barnacle blades in the prow — +10% crit, +1 Armor this run")
-		if idx == 49:
+		49:
 			whale_lung = true
 			toast("Whale Lung: a deeper breath than any sailor's — dash recharges 25% faster this run")
 	blessings_run += 1
