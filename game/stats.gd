@@ -158,6 +158,7 @@ const ACH_DEF := {
 	"completionist": "Completionist (finished 6 quest steps in one run)",
 	"potbellied": "Pot-Bellied (smashed 10 urns in one run)",
 	"wax_floor": "Waxworks (sealed four traps on one floor)",
+	"manifest": "Full Manifest (12 quest steps done in one run)",
 	"pilgrim": "Pilgrim (10 shrine visits in one run)",
 	"seaworthy": "Seaworthy (drank the Drowned Tithe)",
 	"drowned20": "Drowned Court (20 kills under the Sunken Tide)",

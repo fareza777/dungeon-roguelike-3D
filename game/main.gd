@@ -4076,6 +4076,8 @@ func _quest_event(kind: String, num: int = 1) -> void:
 			_souls_l()
 		if steps_done_run >= 6:
 			_ach("completionist")
+		if steps_done_run >= 12:
+			_ach("manifest")
 		if player != null and is_instance_valid(player):
 			_souls(player.global_position + Vector3(0, 0.8, 0), 4, Color(0.6, 0.85, 1.0))
 		if ui.has("quest_box"):
