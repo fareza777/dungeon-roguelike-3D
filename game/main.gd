@@ -158,6 +158,7 @@ var low_tide := false
 var glass_sea := false
 var abyssal_hymn := false
 var hymn_delta := 0.0
+var rotgut_drunk := false
 var deep_current := false
 var dread_tide := false
 var starved_deep := false
@@ -806,6 +807,9 @@ func _new_run(new_seed: int) -> void:
 	sirensong_deal = false
 	pool_touched = false
 	shellshield_used = false
+	if rotgut_drunk:
+		Stats.buff_maxhp_pct -= 0.15
+		rotgut_drunk = false
 	Stats.buff_armor -= tithe_armor
 	tithe_armor = 0.0
 	pray_t = 0.0
