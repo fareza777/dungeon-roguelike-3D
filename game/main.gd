@@ -333,6 +333,7 @@ func _new_run(new_seed: int) -> void:
 		_spawn_traps(last_room)
 		_spawn_shrine(last_room)
 		_spawn_lore_stone(last_room)
+		_spawn_motes()
 	_start_quests(boss_floor, int(info.get("room_count", 1)))
 	_build_minimap()
 	Sfx.play_music("boss" if boss_floor else _biome_track())
@@ -636,6 +637,7 @@ func _spawn_shrine(last_room: int) -> void:
 
 
 var lore_ref = null
+var motes_ref: GPUParticles3D = null
 
 
 func _spawn_lore_stone(last_room: int) -> void:
@@ -653,6 +655,51 @@ func _spawn_lore_stone(last_room: int) -> void:
 	s.setup(info.tile)
 	lore_ref = s
 	s.invoked.connect(_on_lore_stone)
+
+
+const MOTE_COLS := {
+	"Catacombs": Color(0.7, 0.8, 1.0, 0.45),
+	"Ember Crypt": Color(1.0, 0.55, 0.2, 0.65),
+	"Frozen Deep": Color(0.85, 0.95, 1.0, 0.55),
+	"Verdant Ruin": Color(0.6, 1.0, 0.55, 0.5),
+	"The Abyss": Color(0.75, 0.5, 1.0, 0.55),
+}
+
+
+func _spawn_motes() -> void:
+	# partikel ambient mengambang di sekitar pemain — ember/salju/spora/mote per biome
+	var mname := String(biome.get("name", ""))
+	var col: Color = MOTE_COLS.get(mname, Color(0.7, 0.8, 1.0, 0.45))
+	var up := mname == "Ember Crypt" or mname == "The Abyss"
+	var p := GPUParticles3D.new()
+	room.add_child(p)
+	motes_ref = p
+	p.amount = 24 if low_quality else 44
+	p.lifetime = 4.5
+	p.visibility_aabb = AABB(Vector3(-12, -5, -12), Vector3(24, 10, 24))
+	var pm := ParticleProcessMaterial.new()
+	pm.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_BOX
+	pm.emission_box_extents = Vector3(5.0, 1.2, 5.0)
+	pm.direction = Vector3(0, 1 if up else -1, 0)
+	pm.spread = 25.0
+	pm.initial_velocity_min = 0.12
+	pm.initial_velocity_max = 0.38
+	pm.gravity = Vector3(0, 0.22 if up else -0.15, 0)
+	pm.scale_min = 0.5
+	pm.scale_max = 1.3
+	pm.color = col
+	p.process_material = pm
+	var dot := SphereMesh.new()
+	dot.radius = 0.03
+	dot.height = 0.05
+	var dm := StandardMaterial3D.new()
+	dm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	dm.albedo_color = col
+	dm.emission_enabled = true
+	dm.emission = col
+	dm.emission_energy_multiplier = 1.6
+	dot.material = dm
+	p.draw_pass_1 = dot
 
 
 func _on_lore_stone(s) -> void:
@@ -2675,6 +2722,10 @@ func _process(delta: float) -> void:
 				tut_step = 1
 				_tut_show("Tap the red ATK button to slash")
 				_quest_event("moved")
+
+		# motes ambient mengikuti pemain
+		if motes_ref != null and is_instance_valid(motes_ref):
+			motes_ref.global_position = player.global_position + Vector3(0, 1.1, -1.0 * info.tile)
 
 		# quest "moved": akumulasi gerak pemain
 		if quest_idx < quest_steps.size() and String(quest_steps[quest_idx].get("kind", "")) == "moved":
