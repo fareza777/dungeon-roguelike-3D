@@ -8032,16 +8032,33 @@ func _on_throne_invoked(s) -> void:
 		{"text": "Crown's Insight — pay 3 souls: the throne names this floor's omen"},
 		{"text": "Court Summons — pay 4 souls: +15% XP this floor"},
 		{"text": "Kneel Not — pay 5 souls: this floor's dead lose half their footing (kb resist)"},
+		{"text": "Crown's Mercy — pay 6 souls: purge venom, chill, rust & roots — 3s untouchable"},
 		{"text": "Walk away"}])
 
 
 func _throne_deal(idx: int) -> void:
-	if idx == 12:
+	if idx == 13:
 		Stats.earn_souls(4)
 		_souls_l()
 		_quest_event("throne")
 		Sfx.play("soul")
 		toast("CLEAN HANDS — the crown pays +4 souls to the incorruptible")
+		return
+	if idx == 12:
+		if Stats.souls < _soul_cost(6):
+			toast("Six souls — the crown's mercy is dear")
+			return
+		Stats.souls -= _soul_cost(6)
+		_souls_l()
+		if player != null and is_instance_valid(player):
+			player.venom_t = 0.0
+			player.chill_t = 0.0
+			player.rust_t = 0.0
+			player.silence_t = 0.0
+			player.root_t = 0.0
+			player.invuln = 3.0
+		Sfx.play("shrine")
+		toast("CROWN'S MERCY — the sea forgives, briefly")
 		return
 	if idx == 11:
 		if Stats.souls < _soul_cost(5):
