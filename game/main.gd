@@ -1573,8 +1573,10 @@ func _on_player_died() -> void:
 	var killer: String = "the dungeon itself"
 	if player != null and is_instance_valid(player):
 		killer = String(KILLER_NAMES.get(player.last_killer, player.last_killer))
+		if String(player.last_killer) == Stats.nemesis:
+			killer += " AGAIN — it knows your scent now"
 		Stats.nemesis = String(player.last_killer)
-		Stats.nemesis_name = killer.capitalize()
+		Stats.nemesis_name = String(KILLER_NAMES.get(player.last_killer, player.last_killer)).capitalize()
 		nemesis_warned = false
 	var ktip: String = ""
 	if player != null and is_instance_valid(player):
@@ -1636,8 +1638,10 @@ func _finalize_death() -> void:
 	var killer: String = "the dungeon itself"
 	if player != null and is_instance_valid(player):
 		killer = String(KILLER_NAMES.get(player.last_killer, player.last_killer))
+		if String(player.last_killer) == Stats.nemesis:
+			killer += " AGAIN — it knows your scent now"
 		Stats.nemesis = String(player.last_killer)
-		Stats.nemesis_name = killer.capitalize()
+		Stats.nemesis_name = String(KILLER_NAMES.get(player.last_killer, player.last_killer)).capitalize()
 		nemesis_warned = false
 	var ktip: String = ""
 	if player != null and is_instance_valid(player):
