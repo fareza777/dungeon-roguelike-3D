@@ -216,6 +216,7 @@ var moonwrit := false
 var barnacle_sense := false
 var brine_callus := false
 var bosun_ledger := false
+var urnsworn := false
 var deadweight := false
 var undertow_grip := false
 var lookout := false
@@ -875,6 +876,7 @@ func _reset_run_state() -> void:
 	barnacle_sense = false
 	brine_callus = false
 	bosun_ledger = false
+	urnsworn = false
 	deadweight = false
 	undertow_grip = false
 	lookout = false
@@ -4711,6 +4713,9 @@ func _on_dlg_choice(idx: int) -> void:
 		29:
 			Stats.buff_crit += 0.08
 			toast("Crow's Nest: a sharper eye for soft spots — +8% crit this run")
+		30:
+			urnsworn = true
+			toast("Urnsworn: the pots know you — every urn spills +1 soul")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -6544,6 +6549,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Bosun's Ledger — every fifth kill each floor pays +1 soul"},
 			{"text": "Quarterdeck — +8% skill recharge this run"},
 			{"text": "Crow's Nest — +8% crit chance this run"},
+			{"text": "Urnsworn — every urn spills +1 soul this run"},
 		]
 	)
 
