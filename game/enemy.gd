@@ -165,7 +165,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn"][randi() % 19]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn"][randi() % 20]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -222,6 +222,9 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 			"wispsborn":
 				# mati menumpahkan kunang jiwa — bonus XP
 				xp_val = int(xp_val * 1.2)
+			"keelborn":
+				# jiwa-jiwa menempel di tulangnya — bayaran saat mati
+				xp_val = int(xp_val * 1.15)
 			"umbral":
 				# elite ini tak terlihat sampai jarak dekat — seperti dweller
 				is_lurker = true
@@ -872,6 +875,13 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 					mm2._shock_ring(global_position)
 				if mm2.has_method("_burst"):
 					mm2._burst(global_position, Color(1.0, 0.4, 1.0))
+		if affix == "keelborn":
+			Stats.souls += 3
+			var mm4 := get_tree().current_scene
+			if mm4 != null and mm4.has_method("_souls_l"):
+				mm4._souls_l()
+			if mm4 != null and mm4.has_method("_damage_number"):
+				mm4._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "KEELBORN +3", Color(0.4, 0.9, 0.9), true)
 		if affix == "wispsborn":
 			var mm3 := get_tree().current_scene
 			if mm3 != null and mm3.has_method("_spawn_wisp_at"):
