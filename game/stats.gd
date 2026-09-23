@@ -319,6 +319,8 @@ func add_relic(id: String) -> void:
 		magnet += float(mods["magnet"])
 	if mods.has("berserk"):
 		berserk += float(mods["berserk"])
+	if id == "driftwood_idol":
+		reroll_extra += 1
 	if mods.has("soul_bonus"):
 		soul_bonus += int(mods["soul_bonus"])
 	if mods.has("burn_proc"):
