@@ -8448,11 +8448,12 @@ func _on_qm_invoked(s) -> void:
 		{"text": "Salt Pork — pay 3 souls: brined meat for the voyage — +15% Max HP this floor"},
 		{"text": "Whistle Code — pay 4 souls: the crew calls the maneuvers — −2s on every skill charge"},
 		{"text": "Deck Manifest — pay 3 souls: the crew logs every catch — +15% souls this floor"},
+		{"text": "Powder Ward — pay 3 souls: powder-burned hands are steady hands — +10% ATK this run"},
 		{"text": "Walk away"}])
 
 
 func _qm_deal(idx: int) -> void:
-	if idx == 12:
+	if idx == 13:
 		toast("The post shutters its stores")
 		return
 	if idx == 5:
@@ -8475,6 +8476,16 @@ func _qm_deal(idx: int) -> void:
 		_quest_event("qm")
 		Sfx.play("shrine")
 		toast("SPLICE BONUS — the next five kills pay a splice share")
+		return
+	if idx == 12:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the ward isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		Stats.buff_atk_pct += 0.1
+		Sfx.play("shrine")
+		toast("POWDER WARD — the burns make you bolder")
 		return
 	if idx == 11:
 		if Stats.souls < _soul_cost(3):
