@@ -322,6 +322,18 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						f.take_hit(global_position, dmg * 0.4)
 					if mw.has_method("_damage_number"):
 						mw._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "SAWED", Color(1.0, 0.7, 0.3), false)
+		"captains_hook": # HOOKED — tiap tebasan ke-5 menyeret musuh ke jangkauan
+			var chk := get_tree().current_scene
+			if chk != null:
+				chk.set("net_n", int(chk.get("net_n")) + 1)
+				if int(chk.get("net_n")) >= 5:
+					chk.set("net_n", 0)
+					if f.get("state") != "dead" and not bool(f.get("is_boss")):
+						var pull_dir: Vector3 = (global_position - f.global_position)
+						pull_dir.y = 0.0
+						f.kb = pull_dir.normalized() * pull_dir.length() * 6.0
+						if chk.has_method("_damage_number"):
+							chk._damage_number(f.global_position + Vector3(0, 0.65 * room_tile, 0), "HOOKED", Color(0.75, 0.55, 0.3), false)
 		"murkmaker": # SLIP — tiap tebasan ke-5 memercepat langkah 3s
 			var mmk := get_tree().current_scene
 			if mmk != null:
