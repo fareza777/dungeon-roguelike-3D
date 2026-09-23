@@ -1240,6 +1240,8 @@ func _on_enemy_died(e) -> void:
 	_quest_event("kill")
 	if e.arch_id == "gaoler":
 		_quest_event("gaoler_kill")
+	if e.arch_id == "sentinel":
+		_quest_event("sentinel_kill")
 	_combo_set(combo + 1)
 	# RAMPAGE: 3+ kill beruntun dalam 2.5 detik -> sorakan + banner
 	var now_s := Time.get_ticks_msec() / 1000.0
@@ -1843,6 +1845,7 @@ func _heavy_attack() -> void:
 			f.take_hit(player.global_position, dmg)
 	trauma = 0.7
 	_damage_number(player.global_position, "HEAVY!", Color(1.0, 0.85, 0.3), true)
+	_quest_event("heavy")
 
 
 func _shock_ring(pos: Vector3) -> void:
@@ -2581,6 +2584,7 @@ func _curse_deal(idx: int) -> void:
 
 
 func _mahzan_deal(idx: int) -> void:
+	_quest_event("mahzan")
 	match idx:
 		0:
 			Stats.mahzan_debt += 2.0
