@@ -292,7 +292,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -2101,6 +2101,23 @@ func _cast_skill(id: String) -> void:
 			_burst(player.global_position + Vector3(0, 0.5, 0), Color(0.55, 1.0, 0.75))
 			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "MENDED", Color(0.55, 1.0, 0.75), true)
 			print("SKILL mend")
+		"seismic":
+			Sfx.play("roar")
+			var dmgs := Stats.get_stat("atk") * 1.8
+			var hit := 0
+			for f in get_tree().get_nodes_in_group("enemies"):
+				if f.get("state") == "dead" or not bool(f.get("activated")):
+					continue
+				if f.global_position.distance_to(player.global_position) < 1.6 * info.tile:
+					f.take_hit(player.global_position, dmgs)
+					if f.has_method("stun"):
+						f.stun(1.4)
+					hit += 1
+			_shock_ring(player.global_position)
+			trauma = 0.9
+			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "SEISMIC! ×%d" % hit, Color(1.0, 0.7, 0.3), true)
+			_quest_event("seismic")
+			print("SKILL seismic hit=%d" % hit)
 		"rites":
 			Sfx.play("roar")
 			var dmgr := Stats.get_stat("atk")

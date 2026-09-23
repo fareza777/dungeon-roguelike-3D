@@ -69,6 +69,8 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 			steps.append({"title": "Purge", "desc": "Smash the Dread Obelisk", "kind": "obelisk", "need": 1})
 		if floor_num >= 22 and floor_num % 4 == 1:
 			steps.append({"title": "Toll Keeper", "desc": "Unleash the REAPER'S TOLL", "kind": "rites", "need": 1})
+	if Stats.floor_num >= 22 and Stats.floor_num % 5 == 3:
+		steps.append({"title": "Earthshaker", "desc": "Slam the floor — strike & stun foes with SEISMIC", "kind": "seismic", "need": 1})
 		steps.append({"title": "Floor Sweep", "desc": "Clear %d rooms of skeletons" % room_count, "kind": "clear_floor", "need": room_count})
 		steps.append({"title": "Treasure Chest", "desc": "Find & open the chest in the final room", "kind": "open_chest", "need": 1})
 		steps.append({"title": "Descend", "desc": "Tap to descend to the next floor", "kind": "descend", "need": 1})

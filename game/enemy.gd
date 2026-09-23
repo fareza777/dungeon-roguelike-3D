@@ -139,7 +139,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded"][randi() % 11]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom"][randi() % 12]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -166,6 +166,12 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				xp_val = int(xp_val * 1.6)
 			"hoarded":
 				# elite ini menelan senjata — dijatuhkan saat mati
+				xp_val = int(xp_val * 1.3)
+			"phantom":
+				# elite ini berkedip ke sisi pemain tiap beberapa detik
+				is_warper = true
+				prefer_range = maxf(prefer_range, 0.9 * room_tile)
+				warp_t = 1.2
 				xp_val = int(xp_val * 1.3)
 	scale = Vector3.ONE * sc
 	_base_scale = scale
@@ -326,7 +332,7 @@ func _physics_process(delta: float) -> void:
 			_burn_acc = 0.0
 			take_hit(global_position, maxf(1.0, hp_max * 0.06))
 			return
-	if is_warper:
+	if is_warper and activated:
 		warp_t -= delta
 		if warp_t <= 0.0:
 			var pw := _player()
