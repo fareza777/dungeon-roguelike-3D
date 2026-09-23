@@ -35,6 +35,7 @@ const MUSIC_BANK := {
 	"frozen": "res://assets/audio/music/frozen.mp3",
 	"verdant": "res://assets/audio/music/verdant.mp3",
 	"reliquary": "res://assets/audio/music/reliquary.mp3",
+	"marsh": "res://assets/audio/music/marsh.mp3",
 }
 const MUSIC := MUSIC_BANK["dungeon"] # kompat lama
 
