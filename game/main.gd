@@ -1554,6 +1554,31 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			{"who": "kael", "text": "Then he's dying again."},
 			{"who": "raja", "text": String(tier["taunt"])},
 		]
+	elif Stats.floor_num == 3:
+		lines = [
+			{"who": "kael", "text": "Oracle... how do you know these halls so well?"},
+			{"who": "oracle", "text": "I walked them when they were bright, Kael — long before the bone took the throne."},
+		]
+	elif Stats.floor_num == 7:
+		lines = [
+			{"who": "oracle", "text": "One throne shattered. He rebuilds it deeper, out of angrier bones."},
+			{"who": "kael", "text": "Then I keep swinging until there are no thrones left."},
+		]
+	elif Stats.floor_num == 12:
+		lines = [
+			{"who": "oracle", "text": "Mahzan whispers that you fight beautifully. He roots for you — he's bored of skeletons."},
+			{"who": "kael", "text": "Tell him to keep the blessings coming, then."},
+		]
+	elif Stats.floor_num == 16:
+		lines = [
+			{"who": "oracle", "text": "Halfway to his deepest hall. The air itself is starting to hate you."},
+			{"who": "kael", "text": "Good. Let it try to stop me."},
+		]
+	elif Stats.floor_num == 21:
+		lines = [
+			{"who": "oracle", "text": "Even I don't know what waits below the twenty-fifth. No soul has returned to tell it."},
+			{"who": "kael", "text": "Then I'll be the first to come back and tell you."},
+		]
 	elif Stats.floor_num > 1 and rng.randf() < 0.35:
 		var tips := [
 			"Those floor spikes are alive — learn their rhythm before stepping.",
