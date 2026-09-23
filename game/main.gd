@@ -1063,6 +1063,7 @@ func _reset_run_state() -> void:
 	final_verse = false
 	cradle_deep = false
 	undertow = false
+	storm_lull = false
 	deep_breath = false
 	dash_fuel = false
 	powder_keg = 0
