@@ -191,6 +191,7 @@ var soul_swarm := false
 var gauntlet := false
 var brisk := false
 var shoal_tide := false
+var salvage_tide := false
 var shoal_spd := false
 var dead_weight := false
 var hymn_delta := 0.0
@@ -790,6 +791,11 @@ func _apply_biome() -> void:
 		env.ambient_light_color = Color(0.6, 0.75, 0.9)
 		sun.light_color = Color(0.65, 0.8, 0.98)
 		sun.light_energy = 0.9
+	elif salvage_tide:
+		env.fog_light_color = Color(0.09, 0.1, 0.12)
+		env.ambient_light_color = Color(0.85, 0.75, 0.5)
+		sun.light_color = Color(0.95, 0.85, 0.6)
+		sun.light_energy = 0.9
 	elif sunken_tide:
 		env.fog_light_color = Color(0.06, 0.16, 0.15)
 		env.ambient_light_color = Color(0.25, 0.5, 0.45)
@@ -1105,6 +1111,9 @@ func _new_run(new_seed: int) -> void:
 		Stats.event_soul_bonus = 2
 		Stats.buff_speed_pct += 0.08
 		shoal_spd = true
+	salvage_tide = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and not wolfsbane and not thin_veil and not low_water and not drift_tide and not soul_swarm and not gauntlet and not brisk and not shoal_tide and Stats.floor_num >= 20 and not boss_floor and rng.randf() < 0.05
+	if salvage_tide:
+		Stats.event_soul_bonus = 2
 	storm_t = 4.0
 	nemesis_spawned = false
 	_ferry_used = false
@@ -1199,7 +1208,7 @@ func _new_run(new_seed: int) -> void:
 	dead_weight = not choir and not dread_tide and not starved_deep and not abyssal_hymn and not dead_calm and not boss_floor and Stats.floor_num >= 14 and rng.randf() < 0.08
 	Stats.dead_weight = dead_weight
 	shell_game = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not umbral_tide and not abyssal_patience and not choir and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
-	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide"]:
+	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide"]:
 		if get(evf):
 			events_run[evf] = true
 			break
@@ -1439,6 +1448,10 @@ func _new_run(new_seed: int) -> void:
 	elif shoal_tide:
 		_lvl_banner("≋ SHOAL TIDE — THE WATER KNEELS")
 		toast("Foes drag in the shallows • your step +8% • the floor tithes +2 souls")
+		Sfx.play("souls")
+	elif salvage_tide:
+		_lvl_banner("◈ SALVAGE TIDE — THE WRECKS GIVE UP THEIR GOLD")
+		toast("Kills may spill loose souls • the floor tithes +2 souls")
 		Sfx.play("souls")
 	elif sunken_tide:
 		toast("The drowned shuffle slower • +1 soul per kill")
@@ -2662,6 +2675,9 @@ func _on_enemy_died(e) -> void:
 	_quest_event("kill_" + Stats.weapon_id)
 	if not events_run.is_empty():
 		_quest_event("eventkill")
+	if salvage_tide and rng.randf() < 0.1:
+		Stats.earn_souls(1)
+		_souls_l()
 	if Stats.relics.has("wet_fuse") and Stats.event_soul_bonus > 0:
 		Stats.earn_souls(1)
 		_souls_l()
@@ -3070,6 +3086,11 @@ func _on_enemy_died(e) -> void:
 				_souls_l()
 				Stats.save_game()
 				toast("≋ SHOAL TIDE TITHE — +2 souls")
+			elif salvage_tide:
+				Stats.earn_souls(2)
+				_souls_l()
+				Stats.save_game()
+				toast("◈ SALVAGE TIDE TITHE — +2 souls")
 			elif low_tide:
 				Stats.earn_souls(3)
 				_souls_l()
@@ -3166,6 +3187,8 @@ func _on_enemy_died(e) -> void:
 				_quest_event("briskwalk")
 			if shoal_tide:
 				_quest_event("shoalwalk")
+			if salvage_tide:
+				_quest_event("salvagewalk")
 			if dark_water:
 				_quest_event("darkwalk")
 			if glass_sea:
@@ -7344,6 +7367,8 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 				evline = "The tide runs brisk tonight, Kael — even the dead feel it in their bones. Your step will answer."
 			elif shoal_tide:
 				evline = "The water kneels to you tonight, Kael — the dead must wade while you walk light. Use their shallows."
+			elif salvage_tide:
+				evline = "The wrecks give up their gold tonight, Kael — what the sea hoarded, she scatters. Scavenge well."
 			if evline != "":
 				lines = [{"who": "oracle", "text": evline}]
 		_say(lines)
@@ -8693,6 +8718,8 @@ func _refresh_buffs() -> void:
 		list.append(["≈ BRISK", Color(0.5, 0.95, 0.7)])
 	elif shoal_tide:
 		list.append(["≋ SHOAL", Color(0.65, 0.8, 0.98)])
+	elif salvage_tide:
+		list.append(["◈ SALVAGE", Color(0.95, 0.85, 0.6)])
 	if Stats.soul_sealed:
 		list.append(["PRICE", Color(0.9, 0.2, 0.25)])
 	if Stats.curse_dmg > 0.0:
