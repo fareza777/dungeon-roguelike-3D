@@ -203,6 +203,7 @@ var skeleton_crew := false
 var rolling_fog := false
 var deep_pockets_oath := false
 var oarsworn := false
+var dark_water := false
 var umbral_tide := false
 var moonwrit := false
 var barnacle_sense := false
@@ -849,6 +850,7 @@ func _reset_run_state() -> void:
 	rolling_fog = false
 	deep_pockets_oath = false
 	oarsworn = false
+	dark_water = false
 	umbral_tide = false
 	moonwrit = false
 	barnacle_sense = false
@@ -2818,6 +2820,11 @@ func _on_enemy_died(e) -> void:
 				_souls_l()
 				Stats.save_game()
 				toast("♛ COURT TITHE — +%d souls" % (3 + 2 * int(Stats.meta.get("diver", 0))))
+			if dark_water:
+				Stats.earn_souls(1)
+				_souls_l()
+				Stats.save_game()
+				toast("☽ DARK WATER TITHE — +1 soul")
 			# bonus sapuan kilat: lantai bersih di bawah 90 detik
 			if floor_t < 90.0 and Stats.floor_num > 1:
 				Stats.earn_souls(2)
@@ -4639,6 +4646,7 @@ func _offer_omens() -> void:
 			{"text": "ROLLING FOG — the dead rise dazed for 3 heartbeats... but +8% hardier"},
 			{"text": "DEEP POCKETS — every bargain costs a fifth less... but the dead grow +12% harder"},
 			{"text": "OARSWORN — your skills recharge a quarter faster... but the dead grow +10% harder"},
+			{"text": "DARK WATER — every floor's end tithes +1 soul... but the dead grow +10% harder"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -4675,7 +4683,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 41 if Stats.nemesis != "" else 40
+	var osize := 42 if Stats.nemesis != "" else 41
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -4848,6 +4856,10 @@ func _omen_deal(idx: int) -> void:
 			omen_hp_mult += 0.1
 			oname = "OARSWORN"
 		40:
+			dark_water = true
+			omen_hp_mult += 0.1
+			oname = "DARK WATER"
+		41:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -4902,6 +4914,7 @@ func _omen_deal(idx: int) -> void:
 		"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
+		"DARK WATER": "The black water pays its tolls gladly, Kael — it only asks that you carry more of it."
 		"PEARL FEVER": "Crack every shell you find, Kael — just mind the salt between the seams.",
 		"MUCKRAKER": "The deep pays its scavengers well — if they can keep their fingers.",
 		"ABYSSAL PATIENCE": "Patience, fisher — let the heavy chests fill your purse; leave the pots for the crabs.",
