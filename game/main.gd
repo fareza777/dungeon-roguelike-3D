@@ -124,7 +124,9 @@ const LORE_LINES := [
 	"The Hull Widows wove the King's fleet into one great snare. He drowned them for the compliment.",
 	"Mercy is a tide that comes rarely, Kael — and always at the hour you stopped expecting it.",
 	"The Widow's webs outlast her — clear them or they will outlast you.",
-	"A slow clock still strikes, Kael — it only asks that you be patient enough to hear it."
+	"A slow clock still strikes, Kael — it only asks that you be patient enough to hear it.",
+	"The Gunners were the King's own powder crews — he drowned them mid-salute, and they are still firing.",
+	"Every tide that favors you, Kael, the sea writes down twice: once as a gift, once as a debt."
 ]
 
 var dungeon_tex: Texture2D
