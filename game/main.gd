@@ -78,6 +78,7 @@ var low_quality := false
 var blood_moon := false
 var soul_rush := false
 var fading_light := false
+var echoing := false
 var omen_done := false
 var omen_hp_mult := 1.0
 var omen_name := ""
@@ -404,6 +405,11 @@ func _apply_biome() -> void:
 		env.ambient_light_color = Color(0.25, 0.28, 0.4)
 		sun.light_color = Color(0.5, 0.55, 0.8)
 		sun.light_energy = 0.55
+	elif echoing:
+		env.fog_light_color = Color(0.1, 0.16, 0.22)
+		env.ambient_light_color = Color(0.4, 0.55, 0.7)
+		sun.light_color = Color(0.55, 0.8, 1.0)
+		sun.light_energy = 1.1
 
 
 func _style_room() -> void:
@@ -454,6 +460,8 @@ func _new_run(new_seed: int) -> void:
 	soul_rush = not blood_moon and Stats.floor_num >= 4 and not boss_floor and rng.randf() < 0.07
 	# event langka #3: fading light — obor padam, musuh lebih ganas, tithe jiwa saat clear
 	fading_light = not blood_moon and not soul_rush and Stats.floor_num >= 6 and not boss_floor and rng.randf() < 0.06
+	# event langka #4: echoing halls — lorong bergema, skill recharge 25% lebih cepat
+	echoing = not blood_moon and not soul_rush and not fading_light and Stats.floor_num >= 5 and not boss_floor and rng.randf() < 0.06
 	_apply_biome()
 	_style_room()
 	_build_gates()
@@ -550,6 +558,10 @@ func _new_run(new_seed: int) -> void:
 		_lvl_banner("◈ FADING LIGHT — THE TORCHES DIE")
 		toast("Enemies +12% speed • +4 souls on clear")
 		Sfx.play("thunder")
+	elif echoing:
+		_lvl_banner("◈ ECHOING HALLS — THE DEEPS REPEAT YOU")
+		toast("Skills recharge +25% • +3 souls on clear")
+		Sfx.play("shrine")
 	elif Stats.floor_num > 1:
 		_lvl_banner("FLOOR %d — %s" % [Stats.floor_num, String(biome["name"]).to_upper()])
 
@@ -1301,6 +1313,11 @@ func _on_enemy_died(e) -> void:
 				_souls_l()
 				Stats.save_game()
 				toast("◈ GLOOM TITHE — +4 souls")
+			elif echoing:
+				Stats.souls += 3
+				_souls_l()
+				Stats.save_game()
+				toast("◈ ECHO TITHE — +3 souls")
 			# bonus sapuan kilat: lantai bersih di bawah 90 detik
 			if floor_t < 90.0 and Stats.floor_num > 1:
 				Stats.souls += 2
@@ -1811,7 +1828,7 @@ func _cast_skill(id: String) -> void:
 				return
 			trauma = 0.6
 			print("SKILL sunder")
-	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction)
+	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0)
 
 
 func _heavy_attack() -> void:
@@ -3986,6 +4003,8 @@ func _refresh_buffs() -> void:
 		list.append(["✦ SOUL RUSH", Color(0.7, 0.45, 1.0)])
 	elif fading_light:
 		list.append(["◈ FADING LIGHT", Color(0.55, 0.6, 0.85)])
+	elif echoing:
+		list.append(["◈ ECHOING", Color(0.55, 0.8, 1.0)])
 	if omen_name != "":
 		list.append(["☗ " + omen_name, Color(0.9, 0.7, 1.0)])
 	if player.get("root_t") != null and player.root_t > 0.0:
