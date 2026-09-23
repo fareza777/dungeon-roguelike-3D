@@ -70,7 +70,7 @@ func smash(from_pos: Vector3) -> void:
 		var reliq := String(ub.get("name", "")) == "Sunken Reliquary"
 		var dry := bool(m.get("abyssal_patience"))
 		if bell:
-			Stats.earn_souls(5 if not dry else 0)
+			Stats.earn_souls((10 if bool(m.get("vessel")) else 5) if not dry else 0)
 			if m.has_method("_quest_event"):
 				m._quest_event("bellurn")
 			if m.has_method("_spawn_wisp_at"):
@@ -87,7 +87,7 @@ func smash(from_pos: Vector3) -> void:
 			if m.has_method("toast"):
 				m.toast("VOID LANTERN — the dark drank 2 souls and paid 8 XP")
 		elif reliq and not dry:
-			Stats.earn_souls(2 if bool(m.get("low_tide")) else 1)
+			Stats.earn_souls((2 if bool(m.get("low_tide")) else 1) * (2 if bool(m.get("vessel")) else 1))
 		if bool(m.get("deeproot")) and not reliq and not dry:
 			Stats.earn_souls(1)
 		if bool(m.get("pearl_fever")) and not dry:
