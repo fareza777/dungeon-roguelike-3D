@@ -2736,6 +2736,8 @@ func _on_banner_tap() -> void:
 			_ach("f5")
 		if Stats.floor_num >= 10:
 			_ach("f10")
+		if Stats.floor_num >= 15:
+			_ach("f15")
 		if Stats.floor_num >= 20:
 			_ach("f20")
 		if Stats.floor_num >= 24:

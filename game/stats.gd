@@ -96,6 +96,7 @@ const ACH_DEF := {
 	"k200": "Crypt Dweller (200 kills)",
 	"f5": "Depth Diver (Floor 5)",
 	"f10": "Fearless (Floor 10)",
+	"f15": "Abyssal Gate (Floor 15)",
 	"f20": "Heart of the Deep (Floor 20)",
 	"f24": "Throneside (Floor 24)",
 	"b1": "Throne Breaker",
