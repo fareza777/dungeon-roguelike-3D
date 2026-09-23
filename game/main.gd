@@ -9270,6 +9270,13 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			{"who": "raja", "text": "MY WRECK HAS NO BOTTOM, KAEL. NEITHER DOES YOUR DEBT."},
 			{"who": "kael", "text": "Then I'll keep paying in bones."},
 		]
+	elif Stats.floor_num == 28:
+		lines = [
+			{"who": "knight", "text": "Twenty-eight floors, Kael. I lost count of my debts around the tenth."},
+			{"who": "kael", "text": "You stopped owing me floors ago, Vane. You stay because you choose to."},
+			{"who": "knight", "text": "...Aye. First choice I've made in three hundred years."},
+			{"who": "oracle", "text": "Then make it count, both of you — the King's reach grows long down here."},
+		]
 	elif Stats.nemesis != "" and not nemesis_warned:
 		nemesis_warned = true
 		lines = [
