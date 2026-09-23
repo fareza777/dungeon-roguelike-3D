@@ -20,6 +20,7 @@ const SK = preload("res://skills_db.gd")
 const QDB = preload("res://quests_db.gd")
 const DLG = preload("res://dialogue.gd")
 const TRAP = preload("res://trap.gd")
+const VIAL = preload("res://vial.gd")
 const SQUIRE = preload("res://squire.gd")
 const SHRINE = preload("res://shrine.gd")
 const LSTONE = preload("res://lore_stone.gd")
@@ -91,6 +92,7 @@ var toast_tween: Tween = null
 var paused_ui := false
 var kills_run := 0
 var last_stand_kills := 0
+var vials := 1
 var run_time := 0.0
 var floor_t := 0.0
 var combo_max := 0
@@ -210,6 +212,7 @@ const TIPS := [
 	"Clear a floor in under 90 seconds for a Sweep Bonus.",
 	"Violet sigils snare your feet — dash before the trap bites.",
 	"Near death, fury answers — Last Stand adds +25% ATK.",
+	"Soul Vials drop from the dead — hold two, drink when it counts.",
 	"When the mist turns violet, the dead weep gems — reap them while it lasts.",
 ]
 
@@ -300,6 +303,7 @@ func _ready() -> void:
 		Stats.reset_run()
 		kills_run = 0
 		last_stand_kills = 0
+		vials = 1
 		run_time = 0.0
 		combo_max = 0
 	Stats.pending_restore = false
@@ -1067,6 +1071,54 @@ func _spawn_health_orb(pos: Vector3) -> void:
 	orb.setup(1.0, info.tile)
 
 
+func _spawn_vial(pos: Vector3) -> void:
+	var v = VIAL.new()
+	room.add_child(v)
+	v.global_position = pos + Vector3(0, 0.5, 0)
+	v.setup(info.tile)
+
+
+func _add_vial() -> void:
+	if vials >= 2:
+		# satchel penuh — langsung diminum di tempat
+		if player != null and is_instance_valid(player):
+			var mh := Stats.get_stat("max_hp")
+			player.hp = minf(mh, player.hp + mh * 0.2)
+			player.hp_changed.emit(player.hp)
+		toast("Satchel full — drank it on the spot (+20% HP)")
+	else:
+		vials += 1
+		toast("+1 ⚗ SOUL VIAL (tap VIAL to drink)")
+	_vial_btn()
+
+
+func _use_vial() -> void:
+	if run_state != "playing" or player == null or not is_instance_valid(player) or player.dead:
+		return
+	if vials <= 0:
+		Sfx.play("deny")
+		toast("No vials left — they drop from the dead")
+		return
+	var mh := Stats.get_stat("max_hp")
+	if player.hp >= mh - 0.01:
+		Sfx.play("deny")
+		toast("HP already full")
+		return
+	vials -= 1
+	player.hp = minf(mh, player.hp + mh * 0.3)
+	player.hp_changed.emit(player.hp)
+	Sfx.play("shrine")
+	_burst(player.global_position + Vector3(0, 0.8, 0), Color(0.3, 0.95, 0.8))
+	toast("⚗ Soul Vial — +30% HP")
+	_vial_btn()
+
+
+func _vial_btn() -> void:
+	if ui.has("vial_btn"):
+		ui.vial_btn.text = "⚗ x%d" % vials
+		ui.vial_btn.modulate = Color(1, 1, 1, 1) if vials > 0 else Color(1, 1, 1, 0.4)
+
+
 func _spawn_gems(pos: Vector3, total: int) -> void:
 	var n := mini(maxi(total, 1), 4)
 	var per := int(total / n)
@@ -1125,6 +1177,8 @@ func _on_enemy_died(e) -> void:
 	Stats.bestiary[e.arch_id] = int(Stats.bestiary.get(e.arch_id, 0)) + 1
 	if Stats.bestiary.size() >= BESTIARY.size():
 		_ach("scholar")
+	if rng.randf() < 0.05:
+		_spawn_vial(e.global_position)
 	# weapon mastery: 25 kill dengan senjata yang sama -> +1 ATK permanen
 	var wid := Stats.weapon_id
 	var wk_old: int = int(Stats.weapon_kills.get(wid, 0))
@@ -1439,6 +1493,7 @@ func _on_banner_tap() -> void:
 		Stats.reset_run()
 		kills_run = 0
 		last_stand_kills = 0
+		vials = 1
 		run_time = 0.0
 		combo_max = 0
 		await _fade_to(1.0, 0.3)
@@ -2915,6 +2970,43 @@ func _build_ui() -> void:
 	swb.add_theme_color_override("font_color", Color(0.75, 0.9, 1.0))
 	swb.pressed.connect(_swap_weapon)
 	layer.add_child(swb)
+
+	# tombol VIAL: minum botol jiwa simpanan
+	var vbtn := Button.new()
+	vbtn.text = "⚗ x1"
+	vbtn.add_theme_font_size_override("font_size", 17)
+	vbtn.anchor_left = 1.0
+	vbtn.anchor_top = 1.0
+	vbtn.anchor_right = 1.0
+	vbtn.anchor_bottom = 1.0
+	vbtn.offset_left = -300
+	vbtn.offset_right = -212
+	vbtn.offset_top = -150
+	vbtn.offset_bottom = -84
+	vbtn.pivot_offset = Vector2(44, 33)
+	var vsb := StyleBoxFlat.new()
+	vsb.bg_color = Color(0.05, 0.22, 0.18, 0.85)
+	vsb.border_color = Color(0.3, 0.95, 0.75, 0.9)
+	vsb.set_border_width_all(2)
+	vsb.set_corner_radius_all(12)
+	vsb.shadow_color = Color(0, 0, 0, 0.5)
+	vsb.shadow_size = 6
+	vsb.shadow_offset = Vector2(0, 3)
+	vbtn.add_theme_stylebox_override("normal", vsb)
+	var vsb2 := vsb.duplicate() as StyleBoxFlat
+	vsb2.bg_color = Color(0.15, 0.4, 0.32, 0.95)
+	vbtn.add_theme_stylebox_override("pressed", vsb2)
+	vbtn.add_theme_color_override("font_color", Color(0.75, 1.0, 0.9))
+	vbtn.add_theme_color_override("font_outline_color", Color(0, 0.1, 0.08, 1))
+	vbtn.add_theme_constant_override("outline_size", 5)
+	vbtn.pressed.connect(func() -> void:
+		_use_vial()
+		var twv := vbtn.create_tween()
+		twv.tween_property(vbtn, "scale", Vector2(0.88, 0.88), 0.05)
+		twv.tween_property(vbtn, "scale", Vector2.ONE, 0.16).set_trans(Tween.TRANS_BACK)
+	)
+	layer.add_child(vbtn)
+	ui["vial_btn"] = vbtn
 
 	var chips := HBoxContainer.new()
 	chips.anchor_top = 1.0
