@@ -72,6 +72,7 @@ var music_volume := -1.0
 var sfx_volume := -1.0
 var saved_run := {}
 var lore_seen: Array = [] # baris lore yang pernah ditemukan (codex, persist)
+var oaths_seen: Array = [] # omen yang pernah disumpah (persist)
 var souls := 0 # mata uang meta — dari kill, dipakai di Hall of Souls
 var nemesis := "" # arch_id pembunuh terakhir — kembali lebih kuat sampai dibunuh balik
 var nemesis_name := "" # nama tampilan untuk menu
@@ -406,6 +407,7 @@ func wipe_progress() -> void:
 	rated = false
 	saved_run = {}
 	lore_seen = []
+	oaths_seen = []
 	souls = 0
 	bestiary = {}
 	weapon_kills = {}
@@ -429,7 +431,7 @@ func save_game() -> void:
 			"music_volume": music_volume, "sfx_volume": sfx_volume,
 			"run": saved_run,
 			"ach": ach,
-			"lore": lore_seen,
+			"lore": lore_seen, "oaths": oaths_seen,
 			"souls": souls,
 			"meta": meta,
 			"bestiary": bestiary,
@@ -469,6 +471,8 @@ func load_game() -> void:
 			var lo = d.get("lore", [])
 			if lo is Array:
 				lore_seen = lo
+			if d.has("oaths") and d["oaths"] is Array:
+				oaths_seen = d["oaths"]
 			souls = int(d.get("souls", 0))
 			var me = d.get("meta", {})
 			if me is Dictionary:

@@ -3305,6 +3305,9 @@ func _omen_deal(idx: int) -> void:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
+	if not Stats.oaths_seen.has(oname):
+		Stats.oaths_seen.append(oname)
+		Stats.save_game()
 	_ach("omen1")
 	Sfx.play("shrine")
 	if player != null and is_instance_valid(player):
