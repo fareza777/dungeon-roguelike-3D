@@ -2766,6 +2766,7 @@ func _on_enemy_died(e) -> void:
 		_damage_number(e.global_position + Vector3(0, 0.9 * info.tile, 0), "COURT'S HOARD — +4 souls", Color(0.5, 0.95, 0.85), true)
 	if e.elite:
 		_quest_event("elite_kill", 1)
+		_quest_event("affix_" + String(e.get("affix")), 1)
 		if String(e.arch_id) == "crowned" and String(biome.get("name", "")) == "Sunken Reliquary":
 			_quest_event("emissary_kill", 1)
 		if Stats.relics.has("kings_ledger"):
