@@ -3125,7 +3125,19 @@ func _offer_omens() -> void:
 
 
 func _soul_cost(n: int) -> int:
-	return maxi(1, n - (1 if pawn_discount else 0))
+	var disc := 0
+	if pawn_discount:
+		disc += 1
+	return maxi(1, n - disc)
+
+
+func _forge_cost(n: int) -> int:
+	var disc := 0
+	if pawn_discount:
+		disc += 1
+	if Stats.relics.has("soulsmith"):
+		disc += 2
+	return maxi(1, n - disc)
 
 
 func _omen_deal(idx: int) -> void:
@@ -3264,25 +3276,25 @@ func _forge_deal(idx: int) -> void:
 		if wlv >= 6:
 			toast("The blade is perfect — it can go no further")
 			return
-		elif Stats.souls < _soul_cost(6):
+		elif Stats.souls < _forge_cost(6):
 			toast("Not enough souls (need 6)")
 			return
-		Stats.souls -= _soul_cost(6)
+		Stats.souls -= _forge_cost(6)
 		Stats.weapon_lv[wid] = wlv + 1
 	elif idx == 1:
 		if wlv >= 5:
 			toast("The blade nears perfection — one quench at a time")
 			return
-		elif Stats.souls < _soul_cost(10):
+		elif Stats.souls < _forge_cost(10):
 			toast("Not enough souls (need 10)")
 			return
-		Stats.souls -= _soul_cost(10)
+		Stats.souls -= _forge_cost(10)
 		Stats.weapon_lv[wid] = wlv + 2
 	elif idx == 2:
-		if Stats.souls < _soul_cost(4):
+		if Stats.souls < _forge_cost(4):
 			toast("Not enough souls (need 4)")
 			return
-		Stats.souls -= _soul_cost(4)
+		Stats.souls -= _forge_cost(4)
 		player.hp = Stats.get_stat("max_hp")
 		_souls_l()
 		Stats.save_game()
@@ -3339,7 +3351,7 @@ func _mirror_deal(idx: int) -> void:
 		return
 	if idx != 0:
 		return
-	if Stats.souls < _soul_cost(4):
+	if Stats.souls < _forge_cost(4):
 		toast("Not enough souls (need 4)")
 		return
 	var opts: Array = []
@@ -3349,7 +3361,7 @@ func _mirror_deal(idx: int) -> void:
 	if opts.is_empty():
 		toast("The mirror finds nothing worth trading")
 		return
-	Stats.souls -= _soul_cost(4)
+	Stats.souls -= _forge_cost(4)
 	_souls_l()
 	var nid: String = String(opts[rng.randi() % opts.size()])
 	player.equip_weapon(nid)
@@ -3398,7 +3410,7 @@ func _on_vault_invoked(s) -> void:
 func _vault_deal(idx: int) -> void:
 	if idx != 0:
 		return
-	if Stats.souls < _soul_cost(5):
+	if Stats.souls < _forge_cost(5):
 		toast("The lock demands five souls")
 		return
 	var vpool: Array = []
@@ -3408,7 +3420,7 @@ func _vault_deal(idx: int) -> void:
 	if vpool.is_empty():
 		toast("The vault is already empty")
 		return
-	Stats.souls -= _soul_cost(5)
+	Stats.souls -= _forge_cost(5)
 	_souls_l()
 	var rid12: String = String(vpool[rng.randi() % vpool.size()])
 	Stats.add_relic(rid12)
@@ -3502,10 +3514,10 @@ func _mahzan_deal(idx: int) -> void:
 					squire_ref.queue_free()
 					squire_ref = null
 		4:
-			if Stats.souls < _soul_cost(5):
+			if Stats.souls < _forge_cost(5):
 				toast("Not enough souls (need 5)")
 			else:
-				Stats.souls -= _soul_cost(5)
+				Stats.souls -= _forge_cost(5)
 				_souls_l()
 				vials = 2
 				_vial_btn()
@@ -3513,42 +3525,42 @@ func _mahzan_deal(idx: int) -> void:
 		5:
 			if Stats.mahzan_debt <= 0.0:
 				toast("Your ledger is clean, warrior")
-			elif Stats.souls < _soul_cost(15):
+			elif Stats.souls < _forge_cost(15):
 				toast("Not enough souls (need 15)")
 			else:
-				Stats.souls -= _soul_cost(15)
+				Stats.souls -= _forge_cost(15)
 				_souls_l()
 				Stats.mahzan_debt = 0.0
 				toast("Debt settled — Max HP restored")
 		6:
 			if Stats.curse_dmg <= 0.0:
 				toast("You carry no pacts to shed, warrior")
-			elif Stats.souls < _soul_cost(8):
+			elif Stats.souls < _forge_cost(8):
 				toast("Not enough souls (need 8)")
 			else:
-				Stats.souls -= _soul_cost(8)
+				Stats.souls -= _forge_cost(8)
 				_souls_l()
 				Stats.curse_dmg = maxf(0.0, Stats.curse_dmg - 0.3)
 				Stats.curse_xp = maxf(0.0, Stats.curse_xp - 0.5)
 				toast("Curse eaten — the obelisk's hold weakens")
 		7:
-			if Stats.souls < _soul_cost(8):
+			if Stats.souls < _forge_cost(8):
 				toast("Not enough souls (need 8)")
 			else:
-				Stats.souls -= _soul_cost(8)
+				Stats.souls -= _forge_cost(8)
 				_souls_l()
 				Stats.reroll_extra += 1
 				toast("Kismet Thread — every draft gains a second reroll")
 		8:
-			if Stats.souls < _soul_cost(6):
+			if Stats.souls < _forge_cost(6):
 				toast("Not enough souls (need 6)")
 			else:
-				Stats.souls -= _soul_cost(6)
+				Stats.souls -= _forge_cost(6)
 				_souls_l()
 				Stats.buff_xp_pct += 0.3
 				toast("Pale Pawn — +30% XP this run")
 		9:
-			if Stats.souls < _soul_cost(5):
+			if Stats.souls < _forge_cost(5):
 				toast("Not enough souls (need 5)")
 			else:
 				var opts: Array = []
@@ -3558,7 +3570,7 @@ func _mahzan_deal(idx: int) -> void:
 				if opts.is_empty():
 					toast("Mahzan has no blade worth your souls")
 				else:
-					Stats.souls -= _soul_cost(5)
+					Stats.souls -= _forge_cost(5)
 					_souls_l()
 					var nid: String = String(opts[rng.randi() % opts.size()])
 					player.equip_weapon(nid)
@@ -3566,7 +3578,7 @@ func _mahzan_deal(idx: int) -> void:
 					Sfx.play("levelup")
 					toast("Bone Lottery pays out — %s" % String(WDB.get_w(nid)["name"]))
 		10:
-			if Stats.souls < _soul_cost(3):
+			if Stats.souls < _forge_cost(3):
 				toast("Mahzan demands three souls — you lack the coin")
 			else:
 				var tpool: Array = []
@@ -3576,7 +3588,7 @@ func _mahzan_deal(idx: int) -> void:
 				if tpool.is_empty():
 					toast("His trove is picked clean — your souls return")
 				else:
-					Stats.souls -= _soul_cost(3)
+					Stats.souls -= _forge_cost(3)
 					_souls_l()
 					var rid10: String = String(tpool[rng.randi() % tpool.size()])
 					Stats.add_relic(rid10)
@@ -3584,7 +3596,7 @@ func _mahzan_deal(idx: int) -> void:
 					Sfx.play("shrine")
 					toast("Fool's Trove — " + String(ITEMS.DB[rid10]["name"]))
 		11:
-			if Stats.souls < _soul_cost(2):
+			if Stats.souls < _forge_cost(2):
 				toast("Mahzan's secrets are not free")
 			else:
 				var unseen: Array = []
@@ -3594,7 +3606,7 @@ func _mahzan_deal(idx: int) -> void:
 				if unseen.is_empty():
 					toast("He has no more secrets to sell")
 				else:
-					Stats.souls -= _soul_cost(2)
+					Stats.souls -= _forge_cost(2)
 					_souls_l()
 					var sl: String = String(unseen[rng.randi() % unseen.size()])
 					Stats.lore_seen.append(sl)
