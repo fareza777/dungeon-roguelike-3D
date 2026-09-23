@@ -126,6 +126,7 @@ const ACH_DEF := {
 	"pious": "Pious (five prayers over the fallen)",
 	"doubloath": "Twice-Sworn (carry two omens in one run)",
 	"fatebound": "Fatebound (five oaths sworn across your descents)",
+	"unstoppable": "Unstoppable (a ×50 kill streak in one run)",
 }
 
 const META_DEF := {
