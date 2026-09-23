@@ -133,6 +133,8 @@ var shrouded := false
 var ossuary := false
 var mirror_hall := false
 var legion_omen := false
+var wolf_omen := false
+var wolf_n := 0
 var shrine_kind := 0
 var bounty_ref: Enemy = null
 var bounty_epic := false
@@ -559,6 +561,8 @@ func _reset_run_state() -> void:
 	perfect_dodges = 0
 	leech_charge = 0
 	legion_omen = false
+	wolf_omen = false
+	wolf_n = 0
 	nemesis_warned = false
 
 
@@ -1580,6 +1584,11 @@ func _on_enemy_died(e) -> void:
 			_spawn_wisp_at(e.global_position + woff)
 	Sfx.play("death")
 	kills_run += 1
+	if wolf_omen and wolf_n < 20:
+		wolf_n += 1
+		Stats.buff_speed_pct += 0.01
+		if player != null and is_instance_valid(player):
+			player.refresh_stats()
 	if Stats.relics.has("leech_seed") and player != null and player.hp >= Stats.get_stat("max_hp") - 0.01:
 		leech_charge += 1
 		if leech_charge >= 6:
@@ -3293,6 +3302,7 @@ func _offer_omens() -> void:
 			{"text": "LEGION — the halls swarm with an extra foe in every room; +15% XP"},
 			{"text": "LASTBORN — start the run wounded (-35% Max HP) but carry two extra soul vials"},
 			{"text": "HEAVYHAND — +20% ATK, but swings come 20% slower"},
+			{"text": "WOLF OF THE HALLS — each kill quickens you +1% (up to +20%)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -3321,7 +3331,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 17 if Stats.nemesis != "" else 16
+	var osize := 18 if Stats.nemesis != "" else 17
 	if idx >= osize:
 		toast("You walk alone — the Oracle nods")
 		return
@@ -3401,6 +3411,9 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_aspd -= 0.2
 			oname = "HEAVYHAND"
 		16:
+			wolf_omen = true
+			oname = "WOLF"
+		17:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -3418,6 +3431,7 @@ func _omen_deal(idx: int) -> void:
 		"LEGION": "More dead to cut. The deeps oblige your hunger.",
 		"LASTBORN": "Born fragile, armed thrice. Drink deep when it matters.",
 		"HEAVYHAND": "Slow hands, heavy graves. Make each cut count.",
+		"WOLF": "The pack runs faster after every feed.",
 		"FEATHER": "A lighter coffin, then. Sensible.",
 		"RICH SOIL": "The dungeon will feed you well — keep chewing.",
 		"LEECHING": "Your blood will not stay yours, but at least it circles back.",
