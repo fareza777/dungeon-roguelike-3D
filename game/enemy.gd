@@ -172,7 +172,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound"][randi() % 23]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled"][randi() % 24]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -243,6 +243,12 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				# cangkang mutiara: separuh damage sampai retak — hit pertama memecahkannya
 				hp *= 1.2
 				xp_val = int(xp_val * 1.25)
+			"barnacled":
+				# kerak: perisai baja, gerak berat
+				armor += 2
+				speed *= 0.8
+				hp *= 1.1
+				xp_val = int(xp_val * 1.3)
 	scale = Vector3.ONE * sc
 	_base_scale = scale
 	hp_max = hp
