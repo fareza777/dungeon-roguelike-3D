@@ -58,7 +58,8 @@ const LORE_LINES := [
 	"The Hex Priests were Aldric's confessors — they still silence prayer itself.",
 	"The Shade was the King's champion duelist. He blinked once too often, and the dark kept him.",
 	"Kael's name is already in the ledger — only the page number is still being written.",
-	"The Golem was every fallen knight at once — it swings with all their weight, and none of their mercy."
+	"The Golem was every fallen knight at once — it swings with all their weight, and none of their mercy.",
+	"Somewhere below, the Soul Forge still burns for a smith who never came back for his blade."
 ]
 
 var dungeon_tex: Texture2D
@@ -1019,7 +1020,9 @@ func _spawn_shrine(last_room: int) -> void:
 	s.global_position = pos
 	# lantai 3+: 30% Mahzan; lantai 2+: 22% obelisk terkutuk; sisanya altar berkat
 	var skind := 0
-	if Stats.floor_num >= 4 and rng.randf() < 0.18:
+	if Stats.floor_num >= 6 and rng.randf() < 0.12:
+		skind = 4
+	elif Stats.floor_num >= 4 and rng.randf() < 0.18:
 		skind = 3
 	elif Stats.floor_num >= 3 and rng.randf() < 0.3:
 		skind = 1
@@ -1034,6 +1037,8 @@ func _spawn_shrine(last_room: int) -> void:
 			s.invoked.connect(_on_curse_invoked)
 		3:
 			s.invoked.connect(_on_forge_invoked)
+		4:
+			s.invoked.connect(_on_mirror_invoked)
 		_:
 			s.invoked.connect(_on_shrine_invoked)
 
@@ -2789,6 +2794,10 @@ func _on_dlg_choice(idx: int) -> void:
 		dlg_pending_choice = -1
 		_forge_deal(idx)
 		return
+	elif dlg_pending_choice == 7:
+		dlg_pending_choice = -1
+		_mirror_deal(idx)
+		return
 	match idx:
 		0:
 			Stats.buff_atk_pct += 0.15
@@ -2840,6 +2849,7 @@ func _offer_omens() -> void:
 			{"text": "ECLIPSE — return from death once, -15% ATK"},
 			{"text": "IRONSIDE — +2 Armor, -15% Speed"},
 			{"text": "STORMGLASS — +20% Skill Recharge, -15% Max HP"},
+			{"text": "OATH OF SILENCE — +30% ATK, skills recharge 35% slower"},
 		]
 	)
 
@@ -2963,6 +2973,41 @@ func _forge_deal(idx: int) -> void:
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.55, 0.15))
+
+
+func _on_mirror_invoked(s) -> void:
+	shrine_used = true
+	s.consume()
+	Sfx.play("shrine")
+	dlg_pending_choice = 7
+	var wname := String(WDB.get_w(Stats.weapon_id)["name"])
+	_say([{"who": "oracle", "text": "The mirror shows not your face, Kael — but another warrior's blade. Feed it and it will trade yours."}],
+		[{"text": "Gaze — pay 4 souls: swap %s for a stranger's blade" % wname},
+		{"text": "Look away"}])
+
+
+func _mirror_deal(idx: int) -> void:
+	if idx != 0:
+		return
+	if Stats.souls < 4:
+		toast("Not enough souls (need 4)")
+		return
+	var opts: Array = []
+	for wid in WDB.POOL:
+		if wid != Stats.weapon_id:
+			opts.append(wid)
+	if opts.is_empty():
+		toast("The mirror finds nothing worth trading")
+		return
+	Stats.souls -= 4
+	_souls_l()
+	var nid: String = String(opts[rng.randi() % opts.size()])
+	player.equip_weapon(nid)
+	Stats.save_game()
+	Sfx.play("levelup")
+	toast("The mirror trades — %s drawn" % String(WDB.get_w(nid)["name"]))
+	if player != null and is_instance_valid(player):
+		_burst(player.global_position + Vector3(0, 0.5, 0), Color(0.5, 0.7, 1.0))
 
 
 func _on_curse_invoked(s) -> void:
