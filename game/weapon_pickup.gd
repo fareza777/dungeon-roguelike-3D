@@ -35,6 +35,15 @@ func setup(id: String, tex: Texture2D, p_tile: float) -> void:
 	ring.mesh = torus
 	ring.position.y = 0.12
 	add_child(ring)
+	var nl := Label3D.new()
+	nl.text = String(w["name"]).to_upper()
+	nl.font_size = 38
+	nl.modulate = Color(1.0, 0.85, 0.4, 0.95)
+	nl.outline_size = 10
+	nl.outline_modulate = Color(0.05, 0.02, 0.0, 0.9)
+	nl.position = Vector3(0, 1.25, 0)
+	nl.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	add_child(nl)
 
 
 func _physics_process(delta: float) -> void:

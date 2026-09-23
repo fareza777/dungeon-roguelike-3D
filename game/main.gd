@@ -1064,6 +1064,8 @@ func _on_enemy_died(e) -> void:
 	_souls(e.global_position, 22 if e.is_boss else 7, Color(1.0, 0.5, 0.3) if e.is_boss else Color(0.6, 0.85, 1.0))
 	Sfx.play("death")
 	kills_run += 1
+	if ui.has("kills_label"):
+		ui.kills_label.text = "☠ %d" % kills_run
 	Stats.count_kill()
 	Stats.bestiary[e.arch_id] = int(Stats.bestiary.get(e.arch_id, 0)) + 1
 	if Stats.bestiary.size() >= BESTIARY.size():
@@ -2747,6 +2749,21 @@ func _build_ui() -> void:
 	layer.add_child(sul)
 	ui["souls_label"] = sul
 	_souls_l()
+
+	var kl := Label.new()
+	kl.add_theme_font_size_override("font_size", 17)
+	kl.modulate = Color(1.0, 0.5, 0.45)
+	kl.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.8))
+	kl.add_theme_constant_override("outline_size", 3)
+	kl.anchor_left = 1.0
+	kl.anchor_right = 1.0
+	kl.offset_left = -280
+	kl.offset_top = 60
+	kl.offset_right = -140
+	kl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	layer.add_child(kl)
+	ui["kills_label"] = kl
+	kl.text = ""
 
 	var hero_btn := Button.new()
 	hero_btn.text = "HERO"
