@@ -766,6 +766,15 @@ func _on_boss_died(_e) -> void:
 func _boss_enraged() -> void:
 	toast(boss_name + " RAGES!")
 	trauma = 0.9
+	# bar membara saat enrage
+	if ui.has("boss_fill"):
+		var fb := StyleBoxFlat.new()
+		fb.bg_color = Color(1.0, 0.45, 0.1)
+		fb.set_corner_radius_all(4)
+		ui.boss_fill.add_theme_stylebox_override("fill", fb)
+	if ui.has("boss_name"):
+		ui.boss_name.modulate = Color(1.0, 0.4, 0.2)
+		ui.boss_name.text = "☠ " + boss_name + " — ENRAGED"
 
 
 func _on_player_died() -> void:
@@ -1867,6 +1876,8 @@ func _build_ui() -> void:
 	bn.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	bn.add_theme_font_size_override("font_size", 16)
 	bn.modulate = Color(1.0, 0.55, 0.45)
+	bn.add_theme_color_override("font_outline_color", Color(0.15, 0.02, 0.0, 0.9))
+	bn.add_theme_constant_override("outline_size", 4)
 	var bf := ProgressBar.new()
 	bf.max_value = 100
 	bf.value = 100
