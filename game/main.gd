@@ -1574,7 +1574,7 @@ func _on_enemy_died(e) -> void:
 	if String(e.affix) == "shattered":
 		for sc in range(2):
 			var off4 := Vector3((sc - 0.5) * 0.7 * info.tile, 0, 0.3 * info.tile)
-			var se := _spawn_enemy({"pos": e.global_position + off4, "room": int(e.room_idx)}, "crawler")
+			var se := _spawn_enemy({"pos": e.global_position + off4, "room": int(e.room_idx)}, "crawler", false)
 			if se != null:
 				se.activated = true
 		_damage_number(e.global_position + Vector3(0, 1.0 * info.tile, 0), "SHATTERED!", Color(0.6, 0.9, 0.6), true)
