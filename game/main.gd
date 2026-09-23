@@ -523,6 +523,8 @@ func _reset_run_state() -> void:
 	solitary = false
 	pawn_discount = false
 	golden_fate = false
+	trap_wrapped = 0
+	perfect_dodges = 0
 	nemesis_warned = false
 
 

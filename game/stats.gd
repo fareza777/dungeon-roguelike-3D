@@ -117,6 +117,7 @@ const ACH_DEF := {
 	"lore32": "Archivist (heard every whispered line)",
 	"col10": "Collector (carried 10 relics in one run)",
 	"centurion": "Centurion (100 kills in a single run)",
+	"untouchable": "Untouchable (three perfect dodges in a run)",
 }
 
 const META_DEF := {
