@@ -3549,7 +3549,7 @@ func _omen_deal(idx: int) -> void:
 			oname = "BARGAINER"
 		22:
 			Stats.hollow_crown = true
-			buff_atk += 0.4
+			Stats.buff_atk_pct += 0.4
 			oname = "HOLLOW CROWN"
 		23:
 			nemesis_bounty = true
@@ -3840,7 +3840,7 @@ func _bounty_deal(idx: int) -> void:
 		var table2: Array = biome["enemies"]
 		for bp in range(2):
 			var barch := String(table2[rng.randi_range(0, table2.size() - 1)])
-			var bpos := shrine_ref.global_position + Vector3((0.7 + bp * 0.8) * info.tile, 0, (0.3 + bp * 0.4) * info.tile)
+			var bpos: Vector3 = shrine_ref.global_position + Vector3((0.7 + bp * 0.8) * info.tile, 0, (0.3 + bp * 0.4) * info.tile)
 			var be := _spawn_enemy({"pos": bpos, "room": current_room}, barch, true)
 			if be != null:
 				be.pack_bounty = true
