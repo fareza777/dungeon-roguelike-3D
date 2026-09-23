@@ -72,6 +72,7 @@ const DB := {
 	"shellshield": {"name": "Shell Shield", "chip": "SH", "desc": "The first clam you pry each floor pays +2 extra souls", "rarity": 1, "mods": {}},
 	"bone_tithe": {"name": "Bone Tithe", "chip": "BT", "desc": "Disarming a trap grants +1 Armor for the rest of the floor", "rarity": 2, "mods": {}},
 	"tide_lock": {"name": "Tide Lock", "chip": "TL", "desc": "Every floor event that rolls pays you +1 soul on arrival", "rarity": 1, "mods": {}},
+	"choir_hush": {"name": "Choir's Hush", "chip": "CH", "desc": "Silencing a siren stuns every other foe for 1s", "rarity": 2, "mods": {}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }

@@ -2350,6 +2350,13 @@ func _on_enemy_died(e) -> void:
 		if Stats.relics.has("siren_farewell"):
 			Stats.earn_souls(2)
 			_souls_l()
+		if Stats.relics.has("choir_hush"):
+			for hf in get_tree().get_nodes_in_group("enemies"):
+				if hf == e or hf.get("state") == "dead" or bool(hf.get("is_boss")):
+					continue
+				if hf.has_method("stun"):
+					hf.stun(1.0)
+			_damage_number(e.global_position + Vector3(0, 1.1 * info.tile, 0), "HUSH", Color(0.6, 0.5, 1.0), true)
 	if e.arch_id == "sentinel":
 		_quest_event("sentinel_kill")
 	if e.arch_id == "shade":
