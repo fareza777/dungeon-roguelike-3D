@@ -2314,6 +2314,10 @@ func _on_enemy_died(e) -> void:
 	# permata XP terakhir, supaya logika gerbang di atas tidak keganggu bila gem gagal
 	if e.golden:
 		_damage_number(e.global_position, "LUCKY ×3", Color(1.0, 0.85, 0.3), true)
+	if e.elite and String(biome.get("name", "")) == "Sunken Reliquary":
+		Stats.souls += 4
+		_souls_l()
+		_damage_number(e.global_position + Vector3(0, 0.9 * info.tile, 0), "EMISSARY'S PAYER — +4 souls", Color(0.5, 0.95, 0.85), true)
 	if e.elite:
 		_quest_event("elite_kill", 1)
 		if not e.is_boss:
