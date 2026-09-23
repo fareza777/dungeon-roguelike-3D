@@ -1773,6 +1773,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.dmg = int(ceil(e.dmg * 1.15))
 	if brisk:
 		e.speed *= 1.08
+	if Stats.relics.has("brine_whistle"):
+		e.slow_t = 2.5
 	if long_wake:
 		e.aggro_range *= 1.4
 	room.add_child(e)
