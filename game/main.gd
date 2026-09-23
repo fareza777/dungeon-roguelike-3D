@@ -158,6 +158,7 @@ var deep_current := false
 var dread_tide := false
 var starved_deep := false
 var choir := false
+var shell_game := false
 var legion_omen := false
 var wolf_omen := false
 var ashborn := false
@@ -925,6 +926,7 @@ func _new_run(new_seed: int) -> void:
 	dread_tide = not boss_floor and Stats.floor_num >= 13 and rng.randf() < 0.14
 	starved_deep = not dread_tide and not boss_floor and Stats.floor_num >= 13 and rng.randf() < 0.13
 	choir = not dread_tide and not starved_deep and not boss_floor and Stats.floor_num >= 13 and rng.randf() < 0.12
+	shell_game = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not umbral_tide and not abyssal_patience and not choir and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
 	if glass_sea:
 		Stats.buff_atk_pct += 0.10
 	if wolfsbane:
@@ -1108,6 +1110,9 @@ func _new_run(new_seed: int) -> void:
 		Sfx.play("souls")
 	elif choir:
 		_lvl_banner("☗ CHOIR BELOW — TEN THOUSAND VOICES")
+	elif shell_game:
+		_lvl_banner("▲ SHELL GAME — THE CLAMS CLAMP SHUT")
+		toast("Every clam sleeps half again as long • but pearls pay double")
 		toast("The drowned choir rehearses • enemy shots fly 40% faster")
 		Sfx.play("souls")
 		if Stats.relics.has("choir_alms"):
