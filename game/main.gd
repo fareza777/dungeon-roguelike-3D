@@ -2415,6 +2415,10 @@ func _start_quests(boss_floor: bool, room_count: int) -> void:
 func _quest_event(kind: String, num: int = 1) -> void:
 	# total per-kind dihitung apa pun langkah aktifnya — langkah berurutan
 	# tidak boleh kehilangan progres yang terjadi sebelum gilirannya
+	if kind == "trap_disarm":
+		Stats.traps_defused += num
+		if Stats.traps_defused >= 5:
+			_ach("trap5")
 	if kind != "reach_room":
 		quest_counts[kind] = int(quest_counts.get(kind, 0)) + num
 	if quest_idx >= quest_steps.size():
