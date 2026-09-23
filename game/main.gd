@@ -1577,6 +1577,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("revenant_kill")
 	if e.arch_id == "shieldbearer":
 		_quest_event("shield_kill")
+	if e.arch_id == "duelist":
+		_quest_event("duelist_kill")
 	if String(e.affix) == "shattered":
 		for sc in range(2):
 			var off4 := Vector3((sc - 0.5) * 0.7 * info.tile, 0, 0.3 * info.tile)
