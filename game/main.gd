@@ -6586,9 +6586,6 @@ func _keel_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("GANGWAY TOLL — the floor's dead carry fatter lessons")
 		return
-	if idx == 8:
-		toast("The stone settles — the sea keeps its bargains")
-		return
 	if idx == 7:
 		if Stats.souls < _soul_cost(3):
 			toast("Three souls — the wind isn't free")
