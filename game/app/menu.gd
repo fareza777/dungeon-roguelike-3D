@@ -20,6 +20,7 @@ func _ready() -> void:
 	Sfx.set_volume(Stats.volume)
 	Sfx.play_music("menu")
 	_build()
+	Transit.fade_in(self)
 	if autotest:
 		_shell_autotest()
 
@@ -390,11 +391,13 @@ func _on_rate() -> void:
 
 func _on_continue() -> void:
 	Stats.pending_restore = true
+	await Transit.fade_out(self)
 	get_tree().change_scene_to_file("res://Main.tscn")
 
 
 func _on_new() -> void:
 	Stats.pending_restore = false
+	await Transit.fade_out(self)
 	if Stats.seen_cinematic:
 		get_tree().change_scene_to_file("res://Main.tscn")
 	else:

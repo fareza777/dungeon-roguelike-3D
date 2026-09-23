@@ -45,6 +45,13 @@ var low_quality := false
 var chest_opened := false
 var toast_tween: Tween = null
 
+# polish r2: pause, ringkasan run, transisi fade, juice vfx
+var paused_ui := false
+var kills_run := 0
+var run_time := 0.0
+var fade_rect: ColorRect = null
+var pause_panel: PanelContainer = null
+
 # v5: boss + quest + kombo + altar + peti mimic + dialog + minimap
 var boss_ref = null
 var quest_steps: Array = []
@@ -93,6 +100,8 @@ func _ready() -> void:
 		print("LANJUTKAN run lantai=", Stats.floor_num)
 	else:
 		Stats.reset_run()
+		kills_run = 0
+		run_time = 0.0
 	Stats.pending_restore = false
 	Stats.runs += 1
 	Stats.save_game()
@@ -100,6 +109,7 @@ func _ready() -> void:
 	Stats.leveled_up.connect(_on_leveled_up)
 	Stats.relics_changed.connect(_rebuild_chips)
 	_new_run(seed_val)
+	_fade_to(0.0, 0.6)
 	if autotest:
 		_run_autotest()
 
@@ -320,6 +330,7 @@ func _spawn_player(pos: Vector3) -> void:
 	player.died.connect(_on_player_died)
 	player.hit_landed.connect(_on_hit_landed)
 	player.attacked.connect(_on_player_attacked)
+	player.stepped.connect(_step_dust)
 
 
 func _on_player_hp(hp: float) -> void:
@@ -331,6 +342,86 @@ func _on_player_attacked() -> void:
 	if tut_active and tut_step == 1:
 		tut_step = 2
 		_tut_show("Habisi semua skeleton di lantai ini!")
+	_slash_vfx()
+
+
+func _slash_vfx() -> void:
+	if player == null or not is_instance_valid(player):
+		return
+	var q := PlaneMesh.new()
+	q.size = Vector2(1.1 * info.tile, 0.42 * info.tile)
+	var mt := StandardMaterial3D.new()
+	mt.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	mt.albedo_color = Color(0.75, 0.9, 1.0, 0.85)
+	mt.emission_enabled = true
+	mt.emission = Color(0.6, 0.85, 1.0)
+	mt.emission_energy_multiplier = 2.5
+	mt.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	mt.cull_mode = BaseMaterial3D.CULL_DISABLED
+	q.material = mt
+	var m := MeshInstance3D.new()
+	m.mesh = q
+	add_child(m)
+	var dir := Vector3(sin(player.rotation.y), 0, cos(player.rotation.y))
+	m.global_position = player.global_position + dir * 0.55 * info.tile + Vector3(0, 0.45 * info.tile, 0)
+	m.rotation.y = player.rotation.y
+	m.rotation.x = -1.15
+	m.scale = Vector3(0.3, 1, 1)
+	var tw := m.create_tween()
+	tw.set_parallel(true)
+	tw.tween_property(m, "scale:x", 1.25, 0.14).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
+	tw.tween_property(mt, "albedo_color:a", 0.0, 0.16)
+	tw.set_parallel(false)
+	tw.tween_callback(m.queue_free)
+
+
+func _souls(pos: Vector3, n := 7, col := Color(0.6, 0.85, 1.0)) -> void:
+	var p := CPUParticles3D.new()
+	p.amount = n
+	p.one_shot = true
+	p.explosiveness = 0.85
+	p.lifetime = 0.9
+	p.emission_shape = CPUParticles3D.EMISSION_SHAPE_SPHERE
+	p.emission_sphere_radius = 0.12 * info.tile
+	p.direction = Vector3(0, 1, 0)
+	p.spread = 35.0
+	p.gravity = Vector3(0, 0.9 * info.tile, 0)
+	p.initial_velocity_min = 0.6 * info.tile
+	p.initial_velocity_max = 1.3 * info.tile
+	p.damping_min = 0.4 * info.tile
+	p.damping_max = 1.0 * info.tile
+	p.scale_amount_min = 0.04 * info.tile
+	p.scale_amount_max = 0.08 * info.tile
+	p.color = col
+	add_child(p)
+	p.global_position = pos + Vector3(0, 0.35 * info.tile, 0)
+	p.emitting = true
+	var tw := p.create_tween()
+	tw.tween_interval(1.4)
+	tw.tween_callback(p.queue_free)
+
+
+func _step_dust(pos: Vector3) -> void:
+	var q := PlaneMesh.new()
+	q.size = Vector2(0.22 * info.tile, 0.22 * info.tile)
+	var mt := StandardMaterial3D.new()
+	mt.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	mt.albedo_color = Color(0.65, 0.58, 0.5, 0.3)
+	mt.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	mt.cull_mode = BaseMaterial3D.CULL_DISABLED
+	q.material = mt
+	var m := MeshInstance3D.new()
+	m.mesh = q
+	add_child(m)
+	m.global_position = pos + Vector3(randf_range(-0.05, 0.05), 0.03 * info.tile, randf_range(-0.05, 0.05))
+	m.rotation.x = -PI / 2
+	m.scale = Vector3(0.5, 0.5, 1)
+	var tw := m.create_tween()
+	tw.set_parallel(true)
+	tw.tween_property(m, "scale", Vector3(1.5, 1.5, 1), 0.45)
+	tw.tween_property(mt, "albedo_color:a", 0.0, 0.45)
+	tw.set_parallel(false)
+	tw.tween_callback(m.queue_free)
 
 
 func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool) -> void:
@@ -433,7 +524,9 @@ func _on_enemy_died(e) -> void:
 	print("ENEMY DIED arch=%s elite=%s xp=%d" % [e.arch_id, e.elite, e.xp_val])
 	trauma = 0.7
 	_burst(e.global_position)
+	_souls(e.global_position, 22 if e.is_boss else 7, Color(1.0, 0.5, 0.3) if e.is_boss else Color(0.6, 0.85, 1.0))
 	Sfx.play("death")
+	kills_run += 1
 	Stats.count_kill()
 	_quest_event("kill")
 	_combo_set(combo + 1)
@@ -493,7 +586,9 @@ func _on_player_died() -> void:
 	Stats.runs += 1
 	Stats.save_game()
 	_tut_hide()
-	_show_banner("YOU DIED", "Lantai %d • %s\nketuk untuk mengulang — Terbaik: Lantai %d" % [Stats.floor_num, biome["name"], Stats.best_floor])
+	var mins := int(run_time) / 60
+	var secs := int(run_time) % 60
+	_show_banner("KAMU MATI", "Lantai %d • %s\n%d kill • Lv %d • %d relik • %d:%02d\nTerbaik: Lantai %d — ketuk untuk mengulang" % [Stats.floor_num, biome["name"], kills_run, Stats.level, Stats.relics.size(), mins, secs, Stats.best_floor])
 
 
 func _on_banner_tap() -> void:
@@ -501,10 +596,16 @@ func _on_banner_tap() -> void:
 		_quest_event("descend")
 		Stats.floor_num += 1
 		Stats.note_floor()
+		await _fade_to(1.0, 0.3)
 		_new_run(rng.randi())
+		_fade_to(0.0, 0.45)
 	elif run_state == "dead":
 		Stats.reset_run()
+		kills_run = 0
+		run_time = 0.0
+		await _fade_to(1.0, 0.3)
 		_new_run(rng.randi())
+		_fade_to(0.0, 0.45)
 
 
 # ---------------- tutorial ----------------
@@ -1338,6 +1439,25 @@ func _build_ui() -> void:
 	hero_btn.pressed.connect(func() -> void: _toggle_hero(true))
 	layer.add_child(hero_btn)
 
+	# tombol jeda di kiri HERO
+	var pbtn := Button.new()
+	pbtn.text = "II"
+	pbtn.add_theme_font_size_override("font_size", 17)
+	pbtn.anchor_left = 1.0
+	pbtn.anchor_right = 1.0
+	pbtn.offset_left = -184
+	pbtn.offset_right = -140
+	pbtn.offset_top = 44
+	pbtn.offset_bottom = 88
+	var psbb := StyleBoxFlat.new()
+	psbb.bg_color = Color(0.07, 0.07, 0.14, 0.75)
+	psbb.border_color = Color(0.9, 0.75, 0.3, 0.5)
+	psbb.set_border_width_all(2)
+	psbb.set_corner_radius_all(9)
+	pbtn.add_theme_stylebox_override("normal", psbb)
+	pbtn.pressed.connect(_toggle_pause)
+	layer.add_child(pbtn)
+
 	var chips := HBoxContainer.new()
 	chips.anchor_top = 1.0
 	chips.anchor_bottom = 1.0
@@ -1667,6 +1787,135 @@ func _build_ui() -> void:
 	layer.add_child(hr)
 	ui["hero"] = hr
 
+	# panel JEDA (resume / restart lantai / volume / keluar ke menu)
+	var pp := PanelContainer.new()
+	pp.anchor_left = 0.5
+	pp.anchor_right = 0.5
+	pp.anchor_top = 0.5
+	pp.anchor_bottom = 0.5
+	pp.offset_left = -200
+	pp.offset_right = 200
+	pp.offset_top = -280
+	pp.offset_bottom = 280
+	pp.process_mode = Node.PROCESS_MODE_ALWAYS
+	var ppsb := StyleBoxFlat.new()
+	ppsb.bg_color = Color(0.05, 0.05, 0.1, 0.96)
+	ppsb.border_color = Color(0.9, 0.75, 0.3, 0.7)
+	ppsb.set_border_width_all(2)
+	ppsb.set_corner_radius_all(14)
+	ppsb.set_content_margin_all(20)
+	pp.add_theme_stylebox_override("panel", ppsb)
+	var pvb := VBoxContainer.new()
+	pvb.add_theme_constant_override("separation", 12)
+	pvb.process_mode = Node.PROCESS_MODE_ALWAYS
+	pp.add_child(pvb)
+	var pt := Label.new()
+	pt.text = "JEDA"
+	pt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	pt.add_theme_font_size_override("font_size", 30)
+	pt.modulate = Color(1.0, 0.85, 0.4)
+	pt.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	pvb.add_child(pt)
+	_pause_vol_row(pvb, "Musik", Stats.mus_vol(), func(v: float) -> void:
+		Stats.music_volume = v
+		Sfx.set_music_volume(v)
+		Stats.save_game())
+	_pause_vol_row(pvb, "Efek Suara", Stats.sfx_vol(), func(v: float) -> void:
+		Stats.sfx_volume = v
+		Stats.save_game())
+	var b_resume := _pause_btn("LANJUT")
+	b_resume.pressed.connect(_toggle_pause)
+	pvb.add_child(b_resume)
+	var b_floor := _pause_btn("ULANGI LANTAI INI")
+	b_floor.pressed.connect(func() -> void:
+		if paused_ui:
+			_toggle_pause()
+		_new_run(rng.randi()))
+	pvb.add_child(b_floor)
+	var b_menu := _pause_btn("KELUAR KE MENU")
+	b_menu.pressed.connect(_quit_to_menu)
+	pvb.add_child(b_menu)
+	pp.visible = false
+	layer.add_child(pp)
+	pause_panel = pp
+	ui["pause_panel"] = pp
+
+	# rect fade transisi (paling atas di layer UI)
+	fade_rect = ColorRect.new()
+	fade_rect.color = Color(0, 0, 0)
+	fade_rect.modulate.a = 1.0
+	fade_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	fade_rect.process_mode = Node.PROCESS_MODE_ALWAYS
+	fade_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
+	layer.add_child(fade_rect)
+
+
+func _pause_vol_row(vb: VBoxContainer, label: String, cur: float, on_change: Callable) -> void:
+	var hb := HBoxContainer.new()
+	hb.add_theme_constant_override("separation", 10)
+	var l := Label.new()
+	l.text = label
+	l.custom_minimum_size = Vector2(150, 0)
+	l.add_theme_font_size_override("font_size", 17)
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var s := HSlider.new()
+	s.min_value = 0.0
+	s.max_value = 1.0
+	s.step = 0.05
+	s.value = cur
+	s.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	s.custom_minimum_size = Vector2(0, 32)
+	s.value_changed.connect(on_change)
+	hb.add_child(l)
+	hb.add_child(s)
+	vb.add_child(hb)
+
+
+func _pause_btn(txt: String) -> Button:
+	var b := Button.new()
+	b.text = txt
+	b.custom_minimum_size = Vector2(0, 56)
+	b.add_theme_font_size_override("font_size", 21)
+	return b
+
+
+func _toggle_pause() -> void:
+	if run_state == "dead" or Stats.draft_open or (dlg != null and dlg.active):
+		return
+	paused_ui = not paused_ui
+	get_tree().paused = paused_ui
+	ui.dim.visible = paused_ui or Stats.draft_open
+	pause_panel.visible = paused_ui
+	Sfx.play("click")
+
+
+func _quit_to_menu() -> void:
+	Stats.save_run()
+	get_tree().paused = false
+	paused_ui = false
+	Sfx.play("click")
+	await _fade_to(1.0, 0.3)
+	get_tree().change_scene_to_file("res://app/menu.tscn")
+
+
+func _fade_to(a: float, dur: float) -> void:
+	if fade_rect == null:
+		return
+	var tw := fade_rect.create_tween()
+	tw.tween_property(fade_rect, "modulate:a", a, dur)
+	await tw.finished
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		if ui.hero.visible:
+			_toggle_hero(false)
+		elif pause_panel.visible:
+			_toggle_pause()
+		elif run_state == "playing" and not Stats.draft_open and not (dlg != null and dlg.active):
+			_toggle_pause()
+		get_viewport().set_input_as_handled()
+
 
 func _update_hp(hp: float) -> void:
 	var maxh := int(ceil(Stats.get_stat("max_hp")))
@@ -1733,6 +1982,7 @@ func _hide_banner() -> void:
 
 func _process(delta: float) -> void:
 	if player != null and is_instance_valid(player) and run_state == "playing":
+		run_time += delta
 		var k := Vector2.ZERO
 		if Input.is_key_pressed(KEY_W) or Input.is_key_pressed(KEY_UP):
 			k.y -= 1.0
@@ -2028,6 +2278,16 @@ func _run_autotest() -> void:
 				print("SKILL thunder dmg=%.1f stun=%.2f (harus > 0)" % [hp1 - foe2.hp, foe2.stun_t])
 			else:
 				print("SKILL thunder membunuh musuh (dmg=%.1f tersalurkan)" % (hp1))
+
+	# pause menu: buka -> screenshot -> resume, tidak boleh soft-lock
+	_toggle_pause()
+	for _i in range(6):
+		await get_tree().process_frame
+	_shot("res://out_v5_12_pause.png")
+	print("PAUSE open=%s paused=%s (harus true)" % [pause_panel.visible, get_tree().paused])
+	_toggle_pause()
+	await get_tree().process_frame
+	print("PAUSE resume=%s (harus true)" % (not get_tree().paused and not pause_panel.visible))
 
 	# layar hero + ganti senjata dari inventaris
 	_toggle_hero(true)

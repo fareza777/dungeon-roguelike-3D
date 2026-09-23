@@ -9,6 +9,7 @@ signal died
 signal hp_changed(hp)
 signal hit_landed(pos, dmg, crit)
 signal attacked
+signal stepped(pos)
 
 var speed := 6.0
 var hp := 5.0
@@ -29,6 +30,7 @@ var slot_r: Node3D = null
 var body_cs: CollisionShape3D = null
 var dash_t := 0.0
 var dash_dir := Vector3.ZERO
+var step_t := 0.0
 
 
 func dash_burst(dir: Vector3) -> void:
@@ -127,6 +129,10 @@ func _physics_process(delta: float) -> void:
 	global_position.y = 0.0
 	if dir.length() > 0.1:
 		rotation.y = lerp_angle(rotation.y, atan2(dir.x, dir.z), delta * 14.0)
+		step_t -= delta
+		if step_t <= 0.0:
+			step_t = 0.24
+			stepped.emit(global_position)
 	if anim_lock <= 0.0:
 		if dir.length() > 0.1:
 			M.play_fuzzy(ap, ["running", "walk"])

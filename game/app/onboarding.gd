@@ -131,6 +131,7 @@ func _ready() -> void:
 	)
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	_show(0)
+	Transit.fade_in(self)
 	if autotest:
 		for i in range(12):
 			await get_tree().process_frame
@@ -201,4 +202,5 @@ func _next() -> void:
 func _finish() -> void:
 	Stats.onboarded = true
 	Stats.save_game()
+	await Transit.fade_out(self)
 	get_tree().change_scene_to_file("res://app/cinematic.tscn" if not Stats.seen_cinematic else "res://app/menu.tscn")

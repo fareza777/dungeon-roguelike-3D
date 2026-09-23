@@ -103,6 +103,7 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
 
 	_show(0)
+	Transit.fade_in(self)
 	if autotest:
 		for i in range(15):
 			await get_tree().process_frame
@@ -157,4 +158,5 @@ func _finish() -> void:
 	vo.stop()
 	Stats.seen_cinematic = true
 	Stats.save_game()
+	await Transit.fade_out(self)
 	get_tree().change_scene_to_file("res://Main.tscn")
