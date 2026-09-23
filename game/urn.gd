@@ -68,6 +68,8 @@ func smash(from_pos: Vector3) -> void:
 		var reliq := String(ub.get("name", "")) == "Sunken Reliquary"
 		if bell:
 			Stats.souls += 5
+			if m.has_method("_quest_event"):
+				m._quest_event("bellurn")
 			if m.has_method("_spawn_wisp_at"):
 				m._spawn_wisp_at(global_position)
 			if m.has_method("toast"):
