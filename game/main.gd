@@ -346,7 +346,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -2469,6 +2469,26 @@ func _cast_skill(id: String) -> void:
 			_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), "SOUL LANCE! ×%d" % hitl, Color(0.7, 0.85, 1.25), true)
 			_quest_event("lance")
 			print("SKILL lance hit=%d" % hitl)
+		"gravestep":
+			Sfx.play("dash")
+			var gfw: Vector3 = -player.global_transform.basis.z
+			gfw.y = 0
+			var gtarget: Vector3 = player.global_position + gfw.normalized() * 1.3 * info.tile
+			gtarget.x = clampf(gtarget.x, info.get("min_x", -100.0) + 0.4, info.get("max_x", 100.0) - 0.4)
+			gtarget.z = clampf(gtarget.z, info.get("min_z", -100.0) + 0.4, info.get("max_z", 100.0) - 0.4)
+			player.global_position = gtarget
+			var gdmg := Stats.get_stat("atk") * 1.2
+			var ghits := 0
+			for f in get_tree().get_nodes_in_group("enemies"):
+				if f.get("state") == "dead" or not bool(f.get("activated")):
+					continue
+				if f.global_position.distance_to(gtarget) < 1.1 * info.tile:
+					f.take_hit(gtarget, gdmg)
+					ghits += 1
+			_burst(gtarget, Color(0.6, 0.5, 1.1))
+			trauma = 0.5
+			_damage_number(gtarget + Vector3(0, 0.8 * info.tile, 0), "GRAVESTEP! ×%d" % ghits, Color(0.65, 0.6, 1.2), true)
+			print("SKILL gravestep hit=%d" % ghits)
 		"kingsfall":
 			Sfx.play("thunder")
 			var dmgk := Stats.get_stat("atk") * 3.0
