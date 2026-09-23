@@ -239,6 +239,13 @@ func _strike() -> void:
 				dmg *= 1.5
 			if Stats.weapon_id == "hullbreaker" and f.hp >= f.hp_max * 0.95:
 				dmg *= 1.25
+			if Stats.weapon_id == "king_gavel":
+				var kg_ := get_tree().current_scene
+				if kg_ != null:
+					kg_.set("net_n", int(kg_.get("net_n")) + 1)
+					if int(kg_.get("net_n")) >= 7:
+						kg_.set("net_n", 0)
+						dmg *= 1.5
 			f.take_hit(global_position, dmg)
 			hit_n += 1
 			if Stats.relics.has("echo_strike") and hit_n % 4 == 0:
