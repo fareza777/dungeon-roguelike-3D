@@ -128,16 +128,17 @@ func _physics_process(delta: float) -> void:
 	t += delta
 	var msw := get_tree().current_scene
 	var calmdown := msw != null and bool(msw.get("still_waters"))
+	var doze := 1.26 if calmdown else 0.9 # ambang tidur->keluar
 	var cyc: float = fmod(t + phase, 1.9 * (1.4 if calmdown else 1.0))
 	var target: float
-	if cyc < 0.9:
+	if cyc < doze:
 		target = -0.29 * tile # tidur
-	elif cyc < 1.1:
+	elif cyc < doze + 0.2:
 		target = 0.0 # keluar
 	else:
 		target = -0.29 * tile
 	var prev_up := up
-	up = cyc >= 0.9 and cyc < 1.1
+	up = cyc >= doze and cyc < doze + 0.2
 	if kind == 1:
 		if jet != null:
 			jet.visible = up or jet.scale.y > 0.05
