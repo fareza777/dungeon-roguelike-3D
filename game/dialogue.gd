@@ -28,6 +28,7 @@ var _name_l: Label
 var _text_l: RichTextLabel
 var _hint: Label
 var _choice_box: VBoxContainer
+var _choice_scroll: ScrollContainer
 var _type_tw: Tween = null
 var active := false
 
@@ -111,8 +112,15 @@ func _ready() -> void:
 	vb.add_child(_hint)
 	_choice_box = VBoxContainer.new()
 	_choice_box.add_theme_constant_override("separation", 8)
+	_choice_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_choice_box.visible = false
-	vb.add_child(_choice_box)
+	var chscroll := ScrollContainer.new()
+	_choice_scroll = chscroll
+	chscroll.custom_minimum_size = Vector2(0, 0)
+	chscroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	chscroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	chscroll.add_child(_choice_box)
+	vb.add_child(chscroll)
 
 
 func play(lines: Array) -> void:
@@ -172,6 +180,8 @@ func _after_typed() -> void:
 
 func _show_choices() -> void:
 	_choice_box.visible = true
+	if _choice_scroll != null:
+		_choice_scroll.custom_minimum_size = Vector2(0, minf(_choices.size() * 64.0 + 10.0, 420.0))
 	_choice_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	for i in range(_choices.size()):
 		var ch: Dictionary = _choices[i]
