@@ -33,6 +33,7 @@ var anim_lock := 0.0
 var slot_r: Node3D = null
 var body_cs: CollisionShape3D = null
 var dash_t := 0.0
+var dash_atk_t := 0.0
 var dash_dir := Vector3.ZERO
 var step_t := 0.0
 var last_killer := ""
@@ -43,6 +44,7 @@ func dash_burst(dir: Vector3) -> void:
 	if dead:
 		return
 	dash_t = 0.22
+	dash_atk_t = 1.5
 	dash_dir = Vector3(dir.x, 0, dir.z).normalized()
 	invuln = maxf(invuln, 0.4)
 	anim_lock = maxf(anim_lock, 0.22)
@@ -120,6 +122,8 @@ func _physics_process(delta: float) -> void:
 	var spd_eff: float = speed * (0.55 if chill_t > 0.0 else 1.0) * (0.0 if root_t > 0.0 else 1.0)
 	if dash_t > 0.0:
 		dash_t -= delta
+	if dash_atk_t > 0.0:
+		dash_atk_t -= delta
 		velocity = dash_dir * spd_eff * 4.2
 		move_and_slide()
 		global_position.x = clamp(global_position.x, bounds.get("min_x", -100.0), bounds.get("max_x", 100.0))
@@ -320,6 +324,12 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 				var m13 := get_tree().current_scene
 				if m13 != null and m13.has_method("_damage_number"):
 					m13._damage_number(f.global_position + Vector3(0, 0.7 * room_tile, 0), "SHATTERED", Color(0.75, 0.65, 1.0), true)
+		"duskblade": # DUSKSTRIDE — pukulan sesaat setelah dash bergema
+			if dash_atk_t > 0.0:
+				f.take_hit(global_position, dmg * 0.6)
+				var m16 := get_tree().current_scene
+				if m16 != null and m16.has_method("_damage_number"):
+					m16._damage_number(f.global_position + Vector3(0, 0.75 * room_tile, 0), "DUSKSTRIDE", Color(0.65, 0.55, 1.2), false)
 		"gravebell": # TOLL — 25% korban membunyikan genta: 1x ATK ke tetangga
 			if float(f.get("hp")) <= 0.0 and randf() < 0.25:
 				var toll := 0
