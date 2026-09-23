@@ -74,7 +74,12 @@ func _physics_process(delta: float) -> void:
 			if d.length() < 0.35 * tile:
 				absorbed = true
 				var m0 := get_tree().current_scene
-				Stats.souls += 2 if (m0 != null and bool(m0.get("low_tide"))) else 1
+				var wp := 2 if (m0 != null and bool(m0.get("low_tide"))) else 1
+				Stats.souls += wp
+				if m0 != null and m0.get("biome") is Dictionary and String(m0.biome.get("name", "")) == "Sunken Reliquary":
+					m0.reliquary_wisps += wp
+					if m0.reliquary_wisps >= 15 and m0.has_method("_ach"):
+						m0._ach("salvager")
 				if p.hp < Stats.get_stat("max_hp"):
 					p.hp = minf(p.hp + Stats.get_stat("max_hp") * 0.02, Stats.get_stat("max_hp"))
 					p.hp_changed.emit(p.hp)

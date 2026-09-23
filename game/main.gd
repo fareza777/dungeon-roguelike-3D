@@ -158,6 +158,7 @@ var omen_count := 0
 var wellread := false
 var tide_lends := false
 var tide_kills := 0
+var reliquary_wisps := 0
 var omen_refusals := 0
 var bargainer := false
 var bargain_used := false
@@ -668,6 +669,7 @@ func _reset_run_state() -> void:
 	wellread = false
 	tide_lends = false
 	tide_kills = 0
+	reliquary_wisps = 0
 	flawless_run = 0
 	well_rolls = 0
 	if trial_atk_t > 0.0:
