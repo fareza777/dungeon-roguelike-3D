@@ -142,6 +142,9 @@ const LORE_LINES := [
 	"The slippery ones wear the sea like oil — the fourth blow always finds empty water.",
 	"Where the smoke drifts, the powder dries slow — but the hands that loaded it never rested.",
 	"Mahzan pays for secrets in souls — and buys them back cheaper than you'd think.",
+	"Water-logged mirrors show the deck as it was — bright, crowded, unaware.",
+	"Every bargain Mahzan writes has two prices: the one you see, and the one you'll find out.",
+	"The sprite-maw at the bilge keeps its own ledger — a soul per touch, no exceptions.",
 ]
 
 var dungeon_tex: Texture2D
