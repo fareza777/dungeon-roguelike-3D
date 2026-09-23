@@ -129,6 +129,9 @@ func _physics_process(delta: float) -> void:
 	var msw := get_tree().current_scene
 	var calmdown := msw != null and bool(msw.get("still_waters"))
 	var doze := 1.26 if calmdown else 0.9 # ambang tidur->keluar
+	var mroot := get_tree().current_scene
+	if kind == 6 and mroot != null and bool(mroot.get("shell_game")):
+		doze *= 1.5
 	var cyc: float = fmod(t + phase, 1.9 * (1.4 if calmdown else 1.0))
 	var target: float
 	if cyc < doze:
@@ -230,13 +233,14 @@ func _physics_process(delta: float) -> void:
 						if ml2.has_method("toast"):
 							ml2.toast("Trap defused!")
 						if kind == 6:
-							Stats.earn_souls(2)
+							var pearl_pay: int = 4 if bool(ml2.get("shell_game")) else 2
+							Stats.earn_souls(pearl_pay)
 							if ml2.has_method("_quest_event"):
 								ml2._quest_event("clam")
 							if ml2.has_method("_souls_l"):
 								ml2._souls_l()
 							if ml2.has_method("toast"):
-								ml2.toast("PEARL PRIZE — +2 souls")
+								ml2.toast("PEARL PRIZE — +%d souls" % pearl_pay)
 						if kind == 7:
 							Stats.earn_souls(2)
 							if ml2.has_method("_quest_event"):
