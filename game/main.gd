@@ -1176,7 +1176,7 @@ const FIRST_SEEN := {
 	"drowned": "A Drowned One surfaces — the tide gave it back, and it brought treasure.",
 	"keelhound": "A Keelhound shakes the salt off — it smells the souls in your purse.",
 	"maw": "A Barnacle Maw parts its shell — something old and hungry looks back.",
-	"siren": "The Void Siren hums — and suddenly you're walking toward her."}
+	"siren": "The Void Siren hums — and suddenly you're walking toward her."
 }
 
 
