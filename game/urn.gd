@@ -54,6 +54,10 @@ func smash(from_pos: Vector3) -> void:
 			m._spawn_vial(global_position)
 		if m.has_method("_quest_event"):
 			m._quest_event("urn")
+		if m.get("urn_count") != null:
+			m.set("urn_count", int(m.get("urn_count")) + 1)
+			if int(m.get("urn_count")) == 8 and m.has_method("_ach"):
+				m._ach("cove")
 		if m.has_method("_burst"):
 			m._burst(global_position + Vector3(0, 0.2 * tile, 0), Color(0.9, 0.85, 0.6))
 		var ub: Dictionary = m.get("biome") if m.get("biome") is Dictionary else {}
