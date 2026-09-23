@@ -154,6 +154,8 @@ var wolfsbane := false
 var sunken_tide := false
 var low_tide := false
 var glass_sea := false
+var abyssal_hymn := false
+var hymn_delta := 0.0
 var deep_current := false
 var dread_tide := false
 var starved_deep := false
@@ -811,6 +813,9 @@ func _new_run(new_seed: int) -> void:
 	Stats.buff_speed_pct -= tf_delta
 	tf_delta = 0.12 if (Stats.relics.has("trenchfoot") and Stats.floor_num >= 11) else 0.0
 	Stats.buff_speed_pct += tf_delta
+	Stats.buff_speed_pct -= hymn_delta
+	hymn_delta = -0.15 if abyssal_hymn else 0.0
+	Stats.buff_speed_pct += hymn_delta
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 	# event langka: blood moon — langit merah, musuh lebih keras, XP lebih kaya
@@ -938,6 +943,9 @@ func _new_run(new_seed: int) -> void:
 	dread_tide = not boss_floor and Stats.floor_num >= 13 and rng.randf() < 0.14
 	starved_deep = not dread_tide and not boss_floor and Stats.floor_num >= 13 and rng.randf() < 0.13
 	choir = not dread_tide and not starved_deep and not boss_floor and Stats.floor_num >= 13 and rng.randf() < 0.12
+	abyssal_hymn = not choir and not dread_tide and not starved_deep and not boss_floor and Stats.floor_num >= 13 and rng.randf() < 0.08
+	if abyssal_hymn:
+		Stats.event_soul_bonus = 1
 	shell_game = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not umbral_tide and not abyssal_patience and not choir and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
 	if glass_sea:
 		Stats.buff_atk_pct += 0.10
@@ -5855,6 +5863,8 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 				evline = "The dark down here is starving, swordsman — its wisps grow fat while its dead grow bold."
 			elif choir:
 				evline = "Hear it, swordsman — the choir below rehearses your funeral song. Their aim is... inspired."
+			elif abyssal_hymn:
+				evline = "One voice beneath the rest, Kael — a hymn that turns your legs to lead. But the dead pay in full tonight."
 			elif sunken_tide:
 				evline = "The water is rising through the graves, Kael — the drowned will come slow, but they come rich."
 			elif wolfsbane:
@@ -7186,6 +7196,8 @@ func _refresh_buffs() -> void:
 		list.append(["☆ STARVED", Color(0.35, 0.4, 0.85)])
 	elif choir:
 		list.append(["☗ CHOIR", Color(0.6, 0.45, 0.9)])
+	elif abyssal_hymn:
+		list.append(["☗ HYMN", Color(0.5, 0.7, 1.0)])
 	elif wolfsbane:
 		list.append(["☽ PACK", Color(0.65, 0.7, 0.95)])
 	if Stats.soul_sealed:
