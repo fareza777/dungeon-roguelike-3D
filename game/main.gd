@@ -96,6 +96,7 @@ var chest_opened := false
 var gilded_chest := false
 var cursed_chest := false
 var storm_cellar := false
+var gilded_tides := false
 var storm_t := 0.0
 var nemesis_spawned := false # musuh yang membunuhmu run lalu — kembali lebih kuat
 var nemesis_warned := false # nemesis story beat — 1だけ
@@ -417,6 +418,11 @@ func _apply_biome() -> void:
 		env.ambient_light_color = Color(0.3, 0.28, 0.6)
 		sun.light_color = Color(0.6, 0.55, 1.15)
 		sun.light_energy = 1.05
+	elif gilded_tides:
+		env.fog_light_color = Color(0.16, 0.12, 0.05)
+		env.ambient_light_color = Color(0.65, 0.5, 0.22)
+		sun.light_color = Color(1.2, 0.95, 0.55)
+		sun.light_energy = 1.15
 
 
 func _style_room() -> void:
@@ -470,6 +476,10 @@ func _new_run(new_seed: int) -> void:
 	# event langka #4: echoing halls — lorong bergema, skill recharge 25% lebih cepat
 	echoing = not blood_moon and not soul_rush and not fading_light and Stats.floor_num >= 5 and not boss_floor and rng.randf() < 0.06
 	storm_cellar = not blood_moon and not soul_rush and not fading_light and not echoing and Stats.floor_num >= 10 and not boss_floor and rng.randf() < 0.05
+	# event langka #6: gilded tides — timbunan muncul ke permukaan (lantai 12+): peti gilded + jiwa +1/kill
+	gilded_tides = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and Stats.floor_num >= 12 and not boss_floor and rng.randf() < 0.05
+	if gilded_tides:
+		Stats.event_soul_bonus = 1
 	storm_t = 4.0
 	nemesis_spawned = false
 	_apply_biome()
@@ -486,6 +496,9 @@ func _new_run(new_seed: int) -> void:
 	if gilded_chest and info.get("chest") != null:
 		M.paint(info.chest, M.toon(dungeon_tex, Color(1.35, 1.15, 0.55), 0.55))
 	# peti terkutuk (10%, lantai 6+, bukan mimic/gilded): penyergapan demi relic epic
+	if gilded_tides:
+		mimic_pending = false
+		gilded_chest = info.get("chest") != null
 	cursed_chest = not mimic_pending and not gilded_chest and Stats.floor_num >= 6 and rng.randf() < 0.10
 	if cursed_chest and info.get("chest") != null:
 		M.paint(info.chest, M.toon(dungeon_tex, Color(0.5, 0.3, 0.75), 0.5))
@@ -582,6 +595,10 @@ func _new_run(new_seed: int) -> void:
 		_lvl_banner("⚡ STORM CELLAR — THE DEEPS TURN ON THEIR OWN")
 		toast("Lightning aids you • +2 souls on clear")
 		Sfx.play("thunder")
+	elif gilded_tides:
+		_lvl_banner("★ GILDED TIDES — THE HOARD SURFACES")
+		toast("Every chest gilded • +1 soul per kill")
+		Sfx.play("quest")
 	elif Stats.floor_num > 1:
 		_lvl_banner("FLOOR %d — %s" % [Stats.floor_num, String(biome["name"]).to_upper()])
 
@@ -1408,6 +1425,11 @@ func _on_enemy_died(e) -> void:
 				_souls_l()
 				Stats.save_game()
 				toast("◈ ECHO TITHE — +3 souls")
+			elif gilded_tides:
+				Stats.souls += 4
+				_souls_l()
+				Stats.save_game()
+				toast("★ HOARD TITHE — +4 souls")
 			elif storm_cellar:
 				Stats.souls += 2
 				_souls_l()
@@ -4243,6 +4265,8 @@ func _refresh_buffs() -> void:
 		list.append(["◈ ECHOING", Color(0.55, 0.8, 1.0)])
 	elif storm_cellar:
 		list.append(["⚡ STORM", Color(0.6, 0.55, 1.15)])
+	elif gilded_tides:
+		list.append(["★ GILDED", Color(1.0, 0.8, 0.3)])
 	if omen_name != "":
 		list.append(["☗ " + omen_name, Color(0.9, 0.7, 1.0)])
 	if player.get("root_t") != null and player.root_t > 0.0:

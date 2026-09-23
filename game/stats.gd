@@ -43,6 +43,7 @@ var combo_atk := 0.0 # bonus ATK bertingkat dari streak kombo (8/15/25)
 var combo_aspd := 0.0 # bonus attack-speed dari streak kombo
 var mahzan_debt := 0.0 # hutang Max HP ke Mahzan (Leech's Bargain)
 var soul_bonus := 0 # Crown Shard: jiwa ekstra per kill
+var event_soul_bonus := 0 # gilded tides: jiwa ekstra per kill (floor event, reset per floor)
 var relic_burn := 0.0 # Ember Brand: peluang bakar di semua senjata
 var cd_reduction := 0.0 # Echo Bone: skill recharge lebih cepat
 var curse_dmg := 0.0 # pakta obelisk: musuh lebih keras (stack)
@@ -252,7 +253,7 @@ func equip_weapon(id: String) -> void:
 func count_kill() -> void:
 	kills += 1
 	total_kills += 1
-	souls += int(roundf(float(1 + soul_bonus) * (1.0 + 0.1 * float(meta.get("greed", 0)))))
+	souls += int(roundf(float(1 + soul_bonus + event_soul_bonus) * (1.0 + 0.1 * float(meta.get("greed", 0)))))
 
 
 func reset_run() -> void:
@@ -283,6 +284,7 @@ func reset_run() -> void:
 	curse_dmg = 0.0
 	curse_xp = 0.0
 	soul_bonus = 0
+	event_soul_bonus = 0
 	relic_burn = 0.0
 	cd_reduction = 0.0
 	current_hp = get_stat("max_hp")
