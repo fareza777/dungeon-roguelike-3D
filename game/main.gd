@@ -3719,6 +3719,7 @@ func _cast_skill(id: String) -> void:
 			if trefund > 0:
 				Stats.souls += trefund
 				_souls_l()
+				_quest_event("tithe", trefund)
 			_burst(player.global_position, Color(0.9, 0.8, 0.3))
 			trauma = 0.4
 			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "SOUL TITHE! ×%d" % thits, Color(0.9, 0.8, 0.3), true)
