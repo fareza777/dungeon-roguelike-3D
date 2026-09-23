@@ -88,7 +88,9 @@ const LORE_LINES := [
 	"The Sunken Reliquary drowned when the King refused the sea its tithe. The sea took the treasury anyway.",
 	"Drowned Ones walked out of the vaults on their own once the water rose. The dead don't mind the wet — it's the gold they came for.",
 	"The Drowned Altar was the sailors' shrine before the kingdom forgot it had sailors.",
-	"The Emissary was the last tax-collector to enter the Reliquary. He's still collecting."
+	"The Emissary was the last tax-collector to enter the Reliquary. He's still collecting.",
+	"Sir Vane led the King's vanguard once — the only knight who refused to kneel to a skull. So they chained him in light.",
+	"Vane's cell was carved from the throne's own foundation stone. The King keeps his bravest prisoner closest."
 ]
 
 var dungeon_tex: Texture2D
