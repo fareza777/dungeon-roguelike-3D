@@ -24,6 +24,13 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		if floor_num >= 3 and n_elites > 0:
 			var n_hunt := mini(n_elites, 2)
 			steps.append({"title": "Elite Hunter", "desc": "Slay %d crimson elite%s" % [n_hunt, "s" if n_hunt > 1 else ""], "kind": "elite_kill", "need": n_hunt})
+		if floor_num >= 4:
+			if floor_num % 2 == 0:
+				steps.append({"title": "Gem Rush", "desc": "Absorb 6 soul gems", "kind": "gem", "need": 6})
+			else:
+				steps.append({"title": "Battle Frenzy", "desc": "Reach a x8 kill combo", "kind": "combo", "need": 1})
+		if floor_num >= 6:
+			steps.append({"title": "Skillful Hands", "desc": "Unleash 2 skills", "kind": "skill", "need": 2})
 		steps.append({"title": "Floor Sweep", "desc": "Clear %d rooms of skeletons" % room_count, "kind": "clear_floor", "need": room_count})
 		steps.append({"title": "Treasure Chest", "desc": "Find & open the chest in the final room", "kind": "open_chest", "need": 1})
 		steps.append({"title": "Descend", "desc": "Tap to descend to the next floor", "kind": "descend", "need": 1})

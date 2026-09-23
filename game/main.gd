@@ -1148,6 +1148,7 @@ func _cast_skill(id: String) -> void:
 	if skill_cd[id] > 0.0:
 		Sfx.play("deny")
 		return
+	_quest_event("skill")
 	match id:
 		"dash":
 			var dir := Vector3(sin(player.rotation.y), 0, cos(player.rotation.y))
@@ -1688,6 +1689,8 @@ func _combo_set(n: int) -> void:
 	combo_max = maxi(combo_max, n)
 	combo_t = 4.0
 	# tier buff nyata: streak tinggi = tambah kuat (hilang saat streak putus)
+	if combo == 8:
+		_quest_event("combo")
 	if combo >= 25:
 		Stats.combo_atk = 0.3
 		Stats.combo_aspd = 0.25

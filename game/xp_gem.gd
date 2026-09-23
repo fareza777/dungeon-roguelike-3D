@@ -57,4 +57,7 @@ func _physics_process(delta: float) -> void:
 						absorbed = true
 						Stats.add_xp(value)
 						Sfx.play("xp")
+						var m := get_tree().current_scene
+						if m != null and m.has_method("_quest_event"):
+							m._quest_event("gem")
 						queue_free()
