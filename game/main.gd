@@ -132,6 +132,7 @@ var giant_hall := false
 var shrouded := false
 var ossuary := false
 var mirror_hall := false
+var ashfall := false
 var legion_omen := false
 var wolf_omen := false
 var wolf_n := 0
@@ -516,6 +517,9 @@ func _apply_biome() -> void:
 	elif mirror_hall:
 		env.fog_light_color = Color(0.12, 0.14, 0.22)
 		env.ambient_light_color = Color(0.4, 0.46, 0.62)
+	elif ashfall:
+		env.fog_light_color = Color(0.16, 0.14, 0.12)
+		env.ambient_light_color = Color(0.55, 0.5, 0.44)
 		sun.light_color = Color(0.95, 0.85, 0.6)
 		sun.light_energy = 1.05
 
@@ -607,6 +611,10 @@ func _new_run(new_seed: int) -> void:
 	ossuary = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and Stats.floor_num >= 17 and not boss_floor and rng.randf() < 0.05
 	# event langka #12: mirror hall — bayangan memantulkan jiwa-jiwa (lantai 9+): musuh ganda, XP berlimpah
 	mirror_hall = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and Stats.floor_num >= 9 and not boss_floor and rng.randf() < 0.05
+	# event langka #13: ashfall — hujan abu kremasi turun (lantai 10+): jiwa +1 per kill
+	ashfall = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and Stats.floor_num >= 10 and not boss_floor and rng.randf() < 0.05
+	if ashfall:
+		Stats.event_soul_bonus = 1
 	storm_t = 4.0
 	nemesis_spawned = false
 	_apply_biome()
@@ -755,6 +763,9 @@ func _new_run(new_seed: int) -> void:
 	elif mirror_hall:
 		_lvl_banner("◈ MIRROR HALL — EVERY SOUL REFLECTED")
 		toast("Twice the dead • richer gems • +3 souls on clear")
+	elif ashfall:
+		_lvl_banner("▲ ASHFALL — THE BURNED RAIN DOWN")
+		toast("Ash drifts gray • +1 soul per kill • +2 souls on clear")
 		Sfx.play("roar")
 	elif Stats.floor_num > 1:
 		_lvl_banner("FLOOR %d — %s" % [Stats.floor_num, String(biome["name"]).to_upper()])
@@ -1854,6 +1865,9 @@ func _on_enemy_died(e) -> void:
 				_souls_l()
 			elif mirror_hall:
 				Stats.souls += 3
+				_souls_l()
+			elif ashfall:
+				Stats.souls += 2
 				_souls_l()
 				Stats.save_game()
 				toast("☠ OSSUARY TITHE — +3 souls")
@@ -4185,6 +4199,8 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 				evline = "Ossuary night — even the walls are made of the fallen."
 			elif mirror_hall:
 				evline = "A mirror hall, Kael. Every soul is followed by its reflection."
+			elif ashfall:
+				evline = "Ash falls from a fire that never stops burning. Every kill pays in full."
 			if evline != "":
 				lines = [{"who": "oracle", "text": evline}]
 		_say(lines)
@@ -5475,6 +5491,8 @@ func _refresh_buffs() -> void:
 		list.append(["☠ OSSUARY", Color(0.95, 0.85, 0.5)])
 	elif mirror_hall:
 		list.append(["◈ MIRROR", Color(0.6, 0.7, 1.0)])
+	elif ashfall:
+		list.append(["▲ ASHFALL", Color(0.85, 0.75, 0.6)])
 	if Stats.soul_sealed:
 		list.append(["PRICE", Color(0.9, 0.2, 0.25)])
 	if Stats.curse_dmg > 0.0:
