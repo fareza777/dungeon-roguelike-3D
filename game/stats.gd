@@ -37,6 +37,8 @@ var berserk := 0.0 # amukan: bonus ATK saat HP kritis
 var combo_atk := 0.0 # bonus ATK bertingkat dari streak kombo (8/15/25)
 var combo_aspd := 0.0 # bonus attack-speed dari streak kombo
 var mahzan_debt := 0.0 # hutang Max HP ke Mahzan (Leech's Bargain)
+var soul_bonus := 0 # Crown Shard: jiwa ekstra per kill
+var relic_burn := 0.0 # Ember Brand: peluang bakar di semua senjata
 var curse_dmg := 0.0 # pakta obelisk: musuh lebih keras (stack)
 var curse_xp := 0.0 # pakta obelisk: jiwa lebih kaya (stack)
 
@@ -151,6 +153,10 @@ func add_relic(id: String) -> void:
 		magnet += float(mods["magnet"])
 	if mods.has("berserk"):
 		berserk += float(mods["berserk"])
+	if mods.has("soul_bonus"):
+		soul_bonus += int(mods["soul_bonus"])
+	if mods.has("burn_proc"):
+		relic_burn += float(mods["burn_proc"])
 	relics_changed.emit()
 
 
@@ -169,6 +175,10 @@ func remove_relic(id: String) -> void:
 		magnet = maxf(0.0, magnet - float(mods["magnet"]))
 	if mods.has("berserk"):
 		berserk = maxf(0.0, berserk - float(mods["berserk"]))
+	if mods.has("soul_bonus"):
+		soul_bonus = maxi(0, soul_bonus - int(mods["soul_bonus"]))
+	if mods.has("burn_proc"):
+		relic_burn = maxf(0.0, relic_burn - float(mods["burn_proc"]))
 	relics_changed.emit()
 
 
@@ -182,7 +192,7 @@ func equip_weapon(id: String) -> void:
 func count_kill() -> void:
 	kills += 1
 	total_kills += 1
-	souls += 1
+	souls += 1 + soul_bonus
 
 
 func reset_run() -> void:
@@ -207,6 +217,8 @@ func reset_run() -> void:
 	mahzan_debt = 0.0
 	curse_dmg = 0.0
 	curse_xp = 0.0
+	soul_bonus = 0
+	relic_burn = 0.0
 	current_hp = get_stat("max_hp")
 	draft_open = false
 	saved_run = {}

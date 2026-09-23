@@ -237,6 +237,9 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 				var m := get_tree().current_scene
 				if m != null and m.has_method("_shock_ring"):
 					m._shock_ring(f.global_position)
+	# Ember Brand: senjata apapun punya 12% peluang membakar sasaran
+	if Stats.relic_burn > 0.0 and Stats.weapon_id != "ember_mace" and randf() < 0.12:
+		f.set("burn_t", maxf(float(f.get("burn_t")), 1.8))
 
 
 # dash melalui serangan tepat waktu: musuh ter- stun + kena counter

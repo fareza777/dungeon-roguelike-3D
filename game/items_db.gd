@@ -23,6 +23,8 @@ const DB := {
 	"fase_hantu": {"name": "Ghost Phase", "chip": "GP", "desc": "12% chance to dodge hits", "rarity": 1, "mods": {"dodge": 0.12}},
 	"tulang_rapuh": {"name": "Glass Bones", "chip": "GB", "desc": "+40% ATK, -1 Armor", "rarity": 1, "mods": {"atk_pct": 0.4, "armor": -1.0}},
 	"akar_dunia": {"name": "World Root", "chip": "WR", "desc": "+30% Max HP, -10% Speed", "rarity": 1, "mods": {"max_hp_pct": 0.3, "speed_pct": -0.1}},
+	"serpihan_mahkota": {"name": "Crown Shard", "chip": "CS", "desc": "+1 soul per kill", "rarity": 1, "mods": {"soul_bonus": 1}},
+	"cap_ember": {"name": "Ember Brand", "chip": "EB", "desc": "Attacks scorch: 12% burn", "rarity": 1, "mods": {"burn_proc": 0.12}},
 	# ---- epic ----
 	"amarah_dewa": {"name": "Wrath of God", "chip": "WG", "desc": "+50% ATK", "rarity": 2, "mods": {"atk_pct": 0.5}},
 	"raja_kritis": {"name": "Crit King", "chip": "CK", "desc": "+25% Crit", "rarity": 2, "mods": {"crit": 0.25}},
@@ -33,6 +35,7 @@ const DB := {
 	"amukan": {"name": "Berserk", "chip": "BK", "desc": "+35% ATK under 35% HP", "rarity": 2, "mods": {"berserk": 0.35}},
 	"darah_raja": {"name": "King's Blood", "chip": "KB", "desc": "+10% ATK, +2 Max HP, +5% Lifesteal", "rarity": 2, "mods": {"atk_pct": 0.1, "max_hp": 2.0, "lifesteal": 0.05}},
 	"tulang_kesatria": {"name": "Bone Squire", "chip": "SQ", "desc": "A loyal squire fights beside you", "rarity": 2, "mods": {"squire": 1}},
+	"beban_raja": {"name": "King's Burden", "chip": "KU", "desc": "+40% ATK, -20% Max HP", "rarity": 2, "mods": {"atk_pct": 0.4, "max_hp_pct": -0.2}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
