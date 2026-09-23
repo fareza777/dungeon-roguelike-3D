@@ -1,4 +1,5 @@
 extends Control
+const BIO = preload("res://biomes_db.gd")
 # Menu utama v5: key art, Lanjutkan/Game Baru, Pengaturan (musik+SFX terpisah,
 # kualitas, reset), Tentang, Bagikan, Nilai Play Store, Keluar, label versi.
 
@@ -194,7 +195,8 @@ func _build() -> void:
 	var oath_txt := " • ☗ %d/24" % Stats.oaths_seen.size() if Stats.oaths_seen.size() > 0 else ""
 	var souls_txt := " • ◈ %d" % Stats.souls if Stats.souls > 0 else ""
 	var nem_txt := "\n☠ Nemesis: %s hunts you" % Stats.nemesis_name if Stats.nemesis_name != "" else ""
-	best.text = "Best: Floor %d • Total kills: %d%s%s%s%s%s%s%s" % [Stats.best_floor, Stats.total_kills, boss_txt, ach_txt, ng_txt, lore_txt, oath_txt, souls_txt, nem_txt]
+	var bname := String(BIO.for_floor(maxi(Stats.best_floor, 1)).get("name", "")) if Stats.best_floor > 0 else ""
+	best.text = "Best: Floor %d%s • Total kills: %d%s%s%s%s%s%s%s" % [Stats.best_floor, (" (" + bname + ")") if bname != "" else "", Stats.total_kills, boss_txt, ach_txt, ng_txt, lore_txt, oath_txt, souls_txt, nem_txt]
 	best.add_theme_font_size_override("font_size", 17)
 	best.modulate = Color(1.0, 0.9, 0.6, 0.85)
 	best.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
