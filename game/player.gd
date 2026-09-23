@@ -284,7 +284,7 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 					m6._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "RIPOSTE", Color(0.7, 0.85, 1.3), true)
 		"soul_reaver": # SIPHON — 15% tiap hit mencuri 1 jiwa
 			if randf() < 0.15:
-				Stats.souls += 1
+				Stats.earn_souls(1)
 				var m7 := get_tree().current_scene
 				if m7 != null:
 					if m7.has_method("_souls_l"):
@@ -293,7 +293,7 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						m7._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "SIPHON", Color(0.5, 1.0, 0.75), false)
 		"hollow_crown": # USURPER — elite yang mati membayar 2 jiwa
 			if bool(f.get("elite")) and float(f.get("hp")) <= 0.0:
-				Stats.souls += 2
+				Stats.earn_souls(2)
 				var m10 := get_tree().current_scene
 				if m10 != null:
 					if m10.has_method("_souls_l"):
@@ -308,7 +308,7 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 					m9._damage_number(f.global_position + Vector3(0, 0.8 * room_tile, 0), "CROWNSPLITTER", Color(1.1, 0.85, 0.3), true)
 		"mimic_fang": # JAW — 20% korban menggigit jiwa terlepas
 			if float(f.get("hp")) <= 0.0 and randf() < 0.2:
-				Stats.souls += 1
+				Stats.earn_souls(1)
 				var m11 := get_tree().current_scene
 				if m11 != null:
 					if m11.has_method("_souls_l"):
@@ -356,7 +356,7 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 			salvage_n += 1
 			if salvage_n >= 4:
 				salvage_n = 0
-				Stats.souls += 1
+				Stats.earn_souls(1)
 				var m22 := get_tree().current_scene
 				if m22 != null and m22.get("salvage_ct") != null:
 					m22.set("salvage_ct", int(m22.get("salvage_ct")) + 1)

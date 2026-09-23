@@ -67,7 +67,7 @@ func smash(from_pos: Vector3) -> void:
 		var ub: Dictionary = m.get("biome") if m.get("biome") is Dictionary else {}
 		var reliq := String(ub.get("name", "")) == "Sunken Reliquary"
 		if bell:
-			Stats.souls += 5
+			Stats.earn_souls(5)
 			if m.has_method("_quest_event"):
 				m._quest_event("bellurn")
 			if m.has_method("_spawn_wisp_at"):
@@ -75,11 +75,11 @@ func smash(from_pos: Vector3) -> void:
 			if m.has_method("toast"):
 				m.toast("BELL URN — +5 souls and a wisp!")
 		elif reliq:
-			Stats.souls += 2 if bool(m.get("low_tide")) else 1
+			Stats.earn_souls(2 if bool(m.get("low_tide")) else 1)
 		if bool(m.get("deeproot")) and not reliq:
-			Stats.souls += 1
+			Stats.earn_souls(1)
 		if bool(m.get("pearl_fever")):
-			Stats.souls += 1
+			Stats.earn_souls(1)
 		if m.has_method("_souls_l"):
 			m._souls_l()
 		if randf() < 0.15:

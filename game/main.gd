@@ -1855,7 +1855,7 @@ func _on_lore_stone(s) -> void:
 		elif Stats.lore_seen.size() >= 10:
 			_ach("lore10")
 	if wellread:
-		Stats.souls += 1
+		Stats.earn_souls(1)
 		_souls_l()
 	_say([{"who": "oracle", "text": line}])
 
@@ -2060,7 +2060,7 @@ func _souls_l() -> void:
 		_souls_net += Stats.souls - _souls_seen
 		while _souls_net >= 10:
 			_souls_net -= 10
-			Stats.souls += 1
+			Stats.earn_souls(1)
 			toast("LUCKY NET — +1 soul")
 	_souls_seen = Stats.souls
 	if ui.has("souls_label"):
@@ -2094,17 +2094,17 @@ func _on_enemy_died(e) -> void:
 		_combo_set(maxi(combo, 2 + int(Stats.meta.get("veteran", 0)) * 2))
 		_damage_number(e.global_position + Vector3(0, 0.9 * info.tile, 0), "FIRST BLOOD", Color(1.0, 0.4, 0.3), false)
 	if sunken_tide and not e.is_boss:
-		Stats.souls += 1
+		Stats.earn_souls(1)
 		_souls_l()
 		tide_kills += 1
 	if deep_current and not e.is_boss:
-		Stats.souls += 1
+		Stats.earn_souls(1)
 		_souls_l()
 	if dread_tide and not e.is_boss:
-		Stats.souls += 1
+		Stats.earn_souls(1)
 		_souls_l()
 	if String(e.arch_id) == "drowned":
-		Stats.souls += 1
+		Stats.earn_souls(1)
 		_souls_l()
 		_damage_number(e.global_position + Vector3(0, 0.8 * info.tile, 0), "DRAINED +1", Color(0.4, 0.9, 0.9), false)
 		if tide_kills >= 20:
@@ -2118,7 +2118,7 @@ func _on_enemy_died(e) -> void:
 		leech_charge += 1
 		if leech_charge >= 6:
 			leech_charge = 0
-			Stats.souls += 1
+			Stats.earn_souls(1)
 			_souls_l()
 			_damage_number(player.global_position + Vector3(0, 0.8, 0), "LEECH SEED RIPENS — +1 soul", Color(0.6, 1.0, 0.6), true)
 	if ui.has("kills_label"):
@@ -2154,7 +2154,7 @@ func _on_enemy_died(e) -> void:
 	if bool(e.get("nemesis")):
 		Stats.nemesis = ""
 		Stats.nemesis_name = ""
-		Stats.souls += 10
+		Stats.earn_souls(10)
 		_souls_l()
 		Stats.save_game()
 		Sfx.play("victory")
@@ -2339,11 +2339,11 @@ func _on_enemy_died(e) -> void:
 	if e.elite and (bool(e.get("champion")) or rng.randf() < 0.6):
 		spawn_weapon_drop(e.global_position, WDB.roll_drop(rng, Stats.weapon_id))
 	if bool(e.get("champion")):
-		Stats.souls += 2
+		Stats.earn_souls(2)
 		_souls_l()
 		_damage_number(e.global_position + Vector3(0, 1.0 * info.tile, 0), "CHAMPION FELLED — +2 souls", Color(0.95, 0.8, 0.3), true)
 	if e.arch_id == "tither":
-		Stats.souls += 3
+		Stats.earn_souls(3)
 		_souls_l()
 		_damage_number(e.global_position + Vector3(0, 0.9 * info.tile, 0), "◈ ITS HOARD — +3 souls", Color(0.5, 0.95, 0.6), false)
 	if e.arch_id == "crowned" and rng.randf() < 0.25:
@@ -2391,114 +2391,114 @@ func _on_enemy_died(e) -> void:
 				return
 			run_state = "cleared"
 			if blood_moon:
-				Stats.souls += 5
+				Stats.earn_souls(5)
 				_souls_l()
 				Stats.save_game()
 				toast("☽ BLOOD MOON TITHE — +5 souls")
 			elif soul_rush:
-				Stats.souls += 3
+				Stats.earn_souls(3)
 				_souls_l()
 				Stats.save_game()
 				toast("✦ SOUL RUSH TITHE — +3 souls")
 			elif fading_light:
-				Stats.souls += 4
+				Stats.earn_souls(4)
 				_souls_l()
 				Stats.save_game()
 				toast("◈ GLOOM TITHE — +4 souls")
 			elif echoing:
-				Stats.souls += 3
+				Stats.earn_souls(3)
 				_souls_l()
 				Stats.save_game()
 				toast("◈ ECHO TITHE — +3 souls")
 			elif gilded_tides:
-				Stats.souls += 4
+				Stats.earn_souls(4)
 				_souls_l()
 				Stats.save_game()
 				toast("★ HOARD TITHE — +4 souls")
 			elif storm_cellar:
-				Stats.souls += 2
+				Stats.earn_souls(2)
 				_souls_l()
 				Stats.save_game()
 				toast("⚡ STORM TITHE — +2 souls")
 			elif soul_drift:
-				Stats.souls += 3
+				Stats.earn_souls(3)
 				_souls_l()
 				Stats.save_game()
 				toast("☆ DRIFT TITHE — +3 souls")
 			elif grave_hunger:
-				Stats.souls += 2
+				Stats.earn_souls(2)
 				_souls_l()
 				Stats.save_game()
 				toast("☠ HUNGER TITHE — +2 souls")
 			elif giant_hall:
-				Stats.souls += 3
+				Stats.earn_souls(3)
 				_souls_l()
 				Stats.save_game()
 				toast("▲ GIANT TITHE — +3 souls")
 			elif shrouded:
-				Stats.souls += 2
+				Stats.earn_souls(2)
 				_souls_l()
 				Stats.save_game()
 				toast("◈ SHROUD TITHE — +2 souls")
 			elif ossuary:
-				Stats.souls += 3
+				Stats.earn_souls(3)
 				_souls_l()
 			elif mirror_hall:
-				Stats.souls += 3
+				Stats.earn_souls(3)
 				_souls_l()
 			elif ashfall:
-				Stats.souls += 2
+				Stats.earn_souls(2)
 				_souls_l()
 				Stats.save_game()
 				toast("☠ OSSUARY TITHE — +3 souls")
 			elif hungry_walls:
-				Stats.souls += 2
+				Stats.earn_souls(2)
 				_souls_l()
 				Stats.save_game()
 				toast("☠ OSSUARY TITHE — +3 souls")
 			elif candlelit:
-				Stats.souls += 2
+				Stats.earn_souls(2)
 				_souls_l()
 				Stats.save_game()
 				toast("☠ OSSUARY TITHE — +3 souls")
 			elif verdant:
-				Stats.souls += 2
+				Stats.earn_souls(2)
 				_souls_l()
 				Stats.save_game()
 				toast("☠ OSSUARY TITHE — +3 souls")
 			elif bone_chorus:
-				Stats.souls += 2
+				Stats.earn_souls(2)
 				_souls_l()
 				Stats.save_game()
 				toast("☠ OSSUARY TITHE — +3 souls")
 			elif wolfsbane:
-				Stats.souls += 2
+				Stats.earn_souls(2)
 				_souls_l()
 				Stats.save_game()
 				toast("☠ OSSUARY TITHE — +3 souls")
 			elif low_tide:
-				Stats.souls += 3
+				Stats.earn_souls(3)
 				_souls_l()
 				Stats.save_game()
 				toast("≈ EBB TITHE — +3 souls")
 			elif sunken_tide:
-				Stats.souls += 3
+				Stats.earn_souls(3)
 				_souls_l()
 				Stats.save_game()
 				toast("≈ DROWNED TITHE — +3 souls")
 			elif String(biome.get("name", "")) == "Sunken Reliquary":
-				Stats.souls += 3 + 2 * int(Stats.meta.get("diver", 0))
+				Stats.earn_souls(3 + 2 * int(Stats.meta.get("diver", 0)))
 				_souls_l()
 				Stats.save_game()
 				toast("♛ COURT TITHE — +%d souls" % (3 + 2 * int(Stats.meta.get("diver", 0))))
 			# bonus sapuan kilat: lantai bersih di bawah 90 detik
 			if floor_t < 90.0 and Stats.floor_num > 1:
-				Stats.souls += 2
+				Stats.earn_souls(2)
 				_souls_l()
 				Stats.save_game()
 				toast("⚡ SWEEP BONUS — cleared in %ds (+2 souls)" % int(floor_t))
 			if not floor_hurt and Stats.floor_num > 1:
-				Stats.souls += 3
+				Stats.earn_souls(3)
 				_souls_l()
 				Stats.save_game()
 				flawless_run += 1
@@ -2516,7 +2516,7 @@ func _on_enemy_died(e) -> void:
 					player.hp_changed.emit(player.hp)
 					toast("♛ Sir Vane's salute — +8% HP")
 			if gravetide:
-				Stats.souls += 2
+				Stats.earn_souls(2)
 				_souls_l()
 			if ashfall:
 				_ach("ashfall")
@@ -2560,7 +2560,7 @@ func _on_enemy_died(e) -> void:
 	if e.golden:
 		_damage_number(e.global_position, "LUCKY ×3", Color(1.0, 0.85, 0.3), true)
 	if e.elite and String(biome.get("name", "")) == "Sunken Reliquary":
-		Stats.souls += 4
+		Stats.earn_souls(4)
 		_souls_l()
 		_damage_number(e.global_position + Vector3(0, 0.9 * info.tile, 0), "COURT'S HOARD — +4 souls", Color(0.5, 0.95, 0.85), true)
 	if e.elite:
@@ -2568,7 +2568,7 @@ func _on_enemy_died(e) -> void:
 		if String(e.arch_id) == "crowned" and String(biome.get("name", "")) == "Sunken Reliquary":
 			_quest_event("emissary_kill", 1)
 		if Stats.relics.has("kings_ledger"):
-			Stats.souls += 2
+			Stats.earn_souls(2)
 			_souls_l()
 			_damage_number(e.global_position + Vector3(0, 1.1 * info.tile, 0), "LEDGER +2", Color(0.5, 0.95, 0.85), false)
 		if not e.is_boss:
@@ -2591,11 +2591,11 @@ func _on_boss_died(_e) -> void:
 	get_tree().create_timer(0.7, true, false, true).timeout.connect(func() -> void: Engine.time_scale = 1.0)
 	boss_ref = null
 	Stats.boss_kills += 1
-	Stats.souls += 15 + 5 * mini(Stats.ng_plus, 5)
+	Stats.earn_souls(15 + 5 * mini(Stats.ng_plus, 5))
 	if Stats.nemesis == "bone_king":
 		Stats.nemesis = ""
 		Stats.nemesis_name = ""
-		Stats.souls += 10
+		Stats.earn_souls(10)
 		_lvl_banner("◆ NEMESIS SLAIN — the King's debt is paid (+10 souls)")
 		_ach("nem1")
 	_souls_l()
@@ -2779,7 +2779,7 @@ func _run_victory() -> void:
 		_ach("ng4")
 	if Stats.ng_plus >= 7:
 		_ach("ng7")
-	Stats.souls += 25
+	Stats.earn_souls(25)
 	_souls_l()
 	Stats.save_game()
 	_ach("s25")
@@ -3096,7 +3096,7 @@ func _cast_skill(id: String) -> void:
 				_damage_number(jt.global_position + Vector3(0, 0.6 * info.tile, 0), "JUDGED", Color(1.0, 0.95, 0.5), true)
 				_burst(jt.global_position + Vector3(0, 0.4 * info.tile, 0), Color(1.0, 0.9, 0.4))
 				if kills_run > jk0:
-					Stats.souls += 2
+					Stats.earn_souls(2)
 					_souls_l()
 					toast("JUDGMENT PASSED — +2 souls")
 			else:
@@ -3776,7 +3776,7 @@ func _quest_event(kind: String, num: int = 1) -> void:
 	if int(st["done"]) >= int(st["need"]):
 		quest_idx += 1
 		Sfx.play("quest")
-		Stats.souls += 2
+		Stats.earn_souls(2)
 		_souls_l()
 		toast("QUEST STEP DONE — +2 souls")
 		if player != null and is_instance_valid(player):
@@ -4007,7 +4007,7 @@ func _on_dlg_choice(idx: int) -> void:
 				player.heal_to_full()
 			toast("Blood Blessing: HP fully restored")
 		3:
-			Stats.souls += 12
+			Stats.earn_souls(12)
 			Stats.save_game()
 			_souls_l()
 			toast("Soul Blessing: +12 souls")
@@ -4051,6 +4051,9 @@ func _on_dlg_choice(idx: int) -> void:
 		16:
 			bone_veil = true
 			toast("Bone Veil: the first hit each floor is nothing")
+		17:
+			Stats.soul_gain_pct += 0.2
+			toast("Tide's Toll: every soul pays a fifth more")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -4361,7 +4364,7 @@ func _on_mahzan_invoked(s) -> void:
 			"Royal patronage! Kael, you're the best thing to happen to this ledger in centuries. Take a tip — three souls, on the house.",
 			"Fourth visit? Fifth? I've stopped counting. You're practically family now — family pays a little less.",
 		]
-		Stats.souls += 3
+		Stats.earn_souls(3)
 		_souls_l()
 		toast("FAMILY RATES — all soul prices -1")
 	_say(
@@ -4503,7 +4506,7 @@ func _on_mirror_invoked(s) -> void:
 
 func _mirror_deal(idx: int) -> void:
 	if idx == 3:
-		Stats.souls += 8
+		Stats.earn_souls(8)
 		_souls_l()
 		Stats.save_game()
 		Sfx.play("chest")
@@ -4714,7 +4717,7 @@ func _well_deal(idx: int) -> void:
 			toast("JACKPOT — epic relic: " + String(ITEMS.DB[ridw]["name"]))
 			Sfx.play("levelup")
 		else:
-			Stats.souls += 5
+			Stats.earn_souls(5)
 			_souls_l()
 			toast("The well is spent — your souls bounce back")
 	elif roll < 0.75:
@@ -4727,7 +4730,7 @@ func _well_deal(idx: int) -> void:
 			Stats.add_relic(ridw2)
 			toast("THE WELL PAYS — rare relic: " + String(ITEMS.DB[ridw2]["name"]))
 		else:
-			Stats.souls += 5
+			Stats.earn_souls(5)
 			_souls_l()
 			toast("The well is spent — your souls bounce back")
 	else:
@@ -4877,7 +4880,7 @@ func _drowned_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("TIDE BAPTISM — whole again, and swifter for it")
 	elif idx == 1:
-		Stats.souls += 8
+		Stats.earn_souls(8)
 		_souls_l()
 		Stats.buff_maxhp_pct -= 0.1
 		if player != null and is_instance_valid(player):
@@ -4909,7 +4912,7 @@ func _on_vault_invoked(s) -> void:
 func _vault_deal(idx: int) -> void:
 	if idx == 1:
 		if rng.randf() < 0.5:
-			Stats.souls += 10
+			Stats.earn_souls(10)
 			_souls_l()
 			Sfx.play("soul")
 			_souls(player.global_position, 10, Color(0.6, 0.85, 1.0))
@@ -5005,7 +5008,7 @@ func _curse_deal(idx: int) -> void:
 			return
 		var burnt: String = commons2[rng.randi_range(0, commons2.size() - 1)]
 		Stats.remove_relic(burnt)
-		Stats.souls += 8
+		Stats.earn_souls(8)
 		_souls_l()
 		Sfx.play("fire")
 		toast("PYRE SACRAMENT — %s burned for +8 souls" % String(ITEMS.DB[burnt]["name"]))
@@ -5024,7 +5027,7 @@ func _curse_deal(idx: int) -> void:
 func _mahzan_deal(idx: int) -> void:
 	if bargainer and not bargain_used:
 		bargain_used = true
-		Stats.souls += 6
+		Stats.earn_souls(6)
 		_souls_l()
 		toast("BARGAINER — Mahzan fronts you 6 souls")
 	_quest_event("mahzan")
@@ -5055,7 +5058,7 @@ func _mahzan_deal(idx: int) -> void:
 			else:
 				var rid3: String = Stats.relics[rng.randi_range(0, Stats.relics.size() - 1)]
 				Stats.remove_relic(rid3)
-				Stats.souls += 10
+				Stats.earn_souls(10)
 				_souls_l()
 				_ach("pawn1")
 				toast("Pawned %s for +10 souls" % String(ITEMS.DB[rid3]["name"]))
@@ -5283,6 +5286,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Deeproot — every urn spills +1 soul"},
 			{"text": "Still Waters — traps doze 40% longer"},
 			{"text": "Bone Veil — the first hit each floor does nothing"},
+			{"text": "Tide's Toll — all soul gains +20%"},
 		]
 	)
 
@@ -7133,7 +7137,7 @@ func _process(delta: float) -> void:
 					player.hp = Stats.get_stat("max_hp")
 					player.hp_changed.emit(player.hp)
 					Stats.add_xp(3)
-					Stats.souls += 8
+					Stats.earn_souls(8)
 					_souls_l()
 					Sfx.play("chest")
 					_burst(info.chest.global_position, Color(1.0, 0.85, 0.3))
@@ -7157,7 +7161,7 @@ func _process(delta: float) -> void:
 						_souls(info.chest.global_position, 14, Color(1.0, 0.85, 0.3))
 						_lvl_banner("☆ GILDED SPOILS")
 						if tide_lends:
-							Stats.souls += 3
+							Stats.earn_souls(3)
 							_souls_l()
 							toast("THE TIDE LENDS — +3 souls")
 						toast("Gilded chest — relic inside: " + String(ITEMS.DB[rid2]["name"]) + "!")
@@ -7181,7 +7185,7 @@ func _process(delta: float) -> void:
 			pray_t += delta
 			if pray_t >= 2.0:
 				prayed = true
-				Stats.souls += 1
+				Stats.earn_souls(1)
 				_souls_l()
 				Sfx.play("whisper")
 				_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), "A PRAYER FOR THE FALLEN — +1 soul", Color(0.6, 0.85, 1.0), true)

@@ -77,7 +77,7 @@ func _physics_process(delta: float) -> void:
 				var wp := 2 if (m0 != null and (bool(m0.get("low_tide")) or bool(m0.get("starved_deep")))) else 1
 				if Stats.relics.has("soul_creel"):
 					wp += 1
-				Stats.souls += wp
+				Stats.earn_souls(wp)
 				if m0 != null and m0.get("biome") is Dictionary and String(m0.biome.get("name", "")) == "Sunken Reliquary":
 					m0.reliquary_wisps += wp
 					if m0.reliquary_wisps >= 15 and m0.has_method("_ach"):

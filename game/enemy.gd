@@ -911,7 +911,7 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 				if mm2.has_method("_burst"):
 					mm2._burst(global_position, Color(1.0, 0.4, 1.0))
 		if affix == "keelborn":
-			Stats.souls += 3
+			Stats.earn_souls(3)
 			var mm4 := get_tree().current_scene
 			if mm4 != null and mm4.has_method("_souls_l"):
 				mm4._souls_l()
