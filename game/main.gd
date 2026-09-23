@@ -112,6 +112,7 @@ var gilded_tides := false
 var soul_drift := false
 var grave_hunger := false
 var giant_hall := false
+var shrouded := false
 var bounty_ref: Enemy = null
 var storm_t := 0.0
 var nemesis_spawned := false # musuh yang membunuhmu run lalu — kembali lebih kuat
@@ -536,6 +537,7 @@ func _new_run(new_seed: int) -> void:
 	soul_drift = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and Stats.floor_num >= 13 and not boss_floor and rng.randf() < 0.05
 	grave_hunger = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and Stats.floor_num >= 15 and not boss_floor and rng.randf() < 0.05
 	giant_hall = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and Stats.floor_num >= 16 and not boss_floor and rng.randf() < 0.04
+	shrouded = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and Stats.floor_num >= 8 and not boss_floor and rng.randf() < 0.06
 	storm_t = 4.0
 	nemesis_spawned = false
 	_apply_biome()
@@ -669,6 +671,10 @@ func _new_run(new_seed: int) -> void:
 		_lvl_banner("▲ GIANT'S HALL — THE DEAD GROW TALL")
 		toast("Foes tower larger • double XP • +3 souls on clear")
 		Sfx.play("roar")
+	elif shrouded:
+		_lvl_banner("◈ SHROUDED HALLS — THE MAP DIES IN YOUR HANDS")
+		toast("No map in the mist • +2 souls on clear")
+		Sfx.play("whisper")
 	elif Stats.floor_num > 1:
 		_lvl_banner("FLOOR %d — %s" % [Stats.floor_num, String(biome["name"]).to_upper()])
 
@@ -1681,6 +1687,11 @@ func _on_enemy_died(e) -> void:
 				_souls_l()
 				Stats.save_game()
 				toast("▲ GIANT TITHE — +3 souls")
+			elif shrouded:
+				Stats.souls += 2
+				_souls_l()
+				Stats.save_game()
+				toast("◈ SHROUD TITHE — +2 souls")
 			# bonus sapuan kilat: lantai bersih di bawah 90 detik
 			if floor_t < 90.0 and Stats.floor_num > 1:
 				Stats.souls += 2
@@ -3621,7 +3632,7 @@ func _build_minimap() -> void:
 	if xs < 0.1 or zs < 0.1:
 		ui.map.visible = false
 		return
-	ui.map.visible = true
+	ui.map.visible = not shrouded
 	var sc: float = minf(130.0 / xs, 178.0 / zs)
 	for r in info.ranges:
 		var rc := ColorRect.new()
@@ -4862,6 +4873,8 @@ func _refresh_buffs() -> void:
 		list.append(["☠ HUNGER", Color(0.75, 0.65, 1.0)])
 	elif giant_hall:
 		list.append(["▲ GIANT", Color(1.0, 0.7, 0.4)])
+	elif shrouded:
+		list.append(["◈ SHROUD", Color(0.55, 0.6, 0.7)])
 	if omen_name != "":
 		list.append(["☗ " + omen_name, Color(0.9, 0.7, 1.0)])
 	if player.get("root_t") != null and player.root_t > 0.0:
