@@ -324,6 +324,25 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						f.take_hit(global_position, dmg * 0.4)
 					if mw.has_method("_damage_number"):
 						mw._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "SAWED", Color(1.0, 0.7, 0.3), false)
+		"gaff_hook": # GAFF — tiap tebasan ke-7 merobek musuh lain terdekat
+			var gfk := get_tree().current_scene
+			if gfk != null:
+				gfk.set("net_n", int(gfk.get("net_n")) + 1)
+				if int(gfk.get("net_n")) >= 7:
+					gfk.set("net_n", 0)
+					var best_gf = null
+					var bd_gf := 999.0
+					for fo in get_tree().get_nodes_in_group("enemies"):
+						if fo == f or fo.get("state") == "dead" or not is_instance_valid(fo):
+							continue
+						var fd := global_position.distance_to(fo.global_position)
+						if fd < bd_gf and fd < 3.0 * room_tile:
+							bd_gf = fd
+							best_gf = fo
+					if best_gf != null:
+						best_gf.take_hit(global_position, dmg * 0.4)
+						if gfk.has_method("_damage_number"):
+							gfk._damage_number(best_gf.global_position + Vector3(0, 0.65 * room_tile, 0), "GAFFED", Color(0.9, 0.6, 0.4), false)
 		"riptide_fang": # RIP — tiap tebasan ke-6: lambatkan musuh + percepat langkahmu
 			var rfk := get_tree().current_scene
 			if rfk != null:

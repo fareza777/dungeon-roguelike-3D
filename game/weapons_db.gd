@@ -35,6 +35,7 @@ const DB := {
 	"tidebrand": {"name": "Tidebrand", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.85, 0.7, 0.3), "mods": {"atk": 1.8}, "desc": "+1.8 ATK. SALVAGE: killing a foe under 30% HP pays +1 soul."},
 	"whelk_maul": {"name": "Whelk Maul", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.55, 0.45, 0.85), "mods": {"atk": 3.0, "atk_speed_pct": -0.18, "speed_pct": -0.08}, "desc": "+3.0 ATK, −18% Attack Speed, −8% Speed. BREACH: every 5th strike breaks through — +60% damage."},
 	"guthook": {"name": "Guthook", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.9, 0.35, 0.35), "mods": {"atk": 2.2, "atk_speed_pct": -0.12}, "desc": "+2.2 ATK, −12% Attack Speed. BLEED: every 5th strike rends — heals you 5% Max HP."},
+	"gaff_hook": {"name": "Gaff Hook", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.85, 0.6, 0.4), "mods": {"atk": 1.6, "atk_speed_pct": 0.1}, "desc": "+1.6 ATK, +10% Attack Speed. GAFF: every 7th strike rips 40% into the nearest other foe."},
 	"riptide_fang": {"name": "Riptide Fang", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.4, 0.75, 0.85), "mods": {"atk": 1.7, "atk_speed_pct": 0.05}, "desc": "+1.7 ATK, +5% Attack Speed. RIP: every 6th strike slows the foe 1.5s and hastens you 1.5s."},
 	"captains_hook": {"name": "Captain's Hook", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.7, 0.5, 0.3), "mods": {"atk": 1.6, "atk_speed_pct": 0.08}, "desc": "+1.6 ATK, +8% Attack Speed. HOOKED: every 5th strike drags the foe to your reach."},
 	"murkmaker": {"name": "Murkmaker", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.45, 0.6, 0.75), "mods": {"atk": 1.8, "atk_speed_pct": 0.05}, "desc": "+1.8 ATK, +5% Attack Speed. SLIP: every 5th strike quickens your step for 3s."},
@@ -54,7 +55,7 @@ const DB := {
 	"searbrand": {"name": "Searbrand", "gltf": "Skeleton_Blade.gltf", "tint": Color(1.5, 0.45, 0.2), "mods": {"atk": 1.8, "crit": 0.05}, "desc": "+1.8 ATK, +5% Crit. IGNITE: hits set foes ablaze for 4s."},
 }
 
-const POOL := ["bone_axe", "twin_fang", "hex_staff", "war_blade", "storm_axe", "frost_fang", "ember_mace", "kings_edge", "grave_scythe", "moon_katana", "soul_reaver", "thronebreaker", "hollow_crown", "wisp_lantern", "gravebell", "titan_maul", "sunderfang", "searbrand", "duskblade", "oathbrand", "marsh_claw", "undertow", "keelspike", "pearlrazor", "snapdragon", "conchhorn", "moonshell", "kingfisher", "tidebrand", "harpoon", "driftnet", "guthook", "whelk_maul", "scourge", "chain_anchor", "tide_shear", "whale_saw", "oarblade", "bilge_hook", "brine_cutlass", "silkfang", "saltpeter", "murkmaker", "captains_hook", "riptide_fang"]
+const POOL := ["bone_axe", "twin_fang", "hex_staff", "war_blade", "storm_axe", "frost_fang", "ember_mace", "kings_edge", "grave_scythe", "moon_katana", "soul_reaver", "thronebreaker", "hollow_crown", "wisp_lantern", "gravebell", "titan_maul", "sunderfang", "searbrand", "duskblade", "oathbrand", "marsh_claw", "undertow", "keelspike", "pearlrazor", "snapdragon", "conchhorn", "moonshell", "kingfisher", "tidebrand", "harpoon", "driftnet", "guthook", "whelk_maul", "scourge", "chain_anchor", "tide_shear", "whale_saw", "oarblade", "bilge_hook", "brine_cutlass", "silkfang", "saltpeter", "murkmaker", "captains_hook", "riptide_fang", "gaff_hook"]
 
 
 static func get_w(id: String) -> Dictionary:
