@@ -241,9 +241,10 @@ func _strike() -> void:
 				crit = true
 				f.set("fs_hit", true)
 			if Stats.weapon_id == "sextant_edge":
-				net_n += 1
-				if net_n >= 5:
-					net_n = 0
+				var sx_ = get_tree().current_scene
+				sx_.set("net_n", int(sx_.get("net_n")) + 1)
+				if int(sx_.get("net_n")) >= 5:
+					sx_.set("net_n", 0)
 					crit = true
 			if crit:
 				dmg *= 2.0
