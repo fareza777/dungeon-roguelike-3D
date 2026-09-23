@@ -3713,7 +3713,7 @@ func _on_mirror_invoked(s) -> void:
 
 
 func _mirror_deal(idx: int) -> void:
-	if idx == 2:
+	if idx == 3:
 		Stats.souls += 8
 		_souls_l()
 		Stats.save_game()
@@ -3726,7 +3726,7 @@ func _mirror_deal(idx: int) -> void:
 		if player != null and is_instance_valid(player):
 			_burst(player.global_position + Vector3(0, 0.5, 0), Color(0.6, 0.75, 1.0))
 		return
-	if idx == 3:
+	if idx == 2:
 		if Stats.souls < _soul_cost(6):
 			toast("Not enough souls (need 6)")
 			return
