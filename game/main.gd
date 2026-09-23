@@ -1259,6 +1259,8 @@ func _damage_number(pos: Vector3, txt: String, col: Color, big := false) -> void
 	l.pixel_size = 0.012
 	l.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	l.modulate = col
+	l.outline_size = 22
+	l.outline_modulate = Color(0.08, 0.02, 0.0, 0.9)
 	l.no_depth_test = true
 	l.global_position = pos + Vector3(0, 1.3, 0)
 	var tw := create_tween()
@@ -1356,6 +1358,12 @@ func _quest_event(kind: String, num: int = 1) -> void:
 	if int(st["done"]) >= int(st["need"]):
 		quest_idx += 1
 		Sfx.play("quest")
+		if ui.has("quest_box"):
+			var qb: Control = ui.quest_box
+			qb.pivot_offset = qb.size * 0.5
+			var qtw := qb.create_tween()
+			qtw.tween_property(qb, "scale", Vector2(1.1, 1.1), 0.09)
+			qtw.tween_property(qb, "scale", Vector2.ONE, 0.22).set_trans(Tween.TRANS_BACK)
 	_quest_render()
 
 
