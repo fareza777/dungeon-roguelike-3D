@@ -6015,12 +6015,25 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Undertow Cache — pay 4 souls: the sea drags a relic to the surface"},
 		{"text": "Salt Stitch — pay 3 souls: the brine knits your wounds (+8% lifesteal this run)"},
 		{"text": "Drift Line — pay 3 souls: +10% ATK till the floor falls"},
+		{"text": "Full Scrub — pay 3 souls: cleanse every ailment, rust and weakness included"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 11:
+	if idx == 12:
 		toast("The water settles back into the stone")
+		return
+	if idx == 11:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the scrub isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		if player != null and is_instance_valid(player):
+			for deb in ["weak_t", "chill_t", "root_t", "venom_t", "silence_t", "rust_t"]:
+				player.set(deb, 0.0)
+		Sfx.play("shrine")
+		toast("FULL SCRUB — every stain on your blade and bones is gone")
 		return
 	if idx == 10:
 		if Stats.souls < _soul_cost(3):
