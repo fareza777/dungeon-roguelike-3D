@@ -2136,7 +2136,7 @@ func _on_enemy_died(e) -> void:
 				if flawless_run >= 3:
 					_ach("untouch")
 				toast("★ UNTOUCHED — flawless floor (+3 souls)")
-			if not skill_used_floor and Stats.floor_num >= 3 and not boss_floor:
+			if not skill_used_floor and Stats.floor_num >= 3 and Stats.floor_num % 5 != 0:
 				_ach("pacifist")
 			if knight_ref != null and is_instance_valid(knight_ref) and player != null and is_instance_valid(player):
 				var vheal: float = Stats.get_stat("max_hp") * 0.08
