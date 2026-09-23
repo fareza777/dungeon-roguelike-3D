@@ -1994,6 +1994,12 @@ func _on_enemy_died(e) -> void:
 				_souls_l()
 				Stats.save_game()
 				toast("★ UNTOUCHED — flawless floor (+3 souls)")
+			if knight_ref != null and is_instance_valid(knight_ref) and player != null and is_instance_valid(player):
+				var vheal: float = Stats.get_stat("max_hp") * 0.08
+				if player.hp < Stats.get_stat("max_hp"):
+					player.hp = minf(player.hp + vheal, Stats.get_stat("max_hp"))
+					player.hp_changed.emit(player.hp)
+					toast("♛ Sir Vane's salute — +8% HP")
 			Stats.note_floor()
 			Stats.save_run()
 			for gi in gates:
