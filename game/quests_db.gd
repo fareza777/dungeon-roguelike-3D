@@ -95,6 +95,12 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Deathwalk", "desc": "Blink through the dark twice (0/2)", "kind": "gravestep", "need": 2})
 	if Stats.floor_num >= 26 and Stats.floor_num % 4 == 2:
 		steps.append({"title": "Spear of Dawn", "desc": "Impale foes with SOUL LANCE", "kind": "lance", "need": 1})
+	if Stats.floor_num >= 15 and Stats.floor_num % 9 == 4:
+		steps.append({"title": "Wisp Keeper", "desc": "Catch six wandering wisps (0/6)", "kind": "wisp", "need": 6})
+	if Stats.floor_num >= 14 and Stats.floor_num % 9 == 5:
+		steps.append({"title": "Lucky Soul", "desc": "Gamble at the Gambler's Well (0/1)", "kind": "well", "need": 1})
+	if Stats.floor_num >= 18 and Stats.floor_num % 11 == 7:
+		steps.append({"title": "Steel Scrounger", "desc": "Take a blade from a Scavenger's Cache (0/1)", "kind": "cache", "need": 1})
 	if Stats.floor_num >= 7 and Stats.floor_num % 7 == 0:
 		steps.append({"title": "Bounty Hunter", "desc": "Claim a Bounty Stone contract", "kind": "bounty", "need": 1})
 	if Stats.floor_num >= 9 and Stats.floor_num % 6 == 3:
