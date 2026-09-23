@@ -239,6 +239,7 @@ var black_calm := false
 var gun_smoke := false
 var fog_song_t := 0.0
 var bilge_iron := false
+var chorus_cut := false
 var greedy_tide := false
 var drift_wreck := false
 var shoal_spd := false
@@ -1500,7 +1501,7 @@ func _new_run(new_seed: int) -> void:
 	dead_weight = not choir and not dread_tide and not starved_deep and not abyssal_hymn and not dead_calm and not boss_floor and Stats.floor_num >= 14 and rng.randf() < 0.08
 	Stats.dead_weight = dead_weight
 	shell_game = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not umbral_tide and not abyssal_patience and not choir and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
-	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe", "tar_smear", "black_calm", "bilge_iron", "gun_smoke", "greedy_tide", "drift_wreck"]:
+	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe", "tar_smear", "black_calm", "bilge_iron", "gun_smoke", "greedy_tide", "drift_wreck", "chorus_cut"]:
 		if get(evf):
 			events_run[evf] = true
 			break
@@ -3148,6 +3149,15 @@ func _on_enemy_died(e) -> void:
 		_ach("k200")
 	_quest_event("kill")
 	_quest_event("kill_" + Stats.weapon_id)
+	if chorus_cut:
+		var ck_ := ""
+		var ckmax := -1.0
+		for ckk in skill_cd.keys():
+			if float(skill_cd[ckk]) > ckmax:
+				ckmax = float(skill_cd[ckk])
+				ck_ = ckk
+		if ck_ != "":
+			skill_cd[ck_] = maxf(0.0, float(skill_cd[ck_]) - 0.5)
 	if Stats.weapon_id == "storm_petrel":
 		skill_cd["dash"] = maxf(0.0, float(skill_cd.get("dash", 0.0)) - 0.4 * float(SkillsDb.get_s("dash").get("cd", 1.0)))
 		_damage_number(e.global_position + Vector3(0, 0.7 * info.tile, 0), "PETREL", Color(0.7, 0.85, 1.0), false)
@@ -8119,16 +8129,27 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Storm Lull — pay 5 souls: the dead's strikes slow —15% windup this run"},
 		{"text": "Encore Echo — pay 4 souls: +10% crit for the rest of this run"},
 		{"text": "Echo Verse — pay 5 souls: your skills hum back 15% sooner this run"},
+		{"text": "Chorus Cut — pay 4 souls: every kill this floor hums −0.5s off your longest charge"},
 		{"text": "Walk away"}])
 
 
 func _siren_deal(idx: int) -> void:
-	if idx == 11:
+	if idx == 12:
 		Stats.earn_souls(2)
 		_souls_l()
 		_quest_event("siren")
 		Sfx.play("soul")
 		toast("UNSUNG — you walk, and the conch pays +2 souls for your silence")
+		return
+	if idx == 11:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the chorus wants its cut")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		chorus_cut = true
+		Sfx.play("shrine")
+		toast("CHORUS CUT — the song works while you kill")
 		return
 	if idx == 10:
 		if Stats.souls < _soul_cost(5):
