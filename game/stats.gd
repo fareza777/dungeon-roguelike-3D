@@ -113,6 +113,7 @@ const ACH_DEF := {
 	"smith3": "Master Smith (forged blades at 3 Soul Forges)",
 	"bounty1": "Contract Killer (claimed a Bounty Stone relic)",
 	"ng2": "Twice-Crowned (reached NG+2)", "ng4": "Ever-Drowning (reached NG+4)", "ng7": "Grave's Delver (reached NG+7)",
+	"lore32": "Archivist (heard every whispered line)",
 }
 
 const META_DEF := {

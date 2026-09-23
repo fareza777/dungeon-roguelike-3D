@@ -1281,7 +1281,9 @@ func _on_lore_stone(s) -> void:
 	if not Stats.lore_seen.has(line):
 		Stats.lore_seen.append(line)
 		Stats.save_game()
-		if Stats.lore_seen.size() >= 10:
+		if Stats.lore_seen.size() >= LORE_LINES.size():
+		_ach("lore32")
+	elif Stats.lore_seen.size() >= 10:
 			_ach("lore10")
 	_say([{"who": "oracle", "text": line}])
 
