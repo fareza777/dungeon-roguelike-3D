@@ -239,6 +239,9 @@ func _physics_process(delta: float) -> void:
 			Sfx.play("roar")
 			if mat != null:
 				mat.set_shader_parameter("tint", Color(1.35, 0.35, 0.3))
+			var m := get_tree().current_scene
+			if m != null and m.has_method("_boss_enraged"):
+				m._boss_enraged()
 			print("BOSS ENRAGE")
 		slam_t -= delta
 		summon_t -= delta

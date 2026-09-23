@@ -688,6 +688,9 @@ func _on_enemy_died(e) -> void:
 
 
 func _on_boss_died(_e) -> void:
+	# slow-mo saat raja tumbang
+	Engine.time_scale = 0.25
+	get_tree().create_timer(0.7, true, false, true).timeout.connect(func() -> void: Engine.time_scale = 1.0)
 	boss_ref = null
 	Stats.boss_kills += 1
 	Stats.save_game()
@@ -702,7 +705,7 @@ func _on_boss_died(_e) -> void:
 	toast(boss_name + " falls! +15 XP")
 	# epilog singkat setelah bos tumbang (kecuali pemain buru-buru turun)
 	var fl := Stats.floor_num
-	get_tree().create_timer(1.2).timeout.connect(func() -> void:
+	get_tree().create_timer(1.4).timeout.connect(func() -> void:
 		if Stats.floor_num != fl or Stats.draft_open or (dlg != null and dlg.active):
 			return
 		_say([
@@ -710,6 +713,11 @@ func _on_boss_died(_e) -> void:
 			{"who": "oracle", "text": "He will rise again five floors deeper — stronger. Keep descending, Kael."},
 		]))
 	_damage_number(_e.global_position, "BOSS DOWN", Color(1.0, 0.5, 0.2), true)
+
+
+func _boss_enraged() -> void:
+	toast(boss_name + " RAGES!")
+	trauma = 0.9
 
 
 func _on_player_died() -> void:
@@ -772,6 +780,7 @@ func _on_leveled_up(lv: int) -> void:
 	Sfx.play("levelup")
 	if player != null and is_instance_valid(player):
 		player.hp = minf(Stats.get_stat("max_hp"), player.hp + 2.0)
+		_burst(player.global_position + Vector3(0, 0.4, 0), Color(1.0, 0.85, 0.3))
 		player.hp_changed.emit(player.hp)
 	_lvl_banner("LEVEL UP — Lv %d" % lv)
 	for id in SK.ORDER:
