@@ -1091,7 +1091,7 @@ func _on_player_revived() -> void:
 	toast("Soul Risen saved you — half HP restored")
 	if knight_ref != null and is_instance_valid(knight_ref):
 		var vbark: Array = ["Not today, swordsman. Not while I still march beside you.", "Death refused you once. Do not make a habit of it.", "On your feet, Kael — the dead do not get to keep you."]
-		knight_ref.bark(vbark[rng.randi() % vbark.size()])
+		_damage_number(knight_ref.global_position + Vector3(0, 0.9 * info.tile, 0), vbark[rng.randi() % vbark.size()], Color(0.7, 0.9, 1.1), false)
 
 
 func _on_player_attacked() -> void:
