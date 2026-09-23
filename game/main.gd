@@ -1488,7 +1488,11 @@ func _spawn_health_orb(pos: Vector3) -> void:
 func _spawn_obelisks(last_room: int) -> void:
 	# dread obelisk: menara perusak jiwa — 60% satu di lantai 7+, 25% dua
 	var oquest := Stats.floor_num >= 7 and Stats.floor_num % 5 == 2
-	if Stats.floor_num < 7 or (not oquest and rng.randf() > 0.6):
+	# NG+2+: kedalaman menaruh obelisk di tiap lantai — takhta mengawasi
+	var ng_obel := Stats.ng_plus >= 2 and Stats.floor_num >= 4
+	if Stats.floor_num < 7 and not ng_obel:
+		return
+	if not oquest and not ng_obel and rng.randf() > 0.6:
 		return
 	var ocount := 2 if rng.randf() < 0.42 else 1
 	for _oi in range(ocount):
