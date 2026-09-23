@@ -1483,6 +1483,7 @@ func _build_ui() -> void:
 	tl.add_theme_font_size_override("font_size", 20)
 	tl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	tl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	tl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	tut.add_child(tl)
 	tut.visible = false
 	layer.add_child(tut)
@@ -1502,6 +1503,7 @@ func _build_ui() -> void:
 	tst.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	tst.add_theme_font_size_override("font_size", 22)
 	tst.modulate = Color(1.0, 0.9, 0.5, 1.0)
+	tst.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	tst.visible = false
 	layer.add_child(tst)
 	ui["toast"] = tst
@@ -1522,6 +1524,7 @@ func _build_ui() -> void:
 	lb.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.8))
 	lb.add_theme_constant_override("shadow_offset_x", 3)
 	lb.add_theme_constant_override("shadow_offset_y", 3)
+	lb.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	lb.visible = false
 	layer.add_child(lb)
 	ui["lvl_banner"] = lb
@@ -1552,8 +1555,9 @@ func _build_ui() -> void:
 	var sub := Label.new()
 	sub.add_theme_font_size_override("font_size", 24)
 	sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	vb.add_child(t)
-	vb.add_child(sub)
+	for ll in [t, sub]:
+		ll.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		vb.add_child(ll)
 	bc.add_child(vb)
 	bc.gui_input.connect(func(e: InputEvent) -> void:
 		if e is InputEventMouseButton and e.pressed:

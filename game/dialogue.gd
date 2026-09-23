@@ -76,6 +76,7 @@ func _ready() -> void:
 	_portrait = TextureRect.new()
 	_portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	_portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	_portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	pf.add_child(_portrait)
 
 	var vb := VBoxContainer.new()
@@ -85,6 +86,7 @@ func _ready() -> void:
 	hb.add_child(vb)
 	_name_l = Label.new()
 	_name_l.add_theme_font_size_override("font_size", 20)
+	_name_l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	vb.add_child(_name_l)
 	_text_l = RichTextLabel.new()
 	_text_l.bbcode_enabled = false
@@ -93,12 +95,14 @@ func _ready() -> void:
 	_text_l.custom_minimum_size = Vector2(0, 130)
 	_text_l.add_theme_font_size_override("normal_font_size", 21)
 	_text_l.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_text_l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	vb.add_child(_text_l)
 	_hint = Label.new()
 	_hint.text = "ketuk untuk lanjut ▶"
 	_hint.add_theme_font_size_override("font_size", 14)
 	_hint.modulate = Color(1, 1, 1, 0.4)
 	_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	_hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	vb.add_child(_hint)
 	_choice_box = VBoxContainer.new()
 	_choice_box.add_theme_constant_override("separation", 8)
