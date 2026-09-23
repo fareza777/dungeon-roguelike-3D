@@ -217,6 +217,7 @@ var barnacle_sense := false
 var brine_callus := false
 var bosun_ledger := false
 var urnsworn := false
+var full_chart := false
 var iron_gullet := false
 var deadweight := false
 var undertow_grip := false
@@ -880,6 +881,7 @@ func _reset_run_state() -> void:
 	brine_callus = false
 	bosun_ledger = false
 	urnsworn = false
+	full_chart = false
 	iron_gullet = false
 	deadweight = false
 	undertow_grip = false
@@ -920,7 +922,10 @@ func _new_run(new_seed: int) -> void:
 	info = RG.build_floor(room, seed_val, Stats.floor_num)
 	for ci in range(mini(int(Stats.meta.get("carto", 0)), info.ranges.size() - 1)):
 		discovered[ci + 1] = true
-	if int(Stats.meta.get("carto", 0)) > 0:
+	if full_chart:
+		for ri_fc in range(info.ranges.size()):
+			discovered[ri_fc] = true
+	if int(Stats.meta.get("carto", 0)) > 0 or full_chart:
 		_update_minimap()
 	stain_count = 0
 	stain_positions.clear()
@@ -4793,6 +4798,7 @@ func _offer_omens() -> void:
 			{"text": "OARSWORN — your skills recharge a quarter faster... but the dead grow +10% harder"},
 			{"text": "DARK WATER — every floor's end tithes +1 soul... but the dead grow +10% harder"},
 			{"text": "FATHOMLESS — +30% XP... but the dead grow +15% harder"},
+			{"text": "FULL CHART — every floor lies fully charted... but the dead grow +10% harder"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -4829,7 +4835,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 43 if Stats.nemesis != "" else 42
+	var osize := 44 if Stats.nemesis != "" else 43
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -5010,6 +5016,10 @@ func _omen_deal(idx: int) -> void:
 			omen_hp_mult += 0.15
 			oname = "FATHOMLESS"
 		42:
+			full_chart = true
+			omen_hp_mult += 0.1
+			oname = "FULL CHART"
+		43:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -5055,6 +5065,7 @@ func _omen_deal(idx: int) -> void:
 		"SOLITARY": "Alone, then. Even ghosts respect a debt they didn't choose.",
 		"PAWNBREAKER": "His prices will sting less. He'll hate that.",
 		"FATHOMLESS": "Deep lessons, deep bruises. The sea teaches both.",
+		"FULL CHART": "No corner unmapped, Kael — the deep cannot hide from you now, nor you from it.",
 		"HEIRLOOM": "Someone carried that before you. They are still carrying it, in a way.",
 		"GOLDEN FATE": "Every lock will gleam. Mind the teeth on some.",
 		"HOLLOW CROWN": "Crown of nothing. The Oracle admires your appetite anyway.",
