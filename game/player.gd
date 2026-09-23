@@ -273,6 +273,12 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						m7._souls_l()
 					if m7.has_method("_damage_number"):
 						m7._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "SIPHON", Color(0.5, 1.0, 0.75), false)
+		"thronebreaker": # CROWNSPLITTER — +40% damage ke bos
+			if bool(f.get("is_boss")):
+				f.take_hit(global_position, dmg * 0.4)
+				var m9 := get_tree().current_scene
+				if m9 != null and m9.has_method("_damage_number"):
+					m9._damage_number(f.global_position + Vector3(0, 0.8 * room_tile, 0), "CROWNSPLITTER", Color(1.1, 0.85, 0.3), true)
 		"gaoler_brand": # WARDEN — 12% peluang menjaring musuh di tempat
 			if randf() < 0.12 and not bool(f.get("is_boss")):
 				f.stun(1.2)
