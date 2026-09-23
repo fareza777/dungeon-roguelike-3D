@@ -2556,6 +2556,10 @@ func _on_enemy_died(e) -> void:
 			if gravetide:
 				Stats.earn_souls(2)
 				_souls_l()
+			var rk: int = int(Stats.meta.get("reckon", 0))
+			if rk > 0:
+				Stats.earn_souls(rk)
+				_souls_l()
 			if ashfall:
 				_ach("ashfall")
 			if bone_chorus:
