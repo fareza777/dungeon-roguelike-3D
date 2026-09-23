@@ -5852,6 +5852,9 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_armor += 1
 			Stats.buff_aspd -= 0.05
 			toast("Bulkhead: iron plates bolt to your ribs — +1 Armor, −5% attack speed this run")
+		53:
+			Stats.cd_reduction += 0.1
+			toast("Overhang: the rigging hums — skills recharge +10% sooner this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -8479,6 +8482,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Gunnel Grip — white-knuckled on the rail: +15% attack speed, −5% speed this run"},
 			{"text": "Fathom Eye — the deep teaches what the dark won't: +15% XP this run"},
 			{"text": "Bulkhead — iron plates bolt to your ribs: +1 Armor, −5% attack speed this run"},
+			{"text": "Overhang — the rigging hums overhead: skills recharge +10% sooner this run"},
 		]
 	)
 
