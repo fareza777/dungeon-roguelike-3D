@@ -1420,7 +1420,8 @@ func _refresh_hero() -> void:
 		var wd: Dictionary = WDB.get_w(wid)
 		var wb := Button.new()
 		var cur: bool = wid == Stats.weapon_id
-		wb.text = ("• " if cur else "") + wd["name"] + "\n" + wd["desc"]
+		var wlv: int = int(Stats.weapon_lv.get(wid, 1))
+		wb.text = ("• " if cur else "") + wd["name"] + ("  Lv%d" % wlv if wlv > 1 else "") + "\n" + wd["desc"]
 		wb.add_theme_font_size_override("font_size", 14)
 		wb.custom_minimum_size = Vector2(0, 54)
 		var wsb := StyleBoxFlat.new()

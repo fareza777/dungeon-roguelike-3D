@@ -23,6 +23,9 @@ static func get_w(id: String) -> Dictionary:
 
 
 static func roll_drop(rng: RandomNumberGenerator, current_id: String) -> String:
+	# 30%: duplikat senjata sendiri -> di-forge jadi +1 ATK saat diambil
+	if rng.randf() < 0.3:
+		return current_id
 	var pool: Array = []
 	for id in POOL:
 		if id != current_id:

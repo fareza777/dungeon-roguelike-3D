@@ -50,10 +50,18 @@ func _physics_process(delta: float) -> void:
 	if p.get("dead"):
 		return
 	if global_position.distance_to(p.global_position) < 0.45 * tile:
-		p.equip_weapon(weapon_id)
-		Sfx.play("pickup")
 		var w: Dictionary = WDB.get_w(weapon_id)
 		var m := get_tree().current_scene
-		if m != null and m.has_method("toast"):
-			m.toast("%s — %s" % [w["name"], w["desc"]])
+		if weapon_id == Stats.weapon_id:
+			var lv: int = int(Stats.weapon_lv.get(weapon_id, 1)) + 1
+			Stats.weapon_lv[weapon_id] = lv
+			p.refresh_stats()
+			Sfx.play("levelup")
+			if m != null and m.has_method("toast"):
+				m.toast("FORGED! %s +1 ATK (Lv %d)" % [w["name"], lv])
+		else:
+			p.equip_weapon(weapon_id)
+			Sfx.play("pickup")
+			if m != null and m.has_method("toast"):
+				m.toast("%s — %s" % [w["name"], w["desc"]])
 		queue_free()

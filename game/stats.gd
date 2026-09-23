@@ -21,6 +21,7 @@ var kills := 0
 var current_hp := 5.0
 var weapon_id := "rusty_blade"
 var owned_weapons: Array = ["rusty_blade"]
+var weapon_lv: Dictionary = {}
 var draft_open := false
 
 # buff sementara (hilang saat run reset / turun lantai sesuai flag)
@@ -74,6 +75,7 @@ func get_stat(n: String) -> float:
 	if wmods.has(n + "_pct"):
 		mult += wmods[n + "_pct"]
 	if n == "atk":
+		flat += float(weapon_lv.get(weapon_id, 1) - 1)
 		mult += buff_atk_pct + combo_atk
 		if warcry_t > 0.0:
 			mult += 0.5
@@ -151,6 +153,7 @@ func reset_run() -> void:
 	kills = 0
 	weapon_id = "rusty_blade"
 	owned_weapons = ["rusty_blade"]
+	weapon_lv = {}
 	buff_atk_pct = 0.0
 	buff_armor = 0
 	warcry_t = 0.0
@@ -184,7 +187,7 @@ func note_floor() -> void:
 
 # snapshot run supaya tombol "Lanjutkan" di menu berarti
 func save_run() -> void:
-	saved_run = {"floor": floor_num, "level": level, "xp": xp, "relics": relics.duplicate(), "weapon_id": weapon_id, "owned": owned_weapons.duplicate(), "hp": current_hp, "kills": kills, "revive": revive_left, "thorns": thorns, "dodge": dodge, "magnet": magnet, "berserk": berserk, "mahzan_debt": mahzan_debt}
+	saved_run = {"floor": floor_num, "level": level, "xp": xp, "relics": relics.duplicate(), "weapon_id": weapon_id, "owned": owned_weapons.duplicate(), "hp": current_hp, "kills": kills, "revive": revive_left, "thorns": thorns, "dodge": dodge, "magnet": magnet, "berserk": berserk, "mahzan_debt": mahzan_debt, "weapon_lv": weapon_lv.duplicate()}
 	save_game()
 
 
@@ -213,6 +216,7 @@ func restore_run() -> bool:
 	dodge = float(saved_run.get("dodge", 0.0))
 	magnet = float(saved_run.get("magnet", 0.0))
 	berserk = float(saved_run.get("berserk", 0.0))
+	weapon_lv = saved_run.get("weapon_lv", {})
 	mahzan_debt = float(saved_run.get("mahzan_debt", 0.0))
 	buff_atk_pct = 0.0
 	current_hp = float(saved_run.get("hp", get_stat("max_hp")))
