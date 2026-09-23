@@ -76,6 +76,7 @@ const META_DEF := {
 	"wind": {"name": "Second Wind", "max": 1, "desc": "Begin every run with a revive"},
 	"arcane": {"name": "Arcane Edge", "max": 3, "desc": "Skills recharge 8% faster per level"},
 	"greed": {"name": "Greed", "max": 3, "desc": "+10% souls per kill per level"},
+	"adamant": {"name": "Adamant", "max": 3, "desc": "+1 Armor per level"},
 }
 
 # dipakai menu -> game
@@ -116,7 +117,7 @@ func get_stat(n: String) -> float:
 		flat += float(meta.get("vital", 0))
 		flat -= mahzan_debt
 	if n == "armor":
-		flat += buff_armor
+		flat += buff_armor + float(meta.get("adamant", 0))
 	if n == "speed":
 		mult += float(meta.get("swift", 0)) * 0.03 + buff_speed_pct
 	return flat * mult
