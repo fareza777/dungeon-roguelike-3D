@@ -606,8 +606,8 @@ func _physics_process(delta: float) -> void:
 				var fd_: Vector3 = fp_.global_position - global_position
 				fd_.y = 0
 				global_position += fd_.normalized() * minf(fd_.length() * 0.35, 0.8 * room_tile)
-				modulate.a = 0.5
-				create_tween().tween_property(self, "modulate:a", 1.0, 0.3)
+				if mat != null:
+					mat.set_shader_parameter("flash", 0.7)
 	sunder_t = maxf(0.0, sunder_t - delta)
 	tender_t = maxf(0.0, tender_t - delta)
 	if affix == "tidal":
