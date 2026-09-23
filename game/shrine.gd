@@ -73,6 +73,10 @@ func setup(p_tile: float, p_kind := 0) -> void:
 		mat.albedo_color = Color(0.45, 0.38, 0.2)
 		mat.emission = Color(0.6, 0.85, 0.45)
 		mat.emission_energy_multiplier = 1.3
+	elif kind == 16:
+		mat.albedo_color = Color(0.5, 0.3, 0.55)
+		mat.emission = Color(0.85, 0.45, 0.9)
+		mat.emission_energy_multiplier = 1.5
 	elif kind == 8:
 		mat.albedo_color = Color(0.35, 0.45, 0.15)
 		mat.emission = Color(0.75, 0.95, 0.2)

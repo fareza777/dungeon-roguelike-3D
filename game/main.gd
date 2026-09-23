@@ -1831,6 +1831,10 @@ func _spawn_shrine(last_room: int) -> void:
 		skind = 15 # Quartermaster's Post — armory terjamin di lantai %6==3
 	elif Stats.floor_num >= 7 and rng.randf() < 0.07:
 		skind = 15 # Quartermaster's Post acak
+	elif Stats.floor_num >= 10 and Stats.floor_num % 8 == 2:
+		skind = 16 # Siren's Conch — kerang bernyanyi terjamin di lantai %8==2
+	elif Stats.floor_num >= 9 and rng.randf() < 0.06:
+		skind = 16 # Siren's Conch acak
 	elif Stats.floor_num >= 14 and rng.randf() < 0.10:
 		skind = 14 # Moonpool — kolam cahaya bulan di kedalaman
 	elif Stats.floor_num >= 5 and Stats.floor_num % 5 == 1:
@@ -1893,6 +1897,8 @@ func _spawn_shrine(last_room: int) -> void:
 			s.invoked.connect(_on_moonpool_invoked)
 		15:
 			s.invoked.connect(_on_qm_invoked)
+		16:
+			s.invoked.connect(_on_siren_invoked)
 		_:
 			s.invoked.connect(_on_shrine_invoked)
 
@@ -4557,6 +4563,10 @@ func _on_dlg_choice(idx: int) -> void:
 		dlg_pending_choice = -1
 		_keel_deal(idx)
 		return
+	elif dlg_pending_choice == 18:
+		dlg_pending_choice = -1
+		_siren_deal(idx)
+		return
 	match idx:
 		0:
 			Stats.buff_atk_pct += 0.15
@@ -6241,6 +6251,82 @@ func _qm_deal(idx: int) -> void:
 	_quest_event("qm")
 
 
+func _on_siren_invoked(sh) -> void:
+	shrine_used = true
+	shrine_count += 1
+	if shrine_count >= 10:
+		_ach("pilgrim")
+	sh.consume()
+	Sfx.play("shrine")
+	dlg_pending_choice = 18
+	_say([{"who": "mahzan", "text": "A Siren's Conch — put it to your ear and the sea sings back. Her songs all cost souls; the sea keeps accounts."}],
+		[{"text": "Sea Chant — pay 5 souls: +12% Speed and +12% Attack Speed this run"},
+		{"text": "Dirge of the Drowned — pay 4 souls: +1 Armor, but your HP bleeds 15% now"},
+		{"text": "Lullaby for Kael — pay 4 souls: mend 35% HP"},
+		{"text": "Chorus Line — pay 3 souls: reset every skill cooldown"},
+		{"text": "Walk away"}])
+
+
+func _siren_deal(idx: int) -> void:
+	if idx == 4:
+		Stats.earn_souls(2)
+		_souls_l()
+		_quest_event("siren")
+		Sfx.play("soul")
+		toast("UNSUNG — you walk, and the conch pays +2 souls for your silence")
+		return
+	if idx == 0:
+		var c0 := _soul_cost(5)
+		if Stats.souls < c0:
+			toast("Five souls — the sea's choir charges for the verse")
+			return
+		Stats.souls -= c0
+		_souls_l()
+		Stats.buff_speed_pct += 0.12
+		Stats.buff_atk_speed_pct += 0.12
+		if player != null:
+			player.refresh_stats()
+		Sfx.play("shrine")
+		toast("SEA CHANT — the rhythm of the tide is in your feet")
+	elif idx == 1:
+		var c1 := _soul_cost(4)
+		if Stats.souls < c1:
+			toast("Four souls — the dirge asks its own")
+			return
+		Stats.souls -= c1
+		_souls_l()
+		Stats.buff_armor += 1
+		if player != null and is_instance_valid(player):
+			player.hp = maxf(1.0, player.hp - Stats.get_stat("max_hp") * 0.15)
+			player.hp_changed.emit(player.hp)
+		Sfx.play("shrine")
+		toast("DIRGE — iron in your ribs, salt in your blood")
+	elif idx == 2:
+		var c2 := _soul_cost(4)
+		if Stats.souls < c2:
+			toast("Four souls — lullabies are bought, not given")
+			return
+		Stats.souls -= c2
+		_souls_l()
+		if player != null and is_instance_valid(player):
+			player.hp = minf(Stats.get_stat("max_hp"), player.hp + Stats.get_stat("max_hp") * 0.35)
+			player.hp_changed.emit(player.hp)
+		Sfx.play("shrine")
+		toast("LULLABY — the sea rocks you to a kinder sleep")
+	elif idx == 3:
+		var c3 := _soul_cost(3)
+		if Stats.souls < c3:
+			toast("Three souls — the chorus still has a cover charge")
+			return
+		Stats.souls -= c3
+		_souls_l()
+		for sid in skill_cd:
+			skill_cd[sid] = 0.0
+		Sfx.play("shrine")
+		toast("CHORUS — every song in you starts fresh")
+	_quest_event("siren")
+
+
 func _on_throne_invoked(s) -> void:
 	shrine_used = true
 	shrine_count += 1
@@ -6720,7 +6806,7 @@ func _build_minimap() -> void:
 	# penanda altar (cyan), batu lore (ungu), dan tujuan akhir lantai (emas besar)
 	if shrine_ref != null and is_instance_valid(shrine_ref):
 		var sd := ColorRect.new()
-		sd.color = [Color(1.0, 0.8, 0.3), Color(0.45, 0.65, 1.0), Color(1.0, 0.2, 0.15), Color(1.0, 0.55, 0.15), Color(0.55, 0.75, 1.0), Color(1.0, 0.5, 0.1), Color(0.95, 0.85, 0.3), Color(0.4, 0.55, 1.0), Color(0.7, 0.95, 0.25), Color(0.85, 0.6, 0.3), Color(0.35, 0.95, 0.85), Color(0.4, 0.85, 1.0), Color(0.5, 0.7, 1.05), Color(0.65, 0.25, 0.95), Color(0.75, 0.85, 1.05), Color(0.6, 0.9, 0.45)][shrine_kind]
+		sd.color = [Color(1.0, 0.8, 0.3), Color(0.45, 0.65, 1.0), Color(1.0, 0.2, 0.15), Color(1.0, 0.55, 0.15), Color(0.55, 0.75, 1.0), Color(1.0, 0.5, 0.1), Color(0.95, 0.85, 0.3), Color(0.4, 0.55, 1.0), Color(0.7, 0.95, 0.25), Color(0.85, 0.6, 0.3), Color(0.35, 0.95, 0.85), Color(0.4, 0.85, 1.0), Color(0.5, 0.7, 1.05), Color(0.65, 0.25, 0.95), Color(0.75, 0.85, 1.05), Color(0.6, 0.9, 0.45), Color(0.85, 0.45, 0.9)][shrine_kind]
 		sd.size = Vector2(5, 5)
 		sd.position = _map_pos(shrine_ref.global_position, sc)
 		mv.add_child(sd)
