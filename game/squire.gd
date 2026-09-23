@@ -91,5 +91,6 @@ func _physics_process(delta: float) -> void:
 		if m != null and m.has_method("_damage_number"):
 			m._damage_number(best.global_position + Vector3(0, 0.3 * tile, 0), "-%d" % int(dmg), Color(1.0, 0.9, 0.5), false)
 		if is_vane and m != null and randf() < 0.16 and m.has_method("_damage_number"):
-			var quips := ["That one had it coming.", "Still got it.", "For the nursery!", "Rust won't stop steel.", "Bones break the same as ever.", "Tell the King I'm coming.", "Even the drowned kneel, boy.", "Salt won't save them.", "My old crew would laugh.", "Swing like the tide, boy.", "The deep takes all debts.", "One less ghost in the water.", "They fall like rigging in a gale.", "Mind the undertow, boy.", "Back to the brine with you.", "The crows eat well tonight."]
+			var quips := ["That one had it coming.", "Still got it.", "For the nursery!", "Rust won't stop steel.", "Bones break the same as ever.", "Tell the King I'm coming.", "Even the drowned kneel, boy.", "Salt won't save them.", "My old crew would laugh.", "Swing like the tide, boy.", "The deep takes all debts.", "One less ghost in the water.", "They fall like rigging in a gale.", "Mind the undertow, boy.", "Back to the brine with you.", "The crows eat well tonight.", "Webs cut like rigging, boy.", "Two shots? I fought faster crews.", "The deep keeps books — pay her early."]
+
 			m._damage_number(global_position + Vector3(0, 0.8 * tile, 0), quips[randi() % quips.size()], Color(0.65, 0.85, 1.0), true)
