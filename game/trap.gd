@@ -74,6 +74,24 @@ func setup(p_tile: float, offset: float, p_kind := 0) -> void:
 		glow.mesh = gm3
 		glow.position.y = 0.035 * tile
 		add_child(glow)
+		if kind == 6:
+			# cangkang kerang — kubah bertutup saat "menjepit"
+			var shell := MeshInstance3D.new()
+			var sh := SphereMesh.new()
+			sh.radius = 0.16 * tile
+			sh.height = 0.14 * tile
+			sh.radial_segments = 12
+			var shmat := StandardMaterial3D.new()
+			shmat.albedo_color = Color(0.78, 0.72, 0.62)
+			shmat.metallic = 0.5
+			shmat.roughness = 0.35
+			shmat.emission_enabled = true
+			shmat.emission = Color(0.2, 0.32, 0.3) * 0.6
+			sh.material = shmat
+			shell.mesh = sh
+			shell.position.y = 0.05 * tile
+			shell.scale.y = 0.55
+			add_child(shell)
 		if kind == 4 or kind == 5 or kind == 6:
 			return
 	# lubang duri (lubang gelap biar kelihatan ada jebakan)
