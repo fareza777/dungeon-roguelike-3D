@@ -60,6 +60,9 @@ var stun_t := 0.0
 var enraged := false
 var golden := false
 var nemesis := false
+var is_lurker := false # arketipe penyergap: sembunyi sampai pemain mendekat
+var lurk_revealed := false
+var model_ref: Node3D = null
 var affix := ""
 var jailer := false
 var is_weeper := false
@@ -123,6 +126,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	is_warper = bool(a.get("warper", false))
 	is_hexer = bool(a.get("hexer", false))
 	is_spiky = bool(a.get("spiky", false))
+	is_lurker = bool(a.get("lurks", false))
 	if is_summoner:
 		summon_t = 9.0
 	var sc: float = a["scale"]
@@ -181,6 +185,10 @@ func _ready() -> void:
 	if (elite or nemesis) and not is_boss:
 		_mk_hpbar()
 		_mk_aura()
+	if is_lurker:
+		model_ref = get_child(0)
+		if model_ref != null:
+			model_ref.visible = false
 	M.play_fuzzy(ap, ["idle"])
 
 
@@ -334,6 +342,12 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		global_position.y = 0.0
 		return
+	if is_lurker and not lurk_revealed:
+		var lp := _player()
+		if activated and lp != null and lp.get("dead") != true and global_position.distance_to(lp.global_position) < 1.3 * room_tile:
+			_lurk_reveal()
+		else:
+			return
 	if not activated:
 		velocity = kb
 		kb = kb.move_toward(Vector3.ZERO, delta * room_tile * 8.0)
@@ -613,9 +627,25 @@ func _explode() -> void:
 	died.emit(self)
 
 
+func _lurk_reveal() -> void:
+	lurk_revealed = true
+	if model_ref != null:
+		model_ref.visible = true
+	speed *= 1.3
+	Sfx.play("roar")
+	var ml3 := get_tree().current_scene
+	if ml3 != null:
+		if ml3.has_method("_burst"):
+			ml3._burst(global_position, Color(0.9, 0.85, 1.15))
+		if ml3.has_method("_damage_number"):
+			ml3._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "LURKER!", Color(0.9, 0.85, 1.2), false)
+
+
 func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 	if state == "dead":
 		return
+	if is_lurker and not lurk_revealed:
+		_lurk_reveal()
 	if hex_t > 0.0:
 		dmg_taken *= 1.25
 	if sunder_t > 0.0:
