@@ -574,6 +574,7 @@ func _new_run(new_seed: int) -> void:
 	stain_positions.clear()
 	pray_t = 0.0
 	prayed = false
+	leech_charge = 0
 	var boss_floor: bool = QDB.is_boss_floor(Stats.floor_num)
 	# event langka: blood moon — langit merah, musuh lebih keras, XP lebih kaya
 	blood_moon = Stats.floor_num >= 3 and not boss_floor and rng.randf() < 0.07
@@ -1209,6 +1210,7 @@ var stain_count := 0
 var stain_positions: Array = []
 var pray_t := 0.0
 var prayed := false
+var leech_charge := 0
 var squire_ref: Node3D = null
 var knight_ref: Node3D = null
 
@@ -1563,6 +1565,13 @@ func _on_enemy_died(e) -> void:
 			_spawn_wisp_at(e.global_position + woff)
 	Sfx.play("death")
 	kills_run += 1
+	if Stats.relics.has("leech_seed") and player != null and player.hp >= Stats.get_stat("max_hp") - 0.01:
+		leech_charge += 1
+		if leech_charge >= 6:
+			leech_charge = 0
+			Stats.souls += 1
+			_souls_l()
+			_damage_number(player.global_position + Vector3(0, 0.8, 0), "LEECH SEED RIPENS — +1 soul", Color(0.6, 1.0, 0.6), true)
 	if ui.has("kills_label"):
 		ui.kills_label.text = "☠ %d" % kills_run
 	# Sir Vane: celoteh perang tiap ~15 kill bersama

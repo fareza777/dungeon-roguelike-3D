@@ -53,6 +53,7 @@ const DB := {
 	"stoples_bara": {"name": "Wispfire Jar", "chip": "WJ", "desc": "Wisps caught also grant +3 XP", "rarity": 1, "mods": {}},
 	"relik_tempo": {"name": "Relic of Tempo", "chip": "RT", "desc": "Your combo window lasts 45% longer", "rarity": 1, "mods": {}},
 	"soulsmith": {"name": "Soulsmith Band", "chip": "SS", "desc": "Soul Forge prices drop 2 souls", "rarity": 1, "mods": {}},
+	"leech_seed": {"name": "Leech Seed", "chip": "LS", "desc": "Every 6th kill at full HP ripens into +1 soul", "rarity": 0, "mods": {}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
