@@ -73,6 +73,7 @@ var draft_choices: Array = []
 var draft_rerolled := false
 var low_quality := false
 var blood_moon := false
+var _warned := {}
 var chest_opened := false
 var toast_tween: Tween = null
 
@@ -107,6 +108,7 @@ const ACH := {
 	"master1": "Master at Arms (weapon mastered)",
 	"knight1": "Liberator (freed Sir Vane)",
 	"reborn": "Oracle's Chosen (bought back your life)",
+	"scholar": "Crypt Scholar (filled the bestiary)",
 }
 const BOSS_TIERS := [
 	{"name": "BONE KING", "tint": Color(1.05, 1.05, 1.05),
@@ -514,6 +516,17 @@ const WHISPERS := [
 	"His patience thins with every room you clear.",
 ]
 
+# bisikan sekali-per-run saat arketipe pertama kali muncul
+const FIRST_SEEN := {
+	"brute": "A Brute holds the way — patient swings break patient bone.",
+	"bomber": "That one burns to touch — let it chase, never stand still.",
+	"crawler": "Crawlers — small, quick, and never alone.",
+	"archer": "Arrows from the dark — flank the archers, Kael.",
+	"necromancer": "The Necromancer props death's door open — shut it.",
+	"gaoler": "A Gaoler — the crown's own brother. Mind his chains.",
+	"weeper": "A Weeper chants ahead — cut his song short.",
+}
+
 
 func _on_room_enter(ri: int) -> void:
 	for e in get_tree().get_nodes_in_group("enemies"):
@@ -679,6 +692,10 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 	var stw := e.create_tween()
 	stw.tween_property(e, "scale", esc, 0.28).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	e.died.connect(_on_enemy_died)
+	if not elite and not e.is_boss and not _warned.has(arch_id) and FIRST_SEEN.has(arch_id) and player != null:
+		_warned[arch_id] = 1
+		Sfx.play("page")
+		_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), String(FIRST_SEEN[arch_id]), Color(0.55, 1.0, 0.75), true)
 	if e.is_boss:
 		boss_ref = e
 		var tier := _boss_tier()
@@ -742,7 +759,7 @@ func _spawn_traps(last_room: int) -> void:
 
 func _spawn_urns(last_room: int) -> void:
 	# guci tulang: 1-3 per lantai, dipecahkan untuk permata jiwa
-	for i in range(rng.randi_range(1, 3)):
+	for i in range(rng.randi_range(2, 4)):
 		var ri: int = rng.randi_range(0, last_room)
 		var r: Dictionary = info.ranges[ri]
 		var pos := Vector3(rng.randf_range(r["x0"] + 0.5 * info.tile, r["x1"] - 0.5 * info.tile), 0.0, rng.randf_range(r["z1"] + 1.0 * info.tile, r["z0"] - 1.0 * info.tile))
@@ -1003,6 +1020,8 @@ func _on_enemy_died(e) -> void:
 	kills_run += 1
 	Stats.count_kill()
 	Stats.bestiary[e.arch_id] = int(Stats.bestiary.get(e.arch_id, 0)) + 1
+	if Stats.bestiary.size() >= BESTIARY.size():
+		_ach("scholar")
 	# weapon mastery: 25 kill dengan senjata yang sama -> +1 ATK permanen
 	var wid := Stats.weapon_id
 	var wk_old: int = int(Stats.weapon_kills.get(wid, 0))

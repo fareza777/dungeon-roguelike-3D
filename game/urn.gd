@@ -50,6 +50,8 @@ func smash(from_pos: Vector3) -> void:
 	if m != null:
 		if m.has_method("_spawn_gems"):
 			m._spawn_gems(global_position, 2 + randi() % 3)
+		if m.has_method("_quest_event"):
+			m._quest_event("urn")
 		if m.has_method("_burst"):
 			m._burst(global_position + Vector3(0, 0.2 * tile, 0), Color(0.9, 0.85, 0.6))
 		if randf() < 0.15:

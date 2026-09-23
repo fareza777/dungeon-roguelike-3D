@@ -184,7 +184,7 @@ func _build() -> void:
 
 	var best := Label.new()
 	var boss_txt := " • Bosses slain: %d" % Stats.boss_kills if Stats.boss_kills > 0 else ""
-	var ach_txt := " • ◆ %d/18" % Stats.ach.size() if Stats.ach.size() > 0 else ""
+	var ach_txt := " • ◆ %d/19" % Stats.ach.size() if Stats.ach.size() > 0 else ""
 	var ng_txt := " • ♛ NG+%d" % Stats.ng_plus if Stats.ng_plus > 0 else ""
 	var lore_txt := " • Lore %d/19" % Stats.lore_seen.size() if Stats.lore_seen.size() > 0 else ""
 	var souls_txt := " • ◈ %d" % Stats.souls if Stats.souls > 0 else ""
