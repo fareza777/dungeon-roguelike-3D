@@ -184,6 +184,10 @@ func _physics_process(delta: float) -> void:
 					if ml2 != null:
 						if ml2.has_method("_quest_event"):
 							ml2._quest_event("trap_disarm")
+						if Stats.relics.has("clamheart"):
+							Stats.souls += 1
+							if ml2.has_method("_souls_l"):
+								ml2._souls_l()
 						if ml2.has_method("toast"):
 							ml2.toast("Trap defused!")
 						if kind == 6:
