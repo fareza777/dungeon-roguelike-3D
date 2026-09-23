@@ -177,7 +177,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed"][randi() % 26]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide"][randi() % 27]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -260,6 +260,10 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				xp_val = int(xp_val * 1.3)
 			"venomed":
 				# bisa: gigitnya meracunimu
+				hp *= 1.1
+				xp_val = int(xp_val * 1.3)
+			"riptide":
+				# arus balik: pukulannya menghempaskanmu jauh
 				hp *= 1.1
 				xp_val = int(xp_val * 1.3)
 	scale = Vector3.ONE * sc
@@ -654,6 +658,13 @@ func _physics_process(delta: float) -> void:
 								q.take_hit(global_position, dmg * dmulti)
 								if affix == "venomed" and q == p:
 									p.set("venom_t", 4.0)
+								if affix == "riptide" and q == p:
+									var rdir: Vector3 = p.global_position - global_position
+									rdir.y = 0
+									p.kb += rdir.normalized() * room_tile * 3.0
+									var mrt := get_tree().current_scene
+									if mrt != null and mrt.has_method("_damage_number"):
+										mrt._damage_number(p.global_position + Vector3(0, 0.8 * room_tile, 0), "SWEPT!", Color(0.4, 0.75, 1.0), false)
 								if keelh and q == p:
 									var mkh := get_tree().current_scene
 									if Stats.souls > 0:
