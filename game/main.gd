@@ -7446,11 +7446,12 @@ func _on_qm_invoked(s) -> void:
 		{"text": "Chipped Compass — pay 4 souls: the post charts this floor for you"},
 		{"text": "Powder Keg — pay 4 souls: your next 3 kills detonate on their neighbors"},
 		{"text": "Splice Bonus — pay 3 souls: your next 5 kills this floor pay +1 soul each"},
+		{"text": "Rope & Rum — pay 3 souls: +10% Speed and mend 20% HP"},
 		{"text": "Walk away"}])
 
 
 func _qm_deal(idx: int) -> void:
-	if idx == 7:
+	if idx == 8:
 		toast("The post shutters its stores")
 		return
 	if idx == 5:
@@ -7473,6 +7474,21 @@ func _qm_deal(idx: int) -> void:
 		_quest_event("qm")
 		Sfx.play("shrine")
 		toast("SPLICE BONUS — the next five kills pay a splice share")
+		return
+	if idx == 7:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the rum's rationed")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		Stats.buff_speed_pct += 0.1
+		if player != null and is_instance_valid(player):
+			player.hp = minf(Stats.get_stat("max_hp"), player.hp + Stats.get_stat("max_hp") * 0.2)
+			player.hp_changed.emit(player.hp)
+			player.refresh_stats()
+		Sfx.play("shrine")
+		toast("ROPE & RUM — faster feet, fuller chest")
+		return
 	if idx == 4:
 		if Stats.souls < _soul_cost(4):
 			toast("Four souls — the compass isn't free")
