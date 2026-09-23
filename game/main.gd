@@ -97,6 +97,7 @@ var omen_hp_mult := 1.0
 var omen_name := ""
 var fatehand := false
 var nemesis_bounty := false
+var combo_rate_bonus := 0.0
 var _warned := {}
 var champ_room := -1 # sarang sang juara: elite terjamin + drop lebih baik
 var ambush_room := -1 # ruangan "kosong" yang ternyata penyergapan
@@ -492,6 +493,7 @@ func _reset_run_state() -> void:
 	omen_hp_mult = 1.0
 	fatehand = false
 	nemesis_bounty = false
+	combo_rate_bonus = 0.0
 	nemesis_warned = false
 
 
@@ -2814,7 +2816,7 @@ func _quest_render() -> void:
 func _combo_set(n: int) -> void:
 	combo = n
 	combo_max = maxi(combo_max, n)
-	combo_t = 4.0 * (1.45 if Stats.relics.has("relik_tempo") else 1.0)
+	combo_t = 4.0 * (1.45 if Stats.relics.has("relik_tempo") else 1.0) * (1.0 + combo_rate_bonus)
 	# tier buff nyata: streak tinggi = tambah kuat (hilang saat streak putus)
 	if combo == 8:
 		_quest_event("combo")
@@ -2992,6 +2994,9 @@ func _on_dlg_choice(idx: int) -> void:
 		10:
 			Stats.soul_bonus += 1
 			toast("Grave Tithe: +1 soul per kill")
+		11:
+			combo_rate_bonus = 0.4
+			toast("Tempo's Grace: combos linger 40% longer")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -3396,6 +3401,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Eagle's Eye — +12% Crit this run"},
 			{"text": "Tempest Blessing — +20% Skill Recharge this run"},
 			{"text": "Grave Tithe — +1 soul per kill this run"},
+			{"text": "Tempo's Grace — combos linger 40% longer this run"},
 		]
 	)
 
