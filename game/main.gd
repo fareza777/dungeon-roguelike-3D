@@ -2299,6 +2299,7 @@ func _on_enemy_died(e) -> void:
 			"The King hears you rattling, wretch!",
 		]
 		_damage_number(knight_ref.global_position + Vector3(0, 0.9 * info.tile, 0), vbarks[int(kills_run / 15) % vbarks.size()], Color(0.7, 0.9, 1.1), false)
+		_quest_event("vane_bark")
 	if player != null and is_instance_valid(player) and player.hp <= player.max_hp * 0.2:
 		last_stand_kills += 1
 		if last_stand_kills >= 5:
