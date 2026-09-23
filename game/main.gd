@@ -4536,6 +4536,7 @@ func _process(delta: float) -> void:
 						toast("Treasure Chest: HP restored, +3 XP")
 					if gilded_chest:
 						gilded_chest = false
+						_quest_event("gilded_chest")
 						var pool: Array = []
 						for rid in ITEMS.DB:
 							if int(ITEMS.DB[rid]["rarity"]) >= 1:
