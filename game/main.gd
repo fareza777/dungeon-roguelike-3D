@@ -6384,12 +6384,25 @@ func _on_qm_invoked(s) -> void:
 		{"text": "Hone the Crew — pay 4 souls: +10% ATK this run"},
 		{"text": "Provisions — pay 3 souls: mend 25% HP"},
 		{"text": "Rope Ration — pay 3 souls: +1 soul vial for the road"},
+		{"text": "Chipped Compass — pay 4 souls: the post charts this floor for you"},
 		{"text": "Walk away"}])
 
 
 func _qm_deal(idx: int) -> void:
-	if idx == 4:
+	if idx == 5:
 		toast("The post shutters its stores")
+		return
+	if idx == 4:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the compass isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		for ri_c in range(info.ranges.size()):
+			discovered[ri_c] = true
+		_update_minimap()
+		Sfx.play("shrine")
+		toast("CHIPPED COMPASS — the floor lies charted")
 		return
 	if idx == 3:
 		if Stats.souls < _soul_cost(3):
@@ -6401,9 +6414,6 @@ func _qm_deal(idx: int) -> void:
 		_vial_btn()
 		Sfx.play("shrine")
 		toast("ROPE RATION — +1 ⚗ vial tucked for the road")
-		return
-	if idx == 3:
-		toast("The post shutters its stores")
 		return
 	if idx == 0:
 		if Stats.souls < _soul_cost(8):
