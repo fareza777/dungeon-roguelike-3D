@@ -4623,6 +4623,9 @@ func _on_dlg_choice(idx: int) -> void:
 		27:
 			bosun_ledger = true
 			toast("Bosun's Ledger: every fifth kill each floor pays +1 soul")
+		28:
+			Stats.cd_reduction += 0.08
+			toast("Quarterdeck: a firm deck under your skills — +8% recharge")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -6292,6 +6295,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Bosun's Mark — your crew swings a fifth harder"},
 			{"text": "Wake Runner — +15% XP this run"},
 			{"text": "Bosun's Ledger — every fifth kill each floor pays +1 soul"},
+			{"text": "Quarterdeck — +8% skill recharge this run"},
 		]
 	)
 
