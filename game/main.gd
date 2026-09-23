@@ -1892,6 +1892,12 @@ func _run_victory() -> void:
 	Stats.clear_run()
 	Stats.runs += 1
 	Stats.ng_plus += 1
+	if Stats.ng_plus >= 2:
+		_ach("ng2")
+	if Stats.ng_plus >= 4:
+		_ach("ng4")
+	if Stats.ng_plus >= 7:
+		_ach("ng7")
 	Stats.souls += 25
 	_souls_l()
 	Stats.save_game()
