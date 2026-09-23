@@ -71,7 +71,7 @@ var bestiary := {} # arch_id -> jumlah kill sepanjang masa (codex)
 var weapon_kills := {} # weapon_id -> kill sepanjang masa (mastery progress)
 var mastered := {} # weapon_id -> 1 bila mastery tercapai (+1 ATK permanen)
 const MASTERY_N := 25
-var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0}
+var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0}
 
 const ACH_DEF := {
 	"kill1": "First Bloodbath",
@@ -107,6 +107,7 @@ const META_DEF := {
 	"arcane": {"name": "Arcane Edge", "max": 3, "desc": "Skills recharge 8% faster per level"},
 	"greed": {"name": "Greed", "max": 3, "desc": "+10% souls per kill per level"},
 	"adamant": {"name": "Adamant", "max": 3, "desc": "+1 Armor per level"},
+	"leech": {"name": "Siphon Vein", "max": 3, "desc": "+2% Lifesteal per level"},
 }
 
 # dipakai menu -> game
@@ -153,7 +154,7 @@ func get_stat(n: String) -> float:
 	if n == "armor":
 		flat += buff_armor + float(meta.get("adamant", 0))
 	if n == "lifesteal":
-		flat += buff_lifesteal
+		flat += buff_lifesteal + float(meta.get("leech", 0)) * 0.02
 	if n == "speed":
 		mult += float(meta.get("swift", 0)) * 0.03 + buff_speed_pct
 	return flat * mult
@@ -375,7 +376,7 @@ func wipe_progress() -> void:
 	bestiary = {}
 	weapon_kills = {}
 	mastered = {}
-	meta = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0}
+	meta = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0}
 	reset_run()
 	save_game()
 
