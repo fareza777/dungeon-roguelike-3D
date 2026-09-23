@@ -66,6 +66,7 @@ var pending_drafts := 0
 var draft_choices: Array = []
 var draft_rerolled := false
 var low_quality := false
+var blood_moon := false
 var chest_opened := false
 var toast_tween: Tween = null
 
@@ -311,6 +312,13 @@ func _apply_biome() -> void:
 	env.ambient_light_color = biome["ambient"]
 	sun.light_color = biome["sun"]
 	sun.light_energy = 0.9
+	if blood_moon:
+		env.background_color = Color(0.07, 0.004, 0.008)
+		env.fog_density = float(biome["fog_d"]) * 1.3
+		env.fog_light_color = Color(0.2, 0.015, 0.025)
+		env.ambient_light_color = Color(0.5, 0.09, 0.11)
+		sun.light_color = Color(1.0, 0.32, 0.25)
+		sun.light_energy = 1.0
 
 
 func _style_room() -> void:
@@ -354,11 +362,13 @@ func _new_run(new_seed: int) -> void:
 	add_child(room)
 	info = RG.build_floor(room, seed_val, Stats.floor_num)
 	stain_count = 0
+	var boss_floor: bool = QDB.is_boss_floor(Stats.floor_num)
+	# event langka: blood moon — langit merah, musuh lebih keras, XP lebih kaya
+	blood_moon = Stats.floor_num >= 3 and not boss_floor and rng.randf() < 0.07
 	_apply_biome()
 	_style_room()
 	_build_gates()
 	_spawn_player(info.player_pos)
-	var boss_floor: bool = QDB.is_boss_floor(Stats.floor_num)
 	boss_ref = null
 	shrine_ref = null
 	shrine_used = false
@@ -410,7 +420,11 @@ func _new_run(new_seed: int) -> void:
 	_combo_set(0)
 	print("ROOM seed=%d floor=%d biome=%s rooms=%d enemies=%d gates=%d boss=%s" % [seed_val, Stats.floor_num, biome["name"], info.get("room_count", 1), info.enemy_spawns.size(), gates.size(), str(QDB.is_boss_floor(Stats.floor_num))])
 	_floor_intro_lines(boss_floor)
-	if Stats.floor_num > 1:
+	if blood_moon:
+		_lvl_banner("☽ BLOOD MOON — THE DEAD HUNGER")
+		toast("Enemies +25% HP • +50% XP")
+		Sfx.play("roar")
+	elif Stats.floor_num > 1:
 		_lvl_banner("FLOOR %d — %s" % [Stats.floor_num, String(biome["name"]).to_upper()])
 
 
@@ -618,6 +632,12 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 	if golden:
 		e.golden = true
 		e.xp_val *= 3
+	if blood_moon and not e.is_boss:
+		e.hp *= 1.25
+		e.hp_max = e.hp
+		e.xp_val = int(ceilf(e.xp_val * 1.5))
+		e.speed *= 1.08
+		M.paint(e, M.toon(skeleton_tex, tint.lerp(Color(0.85, 0.08, 0.08), 0.4), 0.35, true))
 	e.position = sp["pos"]
 	e.room_idx = int(sp.get("room", 0))
 	e.activated = false
