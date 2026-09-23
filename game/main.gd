@@ -214,6 +214,7 @@ var steps_done_run := 0
 var urns_run := 0
 var urns_floor := 0
 var clams_run := 0
+var rooms_floor := 0
 var still_t := 0.0
 var moonpool_run := 0
 var shellshield_used := false
@@ -858,6 +859,7 @@ func _new_run(new_seed: int) -> void:
 	salt_purse = false
 	disarm_floor = 0
 	urns_floor = 0
+	rooms_floor = 0
 	clams_run = 0
 	sirensong_deal = false
 	pool_touched = false
@@ -7850,6 +7852,8 @@ func _process(delta: float) -> void:
 			current_room = ri
 			if not discovered.has(ri):
 				discovered[ri] = true
+				rooms_floor += 1
+				_quest_event("roomfloor", rooms_floor)
 				if Stats.relics.has("sextant") and ri + 1 < info.ranges.size():
 					discovered[ri + 1] = true
 				_update_minimap()

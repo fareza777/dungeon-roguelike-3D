@@ -182,6 +182,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Crust Pick", "desc": "Smash 8 urns on one floor (0/8)", "kind": "urn_floor", "need": 8})
 		steps.append({"title": "Wet Work", "desc": "Slay 4 tidal-affix elites (0/4)", "kind": "affix_tidal", "need": 4})
 		steps.append({"title": "Fat Purse", "desc": "Clear a floor holding 40+ souls", "kind": "fatpurse", "need": 1})
+		steps.append({"title": "Fog Seer", "desc": "Discover 10 rooms on one floor (0/10)", "kind": "roomfloor", "need": 10})
 	if Stats.floor_num == 11:
 		steps.append({"title": "Soul Fisher", "desc": "Net three drifting wisps (0/3)", "kind": "wisp", "need": 3})
 	if Stats.floor_num >= 13 and Stats.floor_num % 8 == 5:
