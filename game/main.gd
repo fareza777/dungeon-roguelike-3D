@@ -516,6 +516,9 @@ func _ready() -> void:
 		Stats.reset_run()
 		_reset_run_state()
 		kills_run = 0
+		var purse_n: int = int(Stats.meta.get("purse", 0))
+		if purse_n > 0:
+			Stats.souls += purse_n * 3
 		run_souls_start = Stats.souls
 		last_stand_kills = 0
 		vials = 1
@@ -3111,6 +3114,9 @@ func _on_banner_tap() -> void:
 		Stats.reset_run()
 		_reset_run_state()
 		kills_run = 0
+		var purse_n: int = int(Stats.meta.get("purse", 0))
+		if purse_n > 0:
+			Stats.souls += purse_n * 3
 		run_souls_start = Stats.souls
 		last_stand_kills = 0
 		vials = 1
