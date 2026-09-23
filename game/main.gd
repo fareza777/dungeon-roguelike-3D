@@ -522,9 +522,10 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool) -> void:
 	e.activated = false
 	room.add_child(e)
 	# spawn-in: muncul pop supaya tidak hard-cut
+	var esc: Vector3 = e.scale
 	e.scale = Vector3(0.01, 0.01, 0.01)
 	var stw := e.create_tween()
-	stw.tween_property(e, "scale", Vector3.ONE, 0.28).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	stw.tween_property(e, "scale", esc, 0.28).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	e.died.connect(_on_enemy_died)
 	if e.is_boss:
 		boss_ref = e
@@ -832,6 +833,12 @@ func _try_open_draft() -> void:
 				_pick_relic(idx)
 		)
 		ui.draft_cards.add_child(card)
+		# masuk berjenjang: pop satu-satu biar berasa mewah
+		card.pivot_offset = card.custom_minimum_size * 0.5
+		card.scale = Vector2(0.1, 0.1)
+		var ctw := card.create_tween()
+		ctw.tween_interval(0.06 * i)
+		ctw.tween_property(card, "scale", Vector2.ONE, 0.28).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	ui.draft.visible = true
 	ui.dim.visible = true
 	get_tree().paused = true
