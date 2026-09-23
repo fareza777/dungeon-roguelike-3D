@@ -453,7 +453,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0, "riptide": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -3428,6 +3428,28 @@ func _cast_skill(id: String) -> void:
 			if gseal >= 5:
 				_quest_event("seal5")
 			print("SKILL graveseal sealed=%d" % gseal)
+		"riptide":
+			Sfx.play("bigslash")
+			var rhits := 0
+			for f3 in get_tree().get_nodes_in_group("enemies"):
+				if f3.get("state") == "dead" or not bool(f3.get("activated")) or bool(f3.get("is_boss")):
+					continue
+				var rd: float = f3.global_position.distance_to(player.global_position)
+				if rd < 3.0 * info.tile and rd > 1.0 * info.tile:
+					var rdir: Vector3 = player.global_position - f3.global_position
+					rdir.y = 0
+					f3.global_position += rdir.normalized() * (rd - 0.9 * info.tile)
+					if f3.has_method("take_hit"):
+						f3.take_hit(player.global_position, Stats.get_stat("atk") * 0.6)
+					if f3.has_method("stun"):
+						f3.stun(0.7)
+					rhits += 1
+			_burst(player.global_position, Color(0.3, 0.8, 1.0))
+			trauma = 0.45
+			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "RIPTIDE! ×%d" % rhits, Color(0.3, 0.8, 1.0), true)
+			if rhits >= 4:
+				_quest_event("riptide4")
+			print("SKILL riptide hits=%d" % rhits)
 	skill_used_floor = true
 	skills_floor[id] = true
 	if skills_floor.size() >= 3:

@@ -49,6 +49,7 @@ const DB := {
 	"tidecall": {"name": "Tide Call", "short": "TIDE", "cd": 20.0, "unlock": 31, "desc": "Summon the drowned tide — 1.5x ATK, hurls foes back and slows them."},
 	"snapjaw": {"name": "Snapjaw", "short": "SNAP", "cd": 18.0, "unlock": 33, "desc": "A spectral clam erupts — foes nearby are clamped shut for 1.5s and bitten for 1.2x ATK."},
 	"graveseal": {"name": "Grave Seal", "short": "SEAL", "cd": 22.0, "unlock": 35, "desc": "A wax seal of the King himself — every foe in the room is sealed still for 2.5s."},
+	"riptide": {"name": "Riptide", "short": "TIDE", "cd": 24.0, "unlock": 37, "desc": "The floor turns to black water — every foe within 3 tiles is dragged to your feet, soaked and slowed."},
 	"rites": {
 		"name": "Reaper's Toll", "short": "TOLL", "cd": 34.0, "unlock": 21,
 		"desc": "Ring the toll: awake foes below 25% HP die outright; the rest take 1x ATK.",
