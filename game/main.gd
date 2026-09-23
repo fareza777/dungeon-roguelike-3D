@@ -5230,6 +5230,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_armor += 1
 			Stats.buff_maxhp_pct += 0.05
 			toast("Salt Hide: the brine cures your skin — +1 Armor, +5% Max HP this run")
+		44:
+			Stats.buff_aspd += 0.12
+			Stats.buff_speed_pct += 0.08
+			toast("Storm-eye: the gale moves through you — +12% attack speed, +8% speed this run")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -7403,6 +7407,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Trade Wind — the floor hurries you on: +8% speed this run"},
 			{"text": "Wide Satchel — the satchel stretches: carry +1 soul vial this run"},
 			{"text": "Salt Hide — the brine cures your skin: +1 Armor, +5% Max HP this run"},
+			{"text": "Storm-eye — the gale moves through you: +12% attack speed, +8% speed this run"},
 		]
 	)
 
