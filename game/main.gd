@@ -1423,6 +1423,8 @@ func _new_run(new_seed: int) -> void:
 	_build_minimap()
 	Sfx.play_music("boss" if boss_floor else _biome_track())
 	ui.floor_label.text = "Floor %d • %s%s" % [Stats.floor_num, biome["name"], " (NG+%d)" % Stats.ng_plus if Stats.ng_plus > 0 else ""]
+	if Stats.floor_num >= 20 and Stats.ng_plus >= 1:
+		_ach("ngdeep")
 	_souls_l()
 	_update_hp(Stats.current_hp)
 	_update_xp(Stats.xp, Stats.xp_need(), Stats.level)
