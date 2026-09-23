@@ -601,6 +601,8 @@ func _new_run(new_seed: int) -> void:
 	Stats.buff_atk_pct -= lc_delta
 	lc_delta = (0.2 if boss_floor else -0.05) if lonecrown else 0.0
 	Stats.buff_atk_pct += lc_delta
+	if player != null and is_instance_valid(player):
+		player.refresh_stats()
 	# event langka: blood moon — langit merah, musuh lebih keras, XP lebih kaya
 	blood_moon = Stats.floor_num >= 3 and not boss_floor and rng.randf() < 0.07
 	# event langka #2: soul rush — kabut ungu, permata XP berlimpah, tithe jiwa saat clear
