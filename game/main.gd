@@ -400,6 +400,7 @@ var mimic_pending := false
 var shrine_used := false
 var shrine_count := 0
 var urn_count := 0
+var salvage_ct := 0
 var lucky_net := false
 var deeproot := false
 var _souls_seen := 0
@@ -676,6 +677,7 @@ func _reset_run_state() -> void:
 	wolf_n = 0
 	shrine_count = 0
 	urn_count = 0
+	salvage_ct = 0
 	lucky_net = false
 	deeproot = false
 	_souls_seen = Stats.souls

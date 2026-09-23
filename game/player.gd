@@ -349,6 +349,11 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 			if salvage_n >= 4:
 				salvage_n = 0
 				Stats.souls += 1
+				var m22 := get_tree().current_scene
+				if m22 != null and m22.get("salvage_ct") != null:
+					m22.set("salvage_ct", int(m22.get("salvage_ct")) + 1)
+					if int(m22.get("salvage_ct")) == 15 and m22.has_method("_ach"):
+						m22._ach("salvager")
 				var m23 := get_tree().current_scene
 				if m23 != null:
 					if m23.has_method("_souls_l"):
