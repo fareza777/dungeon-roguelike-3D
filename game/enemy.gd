@@ -68,6 +68,7 @@ var digger := false
 var keelh := false
 var siren := false
 var _siren_pulled := false
+var _shell_cracked := false
 var digger_dug := false
 var pack_bounty := false
 var orator_t := 3.0
@@ -170,7 +171,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong"][randi() % 22]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound"][randi() % 23]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -237,6 +238,10 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 			"sirensong":
 				# bernyanyi: pada 40% HP menarik pemain ke mulutnya sekali
 				xp_val = int(xp_val * 1.2)
+			"pearlbound":
+				# cangkang mutiara: separuh damage sampai retak — hit pertama memecahkannya
+				hp *= 1.2
+				xp_val = int(xp_val * 1.25)
 	scale = Vector3.ONE * sc
 	_base_scale = scale
 	hp_max = hp
@@ -865,6 +870,12 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 			var msh := get_tree().current_scene
 			if msh != null and msh.has_method("_damage_number"):
 				msh._damage_number(global_position + Vector3(0, 1.0 * room_tile, 0), "BLOCKED", Color(0.55, 0.7, 1.0), false)
+	if affix == "pearlbound" and not _shell_cracked and dmg_taken > 0.0:
+		_shell_cracked = true
+		dmg_taken *= 0.5
+		var msh2 := get_tree().current_scene
+		if msh2 != null and msh2.has_method("_damage_number"):
+			msh2._damage_number(global_position + Vector3(0, 1.1 * room_tile, 0), "SHELL CRACKED", Color(0.9, 0.95, 1.0), true)
 	hp -= dmg_taken
 	if affix == "sirensong" and not _siren_pulled and not Stats.relics.has("deaf_cap") and hp > 0.0 and hp <= hp_max * 0.4:
 		_siren_pulled = true
