@@ -582,11 +582,12 @@ func _physics_process(delta: float) -> void:
 								q.take_hit(global_position, dmg * dmulti)
 								if tither and q == p:
 									var mt2 := get_tree().current_scene
-									if mt2 != null:
-										var stol := mini(2, int(mt2.Stats.souls))
-										if stol > 0:
-											mt2.Stats.souls -= stol
+									var stol := mini(2, Stats.souls)
+									if stol > 0:
+										Stats.souls -= stol
+										if mt2 != null and mt2.has_method("_souls_l"):
 											mt2._souls_l()
+										if mt2 != null and mt2.has_method("_damage_number"):
 											mt2._damage_number(q.global_position + Vector3(0, 0.9 * room_tile, 0), "TITHED — -%d souls" % stol, Color(0.5, 0.95, 0.6), true)
 								if knocker:
 									var kdir: Vector3 = q.global_position - global_position
