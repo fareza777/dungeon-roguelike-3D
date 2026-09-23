@@ -6121,6 +6121,9 @@ func _on_dlg_choice(idx: int) -> void:
 		56:
 			Stats.buff_crit += 0.05
 			toast("Bosun's Fist: the old knuckle-trick — +5% crit this run")
+		57:
+			Stats.soul_gain_pct += 0.15
+			toast("Salt Lamp: souls shine brighter in the dark — +15% souls this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -8983,6 +8986,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Deckmaster — you own this deck: +8% speed, +5% attack speed this run"},
 			{"text": "Full Hull — every plank sealed tight: +20% Max HP this run"},
 			{"text": "Bosun's Fist — the old knuckle-trick: +5% crit this run"},
+			{"text": "Salt Lamp — souls shine brighter in the dark: +15% souls this run"},
 		]
 	)
 
