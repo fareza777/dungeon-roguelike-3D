@@ -78,6 +78,7 @@ var husk_shell := false
 var cantor_t := 6.5
 var bride_t := 5.5
 var oath_t := 3.0
+var slip_n := 0
 var healer := false
 var heal_t := 4.0
 var crowned := false
@@ -214,7 +215,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound"][randi() % 42]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery"][randi() % 43]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -362,6 +363,11 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				hp *= 1.25
 				speed *= 0.85
 				xp_val = int(xp_val * 1.4)
+			"slippery":
+				# licin seperti belut: tiap pukulan ke-4 meleset
+				hp *= 1.1
+				speed *= 1.1
+				xp_val = int(xp_val * 1.35)
 			"tideworn":
 				# usang air asin: lambat namun berlapis — matinya mentitahkan 1 jiwa
 				hp *= 1.3
@@ -1190,6 +1196,14 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 		if mh_ != null and mh_.has_method("_damage_number"):
 			mh_._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "HUSK CRACKED", Color(0.85, 0.8, 0.55), false)
 		Sfx.play("hit")
+	if affix == "slippery":
+		slip_n += 1
+		if slip_n >= 4:
+			slip_n = 0
+			dmg_taken = 0.0
+			var ms_ := get_tree().current_scene
+			if ms_ != null and ms_.has_method("_damage_number"):
+				ms_._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "SLIPPED", Color(0.6, 0.8, 1.0), false)
 	if hex_t > 0.0:
 		dmg_taken *= 1.25
 	if sunder_t > 0.0:
