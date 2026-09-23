@@ -1743,6 +1743,8 @@ func _spawn_wisps(last_room: int) -> void:
 	if not guaranteed and rng.randf() > 0.55:
 		return
 	var wcount := 4 if soul_drift else (3 if blood_moon else (2 if (guaranteed or rng.randf() < 0.36) else 1))
+	if String(biome.get("name", "")) == "Sunken Reliquary":
+		wcount += 1
 	for _wi in range(wcount):
 		var ri := rng.randi_range(1, last_room)
 		var rr: Dictionary = info.ranges[ri]
