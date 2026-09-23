@@ -96,6 +96,7 @@ const DB := {
 	"sea_chart": {"name": "Sea Chart", "chip": "SC", "desc": "+10% Speed, +5% Crit", "rarity": 1, "mods": {"speed_pct": 0.1, "crit": 0.05}},
 	"splintered_oar": {"name": "Splintered Oar", "chip": "SO", "desc": "The oar remembers rowing — your dash carries you 30% farther", "rarity": 0, "mods": {}},
 	"deck_plank": {"name": "Deck Plank", "chip": "DP", "desc": "Sure footing on any deck — +5% Speed, +5% Attack Speed", "rarity": 0, "mods": {"speed_pct": 0.05, "atk_speed_pct": 0.05}},
+	"deadmans_toll": {"name": "Deadman's Toll", "chip": "DT", "desc": "Every floor you cross pays its fare — +1 soul on each floor clear", "rarity": 1, "mods": {}},
 	"bosun_whistle": {"name": "Bosun Whistle", "chip": "BW", "desc": "The shrill call of command — your skills recharge 8% faster", "rarity": 1, "mods": {}},
 	"sharktooth": {"name": "Sharktooth Pendant", "chip": "SH", "desc": "+8% Crit, +4% Lifesteal", "rarity": 1, "mods": {"crit": 0.08, "lifesteal": 0.04}},
 	"wormwood": {"name": "Wormwood Charm", "chip": "WW", "desc": "Bitter root sewn in sailcloth — venom cannot take hold in your blood", "rarity": 1, "mods": {}},

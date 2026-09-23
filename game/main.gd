@@ -3457,6 +3457,9 @@ func _on_enemy_died(e) -> void:
 				_run_victory()
 				return
 			run_state = "cleared"
+			if Stats.relics.has("deadmans_toll"):
+				Stats.earn_souls(1)
+				_damage_number(player.global_position + Vector3(0, 1.0 * info.tile, 0), "TOLL +1", Color(0.8, 0.7, 0.3), true)
 			if blood_moon:
 				Stats.earn_souls(5)
 				_souls_l()
