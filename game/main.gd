@@ -244,6 +244,7 @@ var greedy_tide := false
 var drift_wreck := false
 var long_watch := false
 var fog_lantern_d := false
+var crowns_rest := false
 var shoal_spd := false
 var dead_weight := false
 var hymn_delta := 0.0
@@ -1516,7 +1517,7 @@ func _new_run(new_seed: int) -> void:
 	dead_weight = not choir and not dread_tide and not starved_deep and not abyssal_hymn and not dead_calm and not boss_floor and Stats.floor_num >= 14 and rng.randf() < 0.08
 	Stats.dead_weight = dead_weight
 	shell_game = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not umbral_tide and not abyssal_patience and not choir and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
-	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe", "tar_smear", "black_calm", "bilge_iron", "gun_smoke", "greedy_tide", "drift_wreck", "chorus_cut", "long_watch", "fog_lantern_d"]:
+	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe", "tar_smear", "black_calm", "bilge_iron", "gun_smoke", "greedy_tide", "drift_wreck", "chorus_cut", "long_watch", "fog_lantern_d", "crowns_rest"]:
 		if get(evf):
 			events_run[evf] = true
 			break
@@ -2260,6 +2261,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 	# bilge_iron: +2 armor via Stats.buff_armor
 	if long_watch:
 		e.aggro_range = float(e.aggro_range) * 1.4
+	if crowns_rest and not e.is_boss:
+		e.speed *= 0.9
 	if gun_smoke and not e.is_boss and bool(e.get("ranged")):
 		e.windup_t = float(e.windup_t) * 0.7
 	if black_calm and not e.is_boss:
@@ -8374,16 +8377,30 @@ func _on_throne_invoked(s) -> void:
 		{"text": "Kneel Not — pay 5 souls: this floor's dead lose half their footing (kb resist)"},
 		{"text": "Crown's Mercy — pay 6 souls: purge venom, chill, rust & roots — 3s untouchable"},
 		{"text": "Royal Writ — pay 5 souls: the crown presses one page of your quest forward"},
+		{"text": "Crown's Rest — pay 4 souls: mend 40% HP and the dead dawdle −10% this floor"},
 		{"text": "Walk away"}])
 
 
 func _throne_deal(idx: int) -> void:
-	if idx == 14:
+	if idx == 15:
 		Stats.earn_souls(4)
 		_souls_l()
 		_quest_event("throne")
 		Sfx.play("soul")
 		toast("CLEAN HANDS — the crown pays +4 souls to the incorruptible")
+		return
+	if idx == 14:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the crown's cushions aren't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		if player != null and is_instance_valid(player):
+			player.hp = minf(Stats.get_stat("max_hp"), player.hp + Stats.get_stat("max_hp") * 0.4)
+			player.hp_changed.emit(player.hp)
+		crowns_rest = true
+		Sfx.play("shrine")
+		toast("CROWN'S REST — the throne grants a moment's peace")
 		return
 	if idx == 13:
 		if Stats.souls < _soul_cost(5):
