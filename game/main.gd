@@ -389,6 +389,9 @@ var rampage_t := -9.0
 var mimic_pending := false
 var shrine_used := false
 var shrine_count := 0
+var lucky_net := false
+var _souls_seen := 0
+var _souls_net := 0
 var dlg: DialogueUI = null
 var dlg_pending_choice := -1
 var oracle_bargained := false # Oracle's Bargain: sekali per run
@@ -655,6 +658,9 @@ func _reset_run_state() -> void:
 	wolf_omen = false
 	wolf_n = 0
 	shrine_count = 0
+	lucky_net = false
+	_souls_seen = Stats.souls
+	_souls_net = 0
 	ashborn = false
 	lonecrown = false
 	lc_delta = 0.0
@@ -1914,6 +1920,13 @@ func _blood_stain(pos: Vector3) -> void:
 func _souls_l() -> void:
 	if Stats.souls >= 100:
 		_ach("accountant")
+	if lucky_net and Stats.souls > _souls_seen:
+		_souls_net += Stats.souls - _souls_seen
+		while _souls_net >= 10:
+			_souls_net -= 10
+			Stats.souls += 1
+			toast("LUCKY NET — +1 soul")
+	_souls_seen = Stats.souls
 	if ui.has("souls_label"):
 		var t2: String = "◈ %d souls" % Stats.souls if Stats.souls > 0 else ""
 		if t2 != ui.souls_label.text and Stats.souls > 0:
@@ -3837,6 +3850,9 @@ func _on_dlg_choice(idx: int) -> void:
 		12:
 			trap_wrapped += 1
 			toast("Bone Wrap: first trap hit is nothing")
+		13:
+			lucky_net = true
+			toast("Lucky Net: every tenth soul snags a bonus")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -4976,6 +4992,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Grave Tithe — +1 soul per kill this run"},
 			{"text": "Tempo's Grace — combos linger 40% longer this run"},
 			{"text": "Bone Wrap — the next trap hit does nothing (stacks)"},
+			{"text": "Lucky Net — every tenth soul you earn pays +1"},
 		]
 	)
 
