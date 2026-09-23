@@ -2074,6 +2074,14 @@ func _build_ui() -> void:
 	layer.add_child(lvl)
 	ui["lv_label"] = lvl
 
+	var buffs := HBoxContainer.new()
+	buffs.position = Vector2(74, 72)
+	buffs.custom_minimum_size = Vector2(0, 26)
+	buffs.add_theme_constant_override("separation", 4)
+	buffs.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	layer.add_child(buffs)
+	ui["buffs"] = buffs
+
 	var fl := Label.new()
 	fl.add_theme_font_size_override("font_size", 18)
 	fl.modulate = Color(1, 1, 1, 0.6)
@@ -2836,6 +2844,48 @@ func _update_xp(cur: int, need: int, lv: int) -> void:
 	ui.lv_label.text = "Lv %d" % lv
 
 
+# indikator buff/debuff aktif di bawah bar XP — rebuild cuma kalau set berubah
+var _buff_sig := ""
+
+func _refresh_buffs() -> void:
+	if player == null or not is_instance_valid(player):
+		return
+	var list: Array = []
+	if combo >= 8:
+		list.append(["CMB x%d" % combo, Color(1.0, 0.55, 0.15)])
+	if Stats.warcry_t > 0.0:
+		list.append(["WAR +50% ATK", Color(1.0, 0.3, 0.2)])
+	if Stats.berserk > 0.0 and player.hp < player.max_hp * 0.35:
+		list.append(["BSK +%d%% ATK" % int(Stats.berserk * 100.0), Color(0.9, 0.15, 0.3)])
+	if Stats.mahzan_debt > 0.0:
+		list.append(["DEBT -%d HP" % int(Stats.mahzan_debt), Color(0.6, 0.4, 0.9)])
+	if player.get("chill_t") != null and player.chill_t > 0.0:
+		list.append(["CHILLED", Color(0.5, 0.8, 1.0)])
+	var sig := ""
+	for b in list:
+		sig += String(b[0]) + "|"
+	if sig == _buff_sig:
+		return
+	_buff_sig = sig
+	for c in ui.buffs.get_children():
+		c.queue_free()
+	for b in list:
+		var p := PanelContainer.new()
+		var psb := StyleBoxFlat.new()
+		psb.bg_color = Color(0.05, 0.05, 0.1, 0.85)
+		psb.border_color = Color(b[1])
+		psb.set_border_width_all(2)
+		psb.set_corner_radius_all(5)
+		psb.set_content_margin_all(4)
+		p.add_theme_stylebox_override("panel", psb)
+		var l := Label.new()
+		l.text = String(b[0])
+		l.modulate = Color(b[1])
+		l.add_theme_font_size_override("font_size", 15)
+		p.add_child(l)
+		ui.buffs.add_child(p)
+
+
 func _rebuild_chips() -> void:
 	for c in ui.chips.get_children():
 		c.queue_free()
@@ -2899,6 +2949,7 @@ func _process(delta: float) -> void:
 			_toggle_hero(true)
 
 		_tick_skill_ui(delta)
+		_refresh_buffs()
 
 		# pelacakan ruangan -> kunci arena
 		var ri := _room_at(player.global_position.z)
