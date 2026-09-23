@@ -4,7 +4,7 @@ extends Control
 
 const SLIDES := [
 	{
-		"icon": "🗡",
+		"img": "res://assets/ui/icon.png",
 		"title": "Geser & Tebas",
 		"text": "Jempol kiri untuk bergerak. Tombol ATK merah untuk menebas. Skill terbuka seiring levelmu naik.",
 		"tint": Color(0.4, 0.75, 1.0),
@@ -38,6 +38,7 @@ func _ready() -> void:
 	var bg := ColorRect.new()
 	bg.color = Color(0.03, 0.02, 0.06)
 	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(bg)
 	# bara
 	var embers := CPUParticles2D.new()
@@ -144,12 +145,22 @@ func _show(i: int) -> void:
 	for c in slide_box.get_children():
 		c.queue_free()
 	var s: Dictionary = SLIDES[i]
-	var ic := Label.new()
-	ic.text = s["icon"]
-	ic.add_theme_font_size_override("font_size", 110)
-	ic.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	ic.modulate = s["tint"]
-	slide_box.add_child(ic)
+	if s.has("img") and ResourceLoader.exists(String(s["img"])):
+		var icn := TextureRect.new()
+		icn.texture = load(String(s["img"]))
+		icn.custom_minimum_size = Vector2(150, 150)
+		icn.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		icn.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
+		icn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		icn.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		slide_box.add_child(icn)
+	else:
+		var ic := Label.new()
+		ic.text = String(s.get("icon", ""))
+		ic.add_theme_font_size_override("font_size", 110)
+		ic.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		ic.modulate = s["tint"]
+		slide_box.add_child(ic)
 	var t := Label.new()
 	t.text = s["title"]
 	t.add_theme_font_size_override("font_size", 42)
@@ -164,6 +175,8 @@ func _show(i: int) -> void:
 	tx.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	tx.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	slide_box.add_child(tx)
+	for c in slide_box.get_children():
+		c.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	slide_box.modulate.a = 0.0
 	slide_box.scale = Vector2(0.92, 0.92)
 	slide_box.pivot_offset = slide_box.size * 0.5

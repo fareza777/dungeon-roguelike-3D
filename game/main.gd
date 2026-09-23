@@ -476,6 +476,7 @@ func _on_enemy_died(e) -> void:
 func _on_boss_died(_e) -> void:
 	boss_ref = null
 	Stats.boss_kills += 1
+	Stats.save_game()
 	Sfx.play("victory")
 	Sfx.play_music("dungeon")
 	_quest_event("boss_kill")
@@ -540,29 +541,49 @@ func _try_open_draft() -> void:
 	draft_choices = ITEMS.roll_choices(Stats.relics, rng)
 	for c in ui.draft_cards.get_children():
 		c.queue_free()
-	var first_btn: Button = null
 	for i in range(draft_choices.size()):
 		var it: Dictionary = ITEMS.DB[draft_choices[i]]
-		var b := Button.new()
-		b.custom_minimum_size = Vector2(148, 190)
-		b.text = "%s\n\n%s\n\n%s" % [it["chip"], it["name"], it["desc"]]
-		b.add_theme_font_size_override("font_size", 20)
+		var card := PanelContainer.new()
+		card.custom_minimum_size = Vector2(148, 190)
 		var sb := StyleBoxFlat.new()
 		sb.bg_color = Color(0.14, 0.13, 0.2, 1.0)
 		sb.border_color = ITEMS.RARITY_COLORS[int(it["rarity"])]
 		sb.set_border_width_all(3)
 		sb.set_corner_radius_all(12)
-		b.add_theme_stylebox_override("normal", sb)
+		sb.set_content_margin_all(10)
+		card.add_theme_stylebox_override("panel", sb)
+		var cvb := VBoxContainer.new()
+		cvb.add_theme_constant_override("separation", 8)
+		cvb.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var chip := Label.new()
+		chip.text = String(it["chip"])
+		chip.add_theme_font_size_override("font_size", 30)
+		chip.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		var nl := Label.new()
+		nl.text = String(it["name"])
+		nl.add_theme_font_size_override("font_size", 18)
+		nl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		nl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		var dl := Label.new()
+		dl.text = String(it["desc"])
+		dl.add_theme_font_size_override("font_size", 15)
+		dl.modulate = Color(1, 1, 1, 0.72)
+		dl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		dl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		for cc in [chip, nl, dl]:
+			cc.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			cvb.add_child(cc)
+		card.add_child(cvb)
 		var idx := i
-		b.pressed.connect(func() -> void: Sfx.play("click"); _pick_relic(idx))
-		ui.draft_cards.add_child(b)
-		if first_btn == null:
-			first_btn = b
+		card.gui_input.connect(func(e: InputEvent) -> void:
+			if (e is InputEventMouseButton or e is InputEventScreenTouch) and e.pressed:
+				Sfx.play("click")
+				_pick_relic(idx)
+		)
+		ui.draft_cards.add_child(card)
 	ui.draft.visible = true
 	ui.dim.visible = true
 	get_tree().paused = true
-	if first_btn != null:
-		first_btn.grab_focus()
 	print("DRAFT terbuka: %s (Lv %d)" % [str(draft_choices), Stats.level])
 
 
@@ -1089,6 +1110,10 @@ func _say(lines: Array, choices: Array = []) -> void:
 	else:
 		dlg.play_choices(lines, choices)
 	if autotest:
+		# bukti visual: dialog benar-benar tergambar sebelum dilewati
+		for _w in range(3):
+			await get_tree().process_frame
+		_shot("res://out_v5_dlg.png")
 		# autotest: lewati semua dialog otomatis supaya alur tak pernah diam
 		for _i in range(80):
 			if not dlg.active or dlg._choice_box.visible:
@@ -1439,20 +1464,14 @@ func _build_ui() -> void:
 	ui["map"] = mp
 	ui["map_view"] = mv
 
-	# dialog karakter (selalu di atas segalanya)
-	dlg = DLG.new()
-	layer.add_child(dlg)
-	dlg.finished.connect(_on_dlg_end)
-	dlg.choice_made.connect(_on_dlg_choice)
-
 	# kartu tutorial
 	var tut := PanelContainer.new()
-	tut.anchor_left = 0.5
-	tut.anchor_right = 0.5
-	tut.offset_left = -240
-	tut.offset_right = 240
-	tut.offset_top = 110
-	tut.offset_bottom = 160
+	tut.anchor_left = 0.0
+	tut.anchor_right = 0.0
+	tut.offset_left = 16
+	tut.offset_right = 330
+	tut.offset_top = 190
+	tut.offset_bottom = 250
 	var tsb := StyleBoxFlat.new()
 	tsb.bg_color = Color(0.08, 0.08, 0.14, 0.9)
 	tsb.border_color = Color(0.9, 0.75, 0.3)
@@ -1513,6 +1532,13 @@ func _build_ui() -> void:
 	dim.visible = false
 	layer.add_child(dim)
 	ui["dim"] = dim
+
+	# dialog karakter: ditambahkan SETELAH dim supaya tergambar & tersentuh di atasnya
+	dlg = DLG.new()
+	layer.add_child(dlg)
+	dlg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	dlg.finished.connect(_on_dlg_end)
+	dlg.choice_made.connect(_on_dlg_choice)
 
 	var bc := CenterContainer.new()
 	bc.set_anchors_preset(Control.PRESET_FULL_RECT)

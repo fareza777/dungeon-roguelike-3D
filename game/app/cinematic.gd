@@ -27,6 +27,7 @@ func _ready() -> void:
 	var bg := ColorRect.new()
 	bg.color = Color(0.01, 0.01, 0.02)
 	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(bg)
 
 	# panel seni layar penuh (Ken Burns pelan)
@@ -62,6 +63,7 @@ func _ready() -> void:
 	label.add_theme_constant_override("shadow_offset_x", 3)
 	label.add_theme_constant_override("shadow_offset_y", 3)
 	label.offset_top = 220
+	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	cc.add_child(label)
 
 	var hint := Label.new()
@@ -77,6 +79,7 @@ func _ready() -> void:
 	hint.offset_top = -60
 	hint.offset_bottom = -30
 	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(hint)
 
 	var skip := Button.new()

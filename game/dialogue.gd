@@ -56,10 +56,13 @@ func _ready() -> void:
 	psb.set_corner_radius_all(18)
 	psb.set_content_margin_all(16)
 	_panel.add_theme_stylebox_override("panel", psb)
+	# panel tidak menelan ketukan — biar root yang menerima tap "ketuk untuk lanjut"
+	_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_panel)
 
 	var hb := HBoxContainer.new()
 	hb.add_theme_constant_override("separation", 14)
+	hb.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_panel.add_child(hb)
 
 	var pf := PanelContainer.new()
@@ -68,6 +71,7 @@ func _ready() -> void:
 	pf_sb.bg_color = Color(0.1, 0.09, 0.16)
 	pf_sb.set_corner_radius_all(12)
 	pf.add_theme_stylebox_override("panel", pf_sb)
+	pf.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hb.add_child(pf)
 	_portrait = TextureRect.new()
 	_portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -77,6 +81,7 @@ func _ready() -> void:
 	var vb := VBoxContainer.new()
 	vb.add_theme_constant_override("separation", 8)
 	vb.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	vb.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hb.add_child(vb)
 	_name_l = Label.new()
 	_name_l.add_theme_font_size_override("font_size", 20)
@@ -158,6 +163,7 @@ func _after_typed() -> void:
 
 func _show_choices() -> void:
 	_choice_box.visible = true
+	_choice_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	for i in range(_choices.size()):
 		var ch: Dictionary = _choices[i]
 		var b := Button.new()
