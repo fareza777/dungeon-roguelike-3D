@@ -347,6 +347,8 @@ func add_relic(id: String) -> void:
 		thorns += float(mods["thorns"])
 	if mods.has("dodge"):
 		dodge += float(mods["dodge"])
+	if mods.has("soul_gain_pct"):
+		soul_gain_pct += float(mods["soul_gain_pct"])
 	if mods.has("magnet"):
 		magnet += float(mods["magnet"])
 	if mods.has("berserk"):
@@ -377,6 +379,8 @@ func remove_relic(id: String) -> void:
 		thorns = maxf(0.0, thorns - float(mods["thorns"]))
 	if mods.has("dodge"):
 		dodge = maxf(0.0, dodge - float(mods["dodge"]))
+	if mods.has("soul_gain_pct"):
+		soul_gain_pct = maxf(0.0, soul_gain_pct - float(mods["soul_gain_pct"]))
 	if mods.has("magnet"):
 		magnet = maxf(0.0, magnet - float(mods["magnet"]))
 	if mods.has("berserk"):
