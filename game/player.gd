@@ -35,6 +35,7 @@ var room_tile := 4.0
 var mat: ShaderMaterial
 var ap: AnimationPlayer
 var kb := Vector3.ZERO
+var kb_in := 1.0 # line_splice: musuh melempar lebih pendek
 var base_v := Vector3.ZERO
 var anim_lock := 0.0
 var slot_r: Node3D = null
@@ -167,7 +168,7 @@ func _physics_process(delta: float) -> void:
 		dir = dir.normalized()
 	# akselerasi halus: kecepatan mengejar target, bukan langsung penuh
 	base_v = base_v.lerp(dir * spd_eff, 1.0 - pow(0.0005, delta))
-	velocity = base_v + kb
+	velocity = base_v + kb * kb_in
 	kb = kb.move_toward(Vector3.ZERO, delta * room_tile * 8.0)
 	move_and_slide()
 	global_position.x = clamp(global_position.x, bounds.get("min_x", -100.0), bounds.get("max_x", 100.0))
