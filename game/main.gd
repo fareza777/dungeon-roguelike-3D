@@ -153,6 +153,7 @@ var ferry_skip := false
 var ferry_extra := 0
 var _ferry_used := false
 var lanterns: Array = []
+var lantern_healed := 0.0
 var storm_t := 0.0
 var nemesis_spawned := false # musuh yang membunuhmu run lalu — kembali lebih kuat
 var nemesis_warned := false # nemesis story beat — 1だけ
@@ -1483,6 +1484,7 @@ func _spawn_motes() -> void:
 func _spawn_lanterns(last_room: int) -> void:
 	# lentera jiwa: aura penyembuh kecil di satu ruangan (lantai 8+, 40%)
 	lanterns = []
+	lantern_healed = 0.0
 	if Stats.floor_num < 8 or rng.randf() > 0.4:
 		return
 	var ri: int = rng.randi_range(1, last_room)
@@ -6092,8 +6094,13 @@ func _process(delta: float) -> void:
 		for ln2 in lanterns:
 			if is_instance_valid(ln2) and player.global_position.distance_to(ln2.global_position) < 3.0 * info.tile:
 				if player.hp < Stats.get_stat("max_hp"):
-					player.hp = minf(player.hp + Stats.get_stat("max_hp") * 0.02 * delta, Stats.get_stat("max_hp"))
+					var lh: float = Stats.get_stat("max_hp") * 0.02 * delta
+					player.hp = minf(player.hp + lh, Stats.get_stat("max_hp"))
 					player.hp_changed.emit(player.hp)
+					lantern_healed += lh
+					if lantern_healed >= Stats.get_stat("max_hp") * 0.3:
+						lantern_healed = -9999.0
+						_quest_event("lantern")
 				if not bool(ln2.get_meta("seen", false)):
 					ln2.set_meta("seen", true)
 					toast("☆ SOUL LANTERN — its light mends you")
