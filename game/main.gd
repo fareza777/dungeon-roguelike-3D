@@ -1617,6 +1617,9 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.slow_t = 6.0 if Stats.relics.has("fog_lantern") else 3.0
 		e.hp *= 1.08
 		e.hp_max = e.hp
+	if thin_veil:
+		e.hp *= 1.15
+		e.hp_max = e.hp
 	room.add_child(e)
 	# spawn-in: muncul pop supaya tidak hard-cut
 	var esc: Vector3 = e.scale
