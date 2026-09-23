@@ -4851,6 +4851,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Pale Ale — pay 2 souls: +8% speed till the floor falls"},
 			{"text": "Mystery Meat — pay 4 souls: a random blessing, sight unseen"},
 			{"text": "Mudlark — pay 3 souls: every floor's end pays +1 soul for the run"},
+			{"text": "Bilge Wine — pay 3 souls: drink deep — 30% HP and a headful of XP"},
 		]
 	)
 
@@ -5785,6 +5786,18 @@ func _mahzan_deal(idx: int) -> void:
 				mudlark = true
 				Sfx.play("shrine")
 				toast("MUDLARK — every floor's end pays +1 soul for the run")
+		21:
+			if Stats.souls < _soul_cost(3):
+				toast("Three souls — the bilge isn't free")
+			else:
+				Stats.souls -= _soul_cost(3)
+				_souls_l()
+				if player != null and is_instance_valid(player):
+					player.hp = minf(Stats.get_stat("max_hp"), player.hp + Stats.get_stat("max_hp") * 0.3)
+					player.hp_changed.emit(player.hp)
+				Stats.add_xp(10)
+				Sfx.play("shrine")
+				toast("BILGE WINE — it burns. It works.")
 
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
