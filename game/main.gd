@@ -234,6 +234,7 @@ var kings_tithe := false
 var tar_smear := false
 var black_calm := false
 var gun_smoke := false
+var fog_song_t := 0.0
 var bilge_iron := false
 var shoal_spd := false
 var dead_weight := false
@@ -653,7 +654,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0, "riptide": 0.0, "soultithe": 0.0, "anchordrop": 0.0, "soulfall": 0.0, "keelsplit": 0.0, "bloodtide": 0.0, "sealegs": 0.0, "deadreckon": 0.0, "becalm": 0.0, "irontide": 0.0, "dragline": 0.0, "deadlight": 0.0, "broadside": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0, "riptide": 0.0, "soultithe": 0.0, "anchordrop": 0.0, "soulfall": 0.0, "keelsplit": 0.0, "bloodtide": 0.0, "sealegs": 0.0, "deadreckon": 0.0, "becalm": 0.0, "irontide": 0.0, "dragline": 0.0, "deadlight": 0.0, "broadside": 0.0, "fogsong": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -4813,6 +4814,18 @@ func _cast_skill(id: String) -> void:
 			Sfx.play("shrine")
 			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "DEAD RECKONING — %d marked" % rkn, Color(0.75, 0.6, 1.0), true)
 			print("SKILL deadreckon marked=%d" % rkn)
+		"fogsong":
+			Sfx.play("whirl")
+			for fg_ in get_tree().get_nodes_in_group("enemies"):
+				if fg_.get("state") != "dead" and bool(fg_.get("activated")):
+					fg_.set("activated", false)
+					fg_.set("state", "idle")
+			fog_song_t = 4.0
+			Stats.buff_speed_pct += 0.2
+			if player != null and is_instance_valid(player):
+				player.refresh_stats()
+			_damage_number(player.global_position + Vector3(0, 1.1 * info.tile, 0), "FOG SONG", Color(0.7, 0.8, 0.9), true)
+			toast("FOG SONG — the sea forgets your name")
 		"broadside":
 			player.anim_lock = M.play_action(player.ap, ["1h_melee_attack", "spellcast"], 0.8)
 			Sfx.play("thunder")
@@ -10399,6 +10412,12 @@ func _process(delta: float) -> void:
 		# kombo kill: decay + label
 		if bloodtide_t > 0.0:
 			bloodtide_t = maxf(0.0, bloodtide_t - delta)
+			if fog_song_t > 0.0:
+				fog_song_t = maxf(0.0, fog_song_t - delta)
+				if fog_song_t == 0.0:
+					Stats.buff_speed_pct -= 0.2
+					if player != null and is_instance_valid(player):
+						player.refresh_stats()
 		if combo_t > 0.0:
 			combo_t -= delta
 			if ui.has("combo_bar"):

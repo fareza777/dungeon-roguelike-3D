@@ -57,6 +57,7 @@ const DB := {
 	"deadreckon": {"name": "Dead Reckoning", "short": "RECK", "cd": 20.0, "unlock": 51, "desc": "Chart every foe in the room — they take +25% damage for 6s."},
 	"becalm": {"name": "Becalm", "short": "CALM", "cd": 18.0, "unlock": 53, "desc": "The sea goes still — every foe in the room drags at half speed for 6s."},
 	"irontide": {"name": "Iron Tide", "short": "IRON", "cd": 24.0, "unlock": 55, "desc": "Skin turns to hull-plating — for 5s, every blow against you bites its striker back for half."},
+	"fogsong": {"name": "Fog Song", "short": "FOG", "cd": 18.0, "unlock": 63, "desc": "Sing the fog in — the dead lose your trail for 4s and your feet lighten +20%."},
 	"broadside": {"name": "Broadside", "short": "BROAD", "cd": 15.0, "unlock": 61, "desc": "Loose the whole battery — a 90° volley before you for 1.0x ATK and a heavy shove."},
 	"deadlight": {"name": "Deadlight", "short": "DEAD", "cd": 16.0, "unlock": 59, "desc": "A lantern flash that blinds the dead — all foes stunned 2.5s and grazed."},
 	"dragline": {"name": "Dragline", "short": "DRAG", "cd": 14.0, "unlock": 57, "desc": "Hook the nearest foe and haul it to your blade — 1.2x ATK on arrival."},
@@ -68,7 +69,7 @@ const DB := {
 	},
 }
 
-const ORDER := ["dash", "whirl", "thunder", "warcry", "nova", "judge", "sunder", "chains", "storm", "mend", "rites", "seismic", "kingsfall", "lance", "gravestep", "tidecall", "snapjaw", "graveseal", "riptide", "soultithe", "anchordrop", "soulfall", "keelsplit", "bloodtide", "sealegs", "deadreckon", "becalm", "irontide", "dragline", "deadlight", "broadside"]
+const ORDER := ["dash", "whirl", "thunder", "warcry", "nova", "judge", "sunder", "chains", "storm", "mend", "rites", "seismic", "kingsfall", "lance", "gravestep", "tidecall", "snapjaw", "graveseal", "riptide", "soultithe", "anchordrop", "soulfall", "keelsplit", "bloodtide", "sealegs", "deadreckon", "becalm", "irontide", "dragline", "deadlight", "broadside", "fogsong"]
 
 
 static func get_s(id: String) -> Dictionary:
