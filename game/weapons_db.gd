@@ -19,9 +19,10 @@ const DB := {
 	"soul_reaver": {"name": "Soul Reaver", "gltf": "Skeleton_Staff.gltf", "tint": Color(0.5, 1.15, 0.85), "mods": {"atk": 1.5, "lifesteal": 0.12}, "desc": "+1.5 ATK, +12% LS. SIPHON: 15% chance each hit steals a soul."},
 	"thronebreaker": {"name": "Thronebreaker", "gltf": "Skeleton_Blade.gltf", "tint": Color(1.3, 0.95, 0.35), "mods": {"atk": 3.5, "atk_speed_pct": -0.15}, "desc": "+3.5 ATK, -15% AS. CROWNSPLITTER: +40% damage to the Kings."},
 	"hollow_crown": {"name": "Hollow Crown", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.95, 0.75, 1.2), "mods": {"atk": 2.8, "crit": 0.08}, "desc": "+2.8 ATK, +8% Crit. USURPER: elites pay you 2 souls each."},
+	"wisp_lantern": {"name": "Grave Lantern", "gltf": "Skeleton_Staff.gltf", "tint": Color(0.55, 1.15, 0.9), "mods": {"atk": 1.8, "crit": 0.05}, "desc": "+1.8 ATK, +5% Crit. WISP: slain foes release a wisp that bites another foe."},
 }
 
-const POOL := ["bone_axe", "twin_fang", "hex_staff", "war_blade", "storm_axe", "frost_fang", "ember_mace", "kings_edge", "grave_scythe", "moon_katana", "soul_reaver", "thronebreaker", "hollow_crown"]
+const POOL := ["bone_axe", "twin_fang", "hex_staff", "war_blade", "storm_axe", "frost_fang", "ember_mace", "kings_edge", "grave_scythe", "moon_katana", "soul_reaver", "thronebreaker", "hollow_crown", "wisp_lantern"]
 
 
 static func get_w(id: String) -> Dictionary:

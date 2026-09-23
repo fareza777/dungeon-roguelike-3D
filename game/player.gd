@@ -288,6 +288,22 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 				var m9 := get_tree().current_scene
 				if m9 != null and m9.has_method("_damage_number"):
 					m9._damage_number(f.global_position + Vector3(0, 0.8 * room_tile, 0), "CROWNSPLITTER", Color(1.1, 0.85, 0.3), true)
+		"wisp_lantern": # WISP — korban melepas wisp yang menggigit musuh lain
+			if float(f.get("hp")) <= 0.0:
+				var best3: Node3D = null
+				var bd3 := room_tile * 1.5
+				for f2 in get_tree().get_nodes_in_group("enemies"):
+					if f2 == f or String(f2.get("state")) == "dead":
+						continue
+					var d3: float = f.global_position.distance_to(f2.global_position)
+					if d3 < bd3:
+						bd3 = d3
+						best3 = f2
+				if best3 != null:
+					best3.take_hit(best3.global_position, dmg * 0.6)
+					var m11 := get_tree().current_scene
+					if m11 != null and m11.has_method("_damage_number"):
+						m11._damage_number(best3.global_position + Vector3(0, 0.6 * room_tile, 0), "WISP", Color(0.55, 1.2, 0.9), false)
 		"gaoler_brand": # WARDEN — 12% peluang menjaring musuh di tempat
 			if randf() < 0.12 and not bool(f.get("is_boss")):
 				f.stun(1.2)
