@@ -2276,6 +2276,9 @@ func _on_enemy_died(e) -> void:
 		_quest_event("maw_kill")
 	if e.arch_id == "siren":
 		_quest_event("siren_kill")
+		if Stats.relics.has("siren_farewell"):
+			Stats.earn_souls(2)
+			_souls_l()
 	if e.arch_id == "sentinel":
 		_quest_event("sentinel_kill")
 	if e.arch_id == "shade":
