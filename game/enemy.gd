@@ -879,6 +879,9 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 			var msh2 := get_tree().current_scene
 			if msh2 != null and msh2.has_method("_damage_number"):
 				msh2._damage_number(global_position + Vector3(0, 1.1 * room_tile, 0), "SHELL CRACKED", Color(0.9, 0.95, 1.0), true)
+			var mq := get_tree().current_scene
+			if mq != null and mq.has_method("_quest_event"):
+				mq._quest_event("shellcrack")
 	hp -= dmg_taken
 	if affix == "sirensong" and not _siren_pulled and not Stats.relics.has("deaf_cap") and hp > 0.0 and hp <= hp_max * 0.4:
 		_siren_pulled = true
