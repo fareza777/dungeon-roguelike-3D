@@ -4935,6 +4935,7 @@ func _offer_omens() -> void:
 			{"text": "FULL CHART — every floor lies fully charted... but the dead grow +10% harder"},
 			{"text": "WET POWDER — your strikes hit +15% harder... but the skills recharge 20% slower"},
 			{"text": "LONG WAKE — the dead scent you from further... but +20% XP"},
+			{"text": "SALT FEVER — every soul pays +25%... but the dead grow +10% harder"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -4971,7 +4972,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 46 if Stats.nemesis != "" else 45
+	var osize := 47 if Stats.nemesis != "" else 46
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -5164,6 +5165,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.curse_xp += 0.2
 			oname = "LONG WAKE"
 		45:
+			Stats.soul_gain_pct += 0.25
+			omen_hp_mult += 0.1
+			oname = "SALT FEVER"
+		46:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -5212,6 +5217,7 @@ func _omen_deal(idx: int) -> void:
 		"FULL CHART": "No corner unmapped, Kael — the deep cannot hide from you now, nor you from it.",
 		"WET POWDER": "Wet powder, dry blade, Kael — the sword remembers, the tricks forget.",
 		"LONG WAKE": "They smell the living on you, Kael — good, let them come. Lessons arrive faster that way.",
+		"SALT FEVER": "Greed salts the water, Kael — richer souls, meaner dead.",
 		"HEIRLOOM": "Someone carried that before you. They are still carrying it, in a way.",
 		"GOLDEN FATE": "Every lock will gleam. Mind the teeth on some.",
 		"HOLLOW CROWN": "Crown of nothing. The Oracle admires your appetite anyway.",
