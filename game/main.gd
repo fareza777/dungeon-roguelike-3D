@@ -551,7 +551,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0, "riptide": 0.0, "soultithe": 0.0, "anchordrop": 0.0, "soulfall": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0, "riptide": 0.0, "soultithe": 0.0, "anchordrop": 0.0, "soulfall": 0.0, "keelsplit": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -4078,6 +4078,27 @@ func _cast_skill(id: String) -> void:
 			_shock_ring(player.global_position)
 			trauma = 0.6
 			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "SOULFALL! ×%d" % fhits, Color(0.9, 0.3, 0.4), true)
+		"keelsplit":
+			Sfx.play("thunder")
+			var kdir := Vector3(sin(player.rotation.y), 0, cos(player.rotation.y))
+			var kdmg := Stats.get_stat("atk") * 1.4
+			var khits := 0
+			for f7 in get_tree().get_nodes_in_group("enemies"):
+				if f7.get("state") == "dead" or not bool(f7.get("activated")):
+					continue
+				var kto: Vector3 = f7.global_position - player.global_position
+				kto.y = 0
+				var klen := kto.length()
+				if klen < 3.0 * info.tile and klen > 0.01 and kdir.dot(kto.normalized()) > 0.88:
+					if f7.has_method("take_hit"):
+						f7.take_hit(player.global_position, kdmg)
+					f7.slow_t = 2.0
+					_burst(f7.global_position + Vector3(0, 0.4 * info.tile, 0), Color(0.55, 0.8, 1.0))
+					khits += 1
+			_shock_ring(player.global_position)
+			trauma = 0.5
+			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "KEEL SPLIT! ×%d" % khits, Color(0.55, 0.8, 1.0), true)
+			print("SKILL keelsplit hits=%d" % khits)
 			print("SKILL soulfall cost=%d dmg=%d hits=%d" % (cost, fdmg, fhits))
 	skill_used_floor = true
 	skills_floor[id] = true

@@ -52,6 +52,7 @@ const DB := {
 	"riptide": {"name": "Riptide", "short": "TIDE", "cd": 24.0, "unlock": 37, "desc": "The floor turns to black water — every foe within 3 tiles is dragged to your feet, soaked and slowed."},
 	"soultithe": {"name": "Soul Tithe", "short": "TITHE", "cd": 26.0, "unlock": 39, "desc": "Offer 3 souls to smite every awake foe for 2x ATK — the kill refunds its share."},
 	"soulfall": {"name": "Soulfall", "short": "FALL", "cd": 30.0, "unlock": 43, "desc": "Spend 15% of your current HP — foes within 2.2 tiles take double what you paid."},
+	"keelsplit": {"name": "Keel Split", "short": "KEEL", "cd": 22.0, "unlock": 45, "desc": "Split the keel — a full-tile line ahead takes 1.4× ATK and drags slowed for 2s."}
 	"anchordrop": {"name": "Anchor Drop", "short": "ANCH", "cd": 28.0, "unlock": 41, "desc": "Drop a spectral anchor — foes within 2 tiles take 1.6x ATK and are pinned in place for 2s."},
 	"rites": {
 		"name": "Reaper's Toll", "short": "TOLL", "cd": 34.0, "unlock": 21,
@@ -59,7 +60,7 @@ const DB := {
 	},
 }
 
-const ORDER := ["dash", "whirl", "thunder", "warcry", "nova", "judge", "sunder", "chains", "storm", "mend", "rites", "seismic", "kingsfall", "lance", "gravestep", "tidecall", "snapjaw", "graveseal", "riptide", "soultithe", "anchordrop", "soulfall"]
+const ORDER := ["dash", "whirl", "thunder", "warcry", "nova", "judge", "sunder", "chains", "storm", "mend", "rites", "seismic", "kingsfall", "lance", "gravestep", "tidecall", "snapjaw", "graveseal", "riptide", "soultithe", "anchordrop", "soulfall", "keelsplit"]
 
 
 static func get_s(id: String) -> Dictionary:
