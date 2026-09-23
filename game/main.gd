@@ -396,6 +396,9 @@ func _new_run(new_seed: int) -> void:
 		_spawn_motes()
 		if Stats.relics.has("tulang_kesatria"):
 			_spawn_squire()
+	# Sir Vane yang terbebaskan bertempur di setiap lantai hingga run berakhir
+	if vane_freed_n > 0:
+		_spawn_knight()
 	_start_quests(boss_floor, int(info.get("room_count", 1)))
 	_build_minimap()
 	Sfx.play_music("boss" if boss_floor else _biome_track())
@@ -765,14 +768,21 @@ func _spawn_cage(last_room: int) -> void:
 var vane_freed_n := 0
 
 
+func _spawn_knight() -> void:
+	if knight_ref != null and is_instance_valid(knight_ref):
+		return
+	if player == null or not is_instance_valid(player):
+		return
+	knight_ref = SQUIRE.new()
+	room.add_child(knight_ref)
+	knight_ref.global_position = player.global_position + Vector3(-0.4 * info.tile, 0, 0.3 * info.tile)
+	knight_ref.setup(info.tile, maxf(1.0, Stats.get_stat("atk") * 0.55), Color(0.62, 0.85, 1.0), Color(0.7, 0.95, 1.0))
+
+
 func _on_cage_freed(s) -> void:
 	Sfx.play("gate")
-	# klon squire dengan tint spektral — bertempur sampai lantai berakhir
-	if knight_ref == null or not is_instance_valid(knight_ref):
-		knight_ref = SQUIRE.new()
-		room.add_child(knight_ref)
-		knight_ref.global_position = s.global_position
-		knight_ref.setup(info.tile, maxf(1.0, Stats.get_stat("atk") * 0.55), Color(0.62, 0.85, 1.0), Color(0.7, 0.95, 1.0))
+	_spawn_knight()
+	knight_ref.global_position = s.global_position
 	vane_freed_n += 1
 	if vane_freed_n >= 3:
 		_say([
@@ -2130,6 +2140,8 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			{"who": "kael", "text": "Then he's dying again."},
 			{"who": "raja", "text": String(tier["taunt"])},
 		]
+		if knight_ref != null and is_instance_valid(knight_ref):
+			lines.append({"who": "knight", "text": "That crown has my name's dust on it, boy. Let me help you shake it loose."})
 	elif Stats.floor_num == 3:
 		lines = [
 			{"who": "kael", "text": "Oracle... how do you know these halls so well?"},
@@ -3563,6 +3575,8 @@ func _process(delta: float) -> void:
 					player.hp = Stats.get_stat("max_hp")
 					player.hp_changed.emit(player.hp)
 					Stats.add_xp(3)
+					Stats.souls += 8
+					_souls_l()
 					Sfx.play("chest")
 					_burst(info.chest.global_position, Color(1.0, 0.85, 0.3))
 					_souls(info.chest.global_position, 8, Color(1.0, 0.8, 0.35))
