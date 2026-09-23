@@ -524,7 +524,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0, "riptide": 0.0, "soultithe": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0, "riptide": 0.0, "soultithe": 0.0, "anchordrop": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -3847,6 +3847,23 @@ func _cast_skill(id: String) -> void:
 			trauma = 0.4
 			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "SOUL TITHE! ×%d" % thits, Color(0.9, 0.8, 0.3), true)
 			print("SKILL soultithe hits=%d refund=%d" % [thits, trefund])
+		"anchordrop":
+			Sfx.play("thunder")
+			var admg := Stats.get_stat("atk") * 1.6
+			var ahits := 0
+			for f5 in get_tree().get_nodes_in_group("enemies"):
+				if f5.get("state") == "dead" or not bool(f5.get("activated")):
+					continue
+				if f5.global_position.distance_to(player.global_position) < 2.0 * info.tile:
+					if f5.has_method("take_hit"):
+						f5.take_hit(player.global_position, admg)
+					f5.stun_t = 2.0
+					_burst(f5.global_position + Vector3(0, 0.4 * info.tile, 0), Color(0.4, 0.7, 1.0))
+					ahits += 1
+			_shock_ring(player.global_position)
+			trauma = 0.6
+			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "ANCHOR DROP! ×%d" % ahits, Color(0.4, 0.7, 1.0), true)
+			print("SKILL anchordrop hits=%d" % ahits)
 	skill_used_floor = true
 	skills_floor[id] = true
 	_quest_event("skill_" + id)
