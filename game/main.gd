@@ -9129,6 +9129,13 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 		]
 		if vane_floors > 0:
 			lines.append({"who": "knight", "text": "Whatever waits below, Kael — it will remember the night it met us."})
+	elif Stats.floor_num == 27 and Stats.ng_plus >= 1:
+		lines = [
+			{"who": "kael", "text": "The crown's mine, Oracle. So why does the water keep rising?"},
+			{"who": "oracle", "text": "Because the dungeon doesn't end at the throne, Kael — the throne is only where it stopped being honest."},
+			{"who": "raja", "text": "MY WRECK HAS NO BOTTOM, KAEL. NEITHER DOES YOUR DEBT."},
+			{"who": "kael", "text": "Then I'll keep paying in bones."},
+		]
 	elif Stats.nemesis != "" and not nemesis_warned:
 		nemesis_warned = true
 		lines = [
