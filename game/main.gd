@@ -91,6 +91,7 @@ var toast_tween: Tween = null
 var paused_ui := false
 var kills_run := 0
 var run_time := 0.0
+var floor_t := 0.0
 var combo_max := 0
 var fade_rect: ColorRect = null
 var pause_panel: PanelContainer = null
@@ -197,6 +198,7 @@ const TIPS := [
 	"VOLATILE elites detonate when they die — finish them from a step away.",
 	"When the moon turns red, the dead hunger — and drop more XP.",
 	"A chest that gleams brighter is gilded — relics hide inside.",
+	"Clear a floor in under 90 seconds for a Sweep Bonus.",
 	"When the mist turns violet, the dead weep gems — reap them while it lasts.",
 ]
 
@@ -437,6 +439,7 @@ func _new_run(new_seed: int) -> void:
 	# penyergapan (lantai 5+, non-bos): satu ruangan tampak kosong — tulang bangkit saat kau masuk
 	ambush_room = -1
 	ambushed_room = -1
+	floor_t = 0.0
 	if not boss_floor and Stats.floor_num >= 5 and int(info.get("room_count", 1)) >= 4 and rng.randf() < 0.35:
 		ambush_room = rng.randi_range(1, last_room - 1)
 	for sp in info.enemy_spawns:
@@ -1190,6 +1193,12 @@ func _on_enemy_died(e) -> void:
 				_souls_l()
 				Stats.save_game()
 				toast("✦ SOUL RUSH TITHE — +3 souls")
+			# bonus sapuan kilat: lantai bersih di bawah 90 detik
+			if floor_t < 90.0 and Stats.floor_num > 1:
+				Stats.souls += 2
+				_souls_l()
+				Stats.save_game()
+				toast("⚡ SWEEP BONUS — cleared in %ds (+2 souls)" % int(floor_t))
 			Stats.note_floor()
 			Stats.save_run()
 			for gi in gates:
@@ -3881,6 +3890,7 @@ func _hide_banner() -> void:
 func _process(delta: float) -> void:
 	if player != null and is_instance_valid(player) and run_state == "playing":
 		run_time += delta
+		floor_t += delta
 		var k := Vector2.ZERO
 		if Input.is_key_pressed(KEY_W) or Input.is_key_pressed(KEY_UP):
 			k.y -= 1.0
