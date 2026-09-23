@@ -4078,6 +4078,7 @@ func _swap_weapon() -> void:
 	var idx: int = Stats.owned_weapons.find(Stats.weapon_id)
 	var nxt: String = String(Stats.owned_weapons[(idx + 1) % Stats.owned_weapons.size()])
 	_hero_equip(nxt)
+	_quest_event("swap")
 	toast("Swapped to " + String(WDB.get_w(nxt)["name"]))
 
 
