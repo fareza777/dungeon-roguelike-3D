@@ -644,7 +644,7 @@ func _physics_process(delta: float) -> void:
 									if pr.orb != null:
 										var wm: StandardMaterial3D = pr.orb.mesh.material
 										wm.albedo_color = Color(0.95, 0.65, 0.3)
-										hm.emission = Color(0.9, 0.2, 0.35)
+										wm.emission = Color(0.9, 0.5, 0.15)
 							if siren and Stats.relics.has("deaf_cap"):
 								var msr0 := get_tree().current_scene
 								if msr0 != null and msr0.has_method("_damage_number"):
