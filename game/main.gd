@@ -877,6 +877,8 @@ func _nemesis_mark(e) -> void:
 	if e != null and is_instance_valid(e) and e.get("state") != "dead":
 		Sfx.play("roar")
 		_damage_number(e.global_position + Vector3(0, 1.0 * info.tile, 0), "NEMESIS — the one that ended you", Color(1.0, 0.2, 0.3), true)
+		if knight_ref != null and is_instance_valid(knight_ref):
+			_damage_number(knight_ref.global_position + Vector3(0, 0.9 * info.tile, 0), "That's the one, boy — take its skull.", Color(0.7, 0.9, 1.1), false)
 
 
 # necromancer membangkitkan 1 antek; dibatasi supaya ruangan tidak banjir

@@ -139,6 +139,9 @@ func get_stat(n: String) -> float:
 		# last stand: +25% ATK saat HP kritis
 		if current_hp <= get_stat("max_hp") * 0.2:
 			mult += 0.25
+		# avenger's charm: +25% ATK selama nemesis masih hidup
+		if nemesis != "" and relics.has("liontin_dendam"):
+			mult += 0.25
 	if n == "atk_speed":
 		mult += combo_aspd
 	if n == "max_hp":
