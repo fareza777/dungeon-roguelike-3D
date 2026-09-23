@@ -7396,7 +7396,7 @@ func _keel_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("TIMBER SHIVER — the floor's dead creak a little lighter")
 		return
-	if idx == 11:
+	if idx == 12:
 		if Stats.souls < _soul_cost(3):
 			toast("Three souls — the bonus isn't free")
 			return
