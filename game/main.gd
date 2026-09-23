@@ -3996,6 +3996,32 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			{"text": "Approach in silence — fight him on your terms"},
 		])
 	else:
+		if lines.is_empty():
+			var evline := ""
+			if blood_moon:
+				evline = "Blood moons make them bolder — and richer prey, Kael."
+			elif soul_rush:
+				evline = "The dead exhale. Catch what they leave behind."
+			elif fading_light:
+				evline = "The lanterns are dying down here — strike faster than the dark."
+			elif echoing:
+				evline = "The walls repeat your magic. Use it."
+			elif storm_cellar:
+				evline = "Something above is furious — keep your feet light."
+			elif gilded_tides:
+				evline = "Even death flushes gold tonight. Open everything."
+			elif soul_drift:
+				evline = "Souls drift loose tonight — gather them like fireflies."
+			elif grave_hunger:
+				evline = "The graves are hungrier than usual. Watch for wisps."
+			elif giant_hall:
+				evline = "The dead remember being giants. Mind the reach."
+			elif shrouded:
+				evline = "The map dies here, Kael. Trust your feet instead."
+			elif ossuary:
+				evline = "Ossuary night — even the walls are made of the fallen."
+			if evline != "":
+				lines = [{"who": "oracle", "text": evline}]
 		_say(lines)
 
 
