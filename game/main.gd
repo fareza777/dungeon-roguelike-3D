@@ -121,6 +121,7 @@ var giant_hall := false
 var shrouded := false
 var ossuary := false
 var bounty_ref: Enemy = null
+var bounty_epic := false
 var ferry_skip := false
 var _ferry_used := false
 var storm_t := 0.0
@@ -1628,9 +1629,10 @@ func _on_enemy_died(e) -> void:
 		_spawn_tomb(e.global_position, "revenant", int(e.room_idx))
 	if bounty_ref != null and e == bounty_ref:
 		bounty_ref = null
+		bounty_epic = false
 		var bpool: Array = []
 		for rid5 in ITEMS.DB:
-			if int(ITEMS.DB[rid5]["rarity"]) >= 1 and not Stats.relics.has(rid5):
+			if int(ITEMS.DB[rid5]["rarity"]) >= (2 if bounty_epic else 1) and not Stats.relics.has(rid5):
 				bpool.append(rid5)
 		if not bpool.is_empty():
 			var rid6: String = bpool[rng.randi_range(0, bpool.size() - 1)]
@@ -3481,12 +3483,20 @@ func _on_bounty_invoked(s) -> void:
 	dlg_pending_choice = 8
 	_say([{"who": "oracle", "text": "A bounty stone — the dungeon's own bounty board. Summon a marked foe; its skull pays a relic."}],
 		[{"text": "Call the Marked — summon a bounty elite (drops a rare relic)"},
+		{"text": "Deadman's Fee — pay 4 souls: the Marked drops an epic relic"},
 		{"text": "Walk on"}])
 
 
 func _bounty_deal(idx: int) -> void:
-	if idx != 0:
+	if idx > 1:
 		return
+	if idx == 1:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls to sweeten the contract — the stone is patient")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		bounty_epic = true
 	var table: Array = biome["enemies"]
 	var arch := String(table[rng.randi_range(0, table.size() - 1)])
 	bounty_ref = _spawn_enemy({"pos": shrine_ref.global_position + Vector3(0.8 * info.tile, 0, 0.4 * info.tile), "room": current_room}, arch, true)
