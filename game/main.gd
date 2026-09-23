@@ -9094,6 +9094,8 @@ func _refresh_buffs() -> void:
 		list.append(["WEAKENED", Color(0.95, 0.65, 0.3)])
 	if player.get("rust_t") != null and player.rust_t > 0.0:
 		list.append(["RUSTED", Color(0.75, 0.55, 0.35)])
+	if player.get("slip_t") != null and player.slip_t > 0.0:
+		list.append(["SLIP", Color(0.45, 0.7, 0.9)])
 	if player.hp <= player.max_hp * 0.2 and not player.dead:
 		list.append(["⚑ LAST STAND +25% ATK", Color(1.0, 0.35, 0.25)])
 	if vials > 1:

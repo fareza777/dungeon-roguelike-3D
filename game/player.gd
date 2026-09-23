@@ -14,6 +14,7 @@ signal revived
 
 var speed := 6.0
 var chill_t := 0.0
+var slip_t := 0.0
 var weak_t := 0.0
 var salvage_n := 0
 var ambushed_ids := {}
@@ -124,6 +125,7 @@ func _physics_process(delta: float) -> void:
 	anim_lock = max(0.0, anim_lock - delta)
 	var tick := delta * (2.0 if Stats.relics.has("pressure_suit") else 1.0) * (1.3 if Stats.relics.has("brine_rat") else 1.0)
 	chill_t = max(0.0, chill_t - tick)
+	slip_t = max(0.0, slip_t - tick)
 	weak_t = max(0.0, weak_t - tick)
 	root_t = max(0.0, root_t - tick * (1.5 if Stats.relics.has("silk_greaves") else 1.0))
 	silence_t = max(0.0, silence_t - tick)
@@ -139,7 +141,7 @@ func _physics_process(delta: float) -> void:
 				body_cs.set_deferred("disabled", true)
 			anim_lock = M.play_action(ap, ["death"], 1.0)
 			died.emit()
-	var spd_eff: float = speed * (0.55 if chill_t > 0.0 else 1.0) * (0.0 if root_t > 0.0 else 1.0)
+	var spd_eff: float = speed * (0.55 if chill_t > 0.0 else 1.0) * (0.0 if root_t > 0.0 else 1.0) * (1.15 if slip_t > 0.0 else 1.0)
 	if dash_t > 0.0:
 		dash_t -= delta
 	if dash_atk_t > 0.0:
@@ -315,6 +317,15 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						f.take_hit(global_position, dmg * 0.4)
 					if mw.has_method("_damage_number"):
 						mw._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "SAWED", Color(1.0, 0.7, 0.3), false)
+		"murkmaker": # SLIP — tiap tebasan ke-5 memercepat langkah 3s
+			var mmk := get_tree().current_scene
+			if mmk != null:
+				mmk.set("net_n", int(mmk.get("net_n")) + 1)
+				if int(mmk.get("net_n")) >= 5:
+					mmk.set("net_n", 0)
+					slip_t = 3.0
+					if mmk.has_method("_damage_number"):
+						mmk._damage_number(global_position + Vector3(0, 0.7 * room_tile, 0), "SLIPSTREAM", Color(0.45, 0.7, 0.9), false)
 		"saltpeter": # SPARK — tiap tebasan ke-4 melontarkan tembakan bubuk ke musuh terdekat kedua
 			var msp := get_tree().current_scene
 			if msp != null:
