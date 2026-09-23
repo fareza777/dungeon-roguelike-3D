@@ -148,6 +148,7 @@ var bone_chorus := false
 var wolfsbane := false
 var sunken_tide := false
 var low_tide := false
+var glass_sea := false
 var legion_omen := false
 var wolf_omen := false
 var ashborn := false
@@ -616,6 +617,11 @@ func _apply_biome() -> void:
 		env.fog_light_color = Color(0.08, 0.14, 0.1)
 		env.ambient_light_color = Color(0.3, 0.45, 0.3)
 		sun.light_color = Color(0.7, 0.95, 0.6)
+	elif glass_sea:
+		env.fog_light_color = Color(0.05, 0.18, 0.2)
+		env.ambient_light_color = Color(0.35, 0.6, 0.65)
+		sun.light_color = Color(0.75, 0.98, 1.0)
+		sun.light_energy = 1.1
 		sun.light_energy = 0.95
 
 
@@ -835,6 +841,11 @@ func _new_run(new_seed: int) -> void:
 			_spawn_enemy({"pos": bcp, "room": bci}, "orator", false)
 	sunken_tide = not wolfsbane and not boss_floor and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.18
 	low_tide = not wolfsbane and not sunken_tide and not boss_floor and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
+	if glass_sea:
+		Stats.buff_atk_pct -= 0.10
+	glass_sea = not wolfsbane and not sunken_tide and not low_tide and not boss_floor and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
+	if glass_sea:
+		Stats.buff_atk_pct += 0.10
 	if wolfsbane:
 		# PACK ALPHA — kawanan dipimpin induk raksasa di ruangan terakhir
 		var ar: Dictionary = info.ranges[last_room]
@@ -1004,6 +1015,10 @@ func _new_run(new_seed: int) -> void:
 		_lvl_banner("≈ SUNKEN TIDE — THE DROWNED RISE")
 	elif low_tide:
 		_lvl_banner("≈ LOW TIDE — THE VAULTS LIE BARE")
+	elif glass_sea:
+		_lvl_banner("≈ GLASS SEA — CALM AND CRUEL")
+		toast("The water is still — the dead move faster • +10% ATK this floor")
+		Sfx.play("souls")
 	elif wolfsbane:
 		_lvl_banner("☽ WOLFSBANE — THE PACK HUNTS")
 		toast("Nothing but hounds this floor — keep your back to a wall • +1 soul per kill")
@@ -1308,6 +1323,10 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 	if sunken_tide and not e.is_boss:
 		e.speed *= 0.85
 		e.xp_val = int(ceilf(e.xp_val * 1.2))
+	if glass_sea and not e.is_boss:
+		e.speed *= 1.15
+		e.hp = e.hp * 0.85
+		e.hp_max = e.hp
 	if giant_hall and not e.is_boss:
 		e.scale *= 1.3
 		e._base_scale = e.scale
@@ -5275,6 +5294,8 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 				evline = "Hear it? The dead are singing war-songs. Find the choir-masters before the chorus swells."
 			elif low_tide:
 				evline = "The tide's pulled back, swordsman — every drowned purse is lying open. Gather fast; the water never stays gone."
+			elif glass_sea:
+				evline = "Calm water, sharp blades, Kael. The sea forgives nothing tonight — don't you either."
 			elif sunken_tide:
 				evline = "The water is rising through the graves, Kael — the drowned will come slow, but they come rich."
 			elif wolfsbane:
@@ -6596,6 +6617,8 @@ func _refresh_buffs() -> void:
 		list.append(["≈ TIDE", Color(0.4, 0.9, 0.8)])
 	elif low_tide:
 		list.append(["≈ EBB", Color(0.5, 0.95, 0.6)])
+	elif glass_sea:
+		list.append(["≈ GLASS", Color(0.75, 0.98, 1.0)])
 	elif wolfsbane:
 		list.append(["☽ PACK", Color(0.65, 0.7, 0.95)])
 	if Stats.soul_sealed:
