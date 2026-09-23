@@ -2504,6 +2504,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Blood Tithe — lose 1 HP now, +20% ATK this run"},
 			{"text": "Mahzan's Gamble — a free relic... but he chooses it"},
 			{"text": "Relic Pawn — sell a random relic for 10 souls"},
+			{"text": "Vial Merchant — pay 5 souls for a full satchel"},
 		]
 	)
 
@@ -2580,6 +2581,15 @@ func _mahzan_deal(idx: int) -> void:
 					_souls(squire_ref.global_position, 8, Color(0.9, 0.85, 0.5))
 					squire_ref.queue_free()
 					squire_ref = null
+		4:
+			if Stats.souls < 5:
+				toast("Not enough souls (need 5)")
+			else:
+				Stats.souls -= 5
+				_souls_l()
+				vials = 2
+				_vial_btn()
+				toast("Satchel filled — 2 ⚗ vials")
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
 		player.refresh_stats()
