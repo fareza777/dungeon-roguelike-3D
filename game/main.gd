@@ -2560,6 +2560,7 @@ func _offer_omens() -> void:
 			{"text": "WARPATH — +30% ATK, -1 Armor"},
 			{"text": "FEATHER STEP — +15% Speed, -25% ATK"},
 			{"text": "RICH SOIL — +35% XP, foes +10% HP"},
+			{"text": "LEECHING VEIN — +15% Lifesteal, -30% Max HP"},
 		]
 	)
 
@@ -2579,6 +2580,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_xp_pct += 0.35
 			omen_hp_mult = 1.1
 			oname = "RICH SOIL"
+		3:
+			Stats.buff_lifesteal += 0.15
+			Stats.buff_maxhp_pct -= 0.3
+			oname = "LEECHING"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
 	Sfx.play("shrine")
 	if player != null and is_instance_valid(player):
