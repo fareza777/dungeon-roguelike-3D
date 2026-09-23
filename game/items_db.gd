@@ -96,6 +96,7 @@ const DB := {
 	"sea_chart": {"name": "Sea Chart", "chip": "SC", "desc": "+10% Speed, +5% Crit", "rarity": 1, "mods": {"speed_pct": 0.1, "crit": 0.05}},
 	"splintered_oar": {"name": "Splintered Oar", "chip": "SO", "desc": "The oar remembers rowing — your dash carries you 30% farther", "rarity": 0, "mods": {}},
 	"deck_plank": {"name": "Deck Plank", "chip": "DP", "desc": "Sure footing on any deck — +5% Speed, +5% Attack Speed", "rarity": 0, "mods": {"speed_pct": 0.05, "atk_speed_pct": 0.05}},
+	"prow_plate": {"name": "Prow Plate", "chip": "PP", "desc": "Ship's bow-iron bolted to your chest — +1 Armor", "rarity": 2, "mods": {"armor": 1}},
 	"undertow_charm": {"name": "Undertow Charm", "chip": "UC", "desc": "The current slips you sideways — +6% dodge", "rarity": 1, "mods": {"dodge": 0.06}},
 	"crows_lens": {"name": "Crow's Lens", "chip": "CL", "desc": "The dead are more interesting to watch — +10% XP", "rarity": 0, "mods": {"xp_pct": 0.1}},
 	"tarred_rope": {"name": "Tarred Rope", "chip": "TR", "desc": "The pitch won't let go — the dead's snares cannot root you", "rarity": 1, "mods": {}},
