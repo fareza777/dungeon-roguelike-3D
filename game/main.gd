@@ -283,6 +283,7 @@ var salt_shear := false
 var song_rust := false
 var gangway := false
 var splice_kills := 0
+var timber_shiver := false
 var deadweight := false
 var undertow_grip := false
 var lookout := false
@@ -1117,6 +1118,7 @@ func _new_run(new_seed: int) -> void:
 	song_rust = false
 	undertow = false
 	splice_kills = 0
+	timber_shiver = false
 	gangway = false
 	penny_floor = false
 	if drift_line:
@@ -2010,6 +2012,9 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.speed *= 0.9
 	if undertow:
 		e.windup_t *= 1.12
+	if timber_shiver and not e.is_boss:
+		e.hp *= 0.9
+		e.hp_max = e.hp
 	if gale_tide:
 		e.speed *= 1.1
 	if mercy_tide:
@@ -7113,11 +7118,12 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Gangway Toll — pay 3 souls: this floor's dead are worth +15% XP"},
 		{"text": "Deck Fuel — pay 4 souls: your dash recharges 40% faster"},
 		{"text": "Tar Seal — pay 4 souls: mend 25% HP and scrub chill, root, rust"},
+		{"text": "Timber Shiver — pay 3 souls: this floor's dead lose −10% HP"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 11:
+	if idx == 12:
 		toast("The stone settles — the sea keeps its bargains")
 		return
 	if idx == 9:
@@ -7129,6 +7135,16 @@ func _keel_deal(idx: int) -> void:
 		dash_fuel = true
 		Sfx.play("shrine")
 		toast("DECK FUEL — your feet won't stop now (dash −40% recharge)")
+		return
+	if idx == 11:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the timbers aren't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		timber_shiver = true
+		Sfx.play("shrine")
+		toast("TIMBER SHIVER — the floor's dead creak a little lighter")
 		return
 	if idx == 10:
 		if Stats.souls < _soul_cost(4):
