@@ -197,6 +197,7 @@ var lore_run := 0
 var disarm_run := 0
 var events_run := {}
 var riptide_n := 0
+var steps_done_run := 0
 var shellshield_used := false
 var tithe_armor := 0.0
 var tide_kills := 0
@@ -4024,6 +4025,9 @@ func _quest_event(kind: String, num: int = 1) -> void:
 		Stats.earn_souls(2)
 		_souls_l()
 		toast("QUEST STEP DONE — +2 souls")
+		steps_done_run += 1
+		if steps_done_run >= 6:
+			_ach("completionist")
 		if player != null and is_instance_valid(player):
 			_souls(player.global_position + Vector3(0, 0.8, 0), 4, Color(0.6, 0.85, 1.0))
 		if ui.has("quest_box"):
