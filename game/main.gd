@@ -181,6 +181,7 @@ var crown_oath := false
 var pinch_n := 0
 var abyss_n := 0
 var lore_run := 0
+var shellshield_used := false
 var tide_kills := 0
 var reliquary_wisps := 0
 var omen_refusals := 0
@@ -721,6 +722,7 @@ func _reset_run_state() -> void:
 	pinch_n = 0
 	abyss_n = 0
 	lore_run = 0
+	shellshield_used = false
 	perfect_dodges = 0
 	leech_charge = 0
 	legion_omen = false
@@ -2679,6 +2681,7 @@ func _on_enemy_died(e) -> void:
 	pinch_n = 0
 	abyss_n = 0
 	lore_run = 0
+	shellshield_used = false
 			Stats.earn_souls(8)
 			_souls_l()
 			_damage_number(e.global_position + Vector3(0, 1.3 * info.tile, 0), "CROWN PAID — +8 souls", Color(1.0, 0.8, 0.3), true)

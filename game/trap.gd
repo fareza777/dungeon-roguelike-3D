@@ -234,6 +234,9 @@ func _physics_process(delta: float) -> void:
 							ml2.toast("Trap defused!")
 						if kind == 6:
 							var pearl_pay: int = 4 if bool(ml2.get("shell_game")) else 2
+							if Stats.relics.has("shellshield") and not bool(ml2.get("shellshield_used")):
+								ml2.set("shellshield_used", true)
+								pearl_pay += 2
 							Stats.earn_souls(pearl_pay)
 							if ml2.has_method("_quest_event"):
 								ml2._quest_event("clam")
