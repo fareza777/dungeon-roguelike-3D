@@ -253,6 +253,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Keel Sworn", "desc": "Take 4 Keelstone deals across a run (0/4)", "kind": "keelstone", "need": 4})
 		steps.append({"title": "Stone Signed", "desc": "Take 2 Keelstone deals (0/2)", "kind": "keelstone", "need": 2})
 		steps.append({"title": "Grave Fed", "desc": "Take 3 Mahzan deals (0/3)", "kind": "mahzan", "need": 3})
+		steps.append({"title": "Night Warden", "desc": "Clear 2 DARK LANTERN floors (0/2)", "kind": "lampwalk", "need": 2})
 		steps.append({"title": "Hollow Walker", "desc": "Clear 2 MIRE HOLLOW floors (0/2)", "kind": "mirewalk", "need": 2})
 		steps.append({"title": "Bile Swallower", "desc": "Clear 2 BILE TIDE floors (0/2)", "kind": "bilewalk", "need": 2})
 		steps.append({"title": "Sodden Feet", "desc": "Clear 2 SODDEN HALLS floors (0/2)", "kind": "soddenwalk", "need": 2})
