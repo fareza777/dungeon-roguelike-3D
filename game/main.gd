@@ -365,6 +365,7 @@ var _pilot_on := false
 var rope_kills := 0
 var harpoon_n := 0
 var net_n := 0
+var ledger_n := 0
 var moonpool_run := 0
 var shellshield_used := false
 var tithe_armor := 0.0
@@ -3333,9 +3334,9 @@ func _on_enemy_died(e) -> void:
 			_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), "MISER -%d" % stolen, Color(0.85, 0.7, 0.2), true)
 		_quest_event("miser_loss", stolen)
 	if melody_ledger:
-		net_n += 1
-		if net_n >= 5:
-			net_n = 0
+		ledger_n += 1
+		if ledger_n >= 5:
+			ledger_n = 0
 			Stats.earn_souls(2)
 			_damage_number(e.global_position + Vector3(0, 1.6 * info.tile, 0), "NOTE +2", Color(0.7, 0.9, 0.5), false)
 	if Stats.relics.has("crow_claw") and combo >= 5:
