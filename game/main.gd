@@ -237,6 +237,7 @@ var full_chart := false
 var long_wake := false
 var dead_lantern := false
 var hull_song := false
+var salt_ledger := false
 var iron_gullet := false
 var murk_fed := false
 var crew_oath := false
@@ -952,6 +953,7 @@ func _reset_run_state() -> void:
 	long_wake = false
 	dead_lantern = false
 	hull_song = false
+	salt_ledger = false
 	iron_gullet = false
 	murk_fed = false
 	crew_oath = false
@@ -3186,6 +3188,9 @@ func _on_enemy_died(e) -> void:
 				Stats.earn_souls(1)
 			if crows_share:
 				Stats.earn_souls(1)
+			if salt_ledger:
+				Stats.earn_souls(3)
+				_souls_l()
 			if Stats.souls >= 40:
 				_quest_event("fatpurse")
 			if Stats.souls >= 60:
@@ -5131,6 +5136,7 @@ func _offer_omens() -> void:
 			{"text": "SALT FEVER — every soul pays +25%... but the dead grow +10% harder"},
 			{"text": "DEAD LANTERN — elites burn +15% brighter... but the urns pay +1 soul"},
 			{"text": "HULL SONG — skills recharge +15% faster... but the dead row +5% quicker"},
+			{"text": "SALT LEDGER — every price climbs +1 soul... but each floor's end pays +3"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -5149,6 +5155,8 @@ func _soul_cost(n: int) -> int:
 	if Stats.relics.has("rusted_penny") and not penny_floor:
 		disc += 1
 		penny_floor = true
+	if salt_ledger:
+		disc -= 1
 	return maxi(1, n - disc)
 
 
@@ -5170,7 +5178,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 49 if Stats.nemesis != "" else 48
+	var osize := 50 if Stats.nemesis != "" else 49
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -5374,6 +5382,9 @@ func _omen_deal(idx: int) -> void:
 			Stats.cd_reduction += 0.15
 			oname = "HULL SONG"
 		48:
+			salt_ledger = true
+			oname = "SALT LEDGER"
+		49:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -5425,6 +5436,7 @@ func _omen_deal(idx: int) -> void:
 		"SALT FEVER": "Greed salts the water, Kael — richer souls, meaner dead.",
 		"DEAD LANTERN": "Hang the lantern high, Kael — the urns will pay for what the elites will cost.",
 		"HULL SONG": "The ship sings through you, Kael — your arms answer quicker. So do theirs.",
+		"SALT LEDGER": "The sea keeps books, Kael — she'll overcharge the dealers and pay you interest on the back.",
 		"HEIRLOOM": "Someone carried that before you. They are still carrying it, in a way.",
 		"GOLDEN FATE": "Every lock will gleam. Mind the teeth on some.",
 		"HOLLOW CROWN": "Crown of nothing. The Oracle admires your appetite anyway.",
