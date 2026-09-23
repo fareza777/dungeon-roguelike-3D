@@ -6451,16 +6451,30 @@ func _on_throne_invoked(s) -> void:
 		{"text": "Beg a Boon — pay 3 souls: a random common relic"},
 		{"text": "Draw Blood — pay 3 souls: bleed for +20% ATK this floor"},
 		{"text": "Court Physician — pay 4 souls: cleanse every curse and mend 30% HP"},
+		{"text": "King's Pardon — pay 8 souls: your nemesis is forgiven and stops hunting you"},
 		{"text": "Walk away"}])
 
 
 func _throne_deal(idx: int) -> void:
-	if idx == 5:
+	if idx == 6:
 		Stats.earn_souls(4)
 		_souls_l()
 		_quest_event("throne")
 		Sfx.play("soul")
 		toast("CLEAN HANDS — the crown pays +4 souls to the incorruptible")
+		return
+	if idx == 5:
+		if Stats.souls < _soul_cost(8):
+			toast("Eight souls — royal pardons don't come cheap")
+			return
+		if Stats.nemesis == "":
+			toast("You bear no grudge — the crown is amused")
+			return
+		Stats.souls -= _soul_cost(8)
+		_souls_l()
+		Stats.nemesis = ""
+		Sfx.play("shrine")
+		toast("KING'S PARDON — the hunt is called off")
 		return
 	if idx == 4:
 		if Stats.souls < _soul_cost(4):
