@@ -93,7 +93,12 @@ const LORE_LINES := [
 	"Vane's cell was carved from the throne's own foundation stone. The King keeps his bravest prisoner closest.",
 	"The Keelhounds were the harbor's watchdogs once. They drowned loyal, and loyal still — now they guard every purse that sinks.",
 	"Mahzan keeps one contract he never speaks of: whatever the Bone King owes him is worth more than a throne.",
-	"The Fog doesn't rise from the sea — it seeps up from the graveyard below, carrying the drowned crew's last orders. They still slow the ship for the new dead."
+	"The Fog doesn't rise from the sea — it seeps up from the graveyard below, carrying the drowned crew's last orders. They still slow the ship for the new dead.",
+	"The Steady Rope was the last knot the bosun ever tied — sailors say a planted fighter still holds his watch.",
+	"Every Keelstone is a sailor's grave that chose to keep working. Lean close and you can hear it taking bets.",
+	"The Deep doesn't want your death, Kael — it wants your debts. Everything down here runs on what you're owed.",
+	"The Orator's choir once sang Aldric's coronation hymn. Now it rehearses his funeral dirge and never finishes the last verse.",
+	"Mahzan owes the Bone King a debt older than the throne — and a debt that old, both of them swear, can never be allowed to close."
 ]
 
 var dungeon_tex: Texture2D
