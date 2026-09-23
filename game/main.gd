@@ -1577,6 +1577,9 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		if Stats.ng_plus > 0:
 			wtxt = "Umbral " + wtxt
 		_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), wtxt, Color(0.55, 1.0, 0.75), true)
+	if elite and not _warned.has("affix_" + String(e.affix)) and {"venomed": "Its bite seeps venom — kill it before it closes.", "tidal": "It sings the tide into its allies' wounds — cut it first.", "barnacled": "Barnacle-armored — it shrugs your steel, but drags its feet."}.has(String(e.affix)) and player != null:
+		_warned["affix_" + String(e.affix)] = 1
+		_damage_number(player.global_position + Vector3(0, 1.1 * info.tile, 0), String({"venomed": "Its bite seeps venom — kill it before it closes.", "tidal": "It sings the tide into its allies' wounds — cut it first.", "barnacled": "Barnacle-armored — it shrugs your steel, but drags its feet."}[e.affix]), Color(0.6, 0.95, 0.7), true)
 	if e.is_boss:
 		boss_ref = e
 		var tier := _boss_tier()
