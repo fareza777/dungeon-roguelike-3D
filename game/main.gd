@@ -4018,6 +4018,12 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			{"who": "kael", "text": "Then we'll make it keep waiting."},
 			{"who": "oracle", "text": "The Abyss does not end, Kael — it only agrees to be walked."},
 		]
+	elif Stats.floor_num == 22:
+		lines = [
+			{"who": "mahzan", "text": "Twenty-two floors, Kael. I have watched a hundred climb this far — and I collected debts from every one of them."},
+			{"who": "kael", "text": "Then collect mine too. I'll pay it in the King's own coin."},
+			{"who": "raja", "text": "BOLD WORDS, LITTLE SLICER. FIVE STEPS MORE AND WE SETTLE THE LEDGER."},
+		]
 	elif Stats.floor_num == 21:
 		lines = [
 			{"who": "oracle", "text": "Even I don't know what waits below the twenty-fifth. No soul has returned to tell it."},
