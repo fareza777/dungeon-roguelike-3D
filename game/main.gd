@@ -2272,7 +2272,7 @@ func _on_enemy_died(e) -> void:
 		_damage_number(e.global_position + Vector3(0, 0.9 * info.tile, 0), "THRALL", Color(0.6, 0.8, 1.1), false)
 	if wid == "conchhorn":
 		var near_e = null
-		var near_d := 2.5 * info.tile
+		var near_d: float = 2.5 * info.tile
 		for fe in get_tree().get_nodes_in_group("enemies"):
 			if fe == e or fe.get("state") == "dead" or not bool(fe.get("activated")):
 				continue
