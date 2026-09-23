@@ -121,6 +121,7 @@ var toast_tween: Tween = null
 # polish r2: pause, ringkasan run, transisi fade, juice vfx
 var paused_ui := false
 var kills_run := 0
+var run_souls_start := 0
 var last_stand_kills := 0
 var vials := 1
 var run_time := 0.0
@@ -342,6 +343,7 @@ func _ready() -> void:
 		Stats.reset_run()
 		_reset_run_state()
 		kills_run = 0
+	run_souls_start = Stats.souls
 		last_stand_kills = 0
 		vials = 1
 		run_time = 0.0
@@ -1936,6 +1938,7 @@ func _on_banner_tap() -> void:
 		Stats.reset_run()
 		_reset_run_state()
 		kills_run = 0
+	run_souls_start = Stats.souls
 		last_stand_kills = 0
 		vials = 1
 		run_time = 0.0
