@@ -210,6 +210,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Swarm Shepherd", "desc": "Walk 2 SOUL SWARM floors to the end (0/2)", "kind": "swarmwalk", "need": 2})
 		steps.append({"title": "Rust Scrap", "desc": "Fell 2 TIDEWORN elites (0/2)", "kind": "affix_tideworn", "need": 2})
 		steps.append({"title": "Anchor Watch", "desc": "Moor 6 kills with the Chain Anchor (0/6)", "kind": "kill_chain_anchor", "need": 6})
+		steps.append({"title": "Blood Price", "desc": "Pay the Soulfall twice (0/2)", "kind": "skill_soulfall", "need": 2})
 	if Stats.floor_num == 11:
 		steps.append({"title": "Soul Fisher", "desc": "Net three drifting wisps (0/3)", "kind": "wisp", "need": 3})
 	if Stats.floor_num >= 13 and Stats.floor_num % 8 == 5:
