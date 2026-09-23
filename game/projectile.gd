@@ -6,11 +6,13 @@ var vel := Vector3.ZERO
 var dmg := 1
 var hit_r := 0.5
 var life := 3.0
+var t := 0.0
+var orb: MeshInstance3D = null
 
 
 func _ready() -> void:
 	add_to_group("enemy_proj")
-	var mi := MeshInstance3D.new()
+	orb = MeshInstance3D.new()
 	var sm := SphereMesh.new()
 	sm.radius = 0.16
 	sm.height = 0.32
@@ -21,8 +23,23 @@ func _ready() -> void:
 	m.emission = Color(0.65, 0.3, 1.0)
 	m.emission_energy_multiplier = 3.0
 	sm.material = m
-	mi.mesh = sm
-	add_child(mi)
+	orb.mesh = sm
+	add_child(orb)
+	# jejak ekor di belakang arah gerak
+	var tail := MeshInstance3D.new()
+	var bm := BoxMesh.new()
+	bm.size = Vector3(0.06, 0.06, 0.55)
+	var tm := StandardMaterial3D.new()
+	tm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	tm.albedo_color = Color(0.6, 0.35, 1.0, 0.5)
+	tm.emission_enabled = true
+	tm.emission = Color(0.55, 0.3, 1.0)
+	tm.emission_energy_multiplier = 1.6
+	tm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	bm.material = tm
+	tail.mesh = bm
+	tail.position.z = 0.35
+	add_child(tail)
 
 
 func launch(from: Vector3, target: Vector3, speed: float, p_dmg: float, p_hit_r: float) -> void:
@@ -32,9 +49,14 @@ func launch(from: Vector3, target: Vector3, speed: float, p_dmg: float, p_hit_r:
 	vel = d.normalized() * speed
 	dmg = int(round(p_dmg))
 	hit_r = p_hit_r
+	look_at(global_position + vel, Vector3.UP)
 
 
 func _physics_process(delta: float) -> void:
+	t += delta
+	if orb != null:
+		var s: float = 1.0 + sin(t * 18.0) * 0.18
+		orb.scale = Vector3(s, s, s)
 	position += vel * delta
 	life -= delta
 	if life <= 0.0:
