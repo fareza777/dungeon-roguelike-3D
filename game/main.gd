@@ -2781,6 +2781,7 @@ func _on_enemy_died(e) -> void:
 				_quest_event("crewfloor")
 			if rolling_fog:
 				_ach("fogwalker")
+				_quest_event("fogfloor")
 			if tut_active and tut_step >= 2:
 				tut_active = false
 				Stats.tutorial_done = true
