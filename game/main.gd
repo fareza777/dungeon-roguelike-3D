@@ -5474,6 +5474,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_armor += 1
 			Stats.buff_speed_pct += 0.1
 			toast("Iron Prow: the prow cuts and the bow splits — +1 Armor, +10% speed this run")
+		48:
+			Stats.buff_crit += 0.1
+			Stats.buff_armor += 1
+			toast("Sharp Hull: barnacle blades in the prow — +10% crit, +1 Armor this run")
 	blessings_run += 1
 	if blessings_run >= 5:
 		_ach("bless5")
@@ -7831,6 +7835,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Waxen Hull — caulked thick against the deep: +10% Max HP, −5% speed this run"},
 			{"text": "Leech's Tithe — the old blood answers: +8% crit, +3% lifesteal this run"},
 			{"text": "Iron Prow — the bow splits the sea: +1 Armor, +10% speed this run"},
+			{"text": "Sharp Hull — barnacle blades in the prow: +10% crit, +1 Armor this run"},
 		]
 	)
 
