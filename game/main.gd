@@ -140,12 +140,13 @@ const BESTIARY := {
 	"archer": ["Skeletal Archer", "Fast fingers, faster arrows — from three tiles away."],
 	"necromancer": ["The Necromancer", "Death is a door he keeps propping open. Kill him first."],
 	"crawler": ["Crypt Crawler", "Small, quick, and never alone."],
+	"gaoler": ["The Gaoler", "A faceless warden. His blows cage you where you stand — dash out of them."],
 	"bone_king": ["The Kings", "One throne, many forms. Every five floors he waits."],
 }
 const KILLER_NAMES := {
 	"chaser": "a Skeleton Chaser", "rogue": "a Shadow Rogue", "mage": "a Bone Mage",
 	"brute": "a Bone Brute", "bomber": "a Boom Bones", "archer": "a Skeletal Archer",
-	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler",
+	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler",
 	"bone_king": "the King himself", "trap": "a hidden trap", "": "the dungeon itself"}
 const KILLER_TIPS := {
 	"chaser": "Tip: chasers are slow — kite them into a corner and cleave.",
@@ -156,6 +157,7 @@ const KILLER_TIPS := {
 	"archer": "Tip: archers fire from afar — break line-of-sight and flank.",
 	"necromancer": "Tip: kill the Necromancer first — his minions never stop rising.",
 	"crawler": "Tip: crawlers swarm — a HEAVY attack clears the whole pack.",
+	"gaoler": "Tip: the Gaoler's swing roots you — dash THROUGH him instead.",
 	"bone_king": "Tip: his slams telegraph red — dash through the shockwave.",
 	"trap": "Tip: traps pulse on a rhythm — cross on the off-beat.",
 	"": "Tip: blessings, relics and Sir Vane can still turn a doomed run.",
@@ -3013,7 +3015,7 @@ func _build_ui() -> void:
 		Sfx.play("page")
 		_toggle_lore())
 	pvb.add_child(b_lore)
-	var b_best := _pause_btn("BESTIARY (%d/9)" % mini(Stats.bestiary.size(), 9))
+	var b_best := _pause_btn("BESTIARY (%d/%d)" % [mini(Stats.bestiary.size(), BESTIARY.size()), BESTIARY.size()])
 	b_best.pressed.connect(func() -> void:
 		Sfx.play("page")
 		_toggle_bestiary())

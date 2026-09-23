@@ -14,6 +14,7 @@ signal revived
 
 var speed := 6.0
 var chill_t := 0.0
+var root_t := 0.0 # Gaoler: terjerat, tak bisa bergerak (dash masih bisa kabur)
 var hp := 5.0
 var max_hp := 5.0
 var attack_cooldown := 0.45
@@ -113,7 +114,8 @@ func _physics_process(delta: float) -> void:
 	invuln = max(0.0, invuln - delta)
 	anim_lock = max(0.0, anim_lock - delta)
 	chill_t = max(0.0, chill_t - delta)
-	var spd_eff: float = speed * (0.55 if chill_t > 0.0 else 1.0)
+	root_t = max(0.0, root_t - delta)
+	var spd_eff: float = speed * (0.55 if chill_t > 0.0 else 1.0) * (0.0 if root_t > 0.0 else 1.0)
 	if dash_t > 0.0:
 		dash_t -= delta
 		velocity = dash_dir * spd_eff * 4.2

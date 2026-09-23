@@ -59,6 +59,7 @@ var stun_t := 0.0
 var enraged := false
 var golden := false
 var affix := ""
+var jailer := false
 var _base_scale := Vector3.ONE
 var slam_t := 4.0
 var summon_t := 11.0
@@ -107,6 +108,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	is_boss = a.get("boss", false)
 	is_bomber = a.get("bomber", false)
 	is_summoner = a.get("summoner", false)
+	jailer = bool(a.get("jailer", false))
 	if is_summoner:
 		summon_t = 9.0
 	var sc: float = a["scale"]
@@ -379,6 +381,12 @@ func _physics_process(delta: float) -> void:
 							dto.y = 0
 							if dto.length() < attack_range * 1.3:
 								q.take_hit(global_position, dmg)
+								if jailer and q.get("dead") != true:
+									q.set("root_t", 1.2)
+									var mm3 := get_tree().current_scene
+									if mm3 != null and mm3.has_method("_damage_number"):
+										mm3._damage_number(q.global_position, "CAGED!", Color(0.65, 0.45, 1.0), true)
+									Sfx.play("gate")
 								if affix == "siphon":
 									var mm := get_tree().current_scene
 									if mm != null and mm.get("combo") != null and int(mm.combo) > 0 and mm.has_method("_combo_set"):
