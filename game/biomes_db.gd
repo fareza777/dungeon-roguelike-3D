@@ -56,7 +56,7 @@ const LIST := [
 		"fog": Color(0.07, 0.04, 0.12), "fog_d": 0.03, "ambient": Color(0.2, 0.16, 0.38),
 		"sun": Color(0.85, 0.7, 1.0), "torch": Color(0.85, 0.5, 1.0), "torch_e": 1.4, "torch_r": 6.0,
 		"bg": Color(0.03, 0.02, 0.06),
-		"enemies": ["brute", "mage", "rogue", "archer", "bomber", "bomber", "necromancer", "necromancer", "crawler", "crawler", "crawler", "gaoler", "gaoler", "weeper", "sentinel", "shade", "shade", "hexer", "hexer", "spiker", "spiker", "lurker", "lurker", "golem", "golem", "maiden", "maiden", "revenant", "revenant", "shieldbearer", "shieldbearer", "herald", "batterer", "duelist", "hound", "hound", "moth", "orator", "crowned", "crowned", "tither", "digger", "siren", "siren", "gargoyle", "mireling", "mireling", "hull_widow", "lantern_jack", "reef_caller", "chum_gnawer", "chum_gnawer"],
+		"enemies": ["brute", "mage", "rogue", "archer", "bomber", "bomber", "necromancer", "necromancer", "crawler", "crawler", "crawler", "gaoler", "gaoler", "weeper", "sentinel", "shade", "shade", "hexer", "hexer", "spiker", "spiker", "lurker", "lurker", "golem", "golem", "maiden", "maiden", "revenant", "revenant", "shieldbearer", "shieldbearer", "herald", "batterer", "duelist", "hound", "hound", "moth", "orator", "crowned", "crowned", "tither", "digger", "siren", "siren", "gargoyle", "mireling", "mireling", "hull_widow", "lantern_jack", "reef_caller", "chum_gnawer", "chum_gnawer", "rotting_bride"],
 	},
 ]
 
