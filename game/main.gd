@@ -147,6 +147,7 @@ var verdant := false
 var bone_chorus := false
 var wolfsbane := false
 var sunken_tide := false
+var low_tide := false
 var legion_omen := false
 var wolf_omen := false
 var ashborn := false
@@ -602,6 +603,11 @@ func _apply_biome() -> void:
 		env.ambient_light_color = Color(0.25, 0.5, 0.45)
 		sun.light_color = Color(0.5, 0.9, 0.8)
 		sun.light_energy = 0.9
+	elif low_tide:
+		env.fog_light_color = Color(0.08, 0.14, 0.1)
+		env.ambient_light_color = Color(0.3, 0.45, 0.3)
+		sun.light_color = Color(0.7, 0.95, 0.6)
+		sun.light_energy = 0.95
 
 
 func _style_room() -> void:
@@ -811,6 +817,7 @@ func _new_run(new_seed: int) -> void:
 			var bcp := Vector3((bcr["x0"] + bcr["x1"]) * 0.5 * info.tile, 0.0, (bcr["z0"] + bcr["z1"]) * 0.5 * info.tile)
 			_spawn_enemy({"pos": bcp, "room": bci}, "orator", false)
 	sunken_tide = not wolfsbane and not boss_floor and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.18
+	low_tide = not wolfsbane and not sunken_tide and not boss_floor and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
 	if wolfsbane:
 		# PACK ALPHA — kawanan dipimpin induk raksasa di ruangan terakhir
 		var ar: Dictionary = info.ranges[last_room]
@@ -976,12 +983,17 @@ func _new_run(new_seed: int) -> void:
 		Sfx.play("roar")
 	elif sunken_tide:
 		_lvl_banner("≈ SUNKEN TIDE — THE DROWNED RISE")
+	elif low_tide:
+		_lvl_banner("≈ LOW TIDE — THE VAULTS LIE BARE")
 	elif wolfsbane:
 		_lvl_banner("☽ WOLFSBANE — THE PACK HUNTS")
 		toast("Nothing but hounds this floor — keep your back to a wall • +1 soul per kill")
 		Sfx.play("roar")
 	elif sunken_tide:
 		toast("The drowned shuffle slower • +1 soul per kill")
+		Sfx.play("souls")
+	elif low_tide:
+		toast("Wisps and urns pay double souls this floor")
 		Sfx.play("souls")
 	elif Stats.floor_num > 1:
 		_lvl_banner("FLOOR %d — %s" % [Stats.floor_num, String(biome["name"]).to_upper()])
@@ -2296,6 +2308,11 @@ func _on_enemy_died(e) -> void:
 				_souls_l()
 				Stats.save_game()
 				toast("☠ OSSUARY TITHE — +3 souls")
+			elif low_tide:
+				Stats.souls += 3
+				_souls_l()
+				Stats.save_game()
+				toast("≈ EBB TITHE — +3 souls")
 			elif sunken_tide:
 				Stats.souls += 3
 				_souls_l()
@@ -5174,6 +5191,8 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 				evline = "Green creeps over the bones, Kael. Even the dungeon forgets to be dead sometimes."
 			elif bone_chorus:
 				evline = "Hear it? The dead are singing war-songs. Find the choir-masters before the chorus swells."
+			elif low_tide:
+				evline = "The tide's pulled back, swordsman — every drowned purse is lying open. Gather fast; the water never stays gone."
 			elif sunken_tide:
 				evline = "The water is rising through the graves, Kael — the drowned will come slow, but they come rich."
 			elif wolfsbane:
@@ -6493,6 +6512,8 @@ func _refresh_buffs() -> void:
 		list.append(["◆ CHORUS", Color(0.85, 0.55, 0.95)])
 	elif sunken_tide:
 		list.append(["≈ TIDE", Color(0.4, 0.9, 0.8)])
+	elif low_tide:
+		list.append(["≈ EBB", Color(0.5, 0.95, 0.6)])
 	elif wolfsbane:
 		list.append(["☽ PACK", Color(0.65, 0.7, 0.95)])
 	if Stats.soul_sealed:

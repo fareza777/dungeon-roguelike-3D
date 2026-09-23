@@ -73,7 +73,8 @@ func _physics_process(delta: float) -> void:
 			d.y = 0.0
 			if d.length() < 0.35 * tile:
 				absorbed = true
-				Stats.souls += 1
+				var m0 := get_tree().current_scene
+				Stats.souls += 2 if (m0 != null and bool(m0.get("low_tide"))) else 1
 				if p.hp < Stats.get_stat("max_hp"):
 					p.hp = minf(p.hp + Stats.get_stat("max_hp") * 0.02, Stats.get_stat("max_hp"))
 					p.hp_changed.emit(p.hp)
