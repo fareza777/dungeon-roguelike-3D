@@ -86,6 +86,7 @@ const DB := {
 	"galley_whip": {"name": "Galley Whip", "chip": "GW", "desc": "Keelhauled foes arrive tenderized — +25% damage taken for 2s", "rarity": 1, "mods": {}},
 	"sextant": {"name": "Dead Reckoning", "chip": "SX", "desc": "Your map reads a room ahead — entering a hall charts the next one too", "rarity": 1, "mods": {}},
 	"steady_rope": {"name": "Steady Rope", "chip": "SR", "desc": "Plant your feet — hold still a breath and your arm swings +8% harder", "rarity": 1, "mods": {}},
+	"dead_knot": {"name": "Dead Man's Knot", "chip": "DK", "desc": "A sailor's last tie — every 8th kill each floor pays +1 soul", "rarity": 1, "mods": {}},
 	"brine_rat": {"name": "Brine Rat", "chip": "BR", "desc": "The smallest crewmember — curses on you drain a third faster", "rarity": 1, "mods": {}},
 	"barbed_line": {"name": "Barbed Line", "chip": "BL", "desc": "Your REACH bites quicker — the Harpoon drags foes every second strike", "rarity": 1, "mods": {}},
 	# ---- fallback berulang ----

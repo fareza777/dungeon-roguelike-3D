@@ -240,6 +240,7 @@ var moonpool_run := 0
 var shellshield_used := false
 var tithe_armor := 0.0
 var tide_kills := 0
+var floor_kills := 0
 var reliquary_wisps := 0
 var omen_refusals := 0
 var bargainer := false
@@ -866,6 +867,7 @@ func _reset_run_state() -> void:
 		Stats.buff_speed_pct -= 0.08
 		_pilot_on = false
 	tide_kills = 0
+	floor_kills = 0
 	reliquary_wisps = 0
 	flawless_run = 0
 	well_rolls = 0
@@ -2350,6 +2352,7 @@ func _on_enemy_died(e) -> void:
 			_spawn_wisp_at(e.global_position + woff)
 	Sfx.play("death")
 	kills_run += 1
+	floor_kills += 1
 	Stats.arch_kills[String(e.arch_id)] = int(Stats.arch_kills.get(String(e.arch_id), 0)) + 1
 	if kills_run == 1:
 		# FIRST BLOOD — kill pertama tiap run langsung menghangatkan kombo
@@ -2373,6 +2376,10 @@ func _on_enemy_died(e) -> void:
 	if dread_tide and not e.is_boss:
 		Stats.earn_souls(1)
 		_souls_l()
+	if Stats.relics.has("dead_knot") and floor_kills % 8 == 0:
+		Stats.earn_souls(1)
+		_souls_l()
+		_damage_number(e.global_position + Vector3(0, 0.8 * info.tile, 0), "KNOT +1", Color(0.9, 0.7, 0.3), false)
 	if String(e.arch_id) == "drowned":
 		Stats.earn_souls(1)
 		_souls_l()
