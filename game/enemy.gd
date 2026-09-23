@@ -786,6 +786,9 @@ func _physics_process(delta: float) -> void:
 									p.set("weak_t", 3.0)
 								if affix == "drowning" and q == p:
 									p.set("chill_t", 2.0)
+								var mb_ := get_tree().current_scene
+								if mb_ != null and bool(mb_.get("bile_tide")) and q == p:
+									p.set("venom_t", 1.5)
 								if is_widow and q == p:
 									p.set("root_t", 2.0)
 									var mw := get_tree().current_scene
