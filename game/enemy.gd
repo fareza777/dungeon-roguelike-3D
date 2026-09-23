@@ -67,6 +67,7 @@ var tither := false
 var digger := false
 var keelh := false
 var siren := false
+var _siren_pulled := false
 var digger_dug := false
 var pack_bounty := false
 var orator_t := 3.0
@@ -107,6 +108,18 @@ var _burn_acc := 0.0
 func stun(t: float) -> void:
 	if state == "dead" or affix == "adamant":
 		return
+	if affix == "sirensong" and not _siren_pulled and hp <= hp_max * 0.4:
+		_siren_pulled = true
+		var p5 := _player()
+		if p5 != null and p5.get("dead") != true:
+			var pd2: Vector3 = global_position - p5.global_position
+			pd2.y = 0
+			if pd2.length() > 0.9 * room_tile:
+				p5.global_position += pd2.normalized() * 1.2 * room_tile
+			p5.velocity += pd2.normalized() * room_tile * 5.0
+			var mu2 := get_tree().current_scene
+			if mu2 != null and mu2.has_method("_damage_number"):
+				mu2._damage_number(p5.global_position + Vector3(0, 0.8 * room_tile, 0), "ENCHANTED", Color(0.7, 0.5, 1.15), false)
 	stun_t = maxf(stun_t, t)
 	state = "recover"
 	state_t = maxf(state_t, t)
@@ -169,7 +182,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn"][randi() % 21]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong"][randi() % 22]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -233,6 +246,9 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				# elite ini tak terlihat sampai jarak dekat — seperti dweller
 				is_lurker = true
 				xp_val = int(xp_val * 1.3)
+			"sirensong":
+				# bernyanyi: pada 40% HP menarik pemain ke mulutnya sekali
+				xp_val = int(xp_val * 1.2)
 	scale = Vector3.ONE * sc
 	_base_scale = scale
 	hp_max = hp
