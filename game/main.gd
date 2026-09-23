@@ -2452,6 +2452,9 @@ func _on_leveled_up(lv: int) -> void:
 	for id in SK.ORDER:
 		if int(SK.DB[id]["unlock"]) == lv:
 			toast("Skill unlocked: %s!" % SK.DB[id]["name"])
+	if squire_ref != null and is_instance_valid(squire_ref):
+		squire_ref.dmg = maxf(1.0, Stats.get_stat("atk") * 0.35)
+		_souls(squire_ref.global_position, 4, Color(0.9, 0.85, 0.5))
 	pending_drafts += 1
 	_try_open_draft()
 
