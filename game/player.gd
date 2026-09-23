@@ -315,6 +315,25 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						f.take_hit(global_position, dmg * 0.4)
 					if mw.has_method("_damage_number"):
 						mw._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "SAWED", Color(1.0, 0.7, 0.3), false)
+		"saltpeter": # SPARK — tiap tebasan ke-4 melontarkan tembakan bubuk ke musuh terdekat kedua
+			var msp := get_tree().current_scene
+			if msp != null:
+				msp.set("net_n", int(msp.get("net_n")) + 1)
+				if int(msp.get("net_n")) >= 4:
+					msp.set("net_n", 0)
+					var best_sp = null
+					var bd_sp := 999.0
+					for f2 in get_tree().get_nodes_in_group("enemies"):
+						if f2 == f or f2.get("state") == "dead" or not bool(f2.get("activated")):
+							continue
+						var dd2: float = f2.global_position.distance_to(global_position)
+						if dd2 < bd_sp and dd2 < 2.5 * room_tile:
+							bd_sp = dd2
+							best_sp = f2
+					if best_sp != null and best_sp.has_method("take_hit"):
+						best_sp.take_hit(global_position, dmg * 0.8)
+						if msp.has_method("_damage_number"):
+							msp._damage_number(best_sp.global_position + Vector3(0, 0.7 * room_tile, 0), "POWDER!", Color(0.9, 0.7, 0.4), false)
 		"silkfang": # SNARE — tiap tebasan ke-4 mengikat target: slow 1.5s
 			var msf := get_tree().current_scene
 			if msf != null:
