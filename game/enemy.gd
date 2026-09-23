@@ -653,6 +653,8 @@ func _physics_process(delta: float) -> void:
 											mkh._souls_l()
 										if mkh != null and mkh.has_method("_damage_number"):
 											mkh._damage_number(q.global_position + Vector3(0, 0.9 * room_tile, 0), "SNATCHED — -1 soul", Color(0.4, 0.9, 0.95), false)
+										if mkh != null and mkh.has_method("_quest_event"):
+											mkh._quest_event("snatched")
 								if tither and q == p:
 									var mt2 := get_tree().current_scene
 									var stol := mini(2, Stats.souls)
