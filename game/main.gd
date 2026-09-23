@@ -3187,7 +3187,7 @@ func _on_enemy_died(e) -> void:
 		_quest_event("husk_kill")
 	if bool(e.get("brood")):
 		for bi_ in range(2):
-			var mpos := e.global_position + Vector3((rng.randf() - 0.5) * info.tile, 0, (rng.randf() - 0.5) * info.tile)
+			var mpos: Vector3 = e.global_position + Vector3((rng.randf() - 0.5) * info.tile, 0, (rng.randf() - 0.5) * info.tile)
 			_spawn_enemy({"pos": mpos, "room": int(e.get("room_idx"))}, "moth", false)
 		_damage_number(e.global_position + Vector3(0, 0.8 * info.tile, 0), "BROOD SPILLS!", Color(0.5, 0.9, 0.5), true)
 	if e.arch_id == "deck_brood":
