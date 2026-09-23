@@ -1871,7 +1871,14 @@ func _on_shrine_invoked(s) -> void:
 
 func _floor_intro_lines(boss_floor: bool) -> void:
 	var lines: Array = []
-	if Stats.floor_num == 1:
+	if Stats.floor_num == 1 and Stats.ng_plus > 0:
+		lines = [
+			{"who": "oracle", "text": "Kael — you came back. The torches were barely lit when you turned around."},
+			{"who": "kael", "text": "I saw it blink, Oracle. The dark is deeper than one crown."},
+			{"who": "mahzan", "text": "My best customer returns! The bones are sharper this time, friend — spend your blessings wisely."},
+			{"who": "oracle", "text": "NG+%d — the depths remember you, and they are angrier." % Stats.ng_plus},
+		]
+	elif Stats.floor_num == 1:
 		lines = [
 			{"who": "oracle", "text": "Kael... you're awake. These depths belong to the Bone King now."},
 			{"who": "kael", "text": "I didn't come down here to die, Oracle. Show me the way."},
@@ -1908,6 +1915,12 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 		lines = [
 			{"who": "oracle", "text": "Even I don't know what waits below the twenty-fifth. No soul has returned to tell it."},
 			{"who": "kael", "text": "Then I'll be the first to come back and tell you."},
+		]
+	elif Stats.floor_num == 24:
+		lines = [
+			{"who": "oracle", "text": "One floor below waits the throne beneath all thrones. He knows you're coming, Kael."},
+			{"who": "kael", "text": "Tell him to keep the crown warm."},
+			{"who": "mahzan", "text": "Twenty-four floors of carnage. Even I feel... almost... sentimental."},
 		]
 	elif not _biomes_seen.get(String(biome.get("name", "")), false):
 		_biomes_seen[String(biome.get("name", ""))] = true
