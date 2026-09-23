@@ -3183,10 +3183,24 @@ func _on_mirror_invoked(s) -> void:
 	var wname := String(WDB.get_w(Stats.weapon_id)["name"])
 	_say([{"who": "oracle", "text": "The mirror shows not your face, Kael — but another warrior's blade. Feed it and it will trade yours."}],
 		[{"text": "Gaze — pay 4 souls: swap %s for a stranger's blade" % wname},
-		{"text": "Look away"}])
+		{"text": "Look away"},
+		{"text": "Smash it — +8 souls, but the mirror's shards wake three horrors"}])
 
 
 func _mirror_deal(idx: int) -> void:
+	if idx == 2:
+		Stats.souls += 8
+		_souls_l()
+		Stats.save_game()
+		Sfx.play("chest")
+		toast("MIRROR SHATTERED — +8 souls")
+		var table3: Array = biome["enemies"]
+		for mk3 in range(3):
+			var off3 := Vector3((mk3 - 1) * 0.9 * info.tile, 0, -0.4 * info.tile)
+			_spawn_enemy({"pos": shrine_ref.global_position + off3, "room": current_room}, String(table3[rng.randi_range(0, table3.size() - 1)]), mk3 == 0)
+		if player != null and is_instance_valid(player):
+			_burst(player.global_position + Vector3(0, 0.5, 0), Color(0.6, 0.75, 1.0))
+		return
 	if idx != 0:
 		return
 	if Stats.souls < 4:
