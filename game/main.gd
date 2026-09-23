@@ -4853,6 +4853,9 @@ func _on_dlg_choice(idx: int) -> void:
 		34:
 			crew_oath = true
 			toast("Crew's Oath: your squire fights like a boatswain — +50% bite")
+		35:
+			Stats.buff_lifesteal += 0.08
+			toast("Leech Line: the dead bleed for you — +8% lifesteal this run")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -6779,6 +6782,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Spirit Share — +10% souls from every source this run"},
 			{"text": "Deep Water — +10% XP from every source this run"},
 			{"text": "Crew's Oath — your squire bites +50% harder this run"},
+			{"text": "Leech Line — strikes drink deep: +8% lifesteal this run"},
 		]
 	)
 
