@@ -2058,6 +2058,10 @@ func _on_enemy_died(e) -> void:
 		_on_boss_died(e)
 	if e.elite and (bool(e.get("champion")) or rng.randf() < 0.6):
 		spawn_weapon_drop(e.global_position, WDB.roll_drop(rng, Stats.weapon_id))
+	if bool(e.get("champion")):
+		Stats.souls += 2
+		_souls_l()
+		_damage_number(e.global_position + Vector3(0, 1.0 * info.tile, 0), "CHAMPION FELLED — +2 souls", Color(0.95, 0.8, 0.3), true)
 	elif e.arch_id == "brute" and rng.randf() < 0.25:
 		spawn_weapon_drop(e.global_position, WDB.roll_drop(rng, Stats.weapon_id))
 	elif e.arch_id == "gaoler" and Stats.weapon_id != "gaoler_brand" and rng.randf() < 0.35:
