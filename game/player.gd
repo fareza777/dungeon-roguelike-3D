@@ -15,6 +15,7 @@ signal revived
 var speed := 6.0
 var chill_t := 0.0
 var salvage_n := 0
+var ambushed_ids := {}
 var root_t := 0.0 # Gaoler: terjerat, tak bisa bergerak (dash masih bisa kabur)
 var silence_t := 0.0 # Hex Priest: skill terkunci sementara
 var hp := 5.0
@@ -344,6 +345,13 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 				var kn: Variant = m18.get("knight_ref")
 				if (al != null and is_instance_valid(al)) or (kn != null and is_instance_valid(kn)):
 					f.take_hit(global_position, dmg * 0.2)
+		"snapdragon": # AMBUSH — gigitan pertama pada setiap musuh
+			if not ambushed_ids.has(f.get_instance_id()):
+				ambushed_ids[f.get_instance_id()] = true
+				f.take_hit(global_position, dmg * 0.5)
+				var m24 := get_tree().current_scene
+				if m24 != null and m24.has_method("_damage_number"):
+					m24._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "AMBUSHED", Color(0.5, 1.0, 0.7), false)
 		"pearlrazor": # SALVAGE — tiap tebasan ke-4 membayar jiwa
 			salvage_n += 1
 			if salvage_n >= 4:
