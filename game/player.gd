@@ -397,6 +397,8 @@ func _perfect_dodge(from_pos: Vector3) -> void:
 		if m.has_method("_damage_number"):
 			m._damage_number(global_position, "PERFECT!", Color(0.6, 1.0, 0.95), true)
 		m.set("trauma", 0.45)
+		if m.has_method("_pdodged"):
+			m._pdodged()
 	Engine.time_scale = 0.3
 	get_tree().create_timer(0.14, true, false, true).timeout.connect(func() -> void: Engine.time_scale = 1.0)
 	Sfx.play("dash")

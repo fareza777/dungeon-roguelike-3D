@@ -103,6 +103,7 @@ var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
 var trap_wrapped := 0
+var perfect_dodges := 0
 var golden_fate := false
 var _warned := {}
 var champ_room := -1 # sarang sang juara: elite terjamin + drop lebih baik
@@ -3149,6 +3150,13 @@ func _forge_cost(n: int) -> int:
 	if Stats.relics.has("soulsmith"):
 		disc += 2
 	return maxi(1, n - disc)
+
+
+func _pdodged() -> void:
+	perfect_dodges += 1
+	if perfect_dodges == 3:
+		_ach("untouchable")
+		_lvl_banner("◈ UNTOUCHABLE — three perfect dodges")
 
 
 func _omen_deal(idx: int) -> void:
