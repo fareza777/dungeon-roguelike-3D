@@ -273,6 +273,15 @@ func _weapon_proc(f: Node3D, dmg: float, crit: bool) -> void:
 						f.global_position += hdir.normalized() * (hdist - 0.9 * room_tile)
 						if mh.has_method("_damage_number"):
 							mh._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "REACHED", Color(0.5, 0.8, 1.0), false)
+		"whelk_maul": # BREACH — tiap tebasan ke-5 menembus: +60% damage
+			var mw := get_tree().current_scene
+			if mw != null:
+				mw.set("net_n", int(mw.get("net_n")) + 1)
+				if int(mw.get("net_n")) >= 5:
+					mw.set("net_n", 0)
+					f.take_hit(global_position, dmg * 0.6)
+					if mw.has_method("_damage_number"):
+						mw._damage_number(f.global_position + Vector3(0, 0.6 * room_tile, 0), "BREACH", Color(0.6, 0.5, 1.0), true)
 		"guthook": # BLEED — tiap tebasan ke-5 merobek: pulihkan 5% Max HP
 			var mg := get_tree().current_scene
 			if mg != null:
