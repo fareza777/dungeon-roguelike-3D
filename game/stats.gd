@@ -182,6 +182,7 @@ const ACH_DEF := {
 	"tideprovides": "The Tide Provides (took an Undertow Cache)",
 	"shoalwalker": "Shoalwalker (cleared a floor in Low Water)",
 	"knotmaster": "Knotmaster (8 Dead Man's Knot payouts in a run)",
+	"kilnbreaker": {"name": "Kiln Breaker", "desc": "Smashed 25 urns in one run"},
 	"choralist": {"name": "Choralist", "desc": "Joined the Siren's choir 4 times"},
 	"saltsown": {"name": "Salt-Sown", "desc": "Fell 10 Saltghasts"},
 	"ratlord": "Ratlord (slain 15 Mirelings)",

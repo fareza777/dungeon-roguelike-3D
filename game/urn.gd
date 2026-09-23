@@ -66,6 +66,10 @@ func smash(from_pos: Vector3) -> void:
 				m._quest_event("urn_floor")
 			if int(m.get("urns_run")) >= 10 and m.has_method("_ach"):
 				m._ach("potbellied")
+			if int(m.get("urns_run")) >= 25 and m.has_method("_ach"):
+				m._ach("kilnbreaker")
+			if m.has_method("_quest_event"):
+				m._quest_event("urnsmash")
 		if m.get("urn_count") != null:
 			m.set("urn_count", int(m.get("urn_count")) + 1)
 			if int(m.get("urn_count")) == 8 and m.has_method("_ach"):
