@@ -259,6 +259,7 @@ var wet_wool := false
 var ballast_beads := false
 var dowser_knot := false
 var crowns_vigil := false
+var deck_manifest := false
 var melody_ledger := false
 var pale_scrip := false
 var rat_ration := false
@@ -1582,7 +1583,7 @@ func _new_run(new_seed: int) -> void:
 	dead_weight = not choir and not dread_tide and not starved_deep and not abyssal_hymn and not dead_calm and not boss_floor and Stats.floor_num >= 14 and rng.randf() < 0.08
 	Stats.dead_weight = dead_weight
 	shell_game = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not umbral_tide and not abyssal_patience and not choir and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
-	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe", "tar_smear", "black_calm", "bilge_iron", "gun_smoke", "greedy_tide", "drift_wreck", "chorus_cut", "long_watch", "fog_lantern_d", "crowns_rest", "salted_deck", "pale_scrip", "rat_ration", "crows_tide", "powder_toll", "wet_wool", "melody_ledger", "long_night", "ballast_beads", "dowser_knot", "crowns_vigil", "halfway_dead"]:
+	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe", "tar_smear", "black_calm", "bilge_iron", "gun_smoke", "greedy_tide", "drift_wreck", "chorus_cut", "long_watch", "fog_lantern_d", "crowns_rest", "salted_deck", "pale_scrip", "rat_ration", "crows_tide", "powder_toll", "wet_wool", "melody_ledger", "long_night", "ballast_beads", "dowser_knot", "crowns_vigil", "halfway_dead", "deck_manifest"]:
 		if get(evf):
 			events_run[evf] = true
 			break
@@ -1596,6 +1597,8 @@ func _new_run(new_seed: int) -> void:
 	if powder_toll:
 		Stats.buff_atk_pct -= 0.15
 		powder_toll = false
+	if deck_manifest:
+		Stats.soul_gain_pct -= 0.15
 	if glass_sea:
 		Stats.buff_atk_pct += 0.10
 	if wolfsbane:
@@ -8356,11 +8359,12 @@ func _on_qm_invoked(s) -> void:
 		{"text": "Tar Smear — pay 4 souls: +1 Armor, the tar slows the dead −10% this floor"},
 		{"text": "Salt Pork — pay 3 souls: brined meat for the voyage — +15% Max HP this floor"},
 		{"text": "Whistle Code — pay 4 souls: the crew calls the maneuvers — −2s on every skill charge"},
+		{"text": "Deck Manifest — pay 3 souls: the crew logs every catch — +15% souls this floor"},
 		{"text": "Walk away"}])
 
 
 func _qm_deal(idx: int) -> void:
-	if idx == 11:
+	if idx == 12:
 		toast("The post shutters its stores")
 		return
 	if idx == 5:
@@ -8383,6 +8387,17 @@ func _qm_deal(idx: int) -> void:
 		_quest_event("qm")
 		Sfx.play("shrine")
 		toast("SPLICE BONUS — the next five kills pay a splice share")
+		return
+	if idx == 11:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the manifest isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		deck_manifest = true
+		Stats.soul_gain_pct += 0.15
+		Sfx.play("shrine")
+		toast("DECK MANIFEST — everything gets counted")
 		return
 	if idx == 10:
 		if Stats.souls < _soul_cost(4):
