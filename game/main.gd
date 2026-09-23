@@ -1527,6 +1527,8 @@ func _spawn_shrine(last_room: int) -> void:
 		skind = 1 # Mahzan selalu menjual sebelum takhta terakhir
 	elif Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.6:
 		skind = 11 # Drowned Altar — relikui tenggelam menjual kehendak laut
+	elif Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.25:
+		skind = 12 # Keelstone — batu sauh: kesepakatan pelaut tenggelam
 	elif Stats.floor_num >= 7 and Stats.floor_num % 7 == 0:
 		skind = 5 # lantai quest Bounty Hunter — batu kontrak terjamin
 	elif Stats.floor_num >= 10 and Stats.floor_num % 8 == 4:
@@ -1591,6 +1593,8 @@ func _spawn_shrine(last_room: int) -> void:
 			s.invoked.connect(_on_fountain_invoked)
 		11:
 			s.invoked.connect(_on_drowned_invoked)
+		12:
+			s.invoked.connect(_on_keel_invoked)
 		_:
 			s.invoked.connect(_on_shrine_invoked)
 
@@ -3950,6 +3954,10 @@ func _on_dlg_choice(idx: int) -> void:
 		dlg_pending_choice = -1
 		_drowned_deal(idx)
 		return
+	elif dlg_pending_choice == 15:
+		dlg_pending_choice = -1
+		_keel_deal(idx)
+		return
 	match idx:
 		0:
 			Stats.buff_atk_pct += 0.15
@@ -5146,6 +5154,58 @@ func _mahzan_deal(idx: int) -> void:
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(0.5, 0.7, 1.0))
 
 
+func _on_keel_invoked(s) -> void:
+	shrine_used = true
+	shrine_count += 1
+	if shrine_count >= 10:
+		_ach("pilgrim")
+	s.consume()
+	Sfx.play("shrine")
+	dlg_pending_choice = 15
+	_say([{"who": "mahzan", "text": "A Keelstone, buyer — sailors swore on these before the deep took them. The stone still honors the trade."}],
+		[{"text": "Drop Anchor — pay 4 souls: the floor's foes lose 15% speed"},
+		{"text": "Raise Sail — pay 4 souls: +10% speed for you this run"},
+		{"text": "Scuttle Loot — pay 3 souls: +25% XP this run"},
+		{"text": "Walk away"}])
+
+
+func _keel_deal(idx: int) -> void:
+	if idx == 3:
+		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 0:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the anchor isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		for f in get_tree().get_nodes_in_group("enemies"):
+			if f.get("state") != "dead" and not bool(f.get("is_boss")):
+				f.speed *= 0.85
+		Sfx.play("shrine")
+		toast("ANCHOR DROPPED — the dead drag their feet")
+	elif idx == 1:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the sail isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		Stats.buff_speed_pct += 0.1
+		if player != null and is_instance_valid(player):
+			player.refresh_stats()
+		Sfx.play("shrine")
+		toast("SAILS RAISED — swifter on the tide")
+	elif idx == 2:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the loot isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		Stats.buff_xp_pct += 0.25
+		Sfx.play("shrine")
+		toast("LOOT SCUTTLED — +25% XP this run")
+
+
 func _on_shrine_invoked(s) -> void:
 	shrine_used = true
 	shrine_count += 1
@@ -5462,7 +5522,7 @@ func _build_minimap() -> void:
 	# penanda altar (cyan), batu lore (ungu), dan tujuan akhir lantai (emas besar)
 	if shrine_ref != null and is_instance_valid(shrine_ref):
 		var sd := ColorRect.new()
-		sd.color = [Color(1.0, 0.8, 0.3), Color(0.45, 0.65, 1.0), Color(1.0, 0.2, 0.15), Color(1.0, 0.55, 0.15), Color(0.55, 0.75, 1.0), Color(1.0, 0.5, 0.1), Color(0.95, 0.85, 0.3), Color(0.4, 0.55, 1.0), Color(0.7, 0.95, 0.25), Color(0.85, 0.6, 0.3), Color(0.35, 0.95, 0.85), Color(0.4, 0.85, 1.0)][shrine_kind]
+		sd.color = [Color(1.0, 0.8, 0.3), Color(0.45, 0.65, 1.0), Color(1.0, 0.2, 0.15), Color(1.0, 0.55, 0.15), Color(0.55, 0.75, 1.0), Color(1.0, 0.5, 0.1), Color(0.95, 0.85, 0.3), Color(0.4, 0.55, 1.0), Color(0.7, 0.95, 0.25), Color(0.85, 0.6, 0.3), Color(0.35, 0.95, 0.85), Color(0.4, 0.85, 1.0), Color(0.5, 0.7, 1.05)][shrine_kind]
 		sd.size = Vector2(5, 5)
 		sd.position = _map_pos(shrine_ref.global_position, sc)
 		mv.add_child(sd)
