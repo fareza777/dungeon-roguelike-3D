@@ -152,6 +152,7 @@ var wolf_n := 0
 var omen_count := 0
 var wellread := false
 var tide_lends := false
+var tide_kills := 0
 var omen_refusals := 0
 var bargainer := false
 var bargain_used := false
@@ -648,6 +649,7 @@ func _reset_run_state() -> void:
 	gravetide = false
 	wellread = false
 	tide_lends = false
+	tide_kills = 0
 	flawless_run = 0
 	well_rolls = 0
 	if trial_atk_t > 0.0:
@@ -1912,6 +1914,9 @@ func _on_enemy_died(e) -> void:
 	if sunken_tide and not e.is_boss:
 		Stats.souls += 1
 		_souls_l()
+		tide_kills += 1
+		if tide_kills >= 20:
+			_ach("drowned20")
 	if wolf_omen and wolf_n < 20:
 		wolf_n += 1
 		Stats.buff_speed_pct += 0.01
