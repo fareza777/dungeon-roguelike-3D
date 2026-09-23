@@ -6375,6 +6375,8 @@ func _siren_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("CHORUS — every song in you starts fresh")
 	_quest_event("siren")
+	if int(quest_counts.get("siren", 0)) >= 4:
+		_ach("choralist")
 
 
 func _on_throne_invoked(s) -> void:
