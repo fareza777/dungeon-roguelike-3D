@@ -1798,6 +1798,9 @@ func _say(lines: Array, choices: Array = []) -> void:
 				break
 			dlg._advance()
 			await get_tree().process_frame
+		if dlg.active and dlg._choice_box.visible:
+			dlg.choose(0)
+			await get_tree().process_frame
 
 
 func _on_dlg_end() -> void:
@@ -1816,6 +1819,10 @@ func _on_dlg_choice(idx: int) -> void:
 	elif dlg_pending_choice == 2:
 		dlg_pending_choice = -1
 		_curse_deal(idx)
+		return
+	elif dlg_pending_choice == 3:
+		dlg_pending_choice = -1
+		_defiance_deal(idx)
 		return
 	match idx:
 		0:
@@ -1861,6 +1868,22 @@ func _on_curse_invoked(s) -> void:
 	_say([{"who": "oracle", "text": "A cursed obelisk... it hums with hungry promises, Kael."}],
 		[{"text": "Blood Pact — foes hit 30% harder, souls pay +50% XP"},
 		{"text": "Refuse — leave the whispering stone"}])
+
+
+func _defiance_deal(idx: int) -> void:
+	if idx != 0:
+		return
+	Stats.buff_atk_pct += 0.25
+	if boss_ref != null and is_instance_valid(boss_ref):
+		boss_ref.enraged = true
+		boss_ref.speed *= 1.4
+		boss_ref.windup_t *= 0.7
+		boss_ref.hp_max *= 1.15
+		boss_ref.hp = boss_ref.hp_max
+		if boss_ref.mat != null:
+			boss_ref.mat.set_shader_parameter("tint", Color(1.35, 0.35, 0.3))
+		toast("The King heard you — he is already FURIOUS (+25% ATK)")
+		_boss_enraged()
 
 
 func _curse_deal(idx: int) -> void:
@@ -2029,7 +2052,14 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 		lines = [{"who": "oracle", "text": tips[rng.randi_range(0, tips.size() - 1)]}]
 	if lines.is_empty():
 		return
-	_say(lines)
+	if boss_floor:
+		dlg_pending_choice = 3
+		_say(lines, [
+			{"text": "Defy the King — +25% ATK, but he rises ENRAGED"},
+			{"text": "Approach in silence — fight him on your terms"},
+		])
+	else:
+		_say(lines)
 
 
 # ---------------- minimap ----------------
