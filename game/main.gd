@@ -28,6 +28,7 @@ const LSTONE = preload("res://lore_stone.gd")
 const CAGE = preload("res://cage.gd")
 const URN = preload("res://urn.gd")
 const OBEL = preload("res://dread_obelisk.gd")
+const TOMB = preload("res://tombstone.gd")
 const DUNGEON := "res://assets/dungeon/"
 
 # baris lore dunia — bisikan Oracle saat menyentuh batu pengetahuan
@@ -171,6 +172,7 @@ const BESTIARY := {
 	"lurker": ["The Dweller", "It waits in the dark wearing invisibility — you will only ever see its lunge."],
 	"golem": ["The Bone Golem", "A wall of fused dead — its fists shake the floor itself."],
 	"maiden": ["The Wailing Maiden", "Kill her and her scream wakes every sleeper in the room."],
+	"revenant": ["The Revenant", "His tombstone must be shattered, or he rises again — once."],
 	"weeper": ["The Weeper", "A wailing priest who knits his flock's bones back together. Silence him first."],
 	"bone_king": ["The Kings", "One throne, many forms. Every five floors he waits."],
 }
@@ -184,7 +186,7 @@ const VANE_BIOME := {
 const KILLER_NAMES := {
 	"chaser": "a Skeleton Chaser", "rogue": "a Shadow Rogue", "mage": "a Bone Mage",
 	"brute": "a Bone Brute", "bomber": "a Boom Bones", "archer": "a Skeletal Archer",
-	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade", "hexer": "the Hex Priest", "spiker": "a Spiked Cadaver", "lurker": "the Dweller", "golem": "the Bone Golem", "maiden": "the Wailing Maiden",
+	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade", "hexer": "the Hex Priest", "spiker": "a Spiked Cadaver", "lurker": "the Dweller", "golem": "the Bone Golem", "maiden": "the Wailing Maiden", "revenant": "the Revenant",
 	"bone_king": "the King himself", "trap": "a hidden trap", "": "the dungeon itself"}
 const KILLER_TIPS := {
 	"chaser": "Tip: chasers are slow — kite them into a corner and cleave.",
@@ -204,6 +206,7 @@ const KILLER_TIPS := {
 	"lurker": "Tip: the Dweller only shows itself at arm's length — clear rooms edge-first.",
 	"golem": "Tip: the Bone Golem can't be staggered — never stand in front of its fists.",
 	"maiden": "Tip: kill the Wailing Maiden last — her death-scream wakes the whole room.",
+	"revenant": "Tip: the Revenant leaves a tombstone — smash it in three seconds or he rises.",
 	"bone_king": "Tip: his slams telegraph red — dash through the shockwave.",
 	"trap": "Tip: traps pulse on a rhythm — cross on the off-beat.",
 	"": "Tip: blessings, relics and Sir Vane can still turn a doomed run.",
@@ -725,6 +728,7 @@ const FIRST_SEEN := {
 	"lurker": "Something waits unseen in these rooms, Kael — walk their edges first.",
 	"golem": "A Bone Golem blocks the way — its slams swallow whole rooms.",
 	"maiden": "A pale mourner drifts ahead — kill her last, or her cry raises the room.",
+	"revenant": "A Revenant stands guard — shatter his tombstone before he climbs out.",
 }
 
 
@@ -1287,6 +1291,25 @@ func _spawn_wisp_at(pos: Vector3) -> void:
 	w.global_position = pos
 
 
+func _spawn_tomb(pos: Vector3, p_arch: String, p_room: int) -> void:
+	var tb := TOMB.new()
+	tb.setup(info.tile, p_arch, p_room)
+	room.add_child(tb)
+	tb.global_position = pos
+	tb.release.connect(_on_tomb_release)
+
+
+func _on_tomb_release(tb) -> void:
+	if not is_instance_valid(tb):
+		return
+	var e2: Enemy = _spawn_enemy({"pos": tb.global_position, "room": tb.room_i}, tb.arch, false)
+	if e2 != null:
+		e2.hp = e2.hp_max * 0.6
+		e2.activated = true
+		_damage_number(tb.global_position + Vector3(0, 0.8 * info.tile, 0), "RISEN!", Color(0.7, 0.4, 1.0), true)
+		Sfx.play("roar")
+
+
 func _spawn_vial(pos: Vector3) -> void:
 	var v = VIAL.new()
 	room.add_child(v)
@@ -1460,6 +1483,9 @@ func _on_enemy_died(e) -> void:
 		_quest_event("lurker_kill")
 	if e.arch_id == "maiden":
 		_quest_event("maiden_kill")
+	if e.arch_id == "revenant":
+		_quest_event("revenant_kill")
+		_spawn_tomb(e.global_position, "revenant", int(e.room_idx))
 	_combo_set(combo + 1)
 	# RAMPAGE: 3+ kill beruntun dalam 2.5 detik -> sorakan + banner
 	var now_s := Time.get_ticks_msec() / 1000.0
