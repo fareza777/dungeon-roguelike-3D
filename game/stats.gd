@@ -109,7 +109,7 @@ const ACH_DEF := {
 	"wisp8": "Soul Shepherd (caught 8 wandering wisps)",
 	"forge5": "Blade Saint (forged a weapon to +5)",
 	"mirror1": "Gazer (let the Mirror trade your blade)",
-	"forge3": "Master Smith (forged blades at 3 Soul Forges)",
+	"smith3": "Master Smith (forged blades at 3 Soul Forges)",
 }
 
 const META_DEF := {
