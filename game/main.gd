@@ -189,6 +189,7 @@ var omen_hp_mult := 1.0
 var omen_name := ""
 var fatehand := false
 var nemesis_bounty := false
+var candle_tax := false
 var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
@@ -1148,6 +1149,7 @@ func _reset_run_state() -> void:
 	omen_hp_mult = 1.0
 	fatehand = false
 	nemesis_bounty = false
+	candle_tax = false
 	combo_rate_bonus = 0.0
 	solitary = false
 	pawn_discount = false
@@ -6344,6 +6346,7 @@ func _offer_omens() -> void:
 			{"text": "THIN HULL — your planks run one plank short (−1 Armor)... but your edge sings (+15% ATK)"},
 			{"text": "COLD TOLL — the sea takes its warmth (−5% speed)... but the cold teaches (＋10% XP)"},
 			{"text": "OARLOCKS — iron rowlocks bite your hands (skills charge +1s)... but your ribs are stout (+1 Armor)"},
+			{"text": "CANDLE TAX — every seller trims a soul off the price (all deals −1 soul)... but your kills pay −20% souls"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -6351,6 +6354,8 @@ func _offer_omens() -> void:
 func _soul_cost(n: int) -> int:
 	var disc := 0
 	if pawn_discount:
+		disc += 1
+	if candle_tax:
 		disc += 1
 	if mahzan_met >= 4:
 		disc += 1
@@ -6392,7 +6397,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 68 if Stats.nemesis != "" else 67
+	var osize := 69 if Stats.nemesis != "" else 68
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -6677,6 +6682,10 @@ func _omen_deal(idx: int) -> void:
 			omen_cd_add = 1.0
 			oname = "OARLOCKS"
 		67:
+			candle_tax = true
+			Stats.soul_gain_pct -= 0.2
+			oname = "CANDLE TAX"
+		68:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -6749,6 +6758,7 @@ func _omen_deal(idx: int) -> void:
 		"THIN HULL": "Lose the plank, keep the edge — everything's a trade at sea.",
 		"COLD TOLL": "Cold fingers, sharp mind — you'll learn faster shivering.",
 		"OARLOCKS": "Sore hands, sound hull — nobody rows for free.",
+		"CANDLE TAX": "Every lantern takes its tithe — cheaper passage, dimmer pay."
 		"OLD SALT": "Lighter purse, heavier arm — the old hands swear by it.",
 		"SWORN HULL": "The hull thickens and the chase quickens — even trade.",
 		"SLIM PICKINGS": "The lean tide still pays, Kael — slower hands, heavier purse.",
