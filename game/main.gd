@@ -5119,7 +5119,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Bilge Wine — pay 3 souls: drink deep — 30% HP and a headful of XP"},
 			{"text": "Glass Compass — pay 5 souls: he shows you the whole floor, every room"},
 			{"text": "Sea Shanty — pay 4 souls: his song speeds your skills (+10% recharge this run)"},
-			{"text": "Keel Prayer — pay 4 souls: +12% ATK this run"},
+			{"text": "Deck Prayer — pay 4 souls: +12% ATK this run"},
 		]
 	)
 
@@ -6120,8 +6120,8 @@ func _mahzan_deal(idx: int) -> void:
 				Stats.buff_atk_pct += 0.12
 				if player != null:
 					player.refresh_stats()
-				Sfx.play("shrine")
-				toast("KEEL PRAYER — the keel itself leans into your swing")
+					Sfx.play("shrine")
+				toast("DECK PRAYER — the deck itself leans into your swing")
 
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
