@@ -305,6 +305,7 @@ var full_sails := false
 var long_oars := false
 var deep_draft := false
 var high_water := false
+var ballast_oath := false
 var final_verse := false
 var cradle_deep := false
 var undertow := false
@@ -6077,6 +6078,7 @@ func _offer_omens() -> void:
 			{"text": "LONG OARS — you row −10% slower... but the dead row −20% slower"},
 			{"text": "DEEP DRAFT — your hull sits −15% lower... but souls pay +25% more"},
 			{"text": "HIGH WATER — the dead stand +10% taller and hit +10%... but every lesson pays +30% XP"},
+			{"text": "BALLAST OATH — iron in your boots (−10% speed)... but stone in your ribs (+2 Armor)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -6125,7 +6127,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 64 if Stats.nemesis != "" else 63
+	var osize := 65 if Stats.nemesis != "" else 64
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -6390,6 +6392,18 @@ func _omen_deal(idx: int) -> void:
 			Stats.curse_xp += 0.3
 			oname = "HIGH WATER"
 		63:
+			ballast_oath = true
+			Stats.buff_speed_pct -= 0.1
+			Stats.buff_armor += 2
+			oname = "BALLAST OATH"
+		64:
+			nemesis_bounty = true
+			oname = "BLOOD DEBT"
+			omen_hp_mult += 0.1
+			Stats.curse_dmg += 0.1
+			Stats.curse_xp += 0.3
+			oname = "HIGH WATER"
+		63:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -6456,6 +6470,7 @@ func _omen_deal(idx: int) -> void:
 		"LONG OARS": "Slow and steady — the steady part is what the dead hate.",
 		"DEEP DRAFT": "Loaded low and heavy — wealth weighs more than wounds.",
 		"HIGH WATER": "The flood lifts every anchor — theirs and yours alike.",
+		"BALLAST OATH": "Heavy feet, steady hull — let them bounce off you.",
 		"OLD SALT": "Lighter purse, heavier arm — the old hands swear by it.",
 		"SWORN HULL": "The hull thickens and the chase quickens — even trade.",
 		"SLIM PICKINGS": "The lean tide still pays, Kael — slower hands, heavier purse.",
