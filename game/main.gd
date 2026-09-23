@@ -3583,10 +3583,29 @@ func _on_vault_invoked(s) -> void:
 	dlg_pending_choice = 9
 	_say([{"who": "oracle", "text": "A soul-sealed vault, Kael — the dungeon locks treasure behind the very coin it mints."}],
 		[{"text": "Unlock — pay 5 souls: a rare relic inside"},
+		{"text": "Crack the seal — free: either 10 souls spill out... or the vault's guards wake"},
 		{"text": "Leave it sealed"}])
 
 
 func _vault_deal(idx: int) -> void:
+	if idx == 1:
+		if rng.randf() < 0.5:
+			Stats.souls += 10
+			_souls_l()
+			Sfx.play("soul")
+			_souls(player.global_position, 10, Color(0.6, 0.85, 1.0))
+			toast("The seal cracks — +10 souls")
+		else:
+			Sfx.play("roar")
+			toast("THE VAULT WAKES — its guards rise!")
+			var table4: Array = biome["enemies"]
+			for va in range(3):
+				var vo := Vector3(cos(va * TAU / 3.0), 0, sin(va * TAU / 3.0)) * info.tile * 0.9
+				var ve := _spawn_enemy({"pos": shrine_ref.global_position + vo, "room": current_room}, String(table4[rng.randi_range(0, table4.size() - 1)]), va == 0)
+				if ve != null:
+					ve.activated = true
+		_quest_event("vault")
+		return
 	if idx != 0:
 		return
 	if Stats.souls < _soul_cost(5):
