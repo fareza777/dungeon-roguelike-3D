@@ -184,6 +184,7 @@ var moonwrit := false
 var barnacle_sense := false
 var salt_purse := false
 var sirensong_deal := false
+var salt_tithe := false
 var crown_oath := false
 var pinch_n := 0
 var abyss_n := 0
@@ -805,6 +806,7 @@ func _new_run(new_seed: int) -> void:
 	keelh_floor = 0
 	salt_purse = false
 	sirensong_deal = false
+	salt_tithe = false
 	pool_touched = false
 	shellshield_used = false
 	if rotgut_drunk:
@@ -5079,11 +5081,12 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Sea-Glass Ward — pay 5 souls: the floor's foes lose 15% HP"},
 		{"text": "Sea Legs — pay 6 souls: all skills recharge instantly"},
 		{"text": "Salt Purse — pay 3 souls: this floor's urns each spill +1 soul"},
+		{"text": "Salt Tithe — pay 2 souls: every urn this RUN spills +1 soul"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 5:
+	if idx == 6:
 		toast("The water settles back into the stone")
 		return
 	if idx == 2:
@@ -5117,6 +5120,15 @@ func _drowned_deal(idx: int) -> void:
 		salt_purse = true
 		Sfx.play("shrine")
 		toast("SALT PURSE — every urn this floor pays +1 soul")
+	elif idx == 5:
+		if Stats.souls < _soul_cost(2):
+			toast("Two souls — the tide tithes the poor too")
+		else:
+			Stats.souls -= _soul_cost(2)
+			_souls_l()
+			salt_tithe = true
+			Sfx.play("shrine")
+			toast("SALT TITHE — every urn this run spills +1 soul")
 	if idx == 0:
 		if Stats.souls < _soul_cost(4):
 			toast("Four souls — the tide won't lift an empty purse")
