@@ -7554,11 +7554,12 @@ func _on_throne_invoked(s) -> void:
 		{"text": "Pawn's Ransom — pay 5 souls: every debuff is lifted and +1 vial"},
 		{"text": "Sovereign's Toll — pay 4 souls: the crown underwrites your blade (+10% ATK this run)"},
 		{"text": "Knight's Vigil — pay 4 souls: +1 Armor this run"},
+		{"text": "Crown's Insight — pay 3 souls: the throne names this floor's omen"},
 		{"text": "Walk away"}])
 
 
 func _throne_deal(idx: int) -> void:
-	if idx == 9:
+	if idx == 10:
 		Stats.earn_souls(4)
 		_souls_l()
 		_quest_event("throne")
@@ -7674,6 +7675,18 @@ func _throne_deal(idx: int) -> void:
 		blood_drawn = true
 		Sfx.play("shrine")
 		toast("BLOOD DRAWN — +20% ATK until you descend")
+	if idx == 9:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the crown's eye isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		var evname := "CLEAR WATER — no omen stirs this floor"
+		for ename in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide"]:
+			if get(ename) == true:
+				evname = ename.replace("_", " ").to_upper()
+		Sfx.play("shrine")
+		toast("CROWN'S INSIGHT — the floor wears: " + evname)
 	_quest_event("throne")
 
 
