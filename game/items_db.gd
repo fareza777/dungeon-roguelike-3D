@@ -79,6 +79,7 @@ const DB := {
 	"bilge_rat": {"name": "Bilge Rat", "chip": "BR", "desc": "Every trap you disarm frees a wandering soul wisp", "rarity": 2, "mods": {}},
 	"ferry_token": {"name": "Ferry Token", "chip": "FT", "desc": "The Ferryman's six-soul toll is halved for token-holders", "rarity": 1, "mods": {}},
 	"float_suit": {"name": "Float Suit", "chip": "FS", "desc": "Venom and poison ticks bite at half strength", "rarity": 1, "mods": {}},
+	"signal_fire": {"name": "Signal Fire", "chip": "SF", "desc": "Casting Whirl lights the whole floor on your map", "rarity": 1, "mods": {}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }

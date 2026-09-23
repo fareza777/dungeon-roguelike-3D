@@ -3264,6 +3264,10 @@ func _cast_skill(id: String) -> void:
 			Sfx.play("dash")
 			_burst(player.global_position + Vector3(0, 0.4, 0), Color(0.5, 0.9, 1.0))
 		"whirl":
+			if Stats.relics.has("signal_fire"):
+				for ri_sig in range(info.ranges.size()):
+					discovered[ri_sig] = true
+				_update_minimap()
 			player.anim_lock = M.play_action(player.ap, ["spin", "1h_melee_attack"], 1.6)
 			Sfx.play("whirl")
 			_shock_ring(player.global_position)
