@@ -75,6 +75,7 @@ var draft_choices: Array = []
 var draft_rerolled := false
 var low_quality := false
 var blood_moon := false
+var soul_rush := false
 var _warned := {}
 var champ_room := -1 # sarang sang juara: elite terjamin + drop lebih baik
 var chest_opened := false
@@ -190,6 +191,7 @@ const TIPS := [
 	"SIPHON-tagged elites drain your whole combo on hit — kill them first.",
 	"When the moon turns red, the dead hunger — and drop more XP.",
 	"A chest that gleams brighter is gilded — relics hide inside.",
+	"When the mist turns violet, the dead weep gems — reap them while it lasts.",
 ]
 
 
@@ -355,6 +357,13 @@ func _apply_biome() -> void:
 		env.ambient_light_color = Color(0.5, 0.09, 0.11)
 		sun.light_color = Color(1.0, 0.32, 0.25)
 		sun.light_energy = 1.0
+	elif soul_rush:
+		env.background_color = Color(0.05, 0.03, 0.1)
+		env.fog_density = float(biome["fog_d"]) * 1.2
+		env.fog_light_color = Color(0.14, 0.08, 0.3)
+		env.ambient_light_color = Color(0.5, 0.3, 0.85)
+		sun.light_color = Color(0.75, 0.5, 1.0)
+		sun.light_energy = 1.0
 
 
 func _style_room() -> void:
@@ -401,6 +410,8 @@ func _new_run(new_seed: int) -> void:
 	var boss_floor: bool = QDB.is_boss_floor(Stats.floor_num)
 	# event langka: blood moon — langit merah, musuh lebih keras, XP lebih kaya
 	blood_moon = Stats.floor_num >= 3 and not boss_floor and rng.randf() < 0.07
+	# event langka #2: soul rush — kabut ungu, permata XP berlimpah, tithe jiwa saat clear
+	soul_rush = not blood_moon and Stats.floor_num >= 4 and not boss_floor and rng.randf() < 0.07
 	_apply_biome()
 	_style_room()
 	_build_gates()
@@ -477,6 +488,10 @@ func _new_run(new_seed: int) -> void:
 		_lvl_banner("☽ BLOOD MOON — THE DEAD HUNGER")
 		toast("Enemies +25% HP • +50% XP")
 		Sfx.play("roar")
+	elif soul_rush:
+		_lvl_banner("✦ SOUL RUSH — THE DEAD WEEP GEMS")
+		toast("XP gems +60% • +3 souls on clear")
+		Sfx.play("quest")
 	elif Stats.floor_num > 1:
 		_lvl_banner("FLOOR %d — %s" % [Stats.floor_num, String(biome["name"]).to_upper()])
 
@@ -1125,6 +1140,11 @@ func _on_enemy_died(e) -> void:
 				_souls_l()
 				Stats.save_game()
 				toast("☽ BLOOD MOON TITHE — +5 souls")
+			elif soul_rush:
+				Stats.souls += 3
+				_souls_l()
+				Stats.save_game()
+				toast("✦ SOUL RUSH TITHE — +3 souls")
 			Stats.note_floor()
 			Stats.save_run()
 			for gi in gates:
@@ -1146,6 +1166,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("elite_kill", 1)
 	# bonus XP dari kombo aktif: +5% per streak (maks +50%)
 	var xp_bonus := 1.0 + minf(float(combo), 10.0) * 0.05
+	if soul_rush:
+		xp_bonus *= 1.6
 	_spawn_gems(e.global_position, int(e.xp_val * xp_bonus))
 
 
@@ -3624,6 +3646,8 @@ func _refresh_buffs() -> void:
 	var list: Array = []
 	if blood_moon:
 		list.append(["☽ BLOOD MOON", Color(0.9, 0.15, 0.2)])
+	elif soul_rush:
+		list.append(["✦ SOUL RUSH", Color(0.7, 0.45, 1.0)])
 	if player.get("root_t") != null and player.root_t > 0.0:
 		list.append(["CAGED", Color(0.6, 0.4, 1.0)])
 	if combo >= 8:
