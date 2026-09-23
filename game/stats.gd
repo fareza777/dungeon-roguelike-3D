@@ -61,6 +61,7 @@ var curse_xp := 0.0 # pakta obelisk: jiwa lebih kaya (stack)
 # meta (tersimpan)
 var best_floor := 0
 var total_kills := 0
+var arch_kills: Dictionary = {} # kill total per arketipe — abadi
 var traps_defused := 0
 var wisps_caught := 0
 var prays := 0
@@ -425,6 +426,7 @@ func restore_run() -> bool:
 func wipe_progress() -> void:
 	best_floor = 0
 	total_kills = 0
+	arch_kills = {}
 	traps_defused = 0
 	wisps_caught = 0
 	prays = 0
@@ -452,7 +454,7 @@ func save_game() -> void:
 	var f := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if f != null:
 		f.store_string(JSON.stringify({
-			"best_floor": best_floor, "total_kills": total_kills, "runs": runs,
+			"best_floor": best_floor, "total_kills": total_kills, "runs": runs, "arch_kills": arch_kills,
 			"boss_kills": boss_kills, "ng_plus": ng_plus,
 			"traps_defused": traps_defused,
 	"wisps_caught": wisps_caught, "forges_used": forges_used, "prays": prays, "oaths_sworn": oaths_sworn,
@@ -479,6 +481,7 @@ func load_game() -> void:
 		if d is Dictionary:
 			best_floor = int(d.get("best_floor", 0))
 			total_kills = int(d.get("total_kills", 0))
+			arch_kills = d.get("arch_kills", {}) if d.get("arch_kills", {}) is Dictionary else {}
 			runs = int(d.get("runs", 0))
 			boss_kills = int(d.get("boss_kills", 0))
 			traps_defused = int(d.get("traps_defused", 0))

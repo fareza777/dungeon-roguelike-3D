@@ -1851,6 +1851,7 @@ func _on_enemy_died(e) -> void:
 			_spawn_wisp_at(e.global_position + woff)
 	Sfx.play("death")
 	kills_run += 1
+	Stats.arch_kills[String(e.arch_id)] = int(Stats.arch_kills.get(String(e.arch_id), 0)) + 1
 	if kills_run == 1:
 		# FIRST BLOOD — kill pertama tiap run langsung menghangatkan kombo
 		_combo_set(maxi(combo, 2 + int(Stats.meta.get("veteran", 0)) * 2))
