@@ -1041,6 +1041,10 @@ func _new_run(new_seed: int) -> void:
 	storm_t = 4.0
 	nemesis_spawned = false
 	_ferry_used = false
+	if Stats.relics.has("sea_biscuit") and vials == 0:
+		vials = 1
+		_vial_btn()
+		toast("SEA BISCUIT — the crumbed vial found its way back")
 	_apply_biome()
 	_style_room()
 	_build_gates()
