@@ -2574,6 +2574,9 @@ func _on_enemy_died(e) -> void:
 	_quest_event("kill_" + Stats.weapon_id)
 	if not events_run.is_empty():
 		_quest_event("eventkill")
+	if Stats.relics.has("wet_fuse") and Stats.event_soul_bonus > 0:
+		Stats.earn_souls(1)
+		_souls_l()
 	if wid == "moonshell":
 		_quest_event("moonkill")
 	if wid == "moonshell" and rng.randf() < 0.15:
