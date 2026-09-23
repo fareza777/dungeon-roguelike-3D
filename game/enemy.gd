@@ -63,6 +63,7 @@ var nemesis := false
 var is_lurker := false # arketipe penyergap: sembunyi sampai pemain mendekat
 var is_slammer := false
 var wailer := false
+var wisp_drop := false
 var revenant := false
 var shielded := false
 var herald := false
@@ -137,6 +138,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	is_lurker = bool(a.get("lurks", false))
 	is_slammer = bool(a.get("slams", false))
 	wailer = bool(a.get("wailer", false))
+	wisp_drop = bool(a.get("wisp_drop", false))
 	revenant = bool(a.get("revenant", false))
 	shielded = bool(a.get("shielded", false))
 	herald = bool(a.get("herald", false))
