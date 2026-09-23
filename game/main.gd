@@ -1972,10 +1972,10 @@ func _spawn_tidepools() -> void:
 	for tp_i in range(mini(4 + int(rng.randf() * 3), info.ranges.size())):
 		var tr2: Dictionary = info.ranges[tp_i]
 		var tpos := Vector3((tr2["x0"] + tr2["x1"]) * 0.5 * info.tile + randf_range(-0.6, 0.6) * info.tile, 0.015 * info.tile, (tr2["z0"] + tr2["z1"]) * 0.5 * info.tile + randf_range(-0.6, 0.6) * info.tile)
-		pool_positions.append({"pos": tpos, "r": tsz * 0.5})
 		var tm := MeshInstance3D.new()
 		var tpm := PlaneMesh.new()
 		var tsz: float = randf_range(0.5, 1.1) * info.tile
+		pool_positions.append({"pos": tpos, "r": tsz * 0.5})
 		tpm.size = Vector2(tsz, tsz * randf_range(0.6, 0.9))
 		var tmat := StandardMaterial3D.new()
 		tmat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
