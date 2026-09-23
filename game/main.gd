@@ -102,6 +102,7 @@ var nemesis_bounty := false
 var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
+var trap_wrapped := 0
 var _warned := {}
 var champ_room := -1 # sarang sang juara: elite terjamin + drop lebih baik
 var ambush_room := -1 # ruangan "kosong" yang ternyata penyergapan
@@ -3073,6 +3074,9 @@ func _on_dlg_choice(idx: int) -> void:
 		11:
 			combo_rate_bonus = 0.4
 			toast("Tempo's Grace: combos linger 40% longer")
+		12:
+			trap_wrapped += 1
+			toast("Bone Wrap: first trap hit is nothing")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
@@ -3590,6 +3594,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Tempest Blessing — +20% Skill Recharge this run"},
 			{"text": "Grave Tithe — +1 soul per kill this run"},
 			{"text": "Tempo's Grace — combos linger 40% longer this run"},
+			{"text": "Bone Wrap — the first trap hit each floor does nothing"},
 		]
 	)
 

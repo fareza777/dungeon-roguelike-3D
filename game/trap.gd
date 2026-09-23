@@ -159,7 +159,13 @@ func _physics_process(delta: float) -> void:
 							p.set("chill_t", 2.0)
 						elif kind == 3:
 							p.set("root_t", 1.0)
-						p.take_hit(global_position, 1)
+						var mw := get_tree().current_scene
+						if mw != null and int(mw.get("trap_wrapped") or 0) > 0:
+							mw.set("trap_wrapped", int(mw.get("trap_wrapped")) - 1)
+							if mw.has_method("_damage_number"):
+								mw._damage_number(p.global_position + Vector3(0, 0.7 * tile, 0), "WRAPPED", Color(0.7, 0.8, 1.0), true)
+						else:
+							p.take_hit(global_position, 1)
 
 	# sentuh jebakan saat fase tidur untuk melucutinya (kecuali lentera)
 	if not up and armed and kind != 4:
@@ -202,7 +208,13 @@ func _physics_process(delta: float) -> void:
 				var d3: Vector3 = p3.global_position - bn.global_position
 				d3.y = 0
 				if d3.length() < 0.2 * tile:
-					p3.take_hit(global_position, 1)
+					var mw2 := get_tree().current_scene
+					if mw2 != null and int(mw2.get("trap_wrapped") or 0) > 0:
+						mw2.set("trap_wrapped", int(mw2.get("trap_wrapped")) - 1)
+						if mw2.has_method("_damage_number"):
+							mw2._damage_number(p3.global_position + Vector3(0, 0.7 * tile, 0), "WRAPPED", Color(0.7, 0.8, 1.0), true)
+					else:
+						p3.take_hit(global_position, 1)
 					bn.queue_free()
 					bolts.remove_at(i)
 
