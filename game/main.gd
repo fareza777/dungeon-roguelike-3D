@@ -238,6 +238,7 @@ var crew_oath := false
 var lantern_oil := false
 var bloodwarm := false
 var salt_shear := false
+var song_rust := false
 var deadweight := false
 var undertow_grip := false
 var lookout := false
@@ -1813,6 +1814,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.speed *= 1.08
 	if shoal_tide:
 		e.speed *= 0.92
+	if song_rust:
+		e.speed *= 0.9
 	if Stats.relics.has("brine_whistle"):
 		e.slow_t = 2.5
 	if long_wake:
@@ -6749,16 +6752,27 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Lullaby for Kael — pay 4 souls: mend 35% HP"},
 		{"text": "Chorus Line — pay 3 souls: reset every skill cooldown"},
 		{"text": "Shanty of Depths — pay 4 souls: +15% XP this run"},
+		{"text": "Song of Rust — pay 3 souls: this floor's foes wade -10% speed"},
 		{"text": "Walk away"}])
 
 
 func _siren_deal(idx: int) -> void:
-	if idx == 5:
+	if idx == 6:
 		Stats.earn_souls(2)
 		_souls_l()
 		_quest_event("siren")
 		Sfx.play("soul")
 		toast("UNSUNG — you walk, and the conch pays +2 souls for your silence")
+		return
+	if idx == 5:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the rust song isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		song_rust = true
+		Sfx.play("shrine")
+		toast("SONG OF RUST — the floor's dead drag their feet")
 		return
 	if idx == 4:
 		if Stats.souls < _soul_cost(4):
