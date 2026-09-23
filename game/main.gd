@@ -599,6 +599,7 @@ func _new_run(new_seed: int) -> void:
 	# event langka #4: echoing halls — lorong bergema, skill recharge 25% lebih cepat
 	echoing = not blood_moon and not soul_rush and not fading_light and Stats.floor_num >= 5 and not boss_floor and rng.randf() < 0.06
 	storm_cellar = not blood_moon and not soul_rush and not fading_light and not echoing and Stats.floor_num >= 10 and not boss_floor and rng.randf() < 0.05
+	Stats.event_soul_bonus = 0
 	# event langka #6: gilded tides — timbunan muncul ke permukaan (lantai 12+): peti gilded + jiwa +1/kill
 	gilded_tides = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and Stats.floor_num >= 12 and not boss_floor and rng.randf() < 0.05
 	if gilded_tides:
