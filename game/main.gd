@@ -2735,6 +2735,7 @@ func _on_enemy_died(e) -> void:
 			Stats.save_run()
 			for gi in gates:
 				gates[gi].set_open(true)
+				_quest_event("gate_open")
 			if tut_active and tut_step >= 2:
 				tut_active = false
 				Stats.tutorial_done = true
