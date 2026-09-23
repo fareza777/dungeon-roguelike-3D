@@ -2984,6 +2984,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Curse Eater — pay 8 souls to shed one Blood Pact"},
 			{"text": "Kismet Thread — pay 8 souls: +1 reroll on every draft"},
 			{"text": "Pale Pawn — pay 6 souls: +30% XP this run"},
+			{"text": "Bone Lottery — pay 5 souls: a random blade from the hoard"},
 		]
 	)
 
@@ -3191,6 +3192,24 @@ func _mahzan_deal(idx: int) -> void:
 				_souls_l()
 				Stats.buff_xp_pct += 0.3
 				toast("Pale Pawn — +30% XP this run")
+		9:
+			if Stats.souls < 5:
+				toast("Not enough souls (need 5)")
+			else:
+				var opts: Array = []
+				for wid in WDB.POOL:
+					if wid != Stats.weapon_id:
+						opts.append(wid)
+				if opts.is_empty():
+					toast("Mahzan has no blade worth your souls")
+				else:
+					Stats.souls -= 5
+					_souls_l()
+					var nid: String = String(opts[rng.randi() % opts.size()])
+					player.equip_weapon(nid)
+					Stats.save_game()
+					Sfx.play("levelup")
+					toast("Bone Lottery pays out — %s" % String(WDB.get_w(nid)["name"]))
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
 		player.refresh_stats()
