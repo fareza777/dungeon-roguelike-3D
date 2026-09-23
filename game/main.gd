@@ -202,6 +202,7 @@ var events_run := {}
 var riptide_n := 0
 var steps_done_run := 0
 var urns_run := 0
+var still_t := 0.0
 var shellshield_used := false
 var tithe_armor := 0.0
 var tide_kills := 0
@@ -4056,7 +4057,8 @@ func _quest_event(kind: String, num: int = 1) -> void:
 		_souls_l()
 		toast("QUEST STEP DONE — +2 souls")
 		steps_done_run += 1
-		var cap_n := int(Stats.meta.get("captain", 0))
+		still_t = still_t + 0.1 if player.move_input == Vector2.ZERO else 0.0
+	var cap_n := int(Stats.meta.get("captain", 0))
 		if cap_n > 0:
 			Stats.earn_souls(cap_n)
 			_souls_l()

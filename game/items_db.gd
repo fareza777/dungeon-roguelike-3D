@@ -75,6 +75,7 @@ const DB := {
 	"choir_hush": {"name": "Choir's Hush", "chip": "CH", "desc": "Silencing a siren stuns every other foe for 1s", "rarity": 2, "mods": {}},
 	"keel_mark": {"name": "Keel Mark", "chip": "KM", "desc": "Foes you keelhaul are marked — each marked kill pays +1 soul", "rarity": 1, "mods": {}},
 	"grave_rose": {"name": "Grave Rose", "chip": "GR", "desc": "Your first blow on every foe is always a crit", "rarity": 2, "mods": {}},
+	"shellback": {"name": "Shellback", "chip": "SB", "desc": "Standing still for a heartbeat hardens you — 30% less damage taken", "rarity": 1, "mods": {}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }

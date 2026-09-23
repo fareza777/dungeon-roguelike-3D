@@ -472,6 +472,9 @@ func take_hit(from_pos: Vector3, dmg_taken: int) -> void:
 		if dash_t > 0.0:
 			_perfect_dodge(from_pos)
 		return
+	var mv9 := get_tree().current_scene
+	if mv9 != null and Stats.relics.has("shellback") and float(mv9.get("still_t")) >= 1.0:
+		dmg_taken = int(ceil(dmg_taken * 0.7))
 	# berkat Bone Veil: pukulan pertama tiap lantai ditolak
 	var mv := get_tree().current_scene
 	if mv != null and bool(mv.get("bone_veil")) and not bool(mv.get("veil_used")):
