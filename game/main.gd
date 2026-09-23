@@ -6260,7 +6260,7 @@ func _on_siren_invoked(sh) -> void:
 	Sfx.play("shrine")
 	dlg_pending_choice = 18
 	_say([{"who": "mahzan", "text": "A Siren's Conch — put it to your ear and the sea sings back. Her songs all cost souls; the sea keeps accounts."}],
-		[{"text": "Sea Chant — pay 5 souls: +12% Speed and +12% Attack Speed this run"},
+		[{"text": "Sea Chant — pay 5 souls: +12% Speed and +10% ATK this run"},
 		{"text": "Dirge of the Drowned — pay 4 souls: +1 Armor, but your HP bleeds 15% now"},
 		{"text": "Lullaby for Kael — pay 4 souls: mend 35% HP"},
 		{"text": "Chorus Line — pay 3 souls: reset every skill cooldown"},
@@ -6283,7 +6283,7 @@ func _siren_deal(idx: int) -> void:
 		Stats.souls -= c0
 		_souls_l()
 		Stats.buff_speed_pct += 0.12
-		Stats.buff_atk_speed_pct += 0.12
+		Stats.buff_atk_pct += 0.1
 		if player != null:
 			player.refresh_stats()
 		Sfx.play("shrine")
