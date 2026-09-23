@@ -194,6 +194,7 @@ var vessel := false
 var skeleton_crew := false
 var rolling_fog := false
 var deep_pockets_oath := false
+var oarsworn := false
 var umbral_tide := false
 var moonwrit := false
 var barnacle_sense := false
@@ -826,6 +827,7 @@ func _reset_run_state() -> void:
 	skeleton_crew = false
 	rolling_fog = false
 	deep_pockets_oath = false
+	oarsworn = false
 	umbral_tide = false
 	moonwrit = false
 	barnacle_sense = false
@@ -3669,7 +3671,7 @@ func _cast_skill(id: String) -> void:
 	_quest_event("skill_" + id)
 	if skills_floor.size() >= 3:
 		_quest_event("witching")
-	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0) * (0.6 if id == "dash" and umbral_tide else 1.0)
+	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0) * (0.6 if id == "dash" and umbral_tide else 1.0) * (0.75 if oarsworn else 1.0)
 
 
 func _heavy_attack() -> void:
@@ -4539,6 +4541,7 @@ func _offer_omens() -> void:
 			{"text": "SKELETON CREW — one fewer foe in every room... but the survivors are twice as likely to be elite"},
 			{"text": "ROLLING FOG — the dead rise dazed for 3 heartbeats... but +8% hardier"},
 			{"text": "DEEP POCKETS — every bargain costs a fifth less... but the dead grow +12% harder"},
+			{"text": "OARSWORN — your skills recharge a quarter faster... but the dead grow +10% harder"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -4575,7 +4578,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 40 if Stats.nemesis != "" else 39
+	var osize := 41 if Stats.nemesis != "" else 40
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -4744,6 +4747,10 @@ func _omen_deal(idx: int) -> void:
 			omen_hp_mult += 0.12
 			oname = "DEEP POCKETS"
 		39:
+			oarsworn = true
+			omen_hp_mult += 0.1
+			oname = "OARSWORN"
+		40:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -4808,6 +4815,7 @@ func _omen_deal(idx: int) -> void:
 		"SKELETON CREW": "A short crew on a long grave, Kael — the few who remain will wear crowns.",
 		"ROLLING FOG": "The fog buys you three breaths, Kael — spend them cutting.",
 		"DEEP POCKETS": "Deep pockets for a shallow grave, Kael — haggle while you can.",
+		"OARSWORN": "Pull, pull — the tide does the rowing for those who swear.",
 	}
 	var rline: String = String(reacts.get(oname, "An oath is an oath."))
 	_say([{"who": "oracle", "text": rline}])
