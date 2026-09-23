@@ -3057,6 +3057,9 @@ func _omen_deal(idx: int) -> void:
 			fatehand = true
 			Stats.buff_armor -= 1
 			oname = "FATEHAND"
+		9:
+			nemesis_bounty = true
+			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
 	_ach("omen1")
 	Sfx.play("shrine")
