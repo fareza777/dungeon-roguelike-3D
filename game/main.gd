@@ -6599,16 +6599,31 @@ func _on_throne_invoked(s) -> void:
 		{"text": "Draw Blood — pay 3 souls: bleed for +20% ATK this floor"},
 		{"text": "Court Physician — pay 4 souls: cleanse every curse and mend 30% HP"},
 		{"text": "King's Pardon — pay 8 souls: your nemesis is forgiven and stops hunting you"},
+		{"text": "Pawn's Ransom — pay 5 souls: every debuff is lifted and +1 vial"},
 		{"text": "Walk away"}])
 
 
 func _throne_deal(idx: int) -> void:
-	if idx == 6:
+	if idx == 7:
 		Stats.earn_souls(4)
 		_souls_l()
 		_quest_event("throne")
 		Sfx.play("soul")
 		toast("CLEAN HANDS — the crown pays +4 souls to the incorruptible")
+		return
+	if idx == 6:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the ransom isn't free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_souls_l()
+		if player != null and is_instance_valid(player):
+			for deb in ["weak_t", "chill_t", "root_t", "venom_t", "silence_t"]:
+				player.set(deb, 0.0)
+		vials += 1
+		_vial_btn()
+		Sfx.play("shrine")
+		toast("PAWN'S RANSOM — clean blood, fresh vial")
 		return
 	if idx == 5:
 		if Stats.souls < _soul_cost(8):
