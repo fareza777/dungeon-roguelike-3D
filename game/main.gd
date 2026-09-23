@@ -2491,13 +2491,20 @@ func _update_hp(hp: float) -> void:
 		var cw := 26.0 if maxh <= 10 else 16.0
 		for i in range(maxh):
 			var r := ColorRect.new()
+			r.color = Color(0.28, 0.12, 0.14)
 			r.custom_minimum_size = Vector2(cw, 26)
 			hb.add_child(r)
 			cells.append(r)
 		hb.move_child(ui.hp_text, hb.get_child_count() - 1)
 	var full := int(ceil(hp))
 	for i in range(cells.size()):
-		cells[i].color = Color(0.9, 0.16, 0.22) if i < full else Color(0.28, 0.12, 0.14)
+		var was_full: bool = cells[i].color.r > 0.5
+		if was_full and i >= full:
+			cells[i].color = Color(1, 1, 1)
+			var ctw: Tween = cells[i].create_tween()
+			ctw.tween_property(cells[i], "color", Color(0.28, 0.12, 0.14), 0.4)
+		elif i < full:
+			cells[i].color = Color(0.9, 0.16, 0.22)
 	if ui.has("hp_text"):
 		ui.hp_text.text = "%d/%d" % [maxi(int(ceil(hp)), 0), maxh]
 	if prev_hp >= 0.0 and hp < prev_hp - 0.001:
