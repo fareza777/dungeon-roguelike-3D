@@ -1746,8 +1746,6 @@ func _new_run(new_seed: int) -> void:
 	salt_lullaby = false
 	if coil_chit:
 		Stats.dodge -= 0.08
-		if coil_chit:
-		Stats.dodge -= 0.08
 		coil_chit = false
 	if rope_allowance:
 		Stats.buff_speed_pct -= 0.08
