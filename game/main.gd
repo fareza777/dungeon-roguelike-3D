@@ -9712,6 +9712,10 @@ func _on_dlg_choice(idx: int) -> void:
 		130:
 			Stats.cd_reduction += 0.12
 			toast("Deep Call: the deep answers your craft — +12% skill recharge this run")
+		131:
+			Stats.buff_aspd += 0.08
+			Stats.dodge += 0.03
+			toast("Keelhand: the rigging answers your wrists — +8% attack speed, +3% dodge this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -15155,6 +15159,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Keelgrease — oiled joints, quicker hands: +6% attack speed, +2% dodge this run"},
 			{"text": "Keel Saint — the drowned pray your purse fatter: +8% souls, +5% XP this run"},
 			{"text": "Deep Call — the deep answers your craft: +12% skill recharge this run"},
+			{"text": "Keelhand — the rigging answers your wrists: +8% attack speed, +3% dodge this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
