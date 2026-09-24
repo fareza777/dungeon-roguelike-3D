@@ -97,6 +97,7 @@ const DB := {
 	"splintered_oar": {"name": "Splintered Oar", "chip": "SO", "desc": "The oar remembers rowing — your dash carries you 30% farther", "rarity": 0, "mods": {}},
 	"deck_plank": {"name": "Deck Plank", "chip": "DP", "desc": "Sure footing on any deck — +5% Speed, +5% Attack Speed", "rarity": 0, "mods": {"speed_pct": 0.05, "atk_speed_pct": 0.05}},
 	"bitter_chart": {"name": "Bitter Chart", "chip": "BC", "desc": "The drowned mapped this water in blood — −1 Armor, +25% XP", "rarity": 1, "mods": {"armor": -1.0, "xp_pct": 0.25}},
+	"windlass": {"name": "Windlass", "chip": "WDL", "desc": "+12% attack speed, −5% dodge — the drum turns fast, but it takes your footing", "rarity": 2, "mods": {"atk_speed_pct": 0.12, "dodge": -0.05}},
 	"salt_bounty": {"name": "Salt Bounty", "chip": "◈", "rarity": 2, "mods": {"soul_gain_pct": 0.15, "dodge": -0.05}, "desc": "the sea pays more, but you sway slower"},
 	"tarred_sole": {"name": "Tarred Sole", "chip": "TSL", "desc": "+8% speed, +4% dodge — tar sticks, but never to you", "rarity": 2, "mods": {"speed_pct": 0.08, "dodge": 0.04}},
 	"keel_tape": {"name": "Keel Tape", "chip": "KTP", "desc": "+10% attack speed, −5% crit — measured twice, swung once", "rarity": 2, "mods": {"atk_speed_pct": 0.1, "crit": -0.05}},
