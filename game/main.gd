@@ -10240,6 +10240,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE LUCK — the bilge pays out dirty (+5% crit)... and it splashes your footing (−5% dodge)"},
 		{"text": "DEEP TALLY — the trench keeps your score (+8% XP)... and collects interest (+6% damage taken)"},
 		{"text": "LAST ORDERS — fight like it's the final watch (+10% ATK)... because it might be (−8% Max HP)"},
+		{"text": "DEAD RECKONING — the sea teaches by the fathom (+15% XP)... but the charts bite (−1 Armor)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -10940,6 +10941,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_maxhp_pct -= 0.08
 			oname = "LAST ORDERS"
 		147:
+			Stats.buff_xp_pct += 0.15
+			Stats.buff_armor -= 1
+			oname = "DEAD RECKONING"
+		148:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -11124,6 +11129,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE LUCK": "Dirty luck spends fastest, Kael — spend it before the bilge collects.",
 	"DEEP TALLY": "The deep marks every lesson on your hull, Kael — learning always costs paint.",
 	"LAST ORDERS": "The bosun's last call always lands hardest, Kael — just don't count tomorrow's watches.",
+	"DEAD RECKONING": "A good reckoner knows where he is — a dead one learns faster, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
