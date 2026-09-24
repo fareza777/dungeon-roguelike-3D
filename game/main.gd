@@ -11388,6 +11388,8 @@ func _omen_deal(idx: int) -> void:
 		_quest_event("omen_sworn_floor")
 	if omen_count >= 4:
 		_ach("pact_stack")
+	if omen_count >= 7:
+		_ach("sevensworn")
 	if Stats.oaths_sworn >= 5:
 		_ach("fatebound")
 	if Stats.oaths_sworn >= 60:
