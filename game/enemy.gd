@@ -1280,6 +1280,12 @@ func _physics_process(delta: float) -> void:
 									p.set("weak_t", maxf(float(p.get("weak_t")), 2.5))
 								if arch_id == "salt_devout" and q == p:
 									p.set("silence_t", maxf(float(p.get("silence_t")), 1.5))
+								if arch_id == "jeerjack" and q == p:
+									var mjj := get_tree().current_scene
+									if mjj != null and int(mjj.get("combo") or 0) > 0:
+										mjj.set("combo", maxi(0, int(mjj.get("combo")) - 2))
+										if mjj.has_method("_damage_number"):
+											mjj._damage_number(p.global_position + Vector3(0, 1.0 * room_tile, 0), "RATTLED!", Color(0.9, 0.5, 0.9), true)
 								if arch_id == "tide_bailiff" and q == p:
 									var mtb := get_tree().current_scene
 									if mtb != null and int(Stats.souls) > 0:

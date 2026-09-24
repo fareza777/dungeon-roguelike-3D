@@ -791,6 +791,7 @@ const BESTIARY := {
 	"brood_keel": ["Brood Keel", "A hull of fused ribs — something nests inside. Cut it open, then swat what spills."],
 	"brine_hag": ["Brine Hag", "A bent witch of the shallows — her spit rots blood. Keep moving or drink the venom."],
 	"salt_devout": ["Salt Devout", "A kneeling cleric of the drowned rite — its open palm seals your craft. Cut the prayer short."],
+	"jeerjack": ["Jeerjack", "A chattering imp of the lower decks — every hit rattles your rhythm loose. Keep your streak away from its hands."],
 	"gunnel_fiend": ["Gunnel Fiend", "It claws along the rail faster than it walks — when it coils, it's already midair."],
 	"pale_lantern": ["Pale Lantern", "A wick of drowned light walking a dead sailor's frame — snuff it and every shadow in the room flinches."],
 	"siren_thrall": ["Siren Thrall", "A sailor the song kept — freed of it only by the blade, and what's left rises as a wisp."],
@@ -838,7 +839,7 @@ const KILLER_NAMES := {
 	"bell_ringer": "a Bell Ringer",
 	"moorling": "a Moorling",
 	"keel_mastiff": "a Keel Mastiff",
-	"salt_lich": "a Salt Lich", "bilge_fury": "a Bilge Fury", "siren_thrall": "a Siren Thrall", "pale_lantern": "a Pale Lantern", "gunnel_fiend": "a Gunnel Fiend", "bilge_cantor": "a Bilge Cantor", "tide_bailiff": "a Tide Bailiff", "salt_skimmer": "a Salt Skimmer", "brine_monk": "a Brine Monk", "deck_rigger": "a Deck Rigger", "dread_gull": "a Dread Gull", "gale_singer": "a Gale Singer", "snatch_widow": "a Snatch Widow", "gunnel_gnat": "a Gunnel Gnat", "deck_reverend": "a Deck Reverend", "mast_lurcher": "a Mast Lurcher", "dirge_singer": "a Dirge Singer", "the_boatswain": "the Boatswain", "gloom_lantern": "a Gloom Lantern", "wick_tender": "a Wick Tender", "sodden_deckhand": "a Sodden Deckhand", "brine_widow": "a Brine Widow", "keelwright": "a Keelwright", "bilge_tender": "a Bilge Tender", "keel_sapper": "a Keel Sapper", "keel_chorister": "a Keel Chorister", "pitch_tender": "a Pitch Tender", "keel_wraith": "a Keel Wraith", "brood_keel": "a Brood Keel", "brine_hag": "a Brine Hag", "salt_devout": "a Salt Devout",
+	"salt_lich": "a Salt Lich", "bilge_fury": "a Bilge Fury", "siren_thrall": "a Siren Thrall", "pale_lantern": "a Pale Lantern", "gunnel_fiend": "a Gunnel Fiend", "bilge_cantor": "a Bilge Cantor", "tide_bailiff": "a Tide Bailiff", "salt_skimmer": "a Salt Skimmer", "brine_monk": "a Brine Monk", "deck_rigger": "a Deck Rigger", "dread_gull": "a Dread Gull", "gale_singer": "a Gale Singer", "snatch_widow": "a Snatch Widow", "gunnel_gnat": "a Gunnel Gnat", "deck_reverend": "a Deck Reverend", "mast_lurcher": "a Mast Lurcher", "dirge_singer": "a Dirge Singer", "the_boatswain": "the Boatswain", "gloom_lantern": "a Gloom Lantern", "wick_tender": "a Wick Tender", "sodden_deckhand": "a Sodden Deckhand", "brine_widow": "a Brine Widow", "keelwright": "a Keelwright", "bilge_tender": "a Bilge Tender", "keel_sapper": "a Keel Sapper", "keel_chorister": "a Keel Chorister", "pitch_tender": "a Pitch Tender", "keel_wraith": "a Keel Wraith", "brood_keel": "a Brood Keel", "brine_hag": "a Brine Hag", "salt_devout": "a Salt Devout", "jeerjack": "a Jeerjack",
 	"deck_brute": "a Deck Brute",
 	"salt_eel": "a Salt Eel",
 	"quarter_ghost": "a Quarter Ghost",
@@ -947,6 +948,7 @@ const KILLER_TIPS := {
 	"brood_keel": "Tip: a Brood Keel hatches when it dies — leave room behind you for the gnats.",
 	"brine_hag": "Tip: Brine Hags lob venom — strafe the arc, or the rot eats your veins.",
 	"salt_devout": "Tip: a Salt Devout's touch seals your skills — cut it down mid-genuflection or fight bare-handed.",
+	"jeerjack": "Tip: a Jeerjack's slap knocks your combo loose — burst it down before it laughs off your streak.",
 	"salt_lich": "Tip: Salt Liches telegraph a long windup — close the gap fast or weave between bolts.",
 	"deck_brute": "Tip: Deck Brutes barely feel knockback — break their windup with a stun, or never be there when it lands.",
 	"salt_eel": "Tip: Salt Eels lunge in a straight bite — sidestep and the coil overshoots.",
@@ -3525,6 +3527,7 @@ const FIRST_SEEN := {
 	"brood_keel": "A Brood Keel shambles in — the pack inside it stirs.",
 	"brine_hag": "A Brine Hag cackles — her ladle of poison is full.",
 	"salt_devout": "A Salt Devout genuflects — its hush is worse than its staff.",
+	"jeerjack": "A Jeerjack chatters — it wants your rhythm more than your blood.",
 	"brine_monk": "A Brine Monk bows its head — its open palm saps the strength from your arm.",
 	"deck_rigger": "A Deck Rigger unfurls its line — its hook bites from farther than you think.",
 	"dread_gull": "A Dread Gull wheels screaming overhead — it stoops in a blink.",
@@ -5360,6 +5363,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("hagkill")
 	if e.arch_id == "salt_devout":
 		_quest_event("devout_kill")
+	if e.arch_id == "jeerjack":
+		_quest_event("jeerkill")
 		if int(Stats.arch_kills.get("gloom_lantern", 0)) >= 10:
 			_ach("gloomfall")
 	if e.arch_id == "salt_lich":

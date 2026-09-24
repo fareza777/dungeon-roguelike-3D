@@ -187,6 +187,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Sea-Tithe", "desc": "Collect from a tithed elite's fall (0/1)", "kind": "affix_tithed", "need": 1})
 		steps.append({"title": "Spill the Purse", "desc": "Split a soulspill elite's purse (0/1)", "kind": "affix_soulspill", "need": 1})
 		steps.append({"title": "Break the Hull", "desc": "Fell 2 mossback elites (0/2)", "kind": "affix_mossback", "need": 2})
+		steps.append({"title": "Silence the Jeer", "desc": "Slay 3 Jeerjacks (0/3)", "kind": "jeerkill", "need": 3})
 		steps.append({"title": "Lull Walker", "desc": "Wade a Gloom Lull (0/1)", "kind": "gloomlull", "need": 1})
 		steps.append({"title": "Glass Sights", "desc": "Wade a Soul Glass tide (0/1)", "kind": "soulglass", "need": 1})
 		steps.append({"title": "Fog Walker", "desc": "Wade a Grave Fog tide (0/1)", "kind": "gravefog", "need": 1})
