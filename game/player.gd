@@ -287,6 +287,13 @@ func _strike() -> void:
 				get_tree().current_scene.set("net_n", mpn)
 				if mpn % 7 == 0:
 					f.set("slow_t", 2.5)
+			if Stats.weapon_id == "salt_lantern":
+				var sln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", sln)
+				if sln % 9 == 0:
+					var msl := get_tree().current_scene
+					if msl != null and msl.has_method("_spawn_wisp_at"):
+						msl._spawn_wisp_at(global_position + Vector3(0, 0.5, 0))
 			if Stats.weapon_id == "undertow_pike":
 				var upn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", upn)
