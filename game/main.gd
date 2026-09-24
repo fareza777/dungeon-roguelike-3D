@@ -442,6 +442,7 @@ var murk_vision := false
 var silt_draught := false
 var drowned_mercy := false
 var rivers_tithe := false
+var shellback := false
 var boatswain_call := false
 var court_fool := false
 var bilge_ballad := false
@@ -1992,6 +1993,9 @@ func _new_run(new_seed: int) -> void:
 	if rivers_tithe:
 		Stats.soul_gain_pct -= 0.12
 		rivers_tithe = false
+	if shellback:
+		Stats.buff_maxhp_pct -= 0.10
+		shellback = false
 	if boatswain_call:
 		Stats.dodge -= 0.12
 		boatswain_call = false
@@ -10291,11 +10295,24 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Undertow Nap — pay 4 souls: the current rocks you a moment — mend 20%"},
 		{"text": "Drowned Mercy — pay 5 souls: the river stays its hand — foes −8% damage this floor"},
 		{"text": "River's Tithe — pay 4 souls: the current pays its tolls — +12% souls this floor"},
+		{"text": "Shellback Draught — pay 4 souls: the turtle's patience is yours — +10% Max HP this floor"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
 	if idx == 45:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the draught isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_count_deal()
+		_souls_l()
+		shellback = true
+		Stats.buff_maxhp_pct += 0.10
+		Sfx.play("shrine")
+		toast("SHELLBACK — the turtle's patience settles over you")
+		return
+	if idx == 46:
 		toast("The water settles back into the stone")
 		return
 	if idx == 44:
