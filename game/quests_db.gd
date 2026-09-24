@@ -117,6 +117,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Elite Season", "desc": "Slay 15 crimson elites (0/15)", "kind": "elite_kill", "need": 15})
 		steps.append({"title": "Smoke Walker", "desc": "Clear 2 BRINE SMOKE floors (0/2)", "kind": "smokewalk", "need": 2})
 		steps.append({"title": "Deck Swab", "desc": "Slay 30 foes in a single descent (0/1)", "kind": "swab30", "need": 1})
+		steps.append({"title": "Moor Cleared", "desc": "Slay 10 Moorlings (0/10)", "kind": "moor_kill", "need": 10})
 		steps.append({"title": "Wight's End", "desc": "Slay 8 Deck Wights (0/8)", "kind": "wight_kill", "need": 8})
 		steps.append({"title": "Skiff Skein", "desc": "Slay 15 Salt Skiffs (0/15)", "kind": "skiff_kill", "need": 15})
 		steps.append({"title": "Lights Out", "desc": "Slay 10 Lantern Jaws (0/10)", "kind": "lamp_kill", "need": 10})
