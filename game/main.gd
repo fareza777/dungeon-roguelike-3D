@@ -10929,6 +10929,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE DOCKET — your name is entered in the wake's book (+5% crit)... the book lists your debts too (+4% damage taken)"},
 		{"text": "SALT JUBILEE — a year of pardons, paid out in brine (+6% souls, +6% XP)... the feast-day crowds slow you (−4% speed)"},
 		{"text": "GREY WARRANT — a writ in grey ink (+6% attack speed)... served against your own hull (−1 armor)"},
+		{"text": "RED TOLL — the toll-taker's red seal (+4% lifesteal)... the rest of the take is his (−5% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -11808,6 +11809,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_armor -= 1
 			oname = "GREY WARRANT"
 		191:
+			Stats.buff_lifesteal += 0.04
+			Stats.soul_gain_pct -= 0.05
+			oname = "RED TOLL"
+		192:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12048,6 +12053,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE DOCKET": "Your name travels ahead of you now, Kael — the wake files everything.",
 	"SALT JUBILEE": "Once in a great while the sea declares a jubilee, Kael — debts lightened, spirits heavy.",
 	"GREY WARRANT": "The grey court issues its writs to everyone, Kael — even the willing.",
+	"RED TOLL": "The red toll is paid in blood, Kael — the seal merely chooses whose.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
