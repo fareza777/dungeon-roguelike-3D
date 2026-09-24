@@ -10403,6 +10403,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct -= 0.04
 			toast("Tideline: foam up your heels — +6% speed, −4% ATK this run")
+		154:
+			Stats.cd_reduction += 0.04
+			Stats.soul_gain_pct -= 0.02
+			toast("Dead Light: the lantern burns paler and quicker — −4% skill cooldowns, −2% souls this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -16553,6 +16557,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Toll Prayer — a coin for the drowned, a plate for the living: +1 armor, +4% souls this run"},
 			{"text": "Bell Ward — the knell wraps you like a vestment: +5% dodge, −3% speed this run"},
 			{"text": "Tideline — foam up your heels: +6% speed, −4% ATK this run"},
+			{"text": "Dead Light — the lantern burns paler and quicker: −4% skill cooldowns, −2% souls this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
