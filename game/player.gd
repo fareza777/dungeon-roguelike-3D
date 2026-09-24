@@ -240,6 +240,15 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "grog_blade":
+				var gb_ = get_tree().current_scene
+				gb_.set("net_n", int(gb_.get("net_n")) + 1)
+				if int(gb_.get("net_n")) >= 7:
+					gb_.set("net_n", 0)
+					var gm_ := Stats.get_stat("max_hp")
+					hp = minf(gm_, hp + gm_ * 0.03)
+					hp_changed.emit(hp)
+					Stats.current_hp = hp
 			if Stats.weapon_id == "belaying_pin":
 				var bp_ = get_tree().current_scene
 				bp_.set("net_n", int(bp_.get("net_n")) + 1)
