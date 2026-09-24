@@ -144,6 +144,7 @@ const ACH_DEF := {
 	"bounty1": "Contract Killer (claimed a Bounty Stone relic)",
 	"ng2": "Twice-Crowned (reached NG+2)", "ng4": "Ever-Drowning (reached NG+4)", "ng7": "Grave's Delver (reached NG+7)",
 	"bless5": "Favored of the Deep (5 blessings in one run)",
+	"choral": "Choral (8 blessings in one run)",
 	"dice3": "Loaded Bones (won Bone Dice 3 times in one run)",
 	"deeppurse": "Deep Purse (held 60 souls at once)",
 	"satchel3": "Full Satchel (carried 3 soul vials at once)",
