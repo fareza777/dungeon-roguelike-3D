@@ -8561,7 +8561,7 @@ func _combo_milestone(txt: String, col: Color) -> void:
 		var mtw := vign_g.create_tween()
 		mtw.tween_property(vign_g, "modulate:a", 0.0, 0.7)
 	if player != null and is_instance_valid(player):
-		_burst(player.global_position + Vector3(0, 0.9, 0), 10, col)
+		_burst(player.global_position + Vector3(0, 0.9, 0), col)
 		trauma = minf(trauma + 0.18, 0.5)
 
 func _combo_set(n: int) -> void:
