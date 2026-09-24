@@ -576,6 +576,18 @@ func _strike() -> void:
 					var mdl := get_tree().current_scene
 					if mdl != null and mdl.has_method("_damage_number"):
 						mdl._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "BEACON", Color(1.0, 0.8, 0.4), false)
+			if Stats.weapon_id == "rip_current":
+				var rcn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", rcn)
+				if rcn % 8 == 0:
+					Sfx.play("swoosh", 0.7)
+					var rfoes: Array = get_tree().get_nodes_in_group("enemies")
+					for rf in rfoes:
+						if rf.global_position.distance_to(f.global_position) < 2.5 * room_tile:
+							rf.set("slow_t", maxf(float(rf.get("slow_t")), 2.0))
+					var mrc := get_tree().current_scene
+					if mrc != null and mrc.has_method("_damage_number"):
+						mrc._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "UNDERTOW", Color(0.5, 0.85, 0.9), false)
 			if Stats.weapon_id == "hull_mender":
 				var hmn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", hmn)
