@@ -229,6 +229,7 @@ var gunnel_tide := false
 var dead_wages := false
 var riggers_due := false
 var tides_favor := false
+var barnacle_oath := false
 var salt_dowry := false
 var combo_rate_bonus := 0.0
 var solitary := false
@@ -1514,6 +1515,7 @@ func _reset_run_state() -> void:
 	dead_wages = false
 	riggers_due = false
 	tides_favor = false
+	barnacle_oath = false
 	combo_rate_bonus = 0.0
 	solitary = false
 	pawn_discount = false
@@ -8125,6 +8127,7 @@ func _offer_omens() -> void:
 		{"text": "DEAD MAN'S WAGES — the crew's unspent pay hardens your hand (+15% ATK)... but the purse leaks (−10% souls)"},
 		{"text": "RIGGER'S DUE — the rigging pays its keeper in souls (+10% souls)... but the ropes bite (−1 Armor)"},
 		{"text": "TIDE'S FAVOR — the current carries your lessons (+10% XP)... but the hull runs thin (−1 Armor)"},
+		{"text": "BARNACLE OATH — the hull pays its clingy tenants (+8% souls)... but they weigh your stride (−6% speed)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -8175,7 +8178,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 98 if Stats.nemesis != "" else 97
+	var osize := 99 if Stats.nemesis != "" else 98
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -8597,6 +8600,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_armor -= 1
 			oname = "TIDE'S FAVOR"
 		97:
+			barnacle_oath = true
+			Stats.soul_gain_pct += 0.08
+			Stats.buff_speed_pct -= 0.06
+			oname = "BARNACLE OATH"
+		98:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -8704,6 +8712,7 @@ func _omen_deal(idx: int) -> void:
 	"DEAD MAN'S WAGES": "Unclaimed coin spends fastest on the living.",
 	"RIGGER'S DUE": "The lines remember who climbs them.",
 	"TIDE'S FAVOR": "The water pushes where it wills.",
+	"BARNACLE OATH": "Everything that sticks to the hull pays rent."
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
