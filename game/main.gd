@@ -10908,6 +10908,7 @@ func _offer_omens() -> void:
 		{"text": "GREY TAX — the grey sea levies its due (+6% ATK)... and holds your coat as surety (−1 armor)"},
 		{"text": "BILGE WAGES — the hold pays its deckhands in fury (+5% ATK)... the bilge pays you back in kind (+5% damage taken)"},
 		{"text": "DEEP INTEREST — the deep lends you its hoard (+8% souls)... the vig drags at your heels (−5% speed)"},
+		{"text": "WAKE DOCKET — your name is entered in the wake's book (+5% crit)... the book lists your debts too (+4% damage taken)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -11774,6 +11775,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.05
 			oname = "DEEP INTEREST"
 		188:
+			Stats.buff_crit += 0.05
+			Stats.curse_dmg += 0.04
+			oname = "WAKE DOCKET"
+		189:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12011,6 +12016,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY TAX": "The grey sea taxes every sailor twice, Kael — once in steel, once in skin.",
 	"BILGE WAGES": "Every hand draws wages down here, Kael — even yours, paid in bruises.",
 	"DEEP INTEREST": "The deep always collects its interest, Kael — in time, or in stride.",
+	"WAKE DOCKET": "Your name travels ahead of you now, Kael — the wake files everything.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
