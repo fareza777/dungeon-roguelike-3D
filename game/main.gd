@@ -8684,7 +8684,7 @@ func _omen_deal(idx: int) -> void:
 			oname = "BARNACLE OATH"
 		98:
 			black_tide = true
-			Stats.buff_atk_speed_pct += 0.12
+			Stats.buff_aspd += 0.12
 			Stats.buff_maxhp_pct -= 0.08
 			oname = "BLACK TIDE"
 		99:
@@ -8796,7 +8796,7 @@ func _omen_deal(idx: int) -> void:
 	"RIGGER'S DUE": "The lines remember who climbs them.",
 	"TIDE'S FAVOR": "The water pushes where it wills.",
 	"BARNACLE OATH": "Everything that sticks to the hull pays rent.",
-	"BLACK TIDE": "The darkest water pulls the hardest."
+	"BLACK TIDE": "The darkest water pulls the hardest.",
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
