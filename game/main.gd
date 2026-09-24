@@ -10909,6 +10909,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE WAGES — the hold pays its deckhands in fury (+5% ATK)... the bilge pays you back in kind (+5% damage taken)"},
 		{"text": "DEEP INTEREST — the deep lends you its hoard (+8% souls)... the vig drags at your heels (−5% speed)"},
 		{"text": "WAKE DOCKET — your name is entered in the wake's book (+5% crit)... the book lists your debts too (+4% damage taken)"},
+		{"text": "SALT JUBILEE — a year of pardons, paid out in brine (+6% souls, +6% XP)... the feast-day crowds slow you (−4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -11779,6 +11780,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.curse_dmg += 0.04
 			oname = "WAKE DOCKET"
 		189:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.06
+			Stats.buff_speed_pct -= 0.04
+			oname = "SALT JUBILEE"
+		190:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12017,6 +12023,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE WAGES": "Every hand draws wages down here, Kael — even yours, paid in bruises.",
 	"DEEP INTEREST": "The deep always collects its interest, Kael — in time, or in stride.",
 	"WAKE DOCKET": "Your name travels ahead of you now, Kael — the wake files everything.",
+	"SALT JUBILEE": "Once in a great while the sea declares a jubilee, Kael — debts lightened, spirits heavy.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
