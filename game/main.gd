@@ -8284,6 +8284,8 @@ func _quest_event(kind: String, num: int = 1) -> void:
 	if int(st["done"]) >= int(st["need"]):
 		quest_idx += 1
 		Sfx.play("quest")
+		if quest_idx >= quest_steps.size() and quest_steps.size() > 0:
+			_lvl_banner("✦ QUEST COMPLETE — " + String(st.get("title", "")))
 		if ui.has("quest_l"):
 			var ql2: Label = ui.quest_l
 			ql2.modulate = Color(0.5, 1.0, 0.55)
