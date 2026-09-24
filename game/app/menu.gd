@@ -236,6 +236,12 @@ func _build() -> void:
 	var bn := _make_btn("⚔ NEW GAME")
 	bn.pressed.connect(_on_new)
 	vb.add_child(bn)
+	var bnsb := bn.get_theme_stylebox("normal") as StyleBoxFlat
+	if bnsb != null:
+		var ctw: Tween = bn.create_tween()
+		ctw.set_loops()
+		ctw.tween_property(bnsb, "border_color", Color(1.0, 0.95, 0.6), 1.0)
+		ctw.tween_property(bnsb, "border_color", GOLD, 1.0)
 
 	var row := HBoxContainer.new()
 	row.alignment = BoxContainer.ALIGNMENT_CENTER
