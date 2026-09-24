@@ -240,6 +240,21 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "palehook":
+				var ph_ = get_tree().current_scene
+				ph_.set("net_n", int(ph_.get("net_n")) + 1)
+				if int(ph_.get("net_n")) >= 3:
+					ph_.set("net_n", 0)
+					var phf_: Object = null
+					var phd_: float = 0.0
+					for pf in get_tree().get_nodes_in_group("enemies"):
+						if pf.get("state") != "dead" and pf != f:
+							var pd_: float = pf.global_position.distance_to(global_position)
+							if pd_ > phd_ and pd_ < 6.0:
+								phd_ = pd_
+								phf_ = pf
+					if phf_ != null:
+						phf_.velocity += (global_position - phf_.global_position).normalized() * 10.0
 			if Stats.weapon_id == "deckhands_edge":
 				var de_ = get_tree().current_scene
 				de_.set("net_n", int(de_.get("net_n")) + 1)
