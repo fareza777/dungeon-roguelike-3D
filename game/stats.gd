@@ -215,6 +215,7 @@ const ACH_DEF := {
 	"slayer250": "The Bone Harvest (250 kills in a single run)",
 	"doubloath": "Twice-Sworn (carry two omens in one run)",
 	"fatebound": "Fatebound (five oaths sworn across your descents)",
+	"tenthoath": "Tenth Oath (ten oaths sworn across your descents)",
 	"unstoppable": "Unstoppable (a ×50 kill streak in one run)",
 	"deepvault": "Deep Vault (held 50 souls at once)",
 	"fortyknells": "Forty Knells (40 skill casts in one run)",
