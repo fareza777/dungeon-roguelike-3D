@@ -287,6 +287,15 @@ func _strike() -> void:
 				get_tree().current_scene.set("net_n", mpn)
 				if mpn % 7 == 0:
 					f.set("slow_t", 2.5)
+			if Stats.weapon_id == "rigging_hook":
+				var rgn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", rgn)
+				if rgn % 7 == 0:
+					var rgdir := (global_position - f.global_position)
+					rgdir.y = 0
+					if rgdir.length() > 0.1:
+						f.velocity += rgdir.normalized() * 10.0
+						f.stun(0.35)
 			if Stats.weapon_id == "salt_lantern":
 				var sln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", sln)
