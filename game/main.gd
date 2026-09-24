@@ -203,7 +203,11 @@ const LORE_LINES := [
 	"The Pallbearers never bury anything. They only carry it deeper, floor by floor.",
 	"A Grim Lantern burns whale-oil and oaths — the light is cheap, the fuel is not.",
 	"Mahzan keeps an escrow of other men's tomorrows. Yours is filed under 'soon'.",
-	"A Saltwire tangle taught the old riggers: the sea holds whatever you throw it, and throws it back knotted.",]
+	"A Saltwire tangle taught the old riggers: the sea holds whatever you throw it, and throws it back knotted.",
+	"The Keel Sexton buries nothing. He plants the dead in rows, and they come up when called.",
+	"A Grim Hourglass never runs out — it just decides whose time it's spending.",
+	"The Quartermaster's salt sticks to your blade like luck — nobody asks which crew it belonged to.",
+	"A Pallbearer's coffin is empty by design; it's the carrying that fills it.",]
 
 var dungeon_tex: Texture2D
 var skeleton_tex: Texture2D
