@@ -7361,6 +7361,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.15
 			Stats.cd_reduction -= 0.05
 			toast("Salt Tithing: the purse fills, the hands slow — +15% souls, skills +5% recharge")
+		86:
+			Stats.buff_maxhp_pct += 0.15
+			Stats.dodge -= 0.1
+			toast("Hull Tithe: ironwood ribs for a price — +15% Max HP, −10% dodge")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -11125,7 +11129,8 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Salt Scribe — every death tallied in your favor: +20% souls, −10% dodge"},
 			{"text": "Kedge Whistle — the boatswain's tempo: +15% attack speed, −8% crit"},
 			{"text": "Keel Ballast — stone in the hold: +2 Armor, −10% speed"},
-			{"text": "Salt Tithing — the purse fills, the hands slow: +15% souls, skills +0.5s"},
+			{"text": "Salt Tithing — the purse fills, the hands slow: +15% souls, skills +5% recharge"},
+			{"text": "Hull Tithe — ironwood ribs for a price: +15% Max HP, −10% dodge"},
 		]
 	)
 
