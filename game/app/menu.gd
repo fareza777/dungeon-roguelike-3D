@@ -59,6 +59,12 @@ func _make_btn(txt: String, big := true) -> Button:
 	b.add_theme_stylebox_override("pressed", sbp)
 	b.pivot_offset = b.custom_minimum_size * 0.5
 	b.pressed.connect(_btn_punch.bind(b))
+	b.mouse_entered.connect(func() -> void:
+		var htw: Tween = b.create_tween()
+		htw.tween_property(b, "scale", Vector2(1.04, 1.04), 0.12).set_trans(Tween.TRANS_BACK))
+	b.mouse_exited.connect(func() -> void:
+		var xtw: Tween = b.create_tween()
+		xtw.tween_property(b, "scale", Vector2.ONE, 0.12))
 	return b
 
 
