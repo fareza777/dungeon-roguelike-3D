@@ -7826,7 +7826,7 @@ func _cast_skill(id: String) -> void:
 				var dir2: Vector3 = global_position - hf.global_position
 				hf.kb += dir2.normalized() * 18.0
 				hf.stun(1.4)
-				_trauma(0.25)
+				trauma = minf(trauma + 0.25, 0.5)
 			Sfx.play("hook")
 		"warcry":
 			player.anim_lock = M.play_action(player.ap, ["spellcast", "idle_combat", "idle"], 1.1)
