@@ -245,7 +245,7 @@ func _strike() -> void:
 				kb_.set("net_n", int(kb_.get("net_n")) + 1)
 				if int(kb_.get("net_n")) >= 5:
 					kb_.set("net_n", 0)
-					var dir_ := (f.global_position - global_position).normalized()
+					var dir_: Vector3 = (f.global_position - global_position).normalized()
 					f.velocity += dir_ * 9.0
 					if f.has_method("stun"):
 						f.stun(0.8)
