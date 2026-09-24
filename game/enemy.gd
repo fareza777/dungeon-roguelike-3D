@@ -1629,6 +1629,8 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 		dmg_taken *= 1.15
 	if slow_t > 0.0 and Stats.relics.has("frostbrand"):
 		dmg_taken *= 1.12
+	if stun_t > 0.0 and Stats.relics.has("mooring_knot"):
+		dmg_taken *= 1.15
 	if vuln_t > 0.0:
 		dmg_taken *= 1.25
 	if is_lurker and not lurk_revealed:
