@@ -248,6 +248,13 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "oarlock":
+				var ol_ = get_tree().current_scene
+				ol_.set("net_n", int(ol_.get("net_n")) + 1)
+				if int(ol_.get("net_n")) >= 6:
+					ol_.set("net_n", 0)
+					if f.has_method("stun"):
+						f.stun(0.8)
 			if Stats.weapon_id == "chumblade":
 				var cb_ = get_tree().current_scene
 				cb_.set("net_n", int(cb_.get("net_n")) + 1)
