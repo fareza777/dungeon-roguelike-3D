@@ -6167,7 +6167,7 @@ func _on_enemy_died(e) -> void:
 	if String(e.affix) == "wakesworn":
 		for wf in get_tree().get_nodes_in_group("enemies"):
 			if wf != e and wf.get("state") != "dead" and not wf.get("is_boss") and wf.global_position.distance_to(e.global_position) < 3.0 * info.tile:
-				var wdir := (wf.global_position - e.global_position).normalized()
+				var wdir: Vector3 = (wf.global_position - e.global_position).normalized()
 				wf.kb += wdir * 12.0
 		Sfx.play("swoosh", 0.7)
 		_damage_number(e.global_position + Vector3(0, 1.0 * info.tile, 0), "WAKE BREAKS", Color(0.5, 0.8, 0.9), true)
