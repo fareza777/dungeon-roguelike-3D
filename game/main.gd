@@ -6569,6 +6569,10 @@ func _boss_banter(idx: int) -> void:
 func _boss_enraged() -> void:
 	toast(boss_name + " RAGES!")
 	trauma = 0.9
+	if vign_g != null:
+		vign_g.modulate.a = 0.5
+		var vtw2 := vign_g.create_tween()
+		vtw2.tween_property(vign_g, "modulate:a", 0.0, 0.7)
 	# bar membara saat enrage
 	if ui.has("boss_fill"):
 		var fb := StyleBoxFlat.new()
