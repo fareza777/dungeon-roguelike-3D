@@ -212,7 +212,9 @@ const LORE_LINES := [
 	"The deckbound are not slow — the deck simply refuses to let them go.",
 	"Chain wardens were gaolers once; now the chains wear them.",
 	"In a keelglow even the drowned look rich.",
-	"Pale salvage pays in coin that was never minted — and never asks its price aloud.",]
+	"Pale salvage pays in coin that was never minted — and never asks its price aloud.",
+	"The grey tide carries no water at all — only what the drowned could not keep.",
+	"Every oar that rows below rows twice: once for the living hand, once for the dead.",]
 
 var dungeon_tex: Texture2D
 var skeleton_tex: Texture2D
