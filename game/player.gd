@@ -473,8 +473,11 @@ func _strike() -> void:
 					Stats.add_xp(4)
 					Sfx.play("whisper", 0.75)
 					var mkh := get_tree().current_scene
-					if mkh != null and mkh.has_method("_damage_number"):
-						mkh._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "KNELL", Color(0.65, 0.6, 1.0), false)
+					if mkh != null:
+						if mkh.has_method("_damage_number"):
+							mkh._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "KNELL", Color(0.65, 0.6, 1.0), false)
+						if mkh.has_method("_atk_pulse"):
+							mkh._atk_pulse()
 			if Stats.weapon_id == "wraithbell":
 				var wbn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", wbn)

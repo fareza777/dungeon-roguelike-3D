@@ -8463,6 +8463,14 @@ func _hit_spark(pos: Vector3, crit: bool) -> void:
 	tw.tween_callback(m.queue_free)
 
 
+func _atk_pulse() -> void:
+	if not ui.has("atk_btn") or ui.atk_btn == null or not is_instance_valid(ui.atk_btn):
+		return
+	ui.atk_btn.pivot_offset = ui.atk_btn.size * 0.5
+	var _ptw: Tween = ui.atk_btn.create_tween()
+	ui.atk_btn.scale = Vector2(1.14, 1.14)
+	_ptw.tween_property(ui.atk_btn, "scale", Vector2.ONE, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
 func _damage_number(pos: Vector3, txt: String, col: Color, big := false) -> void:
 	var l := Label3D.new()
 	room.add_child(l)
