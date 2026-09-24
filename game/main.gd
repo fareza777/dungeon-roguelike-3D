@@ -6449,7 +6449,7 @@ func toast(txt: String) -> void:
 		toast_tween.kill()
 	ui.toast_panel.pivot_offset = ui.toast_panel.size * 0.5
 	ui.toast_panel.scale = Vector2(0.85, 0.85)
-	var etw := ui.toast_panel.create_tween()
+	var etw: Tween = ui.toast_panel.create_tween()
 	etw.tween_property(ui.toast_panel, "scale", Vector2.ONE, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	toast_tween = create_tween()
 	toast_tween.tween_interval(1.6)
