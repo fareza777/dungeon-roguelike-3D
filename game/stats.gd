@@ -92,6 +92,7 @@ var seen_cinematic := false
 var onboarded := false
 var rated := false
 var quality := -1 # -1 auto, 0 hemat, 1 indah
+var cam_shake := true
 var volume := 0.8 # legacy: dipakai kalau music/sfx belum pernah diset
 var music_volume := -1.0
 var sfx_volume := -1.0
@@ -689,6 +690,7 @@ func save_game() -> void:
 			"onboarded": onboarded, "rated": rated,
 			"quality": quality, "volume": volume,
 			"music_volume": music_volume, "sfx_volume": sfx_volume,
+			"cam_shake": cam_shake,
 			"run": saved_run,
 			"ach": ach,
 			"lore": lore_seen, "oaths": oaths_seen,
@@ -729,6 +731,7 @@ func load_game() -> void:
 			volume = float(d.get("volume", 0.8))
 			music_volume = float(d.get("music_volume", -1.0))
 			sfx_volume = float(d.get("sfx_volume", -1.0))
+			cam_shake = bool(d.get("cam_shake", true))
 			var r = d.get("run", {})
 			if r is Dictionary:
 				saved_run = r

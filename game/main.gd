@@ -17008,7 +17008,8 @@ func _process(delta: float) -> void:
 		cam.global_position = cam.global_position.lerp(target, 1.0 - pow(0.0001, delta))
 		if trauma > 0.0:
 			trauma = max(0.0, trauma - delta * 1.8)
-			cam.global_position += Vector3(randf_range(-1, 1), randf_range(-0.6, 0.6), randf_range(-1, 1)) * trauma * 0.18
+			if Stats.cam_shake:
+				cam.global_position += Vector3(randf_range(-1, 1), randf_range(-0.6, 0.6), randf_range(-1, 1)) * trauma * 0.18
 		if fov_punch > 0.0:
 			fov_punch = max(0.0, fov_punch - delta * 1.6)
 			cam.fov = 42.0 - fov_punch * 7.0
