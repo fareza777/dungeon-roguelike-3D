@@ -351,6 +351,7 @@ var rigging_rites := false
 var mudlarks_due := false
 var kelp_tithe := false
 var bosuns_chit := false
+var deck_psalm := false
 var drift_verse := false
 var pearl_octave := false
 var undertow_aria := false
@@ -1594,6 +1595,7 @@ func _new_run(new_seed: int) -> void:
 	if bosuns_chit:
 		Stats.buff_atk_pct -= 0.1
 		bosuns_chit = false
+	deck_psalm = false
 	kelp_tithe = false
 	if vigils_gage:
 		Stats.dodge -= 0.1
@@ -2938,6 +2940,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.xp_val = int(ceilf(e.xp_val * 1.1))
 	if deep_salve and not e.is_boss:
 		e.xp_val = int(ceilf(e.xp_val * 0.85))
+	if deck_psalm and not e.is_boss:
+		e.dmg = int(maxi(1, floorf(float(e.dmg) * 0.88)))
 	if keel_spirit and not e.is_boss:
 		e.dmg = int(maxi(1, floorf(float(e.dmg) * 0.9)))
 		e.xp_val = int(maxi(1, floorf(float(e.xp_val) * 0.92)))
@@ -9733,12 +9737,26 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Grommet's Due — pay 3 souls: the ring bites the rope — +8% ATK this floor"},
 		{"text": "Sheave Toll — pay 4 souls: the pulley's lesson — +10% XP this floor"},
 		{"text": "Rigging Rites — pay 3 souls: every line tuned tight — +8% attack speed this floor"},
+		{"text": "Deck Psalm — pay 5 souls: the hull's hymn calms the dead — foes −12% damage this floor"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 29:
+	if idx == 30:
 		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 29:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the psalm isn't free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_souls_l()
+		deck_psalm = true
+		for pf in get_tree().get_nodes_in_group("enemies"):
+			if pf.get("state") != "dead" and not pf.get("is_boss"):
+				pf.dmg = int(maxi(1, floorf(float(pf.dmg) * 0.88)))
+		Sfx.play("shrine")
+		toast("DECK PSALM — the hymn settles over the hull")
 		return
 	if idx == 28:
 		if Stats.souls < _soul_cost(3):
