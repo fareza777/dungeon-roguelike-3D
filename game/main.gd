@@ -451,6 +451,7 @@ var mudlarks_due := false
 var shanty_draught := false
 var chain_lash := false
 var fathom_chalk := false
+var bailiff_share := false
 var kelp_tithe := false
 var bosuns_chit := false
 var deck_psalm := false
@@ -2021,6 +2022,9 @@ func _new_run(new_seed: int) -> void:
 	if fathom_chalk:
 		Stats.buff_crit -= 0.08
 		fathom_chalk = false
+	if bailiff_share:
+		Stats.soul_gain_pct -= 0.15
+		bailiff_share = false
 	if rigging_rites:
 		Stats.buff_aspd -= 0.08
 		rigging_rites = false
@@ -14289,6 +14293,7 @@ func _on_throne_invoked(s) -> void:
 		{"text": "Crown's Hand — pay 5 souls: the throne lays a finger on your blade — +6% ATK this floor"},
 		{"text": "Court Fool — pay 3 souls: the jester mocks your enemies — foes −8% speed this floor"},
 		{"text": "King's Coffer — pay 7 souls: the crown's own treasury — a random fine relic"},
+		{"text": "Bailiff's Share — pay 6 souls: the court's collector works your purse — +15% souls this floor"},
 		{"text": "Walk away"}])
 
 
@@ -14326,6 +14331,18 @@ func _throne_deal(idx: int) -> void:
 		_souls_l()
 		Sfx.play("shrine")
 		toast("THE CROWN NAMES — " + (omen_name if omen_name != "" else "no oath yet sworn"))
+		return
+	if idx == 32:
+		if Stats.souls < _soul_cost(6):
+			toast("Six souls — the bailiff isn't free")
+			return
+		Stats.souls -= _soul_cost(6)
+		_count_deal()
+		_souls_l()
+		bailiff_share = true
+		Stats.soul_gain_pct += 0.15
+		Sfx.play("shrine")
+		toast("BAILIFF'S SHARE — the court's collector works your purse (+15% souls this floor)")
 		return
 	if idx == 31:
 		Stats.earn_souls(4)
