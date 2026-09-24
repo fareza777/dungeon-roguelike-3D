@@ -6347,6 +6347,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_armor += 2
 			Stats.buff_speed_pct -= 0.1
 			toast("Salt Crust: barnacled ribs — +2 Armor, −10% speed this run")
+		63:
+			omen_cd_add -= 1.0
+			Stats.buff_maxhp_pct -= 0.1
+			toast("Shanty Lung: your skills come a breath quicker — but your hull sits lighter")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -9445,6 +9449,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Powder Ballast — shot and powder in the pockets: +1 Armor, +8% ATK this run"},
 			{"text": "Slick Wake — you slide through the swell: +8% dodge this run"},
 			{"text": "Salt Crust — barnacled ribs: +2 Armor, −10% speed this run"},
+			{"text": "Shanty Lung — your skills charge −1s... but your Max HP −10%"},
 		]
 	)
 
