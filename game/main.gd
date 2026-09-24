@@ -1042,7 +1042,7 @@ func _ach(id: String) -> void:
 	Stats.save_game()
 	_lvl_banner("◆ ACHIEVEMENT — " + String(Stats.ACH_DEF[id]))
 	Sfx.play("quest")
-	if vign_g != null:
+	if vign_g != null and Stats.screen_flash:
 		vign_g.modulate.a = 0.55
 		var atw := vign_g.create_tween()
 		atw.tween_property(vign_g, "modulate:a", 0.0, 0.8)
@@ -6593,7 +6593,7 @@ func _boss_banter(idx: int) -> void:
 func _boss_enraged() -> void:
 	toast(boss_name + " RAGES!")
 	trauma = 0.9
-	if vign_g != null:
+	if vign_g != null and Stats.screen_flash:
 		vign_g.modulate.a = 0.5
 		var vtw2 := vign_g.create_tween()
 		vtw2.tween_property(vign_g, "modulate:a", 0.0, 0.7)
@@ -8727,7 +8727,7 @@ func _quest_render() -> void:
 func _combo_milestone(txt: String, col: Color) -> void:
 	toast(txt)
 	Sfx.play("level")
-	if vign_g != null:
+	if vign_g != null and Stats.screen_flash:
 		vign_g.modulate.a = 0.4
 		var mtw := vign_g.create_tween()
 		mtw.tween_property(vign_g, "modulate:a", 0.0, 0.7)
