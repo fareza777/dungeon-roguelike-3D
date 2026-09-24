@@ -432,6 +432,17 @@ func _strike() -> void:
 				if amn % 3 == 0:
 					f.velocity += (f.global_position - global_position).normalized() * 9.0
 					Sfx.play("hit", 0.6)
+			if Stats.weapon_id == "gilt_edge":
+				var gbn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", gbn)
+				if gbn % 7 == 0:
+					Stats.earn_souls(2)
+					var mgb := get_tree().current_scene
+					Sfx.play("soul", 0.7)
+					if mgb != null and mgb.has_method("_souls_l"):
+						mgb._souls_l()
+					if mgb != null and mgb.has_method("_damage_number"):
+						mgb._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "GILT +2", Color(1.0, 0.85, 0.3), true)
 			if Stats.weapon_id == "wraithbell":
 				var wbn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", wbn)
