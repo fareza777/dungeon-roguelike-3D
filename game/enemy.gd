@@ -39,6 +39,7 @@ var windup_t := 0.45
 var bounds := {}
 var room_tile := 4.0
 var mat: ShaderMaterial
+var _tint0 := Color(1, 1, 1)
 var ap: AnimationPlayer
 var kb := Vector3.ZERO
 var state_t := 0.0
@@ -192,6 +193,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	dash = a.get("dash", false)
 	proj_speed = a.get("proj_speed", 0.0) * tile
 	kb_resist = a.get("kb_resist", 0.0)
+	_tint0 = mat.get_shader_parameter("tint")
 	is_boss = a.get("boss", false)
 	is_bomber = a.get("bomber", false)
 	is_summoner = a.get("summoner", false)
@@ -763,10 +765,16 @@ func _physics_process(delta: float) -> void:
 				warp_t = 0.5
 	if stun_t > 0.0:
 		stun_t -= delta
+		if mat != null:
+			mat.set_shader_parameter("flash", 0.2 + 0.18 * absf(sin(stun_t * 9.0)))
+			mat.set_shader_parameter("tint", Color(0.75, 0.85, 1.25))
 		velocity = kb
 		kb = kb.move_toward(Vector3.ZERO, delta * room_tile * 8.0)
 		move_and_slide()
 		global_position.y = 0.0
+		if stun_t <= 0.0 and mat != null:
+			mat.set_shader_parameter("flash", 0.0)
+			mat.set_shader_parameter("tint", Color(1.35, 0.35, 0.3) if enraged else _tint0)
 		return
 	if is_lurker and not lurk_revealed:
 		var lp := _player()
