@@ -206,7 +206,8 @@ const DB := {
 	"salvage_token": {"name": "Salvage Token", "chip": "ST", "desc": "Worth a wreck's weight in coin — +6% souls, −2% speed", "rarity": 1, "mods": {"soul_gain_pct": 0.06, "speed_pct": -0.02}},
 	"wake_line": {"name": "Wake Line", "chip": "WL", "desc": "Tied to the current's fastest thread — +5% speed, +3% crit", "rarity": 1, "mods": {"speed_pct": 0.05, "crit": 0.03}},
 	"fathom_glass": {"name": "Fathom Glass", "chip": "FG", "desc": "Held to the light it shows the ship that sank you — +5% crit, +3% souls", "rarity": 1, "mods": {"crit": 0.05, "soul_gain_pct": 0.03}},
-	# ---- fallback berulang ----
+		"keel_stone": {"name": "Keel Stone", "chip": "KS", "desc": "A fist of ballast that never forgets the bottom — +1 armor, −4% speed", "rarity": 1, "mods": {"armor": 1, "speed_pct": -0.04}},
+# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
 
