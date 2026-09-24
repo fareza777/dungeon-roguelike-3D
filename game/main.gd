@@ -748,7 +748,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0, "riptide": 0.0, "soultithe": 0.0, "anchordrop": 0.0, "soulfall": 0.0, "keelsplit": 0.0, "bloodtide": 0.0, "sealegs": 0.0, "deadreckon": 0.0, "becalm": 0.0, "irontide": 0.0, "dragline": 0.0, "deadlight": 0.0, "broadside": 0.0, "fogsong": 0.0, "saltbomb": 0.0, "deadweight": 0.0, "keelram": 0.0, "hullsplinter": 0.0, "crowsdive": 0.0, "salvagehook": 0.0, "riptidesnare": 0.0, "saltward": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0, "riptide": 0.0, "soultithe": 0.0, "anchordrop": 0.0, "soulfall": 0.0, "keelsplit": 0.0, "bloodtide": 0.0, "sealegs": 0.0, "deadreckon": 0.0, "becalm": 0.0, "irontide": 0.0, "dragline": 0.0, "deadlight": 0.0, "broadside": 0.0, "fogsong": 0.0, "saltbomb": 0.0, "deadweight": 0.0, "keelram": 0.0, "hullsplinter": 0.0, "crowsdive": 0.0, "salvagehook": 0.0, "riptidesnare": 0.0, "saltward": 0.0, "bilgesnare": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -5319,6 +5319,22 @@ func _cast_skill(id: String) -> void:
 			Sfx.play("shrine")
 			_damage_number(player.global_position + Vector3(0, 0.8 * info.tile, 0), "DEAD RECKONING — %d marked" % rkn, Color(0.75, 0.6, 1.0), true)
 			print("SKILL deadreckon marked=%d" % rkn)
+		"bilgesnare":
+			var tgt_: Object = null
+			var td_: float = 9999.0
+			for bs_ in get_tree().get_nodes_in_group("enemies"):
+				if bs_.get("state") == "dead":
+					continue
+				var bd_: float = bs_.global_position.distance_to(player.global_position)
+				if bd_ < td_ and bd_ < 6.0 * info.tile:
+					td_ = bd_
+					tgt_ = bs_
+			if tgt_ != null:
+				if tgt_.has_method("stun"):
+					tgt_.stun(2.0)
+				if tgt_.has_method("take_hit"):
+					tgt_.take_hit(player.global_position, 2.0)
+				_damage_number(tgt_.global_position + Vector3(0, 0.9 * info.tile, 0), "SNARED", Color(0.5, 0.7, 0.3), false)
 		"saltward":
 			var swn := 0
 			for sw_ in get_tree().get_nodes_in_group("enemies"):
