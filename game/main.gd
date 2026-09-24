@@ -8835,12 +8835,25 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Kelp Tithe — pay 3 souls: the wrack feeds you — orbs mend +30% this floor"},
 		{"text": "Leech Bond — pay 5 souls: the mud's hunger lends you its teeth — +8% lifesteal this floor"},
 		{"text": "Murk Purse — pay 3 souls: the depths spill their change — every urn pays +1 soul this floor"},
+		{"text": "Tide Sponge — pay 3 souls: the wrack wrings its water over your wounds — heal 30%"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 38:
+	if idx == 39:
 		toast("The water settles back into the stone")
+		return
+	if idx == 38:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the sponge isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		if player != null and is_instance_valid(player):
+			player.hp = minf(player.max_hp, player.hp + player.max_hp * 0.3)
+			player.hp_changed.emit(player.hp)
+		Sfx.play("shrine")
+		toast("TIDE SPONGE — the wrack's water mends")
 		return
 	if idx == 37:
 		if Stats.souls < _soul_cost(3):
