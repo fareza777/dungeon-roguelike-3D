@@ -12348,6 +12348,7 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Brine Toll — pay 4 souls: the river's passage tax — +6% speed, +4% souls this run"},
 		{"text": "Brine Brand — pay 3 souls: the water marks you — +2 armor, −3% dodge this run"},
 		{"text": "Deep Graft — pay 5 souls: the river knits into your arm — +5% ATK, −2% speed this run"},
+		{"text": "Salt Writ — pay 4 souls: the river stamps your lesson-book — +8% XP this run"},
 		{"text": "Walk away"}])
 
 
@@ -12426,8 +12427,19 @@ func _drowned_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("KEEL SALT — the altar scrubs your edge bright (+8% crit this floor)")
 		return
-	if idx == 59:
+	if idx == 60:
 		toast("The water settles back into the stone")
+		return
+	if idx == 59:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the writ isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_count_deal()
+		_souls_l()
+		Stats.buff_xp_pct += 0.08
+		Sfx.play("shrine")
+		toast("SALT WRIT — the river stamps your lesson-book (+8% XP)")
 		return
 	if idx == 58:
 		if Stats.souls < _soul_cost(5):
