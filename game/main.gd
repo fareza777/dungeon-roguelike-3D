@@ -17853,11 +17853,20 @@ func _build_ui() -> void:
 	bf.add_theme_stylebox_override("background", bfb)
 	bvb.add_child(bn)
 	bvb.add_child(bf)
+	var bpct := Label.new()
+	bpct.text = "100%"
+	bpct.add_theme_font_size_override("font_size", 11)
+	bpct.add_theme_color_override("font_color", Color(1, 0.85, 0.75))
+	bpct.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	bpct.anchor_left = 0.0; bpct.anchor_right = 1.0
+	bpct.offset_top = 1; bpct.offset_bottom = 17
+	bf.add_child(bpct)
 	bb.add_child(bvb)
 	bb.visible = false
 	layer.add_child(bb)
 	ui["boss_bar"] = bb
 	ui["boss_fill"] = bf
+	ui["boss_pct"] = bpct
 
 	# banter bos melayang di bawah bar (tanpa pause)
 	var btl := Label.new()
@@ -19494,6 +19503,8 @@ func _process(delta: float) -> void:
 				bftw.tween_property(ui.boss_fill, "value", target, 0.18).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 			else:
 				ui.boss_fill.value = target
+			if ui.has("boss_pct"):
+				ui.boss_pct.text = "%d%%" % int(target + 0.5)
 		else:
 			_boss_bar_hide()
 
