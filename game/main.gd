@@ -12458,6 +12458,7 @@ func _throne_deal(idx: int) -> void:
 		_count_deal()
 		_souls_l()
 		court_fool = true
+		_ach("fools_gold")
 		for cf in get_tree().get_nodes_in_group("enemies"):
 			if not cf.is_boss:
 				cf.speed *= 0.92

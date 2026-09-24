@@ -250,6 +250,7 @@ const ACH_DEF := {
 	"trenchwalker": "Trench Walker (reach Floor 55)",
 	"clear_ledger": "Clear Ledger (repay your Mahzan debt)",
 	"river_purse": "River Purse (take 5 drowned deals)",
+	"fools_gold": "Fool's Gold (hire the Court Fool)",
 	"liberator": "Thrall Liberator (free 15 thralls)",
 	"spender": "Spender (buy 15 deals in one run)",
 	"fulldeck": "Full Deck (every meta upgrade maxed)",
