@@ -418,6 +418,7 @@ var crews_grog := false
 var bosuns_ration := false
 var oakum_chit := false
 var riggers_song := false
+var salted_aria := false
 var second_verse := false
 var chorus_deep := false
 var harbor_verse := false
@@ -1913,6 +1914,9 @@ func _new_run(new_seed: int) -> void:
 	if riggers_song:
 		Stats.buff_aspd -= 0.10
 		riggers_song = false
+	if salted_aria:
+		Stats.buff_crit -= 0.08
+		salted_aria = false
 	if oakum_chit:
 		Stats.soul_gain_pct -= 0.12
 		oakum_chit = false
@@ -12396,16 +12400,29 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Requiem Note — pay 4 souls: a note for the gone — +8% dodge this floor"},
 		{"text": "Dirge Half — pay 3 souls: the low half-note drags the dead's stride — foes −10% speed this floor"},
 		{"text": "Ballad of the Bilge — pay 4 souls: the chorus sings your lessons — +12% XP this floor"},
+		{"text": "Salted Aria — pay 4 souls: the high verse sharpens your edge — +8% crit this floor"},
 		{"text": "Walk away"}])
 
 
 func _siren_deal(idx: int) -> void:
-	if idx == 33:
+	if idx == 34:
 		Stats.earn_souls(2)
 		_souls_l()
 		_quest_event("siren")
 		Sfx.play("soul")
 		toast("UNSUNG — you walk, and the conch pays +2 souls for your silence")
+		return
+	if idx == 33:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the verse isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_count_deal()
+		_souls_l()
+		salted_aria = true
+		Stats.buff_crit += 0.08
+		Sfx.play("shrine")
+		toast("SALTED ARIA — the high note sharpens your edge")
 		return
 	if idx == 32:
 		if Stats.souls < _soul_cost(4):
