@@ -10126,6 +10126,7 @@ func _offer_omens() -> void:
 		{"text": "BOTTOM LINE — the ledger always balances (+10% souls)... but the ink runs heavy on your feet (−10% speed)"},
 		{"text": "DROWNED WAGES — the dead pay well (+15% souls)... and the lessons stay drowned (−10% XP)"},
 		{"text": "IRON RATIONS — hardtack for the long dark (+1 armor)... and it sits like a stone (−8% speed)"},
+		{"text": "DECK ORACLE — the boards whisper what comes (+6% XP)... but they won't shield you (−1 armor)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -10798,6 +10799,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.08
 			oname = "IRON RATIONS"
 		140:
+			Stats.buff_xp_pct += 0.06
+			Stats.buff_armor -= 1
+			oname = "DECK ORACLE"
+		141:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -10975,6 +10980,7 @@ func _omen_deal(idx: int) -> void:
 	"BOTTOM LINE": "Every accountant who drowned here left the same entry: rich and slow, or quick and poor.",
 	"DROWNED WAGES": "A drowned sailor's purse is fat, Kael — but he learns nothing new down there.",
 	"IRON RATIONS": "Iron biscuits, Kael — they'll keep you alive and slow you doing it.",
+	"DECK ORACLE": "The planks under your feet remember every crew that drowned — listen and they teach.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
