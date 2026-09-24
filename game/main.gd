@@ -215,6 +215,7 @@ var draft_hole := false
 var keel_hauled := false
 var bilge_sworn := false
 var salt_forfeit := false
+var dead_reckoner := false
 var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
@@ -1356,6 +1357,7 @@ func _reset_run_state() -> void:
 	keel_hauled = false
 	bilge_sworn = false
 	salt_forfeit = false
+	dead_reckoner = false
 	combo_rate_bonus = 0.0
 	solitary = false
 	pawn_discount = false
@@ -2880,6 +2882,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.hp_max = e.hp
 	if bilge_sworn and not e.is_boss:
 		e.speed *= 0.92
+	if dead_reckoner and not e.is_boss:
+		e.aggro_range *= 1.2
 	if gallows_tide and not e.is_boss:
 		e.hp *= 1.12
 		e.hp_max = e.hp
@@ -7396,6 +7400,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL HAULED — barnacles plate your hull (+1 Armor)... but drag (−8% speed)"},
 		{"text": "BILGE SWORN — the bilge slows them all (−8% foe speed)... but the purse pays (−10% souls)"},
 		{"text": "SALT FORFEIT — pay your vigor up front (−10% Max HP)... and the dead pay interest (+15% XP)"},
+		{"text": "DEAD RECKONER — the chart draws them nearer (+20% foe aggro)... but the purse knows (+15% souls)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -7446,7 +7451,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 84 if Stats.nemesis != "" else 83
+	var osize := 85 if Stats.nemesis != "" else 84
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -7802,6 +7807,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_xp_pct += 0.15
 			oname = "SALT FORFEIT"
 		83:
+			dead_reckoner = true
+			Stats.soul_gain_pct += 0.15
+			oname = "DEAD RECKONER"
+		84:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -7895,6 +7904,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL HAULED": "Scraped hulls sail true — but a clean hull is a dead sailor's vanity.",
 	"BILGE SWORN": "Sworn to the lowest deck — everything down there moves slower, even the dying.",
 	"SALT FORFEIT": "Blood first, glory later — the sea always collects its collateral.",
+	"DEAD RECKONER": "Plot the course and the dead plot back — fair trade for a fuller purse.",
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
