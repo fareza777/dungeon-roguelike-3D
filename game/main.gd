@@ -3600,6 +3600,11 @@ func _on_enemy_died(e) -> void:
 		_quest_event("saw_kill")
 	if e.arch_id == "bell_ringer":
 		_quest_event("ringer_kill")
+	if Stats.weapon_id == "brineaxe" and player != null:
+		var mx2 := float(Stats.get_stat("max_hp"))
+		player.hp = minf(mx2, player.hp + mx2 * 0.02)
+		player.hp_changed.emit(player.hp)
+		Stats.current_hp = player.hp
 	if e.arch_id == "salvage_rat":
 		Stats.earn_souls(4)
 		_souls_l()
