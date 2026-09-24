@@ -5314,6 +5314,17 @@ func _build_draft_cards() -> void:
 			cvb.add_child(cc)
 		card.add_child(cvb)
 		var idx := i
+		card.mouse_entered.connect(func() -> void:
+			card.pivot_offset = card.size * 0.5
+			var htw: Tween = card.create_tween()
+			htw.set_parallel(true)
+			htw.tween_property(card, "scale", Vector2(1.05, 1.05), 0.12)
+			htw.tween_property(sb, "bg_color", Color(0.2, 0.18, 0.3, 1.0), 0.12))
+		card.mouse_exited.connect(func() -> void:
+			var xtw: Tween = card.create_tween()
+			xtw.set_parallel(true)
+			xtw.tween_property(card, "scale", Vector2.ONE, 0.12)
+			xtw.tween_property(sb, "bg_color", Color(0.14, 0.13, 0.2, 1.0), 0.12))
 		card.gui_input.connect(func(e: InputEvent) -> void:
 			if (e is InputEventMouseButton or e is InputEventScreenTouch) and e.pressed:
 				Sfx.play("click")
