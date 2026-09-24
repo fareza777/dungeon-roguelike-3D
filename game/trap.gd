@@ -68,7 +68,7 @@ func setup(p_tile: float, offset: float, p_kind := 0) -> void:
 		gm3.size = Vector2(0.44 * tile, 0.44 * tile)
 		var gmat3 := StandardMaterial3D.new()
 		gmat3.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-		gmat3.albedo_color = Color(0.4, 0.75, 1.0, 0.8) if kind == 2 else (Color(0.5, 1.0, 0.55, 0.85) if kind == 4 else (Color(0.35, 0.95, 0.85, 0.85) if kind == 5 else (Color(0.95, 0.95, 0.9, 0.85) if kind == 6 else (Color(0.6, 0.3, 1.0, 0.85) if kind == 7 else (Color(0.75, 0.55, 1.1, 0.85) if kind == 8 else (Color(0.45, 0.95, 0.8, 0.85) if kind == 9 else (Color(0.7, 0.9, 0.3, 0.85) if kind == 10 else (Color(0.4, 0.85, 0.5, 0.85) if kind == 11 else Color(0.75, 0.3, 1.0, 0.8))))))))))
+		gmat3.albedo_color = Color(0.4, 0.75, 1.0, 0.8) if kind == 2 else (Color(0.5, 1.0, 0.55, 0.85) if kind == 4 else (Color(0.35, 0.95, 0.85, 0.85) if kind == 5 else (Color(0.95, 0.95, 0.9, 0.85) if kind == 6 else (Color(0.6, 0.3, 1.0, 0.85) if kind == 7 else (Color(0.75, 0.55, 1.1, 0.85) if kind == 8 else (Color(0.45, 0.95, 0.8, 0.85) if kind == 9 else (Color(0.7, 0.9, 0.3, 0.85) if kind == 10 else (Color(0.4, 0.85, 0.5, 0.85) if kind == 11 else Color(0.75, 0.3, 1.0, 0.8)))))))))
 		gmat3.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 		gm3.material = gmat3
 		glow.mesh = gm3
@@ -109,7 +109,7 @@ func setup(p_tile: float, offset: float, p_kind := 0) -> void:
 	spikes = Node3D.new()
 	add_child(spikes)
 	var smat := StandardMaterial3D.new()
-	smat.albedo_color = Color(0.6, 0.85, 1.15) if kind == 2 else (Color(0.75, 0.5, 1.0) if kind == 3 else (Color(0.95, 0.95, 0.9) if kind == 6 else (Color(0.6, 0.35, 1.0) if kind == 7 else (Color(0.7, 0.5, 1.15) if kind == 8 else (Color(0.4, 0.9, 0.75) if kind == 9 else (Color(0.75, 0.85, 0.35) if kind == 10 else (Color(0.45, 0.8, 0.55) if kind == 11 else Color(0.85, 0.82, 0.7)))))))))
+	smat.albedo_color = Color(0.6, 0.85, 1.15) if kind == 2 else (Color(0.75, 0.5, 1.0) if kind == 3 else (Color(0.95, 0.95, 0.9) if kind == 6 else (Color(0.6, 0.35, 1.0) if kind == 7 else (Color(0.7, 0.5, 1.15) if kind == 8 else (Color(0.4, 0.9, 0.75) if kind == 9 else (Color(0.75, 0.85, 0.35) if kind == 10 else (Color(0.45, 0.8, 0.55) if kind == 11 else Color(0.85, 0.82, 0.7))))))))
 	for i in range(3):
 		for j in range(3):
 			var s := MeshInstance3D.new()

@@ -4007,7 +4007,7 @@ func _spawn_traps(last_room: int) -> void:
 		tr.global_position = pos
 		var rk := rng.randf()
 		var clam := String(biome.get("name", "")) == "Sunken Reliquary"
-		var tkind: int = 11 if (Stats.floor_num >= 20 and rk < 0.03) else (10 if (Stats.floor_num >= 18 and rk < 0.04) else (9 if (Stats.floor_num >= 16 and rk < 0.04) else (8 if (Stats.floor_num >= 15 and rk < 0.05) else (7 if (Stats.floor_num >= 13 and rk < 0.14) else (4 if rk < 0.18 else (5 if rk < 0.28 else ((6 if clam else 3) if rk < 0.42 else (2 if rk < 0.56 else (1 if rk < 0.72 else 0))))))))
+		var tkind: int = 11 if (Stats.floor_num >= 20 and rk < 0.03) else (10 if (Stats.floor_num >= 18 and rk < 0.04) else (9 if (Stats.floor_num >= 16 and rk < 0.04) else (8 if (Stats.floor_num >= 15 and rk < 0.05) else (7 if (Stats.floor_num >= 13 and rk < 0.14) else (4 if rk < 0.18 else (5 if rk < 0.28 else ((6 if clam else 3) if rk < 0.42 else (2 if rk < 0.56 else (1 if rk < 0.72 else 0)))))))))
 		tr.setup(info.tile, rng.randf_range(0.0, 1.9), tkind)
 		if tkind == 7 and not _warned.has("pincher"):
 			_warned["pincher"] = true
