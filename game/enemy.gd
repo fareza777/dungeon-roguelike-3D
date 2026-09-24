@@ -783,6 +783,21 @@ func _separation() -> Vector3:
 	return push
 
 
+func _alert_mark() -> void:
+	var al := Label3D.new()
+	al.text = "!!" if elite else "!"
+	al.font_size = 110 if elite else 96
+	al.modulate = Color(1.0, 0.85, 0.25) if elite else Color(1.0, 0.6, 0.3)
+	al.outline_size = 16
+	al.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	al.position = Vector3(0, 1.7, 0)
+	add_child(al)
+	var atw := al.create_tween()
+	atw.set_parallel(true)
+	atw.tween_property(al, "position:y", 2.4, 0.8).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	atw.tween_property(al, "modulate:a", 0.0, 0.8)
+	atw.chain().tween_callback(al.queue_free)
+
 func _physics_process(delta: float) -> void:
 	if state == "dead":
 		return
@@ -1046,6 +1061,7 @@ func _physics_process(delta: float) -> void:
 			velocity = Vector3.ZERO
 			if dist < aggro_range:
 				state = "chase"
+				_alert_mark()
 				if digger and not digger_dug:
 					digger_dug = true
 					var mdig := get_tree().current_scene
