@@ -250,7 +250,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred", "seafaring", "feytouched", "knotted", "belltoll", "soulfed", "gutted", "beacon", "spry", "keenedged", "tidewrought", "lurker", "hoarfrost", "reefbound", "flotsam", "brinetouched", "bilged"][randi() % 65]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred", "seafaring", "feytouched", "knotted", "belltoll", "soulfed", "gutted", "beacon", "spry", "keenedged", "tidewrought", "lurker", "hoarfrost", "reefbound", "flotsam", "brinetouched", "bilged", "gilded"][randi() % 66]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -439,6 +439,9 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 			"bilged":
 				hp *= 1.2
 				xp_val = int(ceilf(xp_val * 1.35))
+			"gilded":
+				hp *= 1.05
+				xp_val = int(ceilf(xp_val * 1.4))
 			"brinetouched":
 				hp *= 1.15
 				xp_val = int(ceilf(xp_val * 1.3))
@@ -1581,6 +1584,13 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 			var mbg := get_tree().current_scene
 			if mbg != null and mbg.has_method("_spawn_health_orb"):
 				mbg._spawn_health_orb(global_position)
+		if affix == "gilded":
+			Stats.earn_souls(1)
+			var mgu := get_tree().current_scene
+			if mgu != null and mgu.has_method("_damage_number"):
+				mgu._damage_number(global_position + Vector3(0, 1.0, 0), "GILDED +1", Color(1.0, 0.9, 0.4), true)
+			if mgu != null and mgu.has_method("_souls_l"):
+				mgu._souls_l()
 		if affix == "flotsam":
 			Stats.earn_souls(1)
 			var mmf := get_tree().current_scene
