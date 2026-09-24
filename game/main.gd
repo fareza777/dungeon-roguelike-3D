@@ -8553,6 +8553,17 @@ func _quest_render() -> void:
 
 # ---------------- kombo kill ----------------
 
+func _combo_milestone(txt: String, col: Color) -> void:
+	toast(txt)
+	Sfx.play("level")
+	if vign_g != null:
+		vign_g.modulate.a = 0.4
+		var mtw := vign_g.create_tween()
+		mtw.tween_property(vign_g, "modulate:a", 0.0, 0.7)
+	if player != null and is_instance_valid(player):
+		_burst(player.global_position + Vector3(0, 0.9, 0), 10, col)
+		trauma = minf(trauma + 0.18, 0.5)
+
 func _combo_set(n: int) -> void:
 	combo = n
 	combo_max = maxi(combo_max, n)
@@ -8560,8 +8571,14 @@ func _combo_set(n: int) -> void:
 	# tier buff nyata: streak tinggi = tambah kuat (hilang saat streak putus)
 	if combo == 8:
 		_quest_event("combo")
+		_combo_milestone("FIERCE — the blade remembers", Color(1.0, 0.65, 0.15))
+	if combo == 15:
+		_combo_milestone("BRUTAL — you hit like weather", Color(1.0, 0.55, 0.1))
+	if combo == 25:
+		_combo_milestone("SAVAGE — nothing left standing", Color(1.0, 0.4, 0.2))
 	if combo == 40:
 		_quest_event("combo40")
+		_combo_milestone("GODLIKE — the dungeon fears you", Color(1.0, 0.3, 0.6))
 	if combo >= 40:
 		_ach("godlike")
 	if combo >= 50:
