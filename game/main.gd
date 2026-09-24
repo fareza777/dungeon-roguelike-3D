@@ -6110,10 +6110,17 @@ func _build_skill_buttons(layer: CanvasLayer) -> void:
 		cd.modulate = Color(1.0, 0.95, 0.6)
 		cd.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		b.add_child(cd)
+		var shade := ColorRect.new()
+		shade.color = Color(0.02, 0.05, 0.1, 0.55)
+		shade.set_anchors_preset(Control.PRESET_FULL_RECT)
+		shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		shade.visible = false
+		b.add_child(shade)
+		b.move_child(shade, 0)
 		var sid := id
 		b.pressed.connect(func() -> void: _cast_skill(sid))
 		layer.add_child(b)
-		skill_ui[id] = {"btn": b, "cd": cd, "name": String(SK.DB[id]["name"])}
+		skill_ui[id] = {"btn": b, "cd": cd, "shade": shade, "name": String(SK.DB[id]["name"])}
 
 
 func _tick_skill_ui(delta: float) -> void:
@@ -6133,10 +6140,19 @@ func _tick_skill_ui(delta: float) -> void:
 			b.text = ""
 			lab.text = str(int(ceil(skill_cd[id])))
 			rec["was_cd"] = true
+			var sh: ColorRect = rec.get("shade")
+			if sh != null:
+				var frac: float = skill_cd[id] / maxf(0.01, float(SK.DB[id]["cd"]))
+				sh.visible = true
+				sh.anchor_top = 1.0 - frac
+				sh.offset_top = 0.0
 		else:
 			b.modulate = Color(1, 1, 1, 1)
 			b.text = String(SK.DB[id]["short"])
 			lab.text = ""
+			var sh2: ColorRect = rec.get("shade")
+			if sh2 != null:
+				sh2.visible = false
 			if bool(rec.get("was_cd", false)):
 				rec["was_cd"] = false
 				var ptw := b.create_tween()
