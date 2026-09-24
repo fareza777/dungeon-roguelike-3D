@@ -336,6 +336,7 @@ var knot_refuge := false
 var grommets_due := false
 var sheave_toll := false
 var bilge_bond := false
+var mudlarks_due := false
 var drift_verse := false
 var pearl_octave := false
 var undertow_aria := false
@@ -1537,6 +1538,9 @@ func _new_run(new_seed: int) -> void:
 		Stats.buff_xp_pct -= 0.1
 		sheave_toll = false
 	bilge_bond = false
+	if mudlarks_due:
+		Stats.dodge -= 0.08
+		mudlarks_due = false
 	if vigils_gage:
 		Stats.dodge -= 0.1
 		vigils_gage = false
@@ -8356,12 +8360,24 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Oyster Toll — pay 8 souls: the shell's lesson — +15% XP this floor"},
 		{"text": "Silt Press — pay 6 souls: squeeze the bottom mud — +15% souls this floor"},
 		{"text": "Bilge Bond — pay 4 souls: the muck hums your rhythm — skill charges −15% this floor"},
+		{"text": "Mudlark's Due — pay 3 souls: the silt teaches slipping — +8% dodge this floor"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 34:
+	if idx == 35:
 		toast("The water settles back into the stone")
+		return
+	if idx == 34:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the silt isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		mudlarks_due = true
+		Stats.dodge += 0.08
+		Sfx.play("shrine")
+		toast("MUDLARK'S DUE — you slide through their fingers")
 		return
 	if idx == 33:
 		if Stats.souls < _soul_cost(4):
