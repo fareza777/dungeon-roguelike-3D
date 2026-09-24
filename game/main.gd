@@ -9954,65 +9954,65 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SNATCHED PURSE"
 		105:
-			nemesis_bounty = true
-			oname = "BLOOD DEBT"
-		106:
 			Stats.soul_gain_pct += 0.12
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd -= 0.08
 			oname = "GRIM GALLEY"
-		107:
+		106:
 			Stats.buff_aspd += 0.15
 			Stats.buff_armor -= 1
 			oname = "TIDE-CRAZED"
-		108:
+		107:
 			Stats.dodge += 0.05
 			Stats.soul_gain_pct -= 0.10
 			oname = "WIDOW'S VEIL"
-		109:
+		108:
 			Stats.buff_lifesteal += 0.04
 			Stats.buff_maxhp_pct -= 0.06
 			oname = "CRIMSON DUES"
-		110:
+		109:
 			Stats.buff_atk_pct += 0.10
 			Stats.buff_speed_pct -= 0.06
 			oname = "BONE ANCHOR"
-		111:
+		110:
 			Stats.soul_gain_pct += 0.12
 			Stats.dodge -= 0.05
 			oname = "SALT MADRIGAL"
-		112:
+		111:
 			Stats.buff_xp_pct += 0.10
 			Stats.soul_gain_pct -= 0.08
 			oname = "PALE DUES"
-		113:
+		112:
 			Stats.buff_atk_pct += 0.10
 			Stats.buff_speed_pct -= 0.10
 			oname = "GUNPORT OATH"
-		114:
+		113:
 			Stats.buff_xp_pct += 0.12
 			Stats.buff_armor -= 1
 			oname = "COLD RATIONS"
-		115:
+		114:
 			Stats.soul_gain_pct += 0.08
 			Stats.buff_speed_pct -= 0.08
 			oname = "WAKE MONEY"
-		116:
+		115:
 			Stats.buff_atk_pct += 0.10
 			omen_hp_mult *= 1.1
 			oname = "HEAVY CROWN"
-		117:
+		116:
 			omen_hp_mult *= 0.90
 			Stats.buff_atk_pct -= 0.05
 			oname = "PALE TIDE"
-		118:
+		117:
 			Stats.soul_gain_pct += 0.15
 			Stats.buff_maxhp_pct -= 0.05
 			oname = "KEELCOIN"
-		119:
+		118:
 			Stats.soul_gain_pct += 0.30
 			salted_purse = true
 			oname = "SALTED PURSE"
+		119:
+			nemesis_bounty = true
+			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
 	if not Stats.oaths_seen.has(oname):
 		Stats.oaths_seen.append(oname)
