@@ -9982,16 +9982,27 @@ func _on_throne_invoked(s) -> void:
 		{"text": "Crown's Decree — pay 6 souls: the court honors its debtors — elites drop a blade this run"},
 		{"text": "Court Surgeon — pay 5 souls: royal medicine — mend half, and every ailment washed away"},
 		{"text": "King's Hour — pay 5 souls: the court grants a moment — all skills recharge now"},
+		{"text": "Royal Muster — pay 9 souls: plate and pride — +2 Armor this run"},
 		{"text": "Walk away"}])
 
 
 func _throne_deal(idx: int) -> void:
-	if idx == 19:
+	if idx == 20:
 		Stats.earn_souls(4)
 		_souls_l()
 		_quest_event("throne")
 		Sfx.play("soul")
 		toast("CLEAN HANDS — the crown pays +4 souls to the incorruptible")
+		return
+	if idx == 19:
+		if Stats.souls < _soul_cost(9):
+			toast("Nine souls — the muster isn't free")
+			return
+		Stats.souls -= _soul_cost(9)
+		_souls_l()
+		Stats.buff_armor += 2
+		Sfx.play("shrine")
+		toast("ROYAL MUSTER — the court outfits its champion")
 		return
 	if idx == 18:
 		if Stats.souls < _soul_cost(5):
