@@ -628,10 +628,6 @@ func _upd_hpbar() -> void:
 		hpbar_tag.visible = show
 	if hpbar_shown_frac < 0.0:
 		hpbar_shown_frac = frac
-	if absf(hpbar_shown_frac - frac) < 0.003:
-		hpbar_shown_frac = frac
-	else:
-		hpbar_shown_frac = move_toward(hpbar_shown_frac, frac, get_process_delta_time() * 3.0)
 	hpbar_fg.scale.x = hpbar_shown_frac
 	hpbar_fg.position.x = -0.5 * BAR_W * room_tile * (1.0 - hpbar_shown_frac)
 
@@ -659,6 +655,13 @@ func _separation() -> Vector3:
 func _physics_process(delta: float) -> void:
 	if state == "dead":
 		return
+	if hpbar_shown_frac >= 0.0:
+		var frac_t := clampf(hp / hp_max, 0.0, 1.0)
+		if hpbar_shown_frac != frac_t:
+			hpbar_shown_frac = move_toward(hpbar_shown_frac, frac_t, delta * 3.5)
+			if hpbar_fg != null:
+				hpbar_fg.scale.x = hpbar_shown_frac
+				hpbar_fg.position.x = -0.5 * BAR_W * room_tile * (1.0 - hpbar_shown_frac)
 	anim_lock = max(0.0, anim_lock - delta)
 	hex_t = maxf(0.0, hex_t - delta)
 	if warden_bell:
