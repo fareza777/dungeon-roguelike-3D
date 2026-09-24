@@ -202,6 +202,7 @@ const DB := {
 	"bell_buoy": {"name": "Bell Buoy", "chip": "BB", "desc": "It still tolls where the wreckage lies — +8% souls, +1 armor", "rarity": 2, "mods": {"soul_gain_pct": 0.08, "armor": 1}},
 	"leechers_oath": {"name": "Leecher's Oath", "chip": "LO", "desc": "Drink what you can reach — +4% lifesteal, −5% dodge", "rarity": 2, "mods": {"lifesteal": 0.04, "dodge": -0.05}},
 	"bell_guard": {"name": "Bell Guard", "chip": "BG", "desc": "The muster bell's rusted lip — +1 armor, +5% XP", "rarity": 1, "mods": {"armor": 1, "xp_pct": 0.05}},
+	"rusted_compass": {"name": "Rusted Compass", "chip": "RC", "desc": "It points the long way home — +6% speed, +5% XP", "rarity": 1, "mods": {"speed_pct": 0.06, "xp_pct": 0.05}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
