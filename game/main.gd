@@ -5586,8 +5586,6 @@ func _on_enemy_died(e) -> void:
 		_quest_event("saltwidow_kill")
 	if e.arch_id == "keel_leecher":
 		_quest_event("leecher_kill")
-	if e.arch_id == "keel_leecher":
-		_quest_event("leecher_kill")
 	if e.arch_id == "keel_scribe":
 		_quest_event("scribe_kill")
 	if e.arch_id == "soul_toller":
