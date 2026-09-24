@@ -240,6 +240,16 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "sisters_hook":
+				var sh_ = get_tree().current_scene
+				sh_.set("net_n", int(sh_.get("net_n")) + 1)
+				if int(sh_.get("net_n")) >= 8:
+					sh_.set("net_n", 0)
+					Stats.earn_souls(1)
+					if sh_.has_method("_souls_l"):
+						sh_._souls_l()
+					if sh_.has_method("_damage_number"):
+						sh_._damage_number(f.global_position + Vector3(0, 0.9, 0), "TRAWL +1", Color(0.5, 0.9, 0.8), false)
 			if Stats.weapon_id == "palehook":
 				var ph_ = get_tree().current_scene
 				ph_.set("net_n", int(ph_.get("net_n")) + 1)
