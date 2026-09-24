@@ -3070,6 +3070,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.xp_val = int(ceilf(e.xp_val * 0.85))
 	if deck_psalm and not e.is_boss:
 		e.dmg = int(maxi(1, floorf(float(e.dmg) * 0.88)))
+	if royal_overlook and not e.is_boss:
+		e.dmg = int(maxi(1, floorf(float(e.dmg) * 0.9)))
 	if bilge_still and not e.is_boss:
 		e.speed *= 0.88
 	if deep_well and not e.is_boss:
