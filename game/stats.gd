@@ -106,6 +106,7 @@ var quality := -1 # -1 auto, 0 hemat, 1 indah
 var cam_shake := true
 var screen_flash := true
 var dmg_numbers := true
+var haptics := true
 var show_minimap := true
 var volume := 0.8 # legacy: dipakai kalau music/sfx belum pernah diset
 var music_volume := -1.0

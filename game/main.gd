@@ -7269,7 +7269,7 @@ func _on_player_died() -> void:
 		_ach("persistent")
 	Stats.save_game()
 	_tut_hide()
-	Input.vibrate_handheld(280)
+	if Stats.haptics: Input.vibrate_handheld(280)
 	if player != null and is_instance_valid(player):
 		_souls(player.global_position, 18, Color(0.85, 0.9, 1.0))
 	var mins := int(run_time) / 60
@@ -7295,7 +7295,7 @@ func _offer_oracle_bargain() -> void:
 	Engine.time_scale = 0.15
 	get_tree().create_timer(0.5, true, false, true).timeout.connect(func() -> void: Engine.time_scale = 1.0)
 	_tut_hide()
-	Input.vibrate_handheld(160)
+	if Stats.haptics: Input.vibrate_handheld(160)
 	dlg_pending_choice = 4
 	_say(
 		[{"who": "oracle", "text": "Your thread frays, Kael — but I can knot it back. Fifteen souls, and you rise where you fell."}],
@@ -7338,7 +7338,7 @@ func _finalize_death() -> void:
 		_ach("persistent")
 	Stats.save_game()
 	_tut_hide()
-	Input.vibrate_handheld(280)
+	if Stats.haptics: Input.vibrate_handheld(280)
 	if player != null and is_instance_valid(player):
 		_souls(player.global_position, 18, Color(0.85, 0.9, 1.0))
 	var mins := int(run_time) / 60
@@ -7382,7 +7382,7 @@ func _run_victory() -> void:
 		_burst(player.global_position, Color(0.6, 1.0, 0.75))
 		_souls(player.global_position, 20, Color(0.6, 1.0, 0.75))
 	Sfx.play("victory")
-	Input.vibrate_handheld(400)
+	if Stats.haptics: Input.vibrate_handheld(400)
 	var mins := int(run_time) / 60
 	var secs := int(run_time) % 60
 	var win_line := "The Bone King's crown shatters."
@@ -9222,7 +9222,7 @@ func _refresh_hero() -> void:
 func _on_hit_landed(pos: Vector3, dmg: float, crit: bool) -> void:
 	trauma = 0.65 if crit else 0.5
 	_hit_spark(pos, crit)
-	Input.vibrate_handheld(45 if crit else 25)
+	if Stats.haptics: Input.vibrate_handheld(45 if crit else 25)
 	_damage_number(pos, str(int(round(dmg))), Color(1.0, 0.5, 0.15) if crit else Color(1.0, 0.85, 0.3), crit)
 	Engine.time_scale = 0.08
 	await get_tree().create_timer(0.09 if crit else 0.05, true, false, true).timeout
@@ -12941,7 +12941,7 @@ func _curse_deal(idx: int) -> void:
 		_ach("pact1")
 		_burst(player.global_position, Color(0.8, 0.05, 0.1))
 		Sfx.play("roar")
-		Input.vibrate_handheld(220)
+		if Stats.haptics: Input.vibrate_handheld(220)
 		_refresh_buffs()
 	elif idx == 1:
 		if player != null and is_instance_valid(player):
@@ -18843,7 +18843,7 @@ func _process(delta: float) -> void:
 			var heavy_threshold := 0.4 if Stats.relics.has("pendulum") else 0.6
 			if atk_hold_t >= heavy_threshold and not atk_charged:
 				atk_charged = true
-				Input.vibrate_handheld(60)
+				if Stats.haptics: Input.vibrate_handheld(60)
 				ui.atk_btn.modulate = Color(1.35, 1.15, 0.6)
 				var ctw: Tween = ui.atk_btn.create_tween()
 				ctw.tween_property(ui.atk_btn, "scale", Vector2(1.18, 1.18), 0.12).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
