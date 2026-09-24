@@ -119,7 +119,7 @@ var bestiary := {} # arch_id -> jumlah kill sepanjang masa (codex)
 var weapon_kills := {} # weapon_id -> kill sepanjang masa (mastery progress)
 var mastered := {} # weapon_id -> 1 bila mastery tercapai (+1 ATK permanen)
 const MASTERY_N := 25
-var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0, "reckon": 0, "keelcap": 0, "shepherd": 0, "captain": 0, "quarter": 0, "purse": 0, "carto": 0, "sealegs": 0, "scribe": 0, "salvor": 0, "deckhand": 0, "powdermonk": 0, "netmend": 0, "belaypin": 0, "ferry": 0, "lampluck": 0, "kilnman": 0, "chirurgeon": 0, "bellringer": 0, "keelwright": 0, "wayfarer": 0, "charterer": 0, "spinebearer": 0, "helmsman": 0, "saltpray": 0, "sharpsalt": 0, "gloomfight": 0, "wetwork": 0, "tollman": 0, "keeper": 0}
+var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0, "reckon": 0, "keelcap": 0, "shepherd": 0, "captain": 0, "quarter": 0, "purse": 0, "carto": 0, "sealegs": 0, "scribe": 0, "salvor": 0, "deckhand": 0, "powdermonk": 0, "netmend": 0, "belaypin": 0, "ferry": 0, "lampluck": 0, "kilnman": 0, "chirurgeon": 0, "bellringer": 0, "keelwright": 0, "wayfarer": 0, "charterer": 0, "spinebearer": 0, "helmsman": 0, "saltpray": 0, "sharpsalt": 0, "gloomfight": 0, "wetwork": 0, "tollman": 0, "keeper": 0, "tollkeeper": 0}
 
 const ACH_DEF := {
 	"kill1": "First Bloodbath",
@@ -339,6 +339,7 @@ const META_DEF := {
 	"wetwork": {"name": "Wetwork", "max": 3, "desc": "+1.5% lifesteal per level"},
 	"tollman": {"name": "Tollman", "max": 4, "desc": "+1 soul per shrine dealt"},
 	"keeper": {"name": "Keeper", "max": 4, "desc": "+3% souls per level"},
+	"tollkeeper": {"name": "Tollkeeper", "max": 3, "desc": "+1 soul at each floor's end per level"},
 }
 
 # dipakai menu -> game
@@ -732,7 +733,7 @@ func wipe_progress() -> void:
 	bestiary = {}
 	weapon_kills = {}
 	mastered = {}
-	meta = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0, "reckon": 0, "keelcap": 0, "shepherd": 0, "captain": 0, "quarter": 0, "purse": 0, "carto": 0, "sealegs": 0, "scribe": 0, "salvor": 0, "deckhand": 0, "powdermonk": 0, "netmend": 0, "belaypin": 0, "ferry": 0, "lampluck": 0, "kilnman": 0, "chirurgeon": 0, "bellringer": 0, "keelwright": 0, "wayfarer": 0, "charterer": 0, "spinebearer": 0, "helmsman": 0, "saltpray": 0, "sharpsalt": 0, "gloomfight": 0, "wetwork": 0, "tollman": 0, "keeper": 0}
+	meta = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0, "reckon": 0, "keelcap": 0, "shepherd": 0, "captain": 0, "quarter": 0, "purse": 0, "carto": 0, "sealegs": 0, "scribe": 0, "salvor": 0, "deckhand": 0, "powdermonk": 0, "netmend": 0, "belaypin": 0, "ferry": 0, "lampluck": 0, "kilnman": 0, "chirurgeon": 0, "bellringer": 0, "keelwright": 0, "wayfarer": 0, "charterer": 0, "spinebearer": 0, "helmsman": 0, "saltpray": 0, "sharpsalt": 0, "gloomfight": 0, "wetwork": 0, "tollman": 0, "keeper": 0, "tollkeeper": 0}
 	reset_run()
 	save_game()
 
