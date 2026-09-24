@@ -10311,6 +10311,10 @@ func _omen_deal(idx: int) -> void:
 		_ach("seventypacts")
 	if Stats.oaths_sworn >= 80:
 		_ach("eightypacts")
+	if Stats.oaths_sworn >= 90:
+		_ach("ninetypacts")
+	if Stats.oaths_sworn >= 100:
+		_ach("hundredpacts")
 	_ach("omen1")
 	if omen_count >= 2:
 		_ach("doubloath")

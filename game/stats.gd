@@ -242,6 +242,8 @@ const ACH_DEF := {
 	"century_knells": "Hundred Knells (cast 100 skills in one run)",
 	"seventypacts": "Hundred Pacts (swore 70 omens)",
 	"eightypacts": "Eighty Pacts (swore 80 omens)",
+	"ninetypacts": "Ninety Pacts (swore 90 omens)",
+	"hundredpacts": "Oathbroken Century (swore 100 omens)",
 	"smiths_pride": "Weaponsmith's Pride (master 5 weapons)",
 	"seasoned": "Seasoned (reach Lv 30)",
 	"grizzled": "Grizzled (reach Lv 50)",
