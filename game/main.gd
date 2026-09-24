@@ -6479,7 +6479,7 @@ func _build_draft_cards() -> void:
 		var card := PanelContainer.new()
 		card.custom_minimum_size = Vector2(148, 190)
 		var sb := StyleBoxFlat.new()
-		sb.bg_color = Color(0.14, 0.13, 0.2, 1.0)
+		sb.bg_color = ITEMS.RARITY_COLORS[int(it["rarity"])].lerp(Color(0.14, 0.13, 0.2, 1.0), 0.88)
 		sb.border_color = ITEMS.RARITY_COLORS[int(it["rarity"])]
 		sb.set_border_width_all(3)
 		sb.set_corner_radius_all(12)
@@ -6493,6 +6493,7 @@ func _build_draft_cards() -> void:
 		cvb.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		var chip := Label.new()
 		chip.text = String(it["chip"])
+		chip.modulate = ITEMS.RARITY_COLORS[int(it["rarity"])].lightened(0.5)
 		chip.add_theme_font_size_override("font_size", 30)
 		chip.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		var nl := Label.new()
