@@ -97,6 +97,7 @@ const DB := {
 	"splintered_oar": {"name": "Splintered Oar", "chip": "SO", "desc": "The oar remembers rowing — your dash carries you 30% farther", "rarity": 0, "mods": {}},
 	"deck_plank": {"name": "Deck Plank", "chip": "DP", "desc": "Sure footing on any deck — +5% Speed, +5% Attack Speed", "rarity": 0, "mods": {"speed_pct": 0.05, "atk_speed_pct": 0.05}},
 	"bitter_chart": {"name": "Bitter Chart", "chip": "BC", "desc": "The drowned mapped this water in blood — −1 Armor, +25% XP", "rarity": 1, "mods": {"armor": -1.0, "xp_pct": 0.25}},
+	"anchorite_beads": {"name": "Anchorite's Beads", "chip": "AB", "desc": "Beads of a hermit who never moved again — +2 Armor, −5% speed", "rarity": 2, "mods": {"armor": 2, "speed_pct": -0.05}},
 	"pearl_scrip": {"name": "Pearl Scrip", "chip": "PS", "desc": "A promissory note written on nacre — +15% souls", "rarity": 2, "mods": {"soul_gain_pct": 0.15}},
 	"long_spine": {"name": "Long Spine", "chip": "LS", "desc": "A keel-wale rib lashed to the grip — +15% reach", "rarity": 1, "mods": {"reach": 0.15}},
 	"pelican_bone": {"name": "Pelican Bone", "chip": "PB", "desc": "It swallowed more than fish — +12% souls", "rarity": 1, "mods": {"soul_gain_pct": 0.12}},
