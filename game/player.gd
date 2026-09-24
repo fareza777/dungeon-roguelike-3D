@@ -588,6 +588,15 @@ func _strike() -> void:
 					var mrc := get_tree().current_scene
 					if mrc != null and mrc.has_method("_damage_number"):
 						mrc._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "RIP", Color(0.5, 0.85, 0.9), false)
+			if Stats.weapon_id == "mast_stinger":
+				var msn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", msn)
+				if msn % 6 == 0:
+					Sfx.play("hit", 0.5)
+					f.take_hit(f.global_position, Stats.get_stat("atk") * 0.5)
+					var mms := get_tree().current_scene
+					if mms != null and mms.has_method("_damage_number"):
+						mms._damage_number(f.global_position + Vector3(0.3, 0.7 * room_tile, 0), "STING", Color(1.0, 0.7, 0.4), false)
 			if Stats.weapon_id == "hull_mender":
 				var hmn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", hmn)
