@@ -248,6 +248,13 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "oathblade":
+				var ob_ = get_tree().current_scene
+				ob_.set("net_n", int(ob_.get("net_n")) + 1)
+				if int(ob_.get("net_n")) >= 10:
+					ob_.set("net_n", 0)
+					f.take_hit(global_position, float(Stats.get_stat("atk")) * 0.5)
+					f.velocity += (f.global_position - global_position).normalized() * 12.0
 			if Stats.weapon_id == "saltbrand":
 				var sb_ = get_tree().current_scene
 				sb_.set("net_n", int(sb_.get("net_n")) + 1)
