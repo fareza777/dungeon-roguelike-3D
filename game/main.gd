@@ -10852,6 +10852,7 @@ func _offer_omens() -> void:
 		{"text": "FATHOM DUES — membership has its privileges (+6% souls)... and its fees (+4% damage taken)"},
 		{"text": "SALT RECEIPT — proof of purchase, stamped in brine (+4% souls)... the salt gets in the wound (+5% damage taken)"},
 		{"text": "SALT ANNUITY — a yearly payment, drawn in brine (+7% souls)... minus the service charge (−4% XP)"},
+		{"text": "GREY TAX — the grey sea levies its due (+6% ATK)... and holds your coat as surety (−1 armor)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -11706,6 +11707,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_xp_pct -= 0.04
 			oname = "SALT ANNUITY"
 		185:
+			Stats.buff_atk_pct += 0.06
+			Stats.buff_armor -= 1
+			oname = "GREY TAX"
+		186:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -11938,6 +11943,7 @@ func _omen_deal(idx: int) -> void:
 	"FATHOM DUES": "The deep collects its dues whether or not you pay them, Kael — best to pay in advance.",
 	"SALT RECEIPT": "Keep the receipt, Kael — the sea demands proof of everything.",
 	"SALT ANNUITY": "Every year the same payment arrives, Kael — the sea always pays its pensioners.",
+	"GREY TAX": "The grey sea taxes every sailor twice, Kael — once in steel, once in skin.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
