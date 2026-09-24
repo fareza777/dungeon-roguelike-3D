@@ -369,6 +369,7 @@ var soul_ledger := false
 var courts_tally := false
 var royal_overlook := false
 var splice_line := false
+var rigging_rest := false
 var second_verse := false
 var leech_bond := false
 var keelwind := false
@@ -1678,6 +1679,9 @@ func _new_run(new_seed: int) -> void:
 	if splice_line:
 		Stats.buff_speed_pct -= 0.06
 		splice_line = false
+	if rigging_rest:
+		Stats.cd_reduction -= 0.15
+		rigging_rest = false
 	if second_verse:
 		Stats.buff_aspd -= 0.15
 		second_verse = false
@@ -10253,12 +10257,28 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Deck Psalm — pay 5 souls: the hull's hymn calms the dead — foes −12% damage this floor"},
 		{"text": "Rope Tackle — pay 4 souls: oiled blocks, faster feet — dash recharges 20% faster this floor"},
 		{"text": "Splice Line — pay 3 souls: the line feeds you its slack — +6% speed this floor"},
+		{"text": "Rigging Rest — pay 4 souls: the lines slacken in your favor — mend 15%, skills recharge 15% faster this floor"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 32:
+	if idx == 33:
 		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 32:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the rigging isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_count_deal()
+		_souls_l()
+		rigging_rest = true
+		Stats.cd_reduction += 0.15
+		if player != null and is_instance_valid(player):
+			player.hp = minf(player.max_hp, player.hp + player.max_hp * 0.15)
+			player.hp_changed.emit(player.hp)
+		Sfx.play("shrine")
+		toast("RIGGING REST — the lines slacken in your favor")
 		return
 	if idx == 31:
 		if Stats.souls < _soul_cost(3):
