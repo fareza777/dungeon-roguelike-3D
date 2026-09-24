@@ -536,6 +536,15 @@ func _strike() -> void:
 						mkl._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "LANTERN", Color(0.95, 0.8, 0.4), false)
 					if randf() < 0.35:
 						Stats.earn_souls(1)
+			if Stats.weapon_id == "keel_judge":
+				var kjn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", kjn)
+				if kjn % 9 == 0 and float(f.hp) / float(f.hp_max) < 0.15:
+					Sfx.play("thunder", 0.7)
+					f.take_hit(global_position, 9999.0)
+					var mkj := get_tree().current_scene
+					if mkj != null and mkj.has_method("_damage_number"):
+						mkj._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "JUDGED", Color(0.95, 0.75, 0.35), true)
 			if Stats.weapon_id == "hull_mender":
 				var hmn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", hmn)
