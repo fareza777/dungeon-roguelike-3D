@@ -14668,6 +14668,7 @@ func _on_qm_invoked(s) -> void:
 		{"text": "Steward's Mark — pay 5 souls: the quartermaster's seal — +6% souls, +4% dodge this run"},
 		{"text": "Deck Ration — pay 4 souls: hardtack and a dry blanket — heal 25%, +2% max HP this run"},
 		{"text": "Deck Salt — pay 4 souls: a fistful over the shoulder for luck — +8% ATK, +2 armor this run"},
+		{"text": "Powder Ration — pay 3 souls: an extra scoop for your blade — +7% crit, −2% speed this run"},
 		{"text": "Walk away"}])
 
 
@@ -14684,8 +14685,20 @@ func _qm_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("POWDER CHECK — the cask reads dry")
 		return
-	if idx == 32:
+	if idx == 33:
 		toast("The post shutters its stores")
+		return
+	if idx == 32:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the ration isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_count_deal()
+		_souls_l()
+		Stats.buff_crit += 0.07
+		Stats.buff_speed_pct -= 0.02
+		Sfx.play("shrine")
+		toast("POWDER RATION — an extra scoop for your blade (+7% crit, −2% speed)")
 		return
 	if idx == 31:
 		if Stats.souls < _soul_cost(4):
