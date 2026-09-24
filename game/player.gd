@@ -240,6 +240,21 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "saltline":
+				var sl_ = get_tree().current_scene
+				sl_.set("net_n", int(sl_.get("net_n")) + 1)
+				if int(sl_.get("net_n")) >= 6:
+					sl_.set("net_n", 0)
+					var slf_: Object = null
+					var sld_: float = 0.0
+					for sf2 in get_tree().get_nodes_in_group("enemies"):
+						if sf2.get("state") != "dead" and sf2 != f:
+							var sd2: float = sf2.global_position.distance_to(global_position)
+							if sd2 > sld_ and sd2 < 6.0:
+								sld_ = sd2
+								slf_ = sf2
+					if slf_ != null:
+						slf_.velocity += (global_position - slf_.global_position).normalized() * 12.0
 			if Stats.weapon_id == "oarsplitter":
 				var os_ = get_tree().current_scene
 				os_.set("net_n", int(os_.get("net_n")) + 1)
