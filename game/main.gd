@@ -423,6 +423,10 @@ var boatswain_call := false
 var court_fool := false
 var bilge_ballad := false
 var salt_ration_d := false
+var mist_ration_d := false
+var brine_graft_d := false
+var kelp_wine_d := false
+var salt_pork_d := false
 var salt_lullaby := false
 var coil_chit := false
 var rope_allowance := false
@@ -1901,6 +1905,18 @@ func _new_run(new_seed: int) -> void:
 	if salt_ration_d:
 		Stats.buff_maxhp_pct -= 0.05
 		salt_ration_d = false
+	if mist_ration_d:
+		Stats.buff_xp_pct -= 0.1
+		mist_ration_d = false
+	if brine_graft_d:
+		Stats.buff_maxhp_pct -= 0.1
+		brine_graft_d = false
+	if kelp_wine_d:
+		Stats.buff_speed_pct -= 0.05
+		kelp_wine_d = false
+	if salt_pork_d:
+		Stats.buff_maxhp_pct -= 0.15
+		salt_pork_d = false
 	salt_lullaby = false
 	if coil_chit:
 		Stats.dodge -= 0.08
@@ -10263,6 +10279,7 @@ func _drowned_deal(idx: int) -> void:
 		Stats.souls -= _soul_cost(3)
 		_count_deal()
 		_souls_l()
+		mist_ration_d = true
 		Stats.buff_xp_pct += 0.1
 		Sfx.play("shrine")
 		toast("MIST RATION — the fog teaches in whispers")
@@ -10274,6 +10291,7 @@ func _drowned_deal(idx: int) -> void:
 		Stats.souls -= _soul_cost(4)
 		_count_deal()
 		_souls_l()
+		brine_graft_d = true
 		Stats.buff_maxhp_pct += 0.1
 		if player != null and is_instance_valid(player):
 			player.refresh_stats()
@@ -10289,6 +10307,7 @@ func _drowned_deal(idx: int) -> void:
 		_souls_l()
 		for skk in skill_cd.keys():
 			skill_cd[skk] = maxf(0.0, float(skill_cd[skk]) - 1.0)
+		kelp_wine_d = true
 		Stats.buff_speed_pct += 0.05
 		if player != null and is_instance_valid(player):
 			player.refresh_stats()
@@ -11927,6 +11946,7 @@ func _qm_deal(idx: int) -> void:
 		Stats.souls -= _soul_cost(3)
 		_count_deal()
 		_souls_l()
+		salt_pork_d = true
 		Stats.buff_maxhp_pct += 0.15
 		if player != null and is_instance_valid(player):
 			player.hp = minf(Stats.get_stat("max_hp"), player.hp + Stats.get_stat("max_hp") * 0.15)
