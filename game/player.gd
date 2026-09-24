@@ -443,6 +443,18 @@ func _strike() -> void:
 						mgb._souls_l()
 					if mgb != null and mgb.has_method("_damage_number"):
 						mgb._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "GILT +2", Color(1.0, 0.85, 0.3), true)
+			if Stats.weapon_id == "ledger_edge":
+				var lbn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", lbn)
+				if lbn % 8 == 0:
+					Stats.earn_souls(1)
+					Stats.add_xp(3)
+					var mlb := get_tree().current_scene
+					Sfx.play("soul", 0.6)
+					if mlb != null and mlb.has_method("_souls_l"):
+						mlb._souls_l()
+					if mlb != null and mlb.has_method("_damage_number"):
+						mlb._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "LEDGER", Color(0.85, 0.95, 0.5), true)
 			if Stats.weapon_id == "wraithbell":
 				var wbn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", wbn)
