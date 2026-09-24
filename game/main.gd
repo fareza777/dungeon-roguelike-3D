@@ -1212,7 +1212,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0, "riptide": 0.0, "soultithe": 0.0, "anchordrop": 0.0, "soulfall": 0.0, "keelsplit": 0.0, "bloodtide": 0.0, "sealegs": 0.0, "deadreckon": 0.0, "becalm": 0.0, "irontide": 0.0, "dragline": 0.0, "deadlight": 0.0, "broadside": 0.0, "fogsong": 0.0, "saltbomb": 0.0, "deadweight": 0.0, "keelram": 0.0, "hullsplinter": 0.0, "crowsdive": 0.0, "salvagehook": 0.0, "riptidesnare": 0.0, "saltward": 0.0, "bilgesnare": 0.0, "warpaint": 0.0, "brinelash": 0.0, "ghostnet": 0.0, "saltmaw": 0.0, "keelsplitter": 0.0, "deckrupture": 0.0, "deathknell": 0.0, "tidesnatch": 0.0, "kingstoll": 0.0, "chumtoss": 0.0, "netcast": 0.0, "brinevolley": 0.0, "saltwake": 0.0, "choruscall": 0.0, "deckwash": 0.0, "hullkneel": 0.0, "crowsnest": 0.0, "stormflag": 0.0, "shellup": 0.0, "bilgesurge": 0.0, "severline": 0.0, "secondwind": 0.0, "galewind": 0.0, "keelhurl": 0.0, "maelstrom": 0.0, "deckflare": 0.0, "wickdraw": 0.0, "sirenscall": 0.0, "bloodmark": 0.0, "deadeye": 0.0, "rigger": 0.0, "saltskin": 0.0, "ironwake": 0.0, "brineward": 0.0, "wakeveil": 0.0, "keelbolt": 0.0, "galepulse": 0.0, "keelover": 0.0, "sounddeep": 0.0, "saltpall": 0.0, "keelhaul": 0.0, "belltoll": 0.0, "dredge": 0.0, "grimpress": 0.0, "palemark": 0.0, "greywake": 0.0, "crestwake": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0, "riptide": 0.0, "soultithe": 0.0, "anchordrop": 0.0, "soulfall": 0.0, "keelsplit": 0.0, "bloodtide": 0.0, "sealegs": 0.0, "deadreckon": 0.0, "becalm": 0.0, "irontide": 0.0, "dragline": 0.0, "deadlight": 0.0, "broadside": 0.0, "fogsong": 0.0, "saltbomb": 0.0, "deadweight": 0.0, "keelram": 0.0, "hullsplinter": 0.0, "crowsdive": 0.0, "salvagehook": 0.0, "riptidesnare": 0.0, "saltward": 0.0, "bilgesnare": 0.0, "warpaint": 0.0, "brinelash": 0.0, "ghostnet": 0.0, "saltmaw": 0.0, "keelsplitter": 0.0, "deckrupture": 0.0, "deathknell": 0.0, "tidesnatch": 0.0, "kingstoll": 0.0, "chumtoss": 0.0, "netcast": 0.0, "brinevolley": 0.0, "saltwake": 0.0, "choruscall": 0.0, "deckwash": 0.0, "hullkneel": 0.0, "crowsnest": 0.0, "stormflag": 0.0, "shellup": 0.0, "bilgesurge": 0.0, "severline": 0.0, "secondwind": 0.0, "galewind": 0.0, "keelhurl": 0.0, "maelstrom": 0.0, "deckflare": 0.0, "wickdraw": 0.0, "sirenscall": 0.0, "bloodmark": 0.0, "deadeye": 0.0, "rigger": 0.0, "saltskin": 0.0, "ironwake": 0.0, "brineward": 0.0, "wakeveil": 0.0, "keelbolt": 0.0, "galepulse": 0.0, "keelover": 0.0, "sounddeep": 0.0, "saltpall": 0.0, "keelhaul": 0.0, "belltoll": 0.0, "dredge": 0.0, "grimpress": 0.0, "palemark": 0.0, "greywake": 0.0, "crestwake": 0.0, "wakecut": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -8040,6 +8040,24 @@ func _cast_skill(id: String) -> void:
 			Sfx.play("swoosh")
 			trauma = minf(trauma + 0.2, 1.0)
 			_damage_number(player.global_position + Vector3(0, info.tile, 0), "CRESTWAKE", Color(0.65, 0.9, 0.85), true)
+		"wakecut":
+			var wcd: Vector3 = Vector3(sin(player.rotation.y), 0, cos(player.rotation.y))
+			var wcn := 0
+			for wf in get_tree().get_nodes_in_group("enemies"):
+				if wf.get("state") != "dead":
+					var wto: Vector3 = wf.global_position - player.global_position
+					wto.y = 0.0
+					if wto.length() < 4.0 * info.tile and wto.normalized().dot(wcd) > 0.2:
+						wf.take_hit(wf.global_position, Stats.get_stat("atk") * 1.6)
+						wf.kb += wcd * 12.0
+						wcn += 1
+			if wcn > 0:
+				Sfx.play("swing")
+				trauma = minf(trauma + 0.3, 1.0)
+				_damage_number(player.global_position + wcd * (1.5 * info.tile) + Vector3(0, info.tile, 0), "WAKE CUT", Color(0.6, 0.85, 0.8), true)
+			else:
+				toast("The cut finds nothing — no foes ahead")
+				return
 		"warcry":
 			player.anim_lock = M.play_action(player.ap, ["spellcast", "idle_combat", "idle"], 1.1)
 			Sfx.play("roar")
