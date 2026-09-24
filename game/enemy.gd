@@ -558,6 +558,12 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 func _ready() -> void:
 	add_to_group("enemies")
 	ap = M.anim_player(self)
+	# spawn pop: tumbuh dari tanah agar kemunculan terasa hidup
+	if not is_boss:
+		var s0 := scale
+		scale = s0 * 0.2
+		var stw: Tween = create_tween()
+		stw.tween_property(self, "scale", s0, 0.28).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	if mat != null:
 		M.paint(self, mat)
 	# kapsul tabrakan: layer 4 (musuh), menabrak world(1) + player(2) + musuh(4)
