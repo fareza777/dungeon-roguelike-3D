@@ -9245,6 +9245,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.dodge += 0.03
 			toast("Tidewalker's Knot: the rope walks you home — +6% speed, +3% dodge")
+		121:
+			Stats.magnet += 0.3
+			Stats.buff_speed_pct += 0.04
+			toast("Snatch Line: the hook swings wide — +30% gem reach, +4% speed")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -14342,6 +14346,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Fathom Hand — the deep fills your purse: +10% souls"},
 			{"text": "Deckwatch — the watch keeps you light: +6% dodge, −4% attack speed"},
 			{"text": "Tidewalker's Knot — the rope walks you home: +6% speed, +3% dodge"},
+			{"text": "Snatch Line — the hook swings wide: +30% gem reach, +4% speed"},
 		]
 	)
 
