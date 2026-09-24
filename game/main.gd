@@ -218,6 +218,7 @@ var salt_forfeit := false
 var dead_reckoner := false
 var pale_dock := false
 var fathom_pact := false
+var bosuns_debt := false
 var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
@@ -1382,6 +1383,7 @@ func _reset_run_state() -> void:
 	dead_reckoner = false
 	pale_dock = false
 	fathom_pact = false
+	bosuns_debt = false
 	combo_rate_bonus = 0.0
 	solitary = false
 	pawn_discount = false
@@ -6286,7 +6288,7 @@ func _cast_skill(id: String) -> void:
 	_quest_event("skill_" + id)
 	if skills_floor.size() >= 3:
 		_quest_event("witching")
-	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0) * (0.6 if id == "dash" and umbral_tide else 1.0) * (0.7 if id == "dash" and brisk else 1.0) * (0.6 if id == "dash" and dash_fuel else 1.0) * (0.75 if oarsworn else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("powdermonk", 0))) * (1.15 if sodden else 1.0) * (1.1 if slim_pickings else 1.0) * (0.92 if Stats.relics.has("bosun_whistle") else 1.0) * (1.15 if cold_snap or saltsick else 1.0) * (0.85 if bilge_bond else 1.0) * (0.95 if Stats.relics.has("signal_flag") else 1.0) * (0.75 if id == "dash" and whale_lung else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("belaypin", 0)) if id == "dash" else 1.0) + omen_cd_add
+	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0) * (0.6 if id == "dash" and umbral_tide else 1.0) * (0.7 if id == "dash" and brisk else 1.0) * (0.6 if id == "dash" and dash_fuel else 1.0) * (0.75 if oarsworn else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("powdermonk", 0))) * (1.15 if sodden else 1.0) * (1.1 if slim_pickings else 1.0) * (0.92 if Stats.relics.has("bosun_whistle") else 1.0) * (1.15 if cold_snap or saltsick else 1.0) * (0.85 if bilge_bond else 1.0) * (1.1 if bosuns_debt else 1.0) * (0.95 if Stats.relics.has("signal_flag") else 1.0) * (0.75 if id == "dash" and whale_lung else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("belaypin", 0)) if id == "dash" else 1.0) + omen_cd_add
 	casts_run += 1
 	if casts_run >= 40:
 		_ach("fortyknells")
@@ -7491,6 +7493,7 @@ func _offer_omens() -> void:
 		{"text": "DEAD RECKONER — the chart draws them nearer (+20% foe aggro)... but the purse knows (+15% souls)"},
 		{"text": "PALE DOCK — the berths run dry (orbs mend −30%)... but the toll pays (+15% souls)"},
 		{"text": "FATHOM PACT — the deep steadies your footing (+10% dodge)... but its pupils strike +12% harder"},
+		{"text": "BOSUN'S DEBT — the whistle calls, your hands answer slow (+10% skill recharge)... but the crew learns (+15% XP)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -7541,7 +7544,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 87 if Stats.nemesis != "" else 86
+	var osize := 88 if Stats.nemesis != "" else 87
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -7909,6 +7912,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge += 0.1
 			oname = "FATHOM PACT"
 		86:
+			bosuns_debt = true
+			Stats.buff_xp_pct += 0.15
+			oname = "BOSUN'S DEBT"
+		87:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -8005,6 +8012,7 @@ func _omen_deal(idx: int) -> void:
 	"DEAD RECKONER": "Plot the course and the dead plot back — fair trade for a fuller purse.",
 	"PALE DOCK": "Every berth taken is a berth you cannot have — the purse compensates.",
 	"FATHOM PACT": "Stand steady and let them come — the deep likes a duel.",
+	"BOSUN'S DEBT": "The boatswain lends you tempo — and collects it back, with interest.",
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
