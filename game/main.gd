@@ -10659,6 +10659,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_armor += 1
 			Stats.buff_xp_pct -= 0.03
 			toast("Deep Mooring: anchored where the light can't reach — +1 armor, −3% XP this run")
+		167:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_maxhp_pct -= 0.04
+			toast("Salt Wake: the sea parts ahead of you — +6% speed, −4% max HP this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17192,6 +17196,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Bell Buoy — the marker rings you home: +4% souls, +3% speed, −3% XP this run"},
 			{"text": "Fathom Rest — the deep lets you lie easy a moment: +6% max HP, −4% speed this run"},
 			{"text": "Deep Mooring — anchored where the light can't reach: +1 armor, −3% XP this run"},
+			{"text": "Salt Wake — the sea parts ahead of you: +6% speed, −4% max HP this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
