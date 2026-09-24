@@ -1351,6 +1351,7 @@ func _new_run(new_seed: int) -> void:
 		deck_manifest = false
 	if saltgrave_ev:
 		Stats.soul_gain_pct -= 0.2
+		omen_hp_mult /= 1.1
 		saltgrave_ev = false
 	pale_scrip = false
 	song_rust = false
