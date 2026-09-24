@@ -105,7 +105,7 @@ var bestiary := {} # arch_id -> jumlah kill sepanjang masa (codex)
 var weapon_kills := {} # weapon_id -> kill sepanjang masa (mastery progress)
 var mastered := {} # weapon_id -> 1 bila mastery tercapai (+1 ATK permanen)
 const MASTERY_N := 25
-var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0, "reckon": 0, "keelcap": 0, "shepherd": 0, "captain": 0, "quarter": 0, "purse": 0, "carto": 0, "sealegs": 0, "scribe": 0, "salvor": 0, "deckhand": 0, "powdermonk": 0, "netmend": 0, "belaypin": 0, "ferry": 0, "lampluck": 0, "kilnman": 0, "chirurgeon": 0, "bellringer": 0, "keelwright": 0}
+var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0, "reckon": 0, "keelcap": 0, "shepherd": 0, "captain": 0, "quarter": 0, "purse": 0, "carto": 0, "sealegs": 0, "scribe": 0, "salvor": 0, "deckhand": 0, "powdermonk": 0, "netmend": 0, "belaypin": 0, "ferry": 0, "lampluck": 0, "kilnman": 0, "chirurgeon": 0, "bellringer": 0, "keelwright": 0, "wayfarer": 0}
 
 const ACH_DEF := {
 	"kill1": "First Bloodbath",
@@ -301,6 +301,7 @@ const META_DEF := {
 	"chirurgeon": {"name": "Chirurgeon", "max": 5, "desc": "+8% soul vial healing per level"},
 	"bellringer": {"name": "Bellringer", "max": 5, "desc": "+3% skill recharge per level"},
 	"keelwright": {"name": "Keelwright", "max": 5, "desc": "+4% soul gain per level"},
+	"wayfarer": {"name": "Wayfarer", "max": 4, "desc": "+1% dodge per level"},
 }
 
 # dipakai menu -> game
@@ -501,6 +502,7 @@ func reset_run() -> void:
 	thorns = 0.0
 	dodge = 0.0
 	magnet = float(meta.get("magnet", 0)) * 0.2
+	dodge += float(meta.get("wayfarer", 0)) * 0.01
 	berserk = 0.0
 	combo_atk = 0.0
 	combo_aspd = 0.0
@@ -653,7 +655,7 @@ func wipe_progress() -> void:
 	bestiary = {}
 	weapon_kills = {}
 	mastered = {}
-	meta = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0, "reckon": 0, "keelcap": 0, "shepherd": 0, "captain": 0, "quarter": 0, "purse": 0, "carto": 0, "sealegs": 0, "scribe": 0, "salvor": 0, "deckhand": 0, "powdermonk": 0, "netmend": 0, "belaypin": 0, "ferry": 0, "lampluck": 0, "kilnman": 0, "chirurgeon": 0, "bellringer": 0, "keelwright": 0}
+	meta = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0, "reckon": 0, "keelcap": 0, "shepherd": 0, "captain": 0, "quarter": 0, "purse": 0, "carto": 0, "sealegs": 0, "scribe": 0, "salvor": 0, "deckhand": 0, "powdermonk": 0, "netmend": 0, "belaypin": 0, "ferry": 0, "lampluck": 0, "kilnman": 0, "chirurgeon": 0, "bellringer": 0, "keelwright": 0, "wayfarer": 0}
 	reset_run()
 	save_game()
 
