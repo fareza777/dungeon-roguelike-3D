@@ -308,6 +308,7 @@ var brine_graft := false
 var marlin_spike := false
 var fathomsong := false
 var pearl_graft := false
+var watch_bell := false
 var pilgrims_purse := false
 var crows_toll := false
 var crowns_decree := false
@@ -1434,6 +1435,7 @@ func _new_run(new_seed: int) -> void:
 		Stats.buff_speed_pct -= 0.1
 		marlin_spike = false
 	fathomsong = false
+	watch_bell = false
 	if pearl_graft:
 		Stats.buff_atk_pct -= 0.15
 		pearl_graft = false
@@ -2593,6 +2595,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.windup_t *= 1.1
 	if fathomsong and not e.is_boss:
 		e.aggro_range = float(e.aggro_range) * 0.85
+	if watch_bell and not e.is_boss:
+		e.windup_t = float(e.windup_t) * 1.15
 	if timber_shiver and not e.is_boss:
 		e.hp *= 0.9
 		e.hp_max = e.hp
@@ -8879,12 +8883,26 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Salt Sheath — pay 3 souls: the blade remembers its salt — +8% crit this floor"},
 		{"text": "Knotwork — pay 3 souls: laced hand-wrapping — +5% dodge this floor"},
 		{"text": "Marlin Spike — pay 3 souls: a sailor's point between the ribs — +10% speed this floor"},
+		{"text": "Watch Bell — pay 4 souls: the bell rings their approach — foes telegraph +15% slower this floor"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 23:
+	if idx == 24:
 		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 23:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the bell isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		watch_bell = true
+		for f in get_tree().get_nodes_in_group("enemies"):
+			if not f.get("is_boss"):
+				f.windup_t = float(f.windup_t) * 1.15
+		Sfx.play("shrine")
+		toast("WATCH BELL — you hear every blow coming")
 		return
 	if idx == 22:
 		if Stats.souls < _soul_cost(3):
