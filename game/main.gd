@@ -7882,6 +7882,11 @@ func _quest_event(kind: String, num: int = 1) -> void:
 	if int(st["done"]) >= int(st["need"]):
 		quest_idx += 1
 		Sfx.play("quest")
+		if ui.has("quest_l"):
+			var ql2: Label = ui.quest_l
+			ql2.modulate = Color(0.5, 1.0, 0.55)
+			var qltw := ql2.create_tween()
+			qltw.tween_property(ql2, "modulate", Color(1, 1, 1, 1), 0.7)
 	elif ui.has("quest_d"):
 		var qf: Label = ui.quest_d
 		qf.modulate = Color(1.0, 0.9, 0.45)
