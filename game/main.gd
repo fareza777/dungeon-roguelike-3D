@@ -6878,6 +6878,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_armor += 1
 			Stats.buff_speed_pct -= 0.05
 			toast("Bilge Boarding: nailed planks over your ribs — +1 Armor, −5% speed")
+		76:
+			Stats.buff_armor += 1
+			Stats.soul_gain_pct += 0.05
+			toast("Foam Crown: a crest the sea lent you — +1 Armor, +5% souls")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -10328,6 +10332,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Deadlights — lamps over drowned water: +6% crit, +6% ATK"},
 			{"text": "Coil Keeper — the rope's give is yours: +10% dodge, −5% ATK"},
 			{"text": "Bilge Boarding — planks over your ribs: +1 Armor, −5% speed"},
+			{"text": "Foam Crown — the sea lends a crest: +1 Armor, +5% souls"},
 		]
 	)
 
