@@ -11620,16 +11620,30 @@ func _on_throne_invoked(s) -> void:
 		{"text": "Regal Favor — pay 6 souls: the court notices your deeds — +15% XP this floor"},
 		{"text": "Court's Tally — pay 5 souls: the scribes weight your purse — +12% souls this floor"},
 		{"text": "Royal Overlook — pay 5 souls: the court looks away — foes −10% damage this floor"},
+		{"text": "Sovereign's Rest — pay 6 souls: the crown's own physician attends — mend 40%"},
 		{"text": "Walk away"}])
 
 
 func _throne_deal(idx: int) -> void:
-	if idx == 26:
+	if idx == 27:
 		Stats.earn_souls(4)
 		_souls_l()
 		_quest_event("throne")
 		Sfx.play("soul")
 		toast("CLEAN HANDS — the crown pays +4 souls to the incorruptible")
+		return
+	if idx == 26:
+		if Stats.souls < _soul_cost(6):
+			toast("Six souls — the physician isn't free")
+			return
+		Stats.souls -= _soul_cost(6)
+		_count_deal()
+		_souls_l()
+		if player != null and is_instance_valid(player):
+			player.hp = minf(player.max_hp, player.hp + player.max_hp * 0.4)
+			player.hp_changed.emit(player.hp)
+		Sfx.play("shrine")
+		toast("SOVEREIGN'S REST — the crown's physician attends")
 		return
 	if idx == 25:
 		if Stats.souls < _soul_cost(5):
