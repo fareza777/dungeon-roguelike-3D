@@ -3282,7 +3282,6 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.dmg = int(ceilf(float(e.dmg) * 1.08))
 	if grim_calm and not e.is_boss:
 		e.dmg = int(ceilf(float(e.dmg) * 1.1))
-		e.set_meta("soul_worth", 1.1)
 	if deep_well and not e.is_boss:
 		e.dmg = int(ceilf(float(e.dmg) * 1.15))
 	if tide_clock and not e.is_boss:
@@ -5420,7 +5419,7 @@ func _on_enemy_died(e) -> void:
 			if siren_hum:
 				_quest_event("humwalk")
 			if grim_calm:
-				_quest_event("calmwalk")
+				_quest_event("grimwalk")
 			if dark_water:
 				_quest_event("darkwalk")
 			if glass_sea:
