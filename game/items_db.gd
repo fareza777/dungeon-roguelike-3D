@@ -101,6 +101,7 @@ const DB := {
 	"windlass": {"name": "Windlass", "chip": "WDL", "desc": "+12% attack speed, −5% dodge — the drum turns fast, but it takes your footing", "rarity": 2, "mods": {"atk_speed_pct": 0.12, "dodge": -0.05}},
 	"sailmakers_palm": {"name": "Sailmaker's Palm", "chip": "SMP",
 	"wake_thread": {"name": "Wake Thread", "chip": "WKT", "desc": "A line that pulls you forward whether you will it or not — +8% speed, −4% ATK.", "rarity": "common", "mods": {"speed_pct": 0.08, "atk_pct": -0.04}},
+	"barnacle_heart": {"name": "Barnacle Heart", "chip": "BNH", "desc": "It pumps slow, thick blood — +15% max HP, −10% speed.", "rarity": "rare", "mods": {"max_hp_pct": 0.15, "speed_pct": -0.10}},
 "undertow_idol": {"name": "Undertow Idol", "chip": "UTI", "desc": "A drowned god's little likeness — it pulls for you — +6% ATK, +4% souls.", "rarity": "uncommon", "mods": {"atk_pct": 0.06, "soul_gain_pct": 0.04}},
 "grief_bell": {"name": "Grief Bell", "chip": "GRB", "desc": "Its toll hardens every hand that hears it — +10% ATK, −6% dodge.", "rarity": "rare", "mods": {"atk_pct": 0.10, "dodge": -0.06}},
 "bilge_stone": {"name": "Bilge Stone", "chip": "BST", "desc": "Ballast that learned to keep a man standing — +1 Armor, +8% Max HP.", "rarity": "common", "mods": {"armor": 1, "max_hp_pct": 0.08}},
