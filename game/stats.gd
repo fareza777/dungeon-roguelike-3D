@@ -238,6 +238,8 @@ const ACH_DEF := {
 	"saltwalker": "Saltwalker (clear a SALTGRAVE floor)",
 	"ringer10": "Ringer of Bells (slay 10 Bell Ringers)",
 	"halfcentury": "Half Century (clear 50 floors)",
+	"threequarters": "Three Quarters (reach Floor 75)",
+	"centurion_deep": "Centurion of the Deep (reach Floor 100)",
 	"fulldeck": "Full Deck (every meta upgrade maxed)",
 	"ngdeep": "Void Warden (reached floor 20 in New Game+)",
 	"oathkeeper": "Oathkeeper (eight omens in a single descent)",
@@ -535,6 +537,10 @@ func note_floor() -> void:
 		ach["abyssal"] = true
 	if floor_num >= 50 and not ach.has("halfcentury"):
 		ach["halfcentury"] = true
+	if floor_num >= 75 and not ach.has("threequarters"):
+		ach["threequarters"] = true
+	if floor_num >= 100 and not ach.has("centurion_deep"):
+		ach["centurion_deep"] = true
 	if floor_num > best_floor:
 		best_floor = floor_num
 	save_game()
