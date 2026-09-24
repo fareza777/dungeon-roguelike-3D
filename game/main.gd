@@ -149,6 +149,10 @@ const LORE_LINES := [
 	"Water-logged mirrors show the deck as it was — bright, crowded, unaware.",
 	"Every bargain Mahzan writes has two prices: the one you see, and the one you'll find out.",
 	"The sprite-maw at the bilge keeps its own ledger — a soul per touch, no exceptions.",
+	"The wraith that walks the keel pays walls no mind — it remembers when they were water.",
+	"Golden corpses drift with the golden tide — the drowned court pays its dead in full.",
+	"Every urn that rings hollow is a purse the deep already emptied — dry as a debtor's oath.",
+	"A keel wraith never learned the wreck ended — it walks the ship it drowned with, straight through you.",
 
 	"The Oracle's stone was carved from the same quarry as the throne — the King keeps his counselors close, and closer still.",
 	"Vane's vow was to guard the door, not the crown. He still can't say which one he failed.",
