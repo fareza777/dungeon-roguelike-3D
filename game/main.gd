@@ -5512,7 +5512,7 @@ func _on_enemy_died(e) -> void:
 			if weeping_tide:
 				_quest_event("tearwalk")
 			if deep_draught:
-				_quest_event("draughtwalk")
+				_quest_event("keelwalk")
 			if dark_water:
 				_quest_event("darkwalk")
 			if glass_sea:
