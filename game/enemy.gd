@@ -258,7 +258,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred", "seafaring", "feytouched", "knotted", "belltoll", "soulfed", "gutted", "beacon", "spry", "keenedged", "tidewrought", "lurker", "hoarfrost", "reefbound", "flotsam", "brinetouched", "bilged", "gilded", "saltbitten", "leeched", "windlashed", "halfshell", "soulwrought", "leaden", "grasping", "hungry", "numbing", "soulbound", "saltkin", "powderkeg", "hollow", "tarbound", "lagged", "bitter", "leviathan", "stormborn", "sundered"][randi() % 85]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred", "seafaring", "feytouched", "knotted", "belltoll", "soulfed", "gutted", "beacon", "spry", "keenedged", "tidewrought", "lurker", "hoarfrost", "reefbound", "flotsam", "brinetouched", "bilged", "gilded", "saltbitten", "leeched", "windlashed", "halfshell", "soulwrought", "leaden", "grasping", "hungry", "numbing", "soulbound", "saltkin", "powderkeg", "hollow", "tarbound", "lagged", "bitter", "leviathan", "stormborn", "sundered", "reefsplit"][randi() % 86]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -521,6 +521,9 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				hp_max = hp
 				vuln_t = 9999.0
 				xp_val = int(ceilf(xp_val * 1.4))
+			"reefsplit":
+				speed *= 0.85
+				xp_val = int(ceilf(xp_val * 1.3))
 			"brinetouched":
 				hp *= 1.15
 				xp_val = int(ceilf(xp_val * 1.3))
@@ -1743,6 +1746,13 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 					mbt._shock_ring(global_position)
 				if mbt.has_method("_damage_number"):
 					mbt._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "TOLLED", Color(0.95, 0.8, 0.3), false)
+		if affix == "reefsplit":
+			var mrs := get_tree().current_scene
+			if mrs != null and mrs.has_method("_spawn_enemy"):
+				for rsn in [Vector3(0.3, 0, 0.0), Vector3(-0.3, 0, 0.0)]:
+					mrs._spawn_enemy({"pos": global_position + rsn * room_tile, "room": room_idx}, "gunnel_gnat", false)
+				if mrs.has_method("_damage_number"):
+					mrs._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "SPLIT!", Color(0.5, 0.7, 0.4), false)
 		if affix == "keelborn":
 			Stats.earn_souls(3)
 			var mm4 := get_tree().current_scene
