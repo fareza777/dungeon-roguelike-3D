@@ -600,6 +600,7 @@ var long_wake := false
 var dead_lantern := false
 var hull_song := false
 var salt_ledger := false
+var escrow_pending := false
 var wide_satchel := false
 var slow_clock := false
 var deck_alms := false
@@ -6676,6 +6677,10 @@ func _on_enemy_died(e) -> void:
 			if salt_ledger:
 				Stats.earn_souls(3)
 				_souls_l()
+			if escrow_pending:
+				Stats.earn_souls(6)
+				_souls_l()
+				escrow_pending = false
 			if int(Stats.meta.get("tollkeeper", 0)) > 0:
 				Stats.earn_souls(int(Stats.meta.get("tollkeeper", 0)))
 				_souls_l()
@@ -11387,6 +11392,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Fortune's Dredge — pay 8 souls: Mahzan hauls up a relic the sea owes you"},
 			{"text": "Cold Comfort — pay 5 souls: a chill settles into your seams — +1 armor, −4% speed"},
 			{"text": "Hex Auction — pay 6 souls: Mahzan bids the dark against you — +12% ATK, +4% damage taken"},
+			{"text": "Pale Escrow — pay 4 souls: Mahzan holds your coin — +6 souls at floor's end"},
 		]
 	)
 
@@ -13607,6 +13613,16 @@ func _mahzan_deal(idx: int) -> void:
 				Stats.curse_dmg += 0.04
 				Sfx.play("shrine")
 				toast("HEX AUCTION — Mahzan bids the dark against you (+12% ATK, +4% damage taken)")
+		71:
+			if Stats.souls < _soul_cost(4):
+				toast("Four souls — the escrow isn't free")
+			else:
+				Stats.souls -= _soul_cost(4)
+				_count_deal()
+				_souls_l()
+				escrow_pending = true
+				Sfx.play("shrine")
+				toast("PALE ESCROW — Mahzan pockets your coin for later (+6 souls at floor's end)")
 
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
