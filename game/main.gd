@@ -10055,6 +10055,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_aspd += 0.03
 			Stats.dodge += 0.03
 			toast("Steady Hand: the line never shakes — +3% attack speed, +3% dodge this run")
+		143:
+			Stats.buff_xp_pct += 0.08
+			Stats.buff_speed_pct -= 0.02
+			toast("Tide Scroll: the deep's reading speed — +8% XP, −2% speed this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -15819,6 +15823,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Mast Lookout — eyes in the crow's nest: +4% crit, +2% speed this run"},
 			{"text": "Plate Tithe — the yard plates your purse and your back: +1 armor, +2% souls this run"},
 			{"text": "Steady Hand — the line never shakes: +3% attack speed, +3% dodge this run"},
+			{"text": "Tide Scroll — the deep's reading speed: +8% XP, −2% speed this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
