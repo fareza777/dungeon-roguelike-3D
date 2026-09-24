@@ -14690,6 +14690,7 @@ func _update_minimap() -> void:
 	if ui.has("map_wedge"):
 		var fdir := Vector3(sin(player.rotation.y), 0, cos(player.rotation.y))
 		ui.map_wedge.position = _map_pos(player.global_position + fdir * 1.8, sc)
+	ui.map_pdot.color = Color(1.0, 0.35, 0.3) if float(player.get("invuln") or 0.0) > 0.0 else Color(1.0, 1.0, 1.0)
 	for d in map_dots:
 		if is_instance_valid(d):
 			d.queue_free()
