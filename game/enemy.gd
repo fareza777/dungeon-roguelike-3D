@@ -1849,6 +1849,13 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 				dv.y = 0
 				if dv.length() < 1.0 * room_tile:
 					p.take_hit(global_position, dmg * 0.6)
+		if arch_id == "brood_keel":
+			var mbk := get_tree().current_scene
+			if mbk != null and mbk.has_method("_spawn_enemy"):
+				for bkn in [Vector3(0.35, 0, 0.15), Vector3(-0.35, 0, -0.15)]:
+					mbk._spawn_enemy({"pos": global_position + bkn * room_tile, "room": room_idx}, "gunnel_gnat", false)
+				if mbk.has_method("_damage_number"):
+					mbk._damage_number(global_position + Vector3(0, 1.0 * room_tile, 0), "BROOD!", Color(0.5, 0.8, 0.4), false)
 		if arch_id == "powder_monkey":
 			_explode()
 		if affix == "volatile":
