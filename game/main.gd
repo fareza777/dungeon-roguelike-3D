@@ -9347,6 +9347,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.magnet += 0.3
 			Stats.buff_speed_pct += 0.04
 			toast("Snatch Line: the hook swings wide — +30% gem reach, +4% speed")
+		122:
+			Stats.soul_gain_pct += 0.1
+			Stats.buff_speed_pct += 0.06
+			toast("Longshoreman's Luck: the dock pays its own — +10% souls, +6% speed")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -14484,6 +14488,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Deckwatch — the watch keeps you light: +6% dodge, −4% attack speed"},
 			{"text": "Tidewalker's Knot — the rope walks you home: +6% speed, +3% dodge"},
 			{"text": "Snatch Line — the hook swings wide: +30% gem reach, +4% speed"},
+			{"text": "Longshoreman's Luck — the dock pays its own: +10% souls, +6% speed"},
 		]
 	)
 
