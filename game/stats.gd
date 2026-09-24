@@ -75,6 +75,7 @@ var curse_xp := 0.0 # pakta obelisk: jiwa lebih kaya (stack)
 # meta (tersimpan)
 var best_floor := 0
 var total_kills := 0
+var floors_cleared := 0
 var arch_kills: Dictionary = {}
 var dread_survived := 0 # kill total per arketipe — abadi
 var traps_defused := 0
@@ -242,12 +243,13 @@ const ACH_DEF := {
 	"smokedout": "Powder Burn (clear a GUN SMOKE floor)",
 	"saltwalker": "Saltwalker (clear a SALTGRAVE floor)",
 	"ringer10": "Ringer of Bells (slay 10 Bell Ringers)",
+	"thousand_cuts": "A Thousand Cuts (1,000 lifetime kills)",
 	"halfcentury": "Half Century (clear 50 floors)",
 	"threequarters": "Three Quarters (reach Floor 75)",
 	"centurion_deep": "Centurion of the Deep (reach Floor 100)",
 	"deepwater": "Deep Water (reach Floor 40)",
 	"saltveteran": "Salt Veteran (reach Floor 45)",
-	"halfcentury": "Half Century (reach Floor 50)",
+
 	"hadal": "Hadal Pilgrim (reach Floor 50)",
 	"trenchwalker": "Trench Walker (reach Floor 55)",
 	"clear_ledger": "Clear Ledger (repay your Mahzan debt)",
@@ -577,14 +579,16 @@ func note_floor() -> void:
 		ach["deepwater"] = true
 	if floor_num >= 45 and not ach.has("saltveteran"):
 		ach["saltveteran"] = true
-	if floor_num >= 50 and not ach.has("halfcentury"):
-		ach["halfcentury"] = true
+
 	if floor_num >= 50 and not ach.has("hadal"):
 		ach["hadal"] = true
+	if total_kills >= 1000 and not ach.has("thousand_cuts"):
+		ach["thousand_cuts"] = true
+	if floors_cleared >= 50 and not ach.has("halfcentury"):
+		ach["halfcentury"] = true
 	if floor_num >= 55 and not ach.has("trenchwalker"):
 		ach["trenchwalker"] = true
-	if floor_num >= 50 and not ach.has("halfcentury"):
-		ach["halfcentury"] = true
+
 	if floor_num >= 75 and not ach.has("threequarters"):
 		ach["threequarters"] = true
 	if floor_num >= 100 and not ach.has("centurion_deep"):
@@ -671,7 +675,7 @@ func save_game() -> void:
 	var f := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if f != null:
 		f.store_string(JSON.stringify({
-			"best_floor": best_floor, "total_kills": total_kills, "runs": runs, "arch_kills": arch_kills, "dread_survived": dread_survived,
+			"best_floor": best_floor, "total_kills": total_kills, "floors_cleared": floors_cleared, "runs": runs, "arch_kills": arch_kills, "dread_survived": dread_survived,
 			"boss_kills": boss_kills, "ng_plus": ng_plus,
 			"traps_defused": traps_defused,
 	"wisps_caught": wisps_caught, "forges_used": forges_used, "prays": prays, "oaths_sworn": oaths_sworn,
@@ -698,6 +702,7 @@ func load_game() -> void:
 		var d = JSON.parse_string(FileAccess.get_file_as_string(SAVE_PATH))
 		if d is Dictionary:
 			best_floor = int(d.get("best_floor", 0))
+			floors_cleared = int(d.get("floors_cleared", 0))
 			total_kills = int(d.get("total_kills", 0))
 			arch_kills = d.get("arch_kills", {})
 			dread_survived = int(d.get("dread_survived", 0))

@@ -6561,9 +6561,11 @@ func _on_banner_tap() -> void:
 		if ferry_skip:
 			ferry_skip = false
 			Stats.floor_num += 1 + ferry_extra
+			Stats.floors_cleared += 1
 			ferry_extra = 0
 			toast("The Ferryman rows you past a floor")
 		Stats.floor_num += 1
+		Stats.floors_cleared += 1
 		if pilgrims_purse:
 			Stats.earn_souls(2)
 		Stats.note_floor()
