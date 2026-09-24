@@ -15400,7 +15400,7 @@ func _on_qm_invoked(s) -> void:
 		{"text": "Deck Ration — pay 4 souls: hardtack and a dry blanket — heal 25%, +2% max HP this run"},
 		{"text": "Deck Salt — pay 4 souls: a fistful over the shoulder for luck — +8% ATK, +2 armor this run"},
 		{"text": "Powder Ration — pay 3 souls: an extra scoop for your blade — +7% crit, −2% speed this run"},
-		{"text": "Salt Stipend — pay 4 souls: the steward advances your berth-share — +5% souls, +3% dodge this run"},
+		{"text": "Berth Share — pay 4 souls: the steward advances your berth-share — +5% souls, +3% dodge this run"},
 		{"text": "Walk away"}])
 
 
@@ -15410,7 +15410,7 @@ func _qm_deal(idx: int) -> void:
 		return
 	if idx == 33:
 		if Stats.souls < _soul_cost(4):
-			toast("Four souls — the stipend isn't free")
+			toast("Four souls — the berth share isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
 		_count_deal()
@@ -15418,7 +15418,7 @@ func _qm_deal(idx: int) -> void:
 		Stats.soul_gain_pct += 0.05
 		Stats.dodge += 0.03
 		Sfx.play("shrine")
-		toast("SALT STIPEND — the steward advances your berth-share (+5% souls, +3% dodge)")
+		toast("BERTH SHARE — the steward advances your berth-share (+5% souls, +3% dodge)")
 		return
 	if idx == 25:
 		if Stats.souls < _soul_cost(4):
