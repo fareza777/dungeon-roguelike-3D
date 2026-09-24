@@ -211,7 +211,8 @@ const LORE_LINES := [
 	"A Chain Rose only opens on the thirtieth link; the other twenty-nine are rust.",
 	"The deckbound are not slow — the deck simply refuses to let them go.",
 	"Chain wardens were gaolers once; now the chains wear them.",
-	"In a keelglow even the drowned look rich.",]
+	"In a keelglow even the drowned look rich.",
+	"Pale salvage pays in coin that was never minted — and never asks its price aloud.",]
 
 var dungeon_tex: Texture2D
 var skeleton_tex: Texture2D
