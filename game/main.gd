@@ -12385,7 +12385,7 @@ func _update_hp(hp: float) -> void:
 	if ui.has("hp_text"):
 		ui.hp_text.text = "%d/%d" % [maxi(int(ceil(hp)), 0), maxh]
 	if prev_hp >= 0.0 and hp < prev_hp - 0.001:
-		trauma = maxf(trauma, 0.6)
+		trauma = maxf(trauma, clampf(0.4 + (prev_hp - hp) / maxf(1.0, float(maxh)) * 1.6, 0.4, 0.9))
 		_vign_flash()
 		floor_hurt = true
 	prev_hp = hp
