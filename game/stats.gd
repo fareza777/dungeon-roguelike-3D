@@ -262,6 +262,7 @@ const ACH_DEF := {
 	"oathkeeper": "Oathkeeper (eight omens in a single descent)",
 	"lurcher8": "Toppler (felled 8 Mast Lurchers)",
 	"gnatcull": "Gnatsbane (swatted 30 Gunnel Gnats)",
+	"gloomfall": "Dimmer (stilled 10 Gloom Lanterns)",
 }
 
 const META_DEF := {

@@ -4933,6 +4933,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("gloom_kill")
 		if int(Stats.arch_kills.get("mast_lurcher", 0)) >= 8:
 			_ach("lurcher8")
+		if int(Stats.arch_kills.get("gloom_lantern", 0)) >= 10:
+			_ach("gloomfall")
 	if e.arch_id == "salt_lich":
 		_quest_event("lich_kill")
 	if e.arch_id == "quarter_ghost":
