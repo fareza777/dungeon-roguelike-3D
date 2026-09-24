@@ -348,6 +348,7 @@ var bilge_bond := false
 var rigging_rites := false
 var mudlarks_due := false
 var kelp_tithe := false
+var bosuns_chit := false
 var drift_verse := false
 var pearl_octave := false
 var undertow_aria := false
@@ -1581,6 +1582,9 @@ func _new_run(new_seed: int) -> void:
 	if rigging_rites:
 		Stats.buff_aspd -= 0.08
 		rigging_rites = false
+	if bosuns_chit:
+		Stats.buff_atk_pct -= 0.1
+		bosuns_chit = false
 	kelp_tithe = false
 	if vigils_gage:
 		Stats.dodge -= 0.1
@@ -10086,12 +10090,24 @@ func _on_qm_invoked(s) -> void:
 		{"text": "Grog Ration — pay 3 souls: a mug pulled from the bilge — mend 30%"},
 		{"text": "Salt Chits — pay 4 souls: the crew's IOU honors the deep — +10% souls this run"},
 		{"text": "Quarter's Stash — pay 5 souls: a tin from the post's own locker — +1 ⚗ vial, mend 15% HP"},
+		{"text": "Bosun's Chit — pay 4 souls: the whistle buys fury — +10% ATK this floor"},
 		{"text": "Walk away"}])
 
 
 func _qm_deal(idx: int) -> void:
-	if idx == 18:
+	if idx == 19:
 		toast("The post shutters its stores")
+		return
+	if idx == 18:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the chit isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		bosuns_chit = true
+		Stats.buff_atk_pct += 0.1
+		Sfx.play("shrine")
+		toast("BOSUN'S CHIT — the whistle buys fury")
 		return
 	if idx == 17:
 		if Stats.souls < _soul_cost(5):
