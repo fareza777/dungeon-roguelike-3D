@@ -6743,6 +6743,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Gullwing: light bones over dark water — +5% dodge, +5% XP")
+		72:
+			Stats.soul_gain_pct += 0.12
+			Stats.dodge -= 0.05
+			toast("Salt Tow: the purse drags — +12% souls, −5% dodge")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -10114,6 +10118,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Wake Prayer — the water reads your steps: +10% speed, +10% XP"},
 			{"text": "Fathom Rope — the cord runs smooth: skills recharge 8% faster"},
 			{"text": "Gullwing — light bones over dark water: +5% dodge, +5% XP"},
+			{"text": "Salt Tow — the purse drags: +12% souls, −5% dodge"},
 		]
 	)
 
