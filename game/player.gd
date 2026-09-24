@@ -265,6 +265,16 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "brine_gavel":
+				var bgn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", bgn)
+				if bgn % 6 == 0:
+					for bgf in get_tree().get_nodes_in_group("enemies"):
+						if bgf != f and bgf.global_position.distance_to(f.global_position) < 2.2:
+							var bgd: Vector3 = bgf.global_position - global_position
+							bgd.y = 0.0
+							if bgd.length() > 0.01:
+								bgf.velocity += bgd.normalized() * 9.0
 			if Stats.weapon_id == "undertow_pike":
 				var upn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", upn)
