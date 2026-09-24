@@ -13653,7 +13653,12 @@ func _process(delta: float) -> void:
 		if boss_ref != null and is_instance_valid(boss_ref) and boss_ref.activated:
 			_boss_bar_show()
 			var frac: float = clampf(boss_ref.hp / boss_ref.hp_max, 0.0, 1.0)
-			ui.boss_fill.value = frac * 100.0
+			var target := frac * 100.0
+			if absf(ui.boss_fill.value - target) > 0.4:
+				var bftw: Tween = create_tween()
+				bftw.tween_property(ui.boss_fill, "value", target, 0.18).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+			else:
+				ui.boss_fill.value = target
 		else:
 			_boss_bar_hide()
 
