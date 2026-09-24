@@ -9090,6 +9090,10 @@ func _on_dlg_choice(idx: int) -> void:
 		118:
 			Stats.soul_gain_pct += 0.10
 			toast("Fathom Hand: the deep fills your purse — +10% souls")
+		119:
+			Stats.dodge += 0.06
+			Stats.buff_aspd -= 0.04
+			toast("Deckwatch: you stand the night watch yourself — +6% dodge, −4% attack speed")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -14112,6 +14116,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Lookout's Luck — the crow's nest lends you its eyes: +6% dodge"},
 			{"text": "Tidereader's Luck — you read the water's intent: +5% dodge, +5% souls"},
 			{"text": "Fathom Hand — the deep fills your purse: +10% souls"},
+			{"text": "Deckwatch — the watch keeps you light: +6% dodge, −4% attack speed"},
 		]
 	)
 
