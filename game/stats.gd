@@ -45,7 +45,8 @@ var buff_maxhp_pct := 0.0 # omen Leeching Vein: pengorbanan Max HP
 var buff_aspd := 0.0 # berkat altar Fury: run ini saja
 var buff_crit := 0.0 # berkat altar Eagle's Eye: run ini saja
 var warcry_t := 0.0 # skill War Cry: +50% ATK sementara
-var deadeye_t := 0.0 # skill Deadeye: +25% crit sementara
+var deadeye_t := 0.0
+var rigger_t := 0.0 # skill Deadeye: +25% crit sementara
 var shell_t := 0.0 # skill Barnacle Shell: +6 armor sementara
 var warpaint_t := 0.0 # skill Warpaint: +30% ATK sementara
 var irontide_t := 0.0 # skill Iron Tide: pukulan terpantul sementara
@@ -368,6 +369,8 @@ func get_stat(n: String) -> float:
 			mult += 0.25
 	if n == "atk_speed":
 		mult += combo_aspd + buff_aspd + float(meta.get("kilnman", 0)) * 0.03
+		if rigger_t > 0.0:
+			mult += 0.12
 	if n == "max_hp":
 		flat += float(meta.get("vital", 0))
 		flat -= mahzan_debt
@@ -385,6 +388,8 @@ func get_stat(n: String) -> float:
 	if n == "speed":
 		mult += float(meta.get("swift", 0)) * 0.03 + buff_speed_pct
 		mult += float(meta.get("sealegs", 0)) * 0.04 + float(meta.get("saltpray", 0)) * 0.01
+		if rigger_t > 0.0:
+			mult += 0.22
 	return flat * mult
 
 
@@ -397,6 +402,8 @@ func _process(delta: float) -> void:
 		warpaint_t = maxf(0.0, warpaint_t - delta)
 	if deadeye_t > 0.0:
 		deadeye_t = maxf(0.0, deadeye_t - delta)
+	if rigger_t > 0.0:
+		rigger_t = maxf(0.0, rigger_t - delta)
 	if irontide_t > 0.0:
 		irontide_t = maxf(0.0, irontide_t - delta)
 		if irontide_t <= 0.0:
@@ -528,6 +535,7 @@ func reset_run() -> void:
 	shell_t = 0.0
 	warpaint_t = 0.0
 	deadeye_t = 0.0
+	rigger_t = 0.0
 	revive_left = int(meta.get("wind", 0))
 	thorns = 0.0 + float(meta.get("spinebearer", 0)) * 0.03
 	dodge = 0.0
