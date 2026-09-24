@@ -291,7 +291,7 @@ func _strike() -> void:
 				var rgn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", rgn)
 				if rgn % 7 == 0:
-					var rgdir := (global_position - f.global_position)
+					var rgdir: Vector3 = (global_position - f.global_position)
 					rgdir.y = 0
 					if rgdir.length() > 0.1:
 						f.velocity += rgdir.normalized() * 10.0
