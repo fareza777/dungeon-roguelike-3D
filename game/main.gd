@@ -598,6 +598,7 @@ const BESTIARY := {
 	"bell_ringer": ["The Bell Ringer", "His bell knits the dead back together — silence the tolling first."],
 	"moorling": ["The Moorling", "A sodden thing of the moor — it lobs what the water gave it."],
 	"keel_mastiff": ["The Keel Mastiff", "A hound of splinters and rope — it lunges when the pack bays."],
+	"foam_wright": ["The Foam Wright", "It plate-welded its bones in sea-spume — slow, stubborn, hard to shove."],
 	"deck_wight": ["The Deck Wight", "It crewed the heavy oar too long — now it only knows the swing."],
 	"salt_skiff": ["The Salt Skiff", "A skiff that grew legs — it runs the shallows faster than any oar."],
 	"lantern_jaw": ["The Lantern Jaw", "A drowned lampman — its jaw still burns for the hunt."],
@@ -629,6 +630,7 @@ const KILLER_NAMES := {
 	"bell_ringer": "a Bell Ringer",
 	"moorling": "a Moorling",
 	"keel_mastiff": "a Keel Mastiff",
+	"foam_wright": "a Foam Wright",
 	"deck_wight": "a Deck Wight",
 	"salt_skiff": "a Salt Skiff",
 	"lantern_jaw": "a Lantern Jaw",
@@ -695,6 +697,7 @@ const KILLER_TIPS := {
 	"bell_ringer": "Tip: the Bell Ringer mends his flock with every toll — cut him down first.",
 	"moorling": "Tip: the Moorling throws slow, heavy sludge — strafe the lob, don't backpedal.",
 	"keel_mastiff": "Tip: the Keel Mastiff lunges — sidestep the leap, don't retreat in a line.",
+	"foam_wright": "Tip: the Foam Wright shrugs off shoves — kite it, don't try to push through.",
 	"deck_wight": "Tip: the Deck Wight hits like a falling mast — let the swing pass, then answer.",
 	"salt_skiff": "Tip: the Salt Skiff is fast but fragile — meet it with wide swings, not chasing feet.",
 	"lantern_jaw": "Tip: the Lantern Jaw sees you from far off — expect it early, or cut the lamp out first.",
@@ -3960,6 +3963,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("moor_kill")
 	if e.arch_id == "keel_mastiff":
 		_quest_event("mastiff_kill")
+	if e.arch_id == "foam_wright":
+		_quest_event("wright_kill")
 	if e.arch_id == "deck_wight":
 		_quest_event("wight_kill")
 	if e.arch_id == "salt_skiff":
