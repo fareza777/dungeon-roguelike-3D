@@ -6843,6 +6843,7 @@ func _on_leveled_up(lv: int) -> void:
 		_burst(player.global_position + Vector3(0, 0.4, 0), Color(1.0, 0.85, 0.3))
 		_shock_ring(player.global_position)
 		player.hp_changed.emit(player.hp)
+		_damage_number(player.global_position + Vector3(0, 1.3 * info.tile, 0), "LV %d!" % lv, Color(1.0, 0.85, 0.35), true)
 	_lvl_banner("LEVEL UP — Lv %d" % lv)
 	if lv >= 30:
 		_ach("seasoned")
