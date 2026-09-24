@@ -363,6 +363,7 @@ var rope_tackle := false
 var murk_purse := false
 var soul_ledger := false
 var courts_tally := false
+var splice_line := false
 var leech_bond := false
 var salt_lullaby := false
 var regal_favor := false
@@ -1645,6 +1646,9 @@ func _new_run(new_seed: int) -> void:
 	if courts_tally:
 		Stats.soul_gain_pct -= 0.12
 		courts_tally = false
+	if splice_line:
+		Stats.buff_speed_pct -= 0.06
+		splice_line = false
 	if leech_bond:
 		Stats.buff_lifesteal -= 0.08
 		leech_bond = false
@@ -9986,12 +9990,24 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Rigging Rites — pay 3 souls: every line tuned tight — +8% attack speed this floor"},
 		{"text": "Deck Psalm — pay 5 souls: the hull's hymn calms the dead — foes −12% damage this floor"},
 		{"text": "Rope Tackle — pay 4 souls: oiled blocks, faster feet — dash recharges 20% faster this floor"},
+		{"text": "Splice Line — pay 3 souls: the line feeds you its slack — +6% speed this floor"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 31:
+	if idx == 32:
 		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 31:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the splice isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		splice_line = true
+		Stats.buff_speed_pct += 0.06
+		Sfx.play("shrine")
+		toast("SPLICE LINE — the cord carries you")
 		return
 	if idx == 30:
 		if Stats.souls < _soul_cost(4):
