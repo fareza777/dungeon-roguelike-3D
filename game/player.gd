@@ -240,6 +240,18 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "bilge_lantern":
+				var bl_ = get_tree().current_scene
+				bl_.set("net_n", int(bl_.get("net_n")) + 1)
+				if int(bl_.get("net_n")) >= 7:
+					bl_.set("net_n", 0)
+					var blnears: Array = []
+					for bf in get_tree().get_nodes_in_group("enemies"):
+						if bf.get("state") != "dead" and bf != f and bf.global_position.distance_to(global_position) < 3.5:
+							blnears.append(bf)
+					blnears.sort_custom(func(a3: Object, b3: Object) -> bool: return a3.global_position.distance_squared_to(global_position) < b3.global_position.distance_squared_to(global_position))
+					for bi in range(mini(3, blnears.size())):
+						blnears[bi].take_hit(global_position, float(Stats.get_stat("atk")) * 0.6)
 			if Stats.weapon_id == "saltline":
 				var sl_ = get_tree().current_scene
 				sl_.set("net_n", int(sl_.get("net_n")) + 1)
