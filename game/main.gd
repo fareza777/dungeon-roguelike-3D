@@ -9496,6 +9496,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.10
 			Stats.dodge -= 0.04
 			toast("Keel Song: the hull hums your purse fatter — +10% souls, −4% dodge this run")
+		126:
+			Stats.buff_armor += 2
+			Stats.buff_xp_pct -= 0.05
+			toast("Figurehead: the prow takes the blows first — +2 armor, −5% XP this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -14733,6 +14737,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Leech Wake — the eels carry you: +6% lifesteal, +4% speed this run"},
 			{"text": "Saltwake Step — walk the spray: +5% dodge, +3% speed this run"},
 			{"text": "Keel Song — the hull hums your purse fatter: +10% souls, −4% dodge this run"},
+			{"text": "Figurehead — the prow takes the blows first: +2 armor, −5% XP this run"},
 		]
 	)
 
