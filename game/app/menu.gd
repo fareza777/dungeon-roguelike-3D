@@ -1,6 +1,7 @@
 extends Control
 const BIO = preload("res://biomes_db.gd")
 const WDB = preload("res://weapons_db.gd")
+const MGD = preload("res://main.gd")
 # Menu utama v5: key art, Lanjutkan/Game Baru, Pengaturan (musik+SFX terpisah,
 # kualitas, reset), Tentang, Bagikan, Nilai Play Store, Keluar, label versi.
 
@@ -208,7 +209,7 @@ func _build() -> void:
 	var boss_txt := " • Bosses slain: %d" % Stats.boss_kills if Stats.boss_kills > 0 else ""
 	var ach_txt := " • ◆ %d/%d" % [Stats.ach.size(), Stats.ACH_DEF.size()] if Stats.ach.size() > 0 else ""
 	var ng_txt := " • ♛ NG+%d" % Stats.ng_plus if Stats.ng_plus > 0 else ""
-	var lore_txt := " • Lore %d/124" % Stats.lore_seen.size() if Stats.lore_seen.size() > 0 else ""
+	var lore_txt := " • Lore %d/%d" % [Stats.lore_seen.size(), MGD.LORE_LINES.size()] if Stats.lore_seen.size() > 0 else ""
 	var oath_txt := " • ☗ %d/118" % Stats.oaths_seen.size() if Stats.oaths_seen.size() > 0 else ""
 	var best_txt := " • ⚔ %d kinds slain" % Stats.arch_kills.size() if Stats.arch_kills.size() > 0 else ""
 	var souls_txt := " • ◈ %d" % Stats.souls if Stats.souls > 0 else ""
