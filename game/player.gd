@@ -678,6 +678,14 @@ func _strike() -> void:
 					if ktl > 0:
 						Sfx.play("bell", 0.5)
 						get_tree().current_scene._damage_number(f.global_position, "TOLL", Color(0.8, 0.85, 0.9), true)
+			if Stats.weapon_id == "salt_psalter":
+				var spn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", spn)
+				if spn % 9 == 0:
+					Stats.earn_souls(1)
+					var mps := get_tree().current_scene
+					if mps != null and mps.has_method("_damage_number"):
+						mps._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "VERSE +1 ◈", Color(0.85, 0.8, 0.5), false)
 			if Stats.weapon_id == "pilot_lantern":
 				var pln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", pln)
