@@ -97,7 +97,7 @@ const DB := {
 	"splintered_oar": {"name": "Splintered Oar", "chip": "SO", "desc": "The oar remembers rowing — your dash carries you 30% farther", "rarity": 0, "mods": {}},
 	"deck_plank": {"name": "Deck Plank", "chip": "DP", "desc": "Sure footing on any deck — +5% Speed, +5% Attack Speed", "rarity": 0, "mods": {"speed_pct": 0.05, "atk_speed_pct": 0.05}},
 	"bitter_chart": {"name": "Bitter Chart", "chip": "BC", "desc": "The drowned mapped this water in blood — −1 Armor, +25% XP", "rarity": 1, "mods": {"armor": -1.0, "xp_pct": 0.25}},
-	"undying_lung": {"name": "Undying Lung", "chip": "UL", "desc": "A third lung, drowned but patient — once per run, death refuses you (revive at 20% HP)", "rarity": 3, "mods": {"revive": 0.2}},
+	"undying_lung": {"name": "Undying Lung", "chip": "UL", "desc": "A third lung, drowned but patient — once per run, death refuses you", "rarity": 3, "mods": {"revive": 1}},
 	"dowsers_eye": {"name": "Dowser's Eye", "chip": "DE", "desc": "A glass eye that trembles toward weakness — +12% crit", "rarity": 2, "mods": {"crit": 0.12}},
 	"anchorite_beads": {"name": "Anchorite's Beads", "chip": "AB", "desc": "Beads of a hermit who never moved again — +2 Armor, −5% speed", "rarity": 2, "mods": {"armor": 2, "speed_pct": -0.05}},
 	"pearl_scrip": {"name": "Pearl Scrip", "chip": "PS", "desc": "A promissory note written on nacre — +15% souls", "rarity": 2, "mods": {"soul_gain_pct": 0.15}},
