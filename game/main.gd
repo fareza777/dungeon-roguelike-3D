@@ -1178,7 +1178,7 @@ var gates := {}
 var current_room := -1
 
 # skill
-var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0, "riptide": 0.0, "soultithe": 0.0, "anchordrop": 0.0, "soulfall": 0.0, "keelsplit": 0.0, "bloodtide": 0.0, "sealegs": 0.0, "deadreckon": 0.0, "becalm": 0.0, "irontide": 0.0, "dragline": 0.0, "deadlight": 0.0, "broadside": 0.0, "fogsong": 0.0, "saltbomb": 0.0, "deadweight": 0.0, "keelram": 0.0, "hullsplinter": 0.0, "crowsdive": 0.0, "salvagehook": 0.0, "riptidesnare": 0.0, "saltward": 0.0, "bilgesnare": 0.0, "warpaint": 0.0, "brinelash": 0.0, "ghostnet": 0.0, "saltmaw": 0.0, "keelsplitter": 0.0, "deckrupture": 0.0, "deathknell": 0.0, "tidesnatch": 0.0, "kingstoll": 0.0, "chumtoss": 0.0, "netcast": 0.0, "brinevolley": 0.0, "saltwake": 0.0, "choruscall": 0.0, "deckwash": 0.0, "hullkneel": 0.0, "crowsnest": 0.0, "stormflag": 0.0, "shellup": 0.0, "bilgesurge": 0.0, "severline": 0.0, "secondwind": 0.0, "galewind": 0.0, "keelhurl": 0.0, "maelstrom": 0.0, "deckflare": 0.0, "wickdraw": 0.0, "sirenscall": 0.0, "bloodmark": 0.0, "deadeye": 0.0, "rigger": 0.0, "saltskin": 0.0, "ironwake": 0.0, "brineward": 0.0, "wakeveil": 0.0, "keelbolt": 0.0, "galepulse": 0.0, "keelover": 0.0, "sounddeep": 0.0}
+var skill_cd := {"dash": 0.0, "whirl": 0.0, "thunder": 0.0, "warcry": 0.0, "nova": 0.0, "judge": 0.0, "sunder": 0.0, "chains": 0.0, "storm": 0.0, "mend": 0.0, "rites": 0.0, "seismic": 0.0, "kingsfall": 0.0, "lance": 0.0, "gravestep": 0.0, "tidecall": 0.0, "snapjaw": 0.0, "graveseal": 0.0, "riptide": 0.0, "soultithe": 0.0, "anchordrop": 0.0, "soulfall": 0.0, "keelsplit": 0.0, "bloodtide": 0.0, "sealegs": 0.0, "deadreckon": 0.0, "becalm": 0.0, "irontide": 0.0, "dragline": 0.0, "deadlight": 0.0, "broadside": 0.0, "fogsong": 0.0, "saltbomb": 0.0, "deadweight": 0.0, "keelram": 0.0, "hullsplinter": 0.0, "crowsdive": 0.0, "salvagehook": 0.0, "riptidesnare": 0.0, "saltward": 0.0, "bilgesnare": 0.0, "warpaint": 0.0, "brinelash": 0.0, "ghostnet": 0.0, "saltmaw": 0.0, "keelsplitter": 0.0, "deckrupture": 0.0, "deathknell": 0.0, "tidesnatch": 0.0, "kingstoll": 0.0, "chumtoss": 0.0, "netcast": 0.0, "brinevolley": 0.0, "saltwake": 0.0, "choruscall": 0.0, "deckwash": 0.0, "hullkneel": 0.0, "crowsnest": 0.0, "stormflag": 0.0, "shellup": 0.0, "bilgesurge": 0.0, "severline": 0.0, "secondwind": 0.0, "galewind": 0.0, "keelhurl": 0.0, "maelstrom": 0.0, "deckflare": 0.0, "wickdraw": 0.0, "sirenscall": 0.0, "bloodmark": 0.0, "deadeye": 0.0, "rigger": 0.0, "saltskin": 0.0, "ironwake": 0.0, "brineward": 0.0, "wakeveil": 0.0, "keelbolt": 0.0, "galepulse": 0.0, "keelover": 0.0, "sounddeep": 0.0, "saltpall": 0.0}
 var skill_ui := {}
 
 # tutorial
@@ -7785,6 +7785,24 @@ func _cast_skill(id: String) -> void:
 				trauma = 0.45
 			else:
 				toast("The deep tolls for no one — no foes near")
+				return
+		"saltpall":
+			Sfx.play("whisper", 0.85)
+			var spfoes := get_tree().get_nodes_in_group("enemies")
+			var sppp: Vector3 = player.global_position
+			var sphit := false
+			for spf in spfoes:
+				var spd: Vector3 = spf.global_position - sppp
+				spd.y = 0.0
+				if spd.length() > 4.0 * info.tile:
+					continue
+				spf.take_hit(sppp, Stats.get_stat("atk") * 1.2)
+				spf.set("slow_t", 3.0)
+				sphit = true
+			if sphit:
+				trauma = 0.3
+			else:
+				toast("The pall falls on empty water — no foes near")
 				return
 		"warcry":
 			player.anim_lock = M.play_action(player.ap, ["spellcast", "idle_combat", "idle"], 1.1)
