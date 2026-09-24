@@ -10996,6 +10996,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE WARRANT — the sea's writ, signed in foam (+7% XP)... serving it means lighter mail (−1 armor)"},
 		{"text": "KEEL ALMS — the hull's charity, paid in warm souls (+6% souls)... its weight settles into your boots (−4% speed)"},
 		{"text": "GREY VERDICT — the pale court rules your hunger lawful (+6% lifesteal)... and sentences your flesh to less (−4% max HP)"},
+		{"text": "SOUL SALARY — two hundred pacts deep and the sea still pays its wage (+8% souls, +6% XP)... back pay is heavy (−8% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -11907,6 +11908,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_maxhp_pct -= 0.04
 			oname = "GREY VERDICT"
 		199:
+			Stats.soul_gain_pct += 0.08
+			Stats.buff_xp_pct += 0.06
+			Stats.buff_speed_pct -= 0.08
+			oname = "SOUL SALARY"
+		200:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12155,6 +12161,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE WARRANT": "The sea serves its writ on whoever survives it, Kael — foam is lighter than steel anyway.",
 	"KEEL ALMS": "The hull keeps its own poor box, Kael — it pays in souls and collects in step.",
 	"GREY VERDICT": "The pale court weighs appetite against body, Kael — it rarely favors the body.",
+	"SOUL SALARY": "Two hundred contracts read and signed, Kael — the sea keeps excellent books.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
