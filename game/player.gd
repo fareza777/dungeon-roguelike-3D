@@ -424,6 +424,10 @@ func _strike() -> void:
 					hp = minf(max_hp, hp + 1.0)
 					hp_changed.emit(hp)
 					var mdg := get_tree().current_scene
+					if mdg != null:
+						var dcd: Dictionary = mdg.get("skill_cd")
+						for dsk in dcd.keys():
+							dcd[dsk] = maxf(0.0, float(dcd[dsk]) - 0.5)
 					if mdg != null and mdg.has_method("_burst"):
 						mdg._burst(global_position + Vector3(0, 0.6 * room_tile, 0), Color(0.5, 0.85, 0.6))
 					Sfx.play("pickup")
