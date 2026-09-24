@@ -446,6 +446,7 @@ var bilge_bond := false
 var rigging_rites := false
 var mudlarks_due := false
 var shanty_draught := false
+var chain_lash := false
 var kelp_tithe := false
 var bosuns_chit := false
 var deck_psalm := false
@@ -1997,6 +1998,9 @@ func _new_run(new_seed: int) -> void:
 	if shanty_draught:
 		Stats.buff_aspd -= 0.08
 		shanty_draught = false
+	if chain_lash:
+		Stats.buff_atk_pct -= 0.10
+		chain_lash = false
 	if rigging_rites:
 		Stats.buff_aspd -= 0.08
 		rigging_rites = false
@@ -12607,6 +12611,7 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Ballast Swap — pay 3 souls: shift the cargo, shift your stance — +6% dodge this floor"},
 		{"text": "Tide Silks — pay 4 souls: the silk knows the wind — +8% speed this floor"},
 		{"text": "Keel Watch — pay 5 souls: the hull stands watch — +1 armor this floor"},
+		{"text": "Chain Lash — pay 4 souls: the cathead swings its iron — +10% ATK this floor"},
 		{"text": "Walk away"}])
 
 
@@ -12684,6 +12689,18 @@ func _keel_deal(idx: int) -> void:
 		toast("KEEL WATCH — the hull stands between you and the blow")
 		return
 	if idx == 43:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the cathead isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_count_deal()
+		_souls_l()
+		chain_lash = true
+		Stats.buff_atk_pct += 0.10
+		Sfx.play("shrine")
+		toast("CHAIN LASH — the iron swings your way (+10% ATK this floor)")
+		return
+	if idx == 44:
 		toast("The stone settles — the sea keeps its bargains")
 		return
 	if idx == 36:
