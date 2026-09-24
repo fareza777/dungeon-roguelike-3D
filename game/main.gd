@@ -305,6 +305,7 @@ var wet_wool := false
 var ballast_beads := false
 var dowser_knot := false
 var crowns_vigil := false
+var vigils_gage := false
 var deck_manifest := false
 var dirge_note := false
 var line_splice := false
@@ -1499,6 +1500,9 @@ func _new_run(new_seed: int) -> void:
 	if knot_refuge:
 		Stats.dodge -= 0.1
 		knot_refuge = false
+	if vigils_gage:
+		Stats.dodge -= 0.1
+		vigils_gage = false
 	if drift_verse:
 		Stats.dodge -= 0.08
 		drift_verse = false
@@ -10141,16 +10145,28 @@ func _on_throne_invoked(s) -> void:
 		{"text": "Court Surgeon — pay 5 souls: royal medicine — mend half, and every ailment washed away"},
 		{"text": "King's Hour — pay 5 souls: the court grants a moment — all skills recharge now"},
 		{"text": "Royal Muster — pay 9 souls: plate and pride — +2 Armor this run"},
+		{"text": "Vigil's Gage — pay 7 souls: the crown's shadow covers your step — +10% dodge this floor"},
 		{"text": "Walk away"}])
 
 
 func _throne_deal(idx: int) -> void:
-	if idx == 20:
+	if idx == 21:
 		Stats.earn_souls(4)
 		_souls_l()
 		_quest_event("throne")
 		Sfx.play("soul")
 		toast("CLEAN HANDS — the crown pays +4 souls to the incorruptible")
+		return
+	if idx == 20:
+		if Stats.souls < _soul_cost(7):
+			toast("Seven souls — the gage isn't free")
+			return
+		Stats.souls -= _soul_cost(7)
+		_souls_l()
+		vigils_gage = true
+		Stats.dodge += 0.1
+		Sfx.play("shrine")
+		toast("VIGIL'S GAGE — you walk where the spears don't look")
 		return
 	if idx == 19:
 		if Stats.souls < _soul_cost(9):
