@@ -230,6 +230,7 @@ const ACH_DEF := {
 	"fortyknells": "Forty Knells (40 skill casts in one run)",
 	"seventypacts": "Hundred Pacts (swore 70 omens)",
 	"eightypacts": "Eighty Pacts (swore 80 omens)",
+	"smiths_pride": "Weaponsmith's Pride (master 5 weapons)",
 	"sixtypacts": "Sixty Pacts (60 omens sworn total)",
 	"smokedout": "Powder Burn (clear a GUN SMOKE floor)",
 	"saltwalker": "Saltwalker (clear a SALTGRAVE floor)",

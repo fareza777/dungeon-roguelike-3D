@@ -3766,6 +3766,8 @@ func _on_enemy_died(e) -> void:
 	_souls_l()
 	if wk_old < Stats.MASTERY_N and wk_old + 1 >= Stats.MASTERY_N and not bool(Stats.mastered.get(wid, false)):
 		Stats.mastered[wid] = 1
+		if Stats.mastered.size() >= 5:
+			_ach("smiths_pride")
 		Stats.save_game()
 		_lvl_banner("◆ WEAPON MASTERY — " + String(WDB.get_w(wid)["name"]) + " mastered")
 		Sfx.play("levelup")
