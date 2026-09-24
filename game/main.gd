@@ -8830,6 +8830,7 @@ func _offer_omens() -> void:
 		{"text": "GRIM GALLEY — the drowned row with you (+12% souls, +5% ATK)... but their oars drag at your blade (−8% attack speed)"},
 		{"text": "TIDE-CRAZED — the moon rides your arm (+15% attack speed)... but the sea strips your seams (−1 Armor)"},
 		{"text": "WIDOW'S VEIL — her silk stills the wind itself (+5% dodge)... but the veil costs coin (−10% souls)"},
+		{"text": "CRIMSON DUES — the deck pays for your thirst (+4% lifesteal)... but you bleed for it (−6% Max HP)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -8884,7 +8885,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 109 if Stats.nemesis != "" else 108
+	var osize := 110 if Stats.nemesis != "" else 109
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -9356,6 +9357,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.soul_gain_pct -= 0.10
 			oname = "WIDOW'S VEIL"
+		109:
+			Stats.buff_lifesteal += 0.04
+			Stats.buff_maxhp_pct -= 0.06
+			oname = "CRIMSON DUES"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
 	if not Stats.oaths_seen.has(oname):
 		Stats.oaths_seen.append(oname)
@@ -9472,6 +9477,7 @@ func _omen_deal(idx: int) -> void:
 	"GRIM GALLEY": "Six grey oars rise beside your blade. They row for you — they row through you.",
 	"TIDE-CRAZED": "The moon pulls at your knife-hand like it pulls the sea. You swing in her rhythm now.",
 	"WIDOW'S VEIL": "Something soft settles over your shoulders. The wind stops arguing with your feet.",
+	"CRIMSON DUES": "The deck drinks your first drops politely. It will keep drinking.",
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
