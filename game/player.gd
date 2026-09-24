@@ -253,7 +253,7 @@ func _strike() -> void:
 				ph_.set("net_n", int(ph_.get("net_n")) + 1)
 				if int(ph_.get("net_n")) >= 8:
 					ph_.set("net_n", 0)
-					var shot_dir := (f.global_position - global_position).normalized()
+					var shot_dir: Vector3 = (f.global_position - global_position).normalized()
 					for sf in get_tree().get_nodes_in_group("enemies"):
 						if sf == f or sf.get("state") == "dead":
 							continue
