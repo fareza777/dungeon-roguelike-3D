@@ -17172,11 +17172,15 @@ func _refresh_buffs() -> void:
 	if combo >= 8:
 		list.append(["CMB x%d" % combo, Color(1.0, 0.55, 0.15)])
 	if Stats.warcry_t > 0.0:
-		list.append(["WAR +50% ATK", Color(1.0, 0.3, 0.2)])
+		list.append(["WAR +50% ATK %ds" % int(ceilf(Stats.warcry_t)), Color(1.0, 0.3, 0.2)])
 	if Stats.deadeye_t > 0.0:
-		list.append(["EYE +25% CRIT", Color(1.0, 0.85, 0.35)])
+		list.append(["EYE +25% CRIT %ds" % int(ceilf(Stats.deadeye_t)), Color(1.0, 0.85, 0.35)])
 	if Stats.shell_t > 0.0:
-		list.append(["SHL +6 ARM", Color(0.5, 0.7, 0.5)])
+		list.append(["SHL +6 ARM %ds" % int(ceilf(Stats.shell_t)), Color(0.5, 0.7, 0.5)])
+	if Stats.rigger_t > 0.0:
+		list.append(["RIG +SPD %ds" % int(ceilf(Stats.rigger_t)), Color(0.5, 0.9, 1.0)])
+	if Stats.saltskin_t > 0.0:
+		list.append(["SALT +DODGE %ds" % int(ceilf(Stats.saltskin_t)), Color(0.85, 0.9, 0.75)])
 	if Stats.berserk > 0.0 and player.hp < player.max_hp * 0.35:
 		list.append(["BSK +%d%% ATK" % int(Stats.berserk * 100.0), Color(0.9, 0.15, 0.3)])
 	if Stats.mahzan_debt > 0.0:
