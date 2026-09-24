@@ -9771,6 +9771,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.soul_gain_pct += 0.04
 			toast("Gull Luck: the scavenger's own favor — +5% dodge, +4% souls this run")
+		133:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			toast("Widow's Loom: her knots hold your purse — +6% souls, +4% XP this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -15273,6 +15277,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Deep Call — the deep answers your craft: +12% skill recharge this run"},
 			{"text": "Keelhand — the rigging answers your wrists: +8% attack speed, +3% dodge this run"},
 			{"text": "Gull Luck — the scavenger's own favor: +5% dodge, +4% souls this run"},
+			{"text": "Widow's Loom — her knots hold your purse: +6% souls, +4% XP this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
