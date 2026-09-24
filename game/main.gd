@@ -668,6 +668,7 @@ const BESTIARY := {
 	"moorling": ["The Moorling", "A sodden thing of the moor — it lobs what the water gave it."],
 	"keel_mastiff": ["The Keel Mastiff", "A hound of splinters and rope — it lunges when the pack bays."],
 	"bilge_fury": ["Bilge Fury", "A crew-hand who raged one breath too long — the madder it bleeds, the faster it swings."],
+	"pale_lantern": ["Pale Lantern", "A wick of drowned light walking a dead sailor's frame — snuff it and every shadow in the room flinches."],
 	"siren_thrall": ["Siren Thrall", "A sailor the song kept — freed of it only by the blade, and what's left rises as a wisp."],
 	"salt_lich": ["The Salt Lich", "A cleric of the drowned church — it reads your shape from afar and posts it a soul."],
 	"deck_brute": ["The Deck Brute", "A wall of dead muscle and splinters; it does not hurry, and it does not stop."],
@@ -713,7 +714,7 @@ const KILLER_NAMES := {
 	"bell_ringer": "a Bell Ringer",
 	"moorling": "a Moorling",
 	"keel_mastiff": "a Keel Mastiff",
-	"salt_lich": "a Salt Lich", "bilge_fury": "a Bilge Fury", "siren_thrall": "a Siren Thrall",
+	"salt_lich": "a Salt Lich", "bilge_fury": "a Bilge Fury", "siren_thrall": "a Siren Thrall", "pale_lantern": "a Pale Lantern",
 	"deck_brute": "a Deck Brute",
 	"salt_eel": "a Salt Eel",
 	"quarter_ghost": "a Quarter Ghost",
@@ -794,6 +795,7 @@ const KILLER_TIPS := {
 	"keel_mastiff": "Tip: the Keel Mastiff lunges — sidestep the leap, don't retreat in a line.",
 	"bilge_fury": "Tip: a Bilge Fury swings faster the more you hurt it — kill it quickly or kite the frenzy.",
 	"siren_thrall": "Tip: a Siren Thrall dies easy — and leaves a soul wisp where it stood. Free them all.",
+	"pale_lantern": "Tip: snuff the Pale Lantern first — its dying flash stuns every foe around you.",
 	"salt_lich": "Tip: Salt Liches telegraph a long windup — close the gap fast or weave between bolts.",
 	"deck_brute": "Tip: Deck Brutes barely feel knockback — break their windup with a stun, or never be there when it lands.",
 	"salt_eel": "Tip: Salt Eels lunge in a straight bite — sidestep and the coil overshoots.",
@@ -4481,6 +4483,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("fury_kill")
 	if e.arch_id == "siren_thrall":
 		_quest_event("thrall_kill")
+	if e.arch_id == "pale_lantern":
+		_quest_event("lantern_kill")
 	if e.arch_id == "salt_lich":
 		_quest_event("lich_kill")
 	if e.arch_id == "quarter_ghost":

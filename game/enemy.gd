@@ -1649,6 +1649,13 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 				mm4._souls_l()
 			if mm4 != null and mm4.has_method("_damage_number"):
 				mm4._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "KEELBORN +3", Color(0.4, 0.9, 0.9), true)
+		if arch_id == "pale_lantern":
+			for ple in get_tree().get_nodes_in_group("enemies"):
+				if ple != self and ple.get("state") != "dead":
+					ple.stun(0.8)
+			var mpl := get_tree().current_scene
+			if mpl != null and mpl.has_method("_shock_ring"):
+				mpl._shock_ring(global_position)
 		if arch_id == "siren_thrall":
 			var mst := get_tree().current_scene
 			if mst != null and mst.has_method("_spawn_wisp_at"):
