@@ -309,6 +309,7 @@ var marlin_spike := false
 var fathomsong := false
 var pearl_graft := false
 var watch_bell := false
+var drift_verse := false
 var pilgrims_purse := false
 var crows_toll := false
 var crowns_decree := false
@@ -1436,6 +1437,9 @@ func _new_run(new_seed: int) -> void:
 		marlin_spike = false
 	fathomsong = false
 	watch_bell = false
+	if drift_verse:
+		Stats.dodge -= 0.08
+		drift_verse = false
 	if pearl_graft:
 		Stats.buff_atk_pct -= 0.15
 		pearl_graft = false
@@ -9445,16 +9449,28 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Brine Hymn — pay 3 souls: the verse sticks to every kill — +1 soul per kill this floor"},
 		{"text": "Low Verse — pay 4 souls: the bass note drags their arms — foes telegraph +10% slower this floor"},
 		{"text": "Fathomsong — pay 3 souls: the depths hum you quieter — the dead notice you −15% later this floor"},
+		{"text": "Drift Verse — pay 4 souls: a verse of floating steps — +8% dodge this floor"},
 		{"text": "Walk away"}])
 
 
 func _siren_deal(idx: int) -> void:
-	if idx == 20:
+	if idx == 21:
 		Stats.earn_souls(2)
 		_souls_l()
 		_quest_event("siren")
 		Sfx.play("soul")
 		toast("UNSUNG — you walk, and the conch pays +2 souls for your silence")
+		return
+	if idx == 20:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the verse isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		drift_verse = true
+		Stats.dodge += 0.08
+		Sfx.play("shrine")
+		toast("DRIFT VERSE — you float where the blows aren't")
 		return
 	if idx == 19:
 		if Stats.souls < _soul_cost(3):
