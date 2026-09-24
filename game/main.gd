@@ -14797,8 +14797,6 @@ func _qm_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("BOATSWAIN'S CALL — the whistle cuts the fog")
 		return
-		toast("The post shutters its stores")
-		return
 	if idx == 22:
 		if Stats.souls < _soul_cost(4):
 			toast("Four souls — the ration isn't free")
