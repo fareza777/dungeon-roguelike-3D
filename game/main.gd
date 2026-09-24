@@ -374,6 +374,7 @@ var courts_tally := false
 var royal_overlook := false
 var splice_line := false
 var rigging_rest := false
+var hull_count := false
 var second_verse := false
 var chorus_deep := false
 var leech_bond := false
@@ -1699,6 +1700,9 @@ func _new_run(new_seed: int) -> void:
 	if rigging_rest:
 		Stats.cd_reduction -= 0.15
 		rigging_rest = false
+	if hull_count:
+		Stats.buff_maxhp_pct -= 0.1
+		hull_count = false
 	if second_verse:
 		Stats.buff_aspd -= 0.15
 		second_verse = false
@@ -10355,12 +10359,27 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Rope Tackle — pay 4 souls: oiled blocks, faster feet — dash recharges 20% faster this floor"},
 		{"text": "Splice Line — pay 3 souls: the line feeds you its slack — +6% speed this floor"},
 		{"text": "Rigging Rest — pay 4 souls: the lines slacken in your favor — mend 15%, skills recharge 15% faster this floor"},
+		{"text": "Hull Count — pay 4 souls: the carpenter counts you among the planks — +10% Max HP this floor"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 33:
+	if idx == 34:
 		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 33:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the count isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_count_deal()
+		_souls_l()
+		hull_count = true
+		Stats.buff_maxhp_pct += 0.1
+		if player != null and is_instance_valid(player):
+			player.refresh_stats()
+		Sfx.play("shrine")
+		toast("HULL COUNT — the planks hold you")
 		return
 	if idx == 32:
 		if Stats.souls < _soul_cost(4):
