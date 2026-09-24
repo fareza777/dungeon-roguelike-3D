@@ -16137,7 +16137,8 @@ func _process(delta: float) -> void:
 				ui.atk_btn.modulate = Color(1.0, 0.62, 0.35).lerp(Color(1.0, 0.85, 0.5), rpulse)
 				ui.atk_btn.scale = Vector2.ONE * (1.0 + 0.06 * rpulse)
 			else:
-				ui.atk_btn.modulate = Color.WHITE
+				var cdim := 0.68 if player.cd > 0.0 else 1.0
+				ui.atk_btn.modulate = Color(cdim, cdim, cdim)
 				ui.atk_btn.scale = Vector2.ONE
 		if Input.is_key_pressed(KEY_H):
 			_toggle_hero(true)
