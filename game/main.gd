@@ -388,6 +388,7 @@ var sheet_bend := false
 var second_verse := false
 var chorus_deep := false
 var harbor_verse := false
+var wake_verse := false
 var leech_bond := false
 var keelwind := false
 var murk_vision := false
@@ -1751,6 +1752,9 @@ func _new_run(new_seed: int) -> void:
 	if harbor_verse:
 		Stats.buff_atk_pct -= 0.08
 		harbor_verse = false
+	if wake_verse:
+		Stats.buff_speed_pct -= 0.08
+		wake_verse = false
 	if leech_bond:
 		Stats.buff_lifesteal -= 0.08
 		leech_bond = false
@@ -11418,16 +11422,29 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Second Verse — pay 6 souls: her refrain quickens your arm — +15% attack speed this floor"},
 		{"text": "Chorus Deep — pay 4 souls: the deep verse pays its singers — +10% souls this floor"},
 		{"text": "Harbor Verse — pay 4 souls: the song steadies your arm — +8% ATK this floor"},
+		{"text": "Wake Verse — pay 3 souls: the chorus quickens your step — +8% speed this floor"},
 		{"text": "Walk away"}])
 
 
 func _siren_deal(idx: int) -> void:
-	if idx == 29:
+	if idx == 30:
 		Stats.earn_souls(2)
 		_souls_l()
 		_quest_event("siren")
 		Sfx.play("soul")
 		toast("UNSUNG — you walk, and the conch pays +2 souls for your silence")
+		return
+	if idx == 29:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the verse isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_count_deal()
+		_souls_l()
+		wake_verse = true
+		Stats.buff_speed_pct += 0.08
+		Sfx.play("shrine")
+		toast("WAKE VERSE — the chorus quickens your step")
 		return
 	if idx == 28:
 		if Stats.souls < _soul_cost(4):
