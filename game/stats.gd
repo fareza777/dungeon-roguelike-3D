@@ -221,6 +221,7 @@ const ACH_DEF := {
 	"quarterdeck": "Quarterdeck (reach floor 20 in a single descent)",
 	"abyssal": "Abyssal Reaches (reach floor 30 in a single descent)",
 	"oldsalt": "Old Salt (reach floor 25 in a single descent)",
+	"relichunter": "Relic Hunter (hold 12 relics in one run)",
 	"oathbound": "Oathbound (swear 12 different pacts, across all your descents)",
 	"manyoaths": "Many Oaths (swear 20 different pacts, across all your descents)",
 	"unstoppable": "Unstoppable (a ×50 kill streak in one run)",
@@ -361,6 +362,8 @@ func add_relic(id: String) -> void:
 		souls += 3
 		return
 	relics.append(id)
+	if relics.size() >= 12 and not ach.has("relichunter"):
+		ach["relichunter"] = true
 	var mods: Dictionary = ITEMS.DB[id]["mods"]
 	if mods.has("revive"):
 		revive_left += int(mods["revive"])
