@@ -416,6 +416,7 @@ var murk_vision := false
 var silt_draught := false
 var drowned_mercy := false
 var rivers_tithe := false
+var boatswain_call := false
 var salt_lullaby := false
 var coil_chit := false
 var rope_allowance := false
@@ -1871,6 +1872,9 @@ func _new_run(new_seed: int) -> void:
 	if rivers_tithe:
 		Stats.soul_gain_pct -= 0.12
 		rivers_tithe = false
+	if boatswain_call:
+		Stats.dodge -= 0.12
+		boatswain_call = false
 	salt_lullaby = false
 	if coil_chit:
 		Stats.dodge -= 0.08
@@ -11602,11 +11606,26 @@ func _on_qm_invoked(s) -> void:
 		{"text": "Coil & Chit — pay 3 souls: the rope ledger teaches you to slip — +8% dodge this floor"},
 		{"text": "Rope Allowance — pay 3 souls: the quartermaster lets out your line — +8% speed this floor"},
 		{"text": "Watchman's Ration — pay 4 souls: hot grog from the crow's nest — mend 25%"},
+		{"text": "Boatswain's Call — pay 3 souls: the whistle cuts the fog — +12% dodge this floor"},
 		{"text": "Walk away"}])
 
 
 func _qm_deal(idx: int) -> void:
+	if idx == 24:
+		toast("The post shutters its stores")
+		return
 	if idx == 23:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the whistle isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_count_deal()
+		_souls_l()
+		boatswain_call = true
+		Stats.dodge += 0.12
+		Sfx.play("shrine")
+		toast("BOATSWAIN'S CALL — the whistle cuts the fog")
+		return
 		toast("The post shutters its stores")
 		return
 	if idx == 22:
