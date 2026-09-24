@@ -6398,10 +6398,11 @@ func _damage_number(pos: Vector3, txt: String, col: Color, big := false) -> void
 	l.outline_size = 22
 	l.outline_modulate = Color(0.08, 0.02, 0.0, 0.9)
 	l.no_depth_test = true
-	l.global_position = pos + Vector3(0, 1.3, 0)
+	l.global_position = pos + Vector3(rng.randf_range(-0.35, 0.35), 1.3, rng.randf_range(-0.35, 0.35))
 	var tw := create_tween()
 	tw.set_parallel(true)
 	tw.tween_property(l, "global_position:y", l.global_position.y + 1.2, 0.7).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tw.tween_property(l, "global_position:x", l.global_position.x + rng.randf_range(-0.5, 0.5), 0.7).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	tw.tween_property(l, "modulate:a", 0.0, 0.7)
 	tw.set_parallel(false)
 	tw.tween_callback(l.queue_free)
