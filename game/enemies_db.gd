@@ -146,6 +146,7 @@ const DB := {
 	"rust_leech": {"glb": "Skeleton_Mage.glb", "hp": 3.0, "spd": 1.1, "dmg": 1, "windup": 0.6, "reach": 0.7, "prefer": 3.2, "aggro": 7.0, "xp": 11, "tint": Color(0.6, 0.35, 0.25), "scale": 0.95, "kb_resist": 0.1, "ranged": true, "proj_speed": 3.0, "leech": true},
 	"pale_tither": {"glb": "Skeleton_Rogue.glb", "hp": 2.8, "spd": 1.4, "dmg": 1, "windup": 0.45, "reach": 0.75, "aggro": 7.0, "xp": 11, "tint": Color(0.65, 0.6, 0.8), "scale": 0.95, "kb_resist": 0.1, "tither": true, "warper": true},
 	"mistral_imp": {"glb": "Skeleton_Rogue.glb", "hp": 1.6, "spd": 1.9, "dmg": 1, "windup": 0.4, "reach": 2.4, "prefer": 2.2, "aggro": 7.5, "xp": 8, "tint": Color(0.7, 0.9, 0.9), "scale": 0.75, "ranged": true, "proj_speed": 5.5, "kb_resist": 0.05, "burst": true},
+	"bilge_prior": {"glb": "Skeleton_Mage.glb", "hp": 3.4, "spd": 0.95, "dmg": 2, "windup": 0.7, "reach": 0.8, "aggro": 6.5, "xp": 12, "tint": Color(0.5, 0.7, 0.55), "scale": 1.05, "kb_resist": 0.3, "healer": true, "waver": true},
 	# BOSS: Raja Tulang — tiap lantai kelipatan 5
 	"bone_king": {"glb": "Skeleton_Warrior.glb", "hp": 42.0, "spd": 0.8, "dmg": 2, "windup": 0.85, "reach": 0.95, "aggro": 9.9, "xp": 15, "tint": Color(1.15, 0.45, 0.4), "scale": 1.85, "kb_resist": 0.9, "boss": true},
 }
