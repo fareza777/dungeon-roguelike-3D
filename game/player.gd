@@ -282,6 +282,11 @@ func _strike() -> void:
 					for bsf in get_tree().get_nodes_in_group("enemies"):
 						if bsf != f and bsf.global_position.distance_to(f.global_position) < 2.0:
 							bsf.take_hit(global_position, float(Stats.get_stat("atk")))
+			if Stats.weapon_id == "mooring_pin":
+				var mpn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", mpn)
+				if mpn % 7 == 0:
+					f.set("slow_t", 2.5)
 			if Stats.weapon_id == "undertow_pike":
 				var upn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", upn)
