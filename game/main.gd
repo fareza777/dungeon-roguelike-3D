@@ -10976,6 +10976,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP ALMS — the drowned's charity, warm from their palms (+5% souls)... you carry them home in your arm (−3% ATK)"},
 		{"text": "BILGE DOCKET — the hold's paperwork, stamped in slick (+6% dodge)... ink on your grip costs the edge (−4% ATK)"},
 		{"text": "WAKE WARRANT — the sea's writ, signed in foam (+7% XP)... serving it means lighter mail (−1 armor)"},
+		{"text": "KEEL ALMS — the hull's charity, paid in warm souls (+6% souls)... its weight settles into your boots (−4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -11879,6 +11880,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_armor -= 1
 			oname = "WAKE WARRANT"
 		197:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_speed_pct -= 0.04
+			oname = "KEEL ALMS"
+		198:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12125,6 +12130,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP ALMS": "The drowned give to whoever carries them, Kael — their gratitude weighs on the arm.",
 	"BILGE DOCKET": "Even the bilge keeps records, Kael — slippery reading, but it teaches you where to stand.",
 	"WAKE WARRANT": "The sea serves its writ on whoever survives it, Kael — foam is lighter than steel anyway.",
+	"KEEL ALMS": "The hull keeps its own poor box, Kael — it pays in souls and collects in step.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
