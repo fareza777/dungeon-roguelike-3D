@@ -16062,6 +16062,11 @@ func _update_hp(hp: float) -> void:
 					bt.kill()
 				c.set("beat_tween", null)
 				c.scale = Vector2.ONE
+	if ui.has("vial_btn") and vials > 0:
+		if low:
+			ui.vial_btn.modulate = Color(1.0, 0.55 + 0.4 * absf(sin(Time.get_ticks_msec() / 110.0)), 0.35)
+		else:
+			ui.vial_btn.modulate = Color(1.15, 1.0, 0.75, 1)
 
 
 func _vign_flash() -> void:
