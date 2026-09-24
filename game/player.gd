@@ -536,6 +536,17 @@ func _strike() -> void:
 						mkl._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "LANTERN", Color(0.95, 0.8, 0.4), false)
 					if randf() < 0.35:
 						Stats.earn_souls(1)
+			if Stats.weapon_id == "hull_mender":
+				var hmn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", hmn)
+				if hmn % 8 == 0:
+					Sfx.play("shrine", 0.6)
+					if hp < Stats.get_stat("max_hp"):
+						hp = minf(hp + 1.0, Stats.get_stat("max_hp"))
+						hp_changed.emit(hp)
+					var mhm := get_tree().current_scene
+					if mhm != null and mhm.has_method("_damage_number"):
+						mhm._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "MEND +1", Color(0.55, 0.9, 0.6), false)
 			if Stats.weapon_id == "saltverdict":
 				var svn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", svn)
