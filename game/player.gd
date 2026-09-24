@@ -606,6 +606,19 @@ func _strike() -> void:
 					var mke := get_tree().current_scene
 					if mke != null and mke.has_method("_damage_number"):
 						mke._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "KNELL +1◈", Color(0.9, 0.8, 0.5), false)
+			if Stats.weapon_id == "vergers_rod":
+				var vrn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", vrn)
+				if vrn % 11 == 0:
+					Sfx.play("thunder", 0.5)
+					for vf in get_tree().get_nodes_in_group("enemies"):
+						if vf.get("state") != "dead" and vf.global_position.distance_to(global_position) < 3.0 * room_tile:
+							var vrd: Vector3 = (vf.global_position - global_position).normalized()
+							vf.kb += vrd * 9.0
+							vf.set("slow_t", maxf(float(vf.get("slow_t") or 0.0), 1.5))
+					var mvr := get_tree().current_scene
+					if mvr != null and mvr.has_method("_damage_number"):
+						mvr._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "VERGE", Color(0.6, 0.85, 0.7), false)
 			if Stats.weapon_id == "pilot_lantern":
 				var pln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", pln)
