@@ -237,6 +237,7 @@ var salt_dowry := false
 var sv_doubt := false
 var grim_wager := false
 var windbound_note := false
+var salt_stipend := false
 var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
@@ -1857,6 +1858,9 @@ func _new_run(new_seed: int) -> void:
 		Stats.buff_speed_pct -= 0.04
 		Stats.dodge -= 0.04
 		windbound_note = false
+	if salt_stipend:
+		Stats.buff_xp_pct -= 0.20
+		salt_stipend = false
 	if sv_doubt:
 		Stats.buff_atk_pct -= 0.15
 		Stats.buff_maxhp_pct += 0.05
@@ -9395,6 +9399,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Sovereign's Doubt — pay 6 souls: doubt sharpens a blade — +15% ATK, −5% Max HP this floor"},
 			{"text": "Grim Wager — pay 7 souls: Mahzan backs your blade — +12% ATK, +8% crit this floor"},
 			{"text": "Windbound Note — pay 6 souls: the note catches — +4% speed, +4% dodge this floor"},
+			{"text": "Salt Stipend — pay 7 souls: the crew shares rations — +20% XP this floor"},
 		]
 	)
 
@@ -11117,6 +11122,17 @@ func _mahzan_deal(idx: int) -> void:
 				Stats.dodge += 0.04
 				Sfx.play("shrine")
 				toast("WINDBOUND NOTE — the note catches the breeze")
+		53:
+			if Stats.souls < _soul_cost(7):
+				toast("Seven souls — the ration isn't free")
+			else:
+				Stats.souls -= _soul_cost(7)
+				_count_deal()
+				_souls_l()
+				salt_stipend = true
+				Stats.buff_xp_pct += 0.20
+				Sfx.play("shrine")
+				toast("SALT STIPEND — the ration lines your learning")
 		50:
 			if Stats.souls < _soul_cost(6):
 				toast("Six souls — the doubt isn't free")
