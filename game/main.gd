@@ -489,6 +489,7 @@ var leech_bond := false
 var keelwind := false
 var murk_vision := false
 var ebb_lullaby := false
+var keel_salt := false
 var silt_draught := false
 var drowned_mercy := false
 var rivers_tithe := false
@@ -2154,6 +2155,9 @@ func _new_run(new_seed: int) -> void:
 		keelwind = false
 	murk_vision = false
 	ebb_lullaby = false
+	if keel_salt:
+		Stats.buff_crit -= 0.08
+		keel_salt = false
 	if silt_draught:
 		Stats.buff_armor -= 1
 		silt_draught = false
@@ -11197,6 +11201,7 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Shanty Draught — pay 3 souls: the drowned crew keeps your tempo — +8% attack speed this floor"},
 		{"text": "Mist Beads — pay 4 souls: the river's breath settles on your eyes — +6% dodge, +4% speed this run"},
 		{"text": "Ebb Lullaby — pay 5 souls: the river hums the dead to half-step — foes −10% speed this floor"},
+		{"text": "Keel Salt — pay 4 souls: the altar scrubs your edge bright — +8% crit this floor"},
 		{"text": "Walk away"}])
 
 
@@ -11264,6 +11269,18 @@ func _drowned_deal(idx: int) -> void:
 		toast("EBB LULLABY — the river hums the dead to half-step (foes −10% speed this floor)")
 		return
 	if idx == 50:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the salt isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_count_deal()
+		_souls_l()
+		keel_salt = true
+		Stats.buff_crit += 0.08
+		Sfx.play("shrine")
+		toast("KEEL SALT — the altar scrubs your edge bright (+8% crit this floor)")
+		return
+	if idx == 51:
 		toast("The water settles back into the stone")
 		return
 	if idx == 44:
