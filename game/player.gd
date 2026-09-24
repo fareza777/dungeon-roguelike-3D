@@ -222,7 +222,7 @@ func attack() -> void:
 func _strike() -> void:
 	if dead:
 		return
-	var reach := room_tile * 0.8
+	var reach := room_tile * 0.8 + float(Stats.get_stat("reach")) * room_tile
 	var facing := Vector3(sin(rotation.y), 0, cos(rotation.y))
 	for f in get_tree().get_nodes_in_group("enemies"):
 		var to: Vector3 = f.global_position - global_position
