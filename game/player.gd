@@ -275,6 +275,13 @@ func _strike() -> void:
 							bgd.y = 0.0
 							if bgd.length() > 0.01:
 								bgf.velocity += bgd.normalized() * 9.0
+			if Stats.weapon_id == "broadside":
+				var bsn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", bsn)
+				if bsn % 10 == 0:
+					for bsf in get_tree().get_nodes_in_group("enemies"):
+						if bsf != f and bsf.global_position.distance_to(f.global_position) < 2.0:
+							bsf.take_hit(global_position, float(Stats.get_stat("atk")))
 			if Stats.weapon_id == "undertow_pike":
 				var upn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", upn)
