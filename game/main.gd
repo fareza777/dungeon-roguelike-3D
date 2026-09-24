@@ -3119,6 +3119,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.dmg = int(maxi(1, floorf(float(e.dmg) * 0.88)))
 	if royal_overlook and not e.is_boss:
 		e.dmg = int(maxi(1, floorf(float(e.dmg) * 0.9)))
+	if murk_vision and not e.is_boss:
+		e.aggro_range *= 0.85
 	if bilge_still and not e.is_boss:
 		e.speed *= 0.88
 	if keel_groan and not e.is_boss:
