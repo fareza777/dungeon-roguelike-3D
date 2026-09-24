@@ -45,6 +45,7 @@ var buff_maxhp_pct := 0.0 # omen Leeching Vein: pengorbanan Max HP
 var buff_aspd := 0.0 # berkat altar Fury: run ini saja
 var buff_crit := 0.0 # berkat altar Eagle's Eye: run ini saja
 var warcry_t := 0.0 # skill War Cry: +50% ATK sementara
+var shell_t := 0.0 # skill Barnacle Shell: +6 armor sementara
 var warpaint_t := 0.0 # skill Warpaint: +30% ATK sementara
 var irontide_t := 0.0 # skill Iron Tide: pukulan terpantul sementara
 var revive_left := 0 # jiwa bangkit: hidup lagi sekali per run
@@ -341,6 +342,8 @@ func get_stat(n: String) -> float:
 		mult += buff_maxhp_pct
 	if n == "armor":
 		flat += buff_armor + float(meta.get("adamant", 0))
+		if shell_t > 0.0:
+			flat += 6.0
 	if n == "lifesteal":
 		flat += buff_lifesteal + float(meta.get("leech", 0)) * 0.02
 	if n == "crit":
@@ -354,6 +357,8 @@ func get_stat(n: String) -> float:
 func _process(delta: float) -> void:
 	if warcry_t > 0.0:
 		warcry_t = maxf(0.0, warcry_t - delta)
+	if shell_t > 0.0:
+		shell_t = maxf(0.0, shell_t - delta)
 	if warpaint_t > 0.0:
 		warpaint_t = maxf(0.0, warpaint_t - delta)
 	if irontide_t > 0.0:
@@ -484,6 +489,7 @@ func reset_run() -> void:
 	buff_aspd = 0.0
 	buff_crit = 0.0
 	warcry_t = 0.0
+	shell_t = 0.0
 	warpaint_t = 0.0
 	revive_left = int(meta.get("wind", 0))
 	thorns = 0.0
