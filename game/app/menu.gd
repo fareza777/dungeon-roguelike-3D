@@ -234,6 +234,7 @@ func _build() -> void:
 	best.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.8))
 	best.add_theme_constant_override("shadow_offset_x", 2)
 	best.add_theme_constant_override("shadow_offset_y", 2)
+	best.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	vb.add_child(best)
 
 	if rank != "":
