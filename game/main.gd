@@ -228,6 +228,7 @@ var salty_wages := false
 var gunnel_tide := false
 var dead_wages := false
 var riggers_due := false
+var tides_favor := false
 var salt_dowry := false
 var combo_rate_bonus := 0.0
 var solitary := false
@@ -1503,6 +1504,7 @@ func _reset_run_state() -> void:
 	gunnel_tide = false
 	dead_wages = false
 	riggers_due = false
+	tides_favor = false
 	combo_rate_bonus = 0.0
 	solitary = false
 	pawn_discount = false
@@ -8078,6 +8080,7 @@ func _offer_omens() -> void:
 		{"text": "GUNNEL TIDE — the rail sings your arm faster (+10% attack speed)... but the hull runs thin (−1 Armor)"},
 		{"text": "DEAD MAN'S WAGES — the crew's unspent pay hardens your hand (+15% ATK)... but the purse leaks (−10% souls)"},
 		{"text": "RIGGER'S DUE — the rigging pays its keeper in souls (+10% souls)... but the ropes bite (−1 Armor)"},
+		{"text": "TIDE'S FAVOR — the current carries your lessons (+10% XP)... but the hull runs thin (−1 Armor)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -8128,7 +8131,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 97 if Stats.nemesis != "" else 96
+	var osize := 98 if Stats.nemesis != "" else 97
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -8545,6 +8548,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_armor -= 1
 			oname = "RIGGER'S DUE"
 		96:
+			tides_favor = true
+			Stats.buff_xp_pct += 0.1
+			Stats.buff_armor -= 1
+			oname = "TIDE'S FAVOR"
+		97:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -8651,6 +8659,7 @@ func _omen_deal(idx: int) -> void:
 	"GUNNEL TIDE": "Hold the rail and the sea moves your arm for you.",
 	"DEAD MAN'S WAGES": "Unclaimed coin spends fastest on the living.",
 	"RIGGER'S DUE": "The lines remember who climbs them.",
+	"TIDE'S FAVOR": "The water pushes where it wills."
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
