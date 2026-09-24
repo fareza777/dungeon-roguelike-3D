@@ -635,6 +635,7 @@ const BESTIARY := {
 	"bell_ringer": ["The Bell Ringer", "His bell knits the dead back together — silence the tolling first."],
 	"moorling": ["The Moorling", "A sodden thing of the moor — it lobs what the water gave it."],
 	"keel_mastiff": ["The Keel Mastiff", "A hound of splinters and rope — it lunges when the pack bays."],
+	"salt_eel": ["The Salt Eel", "It knots itself out of the black water and strikes before the coil shows."],
 	"quarter_ghost": ["The Quarter Ghost", "A crewman's shade still collecting his share — he takes it from your veins."],
 	"fathom_crab": ["The Fathom Crab", "It shelled itself in anchors and anchors' bones — slow, sour, hard to crack."],
 	"powder_monkey": ["The Powder Monkey", "It carries a horn of powder and one bad idea — don't be near the fuse."],
@@ -676,6 +677,7 @@ const KILLER_NAMES := {
 	"bell_ringer": "a Bell Ringer",
 	"moorling": "a Moorling",
 	"keel_mastiff": "a Keel Mastiff",
+	"salt_eel": "a Salt Eel",
 	"quarter_ghost": "a Quarter Ghost",
 	"fathom_crab": "a Fathom Crab",
 	"powder_monkey": "a Powder Monkey",
@@ -752,6 +754,7 @@ const KILLER_TIPS := {
 	"bell_ringer": "Tip: the Bell Ringer mends his flock with every toll — cut him down first.",
 	"moorling": "Tip: the Moorling throws slow, heavy sludge — strafe the lob, don't backpedal.",
 	"keel_mastiff": "Tip: the Keel Mastiff lunges — sidestep the leap, don't retreat in a line.",
+	"salt_eel": "Tip: Salt Eels lunge in a straight bite — sidestep and the coil overshoots.",
 	"quarter_ghost": "Tip: the Quarter Ghost drinks your blows — burn him down before he refills.",
 	"fathom_crab": "Tip: the Fathom Crab shrugs off shoves — outpace it or crack the shell.",
 	"powder_monkey": "Tip: Powder Monkeys burst on death — finish them from a step away.",
@@ -4244,6 +4247,8 @@ func _on_enemy_died(e) -> void:
 			sf_.hp = minf(float(sf_.hp_max), float(sf_.hp) + float(sf_.hp_max) * 0.1)
 	if player != null and is_instance_valid(player) and float(player.get("slip_t")) > 0.0:
 		_quest_event("swift_kill")
+	if e.arch_id == "salt_eel":
+		_quest_event("eel_kill")
 	if e.arch_id == "quarter_ghost":
 		_quest_event("ghost_kill")
 	if e.arch_id == "fathom_crab":
