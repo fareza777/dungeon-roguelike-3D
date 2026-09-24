@@ -5555,6 +5555,8 @@ func _on_enemy_died(e) -> void:
 			_shock_ring(e.global_position)
 	if e.is_boss:
 		_on_boss_died(e)
+	elif e.elite:
+		_shock_ring(e.global_position)
 	if e.elite and (bool(e.get("champion")) or rng.randf() < 0.6):
 		spawn_weapon_drop(e.global_position, WDB.roll_drop(rng, Stats.weapon_id))
 	if bool(e.get("champion")):
