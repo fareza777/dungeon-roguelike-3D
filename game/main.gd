@@ -232,6 +232,7 @@ var tides_favor := false
 var barnacle_oath := false
 var black_tide := false
 var salt_dowry := false
+var sv_doubt := false
 var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
@@ -1760,6 +1761,10 @@ func _new_run(new_seed: int) -> void:
 	if salt_dowry:
 		Stats.soul_gain_pct -= 0.12
 		salt_dowry = false
+	if sv_doubt:
+		Stats.buff_atk_pct -= 0.15
+		Stats.buff_maxhp_pct += 0.05
+		sv_doubt = false
 	royal_overlook = false
 	if crowns_reprieve:
 		Stats.cd_reduction -= 0.12
@@ -8924,6 +8929,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Soul Ledger — pay 8 souls: the ledger remembers every soul — +20% souls this floor"},
 			{"text": "Grave Silk — pay 8 souls: funeral cloth for the nimble — +12% dodge this run"},
 			{"text": "Salt Dowry — pay 5 souls: a bride-price from the drowned — +12% souls this floor"},
+			{"text": "Sovereign's Doubt — pay 6 souls: doubt sharpens a blade — +15% ATK, −5% Max HP this floor"},
 		]
 	)
 
@@ -10597,6 +10603,18 @@ func _mahzan_deal(idx: int) -> void:
 				Stats.soul_gain_pct += 0.2
 				Sfx.play("shrine")
 				toast("SOUL LEDGER — every soul counts double-ish")
+		50:
+			if Stats.souls < _soul_cost(6):
+				toast("Six souls — the doubt isn't free")
+			else:
+				Stats.souls -= _soul_cost(6)
+				_count_deal()
+				_souls_l()
+				sv_doubt = true
+				Stats.buff_atk_pct += 0.15
+				Stats.buff_maxhp_pct -= 0.05
+				Sfx.play("shrine")
+				toast("SOVEREIGN'S DOUBT — doubt sharpens the blade")
 		49:
 			if Stats.souls < _soul_cost(5):
 				toast("Five souls — the dowry isn't free")
