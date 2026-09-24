@@ -248,6 +248,17 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "foghorn":
+				var fh_ = get_tree().current_scene
+				fh_.set("net_n", int(fh_.get("net_n")) + 1)
+				if int(fh_.get("net_n")) >= 9:
+					fh_.set("net_n", 0)
+					for fh2_ in get_tree().get_nodes_in_group("enemies"):
+						if fh2_.get("state") != "dead" and fh2_.global_position.distance_to(global_position) < 3.5:
+							fh2_.stun(0.8)
+					if fh_.has_method("_shock_ring"):
+						fh_._shock_ring(global_position)
+					Sfx.play("roar")
 			if Stats.weapon_id == "barnacle_mace":
 				var bm_ = get_tree().current_scene
 				bm_.set("net_n", int(bm_.get("net_n")) + 1)
