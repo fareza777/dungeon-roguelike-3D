@@ -12275,6 +12275,11 @@ func _toggle_pause() -> void:
 	get_tree().paused = paused_ui
 	ui.dim.visible = paused_ui or Stats.draft_open
 	pause_panel.visible = paused_ui
+	if paused_ui:
+		pause_panel.pivot_offset = pause_panel.size * 0.5
+		pause_panel.scale = Vector2(0.88, 0.88)
+		var pptw: Tween = pause_panel.create_tween()
+		pptw.tween_property(pause_panel, "scale", Vector2.ONE, 0.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	if not paused_ui and lore_panel != null:
 		lore_panel.visible = false
 	if not paused_ui and bestiary_panel != null:
