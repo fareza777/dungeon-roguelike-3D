@@ -10181,6 +10181,7 @@ func _offer_omens() -> void:
 		{"text": "SIREN'S MARK — her kiss quickens your feet (+5% dodge)... and her choir marks you (+5% damage taken)"},
 		{"text": "GRAVE WAGES — the yard pays hazard rates (+8% souls)... and hazards apply (+6% damage taken)"},
 		{"text": "LOOSE LINE — the rigging runs free (+10% speed)... and nothing holds you fast (−4% dodge)"},
+		{"text": "BILGE LUCK — the bilge pays out dirty (+5% crit)... and it splashes your footing (−5% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -10869,6 +10870,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "LOOSE LINE"
 		144:
+			Stats.buff_crit += 0.05
+			Stats.dodge -= 0.05
+			oname = "BILGE LUCK"
+		145:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -11050,6 +11055,7 @@ func _omen_deal(idx: int) -> void:
 	"SIREN'S MARK": "She'll make you nimble, Kael — and every wreckling will know whose blood she's tasting.",
 	"GRAVE WAGES": "Hazard pay for hazard work, Kael — the yard's ledger never lies about the rates.",
 	"LOOSE LINE": "Slack rope runs quick, Kael — just don't expect it to hold when the sea pulls back.",
+	"BILGE LUCK": "Dirty luck spends fastest, Kael — spend it before the bilge collects.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
