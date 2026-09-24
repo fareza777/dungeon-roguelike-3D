@@ -666,9 +666,10 @@ func _strike() -> void:
 					var ghm := get_tree().current_scene
 					if ghm != null and ghm.has_method("_damage_number"):
 						ghm._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "GAFF", Color(0.55, 0.7, 0.6), false)
-			if Stats.weapon_id == "keelbell":
-			var kb8: int = int(get_tree().current_scene.get("net_n") or 0)
-			if kb8 > 0 and kb8 % 8 == 0:
+		if Stats.weapon_id == "keelbell":
+			var kb8: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+			get_tree().current_scene.set("net_n", kb8)
+			if kb8 % 8 == 0:
 				var ktl := 0
 				for ktf in get_tree().get_nodes_in_group("enemies"):
 					if ktf != f and ktf.get("state") != "dead" and ktf.global_position.distance_to(f.global_position) < 2.0 * room_tile:
