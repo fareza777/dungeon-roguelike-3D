@@ -10781,6 +10781,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE TALLY — the sea counts your crossings in coin (+6% souls)... and marks your exits (−4% dodge)"},
 		{"text": "SALT VERDICT — the court below rules in your favor (+1 armor, +5% XP)... pending appeal (−4% max HP)"},
 		{"text": "WAKEBOUND — every crossing carries you onward (+7% speed)... and onward (−5% souls)"},
+		{"text": "DEEP WARRANT — the deep's writ authorizes your blade (+5% crit)... the fine print takes its plate (−1 armor)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -11619,6 +11620,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.05
 			oname = "WAKEBOUND"
 		181:
+			Stats.buff_crit += 0.05
+			Stats.buff_armor -= 1
+			oname = "DEEP WARRANT"
+		182:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -11847,6 +11852,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE TALLY": "The tallyman below never forgets a crossing, Kael — yours are adding up.",
 	"SALT VERDICT": "The court of the drowned has heard your case, Kael — it rules, for now.",
 	"WAKEBOUND": "Bound to the wake, Kael — every ship behind you pulls you faster than the last.",
+	"DEEP WARRANT": "Signed at the bottom of the sea, Kael — your blade now has papers.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
