@@ -316,6 +316,7 @@ var marlin_spike := false
 var fathomsong := false
 var pearl_graft := false
 var watch_bell := false
+var hull_pitch := false
 var drift_verse := false
 var pilgrims_purse := false
 var crows_toll := false
@@ -1458,6 +1459,9 @@ func _new_run(new_seed: int) -> void:
 		marlin_spike = false
 	fathomsong = false
 	watch_bell = false
+	if hull_pitch:
+		Stats.buff_armor -= 1
+		hull_pitch = false
 	if drift_verse:
 		Stats.dodge -= 0.08
 		drift_verse = false
@@ -9026,12 +9030,24 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Knotwork — pay 3 souls: laced hand-wrapping — +5% dodge this floor"},
 		{"text": "Marlin Spike — pay 3 souls: a sailor's point between the ribs — +10% speed this floor"},
 		{"text": "Watch Bell — pay 4 souls: the bell rings their approach — foes telegraph +15% slower this floor"},
+		{"text": "Hull Pitch — pay 6 souls: hot tar on your planks — +1 Armor this floor"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 24:
+	if idx == 25:
 		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 24:
+		if Stats.souls < _soul_cost(6):
+			toast("Six souls — the tar pot isn't free")
+			return
+		Stats.souls -= _soul_cost(6)
+		_souls_l()
+		hull_pitch = true
+		Stats.buff_armor += 1
+		Sfx.play("shrine")
+		toast("HULL PITCH — hot tar on your planks")
 		return
 	if idx == 23:
 		if Stats.souls < _soul_cost(4):
