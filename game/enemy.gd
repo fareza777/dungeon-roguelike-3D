@@ -89,6 +89,7 @@ var eel := false
 var slow_immune := false
 var fey := false
 var sawblade := false
+var coward := false
 var fey_t := 2.0
 var eel_t := 0.0
 var eel_dash_t := 0.0
@@ -223,6 +224,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	hookshot = bool(a.get("hookshot", false))
 	eel = bool(a.get("eel", false))
 	sawblade = bool(a.get("sawblade", false))
+	coward = bool(a.get("coward", false))
 	healer = bool(a.get("healer", false))
 	crowned = bool(a.get("crowned", false))
 	tither = bool(a.get("tither", false))
@@ -836,8 +838,10 @@ func _physics_process(delta: float) -> void:
 					M.play_fuzzy(ap, ["idle_combat", "idle"])
 			else:
 				var dir := to.normalized()
+				if coward:
+					dir = -dir
 				# DESPERATE: nyawa tipis melarikan diri (gerombolan saja)
-				if not ranged and not elite and not is_boss and hp < hp_max * 0.18 and ["chaser", "crawler", "hound", "moth"].has(arch_id):
+				elif not ranged and not elite and not is_boss and hp < hp_max * 0.18 and ["chaser", "crawler", "hound", "moth"].has(arch_id):
 					dir = -dir
 				# mage mundur kalau player terlalu dekat
 				elif ranged and dist < prefer_range * 0.55:

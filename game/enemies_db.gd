@@ -63,6 +63,7 @@ const DB := {
 	"deck_gunner": {"glb": "Skeleton_Archer.glb", "hp": 2.2, "spd": 1.2, "dmg": 1, "windup": 0.5, "reach": 2.8, "prefer": 2.5, "aggro": 6.0, "xp": 7, "tint": Color(0.85, 0.7, 0.4), "scale": 0.9, "ranged": true, "proj_speed": 5.0, "kb_resist": 0.1, "burst": true},
 	"rotting_bride": {"glb": "Skeleton_Mage.glb", "hp": 3.5, "spd": 0.5, "dmg": 0, "windup": 1.0, "reach": 0.8, "aggro": 3.5, "xp": 8, "tint": Color(1.0, 0.55, 0.65), "scale": 0.95, "kb_resist": 0.7, "bride": true},
 	"salt_cantor": {"glb": "Skeleton_Mage.glb", "hp": 3.2, "spd": 0.6, "dmg": 1, "windup": 0.9, "reach": 0.8, "aggro": 3.0, "xp": 7, "tint": Color(0.5, 0.9, 0.8), "scale": 0.9, "kb_resist": 0.5, "cantor": true},
+	"salvage_rat": {"glb": "Skeleton_Rogue.glb", "hp": 1.8, "spd": 2.6, "dmg": 0, "windup": 0.2, "reach": 0.5, "aggro": 8.0, "xp": 6, "tint": Color(0.95, 0.85, 0.4), "scale": 0.6, "dash": true, "kb_resist": 0.0, "coward": true},
 	"bell_ringer": {"glb": "Skeleton_Mage.glb", "hp": 3.4, "spd": 0.85, "dmg": 1, "windup": 0.6, "reach": 0.8, "aggro": 4.5, "xp": 10, "tint": Color(0.9, 0.75, 0.3), "scale": 1.0, "kb_resist": 0.2, "healer": true},
 	"rust_saw": {"glb": "Skeleton_Rogue.glb", "hp": 3.2, "spd": 0.95, "dmg": 1, "windup": 0.55, "reach": 0.75, "aggro": 4.5, "xp": 9, "tint": Color(0.8, 0.4, 0.15), "scale": 1.05, "kb_resist": 0.3, "sawblade": true},
 	"wrack_eel": {"glb": "Skeleton_Rogue.glb", "hp": 2.6, "spd": 1.3, "dmg": 1, "windup": 0.4, "reach": 0.7, "aggro": 6.0, "xp": 9, "tint": Color(0.3, 0.75, 0.5), "scale": 0.9, "kb_resist": 0.2, "eel": true},
