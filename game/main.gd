@@ -414,6 +414,7 @@ var keelwind := false
 var murk_vision := false
 var silt_draught := false
 var drowned_mercy := false
+var rivers_tithe := false
 var salt_lullaby := false
 var coil_chit := false
 var rope_allowance := false
@@ -1862,6 +1863,9 @@ func _new_run(new_seed: int) -> void:
 		Stats.buff_armor -= 1
 		silt_draught = false
 	drowned_mercy = false
+	if rivers_tithe:
+		Stats.soul_gain_pct -= 0.12
+		rivers_tithe = false
 	salt_lullaby = false
 	if coil_chit:
 		Stats.dodge -= 0.08
@@ -3334,6 +3338,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.speed *= 0.85
 	if dirge_half and not e.is_boss:
 		e.speed *= 0.9
+	if drowned_mercy and not e.is_boss:
+		e.dmg = int(e.dmg * 0.92)
 	if low_verse and not e.is_boss:
 		e.windup_t *= 1.1
 	if fathomsong and not e.is_boss:
@@ -9625,11 +9631,26 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Silt Draught — pay 5 souls: the mud settles into your skin — +1 Armor this floor"},
 		{"text": "Undertow Nap — pay 4 souls: the current rocks you a moment — mend 20%"},
 		{"text": "Drowned Mercy — pay 5 souls: the river stays its hand — foes −8% damage this floor"},
+		{"text": "River's Tithe — pay 4 souls: the current pays its tolls — +12% souls this floor"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
+	if idx == 45:
+		toast("The water settles back into the stone")
+		return
 	if idx == 44:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the tithe isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_count_deal()
+		_souls_l()
+		rivers_tithe = true
+		Stats.soul_gain_pct += 0.12
+		Sfx.play("shrine")
+		toast("RIVER'S TITHE — the current pays its tolls")
+		return
 		toast("The water settles back into the stone")
 		return
 	if idx == 43:
