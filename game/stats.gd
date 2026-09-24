@@ -260,6 +260,8 @@ const ACH_DEF := {
 	"fulldeck": "Full Deck (every meta upgrade maxed)",
 	"ngdeep": "Void Warden (reached floor 20 in New Game+)",
 	"oathkeeper": "Oathkeeper (eight omens in a single descent)",
+	"lurcher8": "Toppler (felled 8 Mast Lurchers)",
+	"gnatcull": "Gnatsbane (swatted 30 Gunnel Gnats)",
 }
 
 const META_DEF := {

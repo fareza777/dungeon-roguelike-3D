@@ -4830,10 +4830,14 @@ func _on_enemy_died(e) -> void:
 		_quest_event("snatch_kill")
 	if e.arch_id == "gunnel_gnat":
 		_quest_event("gnat_kill")
+		if int(Stats.arch_kills.get("gunnel_gnat", 0)) >= 30:
+			_ach("gnatcull")
 	if e.arch_id == "deck_reverend":
 		_quest_event("reverend_kill")
 	if e.arch_id == "mast_lurcher":
 		_quest_event("lurcher_kill")
+		if int(Stats.arch_kills.get("mast_lurcher", 0)) >= 8:
+			_ach("lurcher8")
 	if e.arch_id == "salt_lich":
 		_quest_event("lich_kill")
 	if e.arch_id == "quarter_ghost":
