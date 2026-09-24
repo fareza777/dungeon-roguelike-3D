@@ -63,6 +63,7 @@ const DB := {
 	"deck_gunner": {"glb": "Skeleton_Archer.glb", "hp": 2.2, "spd": 1.2, "dmg": 1, "windup": 0.5, "reach": 2.8, "prefer": 2.5, "aggro": 6.0, "xp": 7, "tint": Color(0.85, 0.7, 0.4), "scale": 0.9, "ranged": true, "proj_speed": 5.0, "kb_resist": 0.1, "burst": true},
 	"rotting_bride": {"glb": "Skeleton_Mage.glb", "hp": 3.5, "spd": 0.5, "dmg": 0, "windup": 1.0, "reach": 0.8, "aggro": 3.5, "xp": 8, "tint": Color(1.0, 0.55, 0.65), "scale": 0.95, "kb_resist": 0.7, "bride": true},
 	"salt_cantor": {"glb": "Skeleton_Mage.glb", "hp": 3.2, "spd": 0.6, "dmg": 1, "windup": 0.9, "reach": 0.8, "aggro": 3.0, "xp": 7, "tint": Color(0.5, 0.9, 0.8), "scale": 0.9, "kb_resist": 0.5, "cantor": true},
+	"bilge_cantor": {"glb": "Skeleton_Warrior.glb", "hp": 3.2, "spd": 0.85, "dmg": 2, "windup": 0.8, "reach": 0.9, "aggro": 7.0, "xp": 12, "tint": Color(0.4, 0.6, 0.55), "scale": 0.95},
 	"gunnel_fiend": {"glb": "Skeleton_Warrior.glb", "hp": 3.8, "spd": 1.3, "dmg": 4, "windup": 0.7, "reach": 1.0, "aggro": 9.0, "xp": 12, "tint": Color(0.5, 0.35, 0.6), "scale": 1.05, "eel": true},
 	"pale_lantern": {"glb": "Skeleton_Warrior.glb", "hp": 2.0, "spd": 0.9, "dmg": 1, "windup": 0.9, "reach": 0.8, "aggro": 6.0, "xp": 8, "tint": Color(0.9, 0.95, 0.7), "scale": 0.85},
 	"siren_thrall": {"glb": "Skeleton_Warrior.glb", "hp": 3.5, "spd": 1.15, "dmg": 3, "windup": 0.75, "reach": 0.9, "aggro": 8.0, "xp": 11, "tint": Color(0.55, 0.4, 0.75), "scale": 1.0},

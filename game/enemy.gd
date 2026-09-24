@@ -155,7 +155,9 @@ var banter_75 := false
 var banter_25 := false
 var banter_10 := false
 var hex_t := 0.0   # Hex Staff: musuh bertanda menerima +25% damage
-var slow_t := 0.0  # Frost Fang: beku — 50% speed
+var slow_t := 0.0
+var haste_t := 0.0
+var cantor_t := 0.0  # Frost Fang: beku — 50% speed
 var mark_t := 0.0
 var burn_t := 0.0  # Ember Mace: terbakar — damage berkala
 var _burn_acc := 0.0
@@ -734,6 +736,14 @@ func _physics_process(delta: float) -> void:
 	if affix == "tidebound":
 		slow_t = 0.0
 	slow_t = maxf(0.0, slow_t - delta)
+	haste_t = maxf(0.0, haste_t - delta)
+	if arch_id == "bilge_cantor":
+		cantor_t += delta
+		if cantor_t >= 3.0:
+			cantor_t = 0.0
+			for ca in get_tree().get_nodes_in_group("enemies"):
+				if ca != self and ca.get("state") != "dead" and ca.global_position.distance_to(global_position) < 3.5 * room_tile:
+					ca.set("haste_t", 3.5)
 	mark_t = maxf(0.0, mark_t - delta)
 	if slow_immune:
 		slow_t = 0.0
@@ -960,7 +970,7 @@ func _physics_process(delta: float) -> void:
 				engage = prefer_range
 			if dist < engage:
 				state = "windup"
-				state_t = windup_t * (1.0 - 0.4 * (1.0 - hp / hp_max) if (affix == "charged" or arch_id == "bilge_fury") else 1.0)
+				state_t = windup_t * (1.0 - 0.4 * (1.0 - hp / hp_max) if (affix == "charged" or arch_id == "bilge_fury") else 1.0) * (0.75 if haste_t > 0.0 else 1.0)
 				velocity = Vector3.ZERO
 				scale = _base_scale * 1.06
 				if mat != null:
