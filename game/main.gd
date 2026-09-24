@@ -7131,6 +7131,8 @@ func toast(txt: String) -> void:
 
 
 func _lvl_banner(txt: String) -> void:
+	if not ui.has("lvl_banner"):
+		return
 	var l: Label = ui.lvl_banner
 	l.text = txt
 	l.add_theme_font_size_override("font_size", 44 if txt.length() <= 16 else (32 if txt.length() <= 26 else 26))
