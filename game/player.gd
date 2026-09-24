@@ -417,6 +417,16 @@ func _strike() -> void:
 						if mcs != null and mcs.has_method("_damage_number"):
 							mcs._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "EXTINGUISHED", Color(0.9, 0.85, 0.5), false)
 						Sfx.play("hit")
+			if Stats.weapon_id == "dirge_edge":
+				var dgn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", dgn)
+				if dgn % 6 == 0:
+					hp = minf(max_hp, hp + 1.0)
+					hp_changed.emit(hp)
+					var mdg := get_tree().current_scene
+					if mdg != null and mdg.has_method("_burst"):
+						mdg._burst(global_position + Vector3(0, 0.6 * room_tile, 0), Color(0.5, 0.85, 0.6))
+					Sfx.play("pickup")
 			if Stats.weapon_id == "hull_render":
 				var hrn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", hrn)
