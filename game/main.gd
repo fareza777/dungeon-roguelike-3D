@@ -328,6 +328,7 @@ var silt_press := false
 var watch_bell := false
 var hull_pitch := false
 var knot_refuge := false
+var grommets_due := false
 var drift_verse := false
 var pearl_octave := false
 var undertow_aria := false
@@ -1507,6 +1508,9 @@ func _new_run(new_seed: int) -> void:
 	if knot_refuge:
 		Stats.dodge -= 0.1
 		knot_refuge = false
+	if grommets_due:
+		Stats.buff_atk_pct -= 0.08
+		grommets_due = false
 	if vigils_gage:
 		Stats.dodge -= 0.1
 		vigils_gage = false
@@ -9282,12 +9286,24 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Watch Bell — pay 4 souls: the bell rings their approach — foes telegraph +15% slower this floor"},
 		{"text": "Hull Pitch — pay 6 souls: hot tar on your planks — +1 Armor this floor"},
 		{"text": "Knot of Refuge — pay 5 souls: a slipknot in your step — +10% dodge this floor"},
+		{"text": "Grommet's Due — pay 3 souls: the ring bites the rope — +8% ATK this floor"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 26:
+	if idx == 27:
 		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 26:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the ring isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		grommets_due = true
+		Stats.buff_atk_pct += 0.08
+		Sfx.play("shrine")
+		toast("GROMMET'S DUE — the rigging lends its bite")
 		return
 	if idx == 25:
 		if Stats.souls < _soul_cost(5):
