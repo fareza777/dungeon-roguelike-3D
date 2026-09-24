@@ -1127,6 +1127,14 @@ func _physics_process(delta: float) -> void:
 									p.velocity += wdir * 14.0
 								if arch_id == "quarter_ghost" and q == p:
 									hp = minf(hp_max, hp + dmg * 0.4)
+								if arch_id == "tide_bailiff" and q == p:
+									var mtb := get_tree().current_scene
+									if mtb != null and int(Stats.souls) > 0:
+										Stats.souls -= 1
+										if mtb.has_method("_souls_l"):
+											mtb._souls_l()
+										if mtb.has_method("_damage_number"):
+											mtb._damage_number(p.global_position + Vector3(0, 1.0 * room_tile, 0), "SEIZED -1", Color(0.9, 0.75, 0.3), true)
 								if affix == "brinetouched" and q == p:
 									p.set("chill_t", maxf(float(p.get("chill_t")), 1.5))
 								if affix == "hoarfrost" and q == p:
