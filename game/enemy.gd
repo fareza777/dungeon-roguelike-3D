@@ -726,6 +726,28 @@ func _mk_aura() -> void:
 	tw.tween_property(ring, "scale", Vector3.ONE, 0.7).set_trans(Tween.TRANS_SINE)
 
 
+func _mk_gold_ring() -> void:
+	var ring := MeshInstance3D.new()
+	var torus := TorusMesh.new()
+	torus.inner_radius = 0.26
+	torus.outer_radius = 0.38
+	var rm := StandardMaterial3D.new()
+	rm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	rm.albedo_color = Color(1.0, 0.85, 0.3, 0.75)
+	rm.emission_enabled = true
+	rm.emission = Color(1.0, 0.8, 0.25)
+	rm.emission_energy_multiplier = 2.2
+	rm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	torus.material = rm
+	ring.mesh = torus
+	ring.position.y = 0.08
+	add_child(ring)
+	var tw := ring.create_tween()
+	tw.set_loops()
+	tw.tween_property(ring, "scale", Vector3(1.25, 1.25, 1.25), 0.55).set_trans(Tween.TRANS_SINE)
+	tw.tween_property(ring, "scale", Vector3.ONE, 0.55).set_trans(Tween.TRANS_SINE)
+
+
 func _upd_hpbar() -> void:
 	if hpbar_bg == null:
 		return

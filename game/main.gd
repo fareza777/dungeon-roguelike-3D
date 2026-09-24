@@ -3608,6 +3608,7 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 	if golden:
 		e.golden = true
 		e.xp_val *= 3
+		e._mk_gold_ring()
 	if crows_toll and e.elite:
 		e.xp_val = int(ceilf(e.xp_val * 1.5))
 	if blood_moon and not e.is_boss:
