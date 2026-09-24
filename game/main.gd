@@ -399,6 +399,7 @@ var hull_count := false
 var capstan_oil := false
 var sheet_bend := false
 var crews_grog := false
+var bosuns_ration := false
 var second_verse := false
 var chorus_deep := false
 var harbor_verse := false
@@ -1806,6 +1807,9 @@ func _new_run(new_seed: int) -> void:
 	if crews_grog:
 		Stats.buff_xp_pct -= 0.10
 		crews_grog = false
+	if bosuns_ration:
+		Stats.buff_atk_pct -= 0.08
+		bosuns_ration = false
 	if second_verse:
 		Stats.buff_aspd -= 0.15
 		second_verse = false
@@ -10883,10 +10887,23 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Capstan Oil — pay 4 souls: greased drum, fast hands — +10% attack speed this floor"},
 		{"text": "Sheet Bend — pay 3 souls: the line gives where you lean — +8% dodge this floor"},
 		{"text": "Crew's Grog — pay 4 souls: the barrel waters the whole watch — +10% XP this floor"},
+		{"text": "Bosun's Ration — pay 3 souls: salted hardtack for the watch — +8% ATK this floor"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
+	if idx == 38:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the ration isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_count_deal()
+		_souls_l()
+		bosuns_ration = true
+		Stats.buff_atk_pct += 0.08
+		Sfx.play("shrine")
+		toast("BOSUN'S RATION — salt beef and spite")
+		return
 	if idx == 37:
 		toast("The stone settles — the sea keeps its bargains")
 		return
