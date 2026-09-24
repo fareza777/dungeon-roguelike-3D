@@ -218,6 +218,7 @@ const ACH_DEF := {
 	"tenthoath": "Tenth Oath (ten oaths sworn across your descents)",
 	"mariner": "Mariner (reach floor 10 in a single descent)",
 	"quarterdeck": "Quarterdeck (reach floor 20 in a single descent)",
+	"abyssal": "Abyssal Reaches (reach floor 30 in a single descent)",
 	"unstoppable": "Unstoppable (a ×50 kill streak in one run)",
 	"deepvault": "Deep Vault (held 50 souls at once)",
 	"fortyknells": "Forty Knells (40 skill casts in one run)",
@@ -516,6 +517,8 @@ func note_floor() -> void:
 		ach["mariner"] = true
 	if floor_num >= 20 and not ach.has("quarterdeck"):
 		ach["quarterdeck"] = true
+	if floor_num >= 30 and not ach.has("abyssal"):
+		ach["abyssal"] = true
 	if floor_num >= 50 and not ach.has("halfcentury"):
 		ach["halfcentury"] = true
 	if floor_num > best_floor:
