@@ -301,6 +301,7 @@ var low_verse := false
 var salt_scrip := false
 var brine_graft := false
 var marlin_spike := false
+var fathomsong := false
 var pilgrims_purse := false
 var crows_toll := false
 var crowns_decree := false
@@ -1410,6 +1411,7 @@ func _new_run(new_seed: int) -> void:
 	if marlin_spike:
 		Stats.buff_speed_pct -= 0.1
 		marlin_spike = false
+	fathomsong = false
 	if deck_manifest:
 		Stats.soul_gain_pct -= 0.15
 		deck_manifest = false
@@ -2536,6 +2538,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.dmg = int(ceil(e.dmg * 1.1))
 	if low_verse and not e.is_boss:
 		e.windup_t *= 1.1
+	if fathomsong and not e.is_boss:
+		e.aggro_range = float(e.aggro_range) * 0.85
 	if timber_shiver and not e.is_boss:
 		e.hp *= 0.9
 		e.hp_max = e.hp
@@ -9270,16 +9274,30 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Wake Whistle — pay 4 souls: a shanty whistled fast — +10% attack speed this run"},
 		{"text": "Brine Hymn — pay 3 souls: the verse sticks to every kill — +1 soul per kill this floor"},
 		{"text": "Low Verse — pay 4 souls: the bass note drags their arms — foes telegraph +10% slower this floor"},
+		{"text": "Fathomsong — pay 3 souls: the depths hum you quieter — the dead notice you −15% later this floor"},
 		{"text": "Walk away"}])
 
 
 func _siren_deal(idx: int) -> void:
-	if idx == 19:
+	if idx == 20:
 		Stats.earn_souls(2)
 		_souls_l()
 		_quest_event("siren")
 		Sfx.play("soul")
 		toast("UNSUNG — you walk, and the conch pays +2 souls for your silence")
+		return
+	if idx == 19:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the depths don't hum for free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		fathomsong = true
+		for f in get_tree().get_nodes_in_group("enemies"):
+			if not f.get("is_boss"):
+				f.aggro_range = float(f.aggro_range) * 0.85
+		Sfx.play("shrine")
+		toast("FATHOMSONG — the depths hum you quieter")
 		return
 	if idx == 18:
 		if Stats.souls < _soul_cost(4):
