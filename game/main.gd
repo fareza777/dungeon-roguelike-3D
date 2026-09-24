@@ -10433,6 +10433,8 @@ func _omen_deal(idx: int) -> void:
 		_ach("thricesworn")
 	if omen_count >= 8:
 		_ach("oathkeeper")
+	if omen_count >= 12:
+		_ach("dozenoaths")
 	if Stats.oaths_sworn >= 25:
 		_ach("quarteroath")
 	if Stats.oaths_sworn >= 10:

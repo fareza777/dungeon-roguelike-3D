@@ -249,6 +249,7 @@ const ACH_DEF := {
 	"eightypacts": "Eighty Pacts (swore 80 omens)",
 	"ninetypacts": "Ninety Pacts (swore 90 omens)",
 	"hundredpacts": "Oathbroken Century (swore 100 omens)",
+	"dozenoaths": "Dozen Oaths (swore 12 pacts in a single descent)",
 	"smiths_pride": "Weaponsmith's Pride (master 5 weapons)",
 	"seasoned": "Seasoned (reach Lv 30)",
 	"grizzled": "Grizzled (reach Lv 50)",
