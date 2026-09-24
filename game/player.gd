@@ -490,6 +490,19 @@ func _strike() -> void:
 							mbm._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "GROG +1◈", Color(0.6, 0.9, 0.6), false)
 						if mbm.has_method("_atk_pulse"):
 							mbm._atk_pulse()
+			if Stats.weapon_id == "saltverdict":
+				var svn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", svn)
+				if svn % 6 == 0:
+					Sfx.play("thunder", 0.7)
+					var msv := get_tree().current_scene
+					if f.has_method("stun"):
+						f.stun(0.6)
+					if msv != null:
+						if msv.has_method("_damage_number"):
+							msv._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "VERDICT", Color(0.95, 0.95, 0.8), false)
+						if msv.has_method("_atk_pulse"):
+							msv._atk_pulse()
 			if Stats.weapon_id == "mastfall":
 				var mfn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", mfn)
