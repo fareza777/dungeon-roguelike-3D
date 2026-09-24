@@ -11153,6 +11153,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Final Receipt — pay 8 souls: Mahzan signs in full — +6% ATK, +6% XP this run"},
 			{"text": "Pale Interest — pay 6 souls: the debt collects itself — +10% ATK, −5% speed this run"},
 			{"text": "Fortune's Dredge — pay 8 souls: Mahzan hauls up a relic the sea owes you"},
+			{"text": "Cold Comfort — pay 5 souls: a chill settles into your seams — +1 armor, −4% speed"},
 		]
 	)
 
@@ -13336,6 +13337,17 @@ func _mahzan_deal(idx: int) -> void:
 					Stats.add_relic(jrid2)
 					Sfx.play("shrine")
 					toast("FORTUNE'S DREDGE — hauled up " + String(ITEMS.DB[jrid2]["name"]))
+		69:
+			if Stats.souls < _soul_cost(5):
+				toast("Five souls — the cold isn't free")
+			else:
+				Stats.souls -= _soul_cost(5)
+				_count_deal()
+				_souls_l()
+				Stats.buff_armor += 1
+				Stats.buff_speed_pct -= 0.04
+				Sfx.play("shrine")
+				toast("COLD COMFORT — a chill settles into your seams (+1 armor, −4% speed)")
 
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
