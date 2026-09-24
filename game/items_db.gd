@@ -97,6 +97,7 @@ const DB := {
 	"splintered_oar": {"name": "Splintered Oar", "chip": "SO", "desc": "The oar remembers rowing — your dash carries you 30% farther", "rarity": 0, "mods": {}},
 	"deck_plank": {"name": "Deck Plank", "chip": "DP", "desc": "Sure footing on any deck — +5% Speed, +5% Attack Speed", "rarity": 0, "mods": {"speed_pct": 0.05, "atk_speed_pct": 0.05}},
 	"bitter_chart": {"name": "Bitter Chart", "chip": "BC", "desc": "The drowned mapped this water in blood — −1 Armor, +25% XP", "rarity": 1, "mods": {"armor": -1.0, "xp_pct": 0.25}},
+	"blue_wick": {"name": "Blue Wick", "chip": "WICK", "desc": "The blue flame burns quick — +12% XP, +5% speed", "rarity": 1, "mods": {"xp_pct": 0.12, "speed_pct": 0.05}},
 	"gallows_chit": {"name": "Gallows Chit", "chip": "GALW", "desc": "The hanged men's toll is paid forward — +10% souls, +1 Armor", "rarity": 2, "mods": {"soul_gain_pct": 0.1, "armor": 1}},
 	"crows_foot": {"name": "Crow's Foot", "chip": "CROW", "desc": "The lucky foot remembers every purse — +15% souls, +8% dodge", "rarity": 2, "mods": {"soul_gain_pct": 0.15, "dodge": 0.08}},
 	"keel_anvil": {"name": "Keel Anvil", "chip": "ANVL", "desc": "An anchor's burden — +20% ATK, −12% speed", "rarity": 2, "mods": {"atk_pct": 0.2, "speed_pct": -0.12}},
