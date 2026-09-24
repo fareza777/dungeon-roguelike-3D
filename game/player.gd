@@ -619,6 +619,16 @@ func _strike() -> void:
 					var mvr := get_tree().current_scene
 					if mvr != null and mvr.has_method("_damage_number"):
 						mvr._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "VERGE", Color(0.6, 0.85, 0.7), false)
+			if Stats.weapon_id == "brine_jack":
+				var bjn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", bjn)
+				if bjn % 9 == 0:
+					Sfx.play("swoosh", 0.8)
+					var bjd: Vector3 = (f.global_position - global_position).normalized()
+					f.kb += bjd * 14.0
+					var mbj := get_tree().current_scene
+					if mbj != null and mbj.has_method("_damage_number"):
+						mbj._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "JACK", Color(0.5, 0.9, 0.7), false)
 			if Stats.weapon_id == "pilot_lantern":
 				var pln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", pln)
