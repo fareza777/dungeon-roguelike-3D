@@ -424,6 +424,7 @@ var crews_grog := false
 var bosuns_ration := false
 var oakum_chit := false
 var riggers_song := false
+var ballast_swap := false
 var salted_aria := false
 var second_verse := false
 var chorus_deep := false
@@ -1933,6 +1934,9 @@ func _new_run(new_seed: int) -> void:
 	if riggers_song:
 		Stats.buff_aspd -= 0.10
 		riggers_song = false
+	if ballast_swap:
+		Stats.dodge -= 0.06
+		ballast_swap = false
 	if salted_aria:
 		Stats.buff_crit -= 0.08
 		salted_aria = false
@@ -11584,6 +11588,7 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Bosun's Ration — pay 3 souls: salted hardtack for the watch — +8% ATK this floor"},
 		{"text": "Oakum Chit — pay 3 souls: the caulking seals your seams — souls pay +12% more this floor"},
 		{"text": "Riggers' Song — pay 4 souls: the rope-hands teach your wrists — +10% attack speed this floor"},
+		{"text": "Ballast Swap — pay 3 souls: shift the cargo, shift your stance — +6% dodge this floor"},
 		{"text": "Walk away"}])
 
 
@@ -11625,6 +11630,18 @@ func _keel_deal(idx: int) -> void:
 		toast("RIGGERS' SONG — the rhythm quickens the wrist")
 		return
 	if idx == 40:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the ballast isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_count_deal()
+		_souls_l()
+		ballast_swap = true
+		Stats.dodge += 0.06
+		Sfx.play("shrine")
+		toast("BALLAST SWAP — the load shifts your way")
+		return
+	if idx == 41:
 		toast("The stone settles — the sea keeps its bargains")
 		return
 	if idx == 36:
