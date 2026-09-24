@@ -355,6 +355,7 @@ var kelp_tithe := false
 var bosuns_chit := false
 var deck_psalm := false
 var leech_bond := false
+var salt_lullaby := false
 var drift_verse := false
 var pearl_octave := false
 var undertow_aria := false
@@ -1609,6 +1610,7 @@ func _new_run(new_seed: int) -> void:
 	if leech_bond:
 		Stats.buff_lifesteal -= 0.08
 		leech_bond = false
+	salt_lullaby = false
 	kelp_tithe = false
 	if vigils_gage:
 		Stats.dodge -= 0.1
@@ -2965,6 +2967,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.xp_val = int(ceilf(e.xp_val * 0.85))
 	if deck_psalm and not e.is_boss:
 		e.dmg = int(maxi(1, floorf(float(e.dmg) * 0.88)))
+	if salt_lullaby and not e.is_boss:
+		e.windup_t = float(e.windup_t) * 1.15
 	if lantern_wake and not e.is_boss:
 		e.speed *= 1.1
 	if keel_spirit and not e.is_boss:
@@ -10473,16 +10477,30 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Undertow Aria — pay 4 souls: the bass thins their bones — foes −8% HP this floor"},
 		{"text": "Wake Chant — pay 5 souls: the water carries your step — +12% speed this floor"},
 		{"text": "Salt Aria — pay 4 souls: the verse rings your pockets — +12% souls this floor"},
+		{"text": "Salt Lullaby — pay 5 souls: her hush slows the dead's hands — foe windups +15% longer this floor"},
 		{"text": "Walk away"}])
 
 
 func _siren_deal(idx: int) -> void:
-	if idx == 25:
+	if idx == 26:
 		Stats.earn_souls(2)
 		_souls_l()
 		_quest_event("siren")
 		Sfx.play("soul")
 		toast("UNSUNG — you walk, and the conch pays +2 souls for your silence")
+		return
+	if idx == 25:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the hush isn't free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_souls_l()
+		salt_lullaby = true
+		for lf in get_tree().get_nodes_in_group("enemies"):
+			if lf.get("state") != "dead" and not lf.get("is_boss"):
+				lf.windup_t = float(lf.windup_t) * 1.15
+		Sfx.play("shrine")
+		toast("SALT LULLABY — the dead's hands slow")
 		return
 	if idx == 24:
 		if Stats.souls < _soul_cost(4):
