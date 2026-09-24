@@ -265,6 +265,21 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "undertow_pike":
+				var upn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", upn)
+				if upn % 8 == 0:
+					var upf: Node = null
+					var upd := 0.0
+					for upe in get_tree().get_nodes_in_group("enemies"):
+						if upe != f and upe.get("state") != "dead":
+							var upd2: float = upe.global_position.distance_to(global_position)
+							if upd2 > upd:
+								upd = upd2
+								upf = upe
+					if upf != null and upd > 1.6:
+						upf.global_position = global_position + (upf.global_position - global_position).normalized() * 1.4
+						upf.stun(0.5)
 			if Stats.weapon_id == "salt_whip":
 				var swn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", swn)
