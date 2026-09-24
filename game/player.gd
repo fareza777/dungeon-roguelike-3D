@@ -240,6 +240,20 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "oarsplitter":
+				var os_ = get_tree().current_scene
+				os_.set("net_n", int(os_.get("net_n")) + 1)
+				if int(os_.get("net_n")) >= 5:
+					os_.set("net_n", 0)
+					var onears: Array = []
+					for of_ in get_tree().get_nodes_in_group("enemies"):
+						if of_.get("state") != "dead" and of_ != f and of_.global_position.distance_to(global_position) < 4.0:
+							onears.append(of_)
+					onears.sort_custom(func(a1: Object, b1: Object) -> bool: return a1.global_position.distance_squared_to(global_position) < b1.global_position.distance_squared_to(global_position))
+					for oi_ in range(mini(2, onears.size())):
+						onears[oi_].take_hit(global_position, float(Stats.get_stat("atk")) * 0.8)
+					if onears.size() > 0 and os_.has_method("_shock_ring"):
+						os_._shock_ring(global_position)
 			if Stats.weapon_id == "rustwake":
 				var rw_ = get_tree().current_scene
 				rw_.set("net_n", int(rw_.get("net_n")) + 1)
