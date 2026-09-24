@@ -12708,6 +12708,7 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Brine Hymn — pay 3 souls: the verse sticks to every kill — +1 soul per kill this floor"},
 		{"text": "Low Verse — pay 4 souls: the bass note drags their arms — foes telegraph +10% slower this floor"},
 		{"text": "Fathomsong — pay 3 souls: the depths hum you quieter — the dead notice you −15% later this floor"},
+		{"text": "Salted Encore — pay 4 souls: the chorus doubles your stride — +8% speed this run"},
 		{"text": "Drift Verse — pay 4 souls: a verse of floating steps — +8% dodge this floor"},
 		{"text": "Pearl Octave — pay 5 souls: nacre rings in your wounds — orbs mend +50% this floor"},
 		{"text": "Undertow Aria — pay 4 souls: the bass thins their bones — foes −8% HP this floor"},
@@ -12727,6 +12728,17 @@ func _on_siren_invoked(sh) -> void:
 
 func _siren_deal(idx: int) -> void:
 	if idx == 34:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the encore isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_count_deal()
+		_souls_l()
+		Stats.buff_speed_pct += 0.08
+		Sfx.play("shrine")
+		toast("SALTED ENCORE — the chorus carries your feet")
+		return
+	if idx == 35:
 		Stats.earn_souls(2)
 		_souls_l()
 		_quest_event("siren")
