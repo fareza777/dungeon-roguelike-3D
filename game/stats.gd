@@ -217,6 +217,7 @@ const ACH_DEF := {
 	"fatebound": "Fatebound (five oaths sworn across your descents)",
 	"tenthoath": "Tenth Oath (ten oaths sworn across your descents)",
 	"mariner": "Mariner (reach floor 10 in a single descent)",
+	"quarterdeck": "Quarterdeck (reach floor 20 in a single descent)",
 	"unstoppable": "Unstoppable (a ×50 kill streak in one run)",
 	"deepvault": "Deep Vault (held 50 souls at once)",
 	"fortyknells": "Forty Knells (40 skill casts in one run)",
@@ -513,6 +514,8 @@ func buy_meta(id: String) -> bool:
 func note_floor() -> void:
 	if floor_num >= 10 and not ach.has("mariner"):
 		ach["mariner"] = true
+	if floor_num >= 20 and not ach.has("quarterdeck"):
+		ach["quarterdeck"] = true
 	if floor_num >= 50 and not ach.has("halfcentury"):
 		ach["halfcentury"] = true
 	if floor_num > best_floor:
