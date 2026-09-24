@@ -6815,6 +6815,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_crit += 0.06
 			Stats.buff_atk_pct += 0.06
 			toast("Deadlights: lamps over drowned water — +6% crit, +6% ATK")
+		74:
+			Stats.dodge += 0.1
+			Stats.buff_atk_pct -= 0.05
+			toast("Coil Keeper: you keep the rope's give in your step — +10% dodge, −5% ATK")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -10205,6 +10209,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Gullwing — light bones over dark water: +5% dodge, +5% XP"},
 			{"text": "Salt Tow — the purse drags: +12% souls, −5% dodge"},
 			{"text": "Deadlights — lamps over drowned water: +6% crit, +6% ATK"},
+			{"text": "Coil Keeper — the rope's give is yours: +10% dodge, −5% ATK"},
 		]
 	)
 
