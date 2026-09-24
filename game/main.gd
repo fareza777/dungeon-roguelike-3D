@@ -8573,6 +8573,7 @@ func _offer_omens() -> void:
 		{"text": "KEELSWORN — iron in your seams (+2 Armor)... but the swing drags (−10% attack speed)"},
 		{"text": "FOG RUNNER — the haze lends your stride (+12% speed)... but the purse runs thin (−10% souls)"},
 		{"text": "BILGE LEDGER — the hold tallies your kills (+12% souls)... but the ink costs lessons (−10% XP)"},
+		{"text": "SNATCHED PURSE — the Widows fill your hold (+15% souls)... but their fingers mark your stride (−3% dodge)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -8627,7 +8628,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 105 if Stats.nemesis != "" else 104
+	var osize := 106 if Stats.nemesis != "" else 105
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -9080,6 +9081,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_xp_pct -= 0.10
 			oname = "BILGE LEDGER"
 		104:
+			Stats.soul_gain_pct += 0.15
+			Stats.dodge -= 0.03
+			oname = "SNATCHED PURSE"
+		105:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -9194,6 +9199,7 @@ func _omen_deal(idx: int) -> void:
 	"KEELSWORN": "Iron holds what salt water takes.",
 	"FOG RUNNER": "The haze never outran anyone.",
 	"BILGE LEDGER": "Every kill earns a line; every lesson spends one.",
+	"SNATCHED PURSE": "What the dead drop, the widow counts. Your purse grows — watch your step.",
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
