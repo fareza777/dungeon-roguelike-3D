@@ -265,6 +265,7 @@ const ACH_DEF := {
 	"gloomfall": "Dimmer (stilled 10 Gloom Lanterns)",
 	"godlike": "Godlike (reached a ×40 combo)",
 	"ledger_lord": "Ledger Lord (struck 40 bargains in one run)",
+	"abyssalchart": "Abyssal Chart (reached floor 18)",
 }
 
 const META_DEF := {
