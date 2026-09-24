@@ -14739,6 +14739,24 @@ func _update_hp(hp: float) -> void:
 		floor_hurt = true
 	prev_hp = hp
 	_set_low_hp(hp <= 1.0 and hp > 0.0)
+	# heartbeat: lit cells breathe while HP is critical
+	var cells2: Array = ui.get("hp_cells", [])
+	var low := hp <= 1.0 and hp > 0.0
+	for c in cells2:
+		if c.color.r > 0.5:
+			if low and c.get("beat_tween") == null:
+				var b: Tween = c.create_tween()
+				c.set("beat_tween", b)
+				b.set_loops()
+				c.pivot_offset = c.size * 0.5
+				b.tween_property(c, "scale", Vector2(1.25, 1.25), 0.3).set_trans(Tween.TRANS_SINE)
+				b.tween_property(c, "scale", Vector2.ONE, 0.4).set_trans(Tween.TRANS_SINE)
+			elif not low and c.get("beat_tween") != null:
+				var bt: Tween = c.get("beat_tween")
+				if bt.is_valid():
+					bt.kill()
+				c.set("beat_tween", null)
+				c.scale = Vector2.ONE
 
 
 func _vign_flash() -> void:
