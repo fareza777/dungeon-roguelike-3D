@@ -13876,6 +13876,7 @@ func _on_throne_invoked(s) -> void:
 		{"text": "Crown's Reprieve — pay 4 souls: a royal breath between strikes — skills recharge 12% faster this floor"},
 		{"text": "Crown's Hand — pay 5 souls: the throne lays a finger on your blade — +6% ATK this floor"},
 		{"text": "Court Fool — pay 3 souls: the jester mocks your enemies — foes −8% speed this floor"},
+		{"text": "King's Coffer — pay 7 souls: the crown's own treasury — a random fine relic"},
 		{"text": "Walk away"}])
 
 
@@ -13914,13 +13915,32 @@ func _throne_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("THE CROWN NAMES — " + (omen_name if omen_name != "" else "no oath yet sworn"))
 		return
-	if idx == 30:
+	if idx == 31:
 		Stats.earn_souls(4)
 		_souls_l()
 		_quest_event("throne")
 		Sfx.play("soul")
 		toast("CLEAN HANDS — the crown pays +4 souls to the incorruptible")
 		return
+	if idx == 30:
+		if Stats.souls < _soul_cost(7):
+			toast("Seven souls — the king's coffer isn't free")
+			return
+		Stats.souls -= _soul_cost(7)
+		_count_deal()
+		_souls_l()
+		var cpool: Array = []
+		for ridc2 in ITEMS.DB:
+			if int(ITEMS.DB[ridc2]["rarity"]) >= 1 and not Stats.relics.has(ridc2):
+				cpool.append(ridc2)
+		if cpool.is_empty():
+			toast("The treasury is bare — souls returned")
+			Stats.earn_souls(_soul_cost(7))
+			return
+		var crid := String(cpool[rng.randi() % cpool.size()])
+		Stats.add_relic(crid)
+		Sfx.play("shrine")
+		toast("KING'S COFFER — the treasury yields " + String(ITEMS.DB[crid]["name"]))
 	if idx == 29:
 		if Stats.souls < _soul_cost(3):
 			toast("Three souls — the jester isn't free")
