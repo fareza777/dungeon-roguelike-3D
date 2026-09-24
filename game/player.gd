@@ -597,6 +597,15 @@ func _strike() -> void:
 					var mms := get_tree().current_scene
 					if mms != null and mms.has_method("_damage_number"):
 						mms._damage_number(f.global_position + Vector3(0.3, 0.7 * room_tile, 0), "STING", Color(1.0, 0.7, 0.4), false)
+			if Stats.weapon_id == "knell_edge":
+				var ken: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", ken)
+				if ken % 9 == 0:
+					Sfx.play("soul", 0.6)
+					Stats.earn_souls(1)
+					var mke := get_tree().current_scene
+					if mke != null and mke.has_method("_damage_number"):
+						mke._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "KNELL +1◈", Color(0.9, 0.8, 0.5), false)
 			if Stats.weapon_id == "keel_hammer":
 				var khn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", khn)
