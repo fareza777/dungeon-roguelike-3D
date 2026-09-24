@@ -240,6 +240,16 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "saltcaller":
+				var sc_ = get_tree().current_scene
+				sc_.set("net_n", int(sc_.get("net_n")) + 1)
+				if int(sc_.get("net_n")) >= 6:
+					sc_.set("net_n", 0)
+					for wf in get_tree().get_nodes_in_group("enemies"):
+						if wf.get("state") != "dead" and wf.global_position.distance_to(global_position) < 2.0:
+							wf.take_hit(global_position, 1.0)
+					if sc_.has_method("_shock_ring"):
+						sc_._shock_ring(global_position)
 			if Stats.weapon_id == "sisters_hook":
 				var sh_ = get_tree().current_scene
 				sh_.set("net_n", int(sh_.get("net_n")) + 1)
