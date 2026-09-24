@@ -648,10 +648,10 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				dmg = int(ceilf(float(dmg) * 1.18))
 				xp_val = int(ceilf(xp_val * 1.1))
 			"wakebound":
-			speed = float(speed) * 0.9
-			xp_val = int(ceilf(float(xp_val) * 1.25))
-			sc = float(sc) * 1.12
-		"embittered":
+				speed = float(speed) * 0.9
+				xp_val = int(ceilf(float(xp_val) * 1.25))
+				sc = float(sc) * 1.12
+			"embittered":
 				sc = 0.95
 				hp = int(hp * 1.0)
 				hp_max = hp
