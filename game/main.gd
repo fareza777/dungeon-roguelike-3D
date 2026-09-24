@@ -433,6 +433,7 @@ var courts_tally := false
 var royal_overlook := false
 var crowns_reprieve := false
 var crowns_hand := false
+var draw_blood := false
 var splice_line := false
 var rigging_rest := false
 var hull_count := false
@@ -1989,6 +1990,9 @@ func _new_run(new_seed: int) -> void:
 	if crowns_hand:
 		Stats.buff_atk_pct -= 0.06
 		crowns_hand = false
+	if draw_blood:
+		Stats.buff_atk_pct -= 0.20
+		draw_blood = false
 	if splice_line:
 		Stats.buff_speed_pct -= 0.06
 		splice_line = false
@@ -2256,6 +2260,7 @@ func _new_run(new_seed: int) -> void:
 	hull_bonus = false
 	court_summons = false
 	kneel_not = false
+	draw_blood = false
 	gangway = false
 	penny_floor = false
 	if drift_line:
@@ -12404,18 +12409,6 @@ func _keel_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("RIGGING RITES — every line tuned tight")
 		return
-	if idx == 28:
-		if Stats.souls < _soul_cost(5):
-			toast("Five souls — the throne's touch isn't free")
-			return
-		Stats.souls -= _soul_cost(5)
-		_count_deal()
-		_souls_l()
-		Stats.buff_atk_pct += 0.06
-		crowns_hand = true
-		Sfx.play("shrine")
-		toast("CROWN'S HAND — the throne blesses your blade")
-		return
 	if idx == 27:
 		if Stats.souls < _soul_cost(4):
 			toast("Four souls — the pulley isn't free")
@@ -13735,6 +13728,40 @@ func _on_throne_invoked(s) -> void:
 
 
 func _throne_deal(idx: int) -> void:
+	if idx == 28:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the throne's touch isn't free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_count_deal()
+		_souls_l()
+		Stats.buff_atk_pct += 0.06
+		crowns_hand = true
+		Sfx.play("shrine")
+		toast("CROWN'S HAND — the throne blesses your blade")
+		return
+	if idx == 3:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the bowl isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_count_deal()
+		_souls_l()
+		draw_blood = true
+		Stats.buff_atk_pct += 0.20
+		Sfx.play("hurt")
+		toast("DRAW BLOOD — your veins run hot (+20% ATK this floor)")
+		return
+	if idx == 9:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the naming isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_count_deal()
+		_souls_l()
+		Sfx.play("shrine")
+		toast("THE CROWN NAMES — " + (omen_name if omen_name != "" else "no oath yet sworn"))
+		return
 	if idx == 30:
 		Stats.earn_souls(4)
 		_souls_l()
