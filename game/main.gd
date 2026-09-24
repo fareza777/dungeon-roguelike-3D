@@ -14167,6 +14167,7 @@ func _on_qm_invoked(s) -> void:
 		{"text": "Salt Wages — pay 4 souls: the steward pays your berth early — +2 souls now, −10% XP this run"},
 		{"text": "Deck Scrip — pay 4 souls: the quartermaster's mark buys luck — +8% souls, +4% XP this floor"},
 		{"text": "Salt Bond — pay 3 souls: a promissory mark in brine — +4% souls, +3% XP this run"},
+		{"text": "Steward's Mark — pay 5 souls: the quartermaster's seal — +6% souls, +4% dodge this run"},
 		{"text": "Walk away"}])
 
 
@@ -14183,8 +14184,20 @@ func _qm_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("POWDER CHECK — the cask reads dry")
 		return
-	if idx == 29:
+	if idx == 30:
 		toast("The post shutters its stores")
+		return
+	if idx == 29:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the steward's seal isn't free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_count_deal()
+		_souls_l()
+		Stats.soul_gain_pct += 0.06
+		Stats.dodge += 0.04
+		Sfx.play("shrine")
+		toast("STEWARD'S MARK — the quartermaster vouches for you (+6% souls, +4% dodge)")
 		return
 	if idx == 28:
 		if Stats.souls < _soul_cost(3):
