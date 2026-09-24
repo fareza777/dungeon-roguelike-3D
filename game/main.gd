@@ -10963,6 +10963,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL SENTENCE — the keel court finds in your favor (+7% ATK)... and doubles your share of the lash (+6% damage taken)"},
 		{"text": "SALT DECREE — the exchequer rules in salt (+5% crit)... the same salt strips your plating (−1 armor)"},
 		{"text": "DEEP ALMS — the drowned's charity, warm from their palms (+5% souls)... you carry them home in your arm (−3% ATK)"},
+		{"text": "BILGE DOCKET — the hold's paperwork, stamped in slick (+6% dodge)... ink on your grip costs the edge (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -11858,6 +11859,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "DEEP ALMS"
 		195:
+			Stats.dodge += 0.06
+			Stats.buff_atk_pct -= 0.04
+			oname = "BILGE DOCKET"
+		196:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12102,6 +12107,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL SENTENCE": "The keel court reads its sentence both ways, Kael — favor first, then the lash.",
 	"SALT DECREE": "Salt settles every argument down here, Kael — it settles them on both sides.",
 	"DEEP ALMS": "The drowned give to whoever carries them, Kael — their gratitude weighs on the arm.",
+	"BILGE DOCKET": "Even the bilge keeps records, Kael — slippery reading, but it teaches you where to stand.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
