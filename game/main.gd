@@ -9110,12 +9110,26 @@ func _on_qm_invoked(s) -> void:
 		{"text": "Powder Ward — pay 3 souls: powder-burned hands are steady hands — +10% ATK this run"},
 		{"text": "Deck Rite — pay 4 souls: the bosun's blessing read over the hold — +1 Armor this run"},
 		{"text": "Salt Scrip — pay 3 souls: the crew logs the lessons — +10% XP this floor"},
+		{"text": "Grog Ration — pay 3 souls: a mug pulled from the bilge — mend 30%"},
 		{"text": "Walk away"}])
 
 
 func _qm_deal(idx: int) -> void:
-	if idx == 15:
+	if idx == 16:
 		toast("The post shutters its stores")
+		return
+	if idx == 15:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the ration isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		var mh2_ := Stats.get_stat("max_hp")
+		player.hp = minf(mh2_, player.hp + mh2_ * 0.3)
+		player.hp_changed.emit(player.hp)
+		Stats.current_hp = player.hp
+		Sfx.play("souls")
+		toast("GROG RATION — bilge-fresh and burning")
 		return
 	if idx == 14:
 		if Stats.souls < _soul_cost(3):
