@@ -7606,11 +7606,12 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Moonwater — pay 4 souls: a skin of the still tide — your wounds knit +0.3 HP/s this run"},
 		{"text": "Bilge Baptism — pay 4 souls: washed in the foul water — the dead strike 10% softer this run"},
 		{"text": "Pearl Snuff — pay 5 souls: powdered pearl in the nose — the drowned teach +10% XP this run"},
+		{"text": "Tide Pearl — pay 5 souls: held to the chest, it hardens — +1 Armor this run"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 28:
+	if idx == 29:
 		toast("The water settles back into the stone")
 		return
 	if idx == 12:
@@ -7798,6 +7799,18 @@ func _drowned_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		_ach("seaworthy")
 		toast("DROWNED TITHE — +8 souls, −10% Max HP")
+	if idx == 28:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the pearl isn't free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_souls_l()
+		Stats.buff_armor += 1
+		if player != null and is_instance_valid(player):
+			player.refresh_stats()
+		Sfx.play("shrine")
+		toast("TIDE PEARL — your hull sets like mother-of-pearl")
+		return
 	if idx == 27:
 		if Stats.souls < _soul_cost(5):
 			toast("Five souls — the powder isn't free")
