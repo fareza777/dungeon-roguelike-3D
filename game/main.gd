@@ -717,6 +717,7 @@ const BESTIARY := {
 	"snatch_widow": ["Snatch Widow", "Her fingers close on your purse as surely as your throat — keep her off you."],
 	"gunnel_gnat": ["Gunnel Gnat", "A speck with teeth — swat it before the swarm finds you."],
 	"deck_reverend": ["Deck Reverend", "His litany mends the crew — silence the sermon first."],
+	"mast_lurcher": ["Mast Lurcher", "A bulk of rot and hunger — its hands take blood and coin alike."],
 	"gunnel_fiend": ["Gunnel Fiend", "It claws along the rail faster than it walks — when it coils, it's already midair."],
 	"pale_lantern": ["Pale Lantern", "A wick of drowned light walking a dead sailor's frame — snuff it and every shadow in the room flinches."],
 	"siren_thrall": ["Siren Thrall", "A sailor the song kept — freed of it only by the blade, and what's left rises as a wisp."],
@@ -764,7 +765,7 @@ const KILLER_NAMES := {
 	"bell_ringer": "a Bell Ringer",
 	"moorling": "a Moorling",
 	"keel_mastiff": "a Keel Mastiff",
-	"salt_lich": "a Salt Lich", "bilge_fury": "a Bilge Fury", "siren_thrall": "a Siren Thrall", "pale_lantern": "a Pale Lantern", "gunnel_fiend": "a Gunnel Fiend", "bilge_cantor": "a Bilge Cantor", "tide_bailiff": "a Tide Bailiff", "salt_skimmer": "a Salt Skimmer", "brine_monk": "a Brine Monk", "deck_rigger": "a Deck Rigger", "dread_gull": "a Dread Gull", "gale_singer": "a Gale Singer", "snatch_widow": "a Snatch Widow", "gunnel_gnat": "a Gunnel Gnat", "deck_reverend": "a Deck Reverend",
+	"salt_lich": "a Salt Lich", "bilge_fury": "a Bilge Fury", "siren_thrall": "a Siren Thrall", "pale_lantern": "a Pale Lantern", "gunnel_fiend": "a Gunnel Fiend", "bilge_cantor": "a Bilge Cantor", "tide_bailiff": "a Tide Bailiff", "salt_skimmer": "a Salt Skimmer", "brine_monk": "a Brine Monk", "deck_rigger": "a Deck Rigger", "dread_gull": "a Dread Gull", "gale_singer": "a Gale Singer", "snatch_widow": "a Snatch Widow", "gunnel_gnat": "a Gunnel Gnat", "deck_reverend": "a Deck Reverend", "mast_lurcher": "a Mast Lurcher",
 	"deck_brute": "a Deck Brute",
 	"salt_eel": "a Salt Eel",
 	"quarter_ghost": "a Quarter Ghost",
@@ -857,6 +858,7 @@ const KILLER_TIPS := {
 	"snatch_widow": "Tip: every blow a Snatch Widow lands skims a soul from your purse — break her reach.",
 	"gunnel_gnat": "Tip: Gunnel Gnats die to a stiff breeze — sweep wide and don't chase.",
 	"deck_reverend": "Tip: the Deck Reverend stitches the pack faster than you can bleed it — cut the sermon short.",
+	"mast_lurcher": "Tip: a Mast Lurcher's grip sews its own wounds and skims your souls — burst it down or break its reach.",
 	"salt_lich": "Tip: Salt Liches telegraph a long windup — close the gap fast or weave between bolts.",
 	"deck_brute": "Tip: Deck Brutes barely feel knockback — break their windup with a stun, or never be there when it lands.",
 	"salt_eel": "Tip: Salt Eels lunge in a straight bite — sidestep and the coil overshoots.",
@@ -3166,6 +3168,7 @@ const FIRST_SEEN := {
 	"snatch_widow": "A Snatch Widow stalks the torchlight, eyes fixed on your purse.",
 	"gunnel_gnat": "A Gunnel Gnat darts in — fast, frail, and never alone.",
 	"deck_reverend": "A Deck Reverend raises his holy book — the fallen rise to answer.",
+	"mast_lurcher": "A Mast Lurcher rolls off the mast-shadow — thick, hungry, patient.",
 	"salt_skimmer": "A Salt Skimmer shears across the water — it comes at you fast."
 }
 
@@ -4807,6 +4810,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("gnat_kill")
 	if e.arch_id == "deck_reverend":
 		_quest_event("reverend_kill")
+	if e.arch_id == "mast_lurcher":
+		_quest_event("lurcher_kill")
 	if e.arch_id == "salt_lich":
 		_quest_event("lich_kill")
 	if e.arch_id == "quarter_ghost":
