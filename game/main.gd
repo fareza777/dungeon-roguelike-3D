@@ -5572,7 +5572,7 @@ func _on_enemy_died(e) -> void:
 			if thick_tide:
 				_quest_event("thickwalk")
 			if slack_line:
-				_quest_event("slackwalk")
+				_quest_event("linewalk")
 			if dark_water:
 				_quest_event("darkwalk")
 			if glass_sea:

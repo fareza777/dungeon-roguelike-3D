@@ -143,7 +143,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Low Water Mark", "desc": "Clear 2 DEEP DRAUGHT floors (0/2)", "kind": "keelwalk", "need": 2})
 		steps.append({"title": "Sapper", "desc": "Slay 5 POWDERKEG elites (0/5)", "kind": "keg_kill", "need": 5})
 		steps.append({"title": "Wade Through It", "desc": "Clear 2 THICK TIDE floors (0/2)", "kind": "thickwalk", "need": 2})
-		steps.append({"title": "Take the Strain", "desc": "Clear 2 SLACK LINE floors (0/2)", "kind": "slackwalk", "need": 2})
+		steps.append({"title": "Take the Strain", "desc": "Clear 2 SLACK LINE floors (0/2)", "kind": "linewalk", "need": 2})
 		steps.append({"title": "Quash the Warrant", "desc": "Slay 6 Tide Bailiffs (0/6)", "kind": "bailiff_kill", "need": 6})
 		steps.append({"title": "Hangman's Walk", "desc": "Clear 2 GALLOWS TIDE floors (0/2)", "kind": "gallowswalk", "need": 2})
 		steps.append({"title": "Salt-Fevered", "desc": "Clear 2 SALTSICK floors (0/2)", "kind": "saltwalk", "need": 2})
