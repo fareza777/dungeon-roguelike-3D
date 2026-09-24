@@ -393,6 +393,7 @@ var rigging_rest := false
 var hull_count := false
 var capstan_oil := false
 var sheet_bend := false
+var crews_grog := false
 var second_verse := false
 var chorus_deep := false
 var harbor_verse := false
@@ -1779,6 +1780,9 @@ func _new_run(new_seed: int) -> void:
 	if sheet_bend:
 		Stats.dodge -= 0.08
 		sheet_bend = false
+	if crews_grog:
+		Stats.buff_xp_pct -= 0.10
+		crews_grog = false
 	if second_verse:
 		Stats.buff_aspd -= 0.15
 		second_verse = false
@@ -10770,12 +10774,25 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Hull Count — pay 4 souls: the carpenter counts you among the planks — +10% Max HP this floor"},
 		{"text": "Capstan Oil — pay 4 souls: greased drum, fast hands — +10% attack speed this floor"},
 		{"text": "Sheet Bend — pay 3 souls: the line gives where you lean — +8% dodge this floor"},
+		{"text": "Crew's Grog — pay 4 souls: the barrel waters the whole watch — +10% XP this floor"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 36:
+	if idx == 37:
 		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 36:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the grog isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_count_deal()
+		_souls_l()
+		Stats.buff_xp_pct += 0.10
+		crews_grog = true
+		Sfx.play("shrine")
+		toast("CREW'S GROG — the barrel waters the watch")
 		return
 	if idx == 35:
 		if Stats.souls < _soul_cost(3):
