@@ -4248,7 +4248,7 @@ func _on_enemy_died(e) -> void:
 	if player != null and is_instance_valid(player) and float(player.get("slip_t")) > 0.0:
 		_quest_event("swift_kill")
 	if e.arch_id == "salt_eel":
-		_quest_event("eel_kill")
+		_quest_event("salteel_kill")
 	if e.arch_id == "quarter_ghost":
 		_quest_event("ghost_kill")
 	if e.arch_id == "fathom_crab":
