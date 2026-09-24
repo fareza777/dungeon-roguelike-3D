@@ -299,6 +299,7 @@ var keelmans_toll := false
 var knotwork := false
 var low_verse := false
 var salt_scrip := false
+var brine_graft := false
 var pilgrims_purse := false
 var crows_toll := false
 var crowns_decree := false
@@ -1402,6 +1403,9 @@ func _new_run(new_seed: int) -> void:
 	if salt_scrip:
 		Stats.buff_xp_pct -= 0.1
 		salt_scrip = false
+	if brine_graft:
+		Stats.buff_armor -= 1
+		brine_graft = false
 	if deck_manifest:
 		Stats.soul_gain_pct -= 0.15
 		deck_manifest = false
@@ -7731,12 +7735,24 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Bilge Baptism — pay 4 souls: washed in the foul water — the dead strike 10% softer this run"},
 		{"text": "Pearl Snuff — pay 5 souls: powdered pearl in the nose — the drowned teach +10% XP this run"},
 		{"text": "Tide Pearl — pay 5 souls: held to the chest, it hardens — +1 Armor this run"},
+		{"text": "Brine Graft — pay 4 souls: salt stitched under the skin — +1 Armor this floor"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 29:
+	if idx == 30:
 		toast("The water settles back into the stone")
+		return
+	if idx == 29:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the graft isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		brine_graft = true
+		Stats.buff_armor += 1
+		Sfx.play("shrine")
+		toast("BRINE GRAFT — the salt knits under your skin")
 		return
 	if idx == 12:
 		if Stats.souls < _soul_cost(4):
