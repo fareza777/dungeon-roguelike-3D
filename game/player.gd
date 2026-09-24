@@ -656,6 +656,16 @@ func _strike() -> void:
 					var ptm := get_tree().current_scene
 					if ptm != null and ptm.has_method("_damage_number"):
 						ptm._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "TRINE", Color(0.7, 0.9, 0.8), false)
+			if Stats.weapon_id == "grey_harpoon":
+				var ghn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", ghn)
+				if ghn % 6 == 0:
+					Sfx.play("swoosh", 0.55)
+					var ghd: Vector3 = (f.global_position - global_position).normalized()
+					f.kb -= ghd * 9.0
+					var ghm := get_tree().current_scene
+					if ghm != null and ghm.has_method("_damage_number"):
+						ghm._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "GAFF", Color(0.55, 0.7, 0.6), false)
 			if Stats.weapon_id == "pilot_lantern":
 				var pln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", pln)
