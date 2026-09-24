@@ -25,6 +25,7 @@ var _choices: Array = []
 var _panel: PanelContainer
 var _portrait: TextureRect
 var _name_l: Label
+var _psb: StyleBoxFlat = null
 var _last_who := ""
 var _text_l: RichTextLabel
 var _hint: Label
@@ -53,6 +54,7 @@ func _ready() -> void:
 	_panel.offset_top = -360
 	_panel.offset_bottom = -24
 	var psb := StyleBoxFlat.new()
+	_psb = psb
 	psb.bg_color = Color(0.05, 0.05, 0.1, 0.97)
 	psb.border_color = Color(0.95, 0.78, 0.35)
 	psb.set_border_width_all(3)
@@ -155,6 +157,8 @@ func _show(i: int) -> void:
 	var ch: Dictionary = CHARACTERS.get(who, CHARACTERS["narator"])
 	_name_l.text = String(ch["name"])
 	_name_l.modulate = ch["color"]
+	if _psb:
+		_psb.border_color = Color(ch["color"]).lerp(Color(0.95, 0.78, 0.35), 0.55)
 	if _last_who != who:
 		_last_who = who
 		_name_l.pivot_offset = Vector2(0, _name_l.size.y)
