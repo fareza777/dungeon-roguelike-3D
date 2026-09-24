@@ -10,7 +10,7 @@ signal weapon_changed
 const ITEMS = preload("res://items_db.gd")
 const WDB = preload("res://weapons_db.gd")
 const SAVE_PATH := "user://save.json"
-const VERSION := "1.0.0"
+const VERSION := "1.1.0"
 const STORE_ID := "com.kimi.dungeonslice"
 
 var floor_num := 1
