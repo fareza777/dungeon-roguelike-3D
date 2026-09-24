@@ -6424,6 +6424,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.25
 			Stats.buff_xp_pct -= 0.1
 			toast("Bilge Ledger: every kill pays a quarter more souls — but the dead teach less")
+		65:
+			Stats.buff_crit += 0.12
+			Stats.dodge -= 0.05
+			toast("Crow's Gambit: +12% crit — but you weave a touch slower")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -9569,6 +9573,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Salt Crust — barnacled ribs: +2 Armor, −10% speed this run"},
 			{"text": "Shanty Lung — your skills charge −1s... but your Max HP −10%"},
 			{"text": "Bilge Ledger — every kill pays +25% souls... but −10% XP"},
+			{"text": "Crow's Gambit — +12% crit... but −5% dodge"},
 		]
 	)
 
