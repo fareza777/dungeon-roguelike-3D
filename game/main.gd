@@ -207,7 +207,11 @@ const LORE_LINES := [
 	"The Keel Sexton buries nothing. He plants the dead in rows, and they come up when called.",
 	"A Grim Hourglass never runs out — it just decides whose time it's spending.",
 	"The Quartermaster's salt sticks to your blade like luck — nobody asks which crew it belonged to.",
-	"A Pallbearer's coffin is empty by design; it's the carrying that fills it.",]
+	"A Pallbearer's coffin is empty by design; it's the carrying that fills it.",
+	"A Chain Rose only opens on the thirtieth link; the other twenty-nine are rust.",
+	"The deckbound are not slow — the deck simply refuses to let them go.",
+	"Chain wardens were gaolers once; now the chains wear them.",
+	"In a keelglow even the drowned look rich.",]
 
 var dungeon_tex: Texture2D
 var skeleton_tex: Texture2D
