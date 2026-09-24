@@ -6572,6 +6572,10 @@ func _heavy_attack() -> void:
 	if deadweight:
 		_burst(player.global_position, Color(0.4, 0.6, 1.0))
 	trauma = 0.7
+	Engine.time_scale = 0.3
+	var htw: Tween = create_tween()
+	htw.set_ignore_time_scale(true)
+	htw.tween_property(Engine, "time_scale", 1.0, 0.12)
 	_damage_number(player.global_position, "HEAVY!", Color(1.0, 0.85, 0.3), true)
 	_quest_event("heavy")
 
