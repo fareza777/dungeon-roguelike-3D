@@ -10953,6 +10953,7 @@ func _offer_omens() -> void:
 		{"text": "GREY WARRANT — a writ in grey ink (+6% attack speed)... served against your own hull (−1 armor)"},
 		{"text": "RED TOLL — the toll-taker's red seal (+4% lifesteal)... the rest of the take is his (−5% souls)"},
 		{"text": "KEEL SENTENCE — the keel court finds in your favor (+7% ATK)... and doubles your share of the lash (+6% damage taken)"},
+		{"text": "SALT DECREE — the exchequer rules in salt (+5% crit)... the same salt strips your plating (−1 armor)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -11840,6 +11841,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.curse_dmg += 0.06
 			oname = "KEEL SENTENCE"
 		193:
+			Stats.buff_crit += 0.05
+			Stats.buff_armor -= 1
+			oname = "SALT DECREE"
+		194:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12082,6 +12087,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY WARRANT": "The grey court issues its writs to everyone, Kael — even the willing.",
 	"RED TOLL": "The red toll is paid in blood, Kael — the seal merely chooses whose.",
 	"KEEL SENTENCE": "The keel court reads its sentence both ways, Kael — favor first, then the lash.",
+	"SALT DECREE": "Salt settles every argument down here, Kael — it settles them on both sides.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
