@@ -5189,7 +5189,7 @@ func _on_enemy_died(e) -> void:
 			elif grim_calm:
 				Stats.earn_souls(2)
 				_souls_l()
-				toast("≋ CALM TITHE ��� +2 souls")
+				toast("≋ CALM TITHE —� +2 souls")
 			elif keel_haul:
 				Stats.earn_souls(3)
 				_souls_l()
