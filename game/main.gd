@@ -15801,9 +15801,18 @@ func _pause_vol_row(vb: VBoxContainer, label: String, cur: float, on_change: Cal
 	s.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	s.custom_minimum_size = Vector2(0, 32)
 	_style_slider(s)
+	var pct := Label.new()
+	pct.text = "%d%%" % int(round(cur * 100.0))
+	pct.custom_minimum_size = Vector2(48, 0)
+	pct.add_theme_font_size_override("font_size", 14)
+	pct.modulate = Color(1, 1, 1, 0.6)
+	pct.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	pct.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	s.value_changed.connect(on_change)
+	s.value_changed.connect(func(v: float) -> void: pct.text = "%d%%" % int(round(v * 100.0)))
 	hb.add_child(l)
 	hb.add_child(s)
+	hb.add_child(pct)
 	vb.add_child(hb)
 
 
