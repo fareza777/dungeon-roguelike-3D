@@ -248,6 +248,18 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "powder_horn":
+				var ph_ = get_tree().current_scene
+				ph_.set("net_n", int(ph_.get("net_n")) + 1)
+				if int(ph_.get("net_n")) >= 8:
+					ph_.set("net_n", 0)
+					var shot_dir := (f.global_position - global_position).normalized()
+					for sf in get_tree().get_nodes_in_group("enemies"):
+						if sf == f or sf.get("state") == "dead":
+							continue
+						var to_sf: Vector3 = sf.global_position - global_position
+						if to_sf.length() < 6.0 and to_sf.normalized().dot(shot_dir) > 0.85:
+							sf.take_hit(global_position, float(Stats.get_stat("atk")) * 0.7)
 			if Stats.weapon_id == "oathblade":
 				var ob_ = get_tree().current_scene
 				ob_.set("net_n", int(ob_.get("net_n")) + 1)
