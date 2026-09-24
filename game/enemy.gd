@@ -1074,6 +1074,11 @@ func _physics_process(delta: float) -> void:
 									p.set("rust_t", 3.0)
 								if affix == "saltbitten" and q == p:
 									p.set("weak_t", maxf(float(p.get("weak_t")), 2.0))
+								if affix == "grasping" and q == p:
+									var gdir: Vector3 = global_position - p.global_position
+									gdir.y = 0.0
+									if gdir.length() > 0.01:
+										p.velocity += gdir.normalized() * 6.0
 								if affix == "leeched" and q == p:
 									hp = minf(hp_max, hp + dmg * 0.4)
 								if affix == "windlashed" and q == p:
@@ -1639,11 +1644,6 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 				mm4._souls_l()
 			if mm4 != null and mm4.has_method("_damage_number"):
 				mm4._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "KEELBORN +3", Color(0.4, 0.9, 0.9), true)
-		if affix == "grasping" and q == p:
-			var gdir: Vector3 = (global_position - p.global_position)
-			gdir.y = 0.0
-			if gdir.length() > 0.01:
-				p.velocity += gdir.normalized() * 6.0
 		if affix == "soulwrought":
 			var msw := get_tree().current_scene
 			if msw != null and msw.has_method("_spawn_wisp_at"):
