@@ -399,6 +399,7 @@ var golden_hour := false
 var old_salt_tide := false
 var salted_purse := false
 var bottom_weight := false
+var cannon_debt := false
 var salvage_rights := false
 var green_wake := false
 var iron_sea := false
@@ -9514,6 +9515,7 @@ func _offer_omens() -> void:
 		{"text": "KEELCOIN — souls pay +15% more... but your hull thins (−5% Max HP)"},
 		{"text": "SALTED PURSE — the dead pay +30% souls... but every urn runs dry"},
 		{"text": "BOTTOM WEIGHT — your arm sinks heavy and true (+12% ATK)... but your feet drag (−8% speed)"},
+		{"text": "CANNON DEBT — your blows land like iron shot (+12% ATK)... but the kick staggers your arm (−10% attack speed)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -9568,7 +9570,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 121 if Stats.nemesis != "" else 120
+	var osize := 122 if Stats.nemesis != "" else 121
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -10087,6 +10089,11 @@ func _omen_deal(idx: int) -> void:
 			bottom_weight = true
 			oname = "BOTTOM WEIGHT"
 		120:
+			Stats.buff_atk_pct += 0.12
+			Stats.buff_aspd -= 0.10
+			cannon_debt = true
+			oname = "CANNON DEBT"
+		121:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -10233,7 +10240,8 @@ func _omen_deal(idx: int) -> void:
 		"KAEL'S WAGER": "A king's ransom on a single heartbeat. Even the Oracle holds her breath.",
 		"GRAVETIDE": "The tide comes in for you, Kael — and everything it carries is hungry.",
 		"MARROW PACT": "Bone will have to do what blood cannot. The King respects a thrifty heart.",
-		"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
+		"CANNON DEBT": "Iron answers loud, Kael — just mind the recoil's slow toll.",
+	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
 		"DARK WATER": "The black water pays its tolls gladly, Kael — it only asks that you carry more of it.",
