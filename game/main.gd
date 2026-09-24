@@ -10286,6 +10286,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_armor += 2
 			toast("Deck Sworn: the planks answer your footing — +5% ATK, +2 armor this run")
+		150:
+			Stats.buff_atk_pct += 0.08
+			Stats.buff_xp_pct -= 0.04
+			toast("Grim Compact: strength bought with schooling — +8% ATK, −4% XP this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -16301,6 +16305,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Salt Requiem — the sea sings for your dead: +5% souls, +3 armor this run"},
 			{"text": "Keel Hallow — the blessed hull sheds their blows: +4 armor, +2% souls this run"},
 			{"text": "Deck Sworn — sworn to the planks underfoot: +5% ATK, +2 armor this run"},
+			{"text": "Grim Compact — strength bought with schooling: +8% ATK, −4% XP this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
