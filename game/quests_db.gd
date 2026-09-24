@@ -200,6 +200,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Fog Walker", "desc": "Clear a Salt Fog floor (0/1)", "kind": "saltfog", "need": 1})
 		steps.append({"title": "Moonlighter", "desc": "Clear a Bilge Moon floor (0/1)", "kind": "bilgemoon", "need": 1})
 		steps.append({"title": "Take the House", "desc": "Clear a Dead Man's Deck floor (0/1)", "kind": "deadmansdeck", "need": 1})
+		steps.append({"title": "Coin of the Realm", "desc": "Clear a Brass Tide floor (0/1)", "kind": "brasstide", "need": 1})
 		steps.append({"title": "Purse Sting", "desc": "Survive a pitchwell elite's toll (0/1)", "kind": "affix_pitchwell", "need": 1})
 		steps.append({"title": "Silence the Rite", "desc": "Fell 2 salt devouts (0/2)", "kind": "devout_kill", "need": 2})
 		steps.append({"title": "Douse the Pitch", "desc": "Slay Pitch Tenders (0/4)", "kind": "pitchtender_kill", "need": 4})
