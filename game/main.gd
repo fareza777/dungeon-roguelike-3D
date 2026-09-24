@@ -11047,6 +11047,7 @@ func _offer_omens() -> void:
 		{"text": "FATHOM WAGES — paid in fathoms of sharp water (+6% ATK)... the lessons leak overboard (−4% XP)"},
 		{"text": "BILGE TALLY — the hold's count comes up rich (+7% souls)... standing in bilge water slows the step (−5% dodge)"},
 		{"text": "GREY TALLY — the foam keeps score in your favor (+6% XP)... it skims the purse as it counts (−4% souls)"},
+		{"text": "BOTTOM ALMS — the trench's alms-bowl, warm souls and lessons both (+5% souls, +4% XP)... it sits deep in the knees (−5% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -11979,6 +11980,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.04
 			oname = "GREY TALLY"
 		204:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.04
+			Stats.buff_speed_pct -= 0.05
+			oname = "BOTTOM ALMS"
+		205:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12232,6 +12238,7 @@ func _omen_deal(idx: int) -> void:
 	"FATHOM WAGES": "The deep pays in whatever you can carry, Kael — lessons are the lightest cargo to lose.",
 	"BILGE TALLY": "Rich counts are kept in the wettest places, Kael — dry feet and full purses rarely travel together.",
 	"GREY TALLY": "The wake counts everything twice, Kael — once for you, once for itself.",
+	"BOTTOM ALMS": "The deepest bowls hold the richest alms, Kael — kneeling is part of the collection.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
