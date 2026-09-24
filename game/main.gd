@@ -5517,6 +5517,8 @@ func _on_enemy_died(e) -> void:
 	if run_state == "playing":
 		if _room_alive(e.room_idx) == 0:
 			rooms_cleared += 1
+			Engine.time_scale = 0.55
+			get_tree().create_timer(0.16, true, false, true).timeout.connect(func() -> void: Engine.time_scale = 1.0)
 			if Stats.relics.has("dead_reckoner"):
 				Stats.earn_souls(1)
 				_souls_l()
