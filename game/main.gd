@@ -13887,6 +13887,7 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Hull Grease — pay 4 souls: pitch-slick seams slide you past their reach — +5% dodge, +4% speed this run"},
 		{"text": "Keel Primer — pay 5 souls: fresh pitch over old scars — +1 armor, +3% XP this run"},
 		{"text": "Tar Smoke — pay 4 souls: the brazier's reek blinds their aim — foes −12% sight this floor"},
+		{"text": "Chain Draught — pay 4 souls: drink the links' weight — +10% attack speed, −3% dodge this run"},
 		{"text": "Walk away"}])
 
 
@@ -13999,7 +14000,7 @@ func _keel_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("RIGGING OIL — the line runs slick through your hands (+10% attack speed this floor)")
 		return
-	if idx == 51:
+	if idx == 52:
 		toast("The stone settles — the sea keeps its bargains")
 		return
 	if idx == 50:
@@ -14015,6 +14016,18 @@ func _keel_deal(idx: int) -> void:
 				pf.aggro_range = float(pf.aggro_range) * 0.88
 		Sfx.play("shrine")
 		toast("TAR SMOKE — the brazier's reek clouds their dead eyes (−12% foe sight this floor)")
+	if idx == 51:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the draught isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_count_deal()
+		_souls_l()
+		Stats.buff_aspd += 0.10
+		Stats.dodge -= 0.03
+		Sfx.play("shrine")
+		toast("CHAIN DRAUGHT — the links weigh your arm true (+10% attack speed, −3% dodge)")
+		return
 	if idx == 49:
 		if Stats.souls < _soul_cost(5):
 			toast("Five souls — the primer isn't free")
