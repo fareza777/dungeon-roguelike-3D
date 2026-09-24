@@ -8531,6 +8531,8 @@ func _atk_pulse() -> void:
 	_ptw.tween_property(ui.atk_btn, "scale", Vector2.ONE, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 func _damage_number(pos: Vector3, txt: String, col: Color, big := false) -> void:
+	if not Stats.dmg_numbers:
+		return
 	var l := Label3D.new()
 	room.add_child(l)
 	l.text = txt
