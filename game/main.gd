@@ -9305,6 +9305,7 @@ func _offer_omens() -> void:
 		{"text": "COLD RATIONS — hunger sharpens the mind (+12% XP)... but the belly can't hold a shield (−1 armor)"},
 		{"text": "WAKE MONEY — the dead pay for their own funeral (+8% souls)... but grief slows the arm (−8% speed)"},
 		{"text": "PALE TIDE — the dead lighten (−10% foe HP)... but your arm goes soft (−5% ATK)"},
+		{"text": "KEELCOIN — souls pay +15% more... but your hull thins (−5% Max HP)"},
 		{"text": "HEAVY CROWN — the dead grow thicker skulls (+10% HP)... but your crown weighs gold (+10% ATK)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
@@ -9360,7 +9361,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 118 if Stats.nemesis != "" else 117
+	var osize := 119 if Stats.nemesis != "" else 118
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -9868,6 +9869,10 @@ func _omen_deal(idx: int) -> void:
 			omen_hp_mult *= 0.90
 			Stats.buff_atk_pct -= 0.05
 			oname = "PALE TIDE"
+		118:
+			Stats.soul_gain_pct += 0.15
+			Stats.buff_maxhp_pct -= 0.05
+			oname = "KEELCOIN"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
 	if not Stats.oaths_seen.has(oname):
 		Stats.oaths_seen.append(oname)
@@ -9995,6 +10000,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE MONEY": "Coins on cold eyes. The dead settle their accounts in your purse — and you carry their weight.",
 	"HEAVY CROWN": "A crown is a promise worn on the head. Yours sits heavier — so does your hand.",
 	"PALE TIDE": "The water runs thin and silver — their bones lighten, but so does your arm.",
+	"KEELCOIN": "Coin laid along the keel keeps her steady — pay the deep and she pays you back.",
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
