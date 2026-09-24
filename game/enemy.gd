@@ -518,6 +518,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				xp_val = int(ceilf(xp_val * 1.4))
 			"sundered":
 				hp *= 0.7
+				hp_max = hp
 				vuln_t = 9999.0
 				xp_val = int(ceilf(xp_val * 1.4))
 			"brinetouched":
