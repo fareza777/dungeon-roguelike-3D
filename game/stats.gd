@@ -247,6 +247,7 @@ const ACH_DEF := {
 	"centurion_deep": "Centurion of the Deep (reach Floor 100)",
 	"deepwater": "Deep Water (reach Floor 40)",
 	"saltveteran": "Salt Veteran (reach Floor 45)",
+	"halfcentury": "Half Century (reach Floor 50)",
 	"hadal": "Hadal Pilgrim (reach Floor 50)",
 	"trenchwalker": "Trench Walker (reach Floor 55)",
 	"clear_ledger": "Clear Ledger (repay your Mahzan debt)",
@@ -576,6 +577,8 @@ func note_floor() -> void:
 		ach["deepwater"] = true
 	if floor_num >= 45 and not ach.has("saltveteran"):
 		ach["saltveteran"] = true
+	if floor_num >= 50 and not ach.has("halfcentury"):
+		ach["halfcentury"] = true
 	if floor_num >= 50 and not ach.has("hadal"):
 		ach["hadal"] = true
 	if floor_num >= 55 and not ach.has("trenchwalker"):
