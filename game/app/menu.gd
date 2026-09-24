@@ -227,8 +227,7 @@ func _build() -> void:
 		rank = "CRYPT RUNNER"
 	elif Stats.best_floor >= 3:
 		rank = "GRAVE DIGGER"
-	best.text = "Best: Floor %d%s • Total kills: %d%s%s%s%s%s%s%s%s%s%s" % [Stats.best_floor, (" (" + bname + ")") if bname != "" else "", Stats.total_kills, boss_txt, ach_txt, ng_txt, lore_txt, oath_txt, souls_txt, nem_txt, best_txt, mast_txt, ("
-✦ Rank: " + rank) if rank != "" else ""]
+	best.text = "Best: Floor %d%s • Total kills: %d%s%s%s%s%s%s%s%s%s%s" % [Stats.best_floor, (" (" + bname + ")") if bname != "" else "", Stats.total_kills, boss_txt, ach_txt, ng_txt, lore_txt, oath_txt, souls_txt, nem_txt, best_txt, mast_txt, ""]
 	best.add_theme_font_size_override("font_size", 17)
 	best.modulate = Color(1.0, 0.9, 0.6, 0.85)
 	best.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -236,6 +235,17 @@ func _build() -> void:
 	best.add_theme_constant_override("shadow_offset_x", 2)
 	best.add_theme_constant_override("shadow_offset_y", 2)
 	vb.add_child(best)
+
+	if rank != "":
+		var rank_l := Label.new()
+		rank_l.text = "✦  R A N K :  " + rank + "  ✦"
+		rank_l.add_theme_font_size_override("font_size", 19)
+		rank_l.modulate = Color(1.0, 0.82, 0.35, 0.95)
+		rank_l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		rank_l.add_theme_color_override("font_shadow_color", Color(0.35, 0.15, 0.0, 0.9))
+		rank_l.add_theme_constant_override("shadow_offset_x", 2)
+		rank_l.add_theme_constant_override("shadow_offset_y", 2)
+		vb.add_child(rank_l)
 
 	var sp := Control.new()
 	sp.custom_minimum_size = Vector2(0, 10)
