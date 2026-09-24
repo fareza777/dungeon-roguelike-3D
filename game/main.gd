@@ -10191,6 +10191,7 @@ func _offer_omens() -> void:
 		{"text": "GRAVE WAGES — the yard pays hazard rates (+8% souls)... and hazards apply (+6% damage taken)"},
 		{"text": "LOOSE LINE — the rigging runs free (+10% speed)... and nothing holds you fast (−4% dodge)"},
 		{"text": "BILGE LUCK — the bilge pays out dirty (+5% crit)... and it splashes your footing (−5% dodge)"},
+		{"text": "DEEP TALLY — the trench keeps your score (+8% XP)... and collects interest (+6% damage taken)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -10883,6 +10884,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.05
 			oname = "BILGE LUCK"
 		145:
+			Stats.buff_xp_pct += 0.08
+			Stats.curse_dmg += 0.06
+			oname = "DEEP TALLY"
+		146:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -11065,6 +11070,7 @@ func _omen_deal(idx: int) -> void:
 	"GRAVE WAGES": "Hazard pay for hazard work, Kael — the yard's ledger never lies about the rates.",
 	"LOOSE LINE": "Slack rope runs quick, Kael — just don't expect it to hold when the sea pulls back.",
 	"BILGE LUCK": "Dirty luck spends fastest, Kael — spend it before the bilge collects.",
+	"DEEP TALLY": "The deep marks every lesson on your hull, Kael — learning always costs paint.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
