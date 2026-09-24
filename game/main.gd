@@ -377,6 +377,7 @@ var royal_overlook := false
 var splice_line := false
 var rigging_rest := false
 var hull_count := false
+var capstan_oil := false
 var second_verse := false
 var chorus_deep := false
 var leech_bond := false
@@ -1710,6 +1711,9 @@ func _new_run(new_seed: int) -> void:
 	if hull_count:
 		Stats.buff_maxhp_pct -= 0.1
 		hull_count = false
+	if capstan_oil:
+		Stats.buff_aspd -= 0.1
+		capstan_oil = false
 	if second_verse:
 		Stats.buff_aspd -= 0.15
 		second_verse = false
@@ -10436,12 +10440,25 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Splice Line — pay 3 souls: the line feeds you its slack — +6% speed this floor"},
 		{"text": "Rigging Rest — pay 4 souls: the lines slacken in your favor — mend 15%, skills recharge 15% faster this floor"},
 		{"text": "Hull Count — pay 4 souls: the carpenter counts you among the planks — +10% Max HP this floor"},
+		{"text": "Capstan Oil — pay 4 souls: greased drum, fast hands — +10% attack speed this floor"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 34:
+	if idx == 35:
 		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 34:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the oil isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_count_deal()
+		_souls_l()
+		capstan_oil = true
+		Stats.buff_aspd += 0.1
+		Sfx.play("shrine")
+		toast("CAPSTAN OIL — greased drum, fast hands")
 		return
 	if idx == 33:
 		if Stats.souls < _soul_cost(4):
