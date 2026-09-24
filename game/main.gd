@@ -6156,6 +6156,10 @@ func _build_draft_cards() -> void:
 		dl.text = String(it["desc"])
 		dl.add_theme_font_size_override("font_size", 15)
 		dl.modulate = Color(1, 1, 1, 0.72)
+		var rid_card: String = draft_choices[i]
+		if Stats.relics.count(rid_card) > 0:
+			dl.text += "
+— owned ×%d —" % Stats.relics.count(rid_card)
 		dl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		dl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		for cc in [chip, nl, dl]:
