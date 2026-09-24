@@ -1468,8 +1468,8 @@ func _new_run(new_seed: int) -> void:
 		hull_pitch = false
 	if drift_verse:
 		Stats.dodge -= 0.08
-	pearl_octave = false
 		drift_verse = false
+	pearl_octave = false
 	if pearl_graft:
 		Stats.buff_atk_pct -= 0.15
 		pearl_graft = false
