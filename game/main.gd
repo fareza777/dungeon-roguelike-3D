@@ -8585,8 +8585,17 @@ func _tick_skill_ui(delta: float) -> void:
 		var b: Button = rec["btn"]
 		var lab: Label = rec["cd"]
 		if not SK.is_unlocked(id, Stats.level):
-			b.modulate = Color(1, 1, 1, 0.3)
-			b.text = "Lv%d" % int(SK.DB[id]["unlock"])
+			b.modulate = Color(0.55, 0.6, 0.68, 0.35)
+			b.text = "◆ Lv%d" % int(SK.DB[id]["unlock"])
+			if not bool(rec.get("was_locked", false)):
+				b.add_theme_color_override("font_color", Color(0.55, 0.6, 0.68))
+			rec["was_locked"] = true
+			lab.text = ""
+		elif bool(rec.get("was_locked", false)):
+			b.add_theme_color_override("font_color", Color(0.85, 0.95, 1.0))
+			rec["was_locked"] = false
+			b.modulate = Color(1, 1, 1, 1)
+			b.text = String(SK.DB[id]["short"])
 			lab.text = ""
 		elif skill_cd[id] > 0.0:
 			b.modulate = Color(1, 1, 1, 0.45)
