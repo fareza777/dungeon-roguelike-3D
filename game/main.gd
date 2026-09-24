@@ -246,6 +246,7 @@ var windbound_note := false
 var salt_stipend := false
 var keel_oath := false
 var tally_man := false
+var bone_tally := false
 var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
@@ -1921,6 +1922,9 @@ func _new_run(new_seed: int) -> void:
 	if tally_man:
 		Stats.soul_gain_pct -= 0.15
 		tally_man = false
+	if bone_tally:
+		Stats.buff_crit -= 0.08
+		bone_tally = false
 	if sv_doubt:
 		Stats.buff_atk_pct -= 0.15
 		Stats.buff_maxhp_pct += 0.05
@@ -9814,6 +9818,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Salt Stipend — pay 7 souls: the crew shares rations — +20% XP this floor"},
 			{"text": "Keel Oath — pay 4 souls: your blade swears to the keel — +8% ATK this floor"},
 			{"text": "Tally Man — pay 5 souls: every notch pays double — +15% soul gain this floor"},
+			{"text": "Bone Tally — pay 4 souls: each notch marks a throat — +8% crit this floor"},
 		]
 	)
 
@@ -11584,6 +11589,17 @@ func _mahzan_deal(idx: int) -> void:
 				Stats.soul_gain_pct += 0.15
 				Sfx.play("shrine")
 				toast("TALLY MAN — every notch pays double")
+		56:
+			if Stats.souls < _soul_cost(4):
+				toast("Four souls — the tally isn't free")
+			else:
+				Stats.souls -= _soul_cost(4)
+				_count_deal()
+				_souls_l()
+				bone_tally = true
+				Stats.buff_crit += 0.08
+				Sfx.play("shrine")
+				toast("BONE TALLY — each notch marks a throat")
 		50:
 			if Stats.souls < _soul_cost(6):
 				toast("Six souls — the doubt isn't free")
