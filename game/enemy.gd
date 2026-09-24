@@ -248,7 +248,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred", "seafaring", "feytouched", "knotted", "belltoll", "soulfed", "gutted", "beacon", "spry", "keenedged", "tidewrought", "lurker"][randi() % 60]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred", "seafaring", "feytouched", "knotted", "belltoll", "soulfed", "gutted", "beacon", "spry", "keenedged", "tidewrought", "lurker", "hoarfrost"][randi() % 61]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -428,6 +428,11 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				hp *= 1.4
 				speed *= 0.9
 				xp_val = int(xp_val * 1.4)
+			"hoarfrost":
+				# beku — pukulan mendinginkan darah pemain (chill_t di blok hit)
+				hp *= 1.15
+				hp_max = hp
+				xp_val = int(xp_val * 1.3)
 			"lurker":
 				# pengintai — menunggu di pinggir cahaya, lalu menyergap
 				aggro_range *= 0.5
@@ -997,6 +1002,8 @@ func _physics_process(delta: float) -> void:
 									p.set("venom_t", 4.0)
 								if affix == "corroded" and q == p:
 									p.set("rust_t", 3.0)
+								if affix == "hoarfrost" and q == p:
+									p.set("chill_t", maxf(float(p.get("chill_t")), 2.5))
 								if affix == "riptide" and q == p:
 									var rdir: Vector3 = p.global_position - global_position
 									rdir.y = 0
