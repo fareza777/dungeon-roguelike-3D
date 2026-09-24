@@ -47,6 +47,7 @@ var anim_lock := 0.0
 
 # bilah hp mini di atas kepala (khusus elite, muncul setelah kena hit)
 var hpbar_bg: Sprite3D = null
+var hpbar_shown_frac := -1.0
 var hpbar_fg: Sprite3D = null
 var hpbar_tag: Label3D = null
 var mark_tag: Label3D = null
@@ -625,8 +626,14 @@ func _upd_hpbar() -> void:
 	hpbar_fg.visible = show
 	if hpbar_tag != null:
 		hpbar_tag.visible = show
-	hpbar_fg.scale.x = frac
-	hpbar_fg.position.x = -0.5 * BAR_W * room_tile * (1.0 - frac)
+	if hpbar_shown_frac < 0.0:
+		hpbar_shown_frac = frac
+	if absf(hpbar_shown_frac - frac) < 0.003:
+		hpbar_shown_frac = frac
+	else:
+		hpbar_shown_frac = move_toward(hpbar_shown_frac, frac, get_process_delta_time() * 3.0)
+	hpbar_fg.scale.x = hpbar_shown_frac
+	hpbar_fg.position.x = -0.5 * BAR_W * room_tile * (1.0 - hpbar_shown_frac)
 
 
 func _player() -> Node3D:
