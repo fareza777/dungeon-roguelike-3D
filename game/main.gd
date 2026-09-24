@@ -161,7 +161,8 @@ const LORE_LINES := [
 	"Gutter chaplains preach to the drowned. The drowned, being dead, find his sermons considerably shorter.",
 "The drowned keep ledgers too — every debt they owed arrives at the surface unpaid.",
 "Below the wrecks the water is patient. It has already won every argument it ever started.",
-"The Saltcaller was a chapel bell once — it rings for whoever is still breathing.",]
+"The Saltcaller was a chapel bell once — it rings for whoever is still breathing.",
+"Pelican Bone keeps its pockets full of drowned coins — the sea's smallest miser.",]
 
 var dungeon_tex: Texture2D
 var skeleton_tex: Texture2D
