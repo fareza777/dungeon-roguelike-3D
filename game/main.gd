@@ -2715,7 +2715,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 	if wailing_wind and not e.is_boss:
 		e.aggro_range = float(e.aggro_range) * 1.2
 	if undertow_aria and not e.is_boss:
-		e.speed = float(e.speed) * 0.9
+		e.hp = float(e.hp) * 0.92
+		e.hp_max = e.hp
 	if balmy_sea and not e.is_boss:
 		e.dmg = max(1, int(e.dmg * 0.9))
 	if rust_storm and not e.is_boss:
@@ -9776,7 +9777,7 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Fathomsong — pay 3 souls: the depths hum you quieter — the dead notice you −15% later this floor"},
 		{"text": "Drift Verse — pay 4 souls: a verse of floating steps — +8% dodge this floor"},
 		{"text": "Pearl Octave — pay 5 souls: nacre rings in your wounds — orbs mend +50% this floor"},
-		{"text": "Undertow Aria — pay 4 souls: the bass drags their feet — foes −10% speed this floor"},
+		{"text": "Undertow Aria — pay 4 souls: the bass thins their bones — foes −8% HP this floor"},
 		{"text": "Walk away"}])
 
 
@@ -9797,9 +9798,10 @@ func _siren_deal(idx: int) -> void:
 		undertow_aria = true
 		for f2 in get_tree().get_nodes_in_group("enemies"):
 			if not f2.get("is_boss"):
-				f2.speed = float(f2.speed) * 0.9
+				f2.hp = float(f2.hp) * 0.92
+				f2.hp_max = f2.hp
 		Sfx.play("shrine")
-		toast("UNDERTOW ARIA — the floor itself slows them")
+		toast("UNDERTOW ARIA — the floor itself thins them")
 		return
 	if idx == 21:
 		if Stats.souls < _soul_cost(5):
