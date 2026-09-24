@@ -321,6 +321,7 @@ var marlin_spike := false
 var fathomsong := false
 var pearl_graft := false
 var oyster_toll := false
+var silt_press := false
 var watch_bell := false
 var hull_pitch := false
 var knot_refuge := false
@@ -1507,6 +1508,9 @@ func _new_run(new_seed: int) -> void:
 	if oyster_toll:
 		Stats.buff_xp_pct -= 0.15
 		oyster_toll = false
+	if silt_press:
+		Stats.soul_gain_pct -= 0.15
+		silt_press = false
 	if deck_manifest:
 		Stats.soul_gain_pct -= 0.15
 		deck_manifest = false
@@ -8157,12 +8161,24 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Salt Splice — pay 4 souls: salt stitched under the skin — +1 Armor this floor"},
 		{"text": "Pearl Graft — pay 6 souls: nacre under the blade-hand — +15% ATK this floor"},
 		{"text": "Oyster Toll — pay 8 souls: the shell's lesson — +15% XP this floor"},
+		{"text": "Silt Press — pay 6 souls: squeeze the bottom mud — +15% souls this floor"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 32:
+	if idx == 33:
 		toast("The water settles back into the stone")
+		return
+	if idx == 32:
+		if Stats.souls < _soul_cost(6):
+			toast("Six souls — the mud's price")
+			return
+		Stats.souls -= _soul_cost(6)
+		_souls_l()
+		silt_press = true
+		Stats.soul_gain_pct += 0.15
+		Sfx.play("shrine")
+		toast("SILT PRESS — the bottom mud pays out")
 		return
 	if idx == 31:
 		if Stats.souls < _soul_cost(8):
