@@ -4884,6 +4884,8 @@ func _on_player_died() -> void:
 	Stats.note_floor()
 	Stats.clear_run()
 	Stats.runs += 1
+	if Stats.runs >= 25:
+		_ach("persistent")
 	Stats.save_game()
 	_tut_hide()
 	Input.vibrate_handheld(280)
@@ -4950,6 +4952,8 @@ func _finalize_death() -> void:
 	Stats.note_floor()
 	Stats.clear_run()
 	Stats.runs += 1
+	if Stats.runs >= 25:
+		_ach("persistent")
 	Stats.save_game()
 	_tut_hide()
 	Input.vibrate_handheld(280)

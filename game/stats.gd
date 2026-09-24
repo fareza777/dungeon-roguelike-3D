@@ -222,6 +222,7 @@ const ACH_DEF := {
 	"abyssal": "Abyssal Reaches (reach floor 30 in a single descent)",
 	"oldsalt": "Old Salt (reach floor 25 in a single descent)",
 	"relichunter": "Relic Hunter (hold 12 relics in one run)",
+	"persistent": "Persistent (complete 25 descents)",
 	"oathbound": "Oathbound (swear 12 different pacts, across all your descents)",
 	"manyoaths": "Many Oaths (swear 20 different pacts, across all your descents)",
 	"unstoppable": "Unstoppable (a ×50 kill streak in one run)",
