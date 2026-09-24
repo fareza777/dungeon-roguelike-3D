@@ -5483,6 +5483,9 @@ func _on_enemy_died(e) -> void:
 			_quest_event("room_clear")
 			_quest_event("clear_floor")
 			_set_room_gates(e.room_idx, true)
+			if player != null and is_instance_valid(player):
+				_burst(player.global_position + Vector3(0, 0.6, 0), Color(0.55, 0.95, 0.6))
+				trauma = minf(1.0, trauma + 0.12)
 			if not get_tree().get_nodes_in_group("enemies").is_empty():
 				toast("Room clear — gates open!")
 		if get_tree().get_nodes_in_group("enemies").is_empty():
