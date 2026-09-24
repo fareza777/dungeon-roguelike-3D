@@ -10324,6 +10324,7 @@ func _mahzan_deal(idx: int) -> void:
 				_count_deal()
 				_souls_l()
 				Stats.mahzan_debt = 0.0
+				_ach("clear_ledger")
 				toast("Debt settled — Max HP restored")
 		6:
 			if Stats.curse_dmg <= 0.0:
