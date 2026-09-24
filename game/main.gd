@@ -9873,6 +9873,7 @@ func _offer_omens() -> void:
 		{"text": "BALANCED LEDGER — the book keeps you honest (+10% souls, +10% XP)... but the margin is thin (−5% crit)"},
 		{"text": "CROWN'S SUSPICION — every bargain comes cheaper (−1 soul cost)... but the King marks his own (elites +10% HP)"},
 		{"text": "PALE VERDICT — the sea courts your blade (+10% ATK)... but its kings harden (bosses +15% HP)"},
+		{"text": "TITHE OF TEETH — your craft quickens (+10% skill recharge)... but the drowned grow stubborn (+10% foe HP)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -10503,6 +10504,10 @@ func _omen_deal(idx: int) -> void:
 			omen_boss_mult *= 1.15
 			oname = "PALE VERDICT"
 		130:
+			Stats.cd_reduction += 0.10
+			omen_hp_mult *= 1.10
+			oname = "TITHE OF TEETH"
+		131:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -10665,6 +10670,7 @@ func _omen_deal(idx: int) -> void:
 	"BALANCED LEDGER": "The sea keeps every book in pairs, Kael — rich pages are always the thinnest.",
 	"CROWN'S SUSPICION": "Cheaper tribute means watching eyes, Kael — the crown trusts nothing it hasn't priced.",
 	"PALE VERDICT": "The sea takes sides, warrior — it sharpens your arm and thickens its kings in the same breath.",
+	"TITHE OF TEETH": "It pays in quickness and collects in thick skulls — the sea always balances her books.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
