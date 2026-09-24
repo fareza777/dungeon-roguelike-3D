@@ -425,6 +425,8 @@ var feast_tide := false
 var purse_tide := false
 var hollow_tide := false
 var bless_pick: Array = []
+var omen_pick: Array = []
+var omen_opts: Array = []
 var bless_pending := false
 var wet_wool := false
 var ballast_beads := false
@@ -9718,9 +9720,7 @@ func _offer_omens() -> void:
 	var oline := "Before you bleed for him, choose the omen you carry — every path has a price."
 	if Stats.floor_num >= 11:
 		oline = "Halfway to his throne, Kael. The deeps offer a second pact — stack it on your first, or refuse."
-	_say(
-		[{"who": "oracle", "text": oline}],
-		[
+	omen_opts = [
 			{"text": "WARPATH — +30% ATK, -1 Armor"},
 			{"text": "FEATHER STEP — +15% Speed, -25% ATK"},
 			{"text": "RICH SOIL — +35% XP, foes +10% HP"},
@@ -9851,7 +9851,15 @@ func _offer_omens() -> void:
 		{"text": "BALANCED LEDGER — the book keeps you honest (+10% souls, +10% XP)... but the margin is thin (−5% crit)"},
 		{"text": "CROWN'S SUSPICION — every bargain comes cheaper (−1 soul cost)... but the King marks his own (elites +10% HP)"},
 		{"text": "PALE VERDICT — the sea courts your blade (+10% ATK)... but its kings harden (bosses +15% HP)"},
-		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
+	]
+	omen_pick.clear()
+	while omen_pick.size() < 3:
+		var _op := rng.randi_range(0, omen_opts.size() - 1)
+		if not omen_pick.has(_op):
+			omen_pick.append(_op)
+	_say(
+		[{"who": "oracle", "text": oline}],
+		[omen_opts[omen_pick[0]], omen_opts[omen_pick[1]], omen_opts[omen_pick[2]]] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
 
@@ -9907,14 +9915,19 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 131 if Stats.nemesis != "" else 130
-	if idx >= osize:
+	var shown := omen_pick.size()
+	var walk_idx := shown + (1 if Stats.nemesis != "" else 0)
+	if idx >= walk_idx:
 		omen_refusals += 1
 		if omen_refusals >= 2:
 			toast("Twice refused. The old woman says nothing — that's rare.")
 		else:
 			toast("You walk alone — the Oracle nods")
 		return
+	if Stats.nemesis != "" and idx == shown:
+		idx = omen_opts.size()
+	elif idx >= 0 and idx < shown:
+		idx = int(omen_pick[idx])
 	var oname := ""
 	match idx:
 		0:
