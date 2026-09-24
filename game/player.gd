@@ -478,6 +478,18 @@ func _strike() -> void:
 							mkh._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "KNELL", Color(0.65, 0.6, 1.0), false)
 						if mkh.has_method("_atk_pulse"):
 							mkh._atk_pulse()
+			if Stats.weapon_id == "bilge_maul":
+				var bmn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", bmn)
+				if bmn % 7 == 0:
+					Stats.earn_souls(1)
+					Sfx.play("soul", 0.8)
+					var mbm := get_tree().current_scene
+					if mbm != null:
+						if mbm.has_method("_damage_number"):
+							mbm._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "GROG +1◈", Color(0.6, 0.9, 0.6), false)
+						if mbm.has_method("_atk_pulse"):
+							mbm._atk_pulse()
 			if Stats.weapon_id == "wraithbell":
 				var wbn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", wbn)
