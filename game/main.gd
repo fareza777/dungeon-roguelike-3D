@@ -395,6 +395,7 @@ var crazed_sea := false
 var golden_hour := false
 var old_salt_tide := false
 var salted_purse := false
+var bottom_weight := false
 var salvage_rights := false
 var green_wake := false
 var wet_wool := false
@@ -9443,6 +9444,7 @@ func _offer_omens() -> void:
 		{"text": "PALE TIDE — the dead lighten (−10% foe HP)... but your arm goes soft (−5% ATK)"},
 		{"text": "KEELCOIN — souls pay +15% more... but your hull thins (−5% Max HP)"},
 		{"text": "SALTED PURSE — the dead pay +30% souls... but every urn runs dry"},
+		{"text": "BOTTOM WEIGHT — your arm sinks heavy and true (+12% ATK)... but your feet drag (−8% speed)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -9497,7 +9499,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 120 if Stats.nemesis != "" else 119
+	var osize := 121 if Stats.nemesis != "" else 120
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -10011,6 +10013,11 @@ func _omen_deal(idx: int) -> void:
 			salted_purse = true
 			oname = "SALTED PURSE"
 		119:
+			Stats.buff_atk_pct += 0.12
+			Stats.buff_speed_pct -= 0.08
+			bottom_weight = true
+			oname = "BOTTOM WEIGHT"
+		120:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -10142,6 +10149,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE TIDE": "The water runs thin and silver — their bones lighten, but so does your arm.",
 	"KEELCOIN": "Coin laid along the keel keeps her steady — pay the deep and she pays you back.",
 	"SALTED PURSE": "Her leather is waxed with brine — souls slide in easy, and nothing slips back out.",
+	"BOTTOM WEIGHT": "Let the deep lend your arm its patience — slow is the hand that always lands.",
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
