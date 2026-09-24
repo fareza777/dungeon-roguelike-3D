@@ -84,6 +84,7 @@ const DB := {
 	"brineward": {"name": "Brineward", "short": "BRIN", "cd": 15.0, "unlock": 179, "desc": "A wall of brine — +4 armor, +10% dodge for 4s."},
 	"wakeveil": {"name": "Wakeveil", "short": "VEIL", "cd": 14.0, "unlock": 183, "desc": "Ride your own wake half-seen — +12% dodge, +6% speed for 5s."},
 	"keelbolt": {"name": "Keelbolt", "short": "BOLT", "cd": 10.0, "unlock": 187, "desc": "Fire the keel-harpoon — the nearest foe takes 3.5× ATK and is stunned 1s."},
+	"galepulse": {"name": "Gale Pulse", "short": "GALE", "cd": 12.0, "unlock": 191, "desc": "A burst of storm-air — every foe in reach is hurled back and takes 1.5× ATK."},
 "saltwake": {"name": "Salt Wake", "short": "WAKE", "cd": 14.0, "unlock": 111, "desc": "Cut the water behind you — a freezing wake stuns the 3 nearest foes 1.2s, then slows them."},
 	"netcast": {"name": "Net Cast", "short": "NET", "cd": 12.0, "unlock": 105, "desc": "Throw the purse-net wide — foes within reach are rooted 3s."},
 	"chumtoss": {"name": "Chum Toss", "short": "CHUM", "cd": 11.0, "unlock": 101, "desc": "Lob a chum line ahead — foes in the lane take 1.2× ATK and are slowed 2s."},
@@ -114,7 +115,7 @@ const DB := {
 	},
 }
 
-const ORDER := ["dash", "whirl", "thunder", "warcry", "nova", "judge", "sunder", "chains", "storm", "mend", "rites", "seismic", "kingsfall", "lance", "gravestep", "tidecall", "snapjaw", "graveseal", "riptide", "soultithe", "anchordrop", "soulfall", "keelsplit", "bloodtide", "sealegs", "deadreckon", "becalm", "irontide", "dragline", "deadlight", "broadside", "fogsong", "saltbomb", "deadweight", "keelram", "hullsplinter", "crowsdive", "salvagehook", "riptidesnare", "saltward", "bilgesnare", "warpaint", "brinelash", "ghostnet", "saltmaw", "keelsplitter", "deckrupture", "deathknell", "tidesnatch", "kingstoll", "chumtoss", "netcast", "brinevolley", "saltwake", "choruscall", "deckwash", "hullkneel", "crowsnest", "stormflag", "shellup", "bilgesurge", "severline", "secondwind", "galewind", "keelhurl", "maelstrom", "deckflare", "wickdraw", "sirenscall", "bloodmark", "deadeye", "rigger", "saltskin", "ironwake", "brineward", "wakeveil", "keelbolt"]
+const ORDER := ["dash", "whirl", "thunder", "warcry", "nova", "judge", "sunder", "chains", "storm", "mend", "rites", "seismic", "kingsfall", "lance", "gravestep", "tidecall", "snapjaw", "graveseal", "riptide", "soultithe", "anchordrop", "soulfall", "keelsplit", "bloodtide", "sealegs", "deadreckon", "becalm", "irontide", "dragline", "deadlight", "broadside", "fogsong", "saltbomb", "deadweight", "keelram", "hullsplinter", "crowsdive", "salvagehook", "riptidesnare", "saltward", "bilgesnare", "warpaint", "brinelash", "ghostnet", "saltmaw", "keelsplitter", "deckrupture", "deathknell", "tidesnatch", "kingstoll", "chumtoss", "netcast", "brinevolley", "saltwake", "choruscall", "deckwash", "hullkneel", "crowsnest", "stormflag", "shellup", "bilgesurge", "severline", "secondwind", "galewind", "keelhurl", "maelstrom", "deckflare", "wickdraw", "sirenscall", "bloodmark", "deadeye", "rigger", "saltskin", "ironwake", "brineward", "wakeveil", "keelbolt", "galepulse"]
 
 
 static func get_s(id: String) -> Dictionary:
