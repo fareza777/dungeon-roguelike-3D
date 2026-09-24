@@ -252,7 +252,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred", "seafaring", "feytouched", "knotted", "belltoll", "soulfed", "gutted", "beacon", "spry", "keenedged", "tidewrought", "lurker", "hoarfrost", "reefbound", "flotsam", "brinetouched", "bilged", "gilded", "saltbitten", "leeched", "windlashed", "halfshell", "soulwrought", "leaden"][randi() % 72]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred", "seafaring", "feytouched", "knotted", "belltoll", "soulfed", "gutted", "beacon", "spry", "keenedged", "tidewrought", "lurker", "hoarfrost", "reefbound", "flotsam", "brinetouched", "bilged", "gilded", "saltbitten", "leeched", "windlashed", "halfshell", "soulwrought", "leaden", "grasping"][randi() % 73]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -464,6 +464,10 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				hp *= 1.2
 				speed *= 0.7
 				dmg = int(ceilf(float(dmg) * 1.3))
+				xp_val = int(ceilf(xp_val * 1.4))
+			"grasping":
+				hp *= 1.15
+				dmg = int(ceilf(float(dmg) * 1.1))
 				xp_val = int(ceilf(xp_val * 1.4))
 			"brinetouched":
 				hp *= 1.15
@@ -1635,6 +1639,11 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 				mm4._souls_l()
 			if mm4 != null and mm4.has_method("_damage_number"):
 				mm4._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "KEELBORN +3", Color(0.4, 0.9, 0.9), true)
+		if affix == "grasping" and q == p:
+			var gdir: Vector3 = (global_position - p.global_position)
+			gdir.y = 0.0
+			if gdir.length() > 0.01:
+				p.velocity += gdir.normalized() * 6.0
 		if affix == "soulwrought":
 			var msw := get_tree().current_scene
 			if msw != null and msw.has_method("_spawn_wisp_at"):
