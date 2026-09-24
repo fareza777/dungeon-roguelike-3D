@@ -63,6 +63,7 @@ const DB := {
 	"deck_gunner": {"glb": "Skeleton_Archer.glb", "hp": 2.2, "spd": 1.2, "dmg": 1, "windup": 0.5, "reach": 2.8, "prefer": 2.5, "aggro": 6.0, "xp": 7, "tint": Color(0.85, 0.7, 0.4), "scale": 0.9, "ranged": true, "proj_speed": 5.0, "kb_resist": 0.1, "burst": true},
 	"rotting_bride": {"glb": "Skeleton_Mage.glb", "hp": 3.5, "spd": 0.5, "dmg": 0, "windup": 1.0, "reach": 0.8, "aggro": 3.5, "xp": 8, "tint": Color(1.0, 0.55, 0.65), "scale": 0.95, "kb_resist": 0.7, "bride": true},
 	"salt_cantor": {"glb": "Skeleton_Mage.glb", "hp": 3.2, "spd": 0.6, "dmg": 1, "windup": 0.9, "reach": 0.8, "aggro": 3.0, "xp": 7, "tint": Color(0.5, 0.9, 0.8), "scale": 0.9, "kb_resist": 0.5, "cantor": true},
+	"foam_herald": {"glb": "Skeleton_Rogue.glb", "hp": 2.8, "spd": 1.7, "dmg": 2, "windup": 0.55, "reach": 0.75, "aggro": 8.5, "xp": 12, "tint": Color(0.55, 0.8, 0.9), "scale": 1.0, "kb_resist": 0.2, "dash": true},
 	"salt_sprite": {"glb": "Skeleton_Minion.glb", "hp": 1.6, "spd": 1.9, "dmg": 1, "windup": 0.8, "reach": 2.4, "prefer": 4.0, "aggro": 8.0, "xp": 10, "tint": Color(0.7, 0.85, 0.7), "scale": 0.7, "kb_resist": 0.0, "ranged": true, "proj_speed": 4.5},
 	"bilge_smith": {"glb": "Skeleton_Warrior.glb", "hp": 4.5, "spd": 0.7, "dmg": 3, "windup": 1.0, "reach": 0.9, "aggro": 6.5, "xp": 14, "tint": Color(0.5, 0.45, 0.4), "scale": 1.15, "kb_resist": 0.7, "healer": true},
 	"keel_wretch": {"glb": "Skeleton_Warrior.glb", "hp": 5.0, "spd": 0.8, "dmg": 4, "windup": 0.9, "reach": 1.0, "aggro": 7.0, "xp": 15, "tint": Color(0.45, 0.5, 0.55), "scale": 1.2, "kb_resist": 0.9},
