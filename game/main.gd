@@ -6977,6 +6977,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Rat Ration — pay 2 souls: stale but hearty — full mend when the next floor begins"},
 			{"text": "Gilded Provisions — pay 4 souls: the officer's mess — vial topped, 30% mended"},
 			{"text": "Gilded Map — pay 4 souls: every room of this floor sketched in bone-ink"},
+			{"text": "Salt Wager — stake 6 souls: the tide doubles it or drinks it"},
 		]
 	)
 
@@ -8335,6 +8336,18 @@ func _mahzan_deal(idx: int) -> void:
 				player.hp = minf(player.max_hp, player.hp + player.max_hp * 0.3)
 				Sfx.play("shrine")
 				toast("GILDED PROVISIONS — you eat like an admiral tonight")
+		37:
+			if Stats.souls < _soul_cost(6):
+				toast("Six souls — the tide won't bet on credit")
+			else:
+				Stats.souls -= _soul_cost(6)
+				if rng.randf() < 0.5:
+					Stats.earn_souls(12)
+					toast("SALT WAGER — the tide pays double")
+				else:
+					toast("SALT WAGER — the tide drinks your stake")
+				_souls_l()
+				Sfx.play("souls")
 		36:
 			if Stats.souls < _soul_cost(4):
 				toast("Four souls — the ink is worth more")
