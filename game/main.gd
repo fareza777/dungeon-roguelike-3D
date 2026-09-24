@@ -15100,7 +15100,7 @@ func _on_throne_invoked(s) -> void:
 		{"text": "Bailiff's Share — pay 6 souls: the court's collector works your purse — +15% souls this floor"},
 		{"text": "Clerk's Pension — pay 5 souls: the record office remembers your name — +12% XP this floor"},
 		{"text": "Royal Assay — pay 5 souls: the crown's assayer weighs your edge — +6% crit this run"},
-		{"text": "Court Physician — pay 5 souls: the crown's leech bleeds the pain away — heal 35% HP"},
+		{"text": "Royal Leech — pay 5 souls: the crown's bleeder draws the pain away — heal 35% HP"},
 		{"text": "Walk away"}])
 
 
@@ -15169,7 +15169,7 @@ func _throne_deal(idx: int) -> void:
 			player.hp = minf(player.hp + Stats.get_stat("max_hp") * 0.35, Stats.get_stat("max_hp"))
 			player.hp_changed.emit(player.hp)
 		Sfx.play("shrine")
-		toast("COURT PHYSICIAN — the crown's leech bleeds the pain away (+35% HP)")
+		toast("ROYAL LEECH — the crown's bleeder draws the pain away (+35% HP)")
 		return
 	if idx == 33:
 		if Stats.souls < _soul_cost(5):
