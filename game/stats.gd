@@ -245,6 +245,7 @@ const ACH_DEF := {
 	"threequarters": "Three Quarters (reach Floor 75)",
 	"centurion_deep": "Centurion of the Deep (reach Floor 100)",
 	"deepwater": "Deep Water (reach Floor 40)",
+	"saltveteran": "Salt Veteran (reach Floor 45)",
 	"spender": "Spender (buy 15 deals in one run)",
 	"fulldeck": "Full Deck (every meta upgrade maxed)",
 	"ngdeep": "Void Warden (reached floor 20 in New Game+)",
@@ -543,6 +544,8 @@ func note_floor() -> void:
 		ach["abyssal"] = true
 	if floor_num >= 40 and not ach.has("deepwater"):
 		ach["deepwater"] = true
+	if floor_num >= 45 and not ach.has("saltveteran"):
+		ach["saltveteran"] = true
 	if floor_num >= 50 and not ach.has("halfcentury"):
 		ach["halfcentury"] = true
 	if floor_num >= 75 and not ach.has("threequarters"):
