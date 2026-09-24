@@ -651,6 +651,7 @@ var combo_max := 0
 var fade_rect: ColorRect = null
 var pause_panel: PanelContainer = null
 var vign: TextureRect = null
+var vign_g: TextureRect = null
 var vign_tween: Tween = null
 var prev_hp := -1.0
 var floor_hurt := false
@@ -1019,6 +1020,10 @@ func _ach(id: String) -> void:
 	Stats.save_game()
 	_lvl_banner("◆ ACHIEVEMENT — " + String(Stats.ACH_DEF[id]))
 	Sfx.play("quest")
+	if vign_g != null:
+		vign_g.modulate.a = 0.55
+		var atw := vign_g.create_tween()
+		atw.tween_property(vign_g, "modulate:a", 0.0, 0.8)
 
 # v5: boss + quest + kombo + altar + peti mimic + dialog + minimap
 var boss_ref = null
@@ -15553,6 +15558,25 @@ func _build_ui() -> void:
 	vign.modulate.a = 0.0
 	vign.process_mode = Node.PROCESS_MODE_ALWAYS
 	layer.add_child(vign)
+
+	var vg2 := Gradient.new()
+	vg2.colors = PackedColorArray([Color(0.85, 0.65, 0.1, 0.0), Color(0.85, 0.65, 0.1, 0.5)])
+	var gt2 := GradientTexture2D.new()
+	gt2.gradient = vg2
+	gt2.fill = GradientTexture2D.FILL_RADIAL
+	gt2.fill_from = Vector2(0.5, 0.5)
+	gt2.fill_to = Vector2(0.5, 0.0)
+	gt2.width = 540
+	gt2.height = 1200
+	vign_g = TextureRect.new()
+	vign_g.texture = gt2
+	vign_g.set_anchors_preset(Control.PRESET_FULL_RECT)
+	vign_g.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	vign_g.stretch_mode = TextureRect.STRETCH_SCALE
+	vign_g.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	vign_g.modulate.a = 0.0
+	vign_g.process_mode = Node.PROCESS_MODE_ALWAYS
+	layer.add_child(vign_g)
 
 	# panel JEDA (resume / restart lantai / volume / keluar ke menu)
 	var pp := PanelContainer.new()
