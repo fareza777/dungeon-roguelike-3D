@@ -753,6 +753,7 @@ const BESTIARY := {
 	"brine_widow": ["Brine Widow", "She mends the drowned and hooks the living for them to finish."],
 	"keelwright": ["Keelwright", "It hammers the fallen back together mid-fight — the deck never thins."],
 	"bilge_tender": ["Bilge Tender", "It ladles the black water over its crew — the wounded stand back up."],
+	"keel_sapper": ["Keel Sapper", "It tunnels under your stance then bolts — corner it fast."],
 	"gunnel_fiend": ["Gunnel Fiend", "It claws along the rail faster than it walks — when it coils, it's already midair."],
 	"pale_lantern": ["Pale Lantern", "A wick of drowned light walking a dead sailor's frame — snuff it and every shadow in the room flinches."],
 	"siren_thrall": ["Siren Thrall", "A sailor the song kept — freed of it only by the blade, and what's left rises as a wisp."],
@@ -800,7 +801,7 @@ const KILLER_NAMES := {
 	"bell_ringer": "a Bell Ringer",
 	"moorling": "a Moorling",
 	"keel_mastiff": "a Keel Mastiff",
-	"salt_lich": "a Salt Lich", "bilge_fury": "a Bilge Fury", "siren_thrall": "a Siren Thrall", "pale_lantern": "a Pale Lantern", "gunnel_fiend": "a Gunnel Fiend", "bilge_cantor": "a Bilge Cantor", "tide_bailiff": "a Tide Bailiff", "salt_skimmer": "a Salt Skimmer", "brine_monk": "a Brine Monk", "deck_rigger": "a Deck Rigger", "dread_gull": "a Dread Gull", "gale_singer": "a Gale Singer", "snatch_widow": "a Snatch Widow", "gunnel_gnat": "a Gunnel Gnat", "deck_reverend": "a Deck Reverend", "mast_lurcher": "a Mast Lurcher", "dirge_singer": "a Dirge Singer", "the_boatswain": "the Boatswain", "gloom_lantern": "a Gloom Lantern", "wick_tender": "a Wick Tender", "sodden_deckhand": "a Sodden Deckhand", "brine_widow": "a Brine Widow", "keelwright": "a Keelwright", "bilge_tender": "a Bilge Tender",
+	"salt_lich": "a Salt Lich", "bilge_fury": "a Bilge Fury", "siren_thrall": "a Siren Thrall", "pale_lantern": "a Pale Lantern", "gunnel_fiend": "a Gunnel Fiend", "bilge_cantor": "a Bilge Cantor", "tide_bailiff": "a Tide Bailiff", "salt_skimmer": "a Salt Skimmer", "brine_monk": "a Brine Monk", "deck_rigger": "a Deck Rigger", "dread_gull": "a Dread Gull", "gale_singer": "a Gale Singer", "snatch_widow": "a Snatch Widow", "gunnel_gnat": "a Gunnel Gnat", "deck_reverend": "a Deck Reverend", "mast_lurcher": "a Mast Lurcher", "dirge_singer": "a Dirge Singer", "the_boatswain": "the Boatswain", "gloom_lantern": "a Gloom Lantern", "wick_tender": "a Wick Tender", "sodden_deckhand": "a Sodden Deckhand", "brine_widow": "a Brine Widow", "keelwright": "a Keelwright", "bilge_tender": "a Bilge Tender", "keel_sapper": "a Keel Sapper",
 	"deck_brute": "a Deck Brute",
 	"salt_eel": "a Salt Eel",
 	"quarter_ghost": "a Quarter Ghost",
@@ -902,6 +903,7 @@ const KILLER_TIPS := {
 	"brine_widow": "Tip: a Brine Widow reels you in for the pack — cut her line of sight or cut her first.",
 	"keelwright": "Tip: a Keelwright rebuilds its crew — silence the hammer or the room never empties.",
 	"bilge_tender": "Tip: a Bilge Tender heals its crew from the far side of the room — chase it down first.",
+	"keel_sapper": "Tip: a Keel Sapper undermines you then runs — it barely fights back once cornered.",
 	"salt_lich": "Tip: Salt Liches telegraph a long windup — close the gap fast or weave between bolts.",
 	"deck_brute": "Tip: Deck Brutes barely feel knockback — break their windup with a stun, or never be there when it lands.",
 	"salt_eel": "Tip: Salt Eels lunge in a straight bite — sidestep and the coil overshoots.",
@@ -3368,6 +3370,7 @@ const FIRST_SEEN := {
 	"brine_widow": "A Brine Widow drifts forward, veil dripping seawater, hook already swinging.",
 	"keelwright": "A Keelwright shambles up, maul slung like a tool, knocking loose boards into shape.",
 	"bilge_tender": "A Bilge Tender slips along the wall, ladle raised, pouring bilge over the fallen.",
+	"keel_sapper": "A Keel Sapper scrabbles at the boards, already half-buried and looking for a way out.",
 	"salt_skimmer": "A Salt Skimmer shears across the water — it comes at you fast."
 }
 
@@ -5131,6 +5134,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("wright_kill")
 	if e.arch_id == "bilge_tender":
 		_quest_event("tender_kill")
+	if e.arch_id == "keel_sapper":
+		_quest_event("sapper_kill")
 		if int(Stats.arch_kills.get("gloom_lantern", 0)) >= 10:
 			_ach("gloomfall")
 	if e.arch_id == "salt_lich":

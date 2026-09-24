@@ -189,6 +189,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Widowmaker", "desc": "Slay 4 Brine Widows (0/4)", "kind": "widow_kill", "need": 4})
 		steps.append({"title": "Break the Hammer", "desc": "Slay 4 Keelwrights (0/4)", "kind": "wright_kill", "need": 4})
 		steps.append({"title": "Empty the Ladle", "desc": "Slay 4 Bilge Tenders (0/4)", "kind": "tender_kill", "need": 4})
+		steps.append({"title": "Cave-In", "desc": "Slay 4 Keel Sappers (0/4)", "kind": "sapper_kill", "need": 4})
 		steps.append({"title": "Icebreaker", "desc": "Survive a Rime Tide floor (0/1)", "kind": "rimewade", "need": 1})
 		steps.append({"title": "Slickwalker", "desc": "Clear an OIL SLICK floor (0/1)", "kind": "slickwalk", "need": 1})
 		steps.append({"title": "Ship's Credit", "desc": "Strike 3 deals this run (0/3)", "kind": "deal_made", "need": 3})
