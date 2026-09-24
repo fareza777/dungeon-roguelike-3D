@@ -105,6 +105,8 @@ func smash(from_pos: Vector3) -> void:
 			Stats.earn_souls(1)
 		if bool(m.get("salt_purse")) and not dry:
 			Stats.earn_souls(1)
+		if bool(m.get("murk_purse")) and not dry:
+			Stats.earn_souls(1)
 		if bool(m.get("salt_tithe")) and not dry:
 			Stats.earn_souls(1)
 		if bool(m.get("dead_lantern")) and not dry:

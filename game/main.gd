@@ -358,6 +358,7 @@ var kelp_tithe := false
 var bosuns_chit := false
 var deck_psalm := false
 var rope_tackle := false
+var murk_purse := false
 var leech_bond := false
 var salt_lullaby := false
 var regal_favor := false
@@ -1626,6 +1627,7 @@ func _new_run(new_seed: int) -> void:
 		bosuns_chit = false
 	deck_psalm = false
 	rope_tackle = false
+	murk_purse = false
 	if leech_bond:
 		Stats.buff_lifesteal -= 0.08
 		leech_bond = false
@@ -8767,12 +8769,23 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Mudlark's Due — pay 3 souls: the silt teaches slipping — +8% dodge this floor"},
 		{"text": "Kelp Tithe — pay 3 souls: the wrack feeds you — orbs mend +30% this floor"},
 		{"text": "Leech Bond — pay 5 souls: the mud's hunger lends you its teeth — +8% lifesteal this floor"},
+		{"text": "Murk Purse — pay 3 souls: the depths spill their change — every urn pays +1 soul this floor"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 37:
+	if idx == 38:
 		toast("The water settles back into the stone")
+		return
+	if idx == 37:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the purse isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		murk_purse = true
+		Sfx.play("shrine")
+		toast("MURK PURSE — the urns spill change")
 		return
 	if idx == 36:
 		if Stats.souls < _soul_cost(5):
