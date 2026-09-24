@@ -7845,12 +7845,12 @@ func _cast_skill(id: String) -> void:
 			var hfd := 1e9
 			for f in get_tree().get_nodes_in_group("enemies"):
 				if f.get("state") != "dead":
-					var d2: float = global_position.distance_to(f.global_position)
+					var d2: float = player.global_position.distance_to(f.global_position)
 					if d2 < hfd and d2 < 9.0:
 						hfd = d2
 						hf = f
 			if hf != null:
-				var dir2: Vector3 = global_position - hf.global_position
+				var dir2: Vector3 = player.global_position - hf.global_position
 				hf.kb += dir2.normalized() * 18.0
 				hf.stun(1.4)
 				trauma = minf(trauma + 0.25, 0.5)
@@ -7858,10 +7858,11 @@ func _cast_skill(id: String) -> void:
 		"belltoll":
 			Sfx.play("thunder")
 			trauma = minf(trauma + 0.35, 0.6)
+			var bpp: Vector3 = player.global_position
 			for f in get_tree().get_nodes_in_group("enemies"):
-				if f.get("state") != "dead" and global_position.distance_to(f.global_position) < 5.5 * room_tile:
+				if f.get("state") != "dead" and bpp.distance_to(f.global_position) < 5.5 * info.tile:
 					f.take_hit(f.global_position, Stats.get_stat("atk") * 1.4)
-					var bd: Vector3 = global_position - f.global_position
+					var bd: Vector3 = bpp - f.global_position
 					bd.y = 0.0
 					f.kb += bd.normalized() * 4.0
 		"warcry":
