@@ -369,6 +369,7 @@ var royal_overlook := false
 var splice_line := false
 var second_verse := false
 var leech_bond := false
+var keelwind := false
 var salt_lullaby := false
 var coil_chit := false
 var regal_favor := false
@@ -1674,6 +1675,9 @@ func _new_run(new_seed: int) -> void:
 	if leech_bond:
 		Stats.buff_lifesteal -= 0.08
 		leech_bond = false
+	if keelwind:
+		Stats.buff_speed_pct -= 0.1
+		keelwind = false
 	salt_lullaby = false
 	if coil_chit:
 		Stats.dodge -= 0.08
@@ -8913,12 +8917,25 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Leech Bond — pay 5 souls: the mud's hunger lends you its teeth — +8% lifesteal this floor"},
 		{"text": "Murk Purse — pay 3 souls: the depths spill their change — every urn pays +1 soul this floor"},
 		{"text": "Tide Sponge — pay 3 souls: the wrack wrings its water over your wounds — heal 30%"},
+		{"text": "Keelwind — pay 4 souls: the drowned wind fills your stride — +10% speed this floor"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 39:
+	if idx == 40:
 		toast("The water settles back into the stone")
+		return
+	if idx == 39:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the wind isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_count_deal()
+		_souls_l()
+		keelwind = true
+		Stats.buff_speed_pct += 0.1
+		Sfx.play("shrine")
+		toast("KEELWIND — the drowned wind fills your stride")
 		return
 	if idx == 38:
 		if Stats.souls < _soul_cost(3):
