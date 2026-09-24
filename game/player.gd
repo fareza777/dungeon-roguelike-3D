@@ -545,6 +545,19 @@ func _strike() -> void:
 					var mkj := get_tree().current_scene
 					if mkj != null and mkj.has_method("_damage_number"):
 						mkj._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "JUDGED", Color(0.95, 0.75, 0.35), true)
+			if Stats.weapon_id == "ghost_oar":
+				var gon: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", gon)
+				if gon % 6 == 0:
+					Sfx.play("swoosh", 0.8)
+					for gf in get_tree().get_nodes_in_group("enemies"):
+						var gpush: Vector3 = gf.global_position - global_position
+						gpush.y = 0.0
+						if gpush.length() < 2.2 * room_tile and gpush.length() > 0.01:
+							gf.kb += gpush.normalized() * 5.0
+					var mgo := get_tree().current_scene
+					if mgo != null and mgo.has_method("_damage_number"):
+						mgo._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "SWEEP", Color(0.6, 0.8, 0.85), false)
 			if Stats.weapon_id == "hull_mender":
 				var hmn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", hmn)
