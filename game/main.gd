@@ -7898,6 +7898,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.06
 			Stats.buff_speed_pct += 0.04
 			toast("Galley Nets: the trawl's slack is yours — +6% dodge, +4% speed")
+		95:
+			Stats.buff_lifesteal += 0.05
+			Stats.buff_maxhp_pct -= 0.05
+			toast("Leech Bond: the eels lend their hunger — +5% lifesteal, −5% Max HP")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -12306,6 +12310,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Mizzen Step — the aft wind at your heels: +8% speed, +4% dodge"},
 			{"text": "Bilge Wake — the hull's lessons wash over you: +10% XP, −5% souls"},
 			{"text": "Galley Nets — the trawl's slack is yours: +6% dodge, +4% speed"},
+			{"text": "Leech Bond — the eels lend their hunger: +5% lifesteal, −5% Max HP"},
 		]
 	)
 
