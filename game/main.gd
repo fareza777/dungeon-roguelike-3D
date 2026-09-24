@@ -3811,11 +3811,11 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.speed = float(e.speed) * 0.90
 		e.xp_val = int(ceilf(float(e.xp_val) * 0.90))
 	if pale_draught and not e.is_boss:
-	if pale_clock and not e.is_boss:
-		e.speed *= 0.90
-		e.xp_val = int(e.xp_val * 0.92)
 		e.aggro_range = float(e.aggro_range) * 0.88
 		e.dmg = int(ceilf(float(e.dmg) * 1.08))
+	if pale_clock and not e.is_boss:
+		e.speed = float(e.speed) * 0.90
+		e.xp_val = int(ceilf(float(e.xp_val) * 0.92))
 	if bilge_lull and not e.is_boss:
 		e.aggro_range = float(e.aggro_range) * 0.8
 		e.xp_val = int(ceilf(float(e.xp_val) * 1.05))
