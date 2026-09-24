@@ -12234,6 +12234,8 @@ func _pause_btn(txt: String) -> Button:
 	sb.border_color = Color(0.9, 0.75, 0.3, 0.55)
 	sb.set_border_width_all(2)
 	sb.set_corner_radius_all(12)
+	sb.shadow_color = Color(0, 0, 0, 0.5)
+	sb.shadow_size = 4
 	b.add_theme_stylebox_override("normal", sb)
 	var sbh := sb.duplicate() as StyleBoxFlat
 	sbh.bg_color = Color(0.18, 0.15, 0.24, 0.98)
@@ -12242,6 +12244,11 @@ func _pause_btn(txt: String) -> Button:
 	var sbp := sb.duplicate() as StyleBoxFlat
 	sbp.bg_color = Color(0.3, 0.24, 0.12, 1.0)
 	b.add_theme_stylebox_override("pressed", sbp)
+	b.pressed.connect(func() -> void:
+		b.pivot_offset = b.size * 0.5
+		var ptw: Tween = b.create_tween()
+		b.scale = Vector2(0.94, 0.94)
+		ptw.tween_property(b, "scale", Vector2.ONE, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT))
 	return b
 
 
