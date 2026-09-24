@@ -79,7 +79,7 @@ func smash(from_pos: Vector3) -> void:
 			m._burst(global_position + Vector3(0, 0.2 * tile, 0), Color(0.9, 0.85, 0.6))
 		var ub: Dictionary = m.get("biome") if m.get("biome") is Dictionary else {}
 		var reliq := String(ub.get("name", "")) == "Sunken Reliquary"
-		var dry := bool(m.get("abyssal_patience"))
+		var dry := bool(m.get("abyssal_patience")) or bool(m.get("salted_purse"))
 		if bell:
 			Stats.earn_souls((10 if bool(m.get("vessel")) else 5) if not dry else 0)
 			if m.has_method("_quest_event"):
