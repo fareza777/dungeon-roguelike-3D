@@ -7378,6 +7378,7 @@ func _swap_weapon() -> void:
 	var nxt: String = String(Stats.owned_weapons[(idx + 1) % Stats.owned_weapons.size()])
 	_hero_equip(nxt)
 	_quest_event("swap")
+	_burst(player.global_position + Vector3(0, 0.6, 0), Color(0.7, 0.8, 1.0))
 	toast("Swapped to " + String(WDB.get_w(nxt)["name"]))
 
 
