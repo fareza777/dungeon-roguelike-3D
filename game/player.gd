@@ -405,6 +405,18 @@ func _strike() -> void:
 						var mbh := get_tree().current_scene
 						if mbh != null and mbh.has_method("_damage_number"):
 							mbh._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "YOINKED", Color(0.8, 0.6, 0.3), false)
+			if Stats.weapon_id == "candle_snuff":
+				var csn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", csn)
+				if csn % 5 == 0 and f != null and f.get("state") != "dead":
+					var slow_now: float = float(f.get("slow_t") or 0.0)
+					var chill_now: float = float(f.get("chill_t") or 0.0)
+					if slow_now > 0.0 or chill_now > 0.0:
+						f.take_hit(global_position, Stats.get_stat("atk") * 0.6)
+						var mcs := get_tree().current_scene
+						if mcs != null and mcs.has_method("_damage_number"):
+							mcs._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "EXTINGUISHED", Color(0.9, 0.85, 0.5), false)
+						Sfx.play("hit")
 			if Stats.weapon_id == "salt_lantern":
 				var sln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", sln)
