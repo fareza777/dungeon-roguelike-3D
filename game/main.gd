@@ -219,6 +219,7 @@ var dead_reckoner := false
 var pale_dock := false
 var fathom_pact := false
 var bosuns_debt := false
+var crews_share := false
 var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
@@ -1398,6 +1399,7 @@ func _reset_run_state() -> void:
 	pale_dock = false
 	fathom_pact = false
 	bosuns_debt = false
+	crews_share = false
 	combo_rate_bonus = 0.0
 	solitary = false
 	pawn_discount = false
@@ -7564,6 +7566,7 @@ func _offer_omens() -> void:
 		{"text": "PALE DOCK — the berths run dry (orbs mend −30%)... but the toll pays (+15% souls)"},
 		{"text": "FATHOM PACT — the deep steadies your footing (+10% dodge)... but its pupils strike +12% harder"},
 		{"text": "BOSUN'S DEBT — the whistle calls, your hands answer slow (+10% skill recharge)... but the crew learns (+15% XP)"},
+		{"text": "CREW'S SHARE — every pocket pays the purser (+15% souls)... but the lessons thin (−8% XP)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -7614,7 +7617,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 88 if Stats.nemesis != "" else 87
+	var osize := 89 if Stats.nemesis != "" else 88
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -7982,6 +7985,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge += 0.1
 			oname = "FATHOM PACT"
 		86:
+			crews_share = true
+			Stats.soul_gain_pct += 0.15
+			Stats.buff_xp_pct -= 0.08
+			oname = "CREW'S SHARE"
+		87:
 			bosuns_debt = true
 			Stats.buff_xp_pct += 0.15
 			oname = "BOSUN'S DEBT"
@@ -8083,6 +8091,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE DOCK": "Every berth taken is a berth you cannot have — the purse compensates.",
 	"FATHOM PACT": "Stand steady and let them come — the deep likes a duel.",
 	"BOSUN'S DEBT": "The boatswain lends you tempo — and collects it back, with interest.",
+	"CREW'S SHARE": "The crew eats first, the hero last — that's the law of the ship.",
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
