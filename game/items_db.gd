@@ -187,6 +187,7 @@ const DB := {
 	"brine_rat": {"name": "Brine Rat", "chip": "BR", "desc": "The smallest crewmember — curses on you drain a third faster", "rarity": 1, "mods": {}},
 	"barbed_line": {"name": "Barbed Line", "chip": "BL", "desc": "Your REACH bites quicker — the Harpoon drags foes every second strike", "rarity": 1, "mods": {}},
 	"sunken_tithebox": {"name": "Sunken Tithebox", "chip": "ST", "desc": "A drowned chapel's poor-box — +8% XP, +6% souls", "rarity": 2, "mods": {"xp_pct": 0.08, "soul_gain_pct": 0.06}},
+	"choral_pin": {"name": "Choral Pin", "chip": "CP", "desc": "A chorister's collar pin — +7% XP, +3% dodge", "rarity": 1, "mods": {"xp_pct": 0.07, "dodge": 0.03}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
