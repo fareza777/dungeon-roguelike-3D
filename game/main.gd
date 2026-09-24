@@ -3775,6 +3775,8 @@ func _on_enemy_died(e) -> void:
 	for sf_ in get_tree().get_nodes_in_group("enemies"):
 		if sf_ != e and sf_.get("affix") == "soulfed" and sf_.get("state") != "dead" and sf_.global_position.distance_to(e.global_position) < 4.0 * info.tile:
 			sf_.hp = minf(float(sf_.hp_max), float(sf_.hp) + float(sf_.hp_max) * 0.1)
+	if player != null and is_instance_valid(player) and float(player.get("slip_t")) > 0.0:
+		_quest_event("swift_kill")
 	if e.arch_id == "foamcutter":
 		_quest_event("foam_kill")
 	if e.arch_id == "gallows_rev":

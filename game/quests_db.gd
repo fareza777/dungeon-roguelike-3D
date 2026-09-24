@@ -110,6 +110,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Ransom Paid", "desc": "Clear 2 CROWN'S RANSOM floors (0/2)", "kind": "ransomwalk", "need": 2})
 		steps.append({"title": "Elite Season", "desc": "Slay 15 crimson elites (0/15)", "kind": "elite_kill", "need": 15})
 		steps.append({"title": "Smoke Walker", "desc": "Clear 2 BRINE SMOKE floors (0/2)", "kind": "smokewalk", "need": 2})
+		steps.append({"title": "Wake Rider", "desc": "Slay 10 foes while swift-footed (0/10)", "kind": "swift_kill", "need": 10})
 		steps.append({"title": "Wake Watcher", "desc": "Slay 12 Foamcutters (0/12)", "kind": "foam_kill", "need": 12})
 		steps.append({"title": "Unhanged", "desc": "Slay 8 Gallows Revenants (0/8)", "kind": "revenant_kill", "need": 8})
 		steps.append({"title": "Fiend Felling", "desc": "Slay 10 Kelter Fiends (0/10)", "kind": "fiend_kill", "need": 10})
