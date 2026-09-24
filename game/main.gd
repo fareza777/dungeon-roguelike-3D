@@ -10401,6 +10401,7 @@ func _offer_omens() -> void:
 		{"text": "GRIM QUOTA — meet the tally and it pays (+8% souls)... miss it and it collects (+4% damage taken)"},
 		{"text": "DARK COMPASS — it points the fast way down (+10% speed)... through rougher water (+4% damage taken)"},
 		{"text": "KEEL MARK — the hull brands your blade-arm (+6% crit)... and your hide (+3% damage taken)"},
+		{"text": "DROWNED PSALM — the choir teaches you its verses (+8% XP)... but the water's in your ears (−5% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -11133,6 +11134,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.curse_dmg += 0.03
 			oname = "KEEL MARK"
 		155:
+			Stats.buff_xp_pct += 0.08
+			Stats.buff_speed_pct -= 0.05
+			oname = "DROWNED PSALM"
+		156:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -11327,6 +11332,7 @@ func _omen_deal(idx: int) -> void:
 	"GRIM QUOTA": "Every crew has a quota, Kael — yours just happens to be denominated in blood.",
 	"DARK COMPASS": "It never points north, Kael — only down, and always the quick way.",
 	"KEEL MARK": "The ship marks her own, Kael — a brand for the blade, and one for the throat.",
+	"DROWNED PSALM": "Ten thousand verses, Kael — the choir has had a long time to practice.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
