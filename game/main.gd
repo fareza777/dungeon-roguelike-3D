@@ -6832,6 +6832,13 @@ func _toggle_hero(open: bool) -> void:
 		Stats.draft_open = true
 		get_tree().paused = true
 		Sfx.play("click")
+		ui.hero.pivot_offset = ui.hero.size * 0.5
+		ui.hero.scale = Vector2(0.9, 0.9)
+		ui.hero.modulate.a = 0.0
+		var htw: Tween = ui.hero.create_tween()
+		htw.set_parallel(true)
+		htw.tween_property(ui.hero, "scale", Vector2.ONE, 0.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		htw.tween_property(ui.hero, "modulate:a", 1.0, 0.15)
 	else:
 		ui.hero.visible = false
 		Stats.draft_open = false
