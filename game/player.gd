@@ -638,6 +638,16 @@ func _strike() -> void:
 					var mmd := get_tree().current_scene
 					if mmd != null and mmd.has_method("_damage_number"):
 						mmd._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "DIRGE", Color(0.55, 0.6, 0.85), false)
+			if Stats.weapon_id == "grey_oar":
+				var gon: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", gon)
+				if gon % 10 == 0:
+					Sfx.play("swoosh", 0.6)
+					var god2: Vector3 = (f.global_position - global_position).normalized()
+					f.kb -= god2 * 11.0
+					var mgo := get_tree().current_scene
+					if mgo != null and mgo.has_method("_damage_number"):
+						mgo._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "STROKE", Color(0.6, 0.75, 0.55), false)
 			if Stats.weapon_id == "pilot_lantern":
 				var pln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", pln)
