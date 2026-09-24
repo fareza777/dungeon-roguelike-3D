@@ -400,6 +400,7 @@ var leech_bond := false
 var keelwind := false
 var murk_vision := false
 var silt_draught := false
+var drowned_mercy := false
 var salt_lullaby := false
 var coil_chit := false
 var rope_allowance := false
@@ -1793,6 +1794,7 @@ func _new_run(new_seed: int) -> void:
 	if silt_draught:
 		Stats.buff_armor -= 1
 		silt_draught = false
+	drowned_mercy = false
 	salt_lullaby = false
 	if coil_chit:
 		Stats.dodge -= 0.08
@@ -9379,12 +9381,27 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Murk Vision — pay 3 souls: the silt clouds their dead eyes — foes notice you −15% later this floor"},
 		{"text": "Silt Draught — pay 5 souls: the mud settles into your skin — +1 Armor this floor"},
 		{"text": "Undertow Nap — pay 4 souls: the current rocks you a moment — mend 20%"},
+		{"text": "Drowned Mercy — pay 5 souls: the river stays its hand — foes −8% damage this floor"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 43:
+	if idx == 44:
 		toast("The water settles back into the stone")
+		return
+	if idx == 43:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the river's mercy isn't free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_count_deal()
+		_souls_l()
+		drowned_mercy = true
+		for dm in get_tree().get_nodes_in_group("enemies"):
+			if not dm.is_boss:
+				dm.dmg = int(dm.dmg * 0.92)
+		Sfx.play("shrine")
+		toast("DROWNED MERCY — the river stays its hand")
 		return
 	if idx == 42:
 		if Stats.souls < _soul_cost(4):
