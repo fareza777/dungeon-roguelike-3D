@@ -182,6 +182,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Turn the Tide", "desc": "Slay 3 TIDEHELD elites (0/3)", "kind": "affix_tideheld", "need": 3})
 		steps.append({"title": "To the Marrow", "desc": "Slay 3 MARROWED elites (0/3)", "kind": "affix_marrowed", "need": 3})
 		steps.append({"title": "Break the Keel", "desc": "Slay 3 KEELMAW elites (0/3)", "kind": "affix_keelmaw", "need": 3})
+		steps.append({"title": "Lose the Gloom", "desc": "Slay 3 GLOOMTOUCHED elites (0/3)", "kind": "affix_gloomtouched", "need": 3})
 		steps.append({"title": "Cracked Timber", "desc": "Slay 40 foes with the Hull Render (0/40)", "kind": "kill_hull_render", "need": 40})
 		steps.append({"title": "Sing Them Under", "desc": "Slay 40 foes with the Dirge Edge (0/40)", "kind": "kill_dirge_edge", "need": 40})
 		steps.append({"title": "Fouling Tide", "desc": "Slay 40 foes with the Barnacle Edge (0/40)", "kind": "kill_barnacle_edge", "need": 40})
