@@ -290,6 +290,7 @@ var salt_sheath := false
 var brine_hymn := false
 var keelmans_toll := false
 var knotwork := false
+var low_verse := false
 var pilgrims_purse := false
 var crows_toll := false
 var crowns_decree := false
@@ -1375,6 +1376,7 @@ func _new_run(new_seed: int) -> void:
 	if knotwork:
 		Stats.dodge -= 0.05
 		knotwork = false
+	low_verse = false
 	if deck_manifest:
 		Stats.soul_gain_pct -= 0.15
 		deck_manifest = false
@@ -2477,6 +2479,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 	if still_water and not e.is_boss:
 		e.windup_t *= 1.15
 		e.dmg = int(ceil(e.dmg * 1.15))
+	if low_verse and not e.is_boss:
+		e.windup_t *= 1.1
 	if timber_shiver and not e.is_boss:
 		e.hp *= 0.9
 		e.hp_max = e.hp
@@ -9063,16 +9067,30 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Requiem Rest — pay 4 souls: the last verse mends what the sea broke — full mend, all ailments washed"},
 		{"text": "Wake Whistle — pay 4 souls: a shanty whistled fast — +10% attack speed this run"},
 		{"text": "Brine Hymn — pay 3 souls: the verse sticks to every kill — +1 soul per kill this floor"},
+		{"text": "Low Verse — pay 4 souls: the bass note drags their arms — foes telegraph +10% slower this floor"},
 		{"text": "Walk away"}])
 
 
 func _siren_deal(idx: int) -> void:
-	if idx == 18:
+	if idx == 19:
 		Stats.earn_souls(2)
 		_souls_l()
 		_quest_event("siren")
 		Sfx.play("soul")
 		toast("UNSUNG — you walk, and the conch pays +2 souls for your silence")
+		return
+	if idx == 18:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the verse isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		low_verse = true
+		for f in get_tree().get_nodes_in_group("enemies"):
+			if f.get("state") != "dead" and not bool(f.get("is_boss")):
+				f.set("windup_t", float(f.get("windup_t")) * 1.1)
+		Sfx.play("souls")
+		toast("LOW VERSE — the undertow pulls their elbows")
 		return
 	if idx == 17:
 		if Stats.souls < _soul_cost(3):
