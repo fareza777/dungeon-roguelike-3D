@@ -41,6 +41,8 @@ func earn_souls(n: int) -> void:
 		pay = int(ceilf(pay * 0.5))
 	souls += int(ceilf(pay * (1.0 + soul_gain_pct) * (1.0 + 0.04 * float(meta.get("salvor", 0))) * (1.0 + 0.02 * float(meta.get("ferry", 0))) * (1.0 + 0.04 * float(meta.get("keelwright", 0))) * (1.0 + 0.04 * float(meta.get("charterer", 0))) * (1.0 + 0.03 * float(meta.get("keeper", 0)))))
 	souls_run += int(ceilf(pay * (1.0 + soul_gain_pct) * (1.0 + 0.04 * float(meta.get("salvor", 0))) * (1.0 + 0.02 * float(meta.get("ferry", 0))) * (1.0 + 0.04 * float(meta.get("keelwright", 0))) * (1.0 + 0.04 * float(meta.get("charterer", 0))) * (1.0 + 0.03 * float(meta.get("keeper", 0)))))
+	if relics.has("chain_rose") and pay > 0:
+		current_hp = minf(float(get_stat("max_hp")), current_hp + float(get_stat("max_hp")) * 0.02)
 	if souls >= 60:
 		ach["deeppurse"] = true
 var buff_lifesteal := 0.0 # berkat altar Vampiric: run ini saja
