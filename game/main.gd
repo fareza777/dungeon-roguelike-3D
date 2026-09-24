@@ -236,6 +236,7 @@ var grave_knot := false
 var salt_dowry := false
 var sv_doubt := false
 var grim_wager := false
+var windbound_note := false
 var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
@@ -1841,6 +1842,10 @@ func _new_run(new_seed: int) -> void:
 		Stats.buff_atk_pct -= 0.12
 		Stats.buff_crit -= 0.08
 		grim_wager = false
+	if windbound_note:
+		Stats.buff_speed_pct -= 0.04
+		Stats.dodge -= 0.04
+		windbound_note = false
 	if sv_doubt:
 		Stats.buff_atk_pct -= 0.15
 		Stats.buff_maxhp_pct += 0.05
@@ -9328,6 +9333,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Salt Dowry — pay 5 souls: a bride-price from the drowned — +12% souls this floor"},
 			{"text": "Sovereign's Doubt — pay 6 souls: doubt sharpens a blade — +15% ATK, −5% Max HP this floor"},
 			{"text": "Grim Wager — pay 7 souls: Mahzan backs your blade — +12% ATK, +8% crit this floor"},
+			{"text": "Windbound Note — pay 6 souls: the note catches — +4% speed, +4% dodge this floor"},
 		]
 	)
 
@@ -11038,6 +11044,18 @@ func _mahzan_deal(idx: int) -> void:
 				Stats.buff_crit += 0.08
 				Sfx.play("shrine")
 				toast("GRIM WAGER — Mahzan backs your blade")
+		52:
+			if Stats.souls < _soul_cost(6):
+				toast("Six souls — the note isn't free")
+			else:
+				Stats.souls -= _soul_cost(6)
+				_count_deal()
+				_souls_l()
+				windbound_note = true
+				Stats.buff_speed_pct += 0.04
+				Stats.dodge += 0.04
+				Sfx.play("shrine")
+				toast("WINDBOUND NOTE — the note catches the breeze")
 		50:
 			if Stats.souls < _soul_cost(6):
 				toast("Six souls — the doubt isn't free")
