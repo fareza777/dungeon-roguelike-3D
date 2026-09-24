@@ -171,7 +171,11 @@ const LORE_LINES := [
 "Pelican Bone keeps its pockets full of drowned coins — the sea's smallest miser.",
 "The Salt Gibbet was a scaffold once. The noose it wore is now the barb it throws.",
 "The Lantern Jaw walked the wrecks with a wick for a tongue — it still lights the hunt for every corpse behind it.",
-	"The wrecks still sing if you press your ear to the hull — every verse a name the sea forgot.",]
+	"The wrecks still sing if you press your ear to the hull — every verse a name the sea forgot.",
+	"A Keel Chorister only ever knew one hymn — it taught the whole pack to keep its tempo.",
+	"The Pale Wick burns for the sailors whose lanterns never made it home.",
+	"On a Crazed Sea even the dead forget to be patient — so should you.",
+	"At Golden Hour the drowned remember they were rich once — and pay for remembering.",]
 
 var dungeon_tex: Texture2D
 var skeleton_tex: Texture2D
