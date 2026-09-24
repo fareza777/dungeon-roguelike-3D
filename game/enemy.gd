@@ -690,6 +690,11 @@ func _physics_process(delta: float) -> void:
 			hpbar_shown_frac = move_toward(hpbar_shown_frac, frac_t, delta * 3.5)
 			if hpbar_fg != null:
 				hpbar_fg.scale.x = hpbar_shown_frac
+				# sekarat: bar berdenyut memanggil eksekusi
+				if frac_t < 0.25 and frac_t > 0.0:
+					hpbar_fg.modulate.a = 0.65 + 0.35 * absf(sin(Time.get_ticks_msec() / 1000.0 * 9.0))
+				else:
+					hpbar_fg.modulate.a = 0.98
 				hpbar_fg.position.x = -0.5 * BAR_W * room_tile * (1.0 - hpbar_shown_frac)
 	anim_lock = max(0.0, anim_lock - delta)
 	hex_t = maxf(0.0, hex_t - delta)
