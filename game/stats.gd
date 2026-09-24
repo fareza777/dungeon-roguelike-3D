@@ -229,6 +229,7 @@ const ACH_DEF := {
 	"deepvault": "Deep Vault (held 50 souls at once)",
 	"fortyknells": "Forty Knells (40 skill casts in one run)",
 	"seventypacts": "Hundred Pacts (swore 70 omens)",
+	"eightypacts": "Eighty Pacts (swore 80 omens)",
 	"sixtypacts": "Sixty Pacts (60 omens sworn total)",
 	"smokedout": "Powder Burn (clear a GUN SMOKE floor)",
 	"saltwalker": "Saltwalker (clear a SALTGRAVE floor)",
