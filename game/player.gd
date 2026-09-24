@@ -713,6 +713,14 @@ func _strike() -> void:
 					var mwa := get_tree().current_scene
 					if mwa != null and mwa.has_method("_damage_number"):
 						mwa._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "GROUND", Color(0.5, 0.6, 0.68), false)
+			if Stats.weapon_id == "toll_blade":
+				var tbn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", tbn)
+				if tbn % 8 == 0:
+					Stats.earn_souls(1)
+					var mtb := get_tree().current_scene
+					if mtb != null and mtb.has_method("_damage_number"):
+						mtb._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "LEVY", Color(0.78, 0.7, 0.5), false)
 			if Stats.weapon_id == "pilot_lantern":
 				var pln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", pln)
