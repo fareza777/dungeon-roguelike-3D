@@ -6570,6 +6570,7 @@ func _hero_equip(wid: String) -> void:
 		player.equip_weapon(wid)
 	else:
 		Stats.equip_weapon(wid)
+		_refresh_hud_weapon()
 	Sfx.play("pickup")
 	if Stats.owned_weapons.size() >= 15:
 		_ach("arsenal")
@@ -8403,6 +8404,7 @@ func _mirror_deal(idx: int) -> void:
 	_souls_l()
 	var nid: String = String(opts[rng.randi() % opts.size()])
 	player.equip_weapon(nid)
+	_refresh_hud_weapon()
 	Stats.save_game()
 	Sfx.play("levelup")
 	toast("The mirror trades — %s drawn" % String(WDB.get_w(nid)["name"]))
@@ -8625,6 +8627,7 @@ func _cache_deal(idx: int) -> void:
 		return
 	var wid2: String = String(pool[rng.randi() % pool.size()])
 	Stats.equip_weapon(wid2)
+	_refresh_hud_weapon()
 	Sfx.play("shrine")
 	toast("SCAVENGED — " + String(WDB.get_w(wid2)["name"]))
 	_quest_event("cache")
@@ -9387,6 +9390,7 @@ func _mahzan_deal(idx: int) -> void:
 					_souls_l()
 					var nid: String = String(opts[rng.randi() % opts.size()])
 					player.equip_weapon(nid)
+	_refresh_hud_weapon()
 					Stats.save_game()
 					Sfx.play("levelup")
 					toast("Bone Lottery pays out — %s" % String(WDB.get_w(nid)["name"]))
