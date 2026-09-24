@@ -383,7 +383,7 @@ func _build() -> void:
 
 func _vol_row(vb: VBoxContainer, label: String, cur: float, on_change: Callable) -> void:
 	var l := Label.new()
-	l.text = label
+	l.text = label + "  ·  %d%%" % int(cur * 100.0)
 	l.add_theme_font_size_override("font_size", 18)
 	l.modulate = Color(1, 1, 1, 0.7)
 	vb.add_child(l)
@@ -396,6 +396,7 @@ func _vol_row(vb: VBoxContainer, label: String, cur: float, on_change: Callable)
 	_style_slider(s)
 	s.value_changed.connect(on_change)
 	s.value_changed.connect(func(_v: float) -> void:
+		l.text = label + "  ·  %d%%" % int(_v * 100.0)
 		l.modulate = Color(1.0, 0.85, 0.4, 1.0)
 		var ftw := s.create_tween()
 		ftw.tween_property(l, "modulate", Color(1, 1, 1, 0.7), 0.6))
