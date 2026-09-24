@@ -247,6 +247,7 @@ const ACH_DEF := {
 	"deepwater": "Deep Water (reach Floor 40)",
 	"saltveteran": "Salt Veteran (reach Floor 45)",
 	"hadal": "Hadal Pilgrim (reach Floor 50)",
+	"trenchwalker": "Trench Walker (reach Floor 55)",
 	"liberator": "Thrall Liberator (free 15 thralls)",
 	"spender": "Spender (buy 15 deals in one run)",
 	"fulldeck": "Full Deck (every meta upgrade maxed)",
@@ -550,6 +551,8 @@ func note_floor() -> void:
 		ach["saltveteran"] = true
 	if floor_num >= 50 and not ach.has("hadal"):
 		ach["hadal"] = true
+	if floor_num >= 55 and not ach.has("trenchwalker"):
+		ach["trenchwalker"] = true
 	if floor_num >= 50 and not ach.has("halfcentury"):
 		ach["halfcentury"] = true
 	if floor_num >= 75 and not ach.has("threequarters"):
