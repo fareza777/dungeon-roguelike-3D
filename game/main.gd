@@ -11882,6 +11882,11 @@ func _build_minimap() -> void:
 	pd.size = Vector2(6, 6)
 	mv.add_child(pd)
 	ui["map_pdot"] = pd
+	pd.pivot_offset = Vector2(3, 3)
+	var pdtw: Tween = pd.create_tween()
+	pdtw.set_loops()
+	pdtw.tween_property(pd, "scale", Vector2(1.7, 1.7), 0.7).set_trans(Tween.TRANS_SINE)
+	pdtw.tween_property(pd, "scale", Vector2.ONE, 0.7).set_trans(Tween.TRANS_SINE)
 	ui["map_scale"] = sc
 	_update_minimap()
 
