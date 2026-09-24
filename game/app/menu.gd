@@ -382,6 +382,10 @@ func _vol_row(vb: VBoxContainer, label: String, cur: float, on_change: Callable)
 	s.custom_minimum_size = Vector2(0, 32)
 	_style_slider(s)
 	s.value_changed.connect(on_change)
+	s.value_changed.connect(func(_v: float) -> void:
+		l.modulate = Color(1.0, 0.85, 0.4, 1.0)
+		var ftw := s.create_tween()
+		ftw.tween_property(l, "modulate", Color(1, 1, 1, 0.7), 0.6))
 	vb.add_child(s)
 
 
