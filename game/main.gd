@@ -10488,6 +10488,7 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Drowned Mercy — pay 5 souls: the river stays its hand — foes −8% damage this floor"},
 		{"text": "River's Tithe — pay 4 souls: the current pays its tolls — +12% souls this floor"},
 		{"text": "Shellback Draught — pay 4 souls: the turtle's patience is yours — +10% Max HP this floor"},
+		{"text": "River Toll — pay 4 souls: the ford's fee sharpens your eye — +4% crit, +2% dodge this run"},
 		{"text": "Walk away"}])
 
 
@@ -10505,6 +10506,18 @@ func _drowned_deal(idx: int) -> void:
 		toast("SHELLBACK — the turtle's patience settles over you")
 		return
 	if idx == 46:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the ford's fee")
+			return
+		Stats.souls -= _soul_cost(4)
+		_count_deal()
+		_souls_l()
+		Stats.buff_crit += 0.04
+		Stats.dodge += 0.02
+		Sfx.play("shrine")
+		toast("RIVER TOLL — the ford's fee buys a sharper eye (+4% crit, +2% dodge)")
+		return
+	if idx == 47:
 		toast("The water settles back into the stone")
 		return
 	if idx == 44:
