@@ -10334,6 +10334,7 @@ func _offer_omens() -> void:
 		{"text": "PALE DIVIDEND — the dead pay out early (+10% souls)... but the lesson thins (−5% XP)"},
 		{"text": "HULL PRAYER — iron answers prayer (+1 Armor)... the plate isn't free (−6% souls)"},
 		{"text": "GRIM QUOTA — meet the tally and it pays (+8% souls)... miss it and it collects (+4% damage taken)"},
+		{"text": "DARK COMPASS — it points the fast way down (+10% speed)... through rougher water (+4% damage taken)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -11058,6 +11059,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.curse_dmg += 0.04
 			oname = "GRIM QUOTA"
 		153:
+			Stats.buff_speed_pct += 0.10
+			Stats.curse_dmg += 0.04
+			oname = "DARK COMPASS"
+		154:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -11248,6 +11253,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE DIVIDEND": "Money now, wisdom later — the drowned never learned to budget, Kael.",
 	"HULL PRAYER": "Pray hard enough and the hull plates itself, Kael — the offering box never asks twice.",
 	"GRIM QUOTA": "Every crew has a quota, Kael — yours just happens to be denominated in blood.",
+	"DARK COMPASS": "It never points north, Kael — only down, and always the quick way.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
