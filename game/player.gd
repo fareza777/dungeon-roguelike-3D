@@ -567,6 +567,15 @@ func _strike() -> void:
 					var mth := get_tree().current_scene
 					if mth != null and mth.has_method("_damage_number"):
 						mth._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "TOLL +1 ◈", Color(0.9, 0.8, 0.4), false)
+			if Stats.weapon_id == "deep_lamp":
+				var dln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", dln)
+				if dln % 8 == 0:
+					Sfx.play("soul", 0.5)
+					f.set("burn_t", maxf(float(f.get("burn_t")), 2.0))
+					var mdl := get_tree().current_scene
+					if mdl != null and mdl.has_method("_damage_number"):
+						mdl._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "BEACON", Color(1.0, 0.8, 0.4), false)
 			if Stats.weapon_id == "hull_mender":
 				var hmn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", hmn)
