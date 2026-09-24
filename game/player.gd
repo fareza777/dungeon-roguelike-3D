@@ -145,6 +145,7 @@ func _physics_process(delta: float) -> void:
 		atk_buf = 0.0
 		attack()
 	invuln = max(0.0, invuln - delta)
+	transparency = 0.55 * absf(sin(invuln * 14.0)) if invuln > 0.0 else 0.0
 	anim_lock = max(0.0, anim_lock - delta)
 	var tick := delta * (2.0 if Stats.relics.has("pressure_suit") else 1.0) * (1.3 if Stats.relics.has("brine_rat") else 1.0)
 	var rosary_mult_: float = 2.0 if get_tree().current_scene.get("salt_rosary") == true else 1.0
