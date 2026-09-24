@@ -235,6 +235,7 @@ const ACH_DEF := {
 	"deepvault": "Deep Vault (held 50 souls at once)",
 	"fortyknells": "Forty Knells (40 skill casts in one run)",
 	"versatile": "Versatile (cast 6 different skills in one run)",
+	"bright_purse": "Bright Purse (a single soulspill paid 5+ souls)",
 	"seventypacts": "Hundred Pacts (swore 70 omens)",
 	"eightypacts": "Eighty Pacts (swore 80 omens)",
 	"smiths_pride": "Weaponsmith's Pride (master 5 weapons)",

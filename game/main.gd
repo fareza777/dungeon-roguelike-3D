@@ -5618,6 +5618,8 @@ func _on_enemy_died(e) -> void:
 	if String(e.affix) == "soulspill":
 		var _spill := 1 + int(Stats.souls * 0.02)
 		Stats.earn_souls(_spill)
+		if _spill >= 5:
+			_ach("bright_purse")
 		_damage_number(e.global_position + Vector3(0, 1.2 * info.tile, 0), "SOULSPILL +%d◈" % _spill, Color(0.7, 0.85, 1.0), true)
 		Sfx.play("soul", 0.9)
 	var tw := create_tween()
