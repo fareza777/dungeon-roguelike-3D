@@ -16233,6 +16233,15 @@ func _toggle_pause() -> void:
 		ui.dim.modulate.a = 0.0
 		var pdim: Tween = ui.dim.create_tween()
 		pdim.tween_property(ui.dim, "modulate:a", 1.0, 0.2)
+		var _bi := 0
+		for bc in pause_panel.find_children("*", "Button", true, false):
+			bc.modulate = Color(1, 1, 1, 0)
+			bc.position.x -= 14
+			var btw2 := bc.create_tween()
+			btw2.set_parallel(true)
+			btw2.tween_property(bc, "modulate:a", 1.0, 0.18).set_delay(_bi * 0.035)
+			btw2.tween_property(bc, "position:x", bc.position.x + 14, 0.2).set_delay(_bi * 0.035).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+			_bi += 1
 	if not paused_ui and lore_panel != null:
 		lore_panel.visible = false
 	if not paused_ui and bestiary_panel != null:
