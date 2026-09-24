@@ -12353,7 +12353,7 @@ func _update_xp(cur: int, need: int, lv: int) -> void:
 	xtw.tween_property(ui.xp_bar, "value", float(cur), 0.3).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	ui.lv_label.text = "Lv %d" % lv
 	ui.lv_label.pivot_offset = ui.lv_label.size * 0.5
-	var ltw := ui.lv_label.create_tween()
+	var ltw: Tween = ui.lv_label.create_tween()
 	ui.lv_label.scale = Vector2(1.15, 1.15)
 	ltw.tween_property(ui.lv_label, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK)
 
