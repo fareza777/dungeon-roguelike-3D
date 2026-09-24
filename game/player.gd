@@ -240,6 +240,15 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "keelbreak":
+				var kb_ = get_tree().current_scene
+				kb_.set("net_n", int(kb_.get("net_n")) + 1)
+				if int(kb_.get("net_n")) >= 5:
+					kb_.set("net_n", 0)
+					var dir_ := (f.global_position - global_position).normalized()
+					f.velocity += dir_ * 9.0
+					if f.has_method("stun"):
+						f.stun(0.8)
 			if Stats.weapon_id == "widows_fang":
 				f.set("slow_t", 1.5)
 			if Stats.weapon_id == "undertow_blade":
