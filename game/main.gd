@@ -7302,7 +7302,7 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_crit -= 0.08
 			toast("Kedge Whistle: the boatswain's tempo — +15% attack speed, −8% crit")
 		84:
-			Stats.buff_armor += 2.0
+			Stats.buff_armor += 2
 			Stats.buff_speed_pct -= 0.1
 			toast("Keel Ballast: stone in the hold — +2 Armor, −10% speed")
 		50:
