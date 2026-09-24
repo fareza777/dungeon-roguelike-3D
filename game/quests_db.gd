@@ -218,6 +218,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Trim the Wick", "desc": "Clear a Grim Lantern floor (0/1)", "kind": "grimlantern", "need": 1})
 		steps.append({"title": "Still the Swell", "desc": "Clear a Salt Lull floor (0/1)", "kind": "saltlull", "need": 1})
 		steps.append({"title": "Gilded Watch", "desc": "Clear a Keelglow floor (0/1)", "kind": "keelglow", "need": 1})
+		steps.append({"title": "Salvage Diver", "desc": "Clear 2 Pale Salvage floors (0/2)", "kind": "palesalvage", "need": 2})
 		steps.append({"title": "Silence the Sermon", "desc": "Slay 5 Bilge Priors (0/5)", "kind": "bilgeprior_kill", "need": 5})
 		steps.append({"title": "Crack the Plating", "desc": "Crack 8 grimhull-plated foes (0/8)", "kind": "affix_grimhull", "need": 8})
 		steps.append({"title": "Cull the Wrought", "desc": "Fell 6 grimwrought elites (0/6)", "kind": "affix_grimwrought", "need": 6})
