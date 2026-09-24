@@ -162,7 +162,8 @@ const LORE_LINES := [
 "The drowned keep ledgers too — every debt they owed arrives at the surface unpaid.",
 "Below the wrecks the water is patient. It has already won every argument it ever started.",
 "The Saltcaller was a chapel bell once — it rings for whoever is still breathing.",
-"Pelican Bone keeps its pockets full of drowned coins — the sea's smallest miser.",]
+"Pelican Bone keeps its pockets full of drowned coins — the sea's smallest miser.",
+"The Salt Gibbet was a scaffold once. The noose it wore is now the barb it throws.",]
 
 var dungeon_tex: Texture2D
 var skeleton_tex: Texture2D
