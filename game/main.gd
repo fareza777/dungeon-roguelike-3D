@@ -3723,6 +3723,10 @@ func _use_vial() -> void:
 
 
 func _vial_btn() -> void:
+	if vials >= 3:
+		_ach("full_satchel")
+	if vials >= 5:
+		_ach("medic")
 	if ui.has("vial_btn"):
 		ui.vial_btn.text = "⚗ x%d" % vials
 		ui.vial_btn.modulate = Color(1, 1, 1, 1) if vials > 0 else Color(1, 1, 1, 0.4)
