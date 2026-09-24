@@ -97,6 +97,7 @@ const DB := {
 	"splintered_oar": {"name": "Splintered Oar", "chip": "SO", "desc": "The oar remembers rowing — your dash carries you 30% farther", "rarity": 0, "mods": {}},
 	"deck_plank": {"name": "Deck Plank", "chip": "DP", "desc": "Sure footing on any deck — +5% Speed, +5% Attack Speed", "rarity": 0, "mods": {"speed_pct": 0.05, "atk_speed_pct": 0.05}},
 	"bitter_chart": {"name": "Bitter Chart", "chip": "BC", "desc": "The drowned mapped this water in blood — −1 Armor, +25% XP", "rarity": 1, "mods": {"armor": -1.0, "xp_pct": 0.25}},
+	"tarred_sole": {"name": "Tarred Sole", "chip": "TSL", "desc": "+8% speed, +4% dodge — tar sticks, but never to you", "rarity": 2, "mods": {"speed_pct": 0.08, "dodge": 0.04}},
 	"keel_tape": {"name": "Keel Tape", "chip": "KTP", "desc": "+10% attack speed, −5% crit — measured twice, swung once", "rarity": 2, "mods": {"atk_speed_pct": 0.1, "crit": -0.05}},
 	"salt_compass": {"name": "Salt Compass", "chip": "SCT", "desc": "+6% dodge, +10% souls — the needle still points at paydirt", "rarity": 2, "mods": {"dodge": 0.06, "soul_gain_pct": 0.1}},
 	"salt_pearl": {"name": "Salt Pearl", "chip": "SP", "desc": "+10% dodge, +10% speed — nacre the size of a skipping stone", "rarity": 2, "mods": {"dodge": 0.1, "speed_pct": 0.1}},
