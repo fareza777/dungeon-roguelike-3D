@@ -607,6 +607,7 @@ const BESTIARY := {
 	"bell_ringer": ["The Bell Ringer", "His bell knits the dead back together — silence the tolling first."],
 	"moorling": ["The Moorling", "A sodden thing of the moor — it lobs what the water gave it."],
 	"keel_mastiff": ["The Keel Mastiff", "A hound of splinters and rope — it lunges when the pack bays."],
+	"bilge_smith": ["The Bilge Smith", "Hammer and needle — it mends what the sea broke."],
 	"keel_wretch": ["The Keel Wretch", "What was hauled under too many times — barnacled fists, borrowed breath."],
 	"foam_wright": ["The Foam Wright", "It plate-welded its bones in sea-spume — slow, stubborn, hard to shove."],
 	"deck_wight": ["The Deck Wight", "It crewed the heavy oar too long — now it only knows the swing."],
@@ -640,6 +641,7 @@ const KILLER_NAMES := {
 	"bell_ringer": "a Bell Ringer",
 	"moorling": "a Moorling",
 	"keel_mastiff": "a Keel Mastiff",
+	"bilge_smith": "a Bilge Smith",
 	"keel_wretch": "a Keel Wretch",
 	"foam_wright": "a Foam Wright",
 	"deck_wight": "a Deck Wight",
@@ -708,6 +710,7 @@ const KILLER_TIPS := {
 	"bell_ringer": "Tip: the Bell Ringer mends his flock with every toll — cut him down first.",
 	"moorling": "Tip: the Moorling throws slow, heavy sludge — strafe the lob, don't backpedal.",
 	"keel_mastiff": "Tip: the Keel Mastiff lunges — sidestep the leap, don't retreat in a line.",
+	"bilge_smith": "Tip: the Bilge Smith stitches its pack back together — kill it first.",
 	"keel_wretch": "Tip: the Keel Wretch barely staggers — don't brawl, dance around it.",
 	"foam_wright": "Tip: the Foam Wright shrugs off shoves — kite it, don't try to push through.",
 	"deck_wight": "Tip: the Deck Wight hits like a falling mast — let the swing pass, then answer.",
@@ -4035,6 +4038,8 @@ func _on_enemy_died(e) -> void:
 			sf_.hp = minf(float(sf_.hp_max), float(sf_.hp) + float(sf_.hp_max) * 0.1)
 	if player != null and is_instance_valid(player) and float(player.get("slip_t")) > 0.0:
 		_quest_event("swift_kill")
+	if e.arch_id == "bilge_smith":
+		_quest_event("smith_kill")
 	if e.arch_id == "keel_wretch":
 		_quest_event("wretch_kill")
 	if e.arch_id == "moorling":
