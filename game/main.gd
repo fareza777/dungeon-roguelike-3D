@@ -5881,6 +5881,7 @@ func _on_leveled_up(lv: int) -> void:
 	if player != null and is_instance_valid(player):
 		player.hp = minf(Stats.get_stat("max_hp"), player.hp + 2.0)
 		_burst(player.global_position + Vector3(0, 0.4, 0), Color(1.0, 0.85, 0.3))
+		_shock_ring(player.global_position)
 		player.hp_changed.emit(player.hp)
 	_lvl_banner("LEVEL UP — Lv %d" % lv)
 	if lv >= 30:
