@@ -198,9 +198,14 @@ func _show_choices() -> void:
 		var sbh := sb.duplicate() as StyleBoxFlat
 		sbh.bg_color = Color(0.2, 0.18, 0.28)
 		b.add_theme_stylebox_override("hover", sbh)
+		var sbp := sb.duplicate() as StyleBoxFlat
+		sbp.bg_color = Color(0.32, 0.26, 0.14)
+		b.add_theme_stylebox_override("pressed", sbp)
 		var ix := i
 		b.pressed.connect(func() -> void:
 			Sfx.play("click")
+			b.pivot_offset = b.size * 0.5
+			b.scale = Vector2(0.94, 0.94)
 			_choice_box.visible = false
 			choice_made.emit(ix)
 			_close()
