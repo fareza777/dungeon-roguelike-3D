@@ -25,6 +25,7 @@ var _choices: Array = []
 var _panel: PanelContainer
 var _portrait: TextureRect
 var _name_l: Label
+var _last_who := ""
 var _text_l: RichTextLabel
 var _hint: Label
 var _choice_box: VBoxContainer
@@ -154,6 +155,20 @@ func _show(i: int) -> void:
 	var ch: Dictionary = CHARACTERS.get(who, CHARACTERS["narator"])
 	_name_l.text = String(ch["name"])
 	_name_l.modulate = ch["color"]
+	if _last_who != who:
+		_last_who = who
+		_name_l.pivot_offset = Vector2(0, _name_l.size.y)
+		var ntw: Tween = _name_l.create_tween()
+		_name_l.modulate.a = 0.0
+		_name_l.scale = Vector2(1.0, 0.6)
+		ntw.set_parallel(true)
+		ntw.tween_property(_name_l, "modulate:a", 1.0, 0.15)
+		ntw.tween_property(_name_l, "scale", Vector2.ONE, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		var pp := _portrait.get_parent()
+		pp.pivot_offset = pp.size * 0.5
+		var ptw2: Tween = pp.create_tween()
+		pp.scale = Vector2(0.85, 0.85)
+		ptw2.tween_property(pp, "scale", Vector2.ONE, 0.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	var p: String = ch["portrait"]
 	if p != "" and ResourceLoader.exists(PORTRAITS + p):
 		_portrait.texture = load(PORTRAITS + p)
