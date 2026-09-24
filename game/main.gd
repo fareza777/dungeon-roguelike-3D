@@ -307,6 +307,7 @@ var salt_scrip := false
 var brine_graft := false
 var marlin_spike := false
 var fathomsong := false
+var pearl_graft := false
 var pilgrims_purse := false
 var crows_toll := false
 var crowns_decree := false
@@ -1433,6 +1434,9 @@ func _new_run(new_seed: int) -> void:
 		Stats.buff_speed_pct -= 0.1
 		marlin_spike = false
 	fathomsong = false
+	if pearl_graft:
+		Stats.buff_atk_pct -= 0.15
+		pearl_graft = false
 	if deck_manifest:
 		Stats.soul_gain_pct -= 0.15
 		deck_manifest = false
@@ -7857,12 +7861,24 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Pearl Snuff — pay 5 souls: powdered pearl in the nose — the drowned teach +10% XP this run"},
 		{"text": "Tide Pearl — pay 5 souls: held to the chest, it hardens — +1 Armor this run"},
 		{"text": "Salt Splice — pay 4 souls: salt stitched under the skin — +1 Armor this floor"},
+		{"text": "Pearl Graft — pay 6 souls: nacre under the blade-hand — +15% ATK this floor"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 30:
+	if idx == 31:
 		toast("The water settles back into the stone")
+		return
+	if idx == 30:
+		if Stats.souls < _soul_cost(6):
+			toast("Six souls — the nacre isn't free")
+			return
+		Stats.souls -= _soul_cost(6)
+		_souls_l()
+		pearl_graft = true
+		Stats.buff_atk_pct += 0.15
+		Sfx.play("shrine")
+		toast("PEARL GRAFT — the nacre sets into your hand")
 		return
 	if idx == 29:
 		if Stats.souls < _soul_cost(4):
