@@ -166,6 +166,7 @@ const ACH_DEF := {
 	"clamsnack": "Clam Snack (got nipped by a Snap Clam)",
 	"dreadlord": "Dreadlord (survived 3 Dread Tides)",
 	"fullpurse": "Full Purse (held 150 souls at once)",
+	"deepcoffers": "Deep Coffers (held 200 souls at once)",
 	"cart6": "Deep Cartographer (walked all six biomes in one run)",
 	"pinch3": "Pinch Hitter (escaped 3 Void Pinchers in one run)",
 	"abyss3": "Void Shepherd (cleared 3 Abyss floors in one run)",

@@ -3956,6 +3956,8 @@ func _souls_l() -> void:
 		_ach("accountant")
 	if Stats.souls >= 150:
 		_ach("fullpurse")
+	if Stats.souls >= 200:
+		_ach("deepcoffers")
 	if Stats.souls_run >= 150:
 		_ach("salt_merchant")
 	if lucky_net and Stats.souls > _souls_seen:
