@@ -265,6 +265,15 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "tide_press":
+				var tpn: Node = get_tree().current_scene
+				var tpn2: int = int(tpn.get("net_n")) + 1
+				tpn.set("net_n", tpn2)
+				if tpn2 >= 10:
+					tpn.set("net_n", 0)
+					f.take_hit(global_position, float(Stats.get_stat("atk")) * 0.8)
+					if tpn.has_method("_shock_ring"):
+						tpn._shock_ring(f.global_position)
 			if Stats.weapon_id == "salt_scythe":
 				var scn2: Node = get_tree().current_scene
 				var sn2: int = int(scn2.get("net_n")) + 1
