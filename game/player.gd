@@ -249,12 +249,12 @@ func _strike() -> void:
 				crit = true
 				f.set("fs_hit", true)
 			if Stats.weapon_id == "coral_bite":
-			var cb_ = get_tree().current_scene
-			cb_.set("net_n", int(cb_.get("net_n")) + 1)
-			if int(cb_.get("net_n")) >= 7:
-				cb_.set("net_n", 0)
-				f.take_hit(global_position, float(Stats.get_stat("atk")) * 0.8)
-		if Stats.weapon_id == "tar_rope":
+				var cb_ = get_tree().current_scene
+				cb_.set("net_n", int(cb_.get("net_n")) + 1)
+				if int(cb_.get("net_n")) >= 7:
+					cb_.set("net_n", 0)
+					f.take_hit(global_position, float(Stats.get_stat("atk")) * 0.8)
+			if Stats.weapon_id == "tar_rope":
 				var tr_ = get_tree().current_scene
 				tr_.set("net_n", int(tr_.get("net_n")) + 1)
 				if int(tr_.get("net_n")) >= 5:
