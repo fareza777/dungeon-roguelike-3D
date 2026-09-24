@@ -13845,6 +13845,9 @@ func _toggle_pause() -> void:
 		pause_panel.scale = Vector2(0.88, 0.88)
 		var pptw: Tween = pause_panel.create_tween()
 		pptw.tween_property(pause_panel, "scale", Vector2.ONE, 0.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		ui.dim.modulate.a = 0.0
+		var pdim: Tween = ui.dim.create_tween()
+		pdim.tween_property(ui.dim, "modulate:a", 1.0, 0.2)
 	if not paused_ui and lore_panel != null:
 		lore_panel.visible = false
 	if not paused_ui and bestiary_panel != null:
