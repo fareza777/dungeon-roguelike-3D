@@ -606,6 +606,24 @@ func _strike() -> void:
 					var mke := get_tree().current_scene
 					if mke != null and mke.has_method("_damage_number"):
 						mke._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "KNELL +1◈", Color(0.9, 0.8, 0.5), false)
+			if Stats.weapon_id == "pilot_lantern":
+				var pln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", pln)
+				if pln % 8 == 0:
+					Sfx.play("whisper", 0.6)
+					var plb: Node3D = null
+					var pld := 1e9
+					for pf in get_tree().get_nodes_in_group("enemies"):
+						if pf.get("state") != "dead":
+							var pdd: float = pf.global_position.distance_to(global_position)
+							if pdd < pld and pdd < 4.0 * room_tile:
+								pld = pdd
+								plb = pf
+					if plb != null:
+						plb.stun(1.2)
+					var mpl := get_tree().current_scene
+					if mpl != null and mpl.has_method("_damage_number"):
+						mpl._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "PILOT", Color(0.85, 0.9, 0.5), false)
 			if Stats.weapon_id == "wake_splitter":
 				var wsn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", wsn)
