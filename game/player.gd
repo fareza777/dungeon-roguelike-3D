@@ -339,6 +339,20 @@ func _strike() -> void:
 						if rfd.length() > 0.2:
 							rf.velocity += rfd.normalized() * 7.0
 					Sfx.play("hook")
+			if Stats.weapon_id == "gafflant":
+				var gfn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", gfn)
+				if gfn % 8 == 0:
+					var gsorted := get_tree().get_nodes_in_group("enemies").filter(func(g): return g.get("dead") != true)
+					gsorted.sort_custom(func(a2, b2): return global_position.distance_to(a2.global_position) < global_position.distance_to(b2.global_position))
+					var gmarked := 0
+					for gf in gsorted:
+						if gmarked >= 2:
+							break
+						gf.set("vuln_t", 3.0)
+						gmarked += 1
+					if gmarked > 0:
+						Sfx.play("soul")
 			if Stats.weapon_id == "salt_lantern":
 				var sln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", sln)
