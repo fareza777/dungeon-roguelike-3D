@@ -265,6 +265,13 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "kraken_bell":
+				var kbn = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", kbn)
+				if kbn % 9 == 0:
+					for kb in get_tree().get_nodes_in_group("enemies"):
+						if kb != f and kb.global_position.distance_to(f.global_position) < 2.5 * tile:
+							kb.stun(0.6)
 			if Stats.weapon_id == "bilge_hammer":
 				var bhn: Node = get_tree().current_scene
 				var bhn2: int = int(bhn.get("net_n")) + 1
