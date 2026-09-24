@@ -8712,7 +8712,7 @@ func _omen_deal(idx: int) -> void:
 	"DEAD MAN'S WAGES": "Unclaimed coin spends fastest on the living.",
 	"RIGGER'S DUE": "The lines remember who climbs them.",
 	"TIDE'S FAVOR": "The water pushes where it wills.",
-	"BARNACLE OATH": "Everything that sticks to the hull pays rent."
+	"BARNACLE OATH": "Everything that sticks to the hull pays rent.",
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
