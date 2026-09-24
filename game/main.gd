@@ -10711,6 +10711,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.03
 			Stats.buff_aspd -= 0.04
 			toast("Keel Gospel: the hull's own sermon, thick and low — +5% max HP, +3% souls, −4% attack speed this run")
+		170:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct -= 0.04
+			toast("Fog Verse: the mist sings you between their blows — +5% dodge, −4% ATK this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17296,6 +17300,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Salt Wake — the sea parts ahead of you: +6% speed, −4% max HP this run"},
 			{"text": "Grey Haul — the nets come up heavy and wet: +5% souls, +3% XP, −4% dodge this run"},
 			{"text": "Keel Gospel — the hull's own sermon, thick and low: +5% max HP, +3% souls, −4% attack speed this run"},
+			{"text": "Fog Verse — the mist sings you between their blows: +5% dodge, −4% ATK this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
