@@ -184,6 +184,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Iron Keel", "desc": "Survive an Iron Sea floor (0/1)", "kind": "ironsea", "need": 1})
 		steps.append({"title": "Hag Drowner", "desc": "Silence 3 Brine Hags (0/3)", "kind": "hagkill", "need": 3})
 		steps.append({"title": "Riptide Runner", "desc": "Fell 3 riptorn elites (0/3)", "kind": "affix_riptorn", "need": 3})
+		steps.append({"title": "Sea-Tithe", "desc": "Collect from a tithed elite's fall (0/1)", "kind": "affix_tithed", "need": 1})
 		steps.append({"title": "Douse the Pitch", "desc": "Slay Pitch Tenders (0/4)", "kind": "pitchtender_kill", "need": 4})
 		steps.append({"title": "Banish the Wraith", "desc": "Slay Keel Wraiths (0/4)", "kind": "wraithkill", "need": 4})
 		steps.append({"title": "Plug the Well", "desc": "Slay PITCHWELL elites (0/3)", "kind": "affix_pitchwell"})
