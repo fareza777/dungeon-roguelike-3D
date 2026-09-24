@@ -433,6 +433,7 @@ var oakum_chit := false
 var riggers_song := false
 var ballast_swap := false
 var tide_silks := false
+var keel_watch := false
 var salted_aria := false
 var second_verse := false
 var chorus_deep := false
@@ -1978,6 +1979,9 @@ func _new_run(new_seed: int) -> void:
 	if tide_silks:
 		Stats.buff_speed_pct -= 0.08
 		tide_silks = false
+	if keel_watch:
+		Stats.buff_armor -= 1
+		keel_watch = false
 	if salted_aria:
 		Stats.buff_crit -= 0.08
 		salted_aria = false
@@ -11930,6 +11934,7 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Riggers' Song — pay 4 souls: the rope-hands teach your wrists — +10% attack speed this floor"},
 		{"text": "Ballast Swap — pay 3 souls: shift the cargo, shift your stance — +6% dodge this floor"},
 		{"text": "Tide Silks — pay 4 souls: the silk knows the wind — +8% speed this floor"},
+		{"text": "Keel Watch — pay 5 souls: the hull stands watch — +1 armor this floor"},
 		{"text": "Walk away"}])
 
 
@@ -11993,6 +11998,18 @@ func _keel_deal(idx: int) -> void:
 		Stats.buff_speed_pct += 0.08
 		Sfx.play("shrine")
 		toast("TIDE SILKS — the wind leans your way")
+		return
+	if idx == 43:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the watch isn't free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_count_deal()
+		_souls_l()
+		keel_watch = true
+		Stats.buff_armor += 1
+		Sfx.play("shrine")
+		toast("KEEL WATCH — the hull stands between you and the blow")
 		return
 	if idx == 42:
 		toast("The stone settles — the sea keeps its bargains")
