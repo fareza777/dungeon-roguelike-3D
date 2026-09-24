@@ -4761,7 +4761,7 @@ func _on_enemy_died(e) -> void:
 	# LAST FOE — room's final kill cues a gold pulse + bigger soul fling
 	var alive_after := 0
 	for ea in get_tree().get_nodes_in_group("enemies"):
-		if ea != null and ea != e and not bool(ea.get("dead") or false):
+		if ea != null and ea != e and String(ea.get("state")) != "dead":
 			alive_after += 1
 	if alive_after == 0 and not e.is_boss:
 		_burst(player.global_position if player != null else e.global_position)
