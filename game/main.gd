@@ -9304,9 +9304,9 @@ func _offer_omens() -> void:
 		{"text": "GUNPORT OATH — the guns answer to you now (+10% attack)... but their powder is heavy (−10% speed)"},
 		{"text": "COLD RATIONS — hunger sharpens the mind (+12% XP)... but the belly can't hold a shield (−1 armor)"},
 		{"text": "WAKE MONEY — the dead pay for their own funeral (+8% souls)... but grief slows the arm (−8% speed)"},
+		{"text": "HEAVY CROWN — the dead grow thicker skulls (+10% HP)... but your crown weighs gold (+10% ATK)"},
 		{"text": "PALE TIDE — the dead lighten (−10% foe HP)... but your arm goes soft (−5% ATK)"},
 		{"text": "KEELCOIN — souls pay +15% more... but your hull thins (−5% Max HP)"},
-		{"text": "HEAVY CROWN — the dead grow thicker skulls (+10% HP)... but your crown weighs gold (+10% ATK)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
