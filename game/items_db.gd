@@ -216,6 +216,7 @@ const DB := {
 	"barnacle_crown": {"name": "Barnacle Crown", "chip": "BC", "desc": "A coronet grown hard on drowned heads — +1 armor, +3% max HP", "rarity": 1, "mods": {"armor": 1, "max_hp_pct": 0.03}},
 	"toller_button": {"name": "Toller's Button", "chip": "TB", "desc": "A brass toggle off a ferryman's coat — +3% speed, +2% dodge", "rarity": 1, "mods": {"speed_pct": 0.03, "dodge": 0.02}},
 	"grey_drift": {"name": "Grey Drift", "chip": "GD", "desc": "Grey silt that slides off the ledgers it lands on — +3% souls, +2% speed", "rarity": 1, "mods": {"soul_gain_pct": 0.03, "speed_pct": 0.02}},
+	"soul_press": {"name": "Soul Press", "chip": "SP", "desc": "A press that wrings one more drop from every soul it feeds — +3% souls, +2% lifesteal", "rarity": 1, "mods": {"soul_gain_pct": 0.03, "lifesteal": 0.02}},
 # ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
