@@ -734,6 +734,7 @@ const BESTIARY := {
 	"dirge_singer": ["Dirge Singer", "Her keen rallies the pack and unmans your arm — hush her first."],
 	"the_boatswain": ["The Boatswain", "Pipe in one fist, hook in the other — the deck still answers to him."],
 	"gloom_lantern": ["Gloom Lantern", "It rings a light that isn't there — the chime stills your blood."],
+	"wick_tender": ["Wick Tender", "It carries a stub of candle and uses it to mend the dead."],
 	"gunnel_fiend": ["Gunnel Fiend", "It claws along the rail faster than it walks — when it coils, it's already midair."],
 	"pale_lantern": ["Pale Lantern", "A wick of drowned light walking a dead sailor's frame — snuff it and every shadow in the room flinches."],
 	"siren_thrall": ["Siren Thrall", "A sailor the song kept — freed of it only by the blade, and what's left rises as a wisp."],
@@ -781,7 +782,7 @@ const KILLER_NAMES := {
 	"bell_ringer": "a Bell Ringer",
 	"moorling": "a Moorling",
 	"keel_mastiff": "a Keel Mastiff",
-	"salt_lich": "a Salt Lich", "bilge_fury": "a Bilge Fury", "siren_thrall": "a Siren Thrall", "pale_lantern": "a Pale Lantern", "gunnel_fiend": "a Gunnel Fiend", "bilge_cantor": "a Bilge Cantor", "tide_bailiff": "a Tide Bailiff", "salt_skimmer": "a Salt Skimmer", "brine_monk": "a Brine Monk", "deck_rigger": "a Deck Rigger", "dread_gull": "a Dread Gull", "gale_singer": "a Gale Singer", "snatch_widow": "a Snatch Widow", "gunnel_gnat": "a Gunnel Gnat", "deck_reverend": "a Deck Reverend", "mast_lurcher": "a Mast Lurcher", "dirge_singer": "a Dirge Singer", "the_boatswain": "the Boatswain", "gloom_lantern": "a Gloom Lantern",
+	"salt_lich": "a Salt Lich", "bilge_fury": "a Bilge Fury", "siren_thrall": "a Siren Thrall", "pale_lantern": "a Pale Lantern", "gunnel_fiend": "a Gunnel Fiend", "bilge_cantor": "a Bilge Cantor", "tide_bailiff": "a Tide Bailiff", "salt_skimmer": "a Salt Skimmer", "brine_monk": "a Brine Monk", "deck_rigger": "a Deck Rigger", "dread_gull": "a Dread Gull", "gale_singer": "a Gale Singer", "snatch_widow": "a Snatch Widow", "gunnel_gnat": "a Gunnel Gnat", "deck_reverend": "a Deck Reverend", "mast_lurcher": "a Mast Lurcher", "dirge_singer": "a Dirge Singer", "the_boatswain": "the Boatswain", "gloom_lantern": "a Gloom Lantern", "wick_tender": "a Wick Tender",
 	"deck_brute": "a Deck Brute",
 	"salt_eel": "a Salt Eel",
 	"quarter_ghost": "a Quarter Ghost",
@@ -878,6 +879,7 @@ const KILLER_TIPS := {
 	"dirge_singer": "Tip: the Dirge Singer's wail hardens her pack and saps your blows — close on her before the chorus rises.",
 	"the_boatswain": "Tip: the Boatswain's pipe-sting stuns and his hook drags you in — sidestep the whistle, then punish.",
 	"gloom_lantern": "Tip: a Gloom Lantern keeps its distance and tolls your reflexes flat — cut the angle, not the chase.",
+	"wick_tender": "Tip: a Wick Tender's flame knits the pack's wounds — kill it before the wick reaches them.",
 	"salt_lich": "Tip: Salt Liches telegraph a long windup — close the gap fast or weave between bolts.",
 	"deck_brute": "Tip: Deck Brutes barely feel knockback — break their windup with a stun, or never be there when it lands.",
 	"salt_eel": "Tip: Salt Eels lunge in a straight bite — sidestep and the coil overshoots.",
@@ -3237,6 +3239,7 @@ const FIRST_SEEN := {
 	"dirge_singer": "A Dirge Singer draws breath for the long wail — silence it early.",
 	"the_boatswain": "The Boatswain's pipe sounds across the deck — his crew snaps to attention.",
 	"gloom_lantern": "A Gloom Lantern swings from the dark, ringing nowhere-light.",
+	"wick_tender": "A Wick Tender shuffles up, shielding a candle that shouldn't still be lit.",
 	"salt_skimmer": "A Salt Skimmer shears across the water — it comes at you fast."
 }
 
@@ -4933,6 +4936,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("boatswain_kill")
 	if e.arch_id == "gloom_lantern":
 		_quest_event("gloom_kill")
+	if e.arch_id == "wick_tender":
+		_quest_event("wick_kill")
 		if int(Stats.arch_kills.get("gloom_lantern", 0)) >= 10:
 			_ach("gloomfall")
 	if e.arch_id == "salt_lich":
