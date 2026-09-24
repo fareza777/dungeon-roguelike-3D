@@ -14594,6 +14594,11 @@ func _build_minimap() -> void:
 	pd.size = Vector2(6, 6)
 	mv.add_child(pd)
 	ui["map_pdot"] = pd
+	var wd := ColorRect.new()
+	wd.color = Color(1.0, 0.85, 0.4)
+	wd.size = Vector2(3, 3)
+	ui.map_view.add_child(wd)
+	ui["map_wedge"] = wd
 	pd.pivot_offset = Vector2(3, 3)
 	var pdtw: Tween = pd.create_tween()
 	pdtw.set_loops()
@@ -14620,6 +14625,9 @@ func _update_minimap() -> void:
 		return
 	var sc: float = ui["map_scale"]
 	ui.map_pdot.position = _map_pos(player.global_position, sc)
+	if ui.has("map_wedge"):
+		var fdir := Vector3(sin(player.rotation.y), 0, cos(player.rotation.y))
+		ui.map_wedge.position = _map_pos(player.global_position + fdir * 1.8, sc)
 	for d in map_dots:
 		if is_instance_valid(d):
 			d.queue_free()
