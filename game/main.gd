@@ -449,6 +449,7 @@ var rigging_rites := false
 var mudlarks_due := false
 var shanty_draught := false
 var chain_lash := false
+var fathom_chalk := false
 var kelp_tithe := false
 var bosuns_chit := false
 var deck_psalm := false
@@ -2013,6 +2014,9 @@ func _new_run(new_seed: int) -> void:
 	if chain_lash:
 		Stats.buff_atk_pct -= 0.10
 		chain_lash = false
+	if fathom_chalk:
+		Stats.buff_crit -= 0.08
+		fathom_chalk = false
 	if rigging_rites:
 		Stats.buff_aspd -= 0.08
 		rigging_rites = false
@@ -12717,6 +12721,7 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Tide Silks — pay 4 souls: the silk knows the wind — +8% speed this floor"},
 		{"text": "Keel Watch — pay 5 souls: the hull stands watch — +1 armor this floor"},
 		{"text": "Chain Lash — pay 4 souls: the cathead swings its iron — +10% ATK this floor"},
+		{"text": "Fathom Chalk — pay 5 souls: the deep marks your aim — +8% crit this floor"},
 		{"text": "Walk away"}])
 
 
@@ -12806,6 +12811,18 @@ func _keel_deal(idx: int) -> void:
 		toast("CHAIN LASH — the iron swings your way (+10% ATK this floor)")
 		return
 	if idx == 44:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the chalk isn't free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_count_deal()
+		_souls_l()
+		fathom_chalk = true
+		Stats.buff_crit += 0.08
+		Sfx.play("shrine")
+		toast("FATHOM CHALK — the deep marks your aim (+8% crit this floor)")
+		return
+	if idx == 45:
 		toast("The stone settles — the sea keeps its bargains")
 		return
 	if idx == 36:
