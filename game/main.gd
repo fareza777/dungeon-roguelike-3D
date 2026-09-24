@@ -10892,7 +10892,7 @@ func _on_keel_invoked(s) -> void:
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 38:
+	if idx == 37:
 		if Stats.souls < _soul_cost(3):
 			toast("Three souls — the ration isn't free")
 			return
@@ -10904,7 +10904,7 @@ func _keel_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("BOSUN'S RATION — salt beef and spite")
 		return
-	if idx == 37:
+	if idx == 38:
 		toast("The stone settles — the sea keeps its bargains")
 		return
 	if idx == 36:
