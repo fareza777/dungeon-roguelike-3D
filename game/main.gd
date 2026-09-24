@@ -198,6 +198,7 @@ var pilot_dead := false
 var fathom_tax := false
 var hull_rot := false
 var still_water := false
+var gold_hull := false
 var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
@@ -1198,6 +1199,7 @@ func _reset_run_state() -> void:
 	fathom_tax = false
 	hull_rot = false
 	still_water = false
+	gold_hull = false
 	combo_rate_bonus = 0.0
 	solitary = false
 	pawn_discount = false
@@ -6593,6 +6595,7 @@ func _offer_omens() -> void:
 		{"text": "FATHOM TAX — the dead stand +15% taller... but every soul pays +20% more"},
 		{"text": "HULL ROT — your planks go soft (−1 Armor)... but the rot teaches (+20% XP)"},
 		{"text": "STILL WATER — the dead swing +15% slower to aim... but land +15% harder"},
+		{"text": "GOLD HULL — gilded planks (−1 Armor)... but every soul pays +15%"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -6643,7 +6646,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 73 if Stats.nemesis != "" else 72
+	var osize := 74 if Stats.nemesis != "" else 73
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -6949,6 +6952,11 @@ func _omen_deal(idx: int) -> void:
 			still_water = true
 			oname = "STILL WATER"
 		72:
+			gold_hull = true
+			Stats.soul_gain_pct += 0.15
+			Stats.buff_armor -= 1
+			oname = "GOLD HULL"
+		73:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -7025,6 +7033,7 @@ func _omen_deal(idx: int) -> void:
 		"FATHOM TAX": "The deep charges for every fathom — pay in dead men's coin.",
 		"HULL ROT": "Soft planks, hard lessons — the rot teaches what the armor couldn't.",
 		"STILL WATER": "Still water runs deepest — slow hands, heavy fists.",
+		"GOLD HULL": "Gilded ships sink finest — the coin was never worth the planks.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
 		"OLD SALT": "Lighter purse, heavier arm — the old hands swear by it.",
 		"SWORN HULL": "The hull thickens and the chase quickens — even trade.",
