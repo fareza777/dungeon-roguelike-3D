@@ -6532,7 +6532,8 @@ func _build_draft_cards() -> void:
 		var card := PanelContainer.new()
 		card.custom_minimum_size = Vector2(148, 190)
 		var sb := StyleBoxFlat.new()
-		sb.bg_color = ITEMS.RARITY_COLORS[int(it["rarity"])].lerp(Color(0.14, 0.13, 0.2, 1.0), 0.88)
+		var card_bg: Color = ITEMS.RARITY_COLORS[int(it["rarity"])].lerp(Color(0.14, 0.13, 0.2, 1.0), 0.88)
+		sb.bg_color = card_bg
 		sb.border_color = ITEMS.RARITY_COLORS[int(it["rarity"])]
 		sb.set_border_width_all(3)
 		sb.set_corner_radius_all(12)
@@ -6555,6 +6556,11 @@ func _build_draft_cards() -> void:
 		nl.add_theme_font_size_override("font_size", 18)
 		nl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		nl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		var rl := Label.new()
+		rl.text = ["COMMON", "RARE", "EPIC", "LEGENDARY"][mini(int(it["rarity"]), 3)]
+		rl.modulate = ITEMS.RARITY_COLORS[int(it["rarity"])]
+		rl.add_theme_font_size_override("font_size", 11)
+		rl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		var dl := Label.new()
 		dl.text = String(it["desc"])
 		dl.add_theme_font_size_override("font_size", 15)
@@ -6565,7 +6571,7 @@ func _build_draft_cards() -> void:
 — owned ×%d —" % Stats.relics.count(rid_card)
 		dl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		dl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		for cc in [chip, nl, dl]:
+		for cc in [chip, nl, rl, dl]:
 			cc.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			cvb.add_child(cc)
 		card.add_child(cvb)
@@ -6575,12 +6581,12 @@ func _build_draft_cards() -> void:
 			var htw: Tween = card.create_tween()
 			htw.set_parallel(true)
 			htw.tween_property(card, "scale", Vector2(1.05, 1.05), 0.12)
-			htw.tween_property(sb, "bg_color", Color(0.2, 0.18, 0.3, 1.0), 0.12))
+			htw.tween_property(sb, "bg_color", card_bg.lightened(0.35), 0.12))
 		card.mouse_exited.connect(func() -> void:
 			var xtw: Tween = card.create_tween()
 			xtw.set_parallel(true)
 			xtw.tween_property(card, "scale", Vector2.ONE, 0.12)
-			xtw.tween_property(sb, "bg_color", Color(0.14, 0.13, 0.2, 1.0), 0.12))
+			xtw.tween_property(sb, "bg_color", card_bg, 0.12))
 		card.gui_input.connect(func(e: InputEvent) -> void:
 			if (e is InputEventMouseButton or e is InputEventScreenTouch) and e.pressed:
 				Sfx.play("click")
