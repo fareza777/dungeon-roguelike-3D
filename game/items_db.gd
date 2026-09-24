@@ -190,6 +190,7 @@ const DB := {
 	"choral_pin": {"name": "Choral Pin", "chip": "CP", "desc": "A chorister's collar pin — +7% XP, +3% dodge", "rarity": 1, "mods": {"xp_pct": 0.07, "dodge": 0.03}},
 	"candle_stub": {"name": "Candle Stub", "chip": "CS", "desc": "A sailor's last light — +5% XP, +5% souls", "rarity": 1, "mods": {"xp_pct": 0.05, "soul_gain_pct": 0.05}},
 	"wraith_glass": {"name": "Wraith Glass", "chip": "WG", "desc": "See-through cold — +5% dodge, +10% souls", "rarity": 1, "mods": {"dodge": 0.05, "soul_gain_pct": 0.10}},
+	"wake_lantern": {"name": "Wake Lantern", "chip": "WL", "desc": "It burns with cold green fire — +4% speed, +8% XP", "rarity": 1, "mods": {"speed_pct": 0.04, "xp_pct": 0.08}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
