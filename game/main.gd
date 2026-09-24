@@ -422,6 +422,8 @@ var run_ragged := false
 var feast_tide := false
 var purse_tide := false
 var hollow_tide := false
+var bless_pick: Array = []
+var bless_pending := false
 var wet_wool := false
 var ballast_beads := false
 var dowser_knot := false
@@ -9214,6 +9216,10 @@ func _on_dlg_choice(idx: int) -> void:
 		dlg_pending_choice = -1
 		_siren_deal(idx)
 		return
+	if bless_pending:
+		bless_pending = false
+		if idx >= 0 and idx < bless_pick.size():
+			idx = int(bless_pick[idx])
 	match idx:
 		0:
 			Stats.buff_atk_pct += 0.15
@@ -14918,9 +14924,7 @@ func _on_shrine_invoked(s) -> void:
 		"Every floor you survive, the Bone King's patience thins. Take a blessing.",
 		"I was a king once too, you know. A kinder one. Choose your boon.",
 	]
-	_say(
-		[{"who": "mahzan", "text": mlines[rng.randi_range(0, mlines.size() - 1)]}],
-		[
+	var bless_opts := [
 			{"text": "War Blessing — +15% ATK this run"},
 			{"text": "Iron Blessing — +1 Armor this run"},
 			{"text": "Blood Blessing — fully heal HP"},
@@ -15052,7 +15056,16 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Keelgrease — oiled joints, quicker hands: +6% attack speed, +2% dodge this run"},
 			{"text": "Keel Saint — the drowned pray your purse fatter: +8% souls, +5% XP this run"},
 			{"text": "Deep Call — the deep answers your craft: +12% skill recharge this run"},
-		]
+	]
+	bless_pick.clear()
+	while bless_pick.size() < 4:
+		var _bp := rng.randi_range(0, bless_opts.size() - 1)
+		if not bless_pick.has(_bp):
+			bless_pick.append(_bp)
+	bless_pending = true
+	_say(
+		[{"who": "mahzan", "text": mlines[rng.randi_range(0, mlines.size() - 1)]}],
+		[bless_opts[bless_pick[0]], bless_opts[bless_pick[1]], bless_opts[bless_pick[2]], bless_opts[bless_pick[3]]]
 	)
 
 
