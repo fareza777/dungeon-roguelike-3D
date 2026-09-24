@@ -45,6 +45,8 @@ func earn_souls(n: int) -> void:
 		current_hp = minf(float(get_stat("max_hp")), current_hp + float(get_stat("max_hp")) * 0.02)
 	if souls >= 60:
 		ach["deeppurse"] = true
+	if souls >= 500:
+		ach["soulheavy"] = true
 var buff_lifesteal := 0.0 # berkat altar Vampiric: run ini saja
 var buff_maxhp_pct := 0.0 # omen Leeching Vein: pengorbanan Max HP
 var buff_aspd := 0.0 # berkat altar Fury: run ini saja
@@ -265,6 +267,7 @@ const ACH_DEF := {
 	"votive": "Votive (take 12 blessings in one run)",
 	"sainted": "Sainted (take 18 blessings in one run)",
 	"salthoard": "Salt Hoard (hold 300 souls at once)",
+	"soulheavy": "Soul Heavy (hold 500 souls at once)",
 	"full_ledger": "Full Ledger (strike 60 bargains in one run)",
 	"full_satchel": "Full Satchel (hold 3 soul vials at once)",
 	"medic": "Ship's Medic (hold 5 soul vials at once)",
