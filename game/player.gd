@@ -425,6 +425,12 @@ func _strike() -> void:
 					if mwl != null and mwl.has_method("_spawn_wisp_at"):
 						mwl._spawn_wisp_at(f.global_position + Vector3(0.5 * room_tile, 0, 0))
 						Sfx.play("pickup")
+			if Stats.weapon_id == "anchor_maul":
+				var amn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", amn)
+				if amn % 3 == 0:
+					f.velocity += (f.global_position - global_position).normalized() * 9.0
+					Sfx.play("hit", 0.6)
 			if Stats.weapon_id == "barnacle_edge":
 				var ben: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", ben)
