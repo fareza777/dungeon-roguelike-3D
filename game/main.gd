@@ -582,6 +582,7 @@ const BESTIARY := {
 	"wrack_eel": ["The Wrack Eel", "A lash of cold muscle — it strikes across the room in a blink."],
 	"rust_saw": ["The Rust Saw", "A blade gone to rot and tetanus — its wounds fester long after the cut."],
 	"bell_ringer": ["The Bell Ringer", "His bell knits the dead back together — silence the tolling first."],
+	"salt_skiff": ["The Salt Skiff", "A skiff that grew legs — it runs the shallows faster than any oar."],
 	"lantern_jaw": ["The Lantern Jaw", "A drowned lampman — its jaw still burns for the hunt."],
 	"keel_ghost": ["The Keel Ghost", "It walks the keel's line — your blows slide through it like water."],
 	"salt_gibbet": ["The Salt Gibbet", "It hangs barbs from its ribs and throws them like a man who ran out of patience."],
@@ -609,6 +610,7 @@ const KILLER_NAMES := {
 	"brute": "a Bone Brute", "bomber": "a Boom Bones", "archer": "a Skeletal Archer",
 	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade", "hexer": "the Hex Priest", "spiker": "a Spiked Cadaver", "lurker": "the Dweller", "golem": "the Bone Golem", "maiden": "the Wailing Maiden", "revenant": "the Revenant", "shieldbearer": "the Shieldbearer", "herald": "the Herald", "batterer": "the Batterer", "duelist": "the Pale Duelist", "hound": "a Bone Hound", "moth": "a Soul Moth", "orator": "the Grave Orator", "crowned": "the Crowned", "tither": "the Tithing", "digger": "the Gravedigger", "drowned": "the Drowned One", "keelhound": "a Keelhound", "maw": "a Barnacle Maw", "siren": "the Void Siren", "gargoyle": "a Pearl Gargoyle", "mireling": "a Mireling", "saltghast": "a Saltghast", "waver": "a Waver", "keelbeak": "a Keelbeak", "bilge_witch": "a Bilge Witch", "rust_jaw": "a Rust Jaw", "salt_herald": "a Salt Herald", "hull_widow": "a Hull Widow", "deck_gunner": "a Deck Gunner", "reef_caller": "a Reef Caller", "chum_gnawer": "a Chum Gnawer", "rotting_bride": "a Rotting Bride", "salt_cantor": "a Salt Cantor", "kelter_husk": "a Kelter Husk", "deck_brood": "a Deck Brood", "rust_fanatic": "a Rust Fanatic", "chimehead": "a Chimehead", "bilge_sprite": "a Bilge Sprite", "salt_leech": "a Salt Leech", "gutter_chaplain": "a Gutter Chaplain", "bell_warden": "a Bell Warden", "hookfin": "a Hookfin", "wrack_eel": "a Wrack Eel", "rust_saw": "a Rust Saw",
 	"bell_ringer": "a Bell Ringer",
+	"salt_skiff": "a Salt Skiff",
 	"lantern_jaw": "a Lantern Jaw",
 	"keel_ghost": "a Keel Ghost",
 	"salt_gibbet": "a Salt Gibbet",
@@ -671,6 +673,7 @@ const KILLER_TIPS := {
 	"wrack_eel": "Tip: the Wrack Eel coils then lunges across the deck — keep circling, never back-pedal.",
 	"rust_saw": "Tip: the Rust Saw's blade leaves rot in the wound — end the fight fast or bleed rust.",
 	"bell_ringer": "Tip: the Bell Ringer mends his flock with every toll — cut him down first.",
+	"salt_skiff": "Tip: the Salt Skiff is fast but fragile — meet it with wide swings, not chasing feet.",
 	"lantern_jaw": "Tip: the Lantern Jaw sees you from far off — expect it early, or cut the lamp out first.",
 	"keel_ghost": "Tip: the Keel Ghost cannot be knocked back — space it or burn it down.",
 	"salt_gibbet": "Tip: the Salt Gibbet keeps its distance and pelts you — rush it or break its line of sight.",
@@ -3858,6 +3861,8 @@ func _on_enemy_died(e) -> void:
 			sf_.hp = minf(float(sf_.hp_max), float(sf_.hp) + float(sf_.hp_max) * 0.1)
 	if player != null and is_instance_valid(player) and float(player.get("slip_t")) > 0.0:
 		_quest_event("swift_kill")
+	if e.arch_id == "salt_skiff":
+		_quest_event("skiff_kill")
 	if e.arch_id == "lantern_jaw":
 		_quest_event("lamp_kill")
 	if e.arch_id == "keel_ghost":
