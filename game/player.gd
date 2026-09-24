@@ -240,6 +240,19 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "thresh_hook":
+				var th_ = get_tree().current_scene
+				th_.set("net_n", int(th_.get("net_n")) + 1)
+				if int(th_.get("net_n")) >= 8:
+					th_.set("net_n", 0)
+					var thlist: Array = []
+					for other2 in enemies:
+						if other2 != f and String(other2.get("state")) != "dead":
+							thlist.append(other2)
+					thlist.sort_custom(func(a, b): return a.global_position.distance_to(global_position) < b.global_position.distance_to(global_position))
+					var thd: float = Stats.get_atk() * 0.5
+					for ti in range(mini(3, thlist.size())):
+						thlist[ti].take_hit(global_position, thd)
 			if Stats.weapon_id == "stanchion":
 				var st2_ = get_tree().current_scene
 				st2_.set("net_n", int(st2_.get("net_n")) + 1)
