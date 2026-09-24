@@ -4611,6 +4611,16 @@ func spawn_weapon_drop(pos: Vector3, wid: String) -> Node3D:
 	room.add_child(pk)
 	pk.global_position = pos
 	pk.setup(wid, skeleton_tex, info.tile)
+	var _glow := OmniLight3D.new()
+	_glow.light_color = Color(1.0, 0.8, 0.35)
+	_glow.light_energy = 0.7
+	_glow.omni_range = 3.0 * info.tile
+	_glow.position = Vector3(0, 1.1 * info.tile, 0)
+	pk.add_child(_glow)
+	var _gtw := pk.create_tween()
+	_gtw.set_loops()
+	_gtw.tween_property(_glow, "light_energy", 1.2, 0.9).set_trans(Tween.TRANS_SINE)
+	_gtw.tween_property(_glow, "light_energy", 0.7, 0.9).set_trans(Tween.TRANS_SINE)
 	return pk
 
 
