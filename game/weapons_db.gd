@@ -139,7 +139,16 @@ const POOL := ["bone_axe", "twin_fang", "hex_staff", "war_blade", "storm_axe", "
 
 
 static func get_w(id: String) -> Dictionary:
-	return DB.get(id, DB["rusty_blade"])
+	var w: Dictionary = DB.get(id, DB["rusty_blade"])
+	if not w.has("gltf") or not w.has("tint") or not w.has("mods"):
+		w = w.duplicate()
+		if not w.has("gltf"):
+			w["gltf"] = "Skeleton_Blade.gltf"
+		if not w.has("tint"):
+			w["tint"] = Color(0.9, 0.85, 0.8)
+		if not w.has("mods"):
+			w["mods"] = {}
+	return w
 
 
 static func roll_drop(rng: RandomNumberGenerator, current_id: String) -> String:
