@@ -4567,7 +4567,7 @@ func _vial_btn() -> void:
 		_ach("medic")
 	if ui.has("vial_btn"):
 		ui.vial_btn.text = "⚗ x%d" % vials
-		ui.vial_btn.modulate = Color(1, 1, 1, 1) if vials > 0 else Color(1, 1, 1, 0.4)
+		ui.vial_btn.modulate = Color(1.15, 1.0, 0.75, 1) if vials > 0 else Color(1, 1, 1, 0.4)
 		var vtw: Tween = ui.vial_btn.create_tween()
 		vtw.tween_property(ui.vial_btn, "scale", Vector2(1.2, 1.2), 0.08).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 		vtw.tween_property(ui.vial_btn, "scale", Vector2.ONE, 0.12)
