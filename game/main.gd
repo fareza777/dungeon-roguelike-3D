@@ -10283,6 +10283,7 @@ func _offer_omens() -> void:
 		{"text": "LAST ORDERS — fight like it's the final watch (+10% ATK)... because it might be (−8% Max HP)"},
 		{"text": "DEAD RECKONING — the sea teaches by the fathom (+15% XP)... but the charts bite (−1 Armor)"},
 		{"text": "CANDLE WATCH — burn fast while the wick lasts (+8% attack speed)... wax runs out (+5% damage taken)"},
+		{"text": "SIREN'S OATH — her song slips you past their claws (+8% dodge)... but it echoes in your wounds (+6% damage taken)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -10991,6 +10992,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.curse_dmg += 0.05
 			oname = "CANDLE WATCH"
 		149:
+			Stats.dodge += 0.08
+			Stats.curse_dmg += 0.06
+			oname = "SIREN'S OATH"
+		150:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -11177,6 +11182,7 @@ func _omen_deal(idx: int) -> void:
 	"LAST ORDERS": "The bosun's last call always lands hardest, Kael — just don't count tomorrow's watches.",
 	"DEAD RECKONING": "A good reckoner knows where he is — a dead one learns faster, Kael.",
 	"CANDLE WATCH": "A candle at both ends shines twice as bright, Kael — and half as long.",
+	"SIREN'S OATH": "Her song parts around you like water, Kael — but water remembers every shape it touched.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
