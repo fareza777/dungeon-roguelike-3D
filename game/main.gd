@@ -1046,7 +1046,7 @@ const KILLER_TIPS := {
 	"keel_sexton": "Tip: the Sexton raises the fallen back to work — shut the graveyard down first.",
 	"chain_warden": "Tip: the Warden pins your foot and filches your coin — break range before you answer.",
 	"salt_curate": "Tip: the Curate mends its flock while you fight — kill the priest before its congregation.",
-	"keel_verger": "Tip: the Verger slips away and hurries the rest — corner it first, or fight the whole choir."
+	"keel_verger": "Tip: the Verger slips away and hurries the rest — corner it first, or fight the whole choir.",
 	"keel_summoner": "Tip: the Keel Summoner raises the bilge crew faster than you can cut them — silence the bell first.",
 	"salt_lich": "Tip: Salt Liches telegraph a long windup — close the gap fast or weave between bolts.",
 	"deck_brute": "Tip: Deck Brutes barely feel knockback — break their windup with a stun, or never be there when it lands.",
