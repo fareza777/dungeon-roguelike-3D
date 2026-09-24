@@ -73,6 +73,7 @@ const DB := {
 	"gale_singer": {"glb": "Skeleton_Mage.glb", "hp": 3.0, "spd": 0.9, "dmg": 1, "windup": 0.55, "reach": 0.8, "prefer": 3.5, "aggro": 6.5, "xp": 9, "tint": Color(0.6, 0.9, 1.0), "scale": 1.0, "ranged": true, "proj_speed": 3.4, "kb_resist": 0.15, "gale": true},
 	"snatch_widow": {"glb": "Skeleton_Rogue.glb", "hp": 3.6, "spd": 1.25, "dmg": 1, "windup": 0.45, "reach": 0.8, "aggro": 6.5, "xp": 9, "tint": Color(0.3, 0.75, 0.6), "scale": 1.05, "kb_resist": 0.4, "keelh": true},
 	"gunnel_gnat": {"glb": "Skeleton_Minion.glb", "hp": 0.8, "spd": 2.8, "dmg": 1, "windup": 0.15, "reach": 0.45, "aggro": 8.0, "xp": 3, "tint": Color(0.8, 0.85, 0.5), "scale": 0.5, "dash": true, "kb_resist": 0.0, "eel": true},
+	"deck_reverend": {"glb": "Skeleton_Mage.glb", "hp": 2.6, "spd": 1.1, "dmg": 1, "windup": 0.4, "reach": 0.7, "prefer": 3.8, "aggro": 7.0, "xp": 9, "tint": Color(0.85, 0.8, 0.5), "scale": 0.95, "ranged": true, "proj_speed": 4.0, "kb_resist": 0.1, "healer": true},
 	"pale_lantern": {"glb": "Skeleton_Warrior.glb", "hp": 2.0, "spd": 0.9, "dmg": 1, "windup": 0.9, "reach": 0.8, "aggro": 6.0, "xp": 8, "tint": Color(0.9, 0.95, 0.7), "scale": 0.85},
 	"siren_thrall": {"glb": "Skeleton_Warrior.glb", "hp": 3.5, "spd": 1.15, "dmg": 3, "windup": 0.75, "reach": 0.9, "aggro": 8.0, "xp": 11, "tint": Color(0.55, 0.4, 0.75), "scale": 1.0},
 	"bilge_fury": {"glb": "Skeleton_Warrior.glb", "hp": 4.5, "spd": 1.0, "dmg": 4, "windup": 0.8, "reach": 0.95, "aggro": 7.0, "xp": 13, "tint": Color(0.85, 0.45, 0.35), "scale": 1.1, "kb_resist": 0.5},
