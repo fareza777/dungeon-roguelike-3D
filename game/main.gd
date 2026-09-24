@@ -9094,6 +9094,7 @@ func _offer_omens() -> void:
 		{"text": "SALT MADRIGAL — the drowned choir hums your purse full (+12% souls)... but their song draws hands (−5% dodge)"},
 		{"text": "PALE DUES — the pale fire feeds on experience (+10% XP)... but souls slip through (−8% souls)"},
 		{"text": "GUNPORT OATH — the guns answer to you now (+10% attack)... but their powder is heavy (−10% speed)"},
+		{"text": "COLD RATIONS — hunger sharpens the mind (+12% XP)... but the belly can't hold a shield (−1 armor)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -9148,7 +9149,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 114 if Stats.nemesis != "" else 113
+	var osize := 115 if Stats.nemesis != "" else 114
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -9640,6 +9641,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct += 0.10
 			Stats.buff_speed_pct -= 0.10
 			oname = "GUNPORT OATH"
+		114:
+			Stats.buff_xp_pct += 0.12
+			Stats.buff_armor -= 1
+			oname = "COLD RATIONS"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
 	if not Stats.oaths_seen.has(oname):
 		Stats.oaths_seen.append(oname)
@@ -9761,6 +9766,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT MADRIGAL": "Voices rise from the bilge in three-part harmony. They sing the hoard into your hands — and your hands into their reach.",
 	"PALE DUES": "A cold flame settles in your eyes. Every lesson lands deeper; every payment slips past your fingers.",
 	"GUNPORT OATH": "Black powder stains your fingers and your oath alike. Your blows carry the bark of cannons.",
+	"COLD RATIONS": "Hardtack and cold water. The mind sharpens to a point the shield arm can no longer hold.",
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
