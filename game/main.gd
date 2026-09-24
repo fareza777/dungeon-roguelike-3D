@@ -6021,6 +6021,11 @@ func _cast_skill(id: String) -> void:
 		Sfx.play("deny")
 		return
 	_quest_event("skill")
+	# cast flash: model bersinar sesaat — respons skill terasa
+	if player.get("mat") != null:
+		player.mat.set_shader_parameter("flash", 0.7)
+		var ctw: Tween = player.create_tween()
+		ctw.tween_property(player.mat, "shader_parameter/flash", 0.0, 0.3)
 	if skill_ui.has(id):
 		var sbtn: Node = skill_ui[id]["btn"]
 		sbtn.pivot_offset = sbtn.size * 0.5
