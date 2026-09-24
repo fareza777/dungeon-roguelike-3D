@@ -426,6 +426,7 @@ var boatswain_call := false
 var court_fool := false
 var bilge_ballad := false
 var salt_ration_d := false
+var powder_check_d := false
 var mist_ration_d := false
 var brine_graft_d := false
 var kelp_wine_d := false
@@ -1924,6 +1925,9 @@ func _new_run(new_seed: int) -> void:
 	if salt_ration_d:
 		Stats.buff_maxhp_pct -= 0.05
 		salt_ration_d = false
+	if powder_check_d:
+		Stats.buff_aspd -= 0.15
+		powder_check_d = false
 	if mist_ration_d:
 		Stats.buff_xp_pct -= 0.1
 		mist_ration_d = false
@@ -11839,11 +11843,24 @@ func _on_qm_invoked(s) -> void:
 		{"text": "Watchman's Ration — pay 4 souls: hot grog from the crow's nest — mend 25%"},
 		{"text": "Boatswain's Call — pay 3 souls: the whistle cuts the fog — +12% dodge this floor"},
 		{"text": "Salt Ration — pay 2 souls: hard tack and lime — +5% max HP this floor"},
+		{"text": "Powder Check — pay 4 souls: dry powder for your arms — +15% attack speed this floor"},
 		{"text": "Walk away"}])
 
 
 func _qm_deal(idx: int) -> void:
 	if idx == 25:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the powder isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_count_deal()
+		_souls_l()
+		Stats.buff_aspd += 0.15
+		powder_check_d = true
+		Sfx.play("shrine")
+		toast("POWDER CHECK — the cask reads dry")
+		return
+	if idx == 26:
 		toast("The post shutters its stores")
 		return
 	if idx == 24:
