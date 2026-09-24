@@ -606,6 +606,18 @@ func _strike() -> void:
 					var mke := get_tree().current_scene
 					if mke != null and mke.has_method("_damage_number"):
 						mke._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "KNELL +1◈", Color(0.9, 0.8, 0.5), false)
+			if Stats.weapon_id == "wake_splitter":
+				var wsn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", wsn)
+				if wsn % 10 == 0:
+					Sfx.play("swoosh", 0.7)
+					for wf in get_tree().get_nodes_in_group("enemies"):
+						if wf != f and wf.get("state") != "dead" and wf.global_position.distance_to(f.global_position) < 2.5 * room_tile:
+							var wsd: Vector3 = (wf.global_position - f.global_position).normalized()
+							wf.kb += wsd * 11.0
+					var mws := get_tree().current_scene
+					if mws != null and mws.has_method("_damage_number"):
+						mws._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "WAKE", Color(0.5, 0.85, 1.0), false)
 			if Stats.weapon_id == "keel_hammer":
 				var khn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", khn)
