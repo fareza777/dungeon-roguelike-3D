@@ -6503,6 +6503,8 @@ func _on_enemy_died(e) -> void:
 			if int(Stats.meta.get("tollkeeper", 0)) > 0:
 				Stats.earn_souls(int(Stats.meta.get("tollkeeper", 0)))
 				_souls_l()
+			if Stats.souls >= 50:
+				_quest_event("rich_floor")
 			if Stats.souls >= 40:
 				_quest_event("fatpurse")
 			if Stats.souls >= 60:
