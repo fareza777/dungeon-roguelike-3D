@@ -6630,6 +6630,16 @@ func _combo_set(n: int) -> void:
 	if combo >= 3:
 		ui.combo_l.visible = true
 		ui.combo_l.text = "COMBO ×%d" % combo
+		if combo >= 40:
+			ui.combo_l.modulate = Color(1.0, 0.3, 0.6)
+		elif combo >= 25:
+			ui.combo_l.modulate = Color(1.0, 0.4, 0.2)
+		elif combo >= 15:
+			ui.combo_l.modulate = Color(1.0, 0.55, 0.1)
+		elif combo >= 8:
+			ui.combo_l.modulate = Color(1.0, 0.65, 0.15)
+		else:
+			ui.combo_l.modulate = Color(1.0, 0.7, 0.25)
 		ui.combo_l.pivot_offset = ui.combo_l.size * 0.5
 		ui.combo_l.scale = Vector2(1.35, 1.35)
 		var tw := create_tween()
