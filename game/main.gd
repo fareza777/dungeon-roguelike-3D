@@ -5515,6 +5515,12 @@ func _cast_skill(id: String) -> void:
 		Sfx.play("deny")
 		return
 	_quest_event("skill")
+	if skill_ui.has(id):
+		var sbtn: Node = skill_ui[id]["btn"]
+		sbtn.pivot_offset = sbtn.size * 0.5
+		sbtn.scale = Vector2(0.85, 0.85)
+		var sbt: Tween = sbtn.create_tween()
+		sbt.tween_property(sbtn, "scale", Vector2.ONE, 0.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	match id:
 		"dash":
 			var dir := Vector3(sin(player.rotation.y), 0, cos(player.rotation.y))
