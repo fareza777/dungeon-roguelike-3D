@@ -9733,6 +9733,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL TAX — the marked pay gladly (+15% souls)... but the mark slows their footing (−4% dodge)"},
 		{"text": "MURK VOW — the murk sharpens every lesson (+20% XP)... but it skims the purse (−10% souls)"},
 		{"text": "DEEP PACT — the trench pays the bold (+25% souls)... but it takes its tithe in flesh (−10% Max HP)"},
+		{"text": "SALTFARE — the passage pays quick feet (+12% speed)... but the fare is steep (−8% souls)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -9787,7 +9788,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 126 if Stats.nemesis != "" else 125
+	var osize := 127 if Stats.nemesis != "" else 126
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -10327,6 +10328,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_maxhp_pct -= 0.10
 			oname = "DEEP PACT"
 		125:
+			Stats.buff_speed_pct += 0.12
+			Stats.soul_gain_pct -= 0.08
+			oname = "SALTFARE"
+		126:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -10482,6 +10487,7 @@ func _omen_deal(idx: int) -> void:
 		"KEEL TAX": "Every keel that pays is marked, Kael — and marked souls travel heavier.",
 		"MURK VOW": "The murk keeps its lessons cheap and its tolls exact, Kael.",
 	"DEEP PACT": "The trench pays bold men, Kael — and it always collects.",
+	"SALTFARE": "The crossing always costs, Kael — the swift pay in coin, the slow in blood.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
