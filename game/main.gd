@@ -13545,6 +13545,13 @@ func _pause_btn(txt: String) -> Button:
 		var ptw: Tween = b.create_tween()
 		b.scale = Vector2(0.94, 0.94)
 		ptw.tween_property(b, "scale", Vector2.ONE, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT))
+	b.mouse_entered.connect(func() -> void:
+		b.pivot_offset = b.size * 0.5
+		var htw: Tween = b.create_tween()
+		htw.tween_property(b, "scale", Vector2(1.04, 1.04), 0.1))
+	b.mouse_exited.connect(func() -> void:
+		var xtw: Tween = b.create_tween()
+		xtw.tween_property(b, "scale", Vector2.ONE, 0.1))
 	return b
 
 
