@@ -259,6 +259,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Vault Thief", "desc": "Claim the Reliquary's gilded hoard (0/1)", "kind": "gilded_chest", "need": 1})
 	if Stats.floor_num == 12:
 		steps.append({"title": "Sea Prayer", "desc": "Answer a Drowned Altar's offer (0/1)", "kind": "drowned", "need": 1})
+		steps.append({"title": "River's Tither", "desc": "Pay the Drowned Altar's River's Tithe (0/1)", "kind": "rivertithe", "need": 1})
 		steps.append({"title": "Emissary's Fall", "desc": "Cut down the vault's sworn guard (0/1)", "kind": "emissary_kill", "need": 1})
 		steps.append({"title": "Pearl Diver", "desc": "Pry open a Snap Clam while it sleeps (0/1)", "kind": "clam", "need": 1})
 		steps.append({"title": "Glasswalker", "desc": "Survive a Glass Sea floor (0/1)", "kind": "glasswalk", "need": 1})

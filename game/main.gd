@@ -9648,6 +9648,7 @@ func _drowned_deal(idx: int) -> void:
 		_souls_l()
 		rivers_tithe = true
 		Stats.soul_gain_pct += 0.12
+		_quest_event("rivertithe")
 		Sfx.play("shrine")
 		toast("RIVER'S TITHE — the current pays its tolls")
 		return
