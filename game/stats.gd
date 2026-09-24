@@ -271,6 +271,8 @@ const ACH_DEF := {
 	"deepvoyager": "Deep Voyager (seventy-five floors cleared across your descents)",
 	"halfcentury": "Half Century (clear 50 floors)",
 	"gilded_foe": "Gilded Foe (slay 10 golden foes)",
+	"sixtyfathoms": "Sixty Fathoms (survive to floor 60 — the deep remembers names)",
+	"ninetyknots": "Ninety Knots (survive to floor 90 — faster than the sea's own hunger)",
 	"threequarters": "Three Quarters (reach Floor 75)",
 	"centurion_deep": "Centurion of the Deep (reach Floor 100)",
 	"deepwater": "Deep Water (reach Floor 40)",
@@ -668,6 +670,10 @@ func note_floor() -> void:
 	if floor_num >= 55 and not ach.has("trenchwalker"):
 		ach["trenchwalker"] = true
 
+	if floor_num >= 60 and not ach.has("sixtyfathoms"):
+		ach["sixtyfathoms"] = true
+	if floor_num >= 90 and not ach.has("ninetyknots"):
+		ach["ninetyknots"] = true
 	if floor_num >= 75 and not ach.has("threequarters"):
 		ach["threequarters"] = true
 	if floor_num >= 100 and not ach.has("centurion_deep"):
