@@ -1644,6 +1644,10 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 				mm4._souls_l()
 			if mm4 != null and mm4.has_method("_damage_number"):
 				mm4._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "KEELBORN +3", Color(0.4, 0.9, 0.9), true)
+		if arch_id == "siren_thrall":
+			var mst := get_tree().current_scene
+			if mst != null and mst.has_method("_spawn_wisp_at"):
+				mst._spawn_wisp_at(global_position + Vector3(0, 0.6 * room_tile, 0))
 		if affix == "soulwrought":
 			var msw := get_tree().current_scene
 			if msw != null and msw.has_method("_spawn_wisp_at"):
