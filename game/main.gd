@@ -216,7 +216,9 @@ const LORE_LINES := [
 	"The grey tide carries no water at all — only what the drowned could not keep.",
 	"Every oar that rows below rows twice: once for the living hand, once for the dead.",
 	"The sexton does not ring the bell to mourn you; he rings it to invoice you.",
-	"A trident's third tine is for the water itself — the first two are for you.",]
+	"A trident's third tine is for the water itself — the first two are for you.",
+	"The ferryman keeps two books: one for fares paid in coin, one for fares still owed. Every passenger is in both.",
+	"A court scrip spends only where the court still rules — which is everywhere, and nowhere you can point to.",]
 
 var dungeon_tex: Texture2D
 var skeleton_tex: Texture2D
