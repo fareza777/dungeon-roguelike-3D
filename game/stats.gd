@@ -45,6 +45,7 @@ var buff_maxhp_pct := 0.0 # omen Leeching Vein: pengorbanan Max HP
 var buff_aspd := 0.0 # berkat altar Fury: run ini saja
 var buff_crit := 0.0 # berkat altar Eagle's Eye: run ini saja
 var warcry_t := 0.0 # skill War Cry: +50% ATK sementara
+var warpaint_t := 0.0 # skill Warpaint: +30% ATK sementara
 var irontide_t := 0.0 # skill Iron Tide: pukulan terpantul sementara
 var revive_left := 0 # jiwa bangkit: hidup lagi sekali per run
 var ach := {} # prestasi terbuka: id -> true (persist lintas run)
@@ -286,6 +287,8 @@ func get_stat(n: String) -> float:
 		mult += buff_atk_pct + combo_atk + float(meta.get("might", 0)) * 0.05 + float(meta.get("deckhand", 0)) * 0.02
 		if warcry_t > 0.0:
 			mult += 0.5
+		if warpaint_t > 0.0:
+			mult += 0.3
 		# amukan: +ATK saat HP di bawah 35%
 		if berserk > 0.0 and current_hp <= get_stat("max_hp") * 0.35:
 			mult += berserk
@@ -316,6 +319,8 @@ func get_stat(n: String) -> float:
 func _process(delta: float) -> void:
 	if warcry_t > 0.0:
 		warcry_t = maxf(0.0, warcry_t - delta)
+	if warpaint_t > 0.0:
+		warpaint_t = maxf(0.0, warpaint_t - delta)
 	if irontide_t > 0.0:
 		irontide_t = maxf(0.0, irontide_t - delta)
 		if irontide_t <= 0.0:
@@ -442,6 +447,7 @@ func reset_run() -> void:
 	buff_aspd = 0.0
 	buff_crit = 0.0
 	warcry_t = 0.0
+	warpaint_t = 0.0
 	revive_left = int(meta.get("wind", 0))
 	thorns = 0.0
 	dodge = 0.0
