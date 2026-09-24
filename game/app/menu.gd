@@ -490,13 +490,12 @@ func _build_settings() -> void:
 	vb.add_child(fl)
 	var flash_opt := OptionButton.new()
 	flash_opt.add_item("On", 0)
-	flash_opt.add_item("Dim", 1)
-	flash_opt.add_item("Off", 2)
-	flash_opt.selected = 0 if Stats.screen_flash else 2
+	flash_opt.add_item("Off", 1)
+	flash_opt.selected = 0 if Stats.screen_flash else 1
 	flash_opt.add_theme_font_size_override("font_size", 17)
 	flash_opt.add_theme_stylebox_override("normal", qsb)
 	flash_opt.item_selected.connect(func(ix: int) -> void:
-		Stats.screen_flash = ix < 2
+		Stats.screen_flash = ix == 0
 		Stats.save_game()
 	)
 	vb.add_child(flash_opt)
