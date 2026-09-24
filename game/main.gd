@@ -9845,12 +9845,27 @@ func _on_qm_invoked(s) -> void:
 		{"text": "Salt Scrip — pay 3 souls: the crew logs the lessons — +10% XP this floor"},
 		{"text": "Grog Ration — pay 3 souls: a mug pulled from the bilge — mend 30%"},
 		{"text": "Salt Chits — pay 4 souls: the crew's IOU honors the deep — +10% souls this run"},
+		{"text": "Quarter's Stash — pay 5 souls: a tin from the post's own locker — +1 ⚗ vial, mend 15% HP"},
 		{"text": "Walk away"}])
 
 
 func _qm_deal(idx: int) -> void:
-	if idx == 17:
+	if idx == 18:
 		toast("The post shutters its stores")
+		return
+	if idx == 17:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the stash isn't free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_souls_l()
+		vials += 1
+		_vial_btn()
+		if player != null and is_instance_valid(player):
+			player.hp = minf(Stats.get_stat("max_hp"), player.hp + Stats.get_stat("max_hp") * 0.15)
+			player.hp_changed.emit(player.hp)
+		Sfx.play("shrine")
+		toast("QUARTER'S STASH — a tin for the road")
 		return
 	if idx == 16:
 		if Stats.souls < _soul_cost(4):
