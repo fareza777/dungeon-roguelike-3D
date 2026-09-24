@@ -9590,6 +9590,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_aspd += 0.06
 			Stats.dodge += 0.02
 			toast("Keelgrease: oiled joints, quicker hands — +6% attack speed, +2% dodge this run")
+		129:
+			Stats.soul_gain_pct += 0.08
+			Stats.buff_xp_pct += 0.05
+			toast("Keel Saint: the drowned pray your purse fatter — +8% souls, +5% XP this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -14906,6 +14910,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Figurehead — the prow takes the blows first: +2 armor, −5% XP this run"},
 			{"text": "Gull's Wing — ride the updraft: +6% speed, +4% dodge this run"},
 			{"text": "Keelgrease — oiled joints, quicker hands: +6% attack speed, +2% dodge this run"},
+			{"text": "Keel Saint — the drowned pray your purse fatter: +8% souls, +5% XP this run"},
 		]
 	)
 
