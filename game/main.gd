@@ -10313,6 +10313,7 @@ func _offer_omens() -> void:
 		{"text": "CANDLE WATCH — burn fast while the wick lasts (+8% attack speed)... wax runs out (+5% damage taken)"},
 		{"text": "SIREN'S OATH — her song slips you past their claws (+8% dodge)... but it echoes in your wounds (+6% damage taken)"},
 		{"text": "PALE DIVIDEND — the dead pay out early (+10% souls)... but the lesson thins (−5% XP)"},
+		{"text": "HULL PRAYER — iron answers prayer (+1 Armor)... the plate isn't free (−6% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -11029,6 +11030,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_xp_pct -= 0.05
 			oname = "PALE DIVIDEND"
 		151:
+			Stats.buff_armor += 1
+			Stats.soul_gain_pct -= 0.06
+			oname = "HULL PRAYER"
+		152:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -11217,6 +11222,7 @@ func _omen_deal(idx: int) -> void:
 	"CANDLE WATCH": "A candle at both ends shines twice as bright, Kael — and half as long.",
 	"SIREN'S OATH": "Her song parts around you like water, Kael — but water remembers every shape it touched.",
 	"PALE DIVIDEND": "Money now, wisdom later — the drowned never learned to budget, Kael.",
+	"HULL PRAYER": "Pray hard enough and the hull plates itself, Kael — the offering box never asks twice.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
