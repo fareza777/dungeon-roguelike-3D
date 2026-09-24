@@ -9483,6 +9483,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_speed_pct += 0.03
 			toast("Saltwake Step: walk the spray — +5% dodge, +3% speed this run")
+		125:
+			Stats.soul_gain_pct += 0.10
+			Stats.dodge -= 0.04
+			toast("Keel Song: the hull hums your purse fatter — +10% souls, −4% dodge this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -14700,6 +14704,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Longshoreman's Luck — the dock pays its own: +10% souls, +6% speed"},
 			{"text": "Leech Wake — the eels carry you: +6% lifesteal, +4% speed this run"},
 			{"text": "Saltwake Step — walk the spray: +5% dodge, +3% speed this run"},
+			{"text": "Keel Song — the hull hums your purse fatter: +10% souls, −4% dodge this run"},
 		]
 	)
 
