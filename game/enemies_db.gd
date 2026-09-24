@@ -63,6 +63,7 @@ const DB := {
 	"deck_gunner": {"glb": "Skeleton_Archer.glb", "hp": 2.2, "spd": 1.2, "dmg": 1, "windup": 0.5, "reach": 2.8, "prefer": 2.5, "aggro": 6.0, "xp": 7, "tint": Color(0.85, 0.7, 0.4), "scale": 0.9, "ranged": true, "proj_speed": 5.0, "kb_resist": 0.1, "burst": true},
 	"rotting_bride": {"glb": "Skeleton_Mage.glb", "hp": 3.5, "spd": 0.5, "dmg": 0, "windup": 1.0, "reach": 0.8, "aggro": 3.5, "xp": 8, "tint": Color(1.0, 0.55, 0.65), "scale": 0.95, "kb_resist": 0.7, "bride": true},
 	"salt_cantor": {"glb": "Skeleton_Mage.glb", "hp": 3.2, "spd": 0.6, "dmg": 1, "windup": 0.9, "reach": 0.8, "aggro": 3.0, "xp": 7, "tint": Color(0.5, 0.9, 0.8), "scale": 0.9, "kb_resist": 0.5, "cantor": true},
+	"keel_mastiff": {"glb": "Skeleton_Rogue.glb", "hp": 2.2, "spd": 1.75, "dmg": 2, "windup": 0.5, "reach": 1.1, "aggro": 9.0, "xp": 12, "tint": Color(0.8, 0.55, 0.4), "scale": 1.0, "kb_resist": 0.2, "dash": true},
 	"moorling": {"glb": "Skeleton_Mage.glb", "hp": 3.0, "spd": 0.85, "dmg": 3, "windup": 1.1, "reach": 2.8, "prefer": 4.2, "aggro": 7.0, "xp": 13, "tint": Color(0.55, 0.6, 0.4), "scale": 1.1, "kb_resist": 0.5, "ranged": true, "proj_speed": 3.0},
 	"deck_wight": {"glb": "Skeleton_Warrior.glb", "hp": 5.0, "spd": 0.75, "dmg": 4, "windup": 1.0, "reach": 1.0, "aggro": 6.5, "xp": 16, "tint": Color(0.5, 0.45, 0.55), "scale": 1.15, "kb_resist": 0.7},
 	"salt_skiff": {"glb": "Skeleton_Minion.glb", "hp": 1.8, "spd": 1.6, "dmg": 1, "windup": 0.45, "reach": 0.7, "aggro": 6.0, "xp": 7, "tint": Color(0.65, 0.7, 0.5), "scale": 0.8, "kb_resist": 0.0},
