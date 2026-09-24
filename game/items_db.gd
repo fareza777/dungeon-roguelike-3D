@@ -115,6 +115,7 @@ const DB := {
 	"crowsfoot": {"name": "Crowsfoot Charm", "chip": "CFT", "desc": "Lashed from the mast's own line — +8% souls, +3% dodge.", "rarity": 1, "mods": {"soul_gain_pct": 0.08, "dodge": 0.03}},
 	"deadlights": {"name": "Deadlights Lens", "chip": "DLN", "desc": "The hatch-lights still watch — +8% XP, +4% attack speed.", "rarity": 1, "mods": {"xp_pct": 0.08, "atk_speed_pct": 0.04}},
 	"bosun_ring": {"name": "Bosun's Ring", "chip": "BSR", "desc": "The whistle's last note caught in brass — +6% ATK, +4% souls.", "rarity": 2, "mods": {"atk_pct": 0.06, "soul_gain_pct": 0.04}},
+	"storm_glass": {"name": "Storm Glass", "chip": "SG", "desc": "The drop inside still falls upward — +8% XP, +3% dodge.", "rarity": 2, "mods": {"xp_pct": 0.08, "dodge": 0.03}},
 "undertow_idol": {"name": "Undertow Idol", "chip": "UTI", "desc": "A drowned god's little likeness — it pulls for you — +6% ATK, +4% souls.", "rarity": 1, "mods": {"atk_pct": 0.06, "soul_gain_pct": 0.04}},
 "grief_bell": {"name": "Grief Bell", "chip": "GRB", "desc": "Its toll hardens every hand that hears it — +10% ATK, −6% dodge.", "rarity": 2, "mods": {"atk_pct": 0.10, "dodge": -0.06}},
 "bilge_stone": {"name": "Bilge Stone", "chip": "BST", "desc": "Ballast that learned to keep a man standing — +1 Armor, +8% Max HP.", "rarity": 1, "mods": {"armor": 1, "max_hp_pct": 0.08}},
