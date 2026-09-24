@@ -422,6 +422,7 @@ var rivers_tithe := false
 var boatswain_call := false
 var court_fool := false
 var bilge_ballad := false
+var salt_ration_d := false
 var salt_lullaby := false
 var coil_chit := false
 var rope_allowance := false
@@ -1894,6 +1895,9 @@ func _new_run(new_seed: int) -> void:
 	if bilge_ballad:
 		Stats.buff_xp_pct -= 0.12
 		bilge_ballad = false
+	if salt_ration_d:
+		Stats.buff_maxhp_pct -= 0.05
+		salt_ration_d = false
 	salt_lullaby = false
 	if coil_chit:
 		Stats.dodge -= 0.08
@@ -11691,12 +11695,25 @@ func _on_qm_invoked(s) -> void:
 		{"text": "Rope Allowance — pay 3 souls: the quartermaster lets out your line — +8% speed this floor"},
 		{"text": "Watchman's Ration — pay 4 souls: hot grog from the crow's nest — mend 25%"},
 		{"text": "Boatswain's Call — pay 3 souls: the whistle cuts the fog — +12% dodge this floor"},
+		{"text": "Salt Ration — pay 2 souls: hard tack and lime — +5% max HP this floor"},
 		{"text": "Walk away"}])
 
 
 func _qm_deal(idx: int) -> void:
-	if idx == 24:
+	if idx == 25:
 		toast("The post shutters its stores")
+		return
+	if idx == 24:
+		if Stats.souls < _soul_cost(2):
+			toast("Two souls — the ration isn't free")
+			return
+		Stats.souls -= _soul_cost(2)
+		_count_deal()
+		_souls_l()
+		salt_ration_d = true
+		Stats.buff_maxhp_pct += 0.05
+		Sfx.play("heal")
+		toast("SALT RATION — hard tack and lime stiffen the spine")
 		return
 	if idx == 23:
 		if Stats.souls < _soul_cost(3):
