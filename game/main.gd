@@ -15287,6 +15287,7 @@ func _on_throne_invoked(s) -> void:
 		{"text": "Clerk's Pension — pay 5 souls: the record office remembers your name — +12% XP this floor"},
 		{"text": "Royal Assay — pay 5 souls: the crown's assayer weighs your edge — +6% crit this run"},
 		{"text": "Royal Leech — pay 5 souls: the crown's bleeder draws the pain away — heal 35% HP"},
+		{"text": "Throne Warrant — pay 7 souls: sealed by the crown's own hand — +8% ATK, +1 armor this run"},
 		{"text": "Walk away"}])
 
 
@@ -15343,6 +15344,18 @@ func _throne_deal(idx: int) -> void:
 		_quest_event("throne")
 		Sfx.play("soul")
 		toast("CLEAN HANDS — the crown pays +4 souls to the incorruptible")
+		return
+	if idx == 35:
+		if Stats.souls < _soul_cost(7):
+			toast("Seven souls — the warrant isn't cheap ink")
+			return
+		Stats.souls -= _soul_cost(7)
+		_count_deal()
+		_souls_l()
+		Stats.buff_atk_pct += 0.08
+		Stats.buff_armor += 1
+		Sfx.play("shrine")
+		toast("THRONE WARRANT — sealed by the crown's own hand (+8% ATK, +1 armor)")
 		return
 	if idx == 34:
 		if Stats.souls < _soul_cost(5):
