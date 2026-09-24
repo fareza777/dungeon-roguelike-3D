@@ -2372,6 +2372,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.speed *= 1.12
 	if leeward_ev and not e.is_boss:
 		e.speed *= 1.1
+	if keelmans_toll and not e.is_boss:
+		e.speed *= 0.92
 	if candlelit and not e.is_boss:
 		e.hp *= 0.85
 		e.hp_max = e.hp
