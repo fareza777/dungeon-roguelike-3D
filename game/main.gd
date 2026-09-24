@@ -3649,7 +3649,7 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.hp *= 1.3
 		e.hp_max = e.hp
 		e.xp_val = int(e.xp_val * 2)
-	if omen_hp_mult > 1.0 and not e.is_boss:
+	if absf(omen_hp_mult - 1.0) > 0.001 and not e.is_boss:
 		e.hp *= omen_hp_mult
 		e.hp_max = e.hp
 	if dead_lantern and bool(e.get("elite")):
