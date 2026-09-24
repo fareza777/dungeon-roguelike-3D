@@ -130,6 +130,7 @@ const DB := {
 	"salt_herald": {"glb": "Skeleton_Warrior.glb", "hp": 3.2, "spd": 1.0, "dmg": 1, "windup": 0.5, "reach": 0.85, "aggro": 6.0, "xp": 7, "tint": Color(0.6, 0.8, 0.7), "scale": 1.1, "kb_resist": 0.3},
 	"rust_jaw": {"glb": "Skeleton_Warrior.glb", "hp": 2.2, "spd": 1.5, "dmg": 1, "windup": 0.42, "reach": 0.75, "aggro": 6.0, "xp": 6, "tint": Color(0.7, 0.5, 0.35), "scale": 0.85, "kb_resist": 0.15, "ruster": true},
 	"mireling": {"glb": "Skeleton_Rogue.glb", "hp": 2.4, "spd": 1.85, "dmg": 1, "windup": 0.28, "reach": 0.62, "aggro": 5.0, "xp": 4, "tint": Color(0.5, 0.85, 0.55), "scale": 0.7, "dash": true, "kb_resist": 0.0, "mire": true},
+	"keel_chorister": {"glb": "Skeleton_Mage.glb", "hp": 2.6, "spd": 1.2, "dmg": 1, "windup": 0.55, "reach": 0.75, "aggro": 7.0, "xp": 9, "tint": Color(0.5, 0.8, 0.85), "scale": 1.0, "kb_resist": 0.1, "orator": true, "coward": true},
 	# BOSS: Raja Tulang — tiap lantai kelipatan 5
 	"bone_king": {"glb": "Skeleton_Warrior.glb", "hp": 42.0, "spd": 0.8, "dmg": 2, "windup": 0.85, "reach": 0.95, "aggro": 9.9, "xp": 15, "tint": Color(1.15, 0.45, 0.4), "scale": 1.85, "kb_resist": 0.9, "boss": true},
 }
