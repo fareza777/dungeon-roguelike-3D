@@ -403,6 +403,7 @@ var cannon_debt := false
 var salvage_rights := false
 var green_wake := false
 var iron_sea := false
+var gloom_lull := false
 var wet_wool := false
 var ballast_beads := false
 var dowser_knot := false
@@ -1627,6 +1628,9 @@ func _apply_biome() -> void:
 	elif iron_sea:
 		env.fog_light_color = Color(0.32, 0.38, 0.45)
 		env.ambient_light_color = Color(0.38, 0.44, 0.52)
+	elif gloom_lull:
+		env.fog_light_color = Color(0.42, 0.46, 0.5)
+		env.ambient_light_color = Color(0.46, 0.5, 0.56)
 		env.ambient_light_color = Color(0.5, 0.52, 0.45)
 		env.ambient_light_color = Color(0.6, 0.45, 0.25)
 	elif bilge_lull:
@@ -2202,6 +2206,9 @@ func _new_run(new_seed: int) -> void:
 	if iron_sea:
 		Stats.buff_armor -= 2
 		iron_sea = false
+	if gloom_lull:
+		Stats.cd_reduction -= 0.08
+		gloom_lull = false
 	if widdershins:
 		Stats.dodge -= 0.08
 		widdershins = false
@@ -2290,6 +2297,7 @@ func _new_run(new_seed: int) -> void:
 	salvage_rights = false
 	green_wake = false
 	iron_sea = false
+	gloom_lull = false
 	deep_well = false
 	pale_scrip = false
 	song_rust = false
@@ -2519,6 +2527,8 @@ func _new_run(new_seed: int) -> void:
 	salvage_rights = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and not wolfsbane and not thin_veil and not low_water and not drift_tide and not soul_swarm and not gauntlet and not brisk and not shoal_tide and not salvage_tide and not gale_tide and not mercy_tide and not eel_tide and not swell_tide and not kelp_bed and not barnacle_bloom and not sodden and not bile_tide and not mire_hollow and not dark_lantern and not halfwreck and not merchant_tide and not hungry_urns and not bilge_run and not pale_squall and not soul_flush and not kings_tithe and not black_calm and not gun_smoke and not greedy_tide and not drift_wreck and not long_watch and not salted_deck and not crows_tide and not long_night and not halfway_dead and not rich_vein and not wraiths_due and not pale_lantern_ev and not saltgrave_ev and not leeward_ev and not brine_smoke and not crowns_ransom and not bilge_strike and not full_draught and not salt_front and not cold_snap and not full_moon and not gunners_luck and not shallow_graves and not wailing_wind and not balmy_sea and not rust_storm and not ember_wake and not saltsick and not gallows_tide and not pilot_light and not widdershins and not slack_water and not salvage_breeze and not deep_salve and not keel_spirit and not lantern_wake and not fog_bank and not tide_clock and not deep_well and not bilge_still and not keel_groan and not saltwind and not bone_lantern and not dead_reckoning and not gloom_tide and not pale_wake and not murk_lift and not siren_hum and not grim_calm and not keel_haul and not weeping_tide and not keel_haul and not weeping_tide and not deep_draught and not thick_tide and not slack_line and not low_lantern and not mirage_sea and not bilge_lull and not high_seas and not squall_line and not oil_slick and not bilge_fog and not leech_tide and not rime_tide and not bull_tide and not hollow_watch and not gale_weather and not soul_glut and not rust_rain and not still_tide and not pale_draught and not pale_clock and not pale_clock and Stats.floor_num >= 4 and not boss_floor and rng.randf() < 0.03 and not golden_hour and not old_salt_tide
 	green_wake = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and not wolfsbane and not thin_veil and not low_water and not drift_tide and not soul_swarm and not gauntlet and not brisk and not shoal_tide and not salvage_tide and not gale_tide and not mercy_tide and not eel_tide and not swell_tide and not kelp_bed and not barnacle_bloom and not sodden and not bile_tide and not mire_hollow and not dark_lantern and not halfwreck and not merchant_tide and not hungry_urns and not bilge_run and not pale_squall and not soul_flush and not kings_tithe and not black_calm and not gun_smoke and not greedy_tide and not drift_wreck and not long_watch and not salted_deck and not crows_tide and not long_night and not halfway_dead and not rich_vein and not wraiths_due and not pale_lantern_ev and not saltgrave_ev and not leeward_ev and not brine_smoke and not crowns_ransom and not bilge_strike and not full_draught and not salt_front and not cold_snap and not full_moon and not gunners_luck and not shallow_graves and not wailing_wind and not balmy_sea and not rust_storm and not ember_wake and not saltsick and not gallows_tide and not pilot_light and not widdershins and not slack_water and not salvage_breeze and not deep_salve and not keel_spirit and not lantern_wake and not fog_bank and not tide_clock and not deep_well and not bilge_still and not keel_groan and not saltwind and not bone_lantern and not dead_reckoning and not gloom_tide and not pale_wake and not murk_lift and not siren_hum and not grim_calm and not keel_haul and not weeping_tide and not keel_haul and not weeping_tide and not deep_draught and not thick_tide and not slack_line and not low_lantern and not mirage_sea and not bilge_lull and not high_seas and not squall_line and not oil_slick and not bilge_fog and not leech_tide and not rime_tide and not bull_tide and not hollow_watch and not gale_weather and not soul_glut and not rust_rain and not still_tide and not pale_draught and not pale_clock and not pale_clock and Stats.floor_num >= 4 and not boss_floor and rng.randf() < 0.03 and not golden_hour and not old_salt_tide and not salvage_rights
 	iron_sea = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and not wolfsbane and not thin_veil and not low_water and not drift_tide and not soul_swarm and not gauntlet and not brisk and not shoal_tide and not salvage_tide and not gale_tide and not mercy_tide and not eel_tide and not swell_tide and not kelp_bed and not barnacle_bloom and not sodden and not bile_tide and not mire_hollow and not dark_lantern and not halfwreck and not merchant_tide and not hungry_urns and not bilge_run and not pale_squall and not soul_flush and not kings_tithe and not black_calm and not gun_smoke and not greedy_tide and not drift_wreck and not long_watch and not salted_deck and not crows_tide and not long_night and not halfway_dead and not rich_vein and not wraiths_due and not pale_lantern_ev and not saltgrave_ev and not leeward_ev and not brine_smoke and not crowns_ransom and not bilge_strike and not full_draught and not salt_front and not cold_snap and not full_moon and not gunners_luck and not shallow_graves and not wailing_wind and not balmy_sea and not rust_storm and not ember_wake and not saltsick and not gallows_tide and not pilot_light and not widdershins and not slack_water and not salvage_breeze and not deep_salve and not keel_spirit and not lantern_wake and not fog_bank and not tide_clock and not deep_well and not bilge_still and not keel_groan and not saltwind and not bone_lantern and not dead_reckoning and not gloom_tide and not pale_wake and not murk_lift and not siren_hum and not grim_calm and not keel_haul and not weeping_tide and not keel_haul and not weeping_tide and not deep_draught and not thick_tide and not slack_line and not low_lantern and not mirage_sea and not bilge_lull and not high_seas and not squall_line and not oil_slick and not bilge_fog and not leech_tide and not rime_tide and not bull_tide and not hollow_watch and not gale_weather and not soul_glut and not rust_rain and not still_tide and not pale_draught and not pale_clock and not pale_clock and Stats.floor_num >= 4 and not boss_floor and rng.randf() < 0.03 and not golden_hour and not old_salt_tide and not salvage_rights and not green_wake
+	gloom_lull = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and not wolfsbane and not thin_veil and not low_water and not drift_tide and not soul_swarm and not gauntlet and not brisk and not shoal_tide and not salvage_tide and not gale_tide and not mercy_tide and not eel_tide and not swell_tide and not kelp_bed and not barnacle_bloom and not sodden and not bile_tide and not mire_hollow and not dark_lantern and not halfwreck and not merchant_tide and not hungry_urns and not bilge_run and not pale_squall and not soul_flush and not kings_tithe and not black_calm and not gun_smoke and not greedy_tide and not drift_wreck and not long_watch and not salted_deck and not crows_tide and not long_night and not halfway_dead and not rich_vein and not wraiths_due and not pale_lantern_ev and not saltgrave_ev and not leeward_ev and not brine_smoke and not crowns_ransom and not bilge_strike and not full_draught and not salt_front and not cold_snap and not full_moon and not gunners_luck and not shallow_graves and not wailing_wind and not balmy_sea and not rust_storm and not ember_wake and not saltsick and not gallows_tide and not pilot_light and not widdershins and not slack_water and not salvage_breeze and not deep_salve and not keel_spirit and not lantern_wake and not fog_bank and not tide_clock and not deep_well and not bilge_still and not keel_groan and not saltwind and not bone_lantern and not dead_reckoning and not gloom_tide and not pale_wake and not murk_lift and not siren_hum and not grim_calm and not keel_haul and not weeping_tide and not keel_haul and not weeping_tide and not deep_draught and not thick_tide and not slack_line and not low_lantern and not mirage_sea and not bilge_lull and not high_seas and not squall_line and not oil_slick and not bilge_fog and not leech_tide and not rime_tide and not bull_tide and not hollow_watch and not gale_weather and not soul_glut and not rust_rain and not still_tide and not pale_draught and not pale_clock and not pale_clock and Stats.floor_num >= 4 and not boss_floor and rng.randf() < 0.03 and not golden_hour and not old_salt_tide and not salvage_rights and not green_wake and not iron_sea
+
 	if squall_line:
 		Stats.buff_speed_pct += 0.03
 	if bilge_fog:
@@ -2538,6 +2548,8 @@ func _new_run(new_seed: int) -> void:
 		Stats.soul_gain_pct += 0.08
 	if iron_sea:
 		Stats.buff_armor += 2
+	if gloom_lull:
+		Stats.cd_reduction += 0.08
 	gallows_tide = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and not wolfsbane and not thin_veil and not low_water and not drift_tide and not soul_swarm and not gauntlet and not brisk and not shoal_tide and not salvage_tide and not gale_tide and not mercy_tide and not eel_tide and not swell_tide and not kelp_bed and not barnacle_bloom and not sodden and not bile_tide and not mire_hollow and not dark_lantern and not halfwreck and not merchant_tide and not hungry_urns and not bilge_run and not pale_squall and not soul_flush and not kings_tithe and not black_calm and not gun_smoke and not greedy_tide and not drift_wreck and not long_watch and not salted_deck and not crows_tide and not long_night and not halfway_dead and not rich_vein and not wraiths_due and not pale_lantern_ev and not saltgrave_ev and not leeward_ev and not brine_smoke and not crowns_ransom and not bilge_strike and not full_draught and not salt_front and not cold_snap and not full_moon and not gunners_luck and not shallow_graves and not wailing_wind and not balmy_sea and not rust_storm and not ember_wake and not saltsick and Stats.floor_num >= 6 and not boss_floor and rng.randf() < 0.03
 	if gallows_tide:
 		Stats.soul_gain_pct += 0.15
@@ -2724,7 +2736,7 @@ func _new_run(new_seed: int) -> void:
 	dead_weight = not choir and not dread_tide and not starved_deep and not abyssal_hymn and not dead_calm and not boss_floor and Stats.floor_num >= 14 and rng.randf() < 0.08
 	Stats.dead_weight = dead_weight
 	shell_game = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not umbral_tide and not abyssal_patience and not choir and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
-	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe", "tar_smear", "black_calm", "bilge_iron", "gun_smoke", "greedy_tide", "drift_wreck", "chorus_cut", "long_watch", "fog_lantern_d", "crowns_rest", "salted_deck", "pale_scrip", "rat_ration", "crows_tide", "powder_toll", "wet_wool", "melody_ledger", "long_night", "ballast_beads", "dowser_knot", "crowns_vigil", "halfway_dead", "deck_manifest", "dirge_note", "line_splice", "salt_rosary", "crowns_decree", "rich_vein", "wraiths_due", "pale_lantern_ev", "saltgrave_ev", "leeward_ev", "brine_smoke", "crowns_ransom", "bilge_strike", "full_draught", "salt_front", "cold_snap", "full_moon", "gunners_luck", "shallow_graves", "wailing_wind", "balmy_sea", "rust_storm", "ember_wake", "saltsick", "gallows_tide", "pilot_light", "widdershins", "slack_water", "salvage_breeze", "deep_salve", "keel_spirit", "lantern_wake", "fog_bank", "tide_clock", "deep_well", "bilge_still", "keel_groan", "saltwind", "bone_lantern", "dead_reckoning", "gloom_tide", "pale_wake", "murk_lift", "siren_hum", "grim_calm", "keel_haul", "weeping_tide", "deep_draught", "thick_tide", "slack_line", "low_lantern", "mirage_sea", "bilge_lull", "high_seas", "squall_line", "oil_slick", "bilge_fog", "leech_tide", "rime_tide", "bull_tide", "hollow_watch", "gale_weather", "soul_glut", "rust_rain", "still_tide", "pale_draught", "pale_clock", "pale_wick", "crazed_sea", "golden_hour", "old_salt_tide", "salvage_rights", "green_wake", "iron_sea"]:
+	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe", "tar_smear", "black_calm", "bilge_iron", "gun_smoke", "greedy_tide", "drift_wreck", "chorus_cut", "long_watch", "fog_lantern_d", "crowns_rest", "salted_deck", "pale_scrip", "rat_ration", "crows_tide", "powder_toll", "wet_wool", "melody_ledger", "long_night", "ballast_beads", "dowser_knot", "crowns_vigil", "halfway_dead", "deck_manifest", "dirge_note", "line_splice", "salt_rosary", "crowns_decree", "rich_vein", "wraiths_due", "pale_lantern_ev", "saltgrave_ev", "leeward_ev", "brine_smoke", "crowns_ransom", "bilge_strike", "full_draught", "salt_front", "cold_snap", "full_moon", "gunners_luck", "shallow_graves", "wailing_wind", "balmy_sea", "rust_storm", "ember_wake", "saltsick", "gallows_tide", "pilot_light", "widdershins", "slack_water", "salvage_breeze", "deep_salve", "keel_spirit", "lantern_wake", "fog_bank", "tide_clock", "deep_well", "bilge_still", "keel_groan", "saltwind", "bone_lantern", "dead_reckoning", "gloom_tide", "pale_wake", "murk_lift", "siren_hum", "grim_calm", "keel_haul", "weeping_tide", "deep_draught", "thick_tide", "slack_line", "low_lantern", "mirage_sea", "bilge_lull", "high_seas", "squall_line", "oil_slick", "bilge_fog", "leech_tide", "rime_tide", "bull_tide", "hollow_watch", "gale_weather", "soul_glut", "rust_rain", "still_tide", "pale_draught", "pale_clock", "pale_wick", "crazed_sea", "golden_hour", "old_salt_tide", "salvage_rights", "green_wake", "iron_sea", "gloom_lull"]:
 		if get(evf):
 			events_run[evf] = true
 			break
@@ -3280,6 +3292,9 @@ func _new_run(new_seed: int) -> void:
 	elif iron_sea:
 		_lvl_banner("⚓ IRON SEA — the swell turns to anchor-chain")
 		toast("The water drags — foes −8% speed, your hull +2 armor")
+	elif gloom_lull:
+		_lvl_banner("☾ GLOOM LULL — the swell holds its breath")
+		toast("The water hushes — foes −10% speed, skills +8% recharge")
 	elif golden_hour:
 		_lvl_banner("◈ GOLDEN HOUR — the drowned shine like coin")
 		toast("Gilded dead rise +20% oftener — foes +5% HP, richer XP")
@@ -3961,6 +3976,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 	if iron_sea and not e.is_boss:
 		e.speed = float(e.speed) * 0.92
 		e.xp_val = int(ceilf(float(e.xp_val) * 1.06))
+	if gloom_lull and not e.is_boss:
+		e.speed = float(e.speed) * 0.9
 	if bilge_lull and not e.is_boss:
 		e.aggro_range = float(e.aggro_range) * 0.8
 		e.xp_val = int(ceilf(float(e.xp_val) * 1.05))
@@ -6394,6 +6411,8 @@ func _on_enemy_died(e) -> void:
 				_quest_event("greenwake")
 			if iron_sea:
 				_quest_event("ironsea")
+			if gloom_lull:
+				_quest_event("gloomlull")
 			if dark_water:
 				_quest_event("darkwalk")
 			if glass_sea:
@@ -16601,6 +16620,8 @@ func _refresh_buffs() -> void:
 		list.append(["≋ GREENWAKE", Color(0.45, 0.85, 0.6)])
 	elif iron_sea:
 		list.append(["⚓ IRONSEA", Color(0.5, 0.6, 0.75)])
+	elif gloom_lull:
+		list.append(["☾ LULL", Color(0.55, 0.6, 0.75)])
 	elif salvage_breeze:
 		list.append(["≋ BREEZE", Color(0.55, 0.7, 0.6)])
 	elif deep_salve:
