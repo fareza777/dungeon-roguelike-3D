@@ -246,11 +246,11 @@ func _strike() -> void:
 				if int(th_.get("net_n")) >= 8:
 					th_.set("net_n", 0)
 					var thlist: Array = []
-					for other2 in enemies:
-						if other2 != f and String(other2.get("state")) != "dead":
+					for other2 in get_tree().get_nodes_in_group("enemies"):
+						if other2.get("state") != "dead" and other2 != f:
 							thlist.append(other2)
-					thlist.sort_custom(func(a, b): return a.global_position.distance_to(global_position) < b.global_position.distance_to(global_position))
-					var thd: float = Stats.get_atk() * 0.5
+					thlist.sort_custom(func(a2: Object, b2: Object) -> bool: return a2.global_position.distance_squared_to(global_position) < b2.global_position.distance_squared_to(global_position))
+					var thd: float = float(Stats.get_stat("atk")) * 0.5
 					for ti in range(mini(3, thlist.size())):
 						thlist[ti].take_hit(global_position, thd)
 			if Stats.weapon_id == "stanchion":
