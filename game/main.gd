@@ -7321,6 +7321,8 @@ func _omen_deal(idx: int) -> void:
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
 	if not Stats.oaths_seen.has(oname):
 		Stats.oaths_seen.append(oname)
+	if Stats.oaths_seen.size() >= 12:
+		_ach("oathbound")
 		Stats.save_game()
 	omen_count += 1
 	Stats.oaths_sworn += 1
