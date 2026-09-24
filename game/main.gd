@@ -2649,6 +2649,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.windup_t *= 1.1
 	if fathomsong and not e.is_boss:
 		e.aggro_range = float(e.aggro_range) * 0.85
+	if wailing_wind and not e.is_boss:
+		e.aggro_range = float(e.aggro_range) * 1.2
 	if watch_bell and not e.is_boss:
 		e.windup_t = float(e.windup_t) * 1.15
 	if timber_shiver and not e.is_boss:
