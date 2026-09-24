@@ -11119,12 +11119,26 @@ func _on_qm_invoked(s) -> void:
 		{"text": "Ballast Check — pay 2 souls: the steward patches and pours — heal 20%, and a vial besides"},
 		{"text": "Coil & Chit — pay 3 souls: the rope ledger teaches you to slip — +8% dodge this floor"},
 		{"text": "Rope Allowance — pay 3 souls: the quartermaster lets out your line — +8% speed this floor"},
+		{"text": "Watchman's Ration — pay 4 souls: hot grog from the crow's nest — mend 25%"},
 		{"text": "Walk away"}])
 
 
 func _qm_deal(idx: int) -> void:
-	if idx == 22:
+	if idx == 23:
 		toast("The post shutters its stores")
+		return
+	if idx == 22:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the ration isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_count_deal()
+		_souls_l()
+		if player != null and is_instance_valid(player):
+			player.hp = minf(player.max_hp, player.hp + player.max_hp * 0.25)
+			player.hp_changed.emit(player.hp)
+		Sfx.play("shrine")
+		toast("WATCHMAN'S RATION — hot grog from the crow's nest")
 		return
 	if idx == 21:
 		if Stats.souls < _soul_cost(3):
