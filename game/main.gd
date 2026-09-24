@@ -8677,6 +8677,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_lifesteal += 0.04
 			Stats.buff_speed_pct -= 0.04
 			toast("Wake-Leech: the water drinks through your blade — +4% lifesteal, −4% speed")
+		110:
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.03
+			toast("Barnacle Mail: wreck-shell plates your shoulders — +2 Armor, −3% speed")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -13486,6 +13490,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Blackpool — the still water knows no hurry: +1 Armor, −3% speed"},
 			{"text": "Hermit's Verse — the lone voice carries furthest: +6% dodge, +5% XP"},
 			{"text": "Wake-Leech — the water drinks through your blade: +4% lifesteal, −4% speed"},
+			{"text": "Barnacle Mail — wreck-shell plates your shoulders: +2 Armor, −3% speed"},
 		]
 	)
 
