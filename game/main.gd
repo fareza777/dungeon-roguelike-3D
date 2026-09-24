@@ -10674,6 +10674,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP QUOTIENT — every lesson measured twice (+7% XP)... every measurement costs (−3% souls)"},
 		{"text": "GREY TOLL — the quiet collector takes a cut of every purse (+8% souls)... the cut deepens as you earn (−4% XP)"},
 		{"text": "PALE HOUR — the deep keeps one hour for you (+6% dodge)... and collects its minutes (−5% speed)"},
+		{"text": "DEEP ANNEX — your ledger joins the sea's own (+7% ATK)... and its interest compounds (−4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -11466,6 +11467,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.05
 			oname = "PALE HOUR"
 		170:
+			Stats.buff_atk_pct += 0.07
+			Stats.soul_gain_pct -= 0.04
+			oname = "DEEP ANNEX"
+		171:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -11681,6 +11686,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP QUOTIENT": "The deep keeps dividing your take by its own, Kael — fractions are always in its favor.",
 	"GREY TOLL": "Every purse you open down here pays a second collector, Kael — one you cannot see.",
 	"PALE HOUR": "The pale light owed you an hour, Kael — it keeps the rest.",
+	"DEEP ANNEX": "Write your name in the sea's margins, Kael — the margins write back.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
