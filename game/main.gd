@@ -9390,7 +9390,7 @@ func _mahzan_deal(idx: int) -> void:
 					_souls_l()
 					var nid: String = String(opts[rng.randi() % opts.size()])
 					player.equip_weapon(nid)
-	_refresh_hud_weapon()
+					_refresh_hud_weapon()
 					Stats.save_game()
 					Sfx.play("levelup")
 					toast("Bone Lottery pays out — %s" % String(WDB.get_w(nid)["name"]))
