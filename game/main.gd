@@ -7421,7 +7421,7 @@ func _on_dlg_choice(idx: int) -> void:
 	if blessings_run >= 8:
 		_ach("choral")
 	if blessings_run >= 12:
-		_ach("devout")
+		_ach("votive")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
