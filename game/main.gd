@@ -159,7 +159,8 @@ const LORE_LINES := [
 	"Somewhere below the salt line the drowned keep their own court — the King tolerates it, as one tolerates a debt owed to the sea.",
 	"The Bell Warden tolls for every soul that sinks past the lantern line — he stopped counting whose long ago.",
 	"Gutter chaplains preach to the drowned. The drowned, being dead, find his sermons considerably shorter.",
-"The drowned keep ledgers too — every debt they owed arrives at the surface unpaid.",]
+"The drowned keep ledgers too — every debt they owed arrives at the surface unpaid.",
+"Below the wrecks the water is patient. It has already won every argument it ever started.",]
 
 var dungeon_tex: Texture2D
 var skeleton_tex: Texture2D
