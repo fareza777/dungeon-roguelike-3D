@@ -215,6 +215,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Gale Runner", "desc": "Clear a Pale Gale floor (0/1)", "kind": "palegale", "need": 1})
 		steps.append({"title": "Four Knells", "desc": "Swear 4 omens across a run (0/4)", "kind": "omen_sworn", "need": 4})
 		steps.append({"title": "Reap the Pale", "desc": "Clear a Pale Harvest floor (0/1)", "kind": "paleharvest", "need": 1})
+		steps.append({"title": "Trim the Wick", "desc": "Clear a Grim Lantern floor (0/1)", "kind": "grimlantern", "need": 1})
 		steps.append({"title": "Silence the Sermon", "desc": "Slay 5 Bilge Priors (0/5)", "kind": "bilgeprior_kill", "need": 5})
 		steps.append({"title": "Crack the Plating", "desc": "Crack 8 grimhull-plated foes (0/8)", "kind": "affix_grimhull", "need": 8})
 		steps.append({"title": "Unburden the Dead", "desc": "Fell 5 pallbearers (0/5)", "kind": "pallbearer_kill", "need": 5})
