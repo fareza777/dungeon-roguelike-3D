@@ -11023,6 +11023,7 @@ func _offer_omens() -> void:
 		{"text": "SOUL SALARY — two hundred pacts deep and the sea still pays its wage (+8% souls, +6% XP)... back pay is heavy (−8% speed)"},
 		{"text": "GREY WAGES — the galley's weekly wage, counted in edge (+6% ATK)... it docks your soul-share (−5% souls)"},
 		{"text": "FATHOM WAGES — paid in fathoms of sharp water (+6% ATK)... the lessons leak overboard (−4% XP)"},
+		{"text": "BILGE TALLY — the hold's count comes up rich (+7% souls)... standing in bilge water slows the step (−5% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -11947,6 +11948,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_xp_pct -= 0.04
 			oname = "FATHOM WAGES"
 		202:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge -= 0.05
+			oname = "BILGE TALLY"
+		203:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12198,6 +12203,7 @@ func _omen_deal(idx: int) -> void:
 	"SOUL SALARY": "Two hundred contracts read and signed, Kael — the sea keeps excellent books.",
 	"GREY WAGES": "Wages in one hand, deductions in the other, Kael — the galley's ledger balances itself.",
 	"FATHOM WAGES": "The deep pays in whatever you can carry, Kael — lessons are the lightest cargo to lose.",
+	"BILGE TALLY": "Rich counts are kept in the wettest places, Kael — dry feet and full purses rarely travel together.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
