@@ -435,6 +435,7 @@ var dead_weight := false
 var hymn_delta := 0.0
 var thick_delta := 0.0
 var slack_delta := 0.0
+var ll_delta := 0.0
 var rotgut_drunk := false
 var drift_line := false
 var pale_drunk := false
@@ -1607,6 +1608,7 @@ func _reset_run_state() -> void:
 	hymn_delta = 0.0
 	thick_delta = 0.0
 	slack_delta = 0.0
+	ll_delta = 0.0
 	omen_count = 0
 	omen_refusals = 0
 	bargainer = false
@@ -2019,6 +2021,9 @@ func _new_run(new_seed: int) -> void:
 	Stats.cd_reduction -= slack_delta
 	slack_delta = -0.20 if slack_line else 0.0
 	Stats.cd_reduction += slack_delta
+	Stats.dodge -= ll_delta
+	ll_delta = 0.10 if low_lantern else 0.0
+	Stats.dodge += ll_delta
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 	# event langka: blood moon — langit merah, musuh lebih keras, XP lebih kaya
