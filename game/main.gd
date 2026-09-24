@@ -16591,7 +16591,9 @@ func _rebuild_chips() -> void:
 		var l := Label.new()
 		l.text = it["chip"]
 		l.add_theme_font_size_override("font_size", 16)
+		l.modulate = ITEMS.RARITY_COLORS[int(it["rarity"])].lightened(0.4)
 		p.add_child(l)
+		p.tooltip_text = String(it["name"]) + " — " + String(it["desc"])
 		ui.chips.add_child(p)
 		p.pivot_offset = p.size * 0.5
 		p.scale = Vector2(0.6, 0.6)
