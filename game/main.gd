@@ -9984,6 +9984,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.04
 			Stats.buff_aspd += 0.03
 			toast("Crow's Tithe: the lookout counts your coin — +4% souls, +3% attack speed this run")
+		140:
+			Stats.buff_crit += 0.04
+			Stats.buff_speed_pct += 0.02
+			toast("Mast Lookout: eyes in the crow's nest — +4% crit, +2% speed this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -15682,6 +15686,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Keelwise — you read the hull's lean: +4% attack speed, +2% speed this run"},
 			{"text": "Deep Salvage — the wreck shares what it hoarded: +5% souls, +2% XP this run"},
 			{"text": "Crow's Tithe — the lookout counts your coin: +4% souls, +3% attack speed this run"},
+			{"text": "Mast Lookout — eyes in the crow's nest: +4% crit, +2% speed this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
