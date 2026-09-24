@@ -211,6 +211,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Swell Rider", "desc": "Clear a Deep Swell floor (0/1)", "kind": "deepswell", "need": 1})
 		steps.append({"title": "Syrup Waltz", "desc": "Clear a Thick Water floor (0/1)", "kind": "thickwater", "need": 1})
 		steps.append({"title": "Weight of Souls", "desc": "Slay 4 Soulheavy brutes (0/4)", "kind": "affix_soulheavy", "need": 4})
+		steps.append({"title": "Pin the Wind", "desc": "Slay 6 Mistral Imps (0/6)", "kind": "mistralimp_kill", "need": 6})
 		steps.append({"title": "Sworn to the Deep", "desc": "Swear 2 omens (0/2)", "kind": "omen_sworn", "need": 2})
 		steps.append({"title": "Hard Bargain", "desc": "Bear 3 omens on one floor (0/1)", "kind": "omen_sworn_floor", "need": 1})
 		steps.append({"title": "Purse Sting", "desc": "Survive a pitchwell elite's toll (0/1)", "kind": "affix_pitchwell", "need": 1})
