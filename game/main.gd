@@ -360,6 +360,7 @@ var bosuns_chit := false
 var deck_psalm := false
 var rope_tackle := false
 var murk_purse := false
+var soul_ledger := false
 var leech_bond := false
 var salt_lullaby := false
 var regal_favor := false
@@ -1633,6 +1634,9 @@ func _new_run(new_seed: int) -> void:
 	deck_psalm = false
 	rope_tackle = false
 	murk_purse = false
+	if soul_ledger:
+		Stats.soul_gain_pct -= 0.2
+		soul_ledger = false
 	if leech_bond:
 		Stats.buff_lifesteal -= 0.08
 		leech_bond = false
@@ -8295,6 +8299,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Toll of Marrow — pay 8 souls: price paid in red — +12% crit this run"},
 			{"text": "Haste Ledger — pay 8 souls: quickened accounts — +15% attack speed this run"},
 			{"text": "Grave Annuity — pay 7 souls: the dead pay dividends — +15% XP this run"},
+			{"text": "Soul Ledger — pay 8 souls: the ledger remembers every soul — +20% souls this floor"},
 		]
 	)
 
@@ -9793,6 +9798,16 @@ func _mahzan_deal(idx: int) -> void:
 				Stats.buff_aspd += 0.15
 				Sfx.play("shrine")
 				toast("HASTE LEDGER — the books close fast tonight")
+		47:
+			if Stats.souls < _soul_cost(8):
+				toast("Eight souls — the ledger isn't free")
+			else:
+				Stats.souls -= _soul_cost(8)
+				_souls_l()
+				soul_ledger = true
+				Stats.soul_gain_pct += 0.2
+				Sfx.play("shrine")
+				toast("SOUL LEDGER — every soul counts double-ish")
 		46:
 			if Stats.souls < _soul_cost(7):
 				toast("Seven souls — the annuity isn't free")
