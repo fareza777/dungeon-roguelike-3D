@@ -5227,6 +5227,10 @@ func _on_leveled_up(lv: int) -> void:
 		_burst(player.global_position + Vector3(0, 0.4, 0), Color(1.0, 0.85, 0.3))
 		player.hp_changed.emit(player.hp)
 	_lvl_banner("LEVEL UP — Lv %d" % lv)
+	if lv >= 30:
+		_ach("seasoned")
+	if lv >= 50:
+		_ach("grizzled")
 	for id in SK.ORDER:
 		if int(SK.DB[id]["unlock"]) == lv:
 			toast("Skill unlocked: %s!" % SK.DB[id]["name"])

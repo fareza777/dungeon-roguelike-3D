@@ -231,6 +231,8 @@ const ACH_DEF := {
 	"seventypacts": "Hundred Pacts (swore 70 omens)",
 	"eightypacts": "Eighty Pacts (swore 80 omens)",
 	"smiths_pride": "Weaponsmith's Pride (master 5 weapons)",
+	"seasoned": "Seasoned (reach Lv 30)",
+	"grizzled": "Grizzled (reach Lv 50)",
 	"sixtypacts": "Sixty Pacts (60 omens sworn total)",
 	"smokedout": "Powder Burn (clear a GUN SMOKE floor)",
 	"saltwalker": "Saltwalker (clear a SALTGRAVE floor)",
