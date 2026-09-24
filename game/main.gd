@@ -10488,6 +10488,7 @@ func _on_mahzan_invoked(s) -> void:
 		{"text": "Gilt Wager — pay 9 souls: Mahzan gilds your edge — +7% crit this run"},
 		{"text": "Draught of Teeth — pay 4 souls: Mahzan bottles the hunt — +8% attack speed this run"},
 		{"text": "Grim Tally — pay 6 souls: Mahzan balances the book — +10% souls, +5% dodge this run"},
+		{"text": "Saltwrit — pay 5 souls: Mahzan inks a clause in your favor — +1 armor, +5% XP this run"},
 		]
 	)
 
@@ -12501,6 +12502,16 @@ func _mahzan_deal(idx: int) -> void:
 				Stats.dodge += 0.05
 				Sfx.play("shrine")
 				toast("GRIM TALLY — the book balances in your favor (+10% souls, +5% dodge this run)")
+		63:
+			if Stats.souls < _soul_cost(5):
+				toast("Five souls — the clause isn't free")
+			else:
+				Stats.souls -= _soul_cost(5)
+				_count_deal()
+				Stats.buff_armor += 1
+				Stats.buff_xp_pct += 0.05
+				Sfx.play("shrine")
+				toast("SALTWRIT — the clause reads in your favor (+1 armor, +5% XP this run)")
 
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
