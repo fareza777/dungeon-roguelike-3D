@@ -9875,6 +9875,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Keel Oath — pay 4 souls: your blade swears to the keel — +8% ATK this floor"},
 			{"text": "Tally Man — pay 5 souls: every notch pays double — +15% soul gain this floor"},
 			{"text": "Bone Tally — pay 4 souls: each notch marks a throat — +8% crit this floor"},
+			{"text": "Keel Wager — pay 6 souls: the coin spins — fifty-fifty: +15 souls or −10% max HP"},
 		]
 	)
 
@@ -11800,6 +11801,21 @@ func _mahzan_deal(idx: int) -> void:
 				rat_ration = true
 				Sfx.play("shrine")
 				toast("RAT RATION — wrapped in wax, mostly rat")
+		57:
+			if Stats.souls < _soul_cost(6):
+				toast("Six souls — the coin isn't free")
+			else:
+				Stats.souls -= _soul_cost(6)
+				_count_deal()
+				if rng.randf() < 0.5:
+					Stats.earn_souls(15)
+					_souls_l()
+					Sfx.play("relic")
+					toast("KEEL WAGER — HEADS: +15 souls, Mahzan applauds")
+				else:
+					Stats.buff_maxhp_pct -= 0.10
+					Sfx.play("hurt")
+					toast("KEEL WAGER — TAILS: the house collects (−10% Max HP)")
 
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
