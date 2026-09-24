@@ -254,7 +254,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred", "seafaring", "feytouched", "knotted", "belltoll", "soulfed", "gutted", "beacon", "spry", "keenedged", "tidewrought", "lurker", "hoarfrost", "reefbound", "flotsam", "brinetouched", "bilged", "gilded", "saltbitten", "leeched", "windlashed", "halfshell", "soulwrought", "leaden", "grasping", "hungry", "numbing", "soulbound"][randi() % 76]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred", "seafaring", "feytouched", "knotted", "belltoll", "soulfed", "gutted", "beacon", "spry", "keenedged", "tidewrought", "lurker", "hoarfrost", "reefbound", "flotsam", "brinetouched", "bilged", "gilded", "saltbitten", "leeched", "windlashed", "halfshell", "soulwrought", "leaden", "grasping", "hungry", "numbing", "soulbound", "saltkin"][randi() % 77]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -481,6 +481,10 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 			"soulbound":
 				hp *= 1.2
 				xp_val = int(ceilf(xp_val * 1.45))
+			"saltkin":
+				hp *= 0.85
+				speed *= 0.9
+				xp_val = int(ceilf(xp_val * 1.3))
 			"brinetouched":
 				hp *= 1.15
 				xp_val = int(ceilf(xp_val * 1.3))
@@ -1508,6 +1512,8 @@ func _lurk_reveal() -> void:
 func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 	if state == "dead":
 		return
+	if affix == "saltkin":
+		dmg_taken *= 1.15
 	if is_lurker and not lurk_revealed:
 		_lurk_reveal()
 	if halfshell_shell:
@@ -1672,6 +1678,13 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 			var mpl := get_tree().current_scene
 			if mpl != null and mpl.has_method("_shock_ring"):
 				mpl._shock_ring(global_position)
+		if affix == "saltkin":
+			Stats.earn_souls(2)
+			var msk := get_tree().current_scene
+			if msk != null and msk.has_method("_souls_l"):
+				msk._souls_l()
+			if msk != null and msk.has_method("_damage_number"):
+				msk._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "SALTKIN +2", Color(0.4, 0.9, 0.9), true)
 		if arch_id == "siren_thrall":
 			var mst := get_tree().current_scene
 			if mst != null and mst.has_method("_spawn_wisp_at"):
