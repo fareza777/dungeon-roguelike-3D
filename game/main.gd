@@ -343,6 +343,7 @@ var sheave_toll := false
 var bilge_bond := false
 var rigging_rites := false
 var mudlarks_due := false
+var kelp_tithe := false
 var drift_verse := false
 var pearl_octave := false
 var undertow_aria := false
@@ -1564,6 +1565,7 @@ func _new_run(new_seed: int) -> void:
 	if rigging_rites:
 		Stats.buff_aspd -= 0.08
 		rigging_rites = false
+	kelp_tithe = false
 	if vigils_gage:
 		Stats.dodge -= 0.1
 		vigils_gage = false
@@ -3469,7 +3471,7 @@ func _spawn_health_orb(pos: Vector3) -> void:
 	var orb = HORB.new()
 	room.add_child(orb)
 	orb.global_position = pos + Vector3(0, 0.5, 0)
-	orb.setup(2.0 if bloodwarm or full_draught else (1.5 if pearl_octave or balmy_sea else 1.0), info.tile)
+	orb.setup((2.0 if bloodwarm or full_draught else (1.5 if pearl_octave or balmy_sea else 1.0)) * (1.3 if kelp_tithe else 1.0), info.tile)
 
 
 func _spawn_obelisks(last_room: int) -> void:
@@ -8491,12 +8493,23 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Silt Press — pay 6 souls: squeeze the bottom mud — +15% souls this floor"},
 		{"text": "Bilge Bond — pay 4 souls: the muck hums your rhythm — skill charges −15% this floor"},
 		{"text": "Mudlark's Due — pay 3 souls: the silt teaches slipping — +8% dodge this floor"},
+		{"text": "Kelp Tithe — pay 3 souls: the wrack feeds you — orbs mend +30% this floor"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 35:
+	if idx == 36:
 		toast("The water settles back into the stone")
+		return
+	if idx == 35:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the wrack isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		kelp_tithe = true
+		Sfx.play("shrine")
+		toast("KELP TITHE — the wrack feeds you")
 		return
 	if idx == 34:
 		if Stats.souls < _soul_cost(3):
