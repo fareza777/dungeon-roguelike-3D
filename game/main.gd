@@ -13725,12 +13725,15 @@ func _process(delta: float) -> void:
 				atk_charged = true
 				Input.vibrate_handheld(60)
 				ui.atk_btn.modulate = Color(1.35, 1.15, 0.6)
+				var ctw: Tween = ui.atk_btn.create_tween()
+				ctw.tween_property(ui.atk_btn, "scale", Vector2(1.18, 1.18), 0.12).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 		else:
 			if atk_hold_t >= (0.4 if Stats.relics.has("pendulum") else 0.6):
 				_heavy_attack()
 			atk_hold_t = 0.0
 			atk_charged = false
 			ui.atk_btn.modulate = Color.WHITE
+			ui.atk_btn.scale = Vector2.ONE
 		if Input.is_key_pressed(KEY_H):
 			_toggle_hero(true)
 
