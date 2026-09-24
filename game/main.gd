@@ -5667,6 +5667,11 @@ func _boss_enraged() -> void:
 	if ui.has("boss_name"):
 		ui.boss_name.modulate = Color(1.0, 0.4, 0.2)
 		ui.boss_name.text = "☠ " + boss_name + " — ENRAGED"
+		# nameplate membara denyut selama enrage
+		var etw: Tween = ui.boss_name.create_tween()
+		etw.set_loops(20)
+		etw.tween_property(ui.boss_name, "modulate", Color(1.4, 0.7, 0.4), 0.3)
+		etw.tween_property(ui.boss_name, "modulate", Color(1, 1, 1), 0.3)
 
 
 func _on_player_died() -> void:
