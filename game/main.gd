@@ -1045,6 +1045,7 @@ func _ach(id: String) -> void:
 	Stats.save_game()
 	_lvl_banner("◆ ACHIEVEMENT — " + String(Stats.ACH_DEF[id]))
 	Sfx.play("quest")
+	Sfx.play("relic", 0.6)
 	if vign_g != null and Stats.screen_flash:
 		vign_g.modulate.a = 0.55
 		var atw := vign_g.create_tween()
