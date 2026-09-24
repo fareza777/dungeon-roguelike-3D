@@ -6910,7 +6910,11 @@ func _build_skill_buttons(layer: CanvasLayer) -> void:
 		b.add_child(shade)
 		b.move_child(shade, 0)
 		var sid := id
-		b.pressed.connect(func() -> void: _cast_skill(sid))
+		b.pressed.connect(func() -> void:
+			var stw: Tween = b.create_tween()
+			stw.tween_property(b, "scale", Vector2(0.86, 0.86), 0.06)
+			stw.tween_property(b, "scale", Vector2.ONE, 0.14).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+			_cast_skill(sid))
 		layer.add_child(b)
 		skill_ui[id] = {"btn": b, "cd": cd, "shade": shade, "name": String(SK.DB[id]["name"])}
 
