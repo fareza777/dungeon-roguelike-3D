@@ -63,6 +63,9 @@ func _physics_process(delta: float) -> void:
 							p.hp = minf(maxh, p.hp + heal)
 							p.hp_changed.emit(p.hp)
 							Sfx.play("pickup")
+							var msn_ := get_tree().current_scene
+							if msn_ != null and msn_.has_method("_damage_number"):
+								msn_._damage_number(p.global_position + Vector3(0, 0.8, 0), "+%d" % int(ceil(heal)), Color(0.4, 1.0, 0.55), false)
 						else:
 							Sfx.play("xp")
 						queue_free()
