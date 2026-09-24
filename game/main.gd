@@ -4589,6 +4589,7 @@ func _souls_l() -> void:
 			_souls_net -= 10
 			Stats.earn_souls(1)
 			toast("LUCKY NET — +1 soul")
+	var sdelta: int = Stats.souls - _souls_seen
 	_souls_seen = Stats.souls
 	if ui.has("souls_label"):
 		var t2: String = "◈ %d souls" % Stats.souls if Stats.souls > 0 else ""
@@ -4601,6 +4602,19 @@ func _souls_l() -> void:
 			tw.tween_property(ui.souls_label, "scale", Vector2.ONE, 0.25)
 			tw.tween_property(ui.souls_label, "modulate", Color(1, 1, 1), 0.4)
 		ui.souls_label.text = t2
+	if sdelta > 0 and ui.has("hud_layer") and ui.has("souls_label"):
+		var sl := Label.new()
+		sl.text = "+%d ◈" % sdelta
+		sl.add_theme_font_size_override("font_size", 20)
+		sl.add_theme_color_override("font_color", Color(1.0, 0.85, 0.4))
+		sl.position = ui.souls_label.global_position + Vector2(0, -6)
+		ui.hud_layer.add_child(sl)
+		var stw := sl.create_tween()
+		stw.set_parallel(true)
+		stw.tween_property(sl, "position:y", sl.position.y - 34, 0.9).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+		stw.tween_property(sl, "modulate:a", 0.0, 0.9)
+		stw.set_parallel(false)
+		stw.tween_callback(sl.queue_free)
 
 
 func _on_enemy_died(e) -> void:
