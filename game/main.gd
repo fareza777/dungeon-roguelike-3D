@@ -10014,6 +10014,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Tally Man — pay 5 souls: every notch pays double — +15% soul gain this floor"},
 			{"text": "Bone Tally — pay 4 souls: each notch marks a throat — +8% crit this floor"},
 			{"text": "Keel Wager — pay 6 souls: the coin spins — fifty-fifty: +15 souls or −10% max HP"},
+		{"text": "Tide Account — pay 7 souls: Mahzan converts your lessons into coin — +15% souls, −10% XP this run"},
 		]
 	)
 
@@ -11967,6 +11968,16 @@ func _mahzan_deal(idx: int) -> void:
 					Stats.buff_maxhp_pct -= 0.10
 					Sfx.play("hurt")
 					toast("KEEL WAGER — TAILS: the house collects (−10% Max HP)")
+		58:
+			if Stats.souls < _soul_cost(7):
+				toast("Seven souls — the ledger wants its ink")
+			else:
+				Stats.souls -= _soul_cost(7)
+				_count_deal()
+				Stats.soul_gain_pct += 0.15
+				Stats.buff_xp_pct -= 0.10
+				Sfx.play("shrine")
+				toast("TIDE ACCOUNT — Mahzan converts your lessons into coin (+15% souls, −10% XP this run)")
 
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
