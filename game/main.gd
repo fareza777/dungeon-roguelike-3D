@@ -217,6 +217,7 @@ var bilge_sworn := false
 var salt_forfeit := false
 var dead_reckoner := false
 var pale_dock := false
+var fathom_pact := false
 var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
@@ -1372,6 +1373,7 @@ func _reset_run_state() -> void:
 	salt_forfeit = false
 	dead_reckoner = false
 	pale_dock = false
+	fathom_pact = false
 	combo_rate_bonus = 0.0
 	solitary = false
 	pawn_discount = false
@@ -2910,6 +2912,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.speed *= 0.92
 	if dead_reckoner and not e.is_boss:
 		e.aggro_range *= 1.2
+	if fathom_pact and not e.is_boss:
+		e.dmg = int(ceilf(float(e.dmg) * 1.12))
 	if gallows_tide and not e.is_boss:
 		e.hp *= 1.12
 		e.hp_max = e.hp
@@ -7448,6 +7452,7 @@ func _offer_omens() -> void:
 		{"text": "SALT FORFEIT — pay your vigor up front (−10% Max HP)... and the dead pay interest (+15% XP)"},
 		{"text": "DEAD RECKONER — the chart draws them nearer (+20% foe aggro)... but the purse knows (+15% souls)"},
 		{"text": "PALE DOCK — the berths run dry (orbs mend −30%)... but the toll pays (+15% souls)"},
+		{"text": "FATHOM PACT — the deep steadies your footing (+10% dodge)... but its pupils strike +12% harder"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -7498,7 +7503,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 86 if Stats.nemesis != "" else 85
+	var osize := 87 if Stats.nemesis != "" else 86
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -7862,6 +7867,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct += 0.15
 			oname = "PALE DOCK"
 		85:
+			fathom_pact = true
+			Stats.dodge += 0.1
+			oname = "FATHOM PACT"
+		86:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -7957,6 +7966,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT FORFEIT": "Blood first, glory later — the sea always collects its collateral.",
 	"DEAD RECKONER": "Plot the course and the dead plot back — fair trade for a fuller purse.",
 	"PALE DOCK": "Every berth taken is a berth you cannot have — the purse compensates.",
+	"FATHOM PACT": "Stand steady and let them come — the deep likes a duel.",
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
