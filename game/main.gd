@@ -14157,7 +14157,7 @@ func _update_xp(cur: int, need: int, lv: int) -> void:
 	# pulsa singkat di penuh-bar saat XP mengalir masuk
 	var xftw: Tween = create_tween()
 	xftw.tween_property(ui.xp_bar, "modulate", Color(1.35, 1.35, 1.6), 0.08)
-	xftw.tween_property(ui.xp_bar, "modulate", Color.ONE, 0.25)
+	xftw.tween_property(ui.xp_bar, "modulate", Color(1, 1, 1), 0.25)
 	ui.lv_label.text = "Lv %d" % lv
 	ui.lv_label.pivot_offset = ui.lv_label.size * 0.5
 	var ltw: Tween = ui.lv_label.create_tween()
