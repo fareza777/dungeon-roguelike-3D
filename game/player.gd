@@ -305,6 +305,22 @@ func _strike() -> void:
 							continue
 						f2.set("slow_t", 1.5)
 					Sfx.play("soul")
+			if Stats.weapon_id == "thunderhead":
+				var thn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", thn)
+				if thn % 5 == 0:
+					var tf = null
+					var tbest := 1e9
+					for f3 in get_tree().get_nodes_in_group("enemies"):
+						if f3.get("dead") == true:
+							continue
+						var f3d: float = global_position.distance_to(f3.global_position)
+						if f3d < tbest:
+							tbest = f3d
+							tf = f3
+					if tf != null:
+						tf.stun(0.8)
+						Sfx.play("crit")
 			if Stats.weapon_id == "salt_lantern":
 				var sln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", sln)
