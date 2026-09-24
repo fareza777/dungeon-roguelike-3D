@@ -232,6 +232,7 @@ const ACH_DEF := {
 	"slayer250": "The Bone Harvest (250 kills in a single run)",
 	"doubloath": "Twice-Sworn (carry two omens in one run)",
 	"fatebound": "Fatebound (five oaths sworn across your descents)",
+	"pact_stack": "Pact Stack (bear four omens on one floor)",
 	"tenthoath": "Tenth Oath (ten oaths sworn across your descents)",
 	"mariner": "Mariner (reach floor 10 in a single descent)",
 	"quarterdeck": "Quarterdeck (reach floor 20 in a single descent)",
