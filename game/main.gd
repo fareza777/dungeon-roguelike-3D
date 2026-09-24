@@ -10748,6 +10748,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.soul_gain_pct -= 0.04
 			toast("Wake Gospel: the foam preaches fury to your arm — +5% ATK, −4% souls this run")
+		173:
+			Stats.buff_speed_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			toast("Grey Wake: the ship's tail hurries your feet — +5% speed, −4% souls this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17366,6 +17370,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Fog Verse — the mist sings you between their blows: +5% dodge, −4% ATK this run"},
 			{"text": "Grey Pension — the sea pays out what it's owed you: +4% souls, +2% max HP this run"},
 			{"text": "Wake Gospel — the foam preaches fury to your arm: +5% ATK, −4% souls this run"},
+			{"text": "Grey Wake — the ship's tail hurries your feet: +5% speed, −4% souls this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
