@@ -874,6 +874,7 @@ const BESTIARY := {
 	"keel_sexton": ["Keel Sexton", "It keeps the drowned graveyard in order — every soul you free, it digs back in."],
 	"chain_warden": ["Chain Warden", "Part jailer, part cutpurse — it wants your ankles and your purse."],
 	"salt_curate": ["Salt Curate", "It mends the drowned and mouths litanies that rot your grip."],
+	"keel_verger": ["Keel Verger", "A church-warden of the drowned nave — it hymns the pack onward while it darts away."],
 	"keel_summoner": ["Keel Summoner", "It tolls the wreck's muster bell — each note drags more dead crew from the bilge."],
 	"gunnel_fiend": ["Gunnel Fiend", "It claws along the rail faster than it walks — when it coils, it's already midair."],
 	"pale_lantern": ["Pale Lantern", "A wick of drowned light walking a dead sailor's frame — snuff it and every shadow in the room flinches."],
@@ -922,7 +923,7 @@ const KILLER_NAMES := {
 	"bell_ringer": "a Bell Ringer",
 	"moorling": "a Moorling",
 	"keel_mastiff": "a Keel Mastiff",
-	"salt_lich": "a Salt Lich", "bilge_fury": "a Bilge Fury", "siren_thrall": "a Siren Thrall", "pale_lantern": "a Pale Lantern", "gunnel_fiend": "a Gunnel Fiend", "bilge_cantor": "a Bilge Cantor", "tide_bailiff": "a Tide Bailiff", "salt_skimmer": "a Salt Skimmer", "brine_monk": "a Brine Monk", "deck_rigger": "a Deck Rigger", "dread_gull": "a Dread Gull", "gale_singer": "a Gale Singer", "snatch_widow": "a Snatch Widow", "gunnel_gnat": "a Gunnel Gnat", "deck_reverend": "a Deck Reverend", "mast_lurcher": "a Mast Lurcher", "dirge_singer": "a Dirge Singer", "the_boatswain": "the Boatswain", "gloom_lantern": "a Gloom Lantern", "wick_tender": "a Wick Tender", "sodden_deckhand": "a Sodden Deckhand", "brine_widow": "a Brine Widow", "keelwright": "a Keelwright", "bilge_tender": "a Bilge Tender", "keel_sapper": "a Keel Sapper", "keel_chorister": "a Keel Chorister", "pitch_tender": "a Pitch Tender", "keel_wraith": "a Keel Wraith", "brood_keel": "a Brood Keel", "brine_hag": "a Brine Hag", "salt_devout": "a Salt Devout", "jeerjack": "a Jeerjack", "salt_gallows": "a Salt Gallows", "soul_toller": "a Soul Toller", "keel_scribe": "a Keel Scribe", "salt_widow": "a Salt Widow", "keel_leecher": "a Keel Leecher", "keel_summoner": "a Keel Summoner", "rust_leech": "a Rust Leech", "pale_tither": "a Pale Tither", "mistral_imp": "a Mistral Imp", "bilge_prior": "a Bilge Prior", "pallbearer": "a Pallbearer", "keel_sexton": "a Keel Sexton", "chain_warden": "a Chain Warden", "salt_curate": "a Salt Curate",
+	"salt_lich": "a Salt Lich", "bilge_fury": "a Bilge Fury", "siren_thrall": "a Siren Thrall", "pale_lantern": "a Pale Lantern", "gunnel_fiend": "a Gunnel Fiend", "bilge_cantor": "a Bilge Cantor", "tide_bailiff": "a Tide Bailiff", "salt_skimmer": "a Salt Skimmer", "brine_monk": "a Brine Monk", "deck_rigger": "a Deck Rigger", "dread_gull": "a Dread Gull", "gale_singer": "a Gale Singer", "snatch_widow": "a Snatch Widow", "gunnel_gnat": "a Gunnel Gnat", "deck_reverend": "a Deck Reverend", "mast_lurcher": "a Mast Lurcher", "dirge_singer": "a Dirge Singer", "the_boatswain": "the Boatswain", "gloom_lantern": "a Gloom Lantern", "wick_tender": "a Wick Tender", "sodden_deckhand": "a Sodden Deckhand", "brine_widow": "a Brine Widow", "keelwright": "a Keelwright", "bilge_tender": "a Bilge Tender", "keel_sapper": "a Keel Sapper", "keel_chorister": "a Keel Chorister", "pitch_tender": "a Pitch Tender", "keel_wraith": "a Keel Wraith", "brood_keel": "a Brood Keel", "brine_hag": "a Brine Hag", "salt_devout": "a Salt Devout", "jeerjack": "a Jeerjack", "salt_gallows": "a Salt Gallows", "soul_toller": "a Soul Toller", "keel_scribe": "a Keel Scribe", "salt_widow": "a Salt Widow", "keel_leecher": "a Keel Leecher", "keel_summoner": "a Keel Summoner", "rust_leech": "a Rust Leech", "pale_tither": "a Pale Tither", "mistral_imp": "a Mistral Imp", "bilge_prior": "a Bilge Prior", "pallbearer": "a Pallbearer", "keel_sexton": "a Keel Sexton", "chain_warden": "a Chain Warden", "salt_curate": "a Salt Curate", "keel_verger": "a Keel Verger",
 	"deck_brute": "a Deck Brute",
 	"salt_eel": "a Salt Eel",
 	"quarter_ghost": "a Quarter Ghost",
@@ -1045,6 +1046,7 @@ const KILLER_TIPS := {
 	"keel_sexton": "Tip: the Sexton raises the fallen back to work — shut the graveyard down first.",
 	"chain_warden": "Tip: the Warden pins your foot and filches your coin — break range before you answer.",
 	"salt_curate": "Tip: the Curate mends its flock while you fight — kill the priest before its congregation.",
+	"keel_verger": "Tip: the Verger slips away and hurries the rest — corner it first, or fight the whole choir."
 	"keel_summoner": "Tip: the Keel Summoner raises the bilge crew faster than you can cut them — silence the bell first.",
 	"salt_lich": "Tip: Salt Liches telegraph a long windup — close the gap fast or weave between bolts.",
 	"deck_brute": "Tip: Deck Brutes barely feel knockback — break their windup with a stun, or never be there when it lands.",
@@ -3967,6 +3969,7 @@ const FIRST_SEEN := {
 	"keel_sexton": "A Keel Sexton strikes its spade on stone — the graveyard answers.",
 	"chain_warden": "A Chain Warden drags its length of rusted links — your ankles and your purse.",
 	"salt_curate": "A Salt Curate lifts its chalice — the wounded rise, and your hands go soft.",
+	"keel_verger": "A Keel Verger tolls its procession bell — the pack quickens at its word."
 	"keel_summoner": "A Keel Summoner sounds the muster — it will not stop until the bell is drowned.",
 	"brine_monk": "A Brine Monk bows its head — its open palm saps the strength from your arm.",
 	"deck_rigger": "A Deck Rigger unfurls its line — its hook bites from farther than you think.",
@@ -5881,6 +5884,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("chainwarden_kill")
 	if e.arch_id == "salt_curate":
 		_quest_event("curate_kill")
+	if e.arch_id == "keel_verger":
+		_quest_event("verger_kill")
 	if e.arch_id == "keel_scribe":
 		_quest_event("scribe_kill")
 	if e.arch_id == "soul_toller":
