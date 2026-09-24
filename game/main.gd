@@ -286,6 +286,7 @@ var moonwater := false
 var tar_knots := false
 var salt_sheath := false
 var brine_hymn := false
+var keelmans_toll := false
 var pilgrims_purse := false
 var crows_toll := false
 var crowns_decree := false
@@ -1360,6 +1361,7 @@ func _new_run(new_seed: int) -> void:
 	if brine_hymn:
 		Stats.event_soul_bonus -= 1
 		brine_hymn = false
+	keelmans_toll = false
 	if deck_manifest:
 		Stats.soul_gain_pct -= 0.15
 		deck_manifest = false
@@ -7054,6 +7056,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Gilded Provisions — pay 4 souls: the officer's mess — vial topped, 30% mended"},
 			{"text": "Gilded Map — pay 4 souls: every room of this floor sketched in bone-ink"},
 			{"text": "Salt Wager — stake 6 souls: the tide doubles it or drinks it"},
+			{"text": "Keelman's Toll — pay 3 souls: the dead wade −8% slower this floor"},
 		]
 	)
 
@@ -8412,6 +8415,18 @@ func _mahzan_deal(idx: int) -> void:
 				player.hp = minf(player.max_hp, player.hp + player.max_hp * 0.3)
 				Sfx.play("shrine")
 				toast("GILDED PROVISIONS — you eat like an admiral tonight")
+		38:
+			if Stats.souls < _soul_cost(3):
+				toast("Three souls — the toll isn't free")
+			else:
+				Stats.souls -= _soul_cost(3)
+				_souls_l()
+				keelmans_toll = true
+				for f in get_tree().get_nodes_in_group("enemies"):
+					if f.get("state") != "dead" and not bool(f.get("is_boss")):
+						f.speed *= 0.92
+				Sfx.play("shrine")
+				toast("KEELMAN'S TOLL — the tide drags their feet")
 		37:
 			if Stats.souls < _soul_cost(6):
 				toast("Six souls — the tide won't bet on credit")
