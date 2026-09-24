@@ -199,7 +199,11 @@ const LORE_LINES := [
 	"The Leechers' trade is simple: a pint of you for a pound of them, and they never lose.",
 	"The Orator preached to empty pews for a hundred years before the pews started answering.",
 	"The Mistral Imps were cabin boys once — now they ride the wind that outlived their ship.",
-	"A Soulheavy brute sinks slower than the rest — the sea weighs what it is owed.",]
+	"A Soulheavy brute sinks slower than the rest — the sea weighs what it is owed.",
+	"The Pallbearers never bury anything. They only carry it deeper, floor by floor.",
+	"A Grim Lantern burns whale-oil and oaths — the light is cheap, the fuel is not.",
+	"Mahzan keeps an escrow of other men's tomorrows. Yours is filed under 'soon'.",
+	"A Saltwire tangle taught the old riggers: the sea holds whatever you throw it, and throws it back knotted.",]
 
 var dungeon_tex: Texture2D
 var skeleton_tex: Texture2D
