@@ -266,6 +266,7 @@ const ACH_DEF := {
 	"godlike": "Godlike (reached a ×40 combo)",
 	"ledger_lord": "Ledger Lord (struck 40 bargains in one run)",
 	"abyssalchart": "Abyssal Chart (reached floor 18)",
+	"thricesworn": "Thrice Sworn (swore 3 omens in a single run)",
 }
 
 const META_DEF := {
