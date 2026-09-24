@@ -9297,7 +9297,17 @@ func toast(txt: String) -> void:
 		if _toast_queue.size() < 3:
 			_toast_queue.append(txt)
 		return
-	ui.toast.text = txt
+	var _tpfx := ""
+	if txt.length() > 0 and txt.unicode_at(0) < 0x2000:
+		if "soul" in txt.to_lower() or "◈" in txt:
+			_tpfx = "◈ "
+		elif "ATK" in txt or "armor" in txt.to_lower() or "armor" in txt.to_lower():
+			_tpfx = "⚔ "
+		elif "heal" in txt.to_lower() or "mend" in txt.to_lower() or "HP" in txt:
+			_tpfx = "✚ "
+		elif "quest" in txt.to_lower():
+			_tpfx = "✦ "
+	ui.toast.text = _tpfx + txt
 	ui.toast_panel.visible = true
 	ui.toast_panel.modulate.a = 1.0
 	if toast_tween != null and toast_tween.is_valid():
