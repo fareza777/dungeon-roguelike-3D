@@ -382,6 +382,7 @@ var splice_line := false
 var rigging_rest := false
 var hull_count := false
 var capstan_oil := false
+var sheet_bend := false
 var second_verse := false
 var chorus_deep := false
 var harbor_verse := false
@@ -1732,6 +1733,9 @@ func _new_run(new_seed: int) -> void:
 	if capstan_oil:
 		Stats.buff_aspd -= 0.1
 		capstan_oil = false
+	if sheet_bend:
+		Stats.dodge -= 0.08
+		sheet_bend = false
 	if second_verse:
 		Stats.buff_aspd -= 0.15
 		second_verse = false
@@ -10539,12 +10543,25 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Rigging Rest — pay 4 souls: the lines slacken in your favor — mend 15%, skills recharge 15% faster this floor"},
 		{"text": "Hull Count — pay 4 souls: the carpenter counts you among the planks — +10% Max HP this floor"},
 		{"text": "Capstan Oil — pay 4 souls: greased drum, fast hands — +10% attack speed this floor"},
+		{"text": "Sheet Bend — pay 3 souls: the line gives where you lean — +8% dodge this floor"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 35:
+	if idx == 36:
 		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 35:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the bend isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_count_deal()
+		_souls_l()
+		sheet_bend = true
+		Stats.dodge += 0.08
+		Sfx.play("shrine")
+		toast("SHEET BEND — the line gives where you lean")
 		return
 	if idx == 34:
 		if Stats.souls < _soul_cost(4):
