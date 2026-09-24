@@ -14731,8 +14731,9 @@ func _toggle_pause() -> void:
 		var ps := int(run_time) % 60
 		var wname: String = String(WDB.DB[Stats.weapon_id]["name"]) if WDB.DB.has(Stats.weapon_id) else Stats.weapon_id
 		var omen_line := "" if omen_name == "" else "  •  ☗ " + omen_name
+		var deal_line := "" if deals_run == 0 else "  •  ⚖ %d deals" % deals_run
 		ui.pause_stats.text = "Floor %d  •  %d kills  •  best combo ×%d  •  %d:%02d  •  %+d souls  •  ☠ %d
-%s  •  %d relics%s" % [Stats.floor_num, kills_run, combo_max, pm, ps, Stats.souls - run_souls_start, revives_run, wname, Stats.relics.size(), omen_line]
+%s  •  %d relics%s%s" % [Stats.floor_num, kills_run, combo_max, pm, ps, Stats.souls - run_souls_start, revives_run, wname, Stats.relics.size(), omen_line, deal_line]
 	Sfx.play("click")
 
 
