@@ -7735,7 +7735,7 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Bilge Baptism — pay 4 souls: washed in the foul water — the dead strike 10% softer this run"},
 		{"text": "Pearl Snuff — pay 5 souls: powdered pearl in the nose — the drowned teach +10% XP this run"},
 		{"text": "Tide Pearl — pay 5 souls: held to the chest, it hardens — +1 Armor this run"},
-		{"text": "Brine Graft — pay 4 souls: salt stitched under the skin — +1 Armor this floor"},
+		{"text": "Salt Splice — pay 4 souls: salt stitched under the skin — +1 Armor this floor"},
 		{"text": "Walk away"}])
 
 
@@ -7752,7 +7752,7 @@ func _drowned_deal(idx: int) -> void:
 		brine_graft = true
 		Stats.buff_armor += 1
 		Sfx.play("shrine")
-		toast("BRINE GRAFT — the salt knits under your skin")
+		toast("SALT SPLICE — the salt knits under your skin")
 		return
 	if idx == 12:
 		if Stats.souls < _soul_cost(4):
