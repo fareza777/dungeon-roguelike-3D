@@ -221,6 +221,7 @@ const ACH_DEF := {
 	"quarterdeck": "Quarterdeck (reach floor 20 in a single descent)",
 	"abyssal": "Abyssal Reaches (reach floor 30 in a single descent)",
 	"oathbound": "Oathbound (swear 12 different pacts, across all your descents)",
+	"manyoaths": "Many Oaths (swear 20 different pacts, across all your descents)",
 	"unstoppable": "Unstoppable (a ×50 kill streak in one run)",
 	"deepvault": "Deep Vault (held 50 souls at once)",
 	"fortyknells": "Forty Knells (40 skill casts in one run)",
