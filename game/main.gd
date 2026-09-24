@@ -5623,7 +5623,7 @@ func _on_enemy_died(e) -> void:
 			if bilge_run:
 				_quest_event("bilgewalk")
 			if pale_squall:
-				_quest_event("squallwalk")
+				_quest_event("galesurf")
 			if soul_flush:
 				_quest_event("flushwalk")
 			if kings_tithe:
@@ -5750,7 +5750,7 @@ func _on_enemy_died(e) -> void:
 				_quest_event("highseawalk")
 				_ach("whitecap")
 			if squall_line:
-				_quest_event("squallwalk")
+				_quest_event("galesurf")
 			if dark_water:
 				_quest_event("darkwalk")
 			if glass_sea:
