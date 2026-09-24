@@ -9197,12 +9197,26 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Keelwind — pay 4 souls: the drowned wind fills your stride — +10% speed this floor"},
 		{"text": "Murk Vision — pay 3 souls: the silt clouds their dead eyes — foes notice you −15% later this floor"},
 		{"text": "Silt Draught — pay 5 souls: the mud settles into your skin — +1 Armor this floor"},
+		{"text": "Undertow Nap — pay 4 souls: the current rocks you a moment — mend 20%"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 42:
+	if idx == 43:
 		toast("The water settles back into the stone")
+		return
+	if idx == 42:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the nap isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_count_deal()
+		_souls_l()
+		if player != null and is_instance_valid(player):
+			player.hp = minf(player.max_hp, player.hp + player.max_hp * 0.2)
+			player.hp_changed.emit(player.hp)
+		Sfx.play("shrine")
+		toast("UNDERTOW NAP — the current rocks you")
 		return
 	if idx == 41:
 		if Stats.souls < _soul_cost(5):
