@@ -356,6 +356,7 @@ var mudlarks_due := false
 var kelp_tithe := false
 var bosuns_chit := false
 var deck_psalm := false
+var rope_tackle := false
 var leech_bond := false
 var salt_lullaby := false
 var regal_favor := false
@@ -1620,6 +1621,7 @@ func _new_run(new_seed: int) -> void:
 		Stats.buff_atk_pct -= 0.1
 		bosuns_chit = false
 	deck_psalm = false
+	rope_tackle = false
 	if leech_bond:
 		Stats.buff_lifesteal -= 0.08
 		leech_bond = false
@@ -6359,7 +6361,7 @@ func _cast_skill(id: String) -> void:
 	_quest_event("skill_" + id)
 	if skills_floor.size() >= 3:
 		_quest_event("witching")
-	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0) * (0.6 if id == "dash" and umbral_tide else 1.0) * (0.7 if id == "dash" and brisk else 1.0) * (0.6 if id == "dash" and dash_fuel else 1.0) * (0.75 if oarsworn else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("powdermonk", 0))) * (1.15 if sodden else 1.0) * (1.1 if slim_pickings else 1.0) * (0.92 if Stats.relics.has("bosun_whistle") else 1.0) * (1.15 if cold_snap or saltsick else 1.0) * (0.85 if bilge_bond else 1.0) * (1.1 if bosuns_debt else 1.0) * (0.95 if Stats.relics.has("signal_flag") else 1.0) * (0.75 if id == "dash" and whale_lung else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("belaypin", 0)) if id == "dash" else 1.0) + omen_cd_add
+	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0) * (0.6 if id == "dash" and umbral_tide else 1.0) * (0.7 if id == "dash" and brisk else 1.0) * (0.6 if id == "dash" and dash_fuel else 1.0) * (0.75 if oarsworn else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("powdermonk", 0))) * (1.15 if sodden else 1.0) * (1.1 if slim_pickings else 1.0) * (0.92 if Stats.relics.has("bosun_whistle") else 1.0) * (1.15 if cold_snap or saltsick else 1.0) * (0.85 if bilge_bond else 1.0) * (1.1 if bosuns_debt else 1.0) * (0.8 if id == "dash" and rope_tackle else 1.0) * (0.95 if Stats.relics.has("signal_flag") else 1.0) * (0.75 if id == "dash" and whale_lung else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("belaypin", 0)) if id == "dash" else 1.0) + omen_cd_add
 	casts_run += 1
 	if casts_run >= 40:
 		_ach("fortyknells")
@@ -9863,12 +9865,25 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Sheave Toll — pay 4 souls: the pulley's lesson — +10% XP this floor"},
 		{"text": "Rigging Rites — pay 3 souls: every line tuned tight — +8% attack speed this floor"},
 		{"text": "Deck Psalm — pay 5 souls: the hull's hymn calms the dead — foes −12% damage this floor"},
+		{"text": "Rope Tackle — pay 4 souls: oiled blocks, faster feet — dash recharges 20% faster this floor"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 30:
+	if idx == 31:
 		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 30:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the tackle isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		rope_tackle = true
+		for sid3 in skill_cd.keys():
+			skill_cd[sid3] = float(skill_cd[sid3]) * (0.8 if sid3 == "dash" else 1.0)
+		Sfx.play("shrine")
+		toast("ROPE TACKLE — the blocks run free")
 		return
 	if idx == 29:
 		if Stats.souls < _soul_cost(5):
