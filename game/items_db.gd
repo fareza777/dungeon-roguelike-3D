@@ -194,6 +194,7 @@ const DB := {
 	"figurehead_eye": {"name": "Figurehead's Eye", "chip": "FE", "desc": "The prow's gaze still seeks the shoals — +8% crit, +4% souls", "rarity": 1, "mods": {"crit": 0.08, "soul_gain_pct": 0.04}},
 	"keelbone": {"name": "Keelbone", "chip": "KB", "desc": "A sliver of the old ship's spine — +6% lifesteal, +3% dodge", "rarity": 1, "mods": {"lifesteal": 0.06, "dodge": 0.03}},
 	"grog_tab": {"name": "Grog Tab", "chip": "GT", "desc": "The cook still owes you — +8% attack speed, −1 armor", "rarity": 1, "mods": {"atk_speed": 0.08, "armor": -1}},
+	"bilge_pearl": {"name": "Bilge Pearl", "chip": "BP", "desc": "Grown in a drowned oyster — +6% attack speed, +3% crit", "rarity": 1, "mods": {"atk_speed": 0.06, "crit": 0.03}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
