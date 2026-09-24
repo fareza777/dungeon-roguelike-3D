@@ -3549,6 +3549,8 @@ func _on_enemy_died(e) -> void:
 			_spawn_wisp_at(e.global_position + woff)
 	Sfx.play("death")
 	kills_run += 1
+	if kills_run >= 30:
+		_quest_event("swab30")
 	floor_kills += 1
 	if floor_kills == 30:
 		_ach("toothdeck")
