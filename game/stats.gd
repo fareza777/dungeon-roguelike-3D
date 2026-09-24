@@ -513,6 +513,7 @@ func reset_run() -> void:
 	dodge = 0.0
 	magnet = float(meta.get("magnet", 0)) * 0.2
 	dodge += float(meta.get("wayfarer", 0)) * 0.01
+	dodge += float(meta.get("lampluck", 0)) * 0.01
 	berserk = 0.0
 	combo_atk = 0.0
 	combo_aspd = 0.0
