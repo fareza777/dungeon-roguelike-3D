@@ -417,6 +417,15 @@ func _strike() -> void:
 						if mcs != null and mcs.has_method("_damage_number"):
 							mcs._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "EXTINGUISHED", Color(0.9, 0.85, 0.5), false)
 						Sfx.play("hit")
+			if Stats.weapon_id == "hull_render":
+				var hrn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", hrn)
+				if hrn % 4 == 0:
+					f.set("vuln_t", maxf(float(f.get("vuln_t") or 0.0), 2.5))
+					var mhr := get_tree().current_scene
+					if mhr != null and mhr.has_method("_damage_number"):
+						mhr._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "SUNDERED", Color(0.95, 0.6, 0.35), false)
+					Sfx.play("hit", 0.8)
 			if Stats.weapon_id == "lantern_maul":
 				var lmn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", lmn)
