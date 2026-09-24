@@ -8166,6 +8166,8 @@ func _combo_set(n: int) -> void:
 		_quest_event("combo")
 	if combo == 40:
 		_quest_event("combo40")
+	if combo >= 40:
+		_ach("godlike")
 	if combo >= 50:
 		_ach("unstoppable")
 	if combo >= 40:

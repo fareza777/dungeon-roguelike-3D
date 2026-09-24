@@ -263,6 +263,7 @@ const ACH_DEF := {
 	"lurcher8": "Toppler (felled 8 Mast Lurchers)",
 	"gnatcull": "Gnatsbane (swatted 30 Gunnel Gnats)",
 	"gloomfall": "Dimmer (stilled 10 Gloom Lanterns)",
+	"godlike": "Godlike (reached a ×40 combo)",
 }
 
 const META_DEF := {
