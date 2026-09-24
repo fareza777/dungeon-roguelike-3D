@@ -196,6 +196,7 @@ const DB := {
 	"grog_tab": {"name": "Grog Tab", "chip": "GT", "desc": "The cook still owes you — +8% attack speed, −1 armor", "rarity": 1, "mods": {"atk_speed": 0.08, "armor": -1}},
 	"oyster_charm": {"name": "Oyster Charm", "chip": "OY", "desc": "Grown in a drowned oyster — +6% attack speed, +3% crit", "rarity": 1, "mods": {"atk_speed": 0.06, "crit": 0.03}},
 	"salt_skull": {"name": "Salt Skull", "chip": "SK", "desc": "A skull pickled in brine — reflect 20% dmg, +2% crit", "rarity": 1, "mods": {"thorns": 0.2, "crit": 0.02}},
+	"bosuns_eye": {"name": "Bosun's Eye", "chip": "BE", "desc": "The watch never blinks — +4% crit, +5% XP", "rarity": 1, "mods": {"crit": 0.04, "xp_pct": 0.05}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
