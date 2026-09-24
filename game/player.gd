@@ -432,6 +432,17 @@ func _strike() -> void:
 				if amn % 3 == 0:
 					f.velocity += (f.global_position - global_position).normalized() * 9.0
 					Sfx.play("hit", 0.6)
+			if Stats.weapon_id == "wraithbell":
+				var wbn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", wbn)
+				if wbn % 6 == 0:
+					Sfx.play("reliquary", 0.6)
+					var mwb := get_tree().current_scene
+					for fb in mwb.get_tree().get_nodes_in_group("enemies"):
+						if fb != null and fb.global_position.distance_to(f.global_position) < 6.0:
+							fb.set("slow_t", 2.0)
+					if mwb.has_method("_damage_number"):
+						mwb._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "TOLL", Color(0.7, 0.6, 1.0), false)
 			if Stats.weapon_id == "barnacle_edge":
 				var ben: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", ben)
