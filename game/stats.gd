@@ -661,7 +661,6 @@ func note_floor() -> void:
 		ach["thousand_cuts"] = true
 	if floors_cleared >= 75 and not ach.has("deepvoyager"):
 		ach["deepvoyager"] = true
-		emit_signal("ach_unlocked", "deepvoyager")
 	if floors_cleared >= 50 and not ach.has("halfcentury"):
 		ach["halfcentury"] = true
 	if golden_kills >= 10 and not ach.has("gilded_foe"):
