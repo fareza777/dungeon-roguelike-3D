@@ -7804,7 +7804,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.08
 			Stats.dodge += 0.04
 			toast("Mizzen Step: the aft wind at your heels — +8% speed, +4% dodge")
-			toast("Hull Tithe: ironwood ribs for a price — +15% Max HP, −10% dodge")
+		93:
+			Stats.buff_xp_pct += 0.1
+			Stats.soul_gain_pct -= 0.05
+			toast("Bilge Wake: the hull's lessons wash over you — +10% XP, −5% souls")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -12118,6 +12121,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Bosun's Purse — the whistle pays out: +10% souls, −5% XP"},
 			{"text": "Deckman's Eye — the crow's perch lends its sight: +10% crit, −5% souls"},
 			{"text": "Mizzen Step — the aft wind at your heels: +8% speed, +4% dodge"},
+			{"text": "Bilge Wake — the hull's lessons wash over you: +10% XP, −5% souls"},
 		]
 	)
 
