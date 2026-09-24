@@ -264,6 +264,7 @@ const ACH_DEF := {
 	"gnatcull": "Gnatsbane (swatted 30 Gunnel Gnats)",
 	"gloomfall": "Dimmer (stilled 10 Gloom Lanterns)",
 	"godlike": "Godlike (reached a ×40 combo)",
+	"ledger_lord": "Ledger Lord (struck 40 bargains in one run)",
 }
 
 const META_DEF := {
