@@ -220,6 +220,7 @@ const ACH_DEF := {
 	"seventypacts": "Hundred Pacts (swore 70 omens)",
 	"sixtypacts": "Sixty Pacts (60 omens sworn total)",
 	"smokedout": "Powder Burn (clear a GUN SMOKE floor)",
+	"saltwalker": "Saltwalker (clear a SALTGRAVE floor)",
 	"halfcentury": "Half Century (clear 50 floors)",
 	"fulldeck": "Full Deck (every meta upgrade maxed)",
 	"ngdeep": "Void Warden (reached floor 20 in New Game+)",

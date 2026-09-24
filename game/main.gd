@@ -4229,6 +4229,7 @@ func _on_enemy_died(e) -> void:
 				_quest_event("lanternwalk")
 			if saltgrave_ev:
 				_quest_event("saltgrave_walk")
+				_ach("saltwalker")
 			if dark_water:
 				_quest_event("darkwalk")
 			if glass_sea:
