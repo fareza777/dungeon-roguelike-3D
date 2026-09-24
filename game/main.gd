@@ -14053,6 +14053,7 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Unsung — leave the song unheard: the conch pays +2 souls for your silence"},
 		{"text": "Swan Verse — pay 7 souls: the last song sharpens the blade — +10% crit this run"},
 		{"text": "Tide Measure — pay 5 souls: she keeps your ledger — +3 souls at floor's end, bargains cost a soul less this floor"},
+		{"text": "Dirge Draft — pay 6 souls: the low verse fills your chest like drowned lungs — +15% Max HP this run"},
 		{"text": "Walk away"}])
 
 
@@ -14067,6 +14068,19 @@ func _siren_deal(idx: int) -> void:
 		salt_ledger = true
 		Sfx.play("shrine")
 		toast("TIDE MEASURE — the song keeps your ledger (+3 souls at floor's end, bargains −1 soul)")
+		return
+	if idx == 38:
+		if Stats.souls < _soul_cost(6):
+			toast("Six souls — the dirge isn't free")
+			return
+		Stats.souls -= _soul_cost(6)
+		_count_deal()
+		_souls_l()
+		Stats.buff_maxhp_pct += 0.15
+		if player != null and is_instance_valid(player):
+			player.refresh_stats()
+		Sfx.play("shrine")
+		toast("DIRGE DRAFT — the low verse fills your chest (+15% Max HP)")
 		return
 	if idx == 34:
 		if Stats.souls < _soul_cost(4):
