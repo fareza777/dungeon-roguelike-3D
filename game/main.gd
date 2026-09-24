@@ -16617,6 +16617,19 @@ func _update_hp(hp: float) -> void:
 		trauma = maxf(trauma, clampf(0.4 + (prev_hp - hp) / maxf(1.0, float(maxh)) * 1.6, 0.4, 0.9))
 		_vign_flash()
 		floor_hurt = true
+	if prev_hp >= 0.0 and hp > prev_hp + 0.5 and ui.has("hud_layer") and ui.has("hp_box"):
+		var hfl := Label.new()
+		hfl.text = "+%d" % int(ceil(hp - prev_hp))
+		hfl.add_theme_font_size_override("font_size", 18)
+		hfl.add_theme_color_override("font_color", Color(0.45, 1.0, 0.55))
+		hfl.position = ui.hp_box.global_position + Vector2(4, -20)
+		ui.hud_layer.add_child(hfl)
+		var htw := hfl.create_tween()
+		htw.set_parallel(true)
+		htw.tween_property(hfl, "position:y", hfl.position.y - 26, 0.8).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+		htw.tween_property(hfl, "modulate:a", 0.0, 0.8)
+		htw.set_parallel(false)
+		htw.tween_callback(hfl.queue_free)
 	prev_hp = hp
 	_set_low_hp(hp <= 1.0 and hp > 0.0)
 	# heartbeat: lit cells breathe while HP is critical
