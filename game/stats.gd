@@ -255,6 +255,7 @@ const ACH_DEF := {
 	"seasoned": "Seasoned (reach Lv 30)",
 	"grizzled": "Grizzled (reach Lv 50)",
 	"votive": "Votive (take 12 blessings in one run)",
+	"sainted": "Sainted (take 18 blessings in one run)",
 	"full_satchel": "Full Satchel (hold 3 soul vials at once)",
 	"medic": "Ship's Medic (hold 5 soul vials at once)",
 	"sixtypacts": "Sixty Pacts (60 omens sworn total)",

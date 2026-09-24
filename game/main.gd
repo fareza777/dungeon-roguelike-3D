@@ -146,6 +146,7 @@ const LORE_LINES := [
 	"Powder crews fired in pairs by tradition — one barrel for the foe, one for luck.",
 	"A loose ship still floats, Kael — she just reminds you how thin the hull is.",
 	"A lantern in a dead hand still counts as a lantern, Kael. Douse it kindly.",
+	"A Keel Scribe writes only what the sea already knows, Kael — which is why it never writes about you.",
 	"The sea does not count in years down here — she counts in tides owed.",
 	"The Reef Caller never learned a war song, Kael — it only ever learned yours.",
 	"A wormwood charm tastes bitter so the venom forgets where your heart is.",
@@ -9705,6 +9706,8 @@ func _on_dlg_choice(idx: int) -> void:
 		_ach("choral")
 	if blessings_run >= 12:
 		_ach("votive")
+	if blessings_run >= 18:
+		_ach("sainted")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
