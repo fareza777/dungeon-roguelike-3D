@@ -10408,6 +10408,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.cd_reduction += 0.04
 			Stats.soul_gain_pct -= 0.02
 			toast("Dead Light: the lantern burns paler and quicker — −4% skill cooldowns, −2% souls this run")
+		155:
+			Stats.buff_armor += 3
+			Stats.buff_speed_pct -= 0.05
+			toast("Grey Pall: a mourner's shroud — +3 armor, −5% speed this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -16580,6 +16584,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Bell Ward — the knell wraps you like a vestment: +5% dodge, −3% speed this run"},
 			{"text": "Tideline — foam up your heels: +6% speed, −4% ATK this run"},
 			{"text": "Dead Light — the lantern burns paler and quicker: −4% skill cooldowns, −2% souls this run"},
+			{"text": "Grey Pall — a mourner's shroud across your shoulders: +3 armor, −5% speed this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
