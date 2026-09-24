@@ -341,6 +341,7 @@ var knot_refuge := false
 var grommets_due := false
 var sheave_toll := false
 var bilge_bond := false
+var rigging_rites := false
 var mudlarks_due := false
 var drift_verse := false
 var pearl_octave := false
@@ -1557,6 +1558,9 @@ func _new_run(new_seed: int) -> void:
 	if mudlarks_due:
 		Stats.dodge -= 0.08
 		mudlarks_due = false
+	if rigging_rites:
+		Stats.buff_aspd -= 0.08
+		rigging_rites = false
 	if vigils_gage:
 		Stats.dodge -= 0.1
 		vigils_gage = false
@@ -9579,12 +9583,24 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Knot of Refuge — pay 5 souls: a slipknot in your step — +10% dodge this floor"},
 		{"text": "Grommet's Due — pay 3 souls: the ring bites the rope — +8% ATK this floor"},
 		{"text": "Sheave Toll — pay 4 souls: the pulley's lesson — +10% XP this floor"},
+		{"text": "Rigging Rites — pay 3 souls: every line tuned tight — +8% attack speed this floor"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 28:
+	if idx == 29:
 		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 28:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the rites aren't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		rigging_rites = true
+		Stats.buff_aspd += 0.08
+		Sfx.play("shrine")
+		toast("RIGGING RITES — every line tuned tight")
 		return
 	if idx == 27:
 		if Stats.souls < _soul_cost(4):
