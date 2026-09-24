@@ -11634,6 +11634,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Pale Escrow — pay 4 souls: Mahzan holds your coin — +6 souls at floor's end"},
 			{"text": "Soul Mortgage — pay 5 souls: borrowed strength at ruinous rates — +10% ATK, −4% XP this run"},
 			{"text": "Keel Wager — free: flip a drowned coin — win +6 souls, lose −1 Max HP"},
+			{"text": "Deep Pocket — pay 4 souls: Mahzan weighs you down with ledger-ink — +8% XP, −3% speed"},
 		]
 	)
 
@@ -13910,6 +13911,17 @@ func _mahzan_deal(idx: int) -> void:
 				Stats.base["max_hp"] -= 1.0
 				Sfx.play("deny")
 				toast("KEEL WAGER — the coin lands keel-side down: −1 Max HP")
+		74:
+			if Stats.souls < _soul_cost(4):
+				toast("Four souls — the pocket isn't free")
+			else:
+				Stats.souls -= _soul_cost(4)
+				_count_deal()
+				_souls_l()
+				Stats.buff_xp_pct += 0.08
+				Stats.buff_speed_pct -= 0.03
+				Sfx.play("shrine")
+				toast("DEEP POCKET — ledger-ink weighs your purse (+8% XP, −3% speed)")
 
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
