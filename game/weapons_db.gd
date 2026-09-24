@@ -37,7 +37,7 @@ const DB := {
 	"guthook": {"name": "Guthook", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.9, 0.35, 0.35), "mods": {"atk": 2.2, "atk_speed_pct": -0.12}, "desc": "+2.2 ATK, −12% Attack Speed. BLEED: every 5th strike rends — heals you 5% Max HP."},
 	"foghorn": {"name": "The Foghorn", "tier": 3, "atk": 30, "speed": 0.8, "proc": "BELLOW", "proc_desc": "Every 9th strike bellows — stuns nearby foes 0.8s", "tint": Color(0.7, 0.75, 0.8), "desc": "a horn of grey brass that still calls"},
 	"salt_scythe": {"name": "Salt Scythe", "tier": 3, "atk": 27, "speed": 1.05, "proc": "REAP", "proc_desc": "Every 8th strike reaps — a soul wisp flies to you", "tint": Color(0.55, 0.7, 0.6), "desc": "a crooked blade that harvests more than seaweed"},
-	"salt_whip": {"name": "Salt Whip", "kind": "sabre", "atk": 9, "speed": 1.1, "desc": "LASH: every 5th strike fans out — all foes within 1.8 take 50% damage."},
+	"salt_whip": {"name": "Salt Whip", "kind": "sabre", "atk": 9, "speed": 1.1, "desc": "SWEEP: every 5th strike fans out — all foes within 1.8 take 50% damage."},
 "kraken_bell": {"name": "Kraken Bell", "kind": "maul", "atk": 12, "speed": 0.95, "desc": "KNELL: every 9th strike rings the deep — nearby foes stunned 0.6s."},
 "bilge_hammer": {"name": "Bilge Hammer", "tier": 3, "atk": 31, "speed": 0.75, "proc": "SLAM", "proc_desc": "Every 12th strike splashes — 60% ATK to foes nearby", "tint": Color(0.5, 0.45, 0.55), "desc": "a maul that smells of the hold"},
 	"tide_press": {"name": "Tide Press", "tier": 3, "atk": 29, "speed": 0.85, "proc": "CRUSH", "proc_desc": "Every 10th strike comes down like the tide — +80% damage", "tint": Color(0.4, 0.55, 0.7), "desc": "a club the sea itself swings"},
