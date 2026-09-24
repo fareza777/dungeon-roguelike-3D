@@ -1373,6 +1373,8 @@ func take_hit(from_pos: Vector3, dmg_taken: int) -> void:
 	hp -= eff
 	invuln = 0.9
 	Sfx.play("hurt")
+	if mv != null and mv.has_method("_hurt_dir"):
+		mv._hurt_dir(from_pos)
 	hp_changed.emit(hp)
 	# relic Duri Pantulan: sebagian damage dibalik ke penyerang sekitar
 	if Stats.thorns > 0.0:

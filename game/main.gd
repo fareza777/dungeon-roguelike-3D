@@ -4463,6 +4463,37 @@ func _spawn_tidepools() -> void:
 		tm.global_position = tpos
 
 
+func _hurt_dir(from_pos: Vector3) -> void:
+	if cam == null or not is_instance_valid(cam) or player == null:
+		return
+	var hl = ui.get("hud_layer")
+	if hl == null or not is_instance_valid(hl):
+		return
+	var p_sp := cam.unproject_position(player.global_position + Vector3(0, 0.6, 0))
+	var a_sp := cam.unproject_position(from_pos + Vector3(0, 0.6, 0))
+	var d: Vector2 = a_sp - p_sp
+	if d.length() < 4.0:
+		return
+	d = d.normalized()
+	var vp := get_viewport().get_visible_rect().size
+	var c := Label.new()
+	c.text = "▾"
+	c.add_theme_font_size_override("font_size", 40)
+	c.add_theme_color_override("font_color", Color(1.0, 0.3, 0.22, 0.95))
+	c.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.85))
+	c.add_theme_constant_override("outline_size", 4)
+	hl.add_child(c)
+	c.size = c.get_minimum_size()
+	c.pivot_offset = c.size * 0.5
+	c.rotation = atan2(d.y, d.x) + PI * 0.5
+	c.position = p_sp + d * minf(vp.x, vp.y) * 0.30 - c.size * 0.5
+	c.scale = Vector2(1.7, 1.7)
+	var tw := create_tween()
+	tw.tween_property(c, "scale", Vector2.ONE, 0.12).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tw.tween_property(c, "modulate:a", 0.0, 0.5).set_delay(0.1)
+	tw.tween_callback(c.queue_free)
+
+
 func _souls_l() -> void:
 	if Stats.souls >= 50:
 		_ach("deepvault")
@@ -14177,6 +14208,7 @@ func _build_ui() -> void:
 	layer.add_child(tl2)
 	ui["time_label"] = tl2
 	tl2.text = ""
+	ui["hud_layer"] = layer
 
 	var earr := Label.new()
 	earr.text = "▲"
