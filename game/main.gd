@@ -158,6 +158,9 @@ const LORE_LINES := [
 	"The Bone King does not chase. He knows the stairs only go down, and they all end at his feet.",
 	"Somewhere below the salt line the drowned keep their own court — the King tolerates it, as one tolerates a debt owed to the sea.",
 	"The Bell Warden tolls for every soul that sinks past the lantern line — he stopped counting whose long ago.",
+	"The Mast Lurcher was the first crewman to refuse orders — the sea gave him a bulk too heavy to hang.",
+	"The Dirge Singer's hymn is not sung for the dead — it is sung to keep the living afraid of joining them.",
+	"The Boatswain was the only officer the crew trusted — which is why the King kept his pipe."
 	"Gutter chaplains preach to the drowned. The drowned, being dead, find his sermons considerably shorter.",
 "The drowned keep ledgers too — every debt they owed arrives at the surface unpaid.",
 "Below the wrecks the water is patient. It has already won every argument it ever started.",
