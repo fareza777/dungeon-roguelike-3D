@@ -50,6 +50,7 @@ var buff_crit := 0.0 # berkat altar Eagle's Eye: run ini saja
 var warcry_t := 0.0 # skill War Cry: +50% ATK sementara
 var deadeye_t := 0.0
 var rigger_t := 0.0 # skill Deadeye: +25% crit sementara
+var saltskin_t := 0.0 # skill Saltskin: dodge+armor window
 var shell_t := 0.0 # skill Barnacle Shell: +6 armor sementara
 var warpaint_t := 0.0 # skill Warpaint: +30% ATK sementara
 var irontide_t := 0.0 # skill Iron Tide: pukulan terpantul sementara
@@ -411,6 +412,11 @@ func _process(delta: float) -> void:
 		irontide_t = maxf(0.0, irontide_t - delta)
 		if irontide_t <= 0.0:
 			thorns -= 0.5
+	if saltskin_t > 0.0:
+		saltskin_t = maxf(0.0, saltskin_t - delta)
+		if saltskin_t <= 0.0:
+			dodge -= 0.15
+			buff_armor -= 2
 
 
 func mus_vol() -> float:
@@ -540,6 +546,7 @@ func reset_run() -> void:
 	warpaint_t = 0.0
 	deadeye_t = 0.0
 	rigger_t = 0.0
+	saltskin_t = 0.0
 	revive_left = int(meta.get("wind", 0))
 	thorns = 0.0 + float(meta.get("spinebearer", 0)) * 0.03
 	dodge = 0.0
