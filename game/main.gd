@@ -7301,6 +7301,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_aspd += 0.15
 			Stats.buff_crit -= 0.08
 			toast("Kedge Whistle: the boatswain's tempo — +15% attack speed, −8% crit")
+		84:
+			Stats.buff_armor += 2.0
+			Stats.buff_speed_pct -= 0.1
+			toast("Keel Ballast: stone in the hold — +2 Armor, −10% speed")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -11030,6 +11034,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Rope Soles — tar-and-twine underfoot: +12% speed, −5% dodge"},
 			{"text": "Salt Scribe — every death tallied in your favor: +20% souls, −10% dodge"},
 			{"text": "Kedge Whistle — the boatswain's tempo: +15% attack speed, −8% crit"},
+			{"text": "Keel Ballast — stone in the hold: +2 Armor, −10% speed"},
 		]
 	)
 
