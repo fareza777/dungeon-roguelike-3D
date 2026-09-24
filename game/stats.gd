@@ -233,6 +233,7 @@ const ACH_DEF := {
 	"smiths_pride": "Weaponsmith's Pride (master 5 weapons)",
 	"seasoned": "Seasoned (reach Lv 30)",
 	"grizzled": "Grizzled (reach Lv 50)",
+	"devout": "Devout (take 12 blessings in one run)",
 	"sixtypacts": "Sixty Pacts (60 omens sworn total)",
 	"smokedout": "Powder Burn (clear a GUN SMOKE floor)",
 	"saltwalker": "Saltwalker (clear a SALTGRAVE floor)",
