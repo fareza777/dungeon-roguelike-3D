@@ -15338,7 +15338,7 @@ func _throne_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("BAILIFF'S SHARE — the court's collector works your purse (+15% souls this floor)")
 		return
-	if idx == 35:
+	if idx == 36:
 		Stats.earn_souls(4)
 		_souls_l()
 		_quest_event("throne")
