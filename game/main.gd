@@ -641,7 +641,7 @@ const KILLER_TIPS := {
 	"wrack_eel": "Tip: the Wrack Eel coils then lunges across the deck — keep circling, never back-pedal.",
 	"rust_saw": "Tip: the Rust Saw's blade leaves rot in the wound — end the fight fast or bleed rust.",
 	"bell_ringer": "Tip: the Bell Ringer mends his flock with every toll — cut him down first.",
-	"gallows_rev": "Tip: the Gallows Revenant won't be moved and won't be hurried — circle it, never trade."],
+	"gallows_rev": "Tip: the Gallows Revenant won't be moved and won't be hurried — circle it, never trade.",
 	"kelter_fiend": "Tip: the Kelter Fiend barely feels your knockback — pin it with a stun or cut its charge short.",
 	"salvage_rat": "Tip: the Salvage Rat bolts the moment it smells you — corner it or dash, the purse is worth the chase.",
 	"hull_widow": "Tip: the Widow's webs root your feet — dash the moment she spits, or cut her down at range.",
