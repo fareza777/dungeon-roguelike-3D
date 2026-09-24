@@ -1253,7 +1253,7 @@ func take_hit(from_pos: Vector3, dmg_taken: int) -> void:
 			mv._damage_number(global_position, "VEILED", Color(0.85, 0.8, 0.5), true)
 		return
 	# relic Fase Hantu: peluang menghindar penuh
-	if Stats.dodge > 0.0 and randf() < Stats.dodge:
+	if Stats.dodge + 0.01 * float(Stats.meta.get("lampluck", 0)) > 0.0 and randf() < Stats.dodge + 0.01 * float(Stats.meta.get("lampluck", 0)):
 		invuln = 0.5
 		Sfx.play("dash")
 		var m2 := get_tree().current_scene
