@@ -6660,6 +6660,9 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.1
 			Stats.buff_xp_pct += 0.1
 			toast("Wake Prayer: the water reads your steps — +10% speed, +10% XP")
+		70:
+			Stats.cd_reduction += 0.08
+			toast("Fathom Rope: the cord runs smooth — skills recharge 8% faster")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -9975,6 +9978,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Dead Wake — the deep teaches every stroke: +15% XP, −5% speed"},
 			{"text": "Spare Oar — lean into the lean water: +5% dodge, +5% speed"},
 			{"text": "Wake Prayer — the water reads your steps: +10% speed, +10% XP"},
+			{"text": "Fathom Rope — the cord runs smooth: skills recharge 8% faster"},
 		]
 	)
 
