@@ -973,6 +973,7 @@ var combo := 0
 var combo_t := 0.0
 var rampage_n := 0
 var rampage_t := -9.0
+var rampage_glow_t := 0.0
 var mimic_pending := false
 var shrine_used := false
 var shrine_count := 0
@@ -15555,8 +15556,14 @@ func _process(delta: float) -> void:
 				_heavy_attack()
 			atk_hold_t = 0.0
 			atk_charged = false
-			ui.atk_btn.modulate = Color.WHITE
-			ui.atk_btn.scale = Vector2.ONE
+			if combo >= 8:
+				rampage_glow_t += delta
+				var rpulse := 0.5 + 0.5 * sin(rampage_glow_t * 6.0)
+				ui.atk_btn.modulate = Color(1.0, 0.62, 0.35).lerp(Color(1.0, 0.85, 0.5), rpulse)
+				ui.atk_btn.scale = Vector2.ONE * (1.0 + 0.06 * rpulse)
+			else:
+				ui.atk_btn.modulate = Color.WHITE
+				ui.atk_btn.scale = Vector2.ONE
 		if Input.is_key_pressed(KEY_H):
 			_toggle_hero(true)
 
