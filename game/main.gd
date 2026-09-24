@@ -10371,6 +10371,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_armor += 1
 			Stats.soul_gain_pct += 0.04
 			toast("Toll Prayer: a coin for the drowned — +1 armor, +4% souls this run")
+		152:
+			Stats.dodge += 0.05
+			Stats.buff_speed_pct -= 0.03
+			toast("Bell Ward: the knell wraps you like a vestment — +5% dodge, −3% speed this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -16507,6 +16511,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Deck Sworn — sworn to the planks underfoot: +5% ATK, +2 armor this run"},
 			{"text": "Grim Compact — strength bought with schooling: +8% ATK, −4% XP this run"},
 			{"text": "Toll Prayer — a coin for the drowned, a plate for the living: +1 armor, +4% souls this run"},
+			{"text": "Bell Ward — the knell wraps you like a vestment: +5% dodge, −3% speed this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
