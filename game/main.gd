@@ -226,6 +226,7 @@ var rust_bounty := false
 var deep_charter := false
 var salty_wages := false
 var gunnel_tide := false
+var dead_wages := false
 var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
@@ -1482,6 +1483,7 @@ func _reset_run_state() -> void:
 	deep_charter = false
 	salty_wages = false
 	gunnel_tide = false
+	dead_wages = false
 	combo_rate_bonus = 0.0
 	solitary = false
 	pawn_discount = false
@@ -7985,6 +7987,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP CHARTER — the black water teaches fast (+20% XP)... but skims your purse (−10% souls)"},
 		{"text": "SALTY WAGES — the ship pays out in souls (+15% souls)... but the lessons run thin (−10% XP)"},
 		{"text": "GUNNEL TIDE — the rail sings your arm faster (+10% attack speed)... but the hull runs thin (−1 Armor)"},
+		{"text": "DEAD MAN'S WAGES — the crew's unspent pay hardens your hand (+15% ATK)... but the purse leaks (−10% souls)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -8035,7 +8038,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 95 if Stats.nemesis != "" else 94
+	var osize := 96 if Stats.nemesis != "" else 95
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -8442,6 +8445,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_armor -= 1
 			oname = "GUNNEL TIDE"
 		94:
+			dead_wages = true
+			Stats.buff_atk_pct += 0.15
+			Stats.soul_gain_pct -= 0.1
+			oname = "DEAD MAN'S WAGES"
+		95:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -8546,6 +8554,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP CHARTER": "The dark water sells its lessons cheap — only the price is in souls.",
 	"SALTY WAGES": "The wages of the drowned are paid in what they stole.",
 	"GUNNEL TIDE": "Hold the rail and the sea moves your arm for you.",
+	"DEAD MAN'S WAGES": "Unclaimed coin spends fastest on the living.",
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
