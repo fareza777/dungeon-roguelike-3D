@@ -10263,6 +10263,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_armor += 4
 			Stats.soul_gain_pct += 0.02
 			toast("Keel Hallow: the blessed hull sheds their blows — +4 armor, +2% souls this run")
+		149:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_armor += 2
+			toast("Deck Sworn: the planks answer your footing — +5% ATK, +2 armor this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -16258,6 +16262,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Deadlight Vow — swear by the old lamps: +6% ATK, +6 armor this run"},
 			{"text": "Salt Requiem — the sea sings for your dead: +5% souls, +3 armor this run"},
 			{"text": "Keel Hallow — the blessed hull sheds their blows: +4 armor, +2% souls this run"},
+			{"text": "Deck Sworn — sworn to the planks underfoot: +5% ATK, +2 armor this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
