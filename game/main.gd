@@ -3311,8 +3311,12 @@ func _spawn_player(pos: Vector3) -> void:
 
 
 func _on_player_hp(hp: float) -> void:
+	var drop: float = Stats.current_hp - hp
 	Stats.current_hp = hp
 	_update_hp(hp)
+	if drop > 0.5 and player != null:
+		var frac: float = clampf(drop / maxf(1.0, float(Stats.get_stat("max_hp"))), 0.0, 0.6)
+		trauma = minf(1.0, trauma + 0.15 + frac)
 
 
 func _on_player_revived() -> void:
