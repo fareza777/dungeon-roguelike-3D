@@ -81,6 +81,7 @@ const DB := {
 	"wick_tender": {"glb": "Skeleton_Minion.glb", "hp": 2.0, "spd": 1.1, "dmg": 1, "windup": 0.55, "reach": 0.6, "aggro": 7.0, "xp": 8, "tint": Color(0.95, 0.7, 0.3), "scale": 0.85, "kb_resist": 0.0, "healer": true},
 	"sodden_deckhand": {"glb": "Skeleton_Rogue.glb", "hp": 3.0, "spd": 1.4, "dmg": 2, "windup": 0.45, "reach": 0.7, "aggro": 7.0, "xp": 9, "tint": Color(0.5, 0.65, 0.4), "scale": 0.9, "kb_resist": 0.1, "digger": true, "leech": true},
 	"brine_widow": {"glb": "Skeleton_Mage.glb", "hp": 2.6, "spd": 1.0, "dmg": 2, "windup": 0.6, "reach": 0.6, "aggro": 8.0, "xp": 10, "tint": Color(0.35, 0.5, 0.65), "scale": 0.95, "kb_resist": 0.15, "hookshot": true, "healer": true},
+	"keelwright": {"glb": "Skeleton_Minion.glb", "hp": 3.4, "spd": 0.85, "dmg": 1, "windup": 0.7, "reach": 0.6, "aggro": 7.5, "xp": 12, "tint": Color(0.55, 0.45, 0.35), "scale": 1.0, "kb_resist": 0.2, "summoner": true},
 	"pale_lantern": {"glb": "Skeleton_Warrior.glb", "hp": 2.0, "spd": 0.9, "dmg": 1, "windup": 0.9, "reach": 0.8, "aggro": 6.0, "xp": 8, "tint": Color(0.9, 0.95, 0.7), "scale": 0.85},
 	"siren_thrall": {"glb": "Skeleton_Warrior.glb", "hp": 3.5, "spd": 1.15, "dmg": 3, "windup": 0.75, "reach": 0.9, "aggro": 8.0, "xp": 11, "tint": Color(0.55, 0.4, 0.75), "scale": 1.0},
 	"bilge_fury": {"glb": "Skeleton_Warrior.glb", "hp": 4.5, "spd": 1.0, "dmg": 4, "windup": 0.8, "reach": 0.95, "aggro": 7.0, "xp": 13, "tint": Color(0.85, 0.45, 0.35), "scale": 1.1, "kb_resist": 0.5},
