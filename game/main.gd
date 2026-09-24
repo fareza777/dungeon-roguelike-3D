@@ -3768,7 +3768,7 @@ func _on_enemy_died(e) -> void:
 	elif crowns_decree and e.elite and rng.randf() < 0.5:
 		spawn_weapon_drop(e.global_position, WDB.roll_drop(rng, Stats.weapon_id))
 	for f2 in get_tree().get_nodes_in_group("enemies"):
-		if is_instance_valid(f2) and f2 != e and bool(f2.get("elite")) and String(f2.get("affix")) == "feral" and not bool(f2.get("dead")):
+		if is_instance_valid(f2) and f2 != e and bool(f2.get("elite")) and String(f2.get("affix")) == "feral" and String(f2.get("state")) != "dead":
 			f2.speed *= 1.1
 			f2.dmg += 1 if f2.dmg < 3 else 0
 			_damage_number(f2.global_position + Vector3(0, 0.9 * info.tile, 0), "FRENZIES", Color(1.0, 0.45, 0.3), true)
