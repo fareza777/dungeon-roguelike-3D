@@ -8407,6 +8407,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Haste Ledger — pay 8 souls: quickened accounts — +15% attack speed this run"},
 			{"text": "Grave Annuity — pay 7 souls: the dead pay dividends — +15% XP this run"},
 			{"text": "Soul Ledger — pay 8 souls: the ledger remembers every soul — +20% souls this floor"},
+			{"text": "Grave Silk — pay 8 souls: funeral cloth for the nimble — +12% dodge this run"},
 		]
 	)
 
@@ -10024,6 +10025,16 @@ func _mahzan_deal(idx: int) -> void:
 				Stats.soul_gain_pct += 0.2
 				Sfx.play("shrine")
 				toast("SOUL LEDGER — every soul counts double-ish")
+		48:
+			if Stats.souls < _soul_cost(8):
+				toast("Eight souls — the silk isn't free")
+			else:
+				Stats.souls -= _soul_cost(8)
+				_count_deal()
+				_souls_l()
+				Stats.dodge += 0.12
+				Sfx.play("shrine")
+				toast("GRAVE SILK — funeral cloth for the nimble")
 		46:
 			if Stats.souls < _soul_cost(7):
 				toast("Seven souls — the annuity isn't free")
