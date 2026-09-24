@@ -111,7 +111,7 @@ var bestiary := {} # arch_id -> jumlah kill sepanjang masa (codex)
 var weapon_kills := {} # weapon_id -> kill sepanjang masa (mastery progress)
 var mastered := {} # weapon_id -> 1 bila mastery tercapai (+1 ATK permanen)
 const MASTERY_N := 25
-var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0, "reckon": 0, "keelcap": 0, "shepherd": 0, "captain": 0, "quarter": 0, "purse": 0, "carto": 0, "sealegs": 0, "scribe": 0, "salvor": 0, "deckhand": 0, "powdermonk": 0, "netmend": 0, "belaypin": 0, "ferry": 0, "lampluck": 0, "kilnman": 0, "chirurgeon": 0, "bellringer": 0, "keelwright": 0, "wayfarer": 0, "charterer": 0, "spinebearer": 0, "helmsman": 0, "saltpray": 0, "sharpsalt": 0}
+var meta: Dictionary = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0, "reckon": 0, "keelcap": 0, "shepherd": 0, "captain": 0, "quarter": 0, "purse": 0, "carto": 0, "sealegs": 0, "scribe": 0, "salvor": 0, "deckhand": 0, "powdermonk": 0, "netmend": 0, "belaypin": 0, "ferry": 0, "lampluck": 0, "kilnman": 0, "chirurgeon": 0, "bellringer": 0, "keelwright": 0, "wayfarer": 0, "charterer": 0, "spinebearer": 0, "helmsman": 0, "saltpray": 0, "sharpsalt": 0, "gloomfight": 0}
 
 const ACH_DEF := {
 	"kill1": "First Bloodbath",
@@ -322,6 +322,7 @@ const META_DEF := {
 	"helmsman": {"name": "Helmsman's Eye", "max": 3, "desc": "+1% dodge per level"},
 	"saltpray": {"name": "Saltpray", "max": 4, "desc": "+1% speed, +1% dodge per level"},
 	"sharpsalt": {"name": "Sharpsalt", "max": 4, "desc": "+2% crit chance per level"},
+	"gloomfight": {"name": "Gloomfighter", "max": 3, "desc": "+2% ATK, +1% crit per level"},
 }
 
 # dipakai menu -> game
@@ -347,7 +348,7 @@ func get_stat(n: String) -> float:
 	if n == "atk":
 		flat += float(weapon_lv.get(weapon_id, 1) - 1)
 		flat += float(mastered.get(weapon_id, 0))
-		mult += buff_atk_pct + combo_atk + float(meta.get("might", 0)) * 0.05 + float(meta.get("deckhand", 0)) * 0.02
+		mult += buff_atk_pct + combo_atk + float(meta.get("might", 0)) * 0.05 + float(meta.get("deckhand", 0)) * 0.02 + float(meta.get("gloomfight", 0)) * 0.02
 		if warcry_t > 0.0:
 			mult += 0.5
 		if warpaint_t > 0.0:
@@ -374,7 +375,7 @@ func get_stat(n: String) -> float:
 	if n == "lifesteal":
 		flat += buff_lifesteal + float(meta.get("leech", 0)) * 0.02
 	if n == "crit":
-		flat += buff_crit + float(meta.get("tempered", 0)) * 0.04 + float(meta.get("sharpsalt", 0)) * 0.02
+		flat += buff_crit + float(meta.get("tempered", 0)) * 0.04 + float(meta.get("sharpsalt", 0)) * 0.02 + float(meta.get("gloomfight", 0)) * 0.01
 		if deadeye_t > 0.0:
 			flat += 0.25
 	if n == "speed":
@@ -689,7 +690,7 @@ func wipe_progress() -> void:
 	bestiary = {}
 	weapon_kills = {}
 	mastered = {}
-	meta = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0, "reckon": 0, "keelcap": 0, "shepherd": 0, "captain": 0, "quarter": 0, "purse": 0, "carto": 0, "sealegs": 0, "scribe": 0, "salvor": 0, "deckhand": 0, "powdermonk": 0, "netmend": 0, "belaypin": 0, "ferry": 0, "lampluck": 0, "kilnman": 0, "chirurgeon": 0, "bellringer": 0, "keelwright": 0, "wayfarer": 0, "charterer": 0, "spinebearer": 0, "helmsman": 0, "saltpray": 0, "sharpsalt": 0}
+	meta = {"vital": 0, "might": 0, "swift": 0, "magnet": 0, "wind": 0, "arcane": 0, "greed": 0, "adamant": 0, "leech": 0, "tempered": 0, "veteran": 0, "haggler": 0, "diver": 0, "foundry": 0, "lampwage": 0, "reckon": 0, "keelcap": 0, "shepherd": 0, "captain": 0, "quarter": 0, "purse": 0, "carto": 0, "sealegs": 0, "scribe": 0, "salvor": 0, "deckhand": 0, "powdermonk": 0, "netmend": 0, "belaypin": 0, "ferry": 0, "lampluck": 0, "kilnman": 0, "chirurgeon": 0, "bellringer": 0, "keelwright": 0, "wayfarer": 0, "charterer": 0, "spinebearer": 0, "helmsman": 0, "saltpray": 0, "sharpsalt": 0, "gloomfight": 0}
 	reset_run()
 	save_game()
 
