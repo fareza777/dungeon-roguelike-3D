@@ -645,7 +645,8 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 			"crestworn":
 				hp = int(hp * 0.92)
 				hp_max = hp
-				atk *= 1.18
+				dmg = int(ceilf(float(dmg) * 1.18))
+				xp_val = int(ceilf(xp_val * 1.1))
 			"embittered":
 				sc = 0.95
 				hp = int(hp * 1.0)
