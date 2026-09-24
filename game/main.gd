@@ -6412,6 +6412,10 @@ func _on_dlg_choice(idx: int) -> void:
 			omen_cd_add -= 1.0
 			Stats.buff_maxhp_pct -= 0.1
 			toast("Shanty Lung: your skills come a breath quicker — but your hull sits lighter")
+		64:
+			Stats.soul_gain_pct += 0.25
+			Stats.buff_xp_pct -= 0.1
+			toast("Bilge Ledger: every kill pays a quarter more souls — but the dead teach less")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -9531,6 +9535,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Slick Wake — you slide through the swell: +8% dodge this run"},
 			{"text": "Salt Crust — barnacled ribs: +2 Armor, −10% speed this run"},
 			{"text": "Shanty Lung — your skills charge −1s... but your Max HP −10%"},
+			{"text": "Bilge Ledger — every kill pays +25% souls... but −10% XP"},
 		]
 	)
 
