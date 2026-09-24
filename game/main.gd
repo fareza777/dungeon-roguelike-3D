@@ -7327,8 +7327,8 @@ func _on_dlg_choice(idx: int) -> void:
 			toast("Keel Ballast: stone in the hold — +2 Armor, −10% speed")
 		85:
 			Stats.soul_gain_pct += 0.15
-			omen_cd_add += 0.5
-			toast("Salt Tithing: the purse fills, the hands slow — +15% souls, skills +0.5s")
+			Stats.cd_reduction -= 0.05
+			toast("Salt Tithing: the purse fills, the hands slow — +15% souls, skills +5% recharge")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
