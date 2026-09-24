@@ -1272,6 +1272,8 @@ func _physics_process(delta: float) -> void:
 									hp = minf(hp_max, hp + dmg * 0.4)
 								if arch_id == "brine_monk" and q == p:
 									p.set("weak_t", maxf(float(p.get("weak_t")), 2.5))
+								if arch_id == "salt_devout" and q == p:
+									p.set("silence_t", maxf(float(p.get("silence_t")), 1.5))
 								if arch_id == "tide_bailiff" and q == p:
 									var mtb := get_tree().current_scene
 									if mtb != null and int(Stats.souls) > 0:
