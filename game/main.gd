@@ -285,6 +285,7 @@ var salt_rosary := false
 var moonwater := false
 var tar_knots := false
 var salt_sheath := false
+var brine_hymn := false
 var pilgrims_purse := false
 var crows_toll := false
 var crowns_decree := false
@@ -1356,6 +1357,9 @@ func _new_run(new_seed: int) -> void:
 	if salt_sheath:
 		Stats.buff_crit -= 0.08
 		salt_sheath = false
+	if brine_hymn:
+		Stats.event_soul_bonus -= 1
+		brine_hymn = false
 	if deck_manifest:
 		Stats.soul_gain_pct -= 0.15
 		deck_manifest = false
@@ -8977,16 +8981,28 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Dirge Note — pay 3 souls: each kill's echo staggers the rest — near foes slowed 1s"},
 		{"text": "Requiem Rest — pay 4 souls: the last verse mends what the sea broke — full mend, all ailments washed"},
 		{"text": "Wake Whistle — pay 4 souls: a shanty whistled fast — +10% attack speed this run"},
+		{"text": "Brine Hymn — pay 3 souls: the verse sticks to every kill — +1 soul per kill this floor"},
 		{"text": "Walk away"}])
 
 
 func _siren_deal(idx: int) -> void:
-	if idx == 17:
+	if idx == 18:
 		Stats.earn_souls(2)
 		_souls_l()
 		_quest_event("siren")
 		Sfx.play("soul")
 		toast("UNSUNG — you walk, and the conch pays +2 souls for your silence")
+		return
+	if idx == 17:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the hymn isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		Stats.event_soul_bonus += 1
+		brine_hymn = true
+		Sfx.play("souls")
+		toast("BRINE HYMN — every death this floor pays a soul")
 		return
 	if idx == 16:
 		if Stats.souls < _soul_cost(4):
