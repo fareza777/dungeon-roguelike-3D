@@ -389,6 +389,7 @@ var murk_vision := false
 var silt_draught := false
 var salt_lullaby := false
 var coil_chit := false
+var rope_allowance := false
 var regal_favor := false
 var drift_verse := false
 var pearl_octave := false
@@ -1745,7 +1746,12 @@ func _new_run(new_seed: int) -> void:
 	salt_lullaby = false
 	if coil_chit:
 		Stats.dodge -= 0.08
+		if coil_chit:
+		Stats.dodge -= 0.08
 		coil_chit = false
+	if rope_allowance:
+		Stats.buff_speed_pct -= 0.08
+		rope_allowance = false
 	if regal_favor:
 		Stats.buff_xp_pct -= 0.15
 		regal_favor = false
@@ -11006,12 +11012,25 @@ func _on_qm_invoked(s) -> void:
 		{"text": "Bosun's Chit — pay 4 souls: the whistle buys fury — +10% ATK this floor"},
 		{"text": "Ballast Check — pay 2 souls: the steward patches and pours — heal 20%, and a vial besides"},
 		{"text": "Coil & Chit — pay 3 souls: the rope ledger teaches you to slip — +8% dodge this floor"},
+		{"text": "Rope Allowance — pay 3 souls: the quartermaster lets out your line — +8% speed this floor"},
 		{"text": "Walk away"}])
 
 
 func _qm_deal(idx: int) -> void:
-	if idx == 21:
+	if idx == 22:
 		toast("The post shutters its stores")
+		return
+	if idx == 21:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the line isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_count_deal()
+		_souls_l()
+		rope_allowance = true
+		Stats.buff_speed_pct += 0.08
+		Sfx.play("shrine")
+		toast("ROPE ALLOWANCE — your line runs long")
 		return
 	if idx == 20:
 		if Stats.souls < _soul_cost(3):
