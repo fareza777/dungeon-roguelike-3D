@@ -5449,6 +5449,10 @@ func _souls_l() -> void:
 			tw.tween_property(ui.souls_label, "scale", Vector2.ONE, 0.25)
 			tw.tween_property(ui.souls_label, "modulate", Color(1, 1, 1), 0.4)
 		ui.souls_label.text = t2
+	if ui.has("swap_btn"):
+		var t3 := "⇄ " + String(WDB.get_w(Stats.weapon_id).get("name", "?")).to_upper()
+		if t3 != ui.swap_btn.text:
+			ui.swap_btn.text = t3
 	if sdelta > 0 and ui.has("hud_layer") and ui.has("souls_label"):
 		var sl := Label.new()
 		sl.text = "+%d ◈" % sdelta
@@ -17640,7 +17644,8 @@ func _build_ui() -> void:
 	# tombol SWAP: ganti senjata cepat tanpa buka panel HERO
 	var swb := Button.new()
 	swb.text = "SWAP"
-	swb.add_theme_font_size_override("font_size", 15)
+	swb.clip_text = true
+	swb.add_theme_font_size_override("font_size", 12)
 	swb.anchor_left = 1.0
 	swb.anchor_right = 1.0
 	swb.offset_left = -132
@@ -17652,6 +17657,7 @@ func _build_ui() -> void:
 	swb.add_theme_color_override("font_color", Color(0.75, 0.9, 1.0))
 	swb.pressed.connect(_swap_weapon)
 	layer.add_child(swb)
+	ui["swap_btn"] = swb
 
 	# tombol VIAL: minum botol jiwa simpanan
 	var vbtn := Button.new()
