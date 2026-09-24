@@ -593,7 +593,7 @@ func _mk_hpbar() -> void:
 	hpbar_fg = Sprite3D.new()
 	hpbar_fg.texture = t
 	hpbar_fg.pixel_size = bw / 64.0
-	hpbar_fg.modulate = Color(1.0, 0.3, 0.22, 0.95)
+	hpbar_fg.modulate = Color(1.0, 0.3, 0.22, 0.95) if not elite else Color(1.0, 0.6, 0.15, 0.98)
 	hpbar_fg.position = Vector3(0, 1.12 * room_tile, 0.02)
 	hpbar_fg.visible = false
 	add_child(hpbar_fg)
