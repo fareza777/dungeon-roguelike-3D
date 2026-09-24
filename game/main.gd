@@ -4925,14 +4925,14 @@ func _on_enemy_died(e) -> void:
 		_quest_event("reverend_kill")
 	if e.arch_id == "mast_lurcher":
 		_quest_event("lurcher_kill")
+		if int(Stats.arch_kills.get("mast_lurcher", 0)) >= 8:
+			_ach("lurcher8")
 	if e.arch_id == "dirge_singer":
 		_quest_event("dirge_kill")
 	if e.arch_id == "the_boatswain":
 		_quest_event("boatswain_kill")
 	if e.arch_id == "gloom_lantern":
 		_quest_event("gloom_kill")
-		if int(Stats.arch_kills.get("mast_lurcher", 0)) >= 8:
-			_ach("lurcher8")
 		if int(Stats.arch_kills.get("gloom_lantern", 0)) >= 10:
 			_ach("gloomfall")
 	if e.arch_id == "salt_lich":
