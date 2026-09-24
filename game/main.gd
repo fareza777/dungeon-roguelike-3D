@@ -163,7 +163,7 @@ const LORE_LINES := [
 	"The Boatswain was the only officer the crew trusted — which is why the King kept his pipe.",
 	"A Gloom Lantern was once a lighthouse keeper's lamp — it still tolls, though the coast it guarded sank generations ago.",
 	"The rime that crusts the lower decks is not water ice — it is the cold left over when the sea forgets a crew.",
-	"Every chevron on the deck points somewhere the living shouldn't go."
+	"Every chevron on the deck points somewhere the living shouldn't go.",
 	"Gutter chaplains preach to the drowned. The drowned, being dead, find his sermons considerably shorter.",
 "The drowned keep ledgers too — every debt they owed arrives at the surface unpaid.",
 "Below the wrecks the water is patient. It has already won every argument it ever started.",
