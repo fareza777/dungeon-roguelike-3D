@@ -10437,6 +10437,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_aspd -= 0.03
 			toast("Shell's Chorus: the conch sings for the fallen — +5% souls, −3% attack speed this run")
+		157:
+			Stats.buff_maxhp_pct += 0.04
+			Stats.soul_gain_pct -= 0.02
+			toast("Keel's Ration: hardtack in your chest — +4% max HP, −2% souls this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -16653,6 +16657,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Dead Light — the lantern burns paler and quicker: −4% skill cooldowns, −2% souls this run"},
 			{"text": "Grey Pall — a mourner's shroud across your shoulders: +3 armor, −5% speed this run"},
 			{"text": "Shell's Chorus — the conch sings for the fallen: +5% souls, −3% attack speed this run"},
+			{"text": "Keel's Ration — hardtack that keeps your chest full: +4% max HP, −2% souls this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
