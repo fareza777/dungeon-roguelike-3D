@@ -9800,6 +9800,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP PACT — the trench pays the bold (+25% souls)... but it takes its tithe in flesh (−10% Max HP)"},
 		{"text": "SALTFARE — the passage pays quick feet (+12% speed)... but the fare is steep (−8% souls)"},
 		{"text": "PALE HERALD — the herald tolls the fall early (+10% XP)... but the kings grow thicker skulls (bosses +10% HP)"},
+		{"text": "BALANCED LEDGER — the book keeps you honest (+10% souls, +10% XP)... but the margin is thin (−5% crit)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -9854,7 +9855,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 128 if Stats.nemesis != "" else 127
+	var osize := 129 if Stats.nemesis != "" else 128
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -10402,6 +10403,11 @@ func _omen_deal(idx: int) -> void:
 			omen_boss_mult *= 1.10
 			oname = "PALE HERALD"
 		127:
+			Stats.soul_gain_pct += 0.10
+			Stats.xp_pct += 0.10
+			Stats.buff_crit -= 0.05
+			oname = "BALANCED LEDGER"
+		128:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -10561,6 +10567,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP PACT": "The trench pays bold men, Kael — and it always collects.",
 	"SALTFARE": "The crossing always costs, Kael — the swift pay in coin, the slow in blood.",
 	"PALE HERALD": "The herald rings ahead of the crown, Kael — take the lesson, pay the thicker skull.",
+	"BALANCED LEDGER": "The sea keeps every book in pairs, Kael — rich pages are always the thinnest.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
