@@ -15741,6 +15741,7 @@ func _on_throne_invoked(s) -> void:
 		{"text": "Royal Leech — pay 5 souls: the crown's bleeder draws the pain away — heal 35% HP"},
 		{"text": "Throne Warrant — pay 7 souls: sealed by the crown's own hand — +8% ATK, +1 armor this run"},
 		{"text": "Crown's Tally — pay 5 souls: the exchequer counts you a creditor — +6% ATK, +6% souls this run"},
+		{"text": "Crown's Favor — pay 5 souls: the crown's good word travels — +2 armor, +4% speed this run"},
 		{"text": "Walk away"}])
 
 
@@ -15791,7 +15792,7 @@ func _throne_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("BAILIFF'S SHARE — the court's collector works your purse (+15% souls this floor)")
 		return
-	if idx == 37:
+	if idx == 38:
 		Stats.earn_souls(4)
 		_souls_l()
 		_quest_event("throne")
@@ -15809,6 +15810,18 @@ func _throne_deal(idx: int) -> void:
 		Stats.soul_gain_pct += 0.06
 		Sfx.play("shrine")
 		toast("CROWN'S TALLY — the exchequer counts you a creditor (+6% ATK, +6% souls)")
+		return
+	if idx == 37:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the favor isn't free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_count_deal()
+		_souls_l()
+		Stats.buff_armor += 2
+		Stats.buff_speed_pct += 0.04
+		Sfx.play("shrine")
+		toast("CROWN'S FAVOR — the court's good word travels (+2 armor, +4% speed)")
 		return
 	if idx == 35:
 		if Stats.souls < _soul_cost(7):
