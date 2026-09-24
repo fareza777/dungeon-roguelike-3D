@@ -213,6 +213,7 @@ var flotsam_kin := false
 var scurvy := false
 var draft_hole := false
 var keel_hauled := false
+var bilge_sworn := false
 var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
@@ -1331,6 +1332,7 @@ func _reset_run_state() -> void:
 	scurvy = false
 	draft_hole = false
 	keel_hauled = false
+	bilge_sworn = false
 	combo_rate_bonus = 0.0
 	solitary = false
 	pawn_discount = false
@@ -2815,6 +2817,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.speed *= 1.1
 	if crowns_hush and not e.is_boss:
 		e.aggro_range *= 0.8
+	if bilge_sworn and not e.is_boss:
+		e.speed *= 0.92
 	if gallows_tide and not e.is_boss:
 		e.hp *= 1.12
 		e.hp_max = e.hp
@@ -7253,6 +7257,7 @@ func _offer_omens() -> void:
 		{"text": "SCURVY — gums bleed, ribs show (−10% Max HP)... but starvation teaches (+15% XP)"},
 		{"text": "DRAFT HOLE — the current pulls at your hands (skills −15% charge)... and theirs too (+10% foe speed)"},
 		{"text": "KEEL HAULED — barnacles plate your hull (+1 Armor)... but drag (−8% speed)"},
+		{"text": "BILGE SWORN — the bilge slows them all (−8% foe speed)... but the purse pays (−10% souls)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -7303,7 +7308,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 82 if Stats.nemesis != "" else 81
+	var osize := 83 if Stats.nemesis != "" else 82
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -7650,6 +7655,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.08
 			oname = "KEEL HAULED"
 		81:
+			bilge_sworn = true
+			Stats.soul_gain_pct -= 0.1
+			oname = "BILGE SWORN"
+		82:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -7741,6 +7750,7 @@ func _omen_deal(idx: int) -> void:
 	"SCURVY": "The oldest pact on any ship — suffer now, learn faster.",
 	"DRAFT HOLE": "Sailors pray for a fair wind; the deep lends a faster current to whoever asks.",
 	"KEEL HAULED": "Scraped hulls sail true — but a clean hull is a dead sailor's vanity.",
+	"BILGE SWORN": "Sworn to the lowest deck — everything down there moves slower, even the dying.",
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
