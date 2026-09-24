@@ -234,6 +234,7 @@ var black_tide := false
 var grave_knot := false
 var salt_dowry := false
 var sv_doubt := false
+var grim_wager := false
 var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
@@ -1780,6 +1781,10 @@ func _new_run(new_seed: int) -> void:
 	if salt_dowry:
 		Stats.soul_gain_pct -= 0.12
 		salt_dowry = false
+	if grim_wager:
+		Stats.buff_atk_pct -= 0.12
+		Stats.buff_crit -= 0.08
+		grim_wager = false
 	if sv_doubt:
 		Stats.buff_atk_pct -= 0.15
 		Stats.buff_maxhp_pct += 0.05
@@ -9030,6 +9035,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Grave Silk — pay 8 souls: funeral cloth for the nimble — +12% dodge this run"},
 			{"text": "Salt Dowry — pay 5 souls: a bride-price from the drowned — +12% souls this floor"},
 			{"text": "Sovereign's Doubt — pay 6 souls: doubt sharpens a blade — +15% ATK, −5% Max HP this floor"},
+			{"text": "Grim Wager — pay 7 souls: Mahzan backs your blade — +12% ATK, +8% crit this floor"},
 		]
 	)
 
@@ -10703,6 +10709,18 @@ func _mahzan_deal(idx: int) -> void:
 				Stats.soul_gain_pct += 0.2
 				Sfx.play("shrine")
 				toast("SOUL LEDGER — every soul counts double-ish")
+		51:
+			if Stats.souls < _soul_cost(7):
+				toast("Seven souls — the wager isn't free")
+			else:
+				Stats.souls -= _soul_cost(7)
+				_count_deal()
+				_souls_l()
+				grim_wager = true
+				Stats.buff_atk_pct += 0.12
+				Stats.buff_crit += 0.08
+				Sfx.play("shrine")
+				toast("GRIM WAGER — Mahzan backs your blade")
 		50:
 			if Stats.souls < _soul_cost(6):
 				toast("Six souls — the doubt isn't free")
