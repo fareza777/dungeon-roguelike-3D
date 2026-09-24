@@ -8003,6 +8003,9 @@ func _on_dlg_choice(idx: int) -> void:
 		97:
 			Stats.buff_speed_pct += 0.08
 			toast("Foam Step: the deck barely touches your heels — +8% speed")
+		98:
+			Stats.soul_gain_pct += 0.10
+			toast("Salt Pension: the drowned pay their arrears — +10% souls")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -12480,6 +12483,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Leech Bond — the eels lend their hunger: +5% lifesteal, −5% Max HP"},
 			{"text": "Tar Grip — your palms stick to the haft: +1 Armor, +4% ATK"},
 			{"text": "Foam Step — the deck barely touches your heels: +8% speed"},
+			{"text": "Salt Pension — the drowned pay their arrears: +10% souls"},
 		]
 	)
 
