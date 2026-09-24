@@ -321,6 +321,12 @@ func _strike() -> void:
 					if tf != null:
 						tf.stun(0.8)
 						Sfx.play("crit")
+			if Stats.weapon_id == "bilge_wick":
+				var bwn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", bwn)
+				if bwn % 7 == 0:
+					f.set("burn_t", float(f.get("burn_t")) + 3.0)
+					Sfx.play("hit2")
 			if Stats.weapon_id == "salt_lantern":
 				var sln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", sln)
