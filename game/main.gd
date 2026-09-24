@@ -10476,6 +10476,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL VERDICT — the hull acquits your scars (+2 armor)... and charges the hearing fee (+4% damage taken)"},
 		{"text": "FATHOM'S BRIDE — she shares her hunger (+8% ATK)... and shares it deep (+5% damage taken)"},
 		{"text": "PALE LITANY — recite it and the dead tip their hats (+7% souls)... miss a verse and they bite (+3% damage taken)"},
+		{"text": "DEEP ANCHOR — drop it and nothing moves you (+3 armor)... including yourself (−8% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -11224,6 +11225,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.curse_dmg += 0.03
 			oname = "PALE LITANY"
 		159:
+			Stats.buff_armor += 3
+			Stats.buff_speed_pct -= 0.08
+			oname = "DEEP ANCHOR"
+		160:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -11422,6 +11427,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL VERDICT": "Guilty of still breathing, Kael — the court's fee is customary, and eternal.",
 	"FATHOM'S BRIDE": "She has waited in the dark a long time, Kael — don't keep a lady waiting.",
 	"PALE LITANY": "Sixteen verses and every one ends in a debt, Kael — mind the last line.",
+	"DEEP ANCHOR": "A fine way to stand your ground, Kael — and a fine way to die standing still.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
