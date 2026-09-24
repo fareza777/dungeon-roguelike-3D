@@ -6870,6 +6870,11 @@ func _build_draft_cards() -> void:
 				_pick_relic(idx)
 		)
 		ui.draft_cards.add_child(card)
+		if int(it["rarity"]) >= 2:
+			var gtw: Tween = card.create_tween()
+			gtw.set_loops()
+			gtw.tween_property(sb, "border_color", ITEMS.RARITY_COLORS[int(it["rarity"])].lightened(0.6), 0.7)
+			gtw.tween_property(sb, "border_color", ITEMS.RARITY_COLORS[int(it["rarity"])], 0.7)
 		# masuk berjenjang: pop satu-satu biar berasa mewah
 		card.pivot_offset = card.custom_minimum_size * 0.5
 		card.scale = Vector2(0.1, 0.1)
