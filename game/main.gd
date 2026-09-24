@@ -8951,6 +8951,9 @@ func _on_dlg_choice(idx: int) -> void:
 		115:
 			Stats.buff_xp_pct += 0.10
 			toast("Netfisher's Luck: every lesson slips the net into your hands — +10% XP")
+		116:
+			Stats.dodge += 0.06
+			toast("Lookout's Luck: the crow's nest lends you its eyes — +6% dodge")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -13901,6 +13904,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Sunder's Luck — the ship's bell rings for you: +5% dodge"},
 			{"text": "Deadman's Luck — the fallen lend you their caution: +1 armor, +3% dodge"},
 			{"text": "Netfisher's Luck — every lesson slips the net into your hands: +10% XP"},
+			{"text": "Lookout's Luck — the crow's nest lends you its eyes: +6% dodge"},
 		]
 	)
 
