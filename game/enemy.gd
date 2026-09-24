@@ -1567,6 +1567,13 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 				mm4._souls_l()
 			if mm4 != null and mm4.has_method("_damage_number"):
 				mm4._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "KEELBORN +3", Color(0.4, 0.9, 0.9), true)
+		if affix == "flotsam":
+			Stats.earn_souls(1)
+			var mmf := get_tree().current_scene
+			if mmf != null and mmf.has_method("_souls_l"):
+				mmf._souls_l()
+			if mmf != null and mmf.has_method("_damage_number"):
+				mmf._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "FLOTSAM +1", Color(0.5, 0.85, 0.6), true)
 		if affix == "clamworn":
 			var mm5 := get_tree().current_scene
 			if mm5 != null and mm5.get("room") != null:
