@@ -326,6 +326,7 @@ var hull_pitch := false
 var knot_refuge := false
 var drift_verse := false
 var pearl_octave := false
+var undertow_aria := false
 var pilgrims_purse := false
 var crows_toll := false
 var crowns_decree := false
@@ -1496,6 +1497,7 @@ func _new_run(new_seed: int) -> void:
 		Stats.dodge -= 0.08
 		drift_verse = false
 	pearl_octave = false
+	undertow_aria = false
 	if pearl_graft:
 		Stats.buff_atk_pct -= 0.15
 		pearl_graft = false
@@ -2712,6 +2714,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.aggro_range = float(e.aggro_range) * 0.85
 	if wailing_wind and not e.is_boss:
 		e.aggro_range = float(e.aggro_range) * 1.2
+	if undertow_aria and not e.is_boss:
+		e.speed = float(e.speed) * 0.9
 	if balmy_sea and not e.is_boss:
 		e.dmg = max(1, int(e.dmg * 0.9))
 	if rust_storm and not e.is_boss:
@@ -9772,16 +9776,30 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Fathomsong — pay 3 souls: the depths hum you quieter — the dead notice you −15% later this floor"},
 		{"text": "Drift Verse — pay 4 souls: a verse of floating steps — +8% dodge this floor"},
 		{"text": "Pearl Octave — pay 5 souls: nacre rings in your wounds — orbs mend +50% this floor"},
+		{"text": "Undertow Aria — pay 4 souls: the bass drags their feet — foes −10% speed this floor"},
 		{"text": "Walk away"}])
 
 
 func _siren_deal(idx: int) -> void:
-	if idx == 22:
+	if idx == 23:
 		Stats.earn_souls(2)
 		_souls_l()
 		_quest_event("siren")
 		Sfx.play("soul")
 		toast("UNSUNG — you walk, and the conch pays +2 souls for your silence")
+		return
+	if idx == 22:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the aria isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		undertow_aria = true
+		for f2 in get_tree().get_nodes_in_group("enemies"):
+			if not f2.get("is_boss"):
+				f2.speed = float(f2.speed) * 0.9
+		Sfx.play("shrine")
+		toast("UNDERTOW ARIA — the floor itself slows them")
 		return
 	if idx == 21:
 		if Stats.souls < _soul_cost(5):
