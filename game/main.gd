@@ -7091,7 +7091,12 @@ func _burst(pos: Vector3, col := Color(0.95, 0.95, 1.0)) -> void:
 	get_tree().create_timer(2.0).timeout.connect(p.queue_free)
 
 
+var _toast_queue: Array = []
 func toast(txt: String) -> void:
+	if ui.toast_panel.visible and ui.toast_panel.modulate.a > 0.3 and ui.toast.text != txt:
+		if _toast_queue.size() < 3:
+			_toast_queue.append(txt)
+		return
 	ui.toast.text = txt
 	ui.toast_panel.visible = true
 	ui.toast_panel.modulate.a = 1.0
@@ -7104,7 +7109,12 @@ func toast(txt: String) -> void:
 	toast_tween = create_tween()
 	toast_tween.tween_interval(1.6)
 	toast_tween.tween_property(ui.toast_panel, "modulate:a", 0.0, 0.4)
-	toast_tween.tween_callback(func() -> void: ui.toast_panel.visible = false)
+	toast_tween.tween_callback(func() -> void:
+		ui.toast_panel.visible = false
+		if not _toast_queue.is_empty():
+			var nt: String = _toast_queue.pop_front()
+			ui.toast_panel.modulate.a = 0.0
+			toast(nt))
 
 
 func _lvl_banner(txt: String) -> void:
