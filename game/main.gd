@@ -5468,6 +5468,16 @@ func _try_open_draft() -> void:
 	_build_draft_cards()
 	ui.draft.visible = true
 	ui.dim.visible = true
+	ui.draft.pivot_offset = ui.draft.size * 0.5
+	ui.draft.scale = Vector2(0.9, 0.9)
+	ui.draft.modulate.a = 0.0
+	var dtw: Tween = ui.draft.create_tween()
+	dtw.set_parallel(true)
+	dtw.tween_property(ui.draft, "scale", Vector2.ONE, 0.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	dtw.tween_property(ui.draft, "modulate:a", 1.0, 0.15)
+	ui.dim.modulate.a = 0.0
+	var ddim: Tween = ui.dim.create_tween()
+	ddim.tween_property(ui.dim, "modulate:a", 1.0, 0.2)
 	get_tree().paused = true
 	print("DRAFT terbuka: %s (Lv %d)" % [str(draft_choices), Stats.level])
 
