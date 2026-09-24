@@ -511,6 +511,19 @@ func _strike() -> void:
 					var msf := get_tree().current_scene
 					if msf != null and msf.has_method("_damage_number"):
 						msf._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "FANG", Color(0.6, 0.9, 0.95), false)
+			if Stats.weapon_id == "wake_bind":
+				var wbn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", wbn)
+				if wbn % 6 == 0:
+					Sfx.play("hook", 0.7)
+					var wbp: Vector3 = global_position - f.global_position
+					wbp.y = 0.0
+					if wbp.length() > 0.01:
+						f.kb += wbp.normalized() * 4.0
+					f.set("slow_t", 2.0)
+					var mwb := get_tree().current_scene
+					if mwb != null and mwb.has_method("_damage_number"):
+						mwb._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "BIND", Color(0.55, 0.75, 0.95), false)
 			if Stats.weapon_id == "saltverdict":
 				var svn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", svn)
