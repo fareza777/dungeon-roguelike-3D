@@ -31,11 +31,14 @@ var buff_speed_pct := 0.0 # omen Feather Step
 var buff_xp_pct := 0.0
 var soul_gain_pct := 0.0
 var dead_weight := false # omen Rich Soil / Tide's Toll blessing
+var soul_toll_halved := false # Soul Toller foes skim half your soul gains while they live
 
 func earn_souls(n: int) -> void:
 	var pay := n
 	if dead_weight and n > 0:
 		pay = maxi(0, n - 1)
+	if soul_toll_halved and pay > 0:
+		pay = int(ceilf(pay * 0.5))
 	souls += int(ceilf(pay * (1.0 + soul_gain_pct) * (1.0 + 0.04 * float(meta.get("salvor", 0))) * (1.0 + 0.02 * float(meta.get("ferry", 0))) * (1.0 + 0.04 * float(meta.get("keelwright", 0))) * (1.0 + 0.04 * float(meta.get("charterer", 0)))))
 	souls_run += int(ceilf(pay * (1.0 + soul_gain_pct) * (1.0 + 0.04 * float(meta.get("salvor", 0))) * (1.0 + 0.02 * float(meta.get("ferry", 0))) * (1.0 + 0.04 * float(meta.get("keelwright", 0))) * (1.0 + 0.04 * float(meta.get("charterer", 0)))))
 	if souls >= 60:
@@ -526,6 +529,7 @@ func reset_run() -> void:
 	buff_xp_pct = 0.0
 	soul_gain_pct = 0.0
 	dead_weight = false
+	soul_toll_halved = false
 	souls_run = 0
 	buff_lifesteal = 0.0
 	buff_maxhp_pct = 0.0

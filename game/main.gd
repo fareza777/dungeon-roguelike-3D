@@ -668,6 +668,7 @@ var well_rolls := 0
 var well_rolls_run := 0
 var storm_t := 0.0
 var nemesis_spawned := false # musuh yang membunuhmu run lalu — kembali lebih kuat
+var soul_toll_n := 0
 var nemesis_warned := false # nemesis story beat — 1だけ
 var toast_tween: Tween = null
 
@@ -805,6 +806,7 @@ const BESTIARY := {
 	"salt_devout": ["Salt Devout", "A kneeling cleric of the drowned rite — its open palm seals your craft. Cut the prayer short."],
 	"jeerjack": ["Jeerjack", "A chattering imp of the lower decks — every hit rattles your rhythm loose. Keep your streak away from its hands."],
 	"salt_gallows": ["Salt Gallows", "A hangman's frame strung in old rigging — slow to raise its noose, but the drop is certain. Never wait out the windup."],
+	"soul_toller": ["Soul Toller", "A drowned clerk ringing a soul-bell — while it lives your purse earns half. Silence the bell and it pays back double."],
 	"gunnel_fiend": ["Gunnel Fiend", "It claws along the rail faster than it walks — when it coils, it's already midair."],
 	"pale_lantern": ["Pale Lantern", "A wick of drowned light walking a dead sailor's frame — snuff it and every shadow in the room flinches."],
 	"siren_thrall": ["Siren Thrall", "A sailor the song kept — freed of it only by the blade, and what's left rises as a wisp."],
@@ -852,7 +854,7 @@ const KILLER_NAMES := {
 	"bell_ringer": "a Bell Ringer",
 	"moorling": "a Moorling",
 	"keel_mastiff": "a Keel Mastiff",
-	"salt_lich": "a Salt Lich", "bilge_fury": "a Bilge Fury", "siren_thrall": "a Siren Thrall", "pale_lantern": "a Pale Lantern", "gunnel_fiend": "a Gunnel Fiend", "bilge_cantor": "a Bilge Cantor", "tide_bailiff": "a Tide Bailiff", "salt_skimmer": "a Salt Skimmer", "brine_monk": "a Brine Monk", "deck_rigger": "a Deck Rigger", "dread_gull": "a Dread Gull", "gale_singer": "a Gale Singer", "snatch_widow": "a Snatch Widow", "gunnel_gnat": "a Gunnel Gnat", "deck_reverend": "a Deck Reverend", "mast_lurcher": "a Mast Lurcher", "dirge_singer": "a Dirge Singer", "the_boatswain": "the Boatswain", "gloom_lantern": "a Gloom Lantern", "wick_tender": "a Wick Tender", "sodden_deckhand": "a Sodden Deckhand", "brine_widow": "a Brine Widow", "keelwright": "a Keelwright", "bilge_tender": "a Bilge Tender", "keel_sapper": "a Keel Sapper", "keel_chorister": "a Keel Chorister", "pitch_tender": "a Pitch Tender", "keel_wraith": "a Keel Wraith", "brood_keel": "a Brood Keel", "brine_hag": "a Brine Hag", "salt_devout": "a Salt Devout", "jeerjack": "a Jeerjack", "salt_gallows": "a Salt Gallows",
+	"salt_lich": "a Salt Lich", "bilge_fury": "a Bilge Fury", "siren_thrall": "a Siren Thrall", "pale_lantern": "a Pale Lantern", "gunnel_fiend": "a Gunnel Fiend", "bilge_cantor": "a Bilge Cantor", "tide_bailiff": "a Tide Bailiff", "salt_skimmer": "a Salt Skimmer", "brine_monk": "a Brine Monk", "deck_rigger": "a Deck Rigger", "dread_gull": "a Dread Gull", "gale_singer": "a Gale Singer", "snatch_widow": "a Snatch Widow", "gunnel_gnat": "a Gunnel Gnat", "deck_reverend": "a Deck Reverend", "mast_lurcher": "a Mast Lurcher", "dirge_singer": "a Dirge Singer", "the_boatswain": "the Boatswain", "gloom_lantern": "a Gloom Lantern", "wick_tender": "a Wick Tender", "sodden_deckhand": "a Sodden Deckhand", "brine_widow": "a Brine Widow", "keelwright": "a Keelwright", "bilge_tender": "a Bilge Tender", "keel_sapper": "a Keel Sapper", "keel_chorister": "a Keel Chorister", "pitch_tender": "a Pitch Tender", "keel_wraith": "a Keel Wraith", "brood_keel": "a Brood Keel", "brine_hag": "a Brine Hag", "salt_devout": "a Salt Devout", "jeerjack": "a Jeerjack", "salt_gallows": "a Salt Gallows", "soul_toller": "a Soul Toller",
 	"deck_brute": "a Deck Brute",
 	"salt_eel": "a Salt Eel",
 	"quarter_ghost": "a Quarter Ghost",
@@ -963,6 +965,7 @@ const KILLER_TIPS := {
 	"salt_devout": "Tip: a Salt Devout's touch seals your skills — cut it down mid-genuflection or fight bare-handed.",
 	"jeerjack": "Tip: a Jeerjack's slap knocks your combo loose — burst it down before it laughs off your streak.",
 	"salt_gallows": "Tip: a Salt Gallows gives you the whole windup — be somewhere else when the noose falls.",
+	"soul_toller": "Tip: a Soul Toller halves what your purse earns while it tolls — break the bell-ringer first.",
 	"salt_lich": "Tip: Salt Liches telegraph a long windup — close the gap fast or weave between bolts.",
 	"deck_brute": "Tip: Deck Brutes barely feel knockback — break their windup with a stun, or never be there when it lands.",
 	"salt_eel": "Tip: Salt Eels lunge in a straight bite — sidestep and the coil overshoots.",
@@ -2724,6 +2727,8 @@ func _new_run(new_seed: int) -> void:
 		Stats.event_soul_bonus = 1
 	storm_t = 4.0
 	nemesis_spawned = false
+	soul_toll_n = 0
+	Stats.soul_toll_halved = false
 	_ferry_used = false
 	if Stats.relics.has("sea_biscuit") and vials == 0:
 		vials = 1
@@ -3593,6 +3598,7 @@ const FIRST_SEEN := {
 	"salt_devout": "A Salt Devout genuflects — its hush is worse than its staff.",
 	"jeerjack": "A Jeerjack chatters — it wants your rhythm more than your blood.",
 	"salt_gallows": "A Salt Gallows creaks — its rope is already swinging.",
+	"soul_toller": "A Soul Toller rings its bell — your purse lightens while it tolls.",
 	"brine_monk": "A Brine Monk bows its head — its open palm saps the strength from your arm.",
 	"deck_rigger": "A Deck Rigger unfurls its line — its hook bites from farther than you think.",
 	"dread_gull": "A Dread Gull wheels screaming overhead — it stoops in a blink.",
@@ -3880,6 +3886,9 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.xp_val = int(ceilf(e.xp_val * 1.5))
 		M.paint(e, M.toon(skeleton_tex, Color(0.75, 0.12, 0.18), 0.35, true))
 		call_deferred("_nemesis_mark", e)
+	if arch_id == "soul_toller":
+		soul_toll_n += 1
+		Stats.soul_toll_halved = true
 	e.position = sp["pos"]
 	e.room_idx = int(sp.get("room", 0))
 	# spawn lantai: -1 -> inaktif sampai pemain masuk; summon/split di ruangan aktif langsung hidup
@@ -5443,6 +5452,13 @@ func _on_enemy_died(e) -> void:
 		_quest_event("jeerkill")
 	if e.arch_id == "salt_gallows":
 		_quest_event("gallowskill")
+	if e.arch_id == "soul_toller":
+		soul_toll_n = maxi(0, soul_toll_n - 1)
+		Stats.soul_toll_halved = soul_toll_n > 0
+		if not e.is_boss:
+			Stats.earn_souls(4)
+			_damage_number(e.global_position + Vector3(0, 0.9 * info.tile, 0), "BELL PAID +4 ◈", Color(1.0, 0.85, 0.3), false)
+		_quest_event("toll_kill")
 		if int(Stats.arch_kills.get("gloom_lantern", 0)) >= 10:
 			_ach("gloomfall")
 	if e.arch_id == "salt_lich":
