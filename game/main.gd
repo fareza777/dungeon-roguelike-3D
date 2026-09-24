@@ -8426,6 +8426,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.10
 			Stats.buff_xp_pct -= 0.05
 			toast("Dead Reckoner's Verse: the hymn counts your coin — +10% souls, −5% XP")
+		106:
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			toast("Gale's Mercy: the wind spares the fleet-footed — +4% dodge, −3% speed")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -13129,6 +13133,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Deck Psalm — the verse fills your purse: +8% souls, +4% dodge"},
 			{"text": "Iron Verse — the hymn sharpens your hand: +8% ATK, −1 Armor"},
 			{"text": "Dead Reckoner's Verse — the hymn counts your coin: +10% souls, −5% XP"},
+			{"text": "Gale's Mercy — the wind spares the fleet-footed: +4% dodge, −3% speed"},
 		]
 	)
 
