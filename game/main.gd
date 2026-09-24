@@ -1741,7 +1741,9 @@ func _new_run(new_seed: int) -> void:
 	if crowns_reprieve:
 		Stats.cd_reduction -= 0.12
 		crowns_reprieve = false
-	crowns_hand = false
+	if crowns_hand:
+		Stats.buff_atk_pct -= 0.06
+		crowns_hand = false
 	if splice_line:
 		Stats.buff_speed_pct -= 0.06
 		splice_line = false
