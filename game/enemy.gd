@@ -1032,8 +1032,8 @@ func _physics_process(delta: float) -> void:
 								if affix == "corroded" and q == p:
 									p.set("rust_t", 3.0)
 								if affix == "saltbitten" and q == p:
-			p.set("weak_t", maxf(float(p.get("weak_t")), 2.0))
-		if affix == "brinetouched" and q == p:
+									p.set("weak_t", maxf(float(p.get("weak_t")), 2.0))
+								if affix == "brinetouched" and q == p:
 									p.set("chill_t", maxf(float(p.get("chill_t")), 1.5))
 								if affix == "hoarfrost" and q == p:
 									p.set("chill_t", maxf(float(p.get("chill_t")), 2.5))
