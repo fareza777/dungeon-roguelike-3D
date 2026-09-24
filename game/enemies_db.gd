@@ -153,6 +153,7 @@ const DB := {
 	"salt_curate": {"glb": "Skeleton_Mage.glb", "hp": 3.6, "spd": 1.1, "dmg": 1, "windup": 0.5, "reach": 0.75, "aggro": 7.0, "xp": 13, "tint": Color(0.7, 0.75, 0.5), "scale": 1.0, "kb_resist": 0.25, "healer": true, "chaplain": true},
 	"keel_verger": {"glb": "Skeleton_Mage.glb", "hp": 3.0, "spd": 1.6, "dmg": 1, "windup": 0.5, "reach": 0.7, "prefer": 4.5, "aggro": 7.0, "xp": 12, "tint": Color(0.55, 0.7, 0.6), "scale": 0.95, "kb_resist": 0.15, "ranged": true, "proj_speed": 3.4, "cantor": true, "kiter": true},
 	"deep_chaplain": {"glb": "Skeleton_Mage.glb", "hp": 3.4, "spd": 1.0, "dmg": 2, "windup": 0.6, "reach": 0.75, "aggro": 6.5, "xp": 13, "tint": Color(0.4, 0.55, 0.5), "scale": 1.05, "kb_resist": 0.3, "chaplain": true, "cantor": true},
+	"grey_sexton": {"glb": "Skeleton_Mage.glb", "hp": 4.0, "spd": 0.8, "dmg": 2, "windup": 0.7, "reach": 0.8, "aggro": 6.0, "xp": 14, "tint": Color(0.5, 0.6, 0.45), "scale": 1.1, "kb_resist": 0.35, "chaplain": true, "wisp_drop": true},
 	# BOSS: Raja Tulang — tiap lantai kelipatan 5
 	"bone_king": {"glb": "Skeleton_Warrior.glb", "hp": 42.0, "spd": 0.8, "dmg": 2, "windup": 0.85, "reach": 0.95, "aggro": 9.9, "xp": 15, "tint": Color(1.15, 0.45, 0.4), "scale": 1.85, "kb_resist": 0.9, "boss": true},
 }
