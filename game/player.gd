@@ -587,7 +587,7 @@ func _strike() -> void:
 							rf.set("slow_t", maxf(float(rf.get("slow_t")), 2.0))
 					var mrc := get_tree().current_scene
 					if mrc != null and mrc.has_method("_damage_number"):
-						mrc._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "UNDERTOW", Color(0.5, 0.85, 0.9), false)
+						mrc._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "RIP", Color(0.5, 0.85, 0.9), false)
 			if Stats.weapon_id == "hull_mender":
 				var hmn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", hmn)
