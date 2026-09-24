@@ -310,6 +310,7 @@ var ballast_beads := false
 var dowser_knot := false
 var crowns_vigil := false
 var vigils_gage := false
+var crowns_hush := false
 var deck_manifest := false
 var dirge_note := false
 var line_splice := false
@@ -1528,6 +1529,7 @@ func _new_run(new_seed: int) -> void:
 	if vigils_gage:
 		Stats.dodge -= 0.1
 		vigils_gage = false
+	crowns_hush = false
 	if drift_verse:
 		Stats.dodge -= 0.08
 		drift_verse = false
@@ -2786,6 +2788,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.xp_val = int(ceilf(e.xp_val * 1.15))
 	if draft_hole and not e.is_boss:
 		e.speed *= 1.1
+	if crowns_hush and not e.is_boss:
+		e.aggro_range *= 0.8
 	if gallows_tide and not e.is_boss:
 		e.hp *= 1.12
 		e.hp_max = e.hp
@@ -10334,16 +10338,30 @@ func _on_throne_invoked(s) -> void:
 		{"text": "King's Hour — pay 5 souls: the court grants a moment — all skills recharge now"},
 		{"text": "Royal Muster — pay 9 souls: plate and pride — +2 Armor this run"},
 		{"text": "Vigil's Gage — pay 7 souls: the crown's shadow covers your step — +10% dodge this floor"},
+		{"text": "Crown's Hush — pay 6 souls: the court's hush falls over you — foes notice you −20% later this floor"},
 		{"text": "Walk away"}])
 
 
 func _throne_deal(idx: int) -> void:
-	if idx == 21:
+	if idx == 22:
 		Stats.earn_souls(4)
 		_souls_l()
 		_quest_event("throne")
 		Sfx.play("soul")
 		toast("CLEAN HANDS — the crown pays +4 souls to the incorruptible")
+		return
+	if idx == 21:
+		if Stats.souls < _soul_cost(6):
+			toast("Six souls — the hush isn't free")
+			return
+		Stats.souls -= _soul_cost(6)
+		_souls_l()
+		crowns_hush = true
+		for f2 in get_tree().get_nodes_in_group("enemies"):
+			if not f2.get("is_boss"):
+				f2.aggro_range *= 0.8
+		Sfx.play("shrine")
+		toast("CROWN'S HUSH — the court looks the other way")
 		return
 	if idx == 20:
 		if Stats.souls < _soul_cost(7):
