@@ -13738,6 +13738,7 @@ func _set_low_hp(on: bool) -> void:
 			vign_tween.set_loops()
 			vign_tween.tween_property(vign, "modulate:a", 0.75, 0.55)
 			vign_tween.tween_property(vign, "modulate:a", 0.3, 0.55)
+			vign_tween.tween_callback(func() -> void: Sfx.play("hit"))
 	else:
 		if vign_tween != null and vign_tween.is_valid():
 			vign_tween.kill()
