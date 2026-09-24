@@ -417,6 +417,7 @@ var silt_draught := false
 var drowned_mercy := false
 var rivers_tithe := false
 var boatswain_call := false
+var court_fool := false
 var salt_lullaby := false
 var coil_chit := false
 var rope_allowance := false
@@ -1877,6 +1878,7 @@ func _new_run(new_seed: int) -> void:
 	if boatswain_call:
 		Stats.dodge -= 0.12
 		boatswain_call = false
+	court_fool = false
 	salt_lullaby = false
 	if coil_chit:
 		Stats.dodge -= 0.08
@@ -3361,6 +3363,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.speed *= 0.9
 	if drowned_mercy and not e.is_boss:
 		e.dmg = int(e.dmg * 0.92)
+	if court_fool and not e.is_boss:
+		e.speed *= 0.92
 	if low_verse and not e.is_boss:
 		e.windup_t *= 1.1
 	if fathomsong and not e.is_boss:
@@ -12434,11 +12438,32 @@ func _on_throne_invoked(s) -> void:
 		{"text": "Sovereign's Rest — pay 6 souls: the crown's own physician attends — mend 40%"},
 		{"text": "Crown's Reprieve — pay 4 souls: a royal breath between strikes — skills recharge 12% faster this floor"},
 		{"text": "Crown's Hand — pay 5 souls: the throne lays a finger on your blade — +6% ATK this floor"},
+		{"text": "Court Fool — pay 3 souls: the jester mocks your enemies — foes −8% speed this floor"},
 		{"text": "Walk away"}])
 
 
 func _throne_deal(idx: int) -> void:
+	if idx == 30:
+		Stats.earn_souls(4)
+		_souls_l()
+		_quest_event("throne")
+		Sfx.play("soul")
+		toast("CLEAN HANDS — the crown pays +4 souls to the incorruptible")
+		return
 	if idx == 29:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the jester isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_count_deal()
+		_souls_l()
+		court_fool = true
+		for cf in get_tree().get_nodes_in_group("enemies"):
+			if not cf.is_boss:
+				cf.speed *= 0.92
+		Sfx.play("shrine")
+		toast("COURT FOOL — the jester mocks your enemies")
+		return
 		Stats.earn_souls(4)
 		_souls_l()
 		_quest_event("throne")
