@@ -10486,8 +10486,11 @@ func _curse_deal(idx: int) -> void:
 
 func _count_deal() -> void:
 	deals_run += 1
+	_quest_event("deal_made")
 	if deals_run >= 15:
 		_ach("spender")
+	if deals_run >= 25:
+		_ach("open_purse")
 
 func _mahzan_deal(idx: int) -> void:
 	if bargainer and not bargain_used:
