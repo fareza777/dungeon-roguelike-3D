@@ -1101,6 +1101,7 @@ func _physics_process(delta: float) -> void:
 						state_t = 1.1
 				else:
 					anim_lock = M.play_action(ap, ["melee_attack"], 1.3) * 0.7
+					Sfx.play("swing")
 					if dash:
 						kb += Vector3(sin(rotation.y), 0, cos(rotation.y)) * room_tile * 2.8
 					await get_tree().create_timer(0.13).timeout
