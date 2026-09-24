@@ -16483,6 +16483,8 @@ func _refresh_buffs() -> void:
 		list.append(["✦ SILENCED", Color(1.0, 0.3, 0.45)])
 	if player.get("weak_t") != null and player.weak_t > 0.0:
 		list.append(["WEAKENED", Color(0.95, 0.65, 0.3)])
+	if player.get("venom_t") != null and player.venom_t > 0.0:
+		list.append(["☠ VENOMED", Color(0.55, 0.85, 0.3)])
 	if player.get("rust_t") != null and player.rust_t > 0.0:
 		list.append(["RUSTED", Color(0.75, 0.55, 0.35)])
 	if player.get("slip_t") != null and player.slip_t > 0.0:
