@@ -871,6 +871,7 @@ var shrine_used := false
 var shrine_count := 0
 var blessings_run := 0
 var deals_run := 0
+var _quest_refresh_once := false
 var dice_wins := 0
 var urn_count := 0
 var salvage_ct := 0
@@ -7103,6 +7104,13 @@ func _quest_render() -> void:
 	if int(st["need"]) > 1:
 		desc += "  (%d/%d)" % [int(st["done"]), int(st["need"])]
 	ui.quest_d.text = desc
+	if not _quest_refresh_once:
+		_quest_refresh_once = true
+		return
+	ui.quest_box.pivot_offset = ui.quest_box.size * 0.5
+	ui.quest_box.scale = Vector2(1.06, 1.06)
+	var qtw: Tween = ui.quest_box.create_tween()
+	qtw.tween_property(ui.quest_box, "scale", Vector2.ONE, 0.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 
 # ---------------- kombo kill ----------------
