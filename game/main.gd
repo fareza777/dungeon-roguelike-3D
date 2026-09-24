@@ -13512,6 +13512,10 @@ func _rebuild_chips() -> void:
 		l.add_theme_font_size_override("font_size", 16)
 		p.add_child(l)
 		ui.chips.add_child(p)
+		p.pivot_offset = p.size * 0.5
+		p.scale = Vector2(0.6, 0.6)
+		var cptw: Tween = p.create_tween()
+		cptw.tween_property(p, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	if Stats.relics.size() >= 5:
 		_ach("r5")
 
