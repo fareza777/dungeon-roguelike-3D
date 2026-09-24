@@ -54,6 +54,23 @@ func dash_burst(dir: Vector3) -> void:
 		return
 	dash_t = 0.22 * (1.3 if Stats.relics.has("splintered_oar") else 1.0)
 	dash_atk_t = 1.5
+	var streak := MeshInstance3D.new()
+	var sm := BoxMesh.new()
+	sm.size = Vector3(0.28, 0.5, 2.6)
+	streak.mesh = sm
+	var smat := StandardMaterial3D.new()
+	smat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	smat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	smat.albedo_color = Color(0.5, 0.85, 1.0, 0.45)
+	streak.material_override = smat
+	streak.position = global_position + Vector3(0, 0.4, 0)
+	streak.rotation.y = atan2(dash_dir.x, dash_dir.z)
+	get_tree().current_scene.add_child(streak)
+	var stw: Tween = streak.create_tween()
+	stw.set_parallel(true)
+	stw.tween_property(smat, "albedo_color:a", 0.0, 0.3)
+	stw.tween_property(streak, "scale:z", 2.2, 0.3)
+	stw.chain().tween_callback(streak.queue_free)
 	dash_dir = Vector3(dir.x, 0, dir.z).normalized()
 	invuln = maxf(invuln, 0.4)
 	anim_lock = maxf(anim_lock, 0.22)
