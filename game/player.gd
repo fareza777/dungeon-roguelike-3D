@@ -597,6 +597,15 @@ func _strike() -> void:
 					var mms := get_tree().current_scene
 					if mms != null and mms.has_method("_damage_number"):
 						mms._damage_number(f.global_position + Vector3(0.3, 0.7 * room_tile, 0), "STING", Color(1.0, 0.7, 0.4), false)
+			if Stats.weapon_id == "saltwire":
+				var swn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", swn)
+				if swn % 7 == 0:
+					Sfx.play("hook", 0.65)
+					f.stun(1.5)
+					var msw := get_tree().current_scene
+					if msw != null and msw.has_method("_damage_number"):
+						msw._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "SNARED", Color(0.9, 0.85, 0.6), false)
 			if Stats.weapon_id == "hull_mender":
 				var hmn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", hmn)
