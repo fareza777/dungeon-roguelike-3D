@@ -12091,7 +12091,7 @@ func _keel_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("TIDE SILKS — the wind leans your way")
 		return
-	if idx == 43:
+	if idx == 42:
 		if Stats.souls < _soul_cost(5):
 			toast("Five souls — the watch isn't free")
 			return
@@ -12103,7 +12103,7 @@ func _keel_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("KEEL WATCH — the hull stands between you and the blow")
 		return
-	if idx == 42:
+	if idx == 43:
 		toast("The stone settles — the sea keeps its bargains")
 		return
 	if idx == 36:
