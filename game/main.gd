@@ -9642,7 +9642,7 @@ func _offer_omens() -> void:
 		{"text": "CANNON DEBT — your blows land like iron shot (+12% ATK)... but the kick staggers your arm (−10% attack speed)"},
 		{"text": "FATHOM'S DUE — the deep teaches greed (+12% XP)... but it clips your reach (skills −8% recharge)"},
 		{"text": "KEEL TAX — the marked pay gladly (+15% souls)... but the mark slows their footing (−4% dodge)"},
-		{"text": "KEELSWORN — the hull drinks your lessons (+20% XP)... but it skims the purse (−10% souls)"},
+		{"text": "MURK VOW — the murk sharpens every lesson (+20% XP)... but it skims the purse (−10% souls)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -10231,7 +10231,7 @@ func _omen_deal(idx: int) -> void:
 		123:
 			Stats.buff_xp_pct += 0.20
 			Stats.soul_gain_pct -= 0.10
-			oname = "KEELSWORN"
+			oname = "MURK VOW"
 		124:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
@@ -10382,7 +10382,7 @@ func _omen_deal(idx: int) -> void:
 		"CANNON DEBT": "Iron answers loud, Kael — just mind the recoil's slow toll.",
 		"FATHOM'S DUE": "The deep pays its lessons in coin and patience, Kael.",
 		"KEEL TAX": "Every keel that pays is marked, Kael — and marked souls travel heavier.",
-		"KEELSWORN": "The hull grows fat on what you learn, Kael — it pays the coin later.",
+		"MURK VOW": "The murk keeps its lessons cheap and its tolls exact, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
