@@ -9708,6 +9708,12 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			{"who": "oracle", "text": "The dungeon rewrites itself for you now, Kael — even the walls have started to watch."},
 			{"who": "raja", "text": "TWICE BENEATH ME AND STILL HE CRAWLS. THE SEA LEARNS SLOWLY, KAEL — BUT IT LEARNS."},
 		]
+	elif Stats.floor_num == 26:
+		lines = [
+			{"who": "oracle", "text": "The throne is close now, Kael — the water itself kneels here."},
+			{"who": "kael", "text": "Good. Let it kneel a while longer — I'm not finished with it."},
+			{"who": "mahzan", "text": "Twenty-six floors of receipts, buyer — you'd be amazed what your account's worth now."},
+		]
 	elif Stats.floor_num == 30 and Stats.ng_plus >= 1:
 		lines = [
 			{"who": "oracle", "text": "Thirty floors. Below the charts, below the hymns — even my sight thins here."},
