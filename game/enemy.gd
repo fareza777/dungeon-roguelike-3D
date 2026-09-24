@@ -1566,6 +1566,17 @@ func _explode() -> void:
 		mat.set_shader_parameter("flash", 1.0)
 	anim_lock = M.play_action(ap, ["death"], 1.2)
 	died.emit(self)
+	var ctm := get_tree().create_timer(2.4)
+	ctm.timeout.connect(_corpse_fade)
+
+
+func _corpse_fade() -> void:
+	if not is_inside_tree():
+		return
+	var ctw := create_tween()
+	ctw.set_parallel(true)
+	ctw.tween_property(self, "modulate:a", 0.0, 1.1)
+	ctw.tween_property(self, "position:y", position.y - 0.35 * room_tile, 1.1)
 
 
 func _jack_pulse() -> void:
