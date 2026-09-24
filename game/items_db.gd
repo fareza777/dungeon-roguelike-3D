@@ -199,6 +199,7 @@ const DB := {
 	"bosuns_eye": {"name": "Bosun's Eye", "chip": "BE", "desc": "The watch never blinks — +4% crit, +5% XP", "rarity": 1, "mods": {"crit": 0.04, "xp_pct": 0.05}},
 	"tollers_bell": {"name": "Toller's Bell", "chip": "TB", "desc": "A cracked soul-bell — +6% souls, +4% XP", "rarity": 1, "mods": {"soul_gain_pct": 0.06, "xp_pct": 0.04}},
 	"drowned_chaplain": {"name": "Drowned Chaplain", "chip": "DC", "desc": "A prayer that sank mid-verse — +5% XP, +3% dodge", "rarity": 1, "mods": {"xp_pct": 0.05, "dodge": 0.03}},
+	"bell_buoy": {"name": "Bell Buoy", "chip": "BB", "desc": "It still tolls where the wreckage lies — +8% souls, +1 armor", "rarity": 2, "mods": {"soul_gain_pct": 0.08, "armor": 1}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
