@@ -465,6 +465,16 @@ func _strike() -> void:
 					var mks := get_tree().current_scene
 					if mks != null and mks.has_method("_damage_number"):
 						mks._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "SCORE", Color(0.7, 0.9, 1.0), false)
+			if Stats.weapon_id == "knell_hook":
+				var khn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", khn)
+				if khn % 6 == 0:
+					f.set("slow_t", 0.7)
+					Stats.add_xp(4)
+					Sfx.play("whisper", 0.75)
+					var mkh := get_tree().current_scene
+					if mkh != null and mkh.has_method("_damage_number"):
+						mkh._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "KNELL", Color(0.65, 0.6, 1.0), false)
 			if Stats.weapon_id == "wraithbell":
 				var wbn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", wbn)
