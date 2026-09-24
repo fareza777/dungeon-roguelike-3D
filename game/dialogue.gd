@@ -24,6 +24,7 @@ var _skip_typing := false
 var _choices: Array = []
 var _panel: PanelContainer
 var _portrait: TextureRect
+var _bob_t := 0.0
 var _name_l: Label
 var _psb: StyleBoxFlat = null
 var _accent: ColorRect = null
@@ -293,6 +294,12 @@ func _advance() -> void:
 		_show(_idx + 1)
 	elif _choices.is_empty():
 		_close()
+
+
+func _process(delta: float) -> void:
+	_bob_t += delta
+	if is_instance_valid(_portrait) and _portrait.texture != null:
+		_portrait.position.y = -4.0 + sin(_bob_t * 1.7) * 3.0
 
 
 func _gui_input(event: InputEvent) -> void:
