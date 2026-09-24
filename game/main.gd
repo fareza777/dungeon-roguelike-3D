@@ -6770,6 +6770,15 @@ func _try_open_draft() -> void:
 	dtw.set_parallel(true)
 	dtw.tween_property(ui.draft, "scale", Vector2.ONE, 0.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	dtw.tween_property(ui.draft, "modulate:a", 1.0, 0.15)
+	if ui.has("draft_title"):
+		var dtl: Label = ui.draft_title
+		dtl.pivot_offset = dtl.size * 0.5
+		dtl.scale = Vector2(1.25, 1.25)
+		dtl.modulate = Color(1.3, 1.0, 0.3)
+		var ttw: Tween = dtl.create_tween()
+		ttw.set_parallel(true)
+		ttw.tween_property(dtl, "scale", Vector2.ONE, 0.35).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		ttw.tween_property(dtl, "modulate", Color(1.0, 0.88, 0.45), 0.5)
 	ui.dim.modulate.a = 0.0
 	var ddim: Tween = ui.dim.create_tween()
 	ddim.tween_property(ui.dim, "modulate:a", 1.0, 0.2)
@@ -15508,6 +15517,7 @@ func _build_ui() -> void:
 	dt.add_theme_constant_override("outline_size", 6)
 	dt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	dvb.add_child(dt)
+	ui["draft_title"] = dt
 	var cards := HBoxContainer.new()
 	cards.add_theme_constant_override("separation", 12)
 	dvb.add_child(cards)
