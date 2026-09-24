@@ -10433,6 +10433,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_armor += 3
 			Stats.buff_speed_pct -= 0.05
 			toast("Grey Pall: a mourner's shroud — +3 armor, −5% speed this run")
+		156:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_aspd -= 0.03
+			toast("Shell's Chorus: the conch sings for the fallen — +5% souls, −3% attack speed this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -16630,6 +16634,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Tideline — foam up your heels: +6% speed, −4% ATK this run"},
 			{"text": "Dead Light — the lantern burns paler and quicker: −4% skill cooldowns, −2% souls this run"},
 			{"text": "Grey Pall — a mourner's shroud across your shoulders: +3 armor, −5% speed this run"},
+			{"text": "Shell's Chorus — the conch sings for the fallen: +5% souls, −3% attack speed this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
