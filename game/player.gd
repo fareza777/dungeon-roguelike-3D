@@ -721,6 +721,17 @@ func _strike() -> void:
 					var mtb := get_tree().current_scene
 					if mtb != null and mtb.has_method("_damage_number"):
 						mtb._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "LEVY", Color(0.78, 0.7, 0.5), false)
+			if Stats.weapon_id == "crest_blade":
+				var cbn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", cbn)
+				if cbn % 7 == 0:
+					var cbd: Vector3 = (f.global_position - global_position)
+					cbd.y = 0
+					if cbd.length() > 0.1:
+						f.kb += cbd.normalized() * 8.0
+						var mcb := get_tree().current_scene
+						if mcb != null and mcb.has_method("_damage_number"):
+							mcb._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "BREAKER", Color(0.8, 0.85, 0.9), false)
 			if Stats.weapon_id == "pilot_lantern":
 				var pln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", pln)
