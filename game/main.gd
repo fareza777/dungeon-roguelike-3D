@@ -194,7 +194,10 @@ const LORE_LINES := [
 	"A Keel Chorister only ever knew one hymn — it taught the whole pack to keep its tempo.",
 	"The Pale Wick burns for the sailors whose lanterns never made it home.",
 	"On a Crazed Sea even the dead forget to be patient — so should you.",
-	"At Golden Hour the drowned remember they were rich once — and pay for remembering.",]
+	"At Golden Hour the drowned remember they were rich once — and pay for remembering.",
+	"The Keel Scribe copies every name the sea takes — read your own page and it writes you back.",
+	"The Leechers' trade is simple: a pint of you for a pound of them, and they never lose.",
+	"The Orator preached to empty pews for a hundred years before the pews started answering.",]
 
 var dungeon_tex: Texture2D
 var skeleton_tex: Texture2D
@@ -740,7 +743,7 @@ const BOSS_TIERS := [
 		"warn": "Last warning — the Feral King has lost all patience. And all mercy.",
 		"taunt": "THE THRONE IS MINE FOREVER. I'LL WEAR YOUR SKULL AS A CROWN.",
 		"banter": ["RAAAGH! HOLD STILL, PREY!", "NO — NO PREY BITES THE KING!", "GRRRAAAH — DIE WITH ME THEN!"],
-		"death": "...no... I was... ETERNAL..."},
+		"death": "...no... I was... ETERNAL..."}
 ]
 var boss_name := "BONE KING"
 var atk_held := false
