@@ -204,6 +204,7 @@ const DB := {
 	"bell_guard": {"name": "Bell Guard", "chip": "BG", "desc": "The muster bell's rusted lip — +1 armor, +5% XP", "rarity": 1, "mods": {"armor": 1, "xp_pct": 0.05}},
 	"rusted_compass": {"name": "Rusted Compass", "chip": "RC", "desc": "It points the long way home — +6% speed, +5% XP", "rarity": 1, "mods": {"speed_pct": 0.06, "xp_pct": 0.05}},
 	"salvage_token": {"name": "Salvage Token", "chip": "ST", "desc": "Worth a wreck's weight in coin — +6% souls, −2% speed", "rarity": 1, "mods": {"soul_gain_pct": 0.06, "speed_pct": -0.02}},
+	"wake_line": {"name": "Wake Line", "chip": "WL", "desc": "Tied to the current's fastest thread — +5% speed, +3% crit", "rarity": 1, "mods": {"speed_pct": 0.05, "crit": 0.03}},
 	# ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
