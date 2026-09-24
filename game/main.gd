@@ -6782,7 +6782,6 @@ func _cast_skill(id: String) -> void:
 		"hullkneel":
 			for hkf in get_tree().get_nodes_in_group("enemies"):
 				if hkf.get("state") != "dead":
-					hkf.speed *= 0.75
 					hkf.set("slow_t", 6.0)
 			Sfx.play("whirl")
 			toast("HULL KNEEL — the deck bows beneath them")
