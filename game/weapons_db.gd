@@ -35,7 +35,7 @@ const DB := {
 	"tidebrand": {"name": "Tidebrand", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.85, 0.7, 0.3), "mods": {"atk": 1.8}, "desc": "+1.8 ATK. SALVAGE: killing a foe under 30% HP pays +1 soul."},
 	"whelk_maul": {"name": "Whelk Maul", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.55, 0.45, 0.85), "mods": {"atk": 3.0, "atk_speed_pct": -0.18, "speed_pct": -0.08}, "desc": "+3.0 ATK, −18% Attack Speed, −8% Speed. BREACH: every 5th strike breaks through — +60% damage."},
 	"guthook": {"name": "Guthook", "gltf": "Skeleton_Blade.gltf", "tint": Color(0.9, 0.35, 0.35), "mods": {"atk": 2.2, "atk_speed_pct": -0.12}, "desc": "+2.2 ATK, −12% Attack Speed. BLEED: every 5th strike rends — heals you 5% Max HP."},
-	"saltbrand": {"name": "Saltbrand", "atk": 1.5, "aspd": 1.0, "tier": 2, "mods": {"lifesteal": 0.05}, "desc": "BRAND: every 5th strike sears venom into the foe for 3s"},
+	"saltbrand": {"name": "Saltbrand", "atk": 1.5, "aspd": 1.0, "tier": 2, "mods": {"lifesteal": 0.05}, "desc": "BRAND: every 5th strike sears the brand deep — the foe is slowed 3s"},
 	"deckcleaver": {"name": "Deck Cleaver", "atk": 1.7, "aspd": 0.85, "tier": 3, "mods": {"atk": 1.0}, "desc": "CLEAVE: every 6th strike sweeps wide — all foes in reach take 0.5x ATK"},
 	"oarlock": {"name": "Oarlock", "atk": 1.6, "aspd": 0.9, "tier": 2, "mods": {"armor": 1.0}, "desc": "OARLOCK: every 6th strike clouts like an oar — the foe is stunned 0.8s"},
 	"chumblade": {"name": "Chumblade", "atk": 1.3, "aspd": 1.05, "tier": 2, "mods": {"crit": 0.05}, "desc": "CHUM: every 4th strike flings chum — a random foe within 3 tiles takes 0.6x ATK"},
