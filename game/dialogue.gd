@@ -236,7 +236,7 @@ func _show_choices() -> void:
 	for i in range(_choices.size()):
 		var ch: Dictionary = _choices[i]
 		var b := Button.new()
-		b.text = String(ch.get("text", "..."))
+		b.text = "%d. %s" % [i + 1, String(ch.get("text", "..."))]
 		b.add_theme_font_size_override("font_size", 19)
 		b.custom_minimum_size = Vector2(0, 56)
 		var sb := StyleBoxFlat.new()
@@ -258,6 +258,13 @@ func _show_choices() -> void:
 		bdt.set_parallel(true)
 		bdt.tween_property(b, "modulate:a", 1.0, 0.15)
 		bdt.tween_property(b, "position:y", 0, 0.18).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		b.mouse_entered.connect(func() -> void:
+			var _eh: Tween = b.create_tween()
+			b.pivot_offset = b.size * 0.5
+			_eh.tween_property(b, "scale", Vector2(1.03, 1.03), 0.1))
+		b.mouse_exited.connect(func() -> void:
+			var _ex: Tween = b.create_tween()
+			_ex.tween_property(b, "scale", Vector2.ONE, 0.1))
 		var ix := i
 		b.pressed.connect(func() -> void:
 			Sfx.play("click")
