@@ -490,6 +490,20 @@ func _strike() -> void:
 							mbm._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "GROG +1◈", Color(0.6, 0.9, 0.6), false)
 						if mbm.has_method("_atk_pulse"):
 							mbm._atk_pulse()
+			if Stats.weapon_id == "mastfall":
+				var mfn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", mfn)
+				if mfn % 8 == 0:
+					Stats.earn_souls(2)
+					Sfx.play("slam", 0.8)
+					var mmf := get_tree().current_scene
+					if mmf != null:
+						if mmf.has_method("_damage_number"):
+							mmf._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "MASTFALL +2◈", Color(0.9, 0.7, 0.35), false)
+						if mmf.has_method("_shock_ring"):
+							mmf._shock_ring(f.global_position)
+						if mmf.has_method("_atk_pulse"):
+							mmf._atk_pulse()
 			if Stats.weapon_id == "wraithbell":
 				var wbn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", wbn)
