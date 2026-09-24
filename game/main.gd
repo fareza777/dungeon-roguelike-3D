@@ -7230,6 +7230,13 @@ func _combo_set(n: int) -> void:
 
 func _boss_bar_show() -> void:
 	ui.boss_bar.visible = true
+	ui.boss_bar.modulate.a = 0.0
+	ui.boss_bar.pivot_offset = ui.boss_bar.size * 0.5
+	ui.boss_bar.scale = Vector2(1.25, 1.25)
+	var bbtw: Tween = ui.boss_bar.create_tween()
+	bbtw.set_parallel(true)
+	bbtw.tween_property(ui.boss_bar, "modulate:a", 1.0, 0.35)
+	bbtw.tween_property(ui.boss_bar, "scale", Vector2.ONE, 0.45).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	# warnai bar per varian Raja: ember/frost/feral/undying
 	var tc: Color = Color(_boss_tier().get("tint", Color(1.0, 0.3, 0.25)))
 	var sb: StyleBox = ui.boss_bar.get_theme_stylebox("panel")
