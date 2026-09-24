@@ -375,6 +375,7 @@ var rigging_rest := false
 var second_verse := false
 var leech_bond := false
 var keelwind := false
+var murk_vision := false
 var salt_lullaby := false
 var coil_chit := false
 var regal_favor := false
@@ -1700,6 +1701,7 @@ func _new_run(new_seed: int) -> void:
 	if keelwind:
 		Stats.buff_speed_pct -= 0.1
 		keelwind = false
+	murk_vision = false
 	salt_lullaby = false
 	if coil_chit:
 		Stats.dodge -= 0.08
@@ -9022,12 +9024,26 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Murk Purse — pay 3 souls: the depths spill their change — every urn pays +1 soul this floor"},
 		{"text": "Tide Sponge — pay 3 souls: the wrack wrings its water over your wounds — heal 30%"},
 		{"text": "Keelwind — pay 4 souls: the drowned wind fills your stride — +10% speed this floor"},
+		{"text": "Murk Vision — pay 3 souls: the silt clouds their dead eyes — foes notice you −15% later this floor"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 40:
+	if idx == 41:
 		toast("The water settles back into the stone")
+		return
+	if idx == 40:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the murk isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_count_deal()
+		_souls_l()
+		murk_vision = true
+		Sfx.play("shrine")
+		toast("MURK VISION — the silt clouds their eyes")
+		for f in get_tree().get_nodes_in_group("enemies"):
+			f.aggro_range *= 0.85
 		return
 	if idx == 39:
 		if Stats.souls < _soul_cost(4):
