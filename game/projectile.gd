@@ -85,6 +85,14 @@ func _physics_process(delta: float) -> void:
 			var mh_c := get_tree().current_scene
 			if mh_c != null and mh_c.has_method("_damage_number"):
 				mh_c._damage_number(p.global_position + Vector3(0, 1.2, 0), "CHILLED", Color(0.5, 0.85, 1.0), false)
+		if effect == "gale" and not p.get("dead"):
+			var gd_: Vector3 = p.global_position - global_position
+			gd_.y = 0
+			if gd_.length() > 0.2:
+				p.set("kb", p.get("kb") + gd_.normalized() * 12.0)
+			var mgg := get_tree().current_scene
+			if mgg != null and mgg.has_method("_damage_number"):
+				mgg._damage_number(p.global_position + Vector3(0, 1.2, 0), "GUST!", Color(0.6, 0.9, 1.0), true)
 		if effect == "hook" and not p.get("dead"):
 			var hd_: Vector3 = hook_src - p.global_position
 			hd_.y = 0
