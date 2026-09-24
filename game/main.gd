@@ -7407,6 +7407,10 @@ func _on_dlg_choice(idx: int) -> void:
 		86:
 			Stats.buff_maxhp_pct += 0.15
 			Stats.dodge -= 0.1
+		87:
+			Stats.dodge += 0.08
+			Stats.buff_speed_pct -= 0.05
+			toast("Keel Net: you slip like a fish through the net — +8% dodge, −5% speed")
 			toast("Hull Tithe: ironwood ribs for a price — +15% Max HP, −10% dodge")
 		50:
 			Stats.buff_aspd += 0.15
@@ -11208,6 +11212,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Keel Ballast — stone in the hold: +2 Armor, −10% speed"},
 			{"text": "Salt Tithing — the purse fills, the hands slow: +15% souls, skills +5% recharge"},
 			{"text": "Hull Tithe — ironwood ribs for a price: +15% Max HP, −10% dodge"},
+			{"text": "Keel Net — the trawl gathers what spills: +8% dodge, −5% speed"},
 		]
 	)
 
