@@ -6846,6 +6846,7 @@ func _start_quests(boss_floor: bool, room_count: int) -> void:
 		player.hp_changed.emit(player.hp)
 		toast("RAT RATION — the mold did most of the eating")
 	quest_steps = QDB.for_floor(Stats.floor_num, room_count, n_elites)
+	_refresh_hud_weapon()
 	for st in quest_steps:
 		st["done"] = 0
 	quest_idx = 0
@@ -8318,6 +8319,7 @@ func _forge_deal(idx: int) -> void:
 	Stats.save_game()
 	Sfx.play("levelup")
 	toast("%s forged to +%d" % [wname, int(Stats.weapon_lv[wid]) - 1])
+	_refresh_hud_weapon()
 	_quest_event("forge")
 	if Stats.forges_used >= 3:
 		_ach("smith3")
@@ -11787,6 +11789,18 @@ func _build_minimap() -> void:
 	_update_minimap()
 
 
+func _refresh_hud_weapon() -> void:
+	if not ui.has("weapon_l"):
+		return
+	var wid := Stats.weapon_id
+	if wid == "" or not WDB.DB.has(wid):
+		ui.weapon_l.text = ""
+		return
+	var wlv: int = int(Stats.weapon_lv.get(wid, 1))
+	var wname := String(WDB.DB[wid]["name"])
+	ui.weapon_l.text = ("%s +%d" % [wname, wlv - 1]) if wlv > 1 else wname
+
+
 func _update_minimap() -> void:
 	if not ui.has("map_view") or not ui.map.visible or player == null or not is_instance_valid(player):
 		return
@@ -11882,6 +11896,21 @@ func _build_ui() -> void:
 		twd.tween_property(atk, "scale", Vector2(0.9, 0.9), 0.05)
 	)
 	ui["atk_btn"] = atk
+	var wl := Label.new()
+	wl.anchor_left = 1.0
+	wl.anchor_right = 1.0
+	wl.offset_left = -220
+	wl.offset_right = -40
+	wl.offset_top = -252
+	wl.offset_bottom = -226
+	wl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	wl.add_theme_font_size_override("font_size", 13)
+	wl.add_theme_color_override("font_color", Color(0.95, 0.82, 0.45, 0.9))
+	wl.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
+	wl.add_theme_constant_override("outline_size", 4)
+	wl.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	layer.add_child(wl)
+	ui["weapon_l"] = wl
 	atk.button_up.connect(func() -> void:
 		atk_held = false
 		var twu := atk.create_tween()
