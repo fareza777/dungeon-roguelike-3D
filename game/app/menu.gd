@@ -68,6 +68,16 @@ func _make_btn(txt: String, big := true) -> Button:
 	return b
 
 
+func panel_pop(cc: Control) -> void:
+	var p: Control = cc.find_child("panel", true, false)
+	if p == null:
+		return
+	p.pivot_offset = p.size * 0.5
+	p.scale = Vector2(0.9, 0.9)
+	var ptw: Tween = p.create_tween()
+	ptw.tween_property(p, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+
 func _btn_punch(b: Button) -> void:
 	Sfx.play("click")
 	var tw := create_tween()
@@ -249,7 +259,9 @@ func _build() -> void:
 	vb.add_child(row)
 	var bs := _make_btn("⚙ SETTINGS", false)
 	bs.custom_minimum_size = Vector2(184, 60)
-	bs.pressed.connect(func() -> void: settings_panel.visible = true)
+	bs.pressed.connect(func() -> void:
+		settings_panel.visible = true
+		panel_pop(settings_panel))
 	row.add_child(bs)
 	var ba := _make_btn("◈ ABOUT", false)
 	ba.custom_minimum_size = Vector2(184, 60)
@@ -391,6 +403,7 @@ func _build_settings() -> void:
 	psb.set_content_margin_all(28)
 	panel.add_theme_stylebox_override("panel", psb)
 	settings_panel.add_child(panel)
+	panel.name = "panel"
 	var vb := VBoxContainer.new()
 	vb.add_theme_constant_override("separation", 12)
 	vb.custom_minimum_size = Vector2(430, 0)
