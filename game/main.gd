@@ -517,6 +517,7 @@ var pinch_n := 0
 var abyss_n := 0
 var lore_run := 0
 var disarm_run := 0
+var thrall_n := 0
 var disarm_floor := 0
 var events_run := {}
 var riptide_n := 0
@@ -1533,6 +1534,7 @@ func _reset_run_state() -> void:
 	abyss_n = 0
 	lore_run = 0
 	disarm_run = 0
+	thrall_n = 0
 	salt_tithe = false
 	keel_prayer = false
 	events_run = {}
@@ -7370,6 +7372,10 @@ func _start_quests(boss_floor: bool, room_count: int) -> void:
 
 
 func _quest_event(kind: String, num: int = 1) -> void:
+	if kind == "thrall_kill":
+		thrall_n += 1
+		if thrall_n >= 15:
+			_ach("liberator")
 	# total per-kind dihitung apa pun langkah aktifnya — langkah berurutan
 	# tidak boleh kehilangan progres yang terjadi sebelum gilirannya
 	if kind == "trap_disarm":

@@ -247,6 +247,7 @@ const ACH_DEF := {
 	"deepwater": "Deep Water (reach Floor 40)",
 	"saltveteran": "Salt Veteran (reach Floor 45)",
 	"hadal": "Hadal Pilgrim (reach Floor 50)",
+	"liberator": "Thrall Liberator (free 15 thralls)",
 	"spender": "Spender (buy 15 deals in one run)",
 	"fulldeck": "Full Deck (every meta upgrade maxed)",
 	"ngdeep": "Void Warden (reached floor 20 in New Game+)",
