@@ -365,6 +365,7 @@ var rope_tackle := false
 var murk_purse := false
 var soul_ledger := false
 var courts_tally := false
+var royal_overlook := false
 var splice_line := false
 var second_verse := false
 var leech_bond := false
@@ -1660,6 +1661,7 @@ func _new_run(new_seed: int) -> void:
 	if courts_tally:
 		Stats.soul_gain_pct -= 0.12
 		courts_tally = false
+	royal_overlook = false
 	if splice_line:
 		Stats.buff_speed_pct -= 0.06
 		splice_line = false
@@ -11156,16 +11158,29 @@ func _on_throne_invoked(s) -> void:
 		{"text": "Vassal's Claim — pay 5 souls: the crown taxes its own — foes −10% HP this floor"},
 		{"text": "Regal Favor — pay 6 souls: the court notices your deeds — +15% XP this floor"},
 		{"text": "Court's Tally — pay 5 souls: the scribes weight your purse — +12% souls this floor"},
+		{"text": "Royal Overlook — pay 5 souls: the court looks away — foes −10% damage this floor"},
 		{"text": "Walk away"}])
 
 
 func _throne_deal(idx: int) -> void:
-	if idx == 25:
+	if idx == 26:
 		Stats.earn_souls(4)
 		_souls_l()
 		_quest_event("throne")
 		Sfx.play("soul")
 		toast("CLEAN HANDS — the crown pays +4 souls to the incorruptible")
+		return
+	if idx == 25:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the court isn't free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_souls_l()
+		royal_overlook = true
+		Sfx.play("shrine")
+		toast("ROYAL OVERLOOK — the court looks away")
+		for f in get_tree().get_nodes_in_group("enemies"):
+			f.dmg = int(maxf(1.0, float(f.dmg) * 0.9))
 		return
 	if idx == 24:
 		if Stats.souls < _soul_cost(5):
