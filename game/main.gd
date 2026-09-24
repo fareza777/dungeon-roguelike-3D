@@ -7779,6 +7779,7 @@ func _on_dlg_choice(idx: int) -> void:
 		86:
 			Stats.buff_maxhp_pct += 0.15
 			Stats.dodge -= 0.1
+			toast("Hull Tithe: ironwood ribs for a price — +15% Max HP, −10% dodge")
 		87:
 			Stats.dodge += 0.08
 			Stats.buff_speed_pct -= 0.05
