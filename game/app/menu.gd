@@ -517,6 +517,23 @@ func _build_settings() -> void:
 	)
 	vb.add_child(dn_opt)
 
+	var mm := Label.new()
+	mm.text = "Minimap"
+	mm.add_theme_font_size_override("font_size", 18)
+	mm.modulate = Color(1, 1, 1, 0.7)
+	vb.add_child(mm)
+	var mm_opt := OptionButton.new()
+	mm_opt.add_item("On", 0)
+	mm_opt.add_item("Off", 1)
+	mm_opt.selected = 0 if Stats.show_minimap else 1
+	mm_opt.add_theme_font_size_override("font_size", 17)
+	mm_opt.add_theme_stylebox_override("normal", qsb)
+	mm_opt.item_selected.connect(func(ix: int) -> void:
+		Stats.show_minimap = ix == 0
+		Stats.save_game()
+	)
+	vb.add_child(mm_opt)
+
 	var wr := _make_btn("⟲ RESET ALL PROGRESS", false)
 	wr.add_theme_color_override("font_color", Color(1.0, 0.5, 0.45))
 	wr.pressed.connect(func() -> void:

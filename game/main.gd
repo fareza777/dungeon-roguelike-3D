@@ -15187,7 +15187,7 @@ func _build_minimap() -> void:
 	if xs < 0.1 or zs < 0.1:
 		ui.map.visible = false
 		return
-	ui.map.visible = not shrouded
+	ui.map.visible = not shrouded and Stats.show_minimap
 	var sc: float = minf(130.0 / xs, 178.0 / zs)
 	map_room_rects.clear()
 	for ri7 in info.ranges.size():

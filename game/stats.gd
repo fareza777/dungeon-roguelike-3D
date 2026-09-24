@@ -96,6 +96,7 @@ var quality := -1 # -1 auto, 0 hemat, 1 indah
 var cam_shake := true
 var screen_flash := true
 var dmg_numbers := true
+var show_minimap := true
 var volume := 0.8 # legacy: dipakai kalau music/sfx belum pernah diset
 var music_volume := -1.0
 var sfx_volume := -1.0
@@ -710,6 +711,7 @@ func save_game() -> void:
 			"cam_shake": cam_shake,
 			"screen_flash": screen_flash,
 			"dmg_numbers": dmg_numbers,
+			"show_minimap": show_minimap,
 			"run": saved_run,
 			"ach": ach,
 			"lore": lore_seen, "oaths": oaths_seen,
@@ -753,6 +755,7 @@ func load_game() -> void:
 			cam_shake = bool(d.get("cam_shake", true))
 			screen_flash = bool(d.get("screen_flash", true))
 			dmg_numbers = bool(d.get("dmg_numbers", true))
+			show_minimap = bool(d.get("show_minimap", true))
 			var r = d.get("run", {})
 			if r is Dictionary:
 				saved_run = r
