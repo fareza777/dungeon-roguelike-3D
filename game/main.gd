@@ -1991,6 +1991,7 @@ func _reset_run_state() -> void:
 	dead_lantern = false
 	hull_song = false
 	salt_ledger = false
+	escrow_pending = false
 	wide_satchel = false
 	slow_clock = false
 	deck_alms = false
