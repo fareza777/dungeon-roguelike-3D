@@ -224,6 +224,7 @@ var palm_tar := false
 var oar_tax := false
 var rust_bounty := false
 var deep_charter := false
+var salty_wages := false
 var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
@@ -1464,6 +1465,7 @@ func _reset_run_state() -> void:
 	oar_tax = false
 	rust_bounty = false
 	deep_charter = false
+	salty_wages = false
 	combo_rate_bonus = 0.0
 	solitary = false
 	pawn_discount = false
@@ -7866,6 +7868,7 @@ func _offer_omens() -> void:
 		{"text": "OAR TAX — the oars lend you their pull (+12% speed)... but the hull pays thin (−1 Armor)"},
 		{"text": "RUST BOUNTY — the wreck sharpens your edge (+15% crit)... but it eats your plate (−10% Max HP)"},
 		{"text": "DEEP CHARTER — the black water teaches fast (+20% XP)... but skims your purse (−10% souls)"},
+		{"text": "SALTY WAGES — the ship pays out in souls (+15% souls)... but the lessons run thin (−10% XP)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -7916,7 +7919,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 93 if Stats.nemesis != "" else 92
+	var osize := 94 if Stats.nemesis != "" else 93
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -8313,6 +8316,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.1
 			oname = "DEEP CHARTER"
 		92:
+			salty_wages = true
+			Stats.soul_gain_pct += 0.15
+			Stats.buff_xp_pct -= 0.1
+			oname = "SALTY WAGES"
+		93:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -8415,6 +8423,7 @@ func _omen_deal(idx: int) -> void:
 	"OAR TAX": "Every stroke the oars lend you, they collect back in planks.",
 	"RUST BOUNTY": "What rust takes from the hull it lends to the hand.",
 	"DEEP CHARTER": "The dark water sells its lessons cheap — only the price is in souls.",
+	"SALTY WAGES": "The wages of the drowned are paid in what they stole.",
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
