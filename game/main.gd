@@ -148,6 +148,7 @@ const LORE_LINES := [
 	"A lantern in a dead hand still counts as a lantern, Kael. Douse it kindly.",
 	"A Keel Scribe writes only what the sea already knows, Kael — which is why it never writes about you.",
 	"Salt Widows were the wreck's last surgeons — they still stitch, Kael, they just ran out of anesthetic.",
+	"A Keel Leecher only drinks from sailors who stopped moving — which is why it never thirsts here.",
 	"The sea does not count in years down here — she counts in tides owed.",
 	"The Reef Caller never learned a war song, Kael — it only ever learned yours.",
 	"A wormwood charm tastes bitter so the venom forgets where your heart is.",
@@ -12320,6 +12321,8 @@ func _count_deal() -> void:
 		_ach("open_purse")
 	if deals_run >= 40:
 		_ach("ledger_lord")
+	if deals_run >= 60:
+		_ach("full_ledger")
 
 func _mahzan_deal(idx: int) -> void:
 	if bargainer and not bargain_used:
