@@ -7070,6 +7070,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.1
 			Stats.soul_gain_pct -= 0.1
 			toast("Hanging Tide: you move like slack water — +10% speed, +10% dodge, −10% souls")
+		80:
+			Stats.buff_aspd += 0.15
+			Stats.buff_speed_pct -= 0.08
+			toast("Capstan Chant: the heavy verses set your arms turning — +15% attack speed, −8% speed")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -10643,6 +10647,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Brine Dividend — the purse swells thin: +20% souls, −10% Max HP"},
 			{"text": "Rope Burn — raw palms, fast hands: +15% attack speed, −5% crit"},
 			{"text": "Hanging Tide — slack-water step: +10% speed, +10% dodge, −10% souls"},
+			{"text": "Capstan Chant — heavy verses turn the arms: +15% attack speed, −8% speed"},
 		]
 	)
 
