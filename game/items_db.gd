@@ -225,6 +225,7 @@ const DB := {
 	"keel_chimes": {"name": "Keel Chimes", "chip": "KC", "desc": "Bells that count every lesson the hull learns — +4% XP, +2% speed", "rarity": 1, "mods": {"xp_pct": 0.04, "speed_pct": 0.02}},
 	"wake_chime": {"name": "Wake Chime", "chip": "WC", "desc": "A bell that rings half a beat before the blow lands — +5% dodge, +2% XP", "rarity": 2, "mods": {"dodge": 0.05, "xp_pct": 0.02}},
 	"carriers_knot": {"name": "Carrier's Knot", "chip": "KN", "desc": "A knot the soul-porters tie for luck — +6% souls, −3% speed", "rarity": 1, "mods": {"soul_gain_pct": 0.06, "speed_pct": -0.03}},
+	"fog_tithe": {"name": "Fog Tithe", "chip": "FT", "desc": "A coin the mist presses into your palm — +4% dodge, +3% souls", "rarity": 1, "mods": {"dodge": 0.04, "soul_gain_pct": 0.03}},
 # ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
