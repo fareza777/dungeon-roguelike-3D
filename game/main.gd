@@ -437,6 +437,7 @@ var sheave_toll := false
 var bilge_bond := false
 var rigging_rites := false
 var mudlarks_due := false
+var shanty_draught := false
 var kelp_tithe := false
 var bosuns_chit := false
 var deck_psalm := false
@@ -1974,6 +1975,9 @@ func _new_run(new_seed: int) -> void:
 	if mudlarks_due:
 		Stats.dodge -= 0.08
 		mudlarks_due = false
+	if shanty_draught:
+		Stats.buff_aspd -= 0.08
+		shanty_draught = false
 	if rigging_rites:
 		Stats.buff_aspd -= 0.08
 		rigging_rites = false
@@ -10902,6 +10906,7 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "River's Tithe — pay 4 souls: the current pays its tolls — +12% souls this floor"},
 		{"text": "Shellback Draught — pay 4 souls: the turtle's patience is yours — +10% Max HP this floor"},
 		{"text": "River Toll — pay 4 souls: the ford's fee sharpens your eye — +4% crit, +2% dodge this run"},
+		{"text": "Shanty Draught — pay 3 souls: the drowned crew keeps your tempo — +8% attack speed this floor"},
 		{"text": "Walk away"}])
 
 
@@ -10931,6 +10936,18 @@ func _drowned_deal(idx: int) -> void:
 		toast("RIVER TOLL — the ford's fee buys a sharper eye (+4% crit, +2% dodge)")
 		return
 	if idx == 47:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the draught isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_count_deal()
+		_souls_l()
+		shanty_draught = true
+		Stats.buff_aspd += 0.08
+		Sfx.play("shrine")
+		toast("SHANTY DRAUGHT — the drowned crew keeps your tempo (+8% attack speed this floor)")
+		return
+	if idx == 48:
 		toast("The water settles back into the stone")
 		return
 	if idx == 44:
