@@ -248,6 +248,14 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "salt_scythe":
+				var scn2: Node = get_tree().current_scene
+				var sn2: int = int(scn2.get("net_n")) + 1
+				scn2.set("net_n", sn2)
+				if sn2 >= 8:
+					scn2.set("net_n", 0)
+					if scn2.has_method("_spawn_wisp_at"):
+						scn2._spawn_wisp_at(global_position + Vector3(0, 0.5, 0))
 			if Stats.weapon_id == "foghorn":
 				var fh_ = get_tree().current_scene
 				fh_.set("net_n", int(fh_.get("net_n")) + 1)
