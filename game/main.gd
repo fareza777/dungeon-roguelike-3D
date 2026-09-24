@@ -5962,6 +5962,9 @@ func _build_draft_cards() -> void:
 		card.gui_input.connect(func(e: InputEvent) -> void:
 			if (e is InputEventMouseButton or e is InputEventScreenTouch) and e.pressed:
 				Sfx.play("click")
+				var ptw: Tween = card.create_tween()
+				ptw.tween_property(card, "scale", Vector2(0.88, 0.88), 0.05)
+				ptw.tween_property(card, "scale", Vector2.ONE, 0.15).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 				_pick_relic(idx)
 		)
 		ui.draft_cards.add_child(card)
