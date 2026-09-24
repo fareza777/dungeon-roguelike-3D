@@ -220,6 +220,7 @@ const DB := {
 	"wake_glass": {"name": "Wake Glass", "chip": "WG", "desc": "A shard that still shows the wave that made it — +3% dodge, +2% XP", "rarity": 1, "mods": {"dodge": 0.03, "xp_pct": 0.02}},
 	"crest_plume": {"name": "Crest Plume", "chip": "CP", "desc": "A foam-white feather off the wave's top — +3% speed, +2% dodge", "rarity": 1, "mods": {"speed_pct": 0.03, "dodge": 0.02}},
 	"tide_verdict": {"name": "Tide Verdict", "chip": "TV", "desc": "The sea's ruling, stamped in wet salt — +2% crit, +2% souls", "rarity": 1, "mods": {"crit": 0.02, "soul_gain_pct": 0.02}},
+	"fathom_chip": {"name": "Fathom Chip", "chip": "FC", "desc": "A counter off the deep's casino table — +3% souls, +1% crit", "rarity": 1, "mods": {"soul_gain_pct": 0.03, "crit": 0.01}},
 # ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
