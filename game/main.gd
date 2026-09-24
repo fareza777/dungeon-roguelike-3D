@@ -4064,7 +4064,7 @@ func _on_enemy_died(e) -> void:
 			var woff: Vector3 = Vector3(cos(wi * PI * 0.5), 0.4, sin(wi * PI * 0.5)) * info.tile * 0.7
 			_spawn_wisp_at(e.global_position + woff)
 	elif pale_wake and not e.is_boss and rng.randf() < 0.2:
-		_spawn_wisp_at(e.global_position + woff)
+		_spawn_wisp_at(e.global_position + Vector3(0, 0.4, 0))
 	Sfx.play("death")
 	kills_run += 1
 	if kills_run >= 30:
