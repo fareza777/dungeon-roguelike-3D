@@ -417,7 +417,14 @@ func _strike() -> void:
 						if mcs != null and mcs.has_method("_damage_number"):
 							mcs._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "EXTINGUISHED", Color(0.9, 0.85, 0.5), false)
 						Sfx.play("hit")
-			if Stats.weapon_id == "dirge_edge":
+			if Stats.weapon_id == "barnacle_edge":
+			var ben: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+			get_tree().current_scene.set("net_n", ben)
+			if ben % 3 == 0:
+				f.set("slow_t", 2.5)
+				Sfx.play("hit", 0.7)
+				toast("FOUL — barnacles crust the foe")
+		if Stats.weapon_id == "dirge_edge":
 				var dgn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", dgn)
 				if dgn % 6 == 0:
