@@ -417,6 +417,22 @@ func _strike() -> void:
 						if mcs != null and mcs.has_method("_damage_number"):
 							mcs._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "EXTINGUISHED", Color(0.9, 0.85, 0.5), false)
 						Sfx.play("hit")
+			if Stats.weapon_id == "lantern_maul":
+				var lmn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", lmn)
+				if lmn % 6 == 0:
+					var mlm := get_tree().current_scene
+					for lf in get_tree().get_nodes_in_group("enemies"):
+						if lf.get("state") != "dead" and lf.global_position.distance_to(global_position) < 2.2 * room_tile:
+							var ldir: Vector3 = lf.global_position - global_position
+							ldir.y = 0
+							lf.velocity += ldir.normalized() * room_tile * 3.5
+					if mlm != null:
+						if mlm.has_method("_shock_ring"):
+							mlm._shock_ring(global_position)
+						if mlm.has_method("_burst"):
+							mlm._burst(global_position + Vector3(0, 0.6, 0), Color(1.0, 0.9, 0.5))
+					Sfx.play("shrine")
 			if Stats.weapon_id == "salt_lantern":
 				var sln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", sln)
