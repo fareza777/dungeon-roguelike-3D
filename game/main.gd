@@ -1704,6 +1704,9 @@ func _reset_run_state() -> void:
 	if callus_on:
 		Stats.buff_armor -= 2
 		callus_on = false
+	if bilge_iron:
+		Stats.buff_armor -= 2
+		bilge_iron = false
 	if _pilot_on:
 		Stats.buff_speed_pct -= 0.08
 		_pilot_on = false
@@ -11464,6 +11467,7 @@ func _keel_deal(idx: int) -> void:
 		Stats.souls -= _soul_cost(4)
 		_count_deal()
 		_souls_l()
+		bilge_iron = true
 		Stats.buff_armor += 2
 		Sfx.play("shrine")
 		toast("BILGE IRON — the ship lends you its strakes")
