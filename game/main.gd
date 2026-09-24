@@ -8124,6 +8124,10 @@ func _on_dlg_choice(idx: int) -> void:
 		100:
 			Stats.buff_crit += 0.08
 			toast("Rigger's Eye: you see the seams in every knot — +8% crit")
+		101:
+			Stats.soul_gain_pct += 0.08
+			Stats.buff_xp_pct += 0.06
+			toast("Bilge Sense: you learn what sinks and what floats — +8% souls, +6% XP")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -12672,6 +12676,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Salt Pension — the drowned pay their arrears: +10% souls"},
 			{"text": "Keel Hymn — the hull sings your lessons back: +12% XP"},
 			{"text": "Rigger's Eye — you see the seams in every knot: +8% crit"},
+			{"text": "Bilge Sense — you learn what sinks and what floats: +8% souls, +6% XP"},
 		]
 	)
 
