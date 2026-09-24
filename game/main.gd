@@ -5805,6 +5805,12 @@ func _cast_skill(id: String) -> void:
 				if tf.get("state") != "dead":
 					tsnears.append(tf)
 			tsnears.sort_custom(func(ta: Object, tb: Object) -> bool: return ta.global_position.distance_squared_to(player.global_position) < tb.global_position.distance_squared_to(player.global_position))
+			for ti in range(mini(3, tsnears.size())):
+				tsnears[ti].velocity += (player.global_position - tsnears[ti].global_position).normalized() * 14.0
+				tsnears[ti].set("slow_t", 3.0)
+			if tsnears.size() > 0:
+				_shock_ring(player.global_position)
+			Sfx.play("roar")
 		"chumtoss":
 			Sfx.play("swing")
 			var cdir: Vector3 = player.get("last_dir") if player != null and player.get("last_dir") != null else Vector3.FORWARD
@@ -5818,12 +5824,6 @@ func _cast_skill(id: String) -> void:
 						ct_.take_hit(player.global_position, float(Stats.get_stat("atk")) * 1.2)
 						ct_.set("slow_t", 2.0)
 			_damage_number(player.global_position + cdir.normalized() * 2.0, "CHUM!", Color(0.7, 0.95, 0.6), true)
-			for ti in range(mini(3, tsnears.size())):
-				tsnears[ti].velocity += (player.global_position - tsnears[ti].global_position).normalized() * 14.0
-				tsnears[ti].set("slow_t", 3.0)
-			if tsnears.size() > 0:
-				_shock_ring(player.global_position)
-			Sfx.play("roar")
 		"deathknell":
 			for dn_ in get_tree().get_nodes_in_group("enemies"):
 				if dn_.get("state") != "dead" and dn_.global_position.distance_to(player.global_position) < 3.0:
