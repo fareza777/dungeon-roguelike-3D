@@ -3641,6 +3641,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("saw_kill")
 	if e.arch_id == "bell_ringer":
 		_quest_event("ringer_kill")
+		if int(Stats.arch_kills.get("bell_ringer", 0)) >= 10:
+			_ach("ringer10")
 	if Stats.weapon_id == "brineaxe" and player != null:
 		var mx2 := float(Stats.get_stat("max_hp"))
 		player.hp = minf(mx2, player.hp + mx2 * 0.02)
