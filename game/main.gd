@@ -8918,6 +8918,7 @@ func _offer_omens() -> void:
 		{"text": "WIDOW'S VEIL — her silk stills the wind itself (+5% dodge)... but the veil costs coin (−10% souls)"},
 		{"text": "CRIMSON DUES — the deck pays for your thirst (+4% lifesteal)... but you bleed for it (−6% Max HP)"},
 		{"text": "BONE ANCHOR — old iron weights your wrist (+10% ATK)... and your feet (−6% speed)"},
+		{"text": "SALT MADRIGAL — the drowned choir hums your purse full (+12% souls)... but their song draws hands (−5% dodge)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -8972,7 +8973,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 111 if Stats.nemesis != "" else 110
+	var osize := 112 if Stats.nemesis != "" else 111
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -9452,6 +9453,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct += 0.10
 			Stats.buff_speed_pct -= 0.06
 			oname = "BONE ANCHOR"
+		111:
+			Stats.soul_gain_pct += 0.12
+			Stats.dodge -= 0.05
+			oname = "SALT MADRIGAL"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
 	if not Stats.oaths_seen.has(oname):
 		Stats.oaths_seen.append(oname)
@@ -9570,6 +9575,7 @@ func _omen_deal(idx: int) -> void:
 	"WIDOW'S VEIL": "Something soft settles over your shoulders. The wind stops arguing with your feet.",
 	"CRIMSON DUES": "The deck drinks your first drops politely. It will keep drinking.",
 	"BONE ANCHOR": "An anchor of fused bone settles into your palm. Your blows land like moorings.",
+	"SALT MADRIGAL": "Voices rise from the bilge in three-part harmony. They sing the hoard into your hands — and your hands into their reach.",
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
