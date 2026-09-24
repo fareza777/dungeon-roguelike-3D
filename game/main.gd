@@ -10747,6 +10747,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE ANNEX — the low deck claims a corner of you (+1 armor, +3% ATK)... and expands (−4% XP)"},
 		{"text": "BOTTOM VERSE — the sea's last stanza, sung under everything (+6% attack speed)... every refrain thinner (−4% souls)"},
 		{"text": "WAKE TALLY — the sea counts your crossings in coin (+6% souls)... and marks your exits (−4% dodge)"},
+		{"text": "SALT VERDICT — the court below rules in your favor (+1 armor, +5% XP)... pending appeal (−4% max HP)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -11576,6 +11577,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "WAKE TALLY"
 		179:
+			Stats.buff_armor += 1
+			Stats.buff_xp_pct += 0.05
+			Stats.buff_maxhp_pct -= 0.04
+			oname = "SALT VERDICT"
+		180:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -11802,6 +11808,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE ANNEX": "The bilge spreads into every hollow thing, Kael — check your corners.",
 	"BOTTOM VERSE": "The song at the bottom never ends, Kael — it just gets faster.",
 	"WAKE TALLY": "The tallyman below never forgets a crossing, Kael — yours are adding up.",
+	"SALT VERDICT": "The court of the drowned has heard your case, Kael — it rules, for now.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
