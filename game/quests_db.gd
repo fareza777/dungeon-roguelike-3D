@@ -185,6 +185,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Hag Drowner", "desc": "Silence 3 Brine Hags (0/3)", "kind": "hagkill", "need": 3})
 		steps.append({"title": "Riptide Runner", "desc": "Fell 3 riptorn elites (0/3)", "kind": "affix_riptorn", "need": 3})
 		steps.append({"title": "Sea-Tithe", "desc": "Collect from a tithed elite's fall (0/1)", "kind": "affix_tithed", "need": 1})
+		steps.append({"title": "Spill the Purse", "desc": "Split a soulspill elite's purse (0/1)", "kind": "affix_soulspill", "need": 1})
 		steps.append({"title": "Lull Walker", "desc": "Wade a Gloom Lull (0/1)", "kind": "gloomlull", "need": 1})
 		steps.append({"title": "Douse the Pitch", "desc": "Slay Pitch Tenders (0/4)", "kind": "pitchtender_kill", "need": 4})
 		steps.append({"title": "Banish the Wraith", "desc": "Slay Keel Wraiths (0/4)", "kind": "wraithkill", "need": 4})
