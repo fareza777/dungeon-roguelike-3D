@@ -228,6 +228,7 @@ var salty_wages := false
 var gunnel_tide := false
 var dead_wages := false
 var riggers_due := false
+var salt_dowry := false
 var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
@@ -1719,6 +1720,9 @@ func _new_run(new_seed: int) -> void:
 	if courts_tally:
 		Stats.soul_gain_pct -= 0.12
 		courts_tally = false
+	if salt_dowry:
+		Stats.soul_gain_pct -= 0.12
+		salt_dowry = false
 	royal_overlook = false
 	if crowns_reprieve:
 		Stats.cd_reduction -= 0.12
@@ -8723,6 +8727,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Grave Annuity — pay 7 souls: the dead pay dividends — +15% XP this run"},
 			{"text": "Soul Ledger — pay 8 souls: the ledger remembers every soul — +20% souls this floor"},
 			{"text": "Grave Silk — pay 8 souls: funeral cloth for the nimble — +12% dodge this run"},
+			{"text": "Salt Dowry — pay 5 souls: a bride-price from the drowned — +12% souls this floor"},
 		]
 	)
 
@@ -10381,6 +10386,17 @@ func _mahzan_deal(idx: int) -> void:
 				Stats.soul_gain_pct += 0.2
 				Sfx.play("shrine")
 				toast("SOUL LEDGER — every soul counts double-ish")
+		49:
+			if Stats.souls < _soul_cost(5):
+				toast("Five souls — the dowry isn't free")
+			else:
+				Stats.souls -= _soul_cost(5)
+				_count_deal()
+				_souls_l()
+				salt_dowry = true
+				Stats.soul_gain_pct += 0.12
+				Sfx.play("shrine")
+				toast("SALT DOWRY — the drowned pay their bride-price")
 		48:
 			if Stats.souls < _soul_cost(8):
 				toast("Eight souls — the silk isn't free")
