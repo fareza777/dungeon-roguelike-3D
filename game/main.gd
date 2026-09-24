@@ -14644,6 +14644,7 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Tide Measure — pay 5 souls: she keeps your ledger — +3 souls at floor's end, bargains cost a soul less this floor"},
 		{"text": "Dirge Draft — pay 6 souls: the low verse fills your chest like drowned lungs — +15% Max HP this run"},
 		{"text": "Keel Verse — pay 4 souls: the hull-side verse lines your purse — +8% souls this run"},
+		{"text": "Deep Verse — pay 4 souls: the low harmony steadies your hand — +6% crit, +2% speed this run"},
 		{"text": "Walk away"}])
 
 
@@ -14669,6 +14670,18 @@ func _siren_deal(idx: int) -> void:
 		Stats.soul_gain_pct += 0.08
 		Sfx.play("shrine")
 		toast("KEEL VERSE — the hull-side verse lines your purse (+8% souls this run)")
+		return
+	if idx == 40:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the verse isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_count_deal()
+		_souls_l()
+		Stats.buff_crit += 0.06
+		Stats.buff_speed_pct += 0.02
+		Sfx.play("shrine")
+		toast("DEEP VERSE — the low harmony steadies your hand (+6% crit, +2% speed)")
 		return
 	if idx == 38:
 		if Stats.souls < _soul_cost(6):
