@@ -8255,6 +8255,7 @@ func _offer_omens() -> void:
 		{"text": "BARNACLE OATH — the hull pays its clingy tenants (+8% souls)... but they weigh your stride (−6% speed)"},
 		{"text": "BLACK TIDE — the dark water lends your arm its pull (+12% attack speed)... but it pulls at your seams (−8% Max HP)"},
 		{"text": "GRAVE KNOT — the knot holds what the sea could not (+8% ATK)... but it binds your step (−6% dodge)"},
+		{"text": "SALT TITHE — the purse rings louder (+10% souls)... but the lessons run short (−5% XP)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -8305,7 +8306,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 101 if Stats.nemesis != "" else 100
+	var osize := 102 if Stats.nemesis != "" else 101
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -8742,6 +8743,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.06
 			oname = "GRAVE KNOT"
 		100:
+			Stats.soul_gain_pct += 0.10
+			Stats.buff_xp_pct -= 0.05
+			oname = "SALT TITHE"
+		101:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -8852,6 +8857,7 @@ func _omen_deal(idx: int) -> void:
 	"BARNACLE OATH": "Everything that sticks to the hull pays rent.",
 	"BLACK TIDE": "The darkest water pulls the hardest.",
 	"GRAVE KNOT": "Tied to the plot you were always going to.",
+	"SALT TITHE": "The sea knows what you're worth, to the last soul.",
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
