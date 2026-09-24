@@ -10564,6 +10564,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP ANCHOR — drop it and nothing moves you (+3 armor)... including yourself (−8% speed)"},
 		{"text": "KEEL LESSON — the deep teaches slow (−5% ATK)... and thoroughly (+10% XP)"},
 		{"text": "GRIM CUT — the deep sharpens you on its whetstone (+8% ATK)... and its edge (+5% damage taken)"},
+		{"text": "BOTTOM DRAUGHT — drink deep and it pays (+6% souls)... drink too deep and it bites (+4% damage taken)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -11324,6 +11325,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.curse_dmg += 0.05
 			oname = "GRIM CUT"
 		162:
+			Stats.soul_gain_pct += 0.06
+			Stats.curse_dmg += 0.04
+			oname = "BOTTOM DRAUGHT"
+		163:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -11529,6 +11534,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP ANCHOR": "A fine way to stand your ground, Kael — and a fine way to die standing still.",
 	"KEEL LESSON": "The slowest blade cuts deepest, if you live long enough to swing it, Kael.",
 	"GRIM CUT": "Whetted steel cuts both ways, Kael — mind which side you bleed from.",
+	"BOTTOM DRAUGHT": "The last swallow is always the richest — and always the one that chokes you, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
