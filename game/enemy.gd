@@ -262,7 +262,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred", "seafaring", "feytouched", "knotted", "belltoll", "soulfed", "gutted", "beacon", "spry", "keenedged", "tidewrought", "lurker", "hoarfrost", "reefbound", "flotsam", "brinetouched", "bilged", "gilded", "saltbitten", "leeched", "windlashed", "halfshell", "soulwrought", "leaden", "grasping", "hungry", "numbing", "soulbound", "saltkin", "powderkeg", "hollow", "tarbound", "lagged", "bitter", "leviathan", "stormborn", "sundered", "reefsplit", "warped", "rusted", "embittered", "deathwarm", "tideheld", "marrowed", "keelmaw", "gloomtouched", "pitchwell", "giltborn", "bellchime", "riptorn", "tithed", "soulspill", "mossback", "charborn", "rimeborn", "keelhauled", "saltwept", "grimwater"][randi() % 106]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred", "seafaring", "feytouched", "knotted", "belltoll", "soulfed", "gutted", "beacon", "spry", "keenedged", "tidewrought", "lurker", "hoarfrost", "reefbound", "flotsam", "brinetouched", "bilged", "gilded", "saltbitten", "leeched", "windlashed", "halfshell", "soulwrought", "leaden", "grasping", "hungry", "numbing", "soulbound", "saltkin", "powderkeg", "hollow", "tarbound", "lagged", "bitter", "leviathan", "stormborn", "sundered", "reefsplit", "warped", "rusted", "embittered", "deathwarm", "tideheld", "marrowed", "keelmaw", "gloomtouched", "pitchwell", "giltborn", "bellchime", "riptorn", "tithed", "soulspill", "mossback", "charborn", "rimeborn", "keelhauled", "saltwept", "grimwater", "keelplated"][randi() % 107]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -595,6 +595,10 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				speed *= 1.05
 				dmg = int(ceilf(float(dmg) * 1.25))
 				xp_val = int(ceilf(xp_val * 0.9))
+			"keelplated":
+				hp = int(ceilf(float(hp) * 1.25))
+				speed *= 0.90
+				xp_val = int(ceilf(xp_val * 1.1))
 			"embittered":
 				sc = 0.95
 				hp = int(hp * 1.0)
