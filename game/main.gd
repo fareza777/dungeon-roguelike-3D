@@ -10314,6 +10314,7 @@ func _offer_omens() -> void:
 		{"text": "SIREN'S OATH — her song slips you past their claws (+8% dodge)... but it echoes in your wounds (+6% damage taken)"},
 		{"text": "PALE DIVIDEND — the dead pay out early (+10% souls)... but the lesson thins (−5% XP)"},
 		{"text": "HULL PRAYER — iron answers prayer (+1 Armor)... the plate isn't free (−6% souls)"},
+		{"text": "GRIM QUOTA — meet the tally and it pays (+8% souls)... miss it and it collects (+4% damage taken)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -11034,6 +11035,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.06
 			oname = "HULL PRAYER"
 		152:
+			Stats.soul_gain_pct += 0.08
+			Stats.curse_dmg += 0.04
+			oname = "GRIM QUOTA"
+		153:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -11223,6 +11228,7 @@ func _omen_deal(idx: int) -> void:
 	"SIREN'S OATH": "Her song parts around you like water, Kael — but water remembers every shape it touched.",
 	"PALE DIVIDEND": "Money now, wisdom later — the drowned never learned to budget, Kael.",
 	"HULL PRAYER": "Pray hard enough and the hull plates itself, Kael — the offering box never asks twice.",
+	"GRIM QUOTA": "Every crew has a quota, Kael — yours just happens to be denominated in blood.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
