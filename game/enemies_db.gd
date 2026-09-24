@@ -71,6 +71,7 @@ const DB := {
 	"deck_rigger": {"glb": "Skeleton_Warrior.glb", "hp": 4.2, "spd": 0.9, "dmg": 4, "windup": 0.85, "reach": 1.8, "aggro": 8.0, "xp": 13, "tint": Color(0.5, 0.42, 0.3), "scale": 1.1},
 	"dread_gull": {"glb": "Skeleton_Rogue.glb", "hp": 2.4, "spd": 2.3, "dmg": 2, "windup": 0.2, "reach": 0.65, "aggro": 7.0, "xp": 7, "tint": Color(0.65, 0.7, 0.85), "scale": 0.7, "dash": true, "kb_resist": 0.0, "eel": true},
 	"gale_singer": {"glb": "Skeleton_Mage.glb", "hp": 3.0, "spd": 0.9, "dmg": 1, "windup": 0.55, "reach": 0.8, "prefer": 3.5, "aggro": 6.5, "xp": 9, "tint": Color(0.6, 0.9, 1.0), "scale": 1.0, "ranged": true, "proj_speed": 3.4, "kb_resist": 0.15, "gale": true},
+	"snatch_widow": {"glb": "Skeleton_Rogue.glb", "hp": 3.6, "spd": 1.25, "dmg": 1, "windup": 0.45, "reach": 0.8, "aggro": 6.5, "xp": 9, "tint": Color(0.3, 0.75, 0.6), "scale": 1.05, "kb_resist": 0.4, "keelh": true},
 	"pale_lantern": {"glb": "Skeleton_Warrior.glb", "hp": 2.0, "spd": 0.9, "dmg": 1, "windup": 0.9, "reach": 0.8, "aggro": 6.0, "xp": 8, "tint": Color(0.9, 0.95, 0.7), "scale": 0.85},
 	"siren_thrall": {"glb": "Skeleton_Warrior.glb", "hp": 3.5, "spd": 1.15, "dmg": 3, "windup": 0.75, "reach": 0.9, "aggro": 8.0, "xp": 11, "tint": Color(0.55, 0.4, 0.75), "scale": 1.0},
 	"bilge_fury": {"glb": "Skeleton_Warrior.glb", "hp": 4.5, "spd": 1.0, "dmg": 4, "windup": 0.8, "reach": 0.95, "aggro": 7.0, "xp": 13, "tint": Color(0.85, 0.45, 0.35), "scale": 1.1, "kb_resist": 0.5},
