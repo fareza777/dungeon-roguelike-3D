@@ -10833,6 +10833,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Silver Pact — pay 6 souls: the contract outlives the payee — +18% XP, −4% souls this floor"},
 			{"text": "Salt Obol — pay 5 souls: a coin for the ferryman — +10% XP, +3% crit this run"},
 			{"text": "Final Receipt — pay 8 souls: Mahzan signs in full — +6% ATK, +6% XP this run"},
+			{"text": "Pale Interest — pay 6 souls: the debt collects itself — +10% ATK, −5% speed this run"},
 		]
 	)
 
@@ -12947,6 +12948,17 @@ func _mahzan_deal(idx: int) -> void:
 				Stats.buff_xp_pct += 0.06
 				Sfx.play("shrine")
 				toast("FINAL RECEIPT — signed in full (+6% ATK, +6% XP this run)")
+
+		67:
+			if Stats.souls < _soul_cost(6):
+				toast("Six souls — the interest compounds")
+			else:
+				Stats.souls -= _soul_cost(6)
+				_count_deal()
+				Stats.buff_atk_pct += 0.10
+				Stats.buff_speed_pct -= 0.05
+				Sfx.play("shrine")
+				toast("PALE INTEREST — the debt collects itself (+10% ATK, −5% speed this run)")
 
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
