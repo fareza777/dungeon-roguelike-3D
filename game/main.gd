@@ -16347,6 +16347,7 @@ func _on_throne_invoked(s) -> void:
 		{"text": "Crown's Favor — pay 5 souls: the crown's good word travels — +2 armor, +4% speed this run"},
 		{"text": "Regal Scrip — pay 4 souls: coin of a sunken realm — +7% souls, +3% ATK this run"},
 		{"text": "Court Scrip — pay 4 souls: the court's paper spends like steel — +8% attack speed this run"},
+		{"text": "Crown Annuity — pay 5 souls: a standing stipend in salt — +4% ATK, +4% max HP this run"},
 		{"text": "Walk away"}])
 
 
@@ -16397,7 +16398,7 @@ func _throne_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("BAILIFF'S SHARE — the court's collector works your purse (+15% souls this floor)")
 		return
-	if idx == 40:
+	if idx == 41:
 		Stats.earn_souls(4)
 		_souls_l()
 		_quest_event("throne")
@@ -16413,6 +16414,18 @@ func _throne_deal(idx: int) -> void:
 		_souls_l()
 		Stats.buff_aspd += 0.08
 		Sfx.play("shrine")
+	if idx == 40:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the stipend isn't free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_count_deal()
+		_souls_l()
+		Stats.buff_atk_pct += 0.04
+		Stats.buff_maxhp_pct += 0.04
+		Sfx.play("shrine")
+		toast("CROWN ANNUITY — a standing stipend in salt (+4% ATK, +4% max HP)")
+		return
 		toast("COURT SCRIP — the court's paper spends like steel (+8% attack speed)")
 		return
 	if idx == 38:
