@@ -5721,6 +5721,7 @@ func _on_enemy_died(e) -> void:
 				_quest_event("lullwalk")
 			if high_seas:
 				_quest_event("highseawalk")
+				_ach("whitecap")
 			if dark_water:
 				_quest_event("darkwalk")
 			if glass_sea:
