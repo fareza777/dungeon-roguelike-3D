@@ -483,6 +483,7 @@ var dirge_half := false
 var leech_bond := false
 var keelwind := false
 var murk_vision := false
+var ebb_lullaby := false
 var silt_draught := false
 var drowned_mercy := false
 var rivers_tithe := false
@@ -2131,6 +2132,7 @@ func _new_run(new_seed: int) -> void:
 		Stats.buff_speed_pct -= 0.1
 		keelwind = false
 	murk_vision = false
+	ebb_lullaby = false
 	if silt_draught:
 		Stats.buff_armor -= 1
 		silt_draught = false
@@ -3957,6 +3959,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.dmg = int(maxi(1, floorf(float(e.dmg) * 0.9)))
 	if murk_vision and not e.is_boss:
 		e.aggro_range *= 0.85
+	if ebb_lullaby and not e.is_boss:
+		e.speed = float(e.speed) * 0.9
 	if bilge_still and not e.is_boss:
 		e.speed *= 0.88
 	if keel_groan and not e.is_boss:
@@ -11103,6 +11107,7 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "River Toll — pay 4 souls: the ford's fee sharpens your eye — +4% crit, +2% dodge this run"},
 		{"text": "Shanty Draught — pay 3 souls: the drowned crew keeps your tempo — +8% attack speed this floor"},
 		{"text": "Mist Beads — pay 4 souls: the river's breath settles on your eyes — +6% dodge, +4% speed this run"},
+		{"text": "Ebb Lullaby — pay 5 souls: the river hums the dead to half-step — foes −10% speed this floor"},
 		{"text": "Walk away"}])
 
 
@@ -11156,6 +11161,20 @@ func _drowned_deal(idx: int) -> void:
 		toast("MIST BEADS — the river's breath walks with you (+6% dodge, +4% speed)")
 		return
 	if idx == 49:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the lullaby isn't free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_count_deal()
+		_souls_l()
+		ebb_lullaby = true
+		for el in get_tree().get_nodes_in_group("enemies"):
+			if not el.is_boss:
+				el.speed = float(el.speed) * 0.9
+		Sfx.play("shrine")
+		toast("EBB LULLABY — the river hums the dead to half-step (foes −10% speed this floor)")
+		return
+	if idx == 50:
 		toast("The water settles back into the stone")
 		return
 	if idx == 44:
