@@ -369,6 +369,7 @@ var splice_line := false
 var second_verse := false
 var leech_bond := false
 var salt_lullaby := false
+var coil_chit := false
 var regal_favor := false
 var drift_verse := false
 var pearl_octave := false
@@ -1669,6 +1670,9 @@ func _new_run(new_seed: int) -> void:
 		Stats.buff_lifesteal -= 0.08
 		leech_bond = false
 	salt_lullaby = false
+	if coil_chit:
+		Stats.dodge -= 0.08
+		coil_chit = false
 	if regal_favor:
 		Stats.buff_xp_pct -= 0.15
 		regal_favor = false
@@ -10490,12 +10494,24 @@ func _on_qm_invoked(s) -> void:
 		{"text": "Quarter's Stash — pay 5 souls: a tin from the post's own locker — +1 ⚗ vial, mend 15% HP"},
 		{"text": "Bosun's Chit — pay 4 souls: the whistle buys fury — +10% ATK this floor"},
 		{"text": "Ballast Check — pay 2 souls: the steward patches and pours — heal 20%, and a vial besides"},
+		{"text": "Coil & Chit — pay 3 souls: the rope ledger teaches you to slip — +8% dodge this floor"},
 		{"text": "Walk away"}])
 
 
 func _qm_deal(idx: int) -> void:
-	if idx == 20:
+	if idx == 21:
 		toast("The post shutters its stores")
+		return
+	if idx == 20:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the ledger isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		coil_chit = true
+		Stats.dodge += 0.08
+		Sfx.play("shrine")
+		toast("COIL & CHIT — the rope teaches you to slip")
 		return
 	if idx == 19:
 		if Stats.souls < _soul_cost(2):
