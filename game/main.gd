@@ -8622,7 +8622,9 @@ func _on_dlg_choice(idx: int) -> void:
 		_drowned_deal(idx)
 		return
 	elif dlg_pending_choice == 16:
+		dlg_pending_choice = -1
 		_throne_deal(idx)
+		return
 	elif dlg_pending_choice == 17:
 		dlg_pending_choice = -1
 		_qm_deal(idx)
@@ -10481,7 +10483,7 @@ func _on_drowned_invoked(s) -> void:
 		_ach("lantern_lit")
 	s.consume()
 	Sfx.play("shrine")
-	dlg_pending_choice = 15
+	dlg_pending_choice = 14
 	_say([{"who": "oracle", "text": "A drowned altar, Kael — the sea still hears prayers down here. The tide always collects, but it also gives."}],
 		[{"text": "Tide Baptism — pay 4 souls: full HP +10% speed this run"},
 		{"text": "Drowned Tithe — take +8 souls, but the water takes −10% Max HP"},
