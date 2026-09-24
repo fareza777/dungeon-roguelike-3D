@@ -116,6 +116,7 @@ var _siren_pulled := false
 var _shell_cracked := false
 var _shell_hits := 0
 var digger_dug := false
+var phase_foe := false
 var pack_bounty := false
 var orator_t := 3.0
 var dmg_max := 0 # orator chant cap
@@ -238,6 +239,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	healer = bool(a.get("healer", false))
 	crowned = bool(a.get("crowned", false))
 	tither = bool(a.get("tither", false))
+	phase_foe = bool(a.get("phase", false))
 	digger = bool(a.get("digger", false))
 	keelh = bool(a.get("keelh", false))
 	mire = bool(a.get("mire", false))
@@ -1445,7 +1447,10 @@ func _physics_process(delta: float) -> void:
 				state = "chase"
 
 	kb = kb.move_toward(Vector3.ZERO, delta * room_tile * 8.0)
-	move_and_slide()
+	if phase_foe:
+		global_position += velocity * delta
+	else:
+		move_and_slide()
 	global_position.x = clamp(global_position.x, bounds.get("min_x", -100.0), bounds.get("max_x", 100.0))
 	global_position.z = clamp(global_position.z, bounds.get("min_z", -100.0), bounds.get("max_z", 100.0))
 	global_position.y = 0.0

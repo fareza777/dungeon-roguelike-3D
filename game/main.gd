@@ -768,6 +768,7 @@ const BESTIARY := {
 	"keel_sapper": ["Keel Sapper", "It tunnels under your stance then bolts — corner it fast."],
 	"keel_chorister": ["Keel Chorister", "Its drowned hymn whips the pack into a frenzy — silence it early."],
 	"pitch_tender": ["Pitch Tender", "It comes for your lantern fuel — every strike snuffs a soul."],
+	"keel_wraith": ["Keel Wraith", "Hull-broken and hungry — it drifts straight through the wreck."],
 	"gunnel_fiend": ["Gunnel Fiend", "It claws along the rail faster than it walks — when it coils, it's already midair."],
 	"pale_lantern": ["Pale Lantern", "A wick of drowned light walking a dead sailor's frame — snuff it and every shadow in the room flinches."],
 	"siren_thrall": ["Siren Thrall", "A sailor the song kept — freed of it only by the blade, and what's left rises as a wisp."],
@@ -815,7 +816,7 @@ const KILLER_NAMES := {
 	"bell_ringer": "a Bell Ringer",
 	"moorling": "a Moorling",
 	"keel_mastiff": "a Keel Mastiff",
-	"salt_lich": "a Salt Lich", "bilge_fury": "a Bilge Fury", "siren_thrall": "a Siren Thrall", "pale_lantern": "a Pale Lantern", "gunnel_fiend": "a Gunnel Fiend", "bilge_cantor": "a Bilge Cantor", "tide_bailiff": "a Tide Bailiff", "salt_skimmer": "a Salt Skimmer", "brine_monk": "a Brine Monk", "deck_rigger": "a Deck Rigger", "dread_gull": "a Dread Gull", "gale_singer": "a Gale Singer", "snatch_widow": "a Snatch Widow", "gunnel_gnat": "a Gunnel Gnat", "deck_reverend": "a Deck Reverend", "mast_lurcher": "a Mast Lurcher", "dirge_singer": "a Dirge Singer", "the_boatswain": "the Boatswain", "gloom_lantern": "a Gloom Lantern", "wick_tender": "a Wick Tender", "sodden_deckhand": "a Sodden Deckhand", "brine_widow": "a Brine Widow", "keelwright": "a Keelwright", "bilge_tender": "a Bilge Tender", "keel_sapper": "a Keel Sapper", "keel_chorister": "a Keel Chorister", "pitch_tender": "a Pitch Tender",
+	"salt_lich": "a Salt Lich", "bilge_fury": "a Bilge Fury", "siren_thrall": "a Siren Thrall", "pale_lantern": "a Pale Lantern", "gunnel_fiend": "a Gunnel Fiend", "bilge_cantor": "a Bilge Cantor", "tide_bailiff": "a Tide Bailiff", "salt_skimmer": "a Salt Skimmer", "brine_monk": "a Brine Monk", "deck_rigger": "a Deck Rigger", "dread_gull": "a Dread Gull", "gale_singer": "a Gale Singer", "snatch_widow": "a Snatch Widow", "gunnel_gnat": "a Gunnel Gnat", "deck_reverend": "a Deck Reverend", "mast_lurcher": "a Mast Lurcher", "dirge_singer": "a Dirge Singer", "the_boatswain": "the Boatswain", "gloom_lantern": "a Gloom Lantern", "wick_tender": "a Wick Tender", "sodden_deckhand": "a Sodden Deckhand", "brine_widow": "a Brine Widow", "keelwright": "a Keelwright", "bilge_tender": "a Bilge Tender", "keel_sapper": "a Keel Sapper", "keel_chorister": "a Keel Chorister", "pitch_tender": "a Pitch Tender", "keel_wraith": "a Keel Wraith",
 	"deck_brute": "a Deck Brute",
 	"salt_eel": "a Salt Eel",
 	"quarter_ghost": "a Quarter Ghost",
@@ -920,6 +921,7 @@ const KILLER_TIPS := {
 	"keel_sapper": "Tip: a Keel Sapper undermines you then runs — it barely fights back once cornered.",
 	"keel_chorister": "Tip: a Keel Chorister quickens everything around it — chase it down before the pack boils over.",
 	"pitch_tender": "Tip: a Pitch Tender's blows skim your souls — kill it before your purse runs dry.",
+	"keel_wraith": "Tip: a Keel Wraith pays the walls no mind — it slides through the wreck. Watch the flanks.",
 	"salt_lich": "Tip: Salt Liches telegraph a long windup — close the gap fast or weave between bolts.",
 	"deck_brute": "Tip: Deck Brutes barely feel knockback — break their windup with a stun, or never be there when it lands.",
 	"salt_eel": "Tip: Salt Eels lunge in a straight bite — sidestep and the coil overshoots.",
@@ -3443,6 +3445,7 @@ const FIRST_SEEN := {
 	"keel_sapper": "A Keel Sapper scrabbles at the boards, already half-buried and looking for a way out.",
 	"keel_chorister": "A Keel Chorister rocks on its heels, humming a hull-song through cracked teeth.",
 	"pitch_tender": "A Pitch Tender creeps along the gunwale, lantern-hook out, skimming for souls.",
+	"keel_wraith": "A Keel Wraith pours through the broken hull, pale and soundless — walls mean nothing to it.",
 	"salt_skimmer": "A Salt Skimmer shears across the water — it comes at you fast."
 }
 
@@ -5229,6 +5232,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("chorister_kill")
 	if e.arch_id == "pitch_tender":
 		_quest_event("pitchtender_kill")
+	if e.arch_id == "keel_wraith":
+		_quest_event("wraithkill")
 		if int(Stats.arch_kills.get("gloom_lantern", 0)) >= 10:
 			_ach("gloomfall")
 	if e.arch_id == "salt_lich":

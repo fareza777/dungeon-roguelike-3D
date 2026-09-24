@@ -179,6 +179,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Gilded Wake", "desc": "Survive a Golden Hour floor (0/1)", "kind": "goldenhour", "need": 1})
 		steps.append({"title": "Salvage Law", "desc": "Survive a Salvage Rights floor (0/1)", "kind": "salvagerights", "need": 1})
 		steps.append({"title": "Douse the Pitch", "desc": "Slay Pitch Tenders (0/4)", "kind": "pitchtender_kill", "need": 4})
+		steps.append({"title": "Banish the Wraith", "desc": "Slay Keel Wraiths (0/4)", "kind": "wraithkill", "need": 4})
 		steps.append({"title": "Plug the Well", "desc": "Slay PITCHWELL elites (0/3)", "kind": "affix_pitchwell"})
 		steps.append({"title": "Coin Bleeder", "desc": "Slay GILTBORN elites (0/3)", "kind": "affix_giltborn", "need": 3})
 		steps.append({"title": "Paid in Full", "desc": "Slay 35 foes with the Gilt Edge (0/35)", "kind": "kill_gilt_edge", "need": 35})
