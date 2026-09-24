@@ -588,6 +588,7 @@ var toast_tween: Tween = null
 # polish r2: pause, ringkasan run, transisi fade, juice vfx
 var paused_ui := false
 var kills_run := 0
+var revives_run := 0
 var run_souls_start := 0
 var last_stand_kills := 0
 var vials := 1
@@ -3111,6 +3112,7 @@ func _on_player_hp(hp: float) -> void:
 
 
 func _on_player_revived() -> void:
+	revives_run += 1
 	_lvl_banner("SOUL RISEN!")
 	_burst(player.global_position, Color(1.0, 0.9, 0.5))
 	_souls(player.global_position, 16, Color(0.6, 1.0, 0.75))
@@ -14514,8 +14516,8 @@ func _toggle_pause() -> void:
 		var pm := int(run_time) / 60
 		var ps := int(run_time) % 60
 		var wname: String = String(WDB.DB[Stats.weapon_id]["name"]) if WDB.DB.has(Stats.weapon_id) else Stats.weapon_id
-		ui.pause_stats.text = "Floor %d  •  %d kills  •  best combo ×%d  •  %d:%02d  •  %+d souls
-%s" % [Stats.floor_num, kills_run, combo_max, pm, ps, Stats.souls - run_souls_start, wname]
+		ui.pause_stats.text = "Floor %d  •  %d kills  •  best combo ×%d  •  %d:%02d  •  %+d souls  •  ☠ %d
+%s" % [Stats.floor_num, kills_run, combo_max, pm, ps, Stats.souls - run_souls_start, revives_run, wname]
 	Sfx.play("click")
 
 
