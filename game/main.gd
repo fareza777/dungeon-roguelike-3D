@@ -330,6 +330,7 @@ var watch_bell := false
 var hull_pitch := false
 var knot_refuge := false
 var grommets_due := false
+var bilge_bond := false
 var drift_verse := false
 var pearl_octave := false
 var undertow_aria := false
@@ -1517,6 +1518,7 @@ func _new_run(new_seed: int) -> void:
 	if grommets_due:
 		Stats.buff_atk_pct -= 0.08
 		grommets_due = false
+	bilge_bond = false
 	if vigils_gage:
 		Stats.dodge -= 0.1
 		vigils_gage = false
@@ -6004,7 +6006,7 @@ func _cast_skill(id: String) -> void:
 	_quest_event("skill_" + id)
 	if skills_floor.size() >= 3:
 		_quest_event("witching")
-	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0) * (0.6 if id == "dash" and umbral_tide else 1.0) * (0.7 if id == "dash" and brisk else 1.0) * (0.6 if id == "dash" and dash_fuel else 1.0) * (0.75 if oarsworn else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("powdermonk", 0))) * (1.15 if sodden else 1.0) * (1.1 if slim_pickings else 1.0) * (0.92 if Stats.relics.has("bosun_whistle") else 1.0) * (1.15 if cold_snap or saltsick else 1.0) * (0.95 if Stats.relics.has("signal_flag") else 1.0) * (0.75 if id == "dash" and whale_lung else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("belaypin", 0)) if id == "dash" else 1.0) + omen_cd_add
+	skill_cd[id] = float(SK.DB[id]["cd"]) * (1.0 - 0.08 * float(Stats.meta.get("arcane", 0))) * (1.0 - Stats.cd_reduction) * (0.75 if echoing else 1.0) * (0.6 if id == "dash" and umbral_tide else 1.0) * (0.7 if id == "dash" and brisk else 1.0) * (0.6 if id == "dash" and dash_fuel else 1.0) * (0.75 if oarsworn else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("powdermonk", 0))) * (1.15 if sodden else 1.0) * (1.1 if slim_pickings else 1.0) * (0.92 if Stats.relics.has("bosun_whistle") else 1.0) * (1.15 if cold_snap or saltsick else 1.0) * (0.85 if bilge_bond else 1.0) * (0.95 if Stats.relics.has("signal_flag") else 1.0) * (0.75 if id == "dash" and whale_lung else 1.0) * (1.0 - 0.03 * float(Stats.meta.get("belaypin", 0)) if id == "dash" else 1.0) + omen_cd_add
 	casts_run += 1
 	if casts_run >= 40:
 		_ach("fortyknells")
@@ -8276,12 +8278,23 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Pearl Graft — pay 6 souls: nacre under the blade-hand — +15% ATK this floor"},
 		{"text": "Oyster Toll — pay 8 souls: the shell's lesson — +15% XP this floor"},
 		{"text": "Silt Press — pay 6 souls: squeeze the bottom mud — +15% souls this floor"},
+		{"text": "Bilge Bond — pay 4 souls: the muck hums your rhythm — skill charges −15% this floor"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 33:
+	if idx == 34:
 		toast("The water settles back into the stone")
+		return
+	if idx == 33:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the bond isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		bilge_bond = true
+		Sfx.play("shrine")
+		toast("BILGE BOND — your charges run with the tide")
 		return
 	if idx == 32:
 		if Stats.souls < _soul_cost(6):
