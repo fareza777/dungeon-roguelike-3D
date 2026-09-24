@@ -8185,12 +8185,16 @@ func _combo_set(n: int) -> void:
 			Sfx.play("combo")
 		if combo == 8:
 			_lvl_banner("RAMPAGE! +10% ATK")
+			Sfx.play("combo", 0.9)
 		elif combo == 15:
 			_lvl_banner("MASSACRE! +20% ATK +15% HASTE")
+			Sfx.play("combo", 1.05)
 		elif combo == 25:
 			_lvl_banner("UNSTOPPABLE! +30% ATK +25% HASTE")
+			Sfx.play("combo", 1.2)
 		elif combo == 40:
 			_lvl_banner("★ GODLIKE! +40% ATK +35% HASTE")
+			Sfx.play("combo", 1.35)
 			if player != null and is_instance_valid(player):
 				player.hp = minf(player.max_hp, player.hp + 1.0)
 				player.hp_changed.emit(player.hp)

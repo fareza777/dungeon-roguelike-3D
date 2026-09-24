@@ -56,7 +56,7 @@ func _ready() -> void:
 	add_child(music_player)
 
 
-func play(n: String) -> void:
+func play(n: String, pitch := 1.0) -> void:
 	if not BANK.has(n):
 		return
 	var path: String = BANK[n]
@@ -66,6 +66,7 @@ func play(n: String) -> void:
 		if not p.playing:
 			p.stream = load(path)
 			p.volume_db = linear_to_db(maxf(Stats.sfx_vol(), 0.001))
+			p.pitch_scale = pitch
 			p.play()
 			last_played = n
 			return
