@@ -524,6 +524,18 @@ func _strike() -> void:
 					var mwb := get_tree().current_scene
 					if mwb != null and mwb.has_method("_damage_number"):
 						mwb._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "BIND", Color(0.55, 0.75, 0.95), false)
+			if Stats.weapon_id == "keel_lantern":
+				var kln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", kln)
+				if kln % 6 == 0:
+					Sfx.play("soul", 0.7)
+					if f.has_method("stun"):
+						f.stun(0.9)
+					var mkl := get_tree().current_scene
+					if mkl != null and mkl.has_method("_damage_number"):
+						mkl._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "LANTERN", Color(0.95, 0.8, 0.4), false)
+					if Stats.level % 3 == 0:
+						Stats.earn_souls(1)
 			if Stats.weapon_id == "saltverdict":
 				var svn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", svn)
