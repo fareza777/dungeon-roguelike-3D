@@ -243,6 +243,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Outrun the Toll", "desc": "Survive 2 Wake Toll tides (0/2)", "kind": "waketoll", "need": 2})
 		steps.append({"title": "Ride the Crest", "desc": "Endure 2 Crest Toll tides (0/2)", "kind": "cresttoll", "need": 2})
 		steps.append({"title": "End the Procession", "desc": "Silence 3 Deep Vergers (0/3)", "kind": "dverger_kill", "need": 3})
+		steps.append({"title": "Rob the Porter", "desc": "Slay 2 Salt Carriers (0/2)", "kind": "scarrier_kill", "need": 2})
 		steps.append({"title": "Sworn to the Deep", "desc": "Swear 2 omens (0/2)", "kind": "omen_sworn", "need": 2})
 		steps.append({"title": "Hard Bargain", "desc": "Bear 3 omens on one floor (0/1)", "kind": "omen_sworn_floor", "need": 1})
 		steps.append({"title": "Purse Sting", "desc": "Survive a pitchwell elite's toll (0/1)", "kind": "affix_pitchwell", "need": 1})
