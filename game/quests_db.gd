@@ -172,6 +172,8 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Rustproof", "desc": "Survive a Rust Rain floor (0/1)", "kind": "rustrain", "need": 1})
 		steps.append({"title": "Dead Calm", "desc": "Survive a Still Tide floor (0/1)", "kind": "stilltide", "need": 1})
 		steps.append({"title": "Shallow Wake", "desc": "Survive a Pale Draught floor (0/1)", "kind": "paledraught", "need": 1})
+		steps.append({"title": "Stopped Time", "desc": "Survive a Pale Clock floor (0/1)", "kind": "paleclock", "need": 1})
+		steps.append({"title": "Light's Out", "desc": "Survive a Pale Wick floor (0/1)", "kind": "palewick", "need": 1})
 		steps.append({"title": "Lantern Bearer", "desc": "Slay 40 foes with the Lantern Maul (0/40)", "kind": "kill_lantern_maul", "need": 40})
 		steps.append({"title": "Hold Your Nose", "desc": "Get bilge-soaked by 2 vents (0/2)", "kind": "bilge_soak", "need": 2})
 		steps.append({"title": "Grudge Holder", "desc": "Slay 3 EMBITTERED elites (0/3)", "kind": "affix_embittered", "need": 3})
