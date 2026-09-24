@@ -958,6 +958,8 @@ func _physics_process(delta: float) -> void:
 			rotation.y = lerp_angle(rotation.y, atan2(to.x, to.z), delta * 6.0)
 			if is_bomber and mat != null:
 				mat.set_shader_parameter("flash", 0.4 + 0.5 * absf(sin(state_t * 22.0)))
+			elif mat != null:
+				mat.set_shader_parameter("flash", 0.12 + 0.18 * absf(sin(state_t * 12.0)))
 			# squash antisipasi: balik ke ukuran normal begitu strike tiba
 			var wp := clampf(state_t / maxf(windup_t, 0.001), 0.0, 1.0)
 			scale = _base_scale * (1.0 + 0.06 * wp)
