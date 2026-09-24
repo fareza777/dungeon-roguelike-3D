@@ -155,9 +155,10 @@ var banter_75 := false
 var banter_25 := false
 var banter_10 := false
 var hex_t := 0.0   # Hex Staff: musuh bertanda menerima +25% damage
-var slow_t := 0.0  # Frost Fang: beku — 50% speed
+var slow_t := 0.0
+var mark_t := 0.0  # Frost Fang: beku — 50% speed
+var vuln_t := 0.0
 var haste_t := 0.0
-var mark_t := 0.0
 var burn_t := 0.0  # Ember Mace: terbakar — damage berkala
 var _burn_acc := 0.0
 
@@ -754,6 +755,7 @@ func _physics_process(delta: float) -> void:
 	if affix == "tidebound":
 		slow_t = 0.0
 	slow_t = maxf(0.0, slow_t - delta)
+	mark_t = maxf(0.0, mark_t - delta)
 	haste_t = maxf(0.0, haste_t - delta)
 	if arch_id == "bilge_cantor":
 		cantor_t += delta
@@ -762,7 +764,7 @@ func _physics_process(delta: float) -> void:
 			for ca in get_tree().get_nodes_in_group("enemies"):
 				if ca != self and ca.get("state") != "dead" and ca.global_position.distance_to(global_position) < 3.5 * room_tile:
 					ca.set("haste_t", 3.5)
-	mark_t = maxf(0.0, mark_t - delta)
+	vuln_t = maxf(0.0, vuln_t - delta)
 	if slow_immune:
 		slow_t = 0.0
 	if fey and state == "chase":
@@ -1563,6 +1565,8 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 		return
 	if affix == "saltkin":
 		dmg_taken *= 1.15
+	if vuln_t > 0.0:
+		dmg_taken *= 1.25
 	if is_lurker and not lurk_revealed:
 		_lurk_reveal()
 	if halfshell_shell:
