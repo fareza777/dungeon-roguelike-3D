@@ -9922,6 +9922,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_xp_pct += 0.06
 			Stats.buff_speed_pct += 0.04
 			toast("Siren's Breath: her song fills your sail — +6% XP, +4% speed this run")
+		137:
+			Stats.buff_aspd += 0.04
+			Stats.buff_speed_pct += 0.02
+			toast("Keelwise: you read the hull's lean — +4% attack speed, +2% speed this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -15556,6 +15560,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Hull's Grace — the ship's own patience: +2 armor, −5% speed this run"},
 			{"text": "Deck's Favor — the boards spring under your feet: +5% attack speed, +3% XP this run"},
 			{"text": "Siren's Breath — her song fills your sail: +6% XP, +4% speed this run"},
+			{"text": "Keelwise — you read the hull's lean: +4% attack speed, +2% speed this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
