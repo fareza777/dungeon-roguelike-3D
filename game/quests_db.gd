@@ -203,6 +203,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Coin of the Realm", "desc": "Clear a Brass Tide floor (0/1)", "kind": "brasstide", "need": 1})
 		steps.append({"title": "Balanced Books", "desc": "Clear a Deep Ledger floor (0/1)", "kind": "deepledger", "need": 1})
 		steps.append({"title": "Purse Guard", "desc": "Clear a floor holding 50+ souls (0/1)", "kind": "rich_floor", "need": 1})
+		steps.append({"title": "Ride the Wake", "desc": "Clear a Keel Wake floor (0/1)", "kind": "keelwake", "need": 1})
 		steps.append({"title": "Purse Sting", "desc": "Survive a pitchwell elite's toll (0/1)", "kind": "affix_pitchwell", "need": 1})
 		steps.append({"title": "Silence the Rite", "desc": "Fell 2 salt devouts (0/2)", "kind": "devout_kill", "need": 2})
 		steps.append({"title": "Douse the Pitch", "desc": "Slay Pitch Tenders (0/4)", "kind": "pitchtender_kill", "need": 4})
