@@ -105,6 +105,7 @@ const DB := {
 	"vein_light": {"name": "Vein Light", "chip": "VLT", "desc": "A light that shows the veins in the water — +8% crit, +6% XP.", "rarity": "rare", "mods": {"crit": 0.08, "xp_pct": 0.06}},
 	"salt_apsis": {"name": "Salt Apsis", "chip": "SAP", "desc": "It marks where souls pool — +10% souls, −4% speed.", "rarity": "common", "mods": {"soul_gain_pct": 0.10, "speed_pct": -0.04}},
 	"tar_feather": {"name": "Tar Feather", "chip": "TFH", "desc": "Light on the soles, tar on the hands — +10% speed, −4% dodge.", "rarity": "common", "mods": {"speed_pct": 0.10, "dodge": -0.04}},
+	"salt_lottery": {"name": "Salt Lottery", "chip": "SLT", "desc": "The wreck pays out, but always takes its cut — +15% souls, −8% max HP.", "rarity": "rare", "mods": {"soul_gain_pct": 0.15, "max_hp_pct": -0.08}},
 "undertow_idol": {"name": "Undertow Idol", "chip": "UTI", "desc": "A drowned god's little likeness — it pulls for you — +6% ATK, +4% souls.", "rarity": "uncommon", "mods": {"atk_pct": 0.06, "soul_gain_pct": 0.04}},
 "grief_bell": {"name": "Grief Bell", "chip": "GRB", "desc": "Its toll hardens every hand that hears it — +10% ATK, −6% dodge.", "rarity": "rare", "mods": {"atk_pct": 0.10, "dodge": -0.06}},
 "bilge_stone": {"name": "Bilge Stone", "chip": "BST", "desc": "Ballast that learned to keep a man standing — +1 Armor, +8% Max HP.", "rarity": "common", "mods": {"armor": 1, "max_hp_pct": 0.08}},
