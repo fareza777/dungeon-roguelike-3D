@@ -7860,6 +7860,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_xp_pct += 0.1
 			Stats.soul_gain_pct -= 0.05
 			toast("Bilge Wake: the hull's lessons wash over you — +10% XP, −5% souls")
+		94:
+			Stats.dodge += 0.06
+			Stats.buff_speed_pct += 0.04
+			toast("Galley Nets: the trawl's slack is yours — +6% dodge, +4% speed")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -12200,6 +12204,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Deckman's Eye — the crow's perch lends its sight: +10% crit, −5% souls"},
 			{"text": "Mizzen Step — the aft wind at your heels: +8% speed, +4% dodge"},
 			{"text": "Bilge Wake — the hull's lessons wash over you: +10% XP, −5% souls"},
+			{"text": "Galley Nets — the trawl's slack is yours: +6% dodge, +4% speed"},
 		]
 	)
 
