@@ -25,7 +25,16 @@ func _ready() -> void:
 		ic.custom_minimum_size = Vector2(190, 190)
 		ic.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		ic.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
+		ic.pivot_offset = Vector2(95, 95)
 		vb.add_child(ic)
+		ic.scale = Vector2(0.5, 0.5)
+		var itw := ic.create_tween()
+		itw.tween_property(ic, "scale", Vector2(1.08, 1.08), 0.5).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		itw.tween_property(ic, "scale", Vector2.ONE, 0.22).set_trans(Tween.TRANS_SINE)
+		var igt := ic.create_tween()
+		igt.set_loops()
+		igt.tween_property(ic, "modulate", Color(1.0, 0.92, 0.62), 0.9).set_trans(Tween.TRANS_SINE)
+		igt.tween_property(ic, "modulate", Color.WHITE, 0.9).set_trans(Tween.TRANS_SINE)
 	var t1 := Label.new()
 	t1.text = "DUNGEON"
 	t1.add_theme_font_size_override("font_size", 84)
