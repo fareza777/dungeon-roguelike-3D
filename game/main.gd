@@ -11965,6 +11965,9 @@ func _curse_deal(idx: int) -> void:
 func _count_deal() -> void:
 	deals_run += 1
 	_quest_event("deal_made")
+	if int(Stats.meta.get("tollman", 0)) > 0:
+		Stats.earn_souls(int(Stats.meta.get("tollman", 0)))
+		_souls_l()
 	if deals_run >= 15:
 		_ach("spender")
 	if deals_run >= 25:
