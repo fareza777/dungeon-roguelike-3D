@@ -8695,6 +8695,9 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_armor += 2
 			Stats.buff_speed_pct -= 0.03
 			toast("Barnacle Mail: wreck-shell plates your shoulders — +2 Armor, −3% speed")
+		111:
+			Stats.buff_crit += 0.05
+			toast("Candlemas: a wick for every soul you've lit — +5% crit chance")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -13523,6 +13526,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Hermit's Verse — the lone voice carries furthest: +6% dodge, +5% XP"},
 			{"text": "Wake-Leech — the water drinks through your blade: +4% lifesteal, −4% speed"},
 			{"text": "Barnacle Mail — wreck-shell plates your shoulders: +2 Armor, −3% speed"},
+			{"text": "Candlemas — a wick for every soul you've lit: +5% crit chance"},
 		]
 	)
 
