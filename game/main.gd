@@ -11278,6 +11278,7 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Mist Beads — pay 4 souls: the river's breath settles on your eyes — +6% dodge, +4% speed this run"},
 		{"text": "Ebb Lullaby — pay 5 souls: the river hums the dead to half-step — foes −10% speed this floor"},
 		{"text": "Keel Salt — pay 4 souls: the altar scrubs your edge bright — +8% crit this floor"},
+		{"text": "Borrowed Air — pay 6 souls: the drowned lend you their breath — heal 40% HP, +6% speed"},
 		{"text": "Walk away"}])
 
 
@@ -11356,9 +11357,21 @@ func _drowned_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("KEEL SALT — the altar scrubs your edge bright (+8% crit this floor)")
 		return
-	if idx == 51:
+	if idx == 52:
 		toast("The water settles back into the stone")
 		return
+	if idx == 51:
+		if Stats.souls < _soul_cost(6):
+			toast("Six souls — the drowned don't part with breath cheap")
+			return
+		Stats.souls -= _soul_cost(6)
+		_count_deal()
+		Stats.buff_speed_pct += 0.06
+		if player != null and is_instance_valid(player):
+			player.hp = minf(player.hp + Stats.get_stat("max_hp") * 0.4, Stats.get_stat("max_hp"))
+			player.hp_changed.emit(player.hp)
+		Sfx.play("shrine")
+		toast("BORROWED AIR — the drowned fill your chest (+40% HP, +6% speed)")
 	if idx == 44:
 		if Stats.souls < _soul_cost(4):
 			toast("Four souls — the tithe isn't free")
