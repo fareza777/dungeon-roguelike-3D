@@ -1728,6 +1728,7 @@ func _reset_run_state() -> void:
 	scurvy = false
 	draft_hole = false
 	keel_hauled = false
+	skills_used = {}
 	bilge_sworn = false
 	salt_forfeit = false
 	dead_reckoner = false
@@ -6987,6 +6988,7 @@ func _pick_relic(i: int) -> void:
 # ---------------- skill ----------------
 
 var casts_run := 0
+var skills_used := {}
 
 func _cast_skill(id: String) -> void:
 	if player == null or not is_instance_valid(player) or player.dead or Stats.draft_open or run_state != "playing":
@@ -8010,6 +8012,9 @@ func _cast_skill(id: String) -> void:
 			print("SKILL becalm slowed=%d" % bcl)
 	skill_used_floor = true
 	skills_floor[id] = true
+	skills_used[id] = true
+	if skills_used.size() >= 6:
+		_ach("versatile")
 	_quest_event("skill_" + id)
 	if skills_floor.size() >= 3:
 		_quest_event("witching")
