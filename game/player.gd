@@ -248,6 +248,13 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "garroter":
+				var gr_ = get_tree().current_scene
+				gr_.set("net_n", int(gr_.get("net_n")) + 1)
+				if int(gr_.get("net_n")) >= 7:
+					gr_.set("net_n", 0)
+					f.stun(1.2)
+					f.take_hit(global_position, float(Stats.get_stat("atk")) * 0.8)
 			if Stats.weapon_id == "wakefang":
 				var wf_ = get_tree().current_scene
 				wf_.set("net_n", int(wf_.get("net_n")) + 1)
