@@ -223,11 +223,11 @@ func _build() -> void:
 	vb.add_child(sp)
 
 	if Stats.has_run():
-		var bc := _make_btn("CONTINUE — Floor %d" % int(Stats.saved_run.get("floor", 1)))
+		var bc := _make_btn("▶ CONTINUE — Floor %d" % int(Stats.saved_run.get("floor", 1)))
 		bc.pressed.connect(_on_continue)
 		vb.add_child(bc)
 
-	var bn := _make_btn("NEW GAME")
+	var bn := _make_btn("⚔ NEW GAME")
 	bn.pressed.connect(_on_new)
 	vb.add_child(bn)
 
@@ -235,11 +235,11 @@ func _build() -> void:
 	row.alignment = BoxContainer.ALIGNMENT_CENTER
 	row.add_theme_constant_override("separation", 10)
 	vb.add_child(row)
-	var bs := _make_btn("SETTINGS", false)
+	var bs := _make_btn("⚙ SETTINGS", false)
 	bs.custom_minimum_size = Vector2(184, 60)
 	bs.pressed.connect(func() -> void: settings_panel.visible = true)
 	row.add_child(bs)
-	var ba := _make_btn("ABOUT", false)
+	var ba := _make_btn("◈ ABOUT", false)
 	ba.custom_minimum_size = Vector2(184, 60)
 	ba.pressed.connect(func() -> void: about_panel.visible = true)
 	row.add_child(ba)
@@ -248,7 +248,7 @@ func _build() -> void:
 	row2.alignment = BoxContainer.ALIGNMENT_CENTER
 	row2.add_theme_constant_override("separation", 10)
 	vb.add_child(row2)
-	var bsh := _make_btn("SHARE", false)
+	var bsh := _make_btn("↗ SHARE", false)
 	bsh.custom_minimum_size = Vector2(184, 60)
 	bsh.pressed.connect(_on_share)
 	row2.add_child(bsh)
@@ -257,7 +257,7 @@ func _build() -> void:
 	br.pressed.connect(_on_rate)
 	row2.add_child(br)
 
-	var bq := _make_btn("QUIT", false)
+	var bq := _make_btn("✕ QUIT", false)
 	bq.custom_minimum_size = Vector2(184, 60)
 	bq.pressed.connect(func() -> void: get_tree().quit())
 	vb.add_child(bq)
