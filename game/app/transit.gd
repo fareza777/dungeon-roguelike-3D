@@ -13,6 +13,18 @@ static func _mk(owner: Node, alpha: float) -> ColorRect:
 	r.process_mode = Node.PROCESS_MODE_ALWAYS
 	r.set_anchors_preset(Control.PRESET_FULL_RECT)
 	cv.add_child(r)
+	var mark := Label.new()
+	mark.text = "☠"
+	mark.add_theme_font_size_override("font_size", 44)
+	mark.modulate = Color(1.0, 0.85, 0.4, 0.0)
+	mark.set_anchors_preset(Control.PRESET_CENTER)
+	mark.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	mark.process_mode = Node.PROCESS_MODE_ALWAYS
+	cv.add_child(mark)
+	var mtw := mark.create_tween()
+	mtw.tween_property(mark, "modulate:a", 0.45, 0.35)
+	mtw.tween_interval(0.4)
+	mtw.tween_property(mark, "modulate:a", 0.0, 0.3)
 	return r
 
 
