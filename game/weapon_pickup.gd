@@ -61,6 +61,15 @@ func setup(id: String, tex: Texture2D, p_tile: float) -> void:
 	nl.position = Vector3(0, 1.25, 0)
 	nl.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	add_child(nl)
+	var dl := Label3D.new()
+	dl.text = String(w["desc"])
+	dl.font_size = 22
+	dl.modulate = Color(0.95, 0.9, 0.7, 0.8)
+	dl.outline_size = 8
+	dl.outline_modulate = Color(0.05, 0.02, 0.0, 0.9)
+	dl.position = Vector3(0, 1.02, 0)
+	dl.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	add_child(dl)
 
 
 func _physics_process(delta: float) -> void:
