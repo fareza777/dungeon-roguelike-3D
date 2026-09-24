@@ -8500,6 +8500,10 @@ func _forge_cost(n: int) -> int:
 
 func _pdodged() -> void:
 	perfect_dodges += 1
+	_quest_event("pdodge")
+	_quest_event("pdodge_run")
+	if perfect_dodges == 5:
+		_ach("shadowstep")
 	if perfect_dodges == 3:
 		_ach("untouchable")
 		_lvl_banner("◈ UNTOUCHABLE — three perfect dodges")

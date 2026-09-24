@@ -251,6 +251,7 @@ const ACH_DEF := {
 	"clear_ledger": "Clear Ledger (repay your Mahzan debt)",
 	"river_purse": "River Purse (take 5 drowned deals)",
 	"fools_gold": "Fool's Gold (hire the Court Fool)",
+	"shadowstep": "Shadowstep (5 perfect dodges in one run)",
 	"liberator": "Thrall Liberator (free 15 thralls)",
 	"spender": "Spender (buy 15 deals in one run)",
 	"fulldeck": "Full Deck (every meta upgrade maxed)",

@@ -57,6 +57,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 			steps.append({"title": "Curse Silencer", "desc": "Slay 2 Hex Priests", "kind": "hexer_kill", "need": 2})
 		if floor_num >= 7 and floor_num % 3 == 1:
 			steps.append({"title": "Ghost Dancer", "desc": "Dash through 2 attacks at the last instant", "kind": "pdodge", "need": 2})
+			steps.append({"title": "Shadow Waltz", "desc": "Perfect-dodge 3 attacks this run (0/3)", "kind": "pdodge_run", "need": 3})
 		if floor_num >= 17 and floor_num % 4 == 2:
 			steps.append({"title": "Tempest Herald", "desc": "Unleash a SOUL STORM", "kind": "storm", "need": 1})
 		if floor_num >= 8 and floor_num % 4 == 1:
