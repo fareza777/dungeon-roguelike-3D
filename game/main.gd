@@ -18399,6 +18399,7 @@ func _build_ui() -> void:
 	pstats.add_theme_font_size_override("font_size", 14)
 	pstats.modulate = Color(1, 1, 1, 0.6)
 	pstats.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	pstats.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	pvb.add_child(pstats)
 	ui["pause_stats"] = pstats
 	_pause_vol_row(pvb, "Music", Stats.mus_vol(), func(v: float) -> void:
