@@ -198,6 +198,10 @@ func _after_typed() -> void:
 		_show_choices()
 	else:
 		_hint.visible = true
+		var htw: Tween = create_tween()
+		htw.set_loops(40)
+		htw.tween_property(_hint, "modulate:a", 0.85, 0.5).set_trans(Tween.TRANS_SINE)
+		htw.tween_property(_hint, "modulate:a", 0.4, 0.5).set_trans(Tween.TRANS_SINE)
 
 
 func _show_choices() -> void:
