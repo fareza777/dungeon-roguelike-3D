@@ -1033,6 +1033,8 @@ func _physics_process(delta: float) -> void:
 									p.set("rust_t", 3.0)
 								if affix == "saltbitten" and q == p:
 									p.set("weak_t", maxf(float(p.get("weak_t")), 2.0))
+								if arch_id == "quarter_ghost" and q == p:
+									hp = minf(hp_max, hp + dmg * 0.4)
 								if affix == "brinetouched" and q == p:
 									p.set("chill_t", maxf(float(p.get("chill_t")), 1.5))
 								if affix == "hoarfrost" and q == p:
