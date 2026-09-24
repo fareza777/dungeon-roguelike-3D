@@ -16062,11 +16062,24 @@ func _update_hp(hp: float) -> void:
 					bt.kill()
 				c.set("beat_tween", null)
 				c.scale = Vector2.ONE
-	if ui.has("vial_btn") and vials > 0:
-		if low:
-			ui.vial_btn.modulate = Color(1.0, 0.55 + 0.4 * absf(sin(Time.get_ticks_msec() / 110.0)), 0.35)
-		else:
-			ui.vial_btn.modulate = Color(1.15, 1.0, 0.75, 1)
+	if ui.has("vial_btn"):
+		var vb: Button = ui.vial_btn
+		if low and vials > 0:
+			if vb.get("beat_tween") == null:
+				var bt2: Tween = vb.create_tween()
+				vb.set("beat_tween", bt2)
+				bt2.set_loops()
+				vb.pivot_offset = vb.size * 0.5
+				bt2.tween_property(vb, "scale", Vector2(1.18, 1.18), 0.28).set_trans(Tween.TRANS_SINE)
+				bt2.tween_property(vb, "scale", Vector2.ONE, 0.38).set_trans(Tween.TRANS_SINE)
+			vb.modulate = Color(1.2, 0.7, 0.4)
+		elif vb.get("beat_tween") != null:
+			var bt3: Tween = vb.get("beat_tween")
+			if bt3.is_valid():
+				bt3.kill()
+			vb.set("beat_tween", null)
+			vb.scale = Vector2.ONE
+			vb.modulate = Color(1.15, 1.0, 0.75, 1) if vials > 0 else Color(1, 1, 1, 0.4)
 
 
 func _vign_flash() -> void:
