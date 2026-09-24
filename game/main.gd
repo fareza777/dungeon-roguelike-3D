@@ -7208,6 +7208,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.12
 			Stats.dodge -= 0.05
 			toast("Rope Soles: tar-and-twine underfoot — +12% speed, −5% dodge")
+		82:
+			Stats.soul_gain_pct += 0.2
+			Stats.dodge -= 0.1
+			toast("Salt Scribe: every death tallied in your favor — +20% souls, −10% dodge")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -10887,6 +10891,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Hanging Tide — slack-water step: +10% speed, +10% dodge, −10% souls"},
 			{"text": "Capstan Chant — heavy verses turn the arms: +15% attack speed, −8% speed"},
 			{"text": "Rope Soles — tar-and-twine underfoot: +12% speed, −5% dodge"},
+			{"text": "Salt Scribe — every death tallied in your favor: +20% souls, −10% dodge"},
 		]
 	)
 
