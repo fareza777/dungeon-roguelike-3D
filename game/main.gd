@@ -407,6 +407,7 @@ var chorus_deep := false
 var harbor_verse := false
 var wake_verse := false
 var requiem_note := false
+var dirge_half := false
 var leech_bond := false
 var keelwind := false
 var murk_vision := false
@@ -820,7 +821,7 @@ const KILLER_TIPS := {
 	"gunnel_fiend": "Tip: the Gunnel Fiend coils before it lunges — step sideways and let it sail past.",
 	"bilge_cantor": "Tip: the Bilge Cantor quickens every windup near it — silence it before the room turns fast.",
 	"tide_bailiff": "Tip: the Tide Bailiff takes a soul with every landed blow — kill it before the purse runs dry.",
-	"salt_skimmer": "Tip: the Salt Skimmer skims in fast — swing early, it can't take a hit."
+	"salt_skimmer": "Tip: the Salt Skimmer skims in fast — swing early, it can't take a hit.",
 	"salt_lich": "Tip: Salt Liches telegraph a long windup — close the gap fast or weave between bolts.",
 	"deck_brute": "Tip: Deck Brutes barely feel knockback — break their windup with a stun, or never be there when it lands.",
 	"salt_eel": "Tip: Salt Eels lunge in a straight bite — sidestep and the coil overshoots.",
@@ -1840,6 +1841,8 @@ func _new_run(new_seed: int) -> void:
 	if requiem_note:
 		Stats.dodge -= 0.08
 		requiem_note = false
+	if dirge_half:
+		dirge_half = false
 	if leech_bond:
 		Stats.buff_lifesteal -= 0.08
 		leech_bond = false
@@ -3312,6 +3315,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.speed *= 0.9
 	if cold_snap and not e.is_boss:
 		e.speed *= 0.85
+	if dirge_half and not e.is_boss:
+		e.speed *= 0.9
 	if low_verse and not e.is_boss:
 		e.windup_t *= 1.1
 	if fathomsong and not e.is_boss:
@@ -11852,16 +11857,28 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Harbor Verse — pay 4 souls: the song steadies your arm — +8% ATK this floor"},
 		{"text": "Wake Verse — pay 3 souls: the chorus quickens your step — +8% speed this floor"},
 		{"text": "Requiem Note — pay 4 souls: a note for the gone — +8% dodge this floor"},
+		{"text": "Dirge Half — pay 3 souls: the low half-note drags the dead's stride — foes −10% speed this floor"},
 		{"text": "Walk away"}])
 
 
 func _siren_deal(idx: int) -> void:
-	if idx == 31:
+	if idx == 32:
 		Stats.earn_souls(2)
 		_souls_l()
 		_quest_event("siren")
 		Sfx.play("soul")
 		toast("UNSUNG — you walk, and the conch pays +2 souls for your silence")
+		return
+	if idx == 31:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the half-note isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_count_deal()
+		_souls_l()
+		dirge_half = true
+		Sfx.play("shrine")
+		toast("DIRGE HALF — the dead's stride drags")
 		return
 	if idx == 30:
 		if Stats.souls < _soul_cost(4):
