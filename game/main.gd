@@ -333,6 +333,7 @@ var grommets_due := false
 var drift_verse := false
 var pearl_octave := false
 var undertow_aria := false
+var wake_chant := false
 var pilgrims_purse := false
 var crows_toll := false
 var crowns_decree := false
@@ -1521,6 +1522,9 @@ func _new_run(new_seed: int) -> void:
 		drift_verse = false
 	pearl_octave = false
 	undertow_aria = false
+	if wake_chant:
+		Stats.buff_speed_pct -= 0.12
+		wake_chant = false
 	if pearl_graft:
 		Stats.buff_atk_pct -= 0.15
 		pearl_graft = false
@@ -9894,16 +9898,28 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Drift Verse — pay 4 souls: a verse of floating steps — +8% dodge this floor"},
 		{"text": "Pearl Octave — pay 5 souls: nacre rings in your wounds — orbs mend +50% this floor"},
 		{"text": "Undertow Aria — pay 4 souls: the bass thins their bones — foes −8% HP this floor"},
+		{"text": "Wake Chant — pay 5 souls: the water carries your step — +12% speed this floor"},
 		{"text": "Walk away"}])
 
 
 func _siren_deal(idx: int) -> void:
-	if idx == 23:
+	if idx == 24:
 		Stats.earn_souls(2)
 		_souls_l()
 		_quest_event("siren")
 		Sfx.play("soul")
 		toast("UNSUNG — you walk, and the conch pays +2 souls for your silence")
+		return
+	if idx == 23:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the chant isn't free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_souls_l()
+		wake_chant = true
+		Stats.buff_speed_pct += 0.12
+		Sfx.play("shrine")
+		toast("WAKE CHANT — the water carries your step")
 		return
 	if idx == 22:
 		if Stats.souls < _soul_cost(4):
