@@ -99,6 +99,8 @@ func smash(from_pos: Vector3) -> void:
 				m.toast("VOID LANTERN — the dark drank 2 souls and paid 8 XP")
 		elif reliq and not dry:
 			Stats.earn_souls((2 if bool(m.get("low_tide")) else 1) * (2 if bool(m.get("vessel")) else 1))
+		if bool(m.get("salvage_rights")) and not dry:
+			Stats.earn_souls(2)
 		if bool(m.get("deeproot")) and not reliq and not dry:
 			Stats.earn_souls(1)
 		if bool(m.get("pearl_fever")) and not dry:
