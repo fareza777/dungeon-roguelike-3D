@@ -417,6 +417,14 @@ func _strike() -> void:
 						if mcs != null and mcs.has_method("_damage_number"):
 							mcs._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "EXTINGUISHED", Color(0.9, 0.85, 0.5), false)
 						Sfx.play("hit")
+			if Stats.weapon_id == "wisp_lure":
+				var wln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", wln)
+				if wln % 6 == 0:
+					var mwl := get_tree().current_scene
+					if mwl != null and mwl.has_method("_spawn_wisp_at"):
+						mwl._spawn_wisp_at(f.global_position + Vector3(0.5 * room_tile, 0, 0))
+						Sfx.play("pickup")
 			if Stats.weapon_id == "barnacle_edge":
 				var ben: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", ben)
