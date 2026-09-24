@@ -211,6 +211,7 @@ var leaden_purse := false
 var widows_ledger := false
 var flotsam_kin := false
 var scurvy := false
+var draft_hole := false
 var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
@@ -1308,6 +1309,7 @@ func _reset_run_state() -> void:
 	widows_ledger = false
 	flotsam_kin = false
 	scurvy = false
+	draft_hole = false
 	combo_rate_bonus = 0.0
 	solitary = false
 	pawn_discount = false
@@ -2757,6 +2759,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.speed *= 1.1
 	if saltsick and not e.is_boss:
 		e.xp_val = int(ceilf(e.xp_val * 1.15))
+	if draft_hole and not e.is_boss:
+		e.speed *= 1.1
 	if watch_bell and not e.is_boss:
 		e.windup_t = float(e.windup_t) * 1.15
 	if timber_shiver and not e.is_boss:
@@ -7125,6 +7129,7 @@ func _offer_omens() -> void:
 		{"text": "WIDOW'S LEDGER — her purse pays +15% souls... the dead pay +8% vigor"},
 		{"text": "FLOTSAM KIN — the wreck-schools quicken +8%... their drift teaches +15% XP"},
 		{"text": "SCURVY — gums bleed, ribs show (−10% Max HP)... but starvation teaches (+15% XP)"},
+		{"text": "DRAFT HOLE — the current pulls at your hands (skills −15% charge)... and theirs too (+10% foe speed)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -7175,7 +7180,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 80 if Stats.nemesis != "" else 79
+	var osize := 81 if Stats.nemesis != "" else 80
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -7513,6 +7518,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_xp_pct += 0.15
 			oname = "SCURVY"
 		79:
+			draft_hole = true
+			omen_cd_add -= 1.0
+			oname = "DRAFT HOLE"
+		80:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -7600,6 +7609,7 @@ func _omen_deal(idx: int) -> void:
 	"WIDOW'S LEDGER": "She keeps the books for every drowned sailor — and her interest compounds in marrow.",
 	"FLOTSAM KIN": "Sworn to the drift — everything loose in the water belongs to it.",
 	"SCURVY": "The oldest pact on any ship — suffer now, learn faster.",
+	"DRAFT HOLE": "Sailors pray for a fair wind; the deep lends a faster current to whoever asks.",
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
