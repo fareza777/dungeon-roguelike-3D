@@ -197,6 +197,7 @@ var candle_tax := false
 var pilot_dead := false
 var fathom_tax := false
 var hull_rot := false
+var still_water := false
 var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
@@ -1186,6 +1187,7 @@ func _reset_run_state() -> void:
 	pilot_dead = false
 	fathom_tax = false
 	hull_rot = false
+	still_water = false
 	combo_rate_bonus = 0.0
 	solitary = false
 	pawn_discount = false
@@ -2458,6 +2460,9 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.windup_t *= 1.12
 	if storm_lull:
 		e.windup_t *= 1.15
+	if still_water and not e.is_boss:
+		e.windup_t *= 1.15
+		e.dmg = int(ceil(e.dmg * 1.15))
 	if timber_shiver and not e.is_boss:
 		e.hp *= 0.9
 		e.hp_max = e.hp
@@ -6535,6 +6540,7 @@ func _offer_omens() -> void:
 			{"text": "PILOT DEAD — the dead scent you a mile off (aggro +20%)... but their souls pay +15%"},
 		{"text": "FATHOM TAX — the dead stand +15% taller... but every soul pays +20% more"},
 		{"text": "HULL ROT — your planks go soft (−1 Armor)... but the rot teaches (+20% XP)"},
+		{"text": "STILL WATER — the dead swing +15% slower to aim... but land +15% harder"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -6585,7 +6591,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 72 if Stats.nemesis != "" else 71
+	var osize := 73 if Stats.nemesis != "" else 72
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -6888,6 +6894,9 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_xp_pct += 0.2
 			oname = "HULL ROT"
 		71:
+			still_water = true
+			oname = "STILL WATER"
+		72:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -6963,6 +6972,7 @@ func _omen_deal(idx: int) -> void:
 		"CANDLE TAX": "Every lantern takes its tithe — cheaper passage, dimmer pay.",
 		"FATHOM TAX": "The deep charges for every fathom — pay in dead men's coin.",
 		"HULL ROT": "Soft planks, hard lessons — the rot teaches what the armor couldn't.",
+		"STILL WATER": "Still water runs deepest — slow hands, heavy fists.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
 		"OLD SALT": "Lighter purse, heavier arm — the old hands swear by it.",
 		"SWORN HULL": "The hull thickens and the chase quickens — even trade.",
