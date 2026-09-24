@@ -139,6 +139,7 @@ const DB := {
 	"jeerjack": {"glb": "Skeleton_Rogue.glb", "hp": 2.8, "spd": 1.6, "dmg": 1, "windup": 0.55, "reach": 0.7, "aggro": 7.0, "xp": 9, "tint": Color(0.75, 0.35, 0.75), "scale": 0.85, "kb_resist": 0.15},
 	"salt_gallows": {"glb": "Skeleton_Warrior.glb", "hp": 5.5, "spd": 0.62, "dmg": 2.5, "windup": 0.8, "reach": 0.95, "aggro": 6.0, "xp": 14, "tint": Color(0.6, 0.55, 0.35), "scale": 1.35, "kb_resist": 0.6},
 	"soul_toller": {"glb": "Skeleton_Mage.glb", "hp": 3.8, "spd": 0.7, "dmg": 1.5, "windup": 0.75, "reach": 0.8, "aggro": 6.5, "xp": 12, "tint": Color(0.9, 0.8, 0.3), "scale": 1.15, "kb_resist": 0.4},
+	"keel_scribe": {"glb": "Skeleton_Mage.glb", "hp": 3.4, "spd": 1.2, "dmg": 1, "windup": 0.5, "reach": 0.75, "aggro": 7.5, "xp": 12, "tint": Color(0.6, 0.75, 0.85), "scale": 1.0, "kb_resist": 0.2, "healer": true, "phase": true},
 	# BOSS: Raja Tulang — tiap lantai kelipatan 5
 	"bone_king": {"glb": "Skeleton_Warrior.glb", "hp": 42.0, "spd": 0.8, "dmg": 2, "windup": 0.85, "reach": 0.95, "aggro": 9.9, "xp": 15, "tint": Color(1.15, 0.45, 0.4), "scale": 1.85, "kb_resist": 0.9, "boss": true},
 }
