@@ -221,6 +221,7 @@ var echoing := false
 var omen_done := false
 var omen_done2 := false # pakta kedua di lantai 11
 var omen_hp_mult := 1.0
+var omen_boss_mult := 1.0
 var omen_name := ""
 var fatehand := false
 var nemesis_bounty := false
@@ -1759,6 +1760,7 @@ func _reset_run_state() -> void:
 	omen_done2 = false
 	omen_name = ""
 	omen_hp_mult = 1.0
+	omen_boss_mult = 1.0
 	fatehand = false
 	nemesis_bounty = false
 	candle_tax = false
@@ -3855,6 +3857,9 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.xp_val = int(e.xp_val * 2)
 	if absf(omen_hp_mult - 1.0) > 0.001 and not e.is_boss:
 		e.hp *= omen_hp_mult
+		e.hp_max = e.hp
+	if absf(omen_boss_mult - 1.0) > 0.001 and e.is_boss:
+		e.hp *= omen_boss_mult
 		e.hp_max = e.hp
 	if dead_lantern and bool(e.get("elite")):
 		e.hp *= 1.15
@@ -9738,6 +9743,7 @@ func _offer_omens() -> void:
 		{"text": "MURK VOW — the murk sharpens every lesson (+20% XP)... but it skims the purse (−10% souls)"},
 		{"text": "DEEP PACT — the trench pays the bold (+25% souls)... but it takes its tithe in flesh (−10% Max HP)"},
 		{"text": "SALTFARE — the passage pays quick feet (+12% speed)... but the fare is steep (−8% souls)"},
+		{"text": "PALE HERALD — the herald tolls the fall early (+10% XP)... but the kings grow thicker skulls (bosses +10% HP)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -9792,7 +9798,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 127 if Stats.nemesis != "" else 126
+	var osize := 128 if Stats.nemesis != "" else 127
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -10336,6 +10342,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.08
 			oname = "SALTFARE"
 		126:
+			Stats.xp_pct += 0.10
+			omen_boss_mult *= 1.10
+			oname = "PALE HERALD"
+		127:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -10492,6 +10502,7 @@ func _omen_deal(idx: int) -> void:
 		"MURK VOW": "The murk keeps its lessons cheap and its tolls exact, Kael.",
 	"DEEP PACT": "The trench pays bold men, Kael — and it always collects.",
 	"SALTFARE": "The crossing always costs, Kael — the swift pay in coin, the slow in blood.",
+	"PALE HERALD": "The herald rings ahead of the crown, Kael — take the lesson, pay the thicker skull.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
