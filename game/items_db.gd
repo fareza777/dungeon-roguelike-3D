@@ -208,6 +208,7 @@ const DB := {
 	"fathom_glass": {"name": "Fathom Glass", "chip": "FG", "desc": "Held to the light it shows the ship that sank you — +5% crit, +3% souls", "rarity": 1, "mods": {"crit": 0.05, "soul_gain_pct": 0.03}},
 		"keel_stone": {"name": "Keel Stone", "chip": "KS", "desc": "A fist of ballast that never forgets the bottom — +1 armor, −4% speed", "rarity": 1, "mods": {"armor": 1, "speed_pct": -0.04}},
 	"pale_compass": {"name": "Pale Compass", "chip": "PC", "desc": "Its needle quivers toward the drowned throne — +5% speed, +4% XP", "rarity": 1, "mods": {"speed_pct": 0.05, "xp_pct": 0.04}},
+	"bilge_rosary": {"name": "Bilge Rosary", "chip": "BR", "desc": "Beads of hull-iron worn smooth by drowned prayers — +4% dodge, +3% XP", "rarity": 1, "mods": {"dodge": 0.04, "xp_pct": 0.03}},
 # ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
