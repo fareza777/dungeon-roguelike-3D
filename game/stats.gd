@@ -268,6 +268,7 @@ const ACH_DEF := {
 	"saltwalker": "Saltwalker (clear a SALTGRAVE floor)",
 	"ringer10": "Ringer of Bells (slay 10 Bell Ringers)",
 	"thousand_cuts": "A Thousand Cuts (1,000 lifetime kills)",
+	"deepvoyager": "Deep Voyager (seventy-five floors cleared across your descents)",
 	"halfcentury": "Half Century (clear 50 floors)",
 	"gilded_foe": "Gilded Foe (slay 10 golden foes)",
 	"threequarters": "Three Quarters (reach Floor 75)",
@@ -658,6 +659,9 @@ func note_floor() -> void:
 		ach["hadal"] = true
 	if total_kills >= 1000 and not ach.has("thousand_cuts"):
 		ach["thousand_cuts"] = true
+	if floors_cleared >= 75 and not ach.has("deepvoyager"):
+		ach["deepvoyager"] = true
+		emit_signal("ach_unlocked", "deepvoyager")
 	if floors_cleared >= 50 and not ach.has("halfcentury"):
 		ach["halfcentury"] = true
 	if golden_kills >= 10 and not ach.has("gilded_foe"):
