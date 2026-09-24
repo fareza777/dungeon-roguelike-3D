@@ -13843,8 +13843,6 @@ func _mahzan_deal(idx: int) -> void:
 				Sfx.play("soul")
 				toast("KEEL WAGER — the coin lands bone-side up: +6 souls")
 			else:
-				Stats.curse_dmg += 0.0
-				Stats.meta["mahzan_wager"] = 1.0
 				Stats.base["max_hp"] -= 1.0
 				Sfx.play("deny")
 				toast("KEEL WAGER — the coin lands keel-side down: −1 Max HP")
