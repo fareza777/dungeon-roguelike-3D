@@ -14765,6 +14765,7 @@ func _on_throne_invoked(s) -> void:
 		{"text": "King's Coffer — pay 7 souls: the crown's own treasury — a random fine relic"},
 		{"text": "Bailiff's Share — pay 6 souls: the court's collector works your purse — +15% souls this floor"},
 		{"text": "Clerk's Pension — pay 5 souls: the record office remembers your name — +12% XP this floor"},
+		{"text": "Royal Assay — pay 5 souls: the crown's assayer weighs your edge — +6% crit this run"},
 		{"text": "Walk away"}])
 
 
@@ -14815,12 +14816,23 @@ func _throne_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("BAILIFF'S SHARE — the court's collector works your purse (+15% souls this floor)")
 		return
-	if idx == 33:
+	if idx == 34:
 		Stats.earn_souls(4)
 		_souls_l()
 		_quest_event("throne")
 		Sfx.play("soul")
 		toast("CLEAN HANDS — the crown pays +4 souls to the incorruptible")
+		return
+	if idx == 33:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the assayer's fee")
+			return
+		Stats.souls -= _soul_cost(5)
+		_count_deal()
+		_souls_l()
+		Stats.buff_crit += 0.06
+		Sfx.play("shrine")
+		toast("ROYAL ASSAY — the crown's assayer weighs your edge (+6% crit this run)")
 		return
 	if idx == 32:
 		if Stats.souls < _soul_cost(5):
