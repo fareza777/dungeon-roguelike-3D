@@ -8995,6 +8995,7 @@ func _offer_omens() -> void:
 		{"text": "CRIMSON DUES — the deck pays for your thirst (+4% lifesteal)... but you bleed for it (−6% Max HP)"},
 		{"text": "BONE ANCHOR — old iron weights your wrist (+10% ATK)... and your feet (−6% speed)"},
 		{"text": "SALT MADRIGAL — the drowned choir hums your purse full (+12% souls)... but their song draws hands (−5% dodge)"},
+		{"text": "PALE DUES — the pale fire feeds on experience (+10% XP)... but souls slip through (−8% souls)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -9049,7 +9050,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 112 if Stats.nemesis != "" else 111
+	var osize := 113 if Stats.nemesis != "" else 112
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -9533,6 +9534,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct += 0.12
 			Stats.dodge -= 0.05
 			oname = "SALT MADRIGAL"
+		112:
+			Stats.buff_xp_pct += 0.10
+			Stats.soul_gain_pct -= 0.08
+			oname = "PALE DUES"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
 	if not Stats.oaths_seen.has(oname):
 		Stats.oaths_seen.append(oname)
@@ -9652,6 +9657,7 @@ func _omen_deal(idx: int) -> void:
 	"CRIMSON DUES": "The deck drinks your first drops politely. It will keep drinking.",
 	"BONE ANCHOR": "An anchor of fused bone settles into your palm. Your blows land like moorings.",
 	"SALT MADRIGAL": "Voices rise from the bilge in three-part harmony. They sing the hoard into your hands — and your hands into their reach.",
+	"PALE DUES": "A cold flame settles in your eyes. Every lesson lands deeper; every payment slips past your fingers.",
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
