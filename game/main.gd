@@ -17748,6 +17748,7 @@ func _toggle_pause() -> void:
 		var wname: String = String(WDB.DB[Stats.weapon_id]["name"]) if WDB.DB.has(Stats.weapon_id) else Stats.weapon_id
 		var omen_line := "" if omen_name == "" else "  •  ☗ " + omen_name
 		var deal_line := "" if deals_run == 0 else "  •  ⚖ %d deals" % deals_run
+		var ng_line := "" if Stats.ng_plus <= 0 else "  •  ♛ NG+%d" % Stats.ng_plus
 		var stat_line := "  •  ⚔ %d  🛡 %d" % [int(Stats.get_stat("atk")), int(Stats.get_stat("armor"))]
 		var rel_names := ""
 		if Stats.relics.size() > 0:
@@ -17759,7 +17760,7 @@ func _toggle_pause() -> void:
 				rel_names = "
 Relics: " + ", ".join(rnames)
 		ui.pause_stats.text = "Floor %d  %s  •  %d kills  •  best combo ×%d  •  %d:%02d  •  %+d souls  •  ☠ %d
-%s%s  •  %d relics%s%s%s" % [Stats.floor_num, String(biome.get("name", "")), kills_run, combo_max, pm, ps, Stats.souls - run_souls_start, revives_run, wname, stat_line, Stats.relics.size(), omen_line, deal_line, rel_names]
+%s%s  •  %d relics%s%s%s%s" % [Stats.floor_num, String(biome.get("name", "")), kills_run, combo_max, pm, ps, Stats.souls - run_souls_start, revives_run, wname, stat_line, Stats.relics.size(), omen_line, deal_line, ng_line, rel_names]
 	Sfx.play("click")
 
 
