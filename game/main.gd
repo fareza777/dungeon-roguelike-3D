@@ -3456,7 +3456,8 @@ func _on_room_enter(ri: int) -> void:
 		_set_room_gates(ri, false)
 		if ri > 0:
 			if boss_ref != null and is_instance_valid(boss_ref) and boss_ref.room_idx == ri:
-				toast(boss_name + " BLOCKS YOUR PATH — slay him!")
+				Sfx.play("roar")
+				_boss_card_show(boss_name, String(_boss_tier().get("taunt", "SLAY HIM")))
 			elif ri == champ_room:
 				Sfx.play("roar")
 				toast("A CHAMPION holds this room — best him for better spoils!")
@@ -8336,6 +8337,24 @@ func toast(txt: String) -> void:
 			var nt: String = _toast_queue.pop_front()
 			ui.toast_panel.modulate.a = 0.0
 			toast(nt))
+
+
+func _boss_card_show(bn: String, sub: String) -> void:
+	if not ui.has("boss_card"):
+		return
+	ui.boss_card_n.text = "☠ " + bn
+	ui.boss_card_s.text = sub
+	var bcc: Control = ui.boss_card
+	bcc.visible = true
+	bcc.modulate.a = 0.0
+	bcc.pivot_offset = bcc.size * 0.5
+	bcc.scale = Vector2(1.35, 1.35)
+	var tw := create_tween()
+	tw.tween_property(bcc, "modulate:a", 1.0, 0.22)
+	tw.parallel().tween_property(bcc, "scale", Vector2.ONE, 0.38).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tw.tween_interval(1.6)
+	tw.tween_property(bcc, "modulate:a", 0.0, 0.5)
+	tw.tween_callback(func() -> void: bcc.visible = false)
 
 
 func _lvl_banner(txt: String) -> void:
@@ -15288,6 +15307,39 @@ func _build_ui() -> void:
 	lb.visible = false
 	layer.add_child(lb)
 	ui["lvl_banner"] = lb
+
+	var bcc := CenterContainer.new()
+	bcc.set_anchors_preset(Control.PRESET_FULL_RECT)
+	bcc.offset_top = -90
+	bcc.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var bcv := VBoxContainer.new()
+	bcv.add_theme_constant_override("separation", 6)
+	bcv.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var bcn := Label.new()
+	bcn.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	bcn.add_theme_font_size_override("font_size", 56)
+	bcn.modulate = Color(1.0, 0.35, 0.25)
+	bcn.add_theme_color_override("font_outline_color", Color(0.15, 0.02, 0.02, 1.0))
+	bcn.add_theme_constant_override("outline_size", 12)
+	bcn.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.9))
+	bcn.add_theme_constant_override("shadow_offset_x", 4)
+	bcn.add_theme_constant_override("shadow_offset_y", 4)
+	bcn.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	bcv.add_child(bcn)
+	var bcs := Label.new()
+	bcs.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	bcs.add_theme_font_size_override("font_size", 20)
+	bcs.modulate = Color(0.95, 0.8, 0.55)
+	bcs.add_theme_color_override("font_outline_color", Color(0.1, 0.03, 0.0, 1.0))
+	bcs.add_theme_constant_override("outline_size", 6)
+	bcs.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	bcv.add_child(bcs)
+	bcc.add_child(bcv)
+	bcc.visible = false
+	layer.add_child(bcc)
+	ui["boss_card"] = bcc
+	ui["boss_card_n"] = bcn
+	ui["boss_card_s"] = bcs
 
 	var dim := ColorRect.new()
 	dim.set_anchors_preset(Control.PRESET_FULL_RECT)
