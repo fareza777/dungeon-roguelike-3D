@@ -743,6 +743,7 @@ const BESTIARY := {
 	"gloom_lantern": ["Gloom Lantern", "It rings a light that isn't there — the chime stills your blood."],
 	"wick_tender": ["Wick Tender", "It carries a stub of candle and uses it to mend the dead."],
 	"sodden_deckhand": ["Sodden Deckhand", "It dug too long in the bilge — now it drinks whatever leaks out of you."],
+	"brine_widow": ["Brine Widow", "She mends the drowned and hooks the living for them to finish."],
 	"gunnel_fiend": ["Gunnel Fiend", "It claws along the rail faster than it walks — when it coils, it's already midair."],
 	"pale_lantern": ["Pale Lantern", "A wick of drowned light walking a dead sailor's frame — snuff it and every shadow in the room flinches."],
 	"siren_thrall": ["Siren Thrall", "A sailor the song kept — freed of it only by the blade, and what's left rises as a wisp."],
@@ -790,7 +791,7 @@ const KILLER_NAMES := {
 	"bell_ringer": "a Bell Ringer",
 	"moorling": "a Moorling",
 	"keel_mastiff": "a Keel Mastiff",
-	"salt_lich": "a Salt Lich", "bilge_fury": "a Bilge Fury", "siren_thrall": "a Siren Thrall", "pale_lantern": "a Pale Lantern", "gunnel_fiend": "a Gunnel Fiend", "bilge_cantor": "a Bilge Cantor", "tide_bailiff": "a Tide Bailiff", "salt_skimmer": "a Salt Skimmer", "brine_monk": "a Brine Monk", "deck_rigger": "a Deck Rigger", "dread_gull": "a Dread Gull", "gale_singer": "a Gale Singer", "snatch_widow": "a Snatch Widow", "gunnel_gnat": "a Gunnel Gnat", "deck_reverend": "a Deck Reverend", "mast_lurcher": "a Mast Lurcher", "dirge_singer": "a Dirge Singer", "the_boatswain": "the Boatswain", "gloom_lantern": "a Gloom Lantern", "wick_tender": "a Wick Tender", "sodden_deckhand": "a Sodden Deckhand",
+	"salt_lich": "a Salt Lich", "bilge_fury": "a Bilge Fury", "siren_thrall": "a Siren Thrall", "pale_lantern": "a Pale Lantern", "gunnel_fiend": "a Gunnel Fiend", "bilge_cantor": "a Bilge Cantor", "tide_bailiff": "a Tide Bailiff", "salt_skimmer": "a Salt Skimmer", "brine_monk": "a Brine Monk", "deck_rigger": "a Deck Rigger", "dread_gull": "a Dread Gull", "gale_singer": "a Gale Singer", "snatch_widow": "a Snatch Widow", "gunnel_gnat": "a Gunnel Gnat", "deck_reverend": "a Deck Reverend", "mast_lurcher": "a Mast Lurcher", "dirge_singer": "a Dirge Singer", "the_boatswain": "the Boatswain", "gloom_lantern": "a Gloom Lantern", "wick_tender": "a Wick Tender", "sodden_deckhand": "a Sodden Deckhand", "brine_widow": "a Brine Widow",
 	"deck_brute": "a Deck Brute",
 	"salt_eel": "a Salt Eel",
 	"quarter_ghost": "a Quarter Ghost",
@@ -889,6 +890,7 @@ const KILLER_TIPS := {
 	"gloom_lantern": "Tip: a Gloom Lantern keeps its distance and tolls your reflexes flat — cut the angle, not the chase.",
 	"wick_tender": "Tip: a Wick Tender's flame knits the pack's wounds — kill it before the wick reaches them.",
 	"sodden_deckhand": "Tip: a Sodden Deckhand burrows past your line and drinks on every hit — swat it before it gets under you.",
+	"brine_widow": "Tip: a Brine Widow reels you in for the pack — cut her line of sight or cut her first.",
 	"salt_lich": "Tip: Salt Liches telegraph a long windup — close the gap fast or weave between bolts.",
 	"deck_brute": "Tip: Deck Brutes barely feel knockback — break their windup with a stun, or never be there when it lands.",
 	"salt_eel": "Tip: Salt Eels lunge in a straight bite — sidestep and the coil overshoots.",
@@ -3295,6 +3297,7 @@ const FIRST_SEEN := {
 	"gloom_lantern": "A Gloom Lantern swings from the dark, ringing nowhere-light.",
 	"wick_tender": "A Wick Tender shuffles up, shielding a candle that shouldn't still be lit.",
 	"sodden_deckhand": "A Sodden Deckhand rises dripping from the boards, knuckles still wet.",
+	"brine_widow": "A Brine Widow drifts forward, veil dripping seawater, hook already swinging.",
 	"salt_skimmer": "A Salt Skimmer shears across the water — it comes at you fast."
 }
 
@@ -5026,6 +5029,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("wick_kill")
 	if e.arch_id == "sodden_deckhand":
 		_quest_event("deckhand_kill")
+	if e.arch_id == "brine_widow":
+		_quest_event("widow_kill")
 		if int(Stats.arch_kills.get("gloom_lantern", 0)) >= 10:
 			_ach("gloomfall")
 	if e.arch_id == "salt_lich":
