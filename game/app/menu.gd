@@ -298,7 +298,7 @@ func _build() -> void:
 	bq.pressed.connect(func() -> void: get_tree().quit())
 	vb.add_child(bq)
 
-	var bso := _make_btn("HALL OF SOULS — ◈ %d" % Stats.souls, false)
+	var bso := _make_btn("◈ HALL OF SOULS — %d" % Stats.souls, false)
 	bso.custom_minimum_size = Vector2(380, 60)
 	bso.pressed.connect(func() -> void:
 		_refresh_souls()
@@ -315,7 +315,7 @@ func _build() -> void:
 	)
 	vb.add_child(bso)
 
-	var bac := _make_btn("ACHIEVEMENTS — ◆ %d/%d" % [Stats.ach.size(), Stats.ACH_DEF.size()], false)
+	var bac := _make_btn("◆ ACHIEVEMENTS — %d/%d" % [Stats.ach.size(), Stats.ACH_DEF.size()], false)
 	bac.custom_minimum_size = Vector2(380, 60)
 	bac.pressed.connect(func() -> void:
 		_refresh_ach()
@@ -435,7 +435,7 @@ func _build_settings() -> void:
 		Stats.save_game()
 	)
 
-	var ts := _make_btn("Test Sound", false)
+	var ts := _make_btn("♪ TEST SOUND", false)
 	ts.pressed.connect(func() -> void:
 		Sfx.play("swing")
 		await get_tree().create_timer(0.35).timeout
@@ -466,7 +466,7 @@ func _build_settings() -> void:
 	)
 	vb.add_child(qual_opt)
 
-	var wr := _make_btn("Reset All Progress", false)
+	var wr := _make_btn("⟲ RESET ALL PROGRESS", false)
 	wr.add_theme_color_override("font_color", Color(1.0, 0.5, 0.45))
 	wr.pressed.connect(func() -> void:
 		Stats.wipe_progress()
@@ -475,7 +475,7 @@ func _build_settings() -> void:
 	)
 	vb.add_child(wr)
 
-	var back := _make_btn("Close", false)
+	var back := _make_btn("✕ CLOSE", false)
 	back.pressed.connect(func() -> void: settings_panel.visible = false)
 	vb.add_child(back)
 
@@ -518,7 +518,7 @@ func _build_about() -> void:
 	body.modulate = Color(1, 1, 1, 0.85)
 	body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	vb.add_child(body)
-	var back := _make_btn("Close", false)
+	var back := _make_btn("✕ CLOSE", false)
 	back.pressed.connect(func() -> void: about_panel.visible = false)
 	vb.add_child(back)
 
@@ -570,7 +570,7 @@ func _build_souls() -> void:
 	souls_rows = VBoxContainer.new()
 	souls_rows.add_theme_constant_override("separation", 8)
 	vb.add_child(souls_rows)
-	var back := _make_btn("BACK", false)
+	var back := _make_btn("← BACK", false)
 	back.pressed.connect(func() -> void: souls_panel.visible = false)
 	vb.add_child(back)
 
@@ -659,7 +659,7 @@ func _build_ach() -> void:
 	ach_rows.add_theme_constant_override("separation", 6)
 	ach_rows.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	sc.add_child(ach_rows)
-	var back := _make_btn("BACK", false)
+	var back := _make_btn("← BACK", false)
 	back.pressed.connect(func() -> void: ach_panel.visible = false)
 	vb.add_child(back)
 
