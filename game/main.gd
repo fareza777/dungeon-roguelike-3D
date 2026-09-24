@@ -9188,6 +9188,7 @@ func _offer_omens() -> void:
 		{"text": "GUNPORT OATH — the guns answer to you now (+10% attack)... but their powder is heavy (−10% speed)"},
 		{"text": "COLD RATIONS — hunger sharpens the mind (+12% XP)... but the belly can't hold a shield (−1 armor)"},
 		{"text": "WAKE MONEY — the dead pay for their own funeral (+8% souls)... but grief slows the arm (−8% speed)"},
+		{"text": "HEAVY CROWN — the dead grow thicker skulls (+10% HP)... but your crown weighs gold (+10% ATK)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -9242,7 +9243,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 116 if Stats.nemesis != "" else 115
+	var osize := 117 if Stats.nemesis != "" else 116
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -9742,6 +9743,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct += 0.08
 			Stats.buff_speed_pct -= 0.08
 			oname = "WAKE MONEY"
+		116:
+			Stats.buff_atk_pct += 0.10
+			omen_hp_mult *= 1.1
+			oname = "HEAVY CROWN"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
 	if not Stats.oaths_seen.has(oname):
 		Stats.oaths_seen.append(oname)
@@ -9867,6 +9872,7 @@ func _omen_deal(idx: int) -> void:
 	"GUNPORT OATH": "Black powder stains your fingers and your oath alike. Your blows carry the bark of cannons.",
 	"COLD RATIONS": "Hardtack and cold water. The mind sharpens to a point the shield arm can no longer hold.",
 	"WAKE MONEY": "Coins on cold eyes. The dead settle their accounts in your purse — and you carry their weight.",
+	"HEAVY CROWN": "A crown is a promise worn on the head. Yours sits heavier — so does your hand.",
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
