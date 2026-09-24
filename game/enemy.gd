@@ -1544,6 +1544,8 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 				dv.y = 0
 				if dv.length() < 1.0 * room_tile:
 					p.take_hit(global_position, dmg * 0.6)
+		if arch_id == "powder_monkey":
+			_explode()
 		if affix == "volatile":
 			var p2 := _player()
 			if p2 != null and p2.get("dead") != true:
