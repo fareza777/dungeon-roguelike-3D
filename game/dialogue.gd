@@ -26,6 +26,7 @@ var _panel: PanelContainer
 var _portrait: TextureRect
 var _name_l: Label
 var _psb: StyleBoxFlat = null
+var _accent: ColorRect = null
 var _last_who := ""
 var _text_l: RichTextLabel
 var _hint: Label
@@ -64,6 +65,15 @@ func _ready() -> void:
 	# panel tidak menelan ketukan — biar root yang menerima tap "ketuk untuk lanjut"
 	_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_panel)
+	_accent = ColorRect.new()
+	_accent.color = Color(0.95, 0.78, 0.35, 0.0)
+	_accent.anchor_left = 0.04
+	_accent.anchor_right = 0.96
+	_accent.anchor_top = 1.0
+	_accent.offset_top = -366
+	_accent.offset_bottom = -358
+	_accent.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(_accent)
 
 	var hb := HBoxContainer.new()
 	hb.add_theme_constant_override("separation", 14)
@@ -159,6 +169,9 @@ func _show(i: int) -> void:
 	_name_l.modulate = ch["color"]
 	if _psb:
 		_psb.border_color = Color(ch["color"]).lerp(Color(0.95, 0.78, 0.35), 0.55)
+	if _accent != null:
+		_accent.color = Color(ch["color"])
+		_accent.color.a = 0.28
 	if _last_who != who:
 		_last_who = who
 		_name_l.pivot_offset = Vector2(0, _name_l.size.y)
