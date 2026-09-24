@@ -353,6 +353,19 @@ func _strike() -> void:
 						gmarked += 1
 					if gmarked > 0:
 						Sfx.play("soul")
+			if Stats.weapon_id == "saltthorn":
+				var stn2: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", stn2)
+				if stn2 % 5 == 0:
+					var sns := get_tree().get_nodes_in_group("enemies").filter(func(s): return s.get("dead") != true)
+					if sns.size() > 0:
+						sns.sort_custom(func(a2, b2): return global_position.distance_to(a2.global_position) < global_position.distance_to(b2.global_position))
+						sns[0].set("slow_t", 2.5)
+						sns[0].set("velocity", Vector3.ZERO)
+						var mst := get_tree().current_scene
+						if mst != null and mst.has_method("_damage_number"):
+							mst._damage_number(sns[0].global_position + Vector3(0, 0.8, 0), "ROOTED", Color(0.4, 0.8, 0.5), false)
+						Sfx.play("hook")
 			if Stats.weapon_id == "salt_lantern":
 				var sln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", sln)
