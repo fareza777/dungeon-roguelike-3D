@@ -245,6 +245,7 @@ var grim_wager := false
 var windbound_note := false
 var salt_stipend := false
 var keel_oath := false
+var tally_man := false
 var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
@@ -1903,6 +1904,9 @@ func _new_run(new_seed: int) -> void:
 	if keel_oath:
 		Stats.buff_atk_pct -= 0.08
 		keel_oath = false
+	if tally_man:
+		Stats.soul_gain_pct -= 0.15
+		tally_man = false
 	if sv_doubt:
 		Stats.buff_atk_pct -= 0.15
 		Stats.buff_maxhp_pct += 0.05
@@ -9689,6 +9693,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Windbound Note — pay 6 souls: the note catches — +4% speed, +4% dodge this floor"},
 			{"text": "Salt Stipend — pay 7 souls: the crew shares rations — +20% XP this floor"},
 			{"text": "Keel Oath — pay 4 souls: your blade swears to the keel — +8% ATK this floor"},
+			{"text": "Tally Man — pay 5 souls: every notch pays double — +15% soul gain this floor"},
 		]
 	)
 
@@ -11433,6 +11438,17 @@ func _mahzan_deal(idx: int) -> void:
 				Stats.buff_atk_pct += 0.08
 				Sfx.play("shrine")
 				toast("KEEL OATH — your blade swears to the keel")
+		55:
+			if Stats.souls < _soul_cost(5):
+				toast("Five souls — the tally isn't free")
+			else:
+				Stats.souls -= _soul_cost(5)
+				_count_deal()
+				_souls_l()
+				tally_man = true
+				Stats.soul_gain_pct += 0.15
+				Sfx.play("shrine")
+				toast("TALLY MAN — every notch pays double")
 		50:
 			if Stats.souls < _soul_cost(6):
 				toast("Six souls — the doubt isn't free")
