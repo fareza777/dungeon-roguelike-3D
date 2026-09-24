@@ -244,6 +244,13 @@ func _show_choices() -> void:
 		var sbp := sb.duplicate() as StyleBoxFlat
 		sbp.bg_color = Color(0.32, 0.26, 0.14)
 		b.add_theme_stylebox_override("pressed", sbp)
+		b.modulate = Color(1, 1, 1, 0)
+		b.position.y = 8
+		var bdt: Tween = b.create_tween()
+		bdt.set_parallel(true)
+		bdt.tween_interval(float(i) * 0.06)
+		bdt.tween_property(b, "modulate:a", 1.0, 0.15)
+		bdt.tween_property(b, "position:y", 0, 0.18).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		var ix := i
 		b.pressed.connect(func() -> void:
 			Sfx.play("click")
