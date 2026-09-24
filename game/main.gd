@@ -16132,6 +16132,7 @@ func _toggle_bestiary() -> void:
 		return
 	for c in ui.bestiary_list.get_children():
 		c.queue_free()
+	var _ridx := 0
 	for arch in BESTIARY.keys():
 		var b: Array = BESTIARY[arch]
 		var n: int = int(Stats.bestiary.get(arch, 0))
@@ -16157,6 +16158,9 @@ func _toggle_bestiary() -> void:
 		kl.add_theme_font_size_override("font_size", 17)
 		row.add_child(kl)
 		ui.bestiary_list.add_child(row)
+		row.modulate = Color(1, 1, 1, 0)
+		row.create_tween().tween_property(row, "modulate:a", 1.0, 0.22).set_delay(minf(_ridx * 0.018, 0.5))
+		_ridx += 1
 	bestiary_panel.visible = true
 
 
