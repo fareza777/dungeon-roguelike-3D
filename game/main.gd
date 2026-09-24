@@ -5346,7 +5346,7 @@ func _cast_skill(id: String) -> void:
 			print("SKILL deadreckon marked=%d" % rkn)
 		"warpaint":
 			Stats.warpaint_t = 5.0
-			_shock_ring(player.global_position, 1.2 * info.tile, Color(0.9, 0.3, 0.2))
+			_shock_ring(player.global_position)
 			Sfx.play("roar")
 			_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), "WARPAINT", Color(0.95, 0.4, 0.25), true)
 		"bilgesnare":
