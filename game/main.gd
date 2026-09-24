@@ -8091,7 +8091,7 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_xp_pct += 0.12
 			toast("Keel Hymn: the hull sings your lessons back — +12% XP")
 		100:
-			Stats.crit += 0.08
+			Stats.buff_crit += 0.08
 			toast("Rigger's Eye: you see the seams in every knot — +8% crit")
 		50:
 			Stats.buff_aspd += 0.15
