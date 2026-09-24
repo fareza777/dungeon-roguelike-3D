@@ -53,6 +53,7 @@ var rigger_t := 0.0 # skill Deadeye: +25% crit sementara
 var saltskin_t := 0.0 # skill Saltskin: dodge+armor window
 var ironwake_t := 0.0 # skill Ironwake: armor+speed window
 var brineward_t := 0.0 # skill Brineward: armor+dodge window
+var wakeveil_t := 0.0 # skill Wakeveil: dodge+speed window
 var shell_t := 0.0 # skill Barnacle Shell: +6 armor sementara
 var warpaint_t := 0.0 # skill Warpaint: +30% ATK sementara
 var irontide_t := 0.0 # skill Iron Tide: pukulan terpantul sementara
@@ -437,6 +438,11 @@ func _process(delta: float) -> void:
 		if brineward_t <= 0.0:
 			buff_armor -= 4
 			dodge -= 0.10
+	if wakeveil_t > 0.0:
+		wakeveil_t = maxf(0.0, wakeveil_t - delta)
+		if wakeveil_t <= 0.0:
+			dodge -= 0.12
+			buff_speed_pct -= 0.06
 
 
 func mus_vol() -> float:
@@ -569,6 +575,7 @@ func reset_run() -> void:
 	saltskin_t = 0.0
 	ironwake_t = 0.0
 	brineward_t = 0.0
+	wakeveil_t = 0.0
 	revive_left = int(meta.get("wind", 0))
 	thorns = 0.0 + float(meta.get("spinebearer", 0)) * 0.03
 	dodge = 0.0
