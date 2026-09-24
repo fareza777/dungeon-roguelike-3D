@@ -12044,6 +12044,15 @@ func _mahzan_deal(idx: int) -> void:
 				Stats.buff_xp_pct -= 0.10
 				Sfx.play("shrine")
 				toast("TIDE ACCOUNT — Mahzan converts your lessons into coin (+15% souls, −10% XP this run)")
+		59:
+			if Stats.souls < _soul_cost(6):
+				toast("Six souls — the rigging doesn't come cheap")
+			else:
+				Stats.souls -= _soul_cost(6)
+				_count_deal()
+				Stats.dodge += 0.08
+				Sfx.play("shrine")
+				toast("RIGGING DEBT — Mahzan laces you light-footed (+8% dodge this run)")
 
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
