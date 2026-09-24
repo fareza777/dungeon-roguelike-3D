@@ -248,6 +248,17 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "chumblade":
+				var cb_ = get_tree().current_scene
+				cb_.set("net_n", int(cb_.get("net_n")) + 1)
+				if int(cb_.get("net_n")) >= 4:
+					cb_.set("net_n", 0)
+					var cbfoes: Array = []
+					for cbf in get_tree().get_nodes_in_group("enemies"):
+						if cbf.get("state") != "dead" and cbf.global_position.distance_to(global_position) < 3.0:
+							cbfoes.append(cbf)
+					if cbfoes.size() > 0:
+						cbfoes[randi() % cbfoes.size()].take_hit(global_position, float(Stats.get_stat("atk")) * 0.6)
 			if Stats.weapon_id == "kedge":
 				var kg_ = get_tree().current_scene
 				kg_.set("net_n", int(kg_.get("net_n")) + 1)
