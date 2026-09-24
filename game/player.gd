@@ -490,6 +490,18 @@ func _strike() -> void:
 							mbm._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "GROG +1◈", Color(0.6, 0.9, 0.6), false)
 						if mbm.has_method("_atk_pulse"):
 							mbm._atk_pulse()
+			if Stats.weapon_id == "stay_hook":
+				var stn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", stn)
+				if stn % 5 == 0:
+					Sfx.play("hook", 0.8)
+					var stpull: Vector3 = global_position - f.global_position
+					stpull.y = 0.0
+					if stpull.length() > 0.01:
+						f.kb += stpull.normalized() * 6.0
+					var mst := get_tree().current_scene
+					if mst != null and mst.has_method("_damage_number"):
+						mst._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "STAY", Color(0.9, 0.8, 0.4), false)
 			if Stats.weapon_id == "saltfang":
 				var sfn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", sfn)
