@@ -209,6 +209,7 @@ const DB := {
 		"keel_stone": {"name": "Keel Stone", "chip": "KS", "desc": "A fist of ballast that never forgets the bottom — +1 armor, −4% speed", "rarity": 1, "mods": {"armor": 1, "speed_pct": -0.04}},
 	"pale_compass": {"name": "Pale Compass", "chip": "PC", "desc": "Its needle quivers toward the drowned throne — +5% speed, +4% XP", "rarity": 1, "mods": {"speed_pct": 0.05, "xp_pct": 0.04}},
 	"bilge_rosary": {"name": "Bilge Rosary", "chip": "BR", "desc": "Beads of hull-iron worn smooth by drowned prayers — +4% dodge, +3% XP", "rarity": 1, "mods": {"dodge": 0.04, "xp_pct": 0.03}},
+	"grim_hourglass": {"name": "Grim Hourglass", "chip": "GH", "desc": "The sand runs black and fast — +6% attack speed, +2% XP", "rarity": 1, "mods": {"atk_speed": 0.06, "xp_pct": 0.02}},
 # ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
