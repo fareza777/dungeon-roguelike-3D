@@ -5567,6 +5567,8 @@ func _on_enemy_died(e) -> void:
 	if e.elite:
 		_quest_event("elite_kill", 1)
 		_quest_event("affix_" + String(e.get("affix")), 1)
+		if String(e.get("affix")) == "powderkeg":
+			_quest_event("keg_kill", 1)
 		if String(e.arch_id) == "crowned" and String(biome.get("name", "")) == "Sunken Reliquary":
 			_quest_event("emissary_kill", 1)
 		if Stats.relics.has("kings_ledger"):
