@@ -296,6 +296,15 @@ func _strike() -> void:
 					if rgdir.length() > 0.1:
 						f.velocity += rgdir.normalized() * 10.0
 						f.stun(0.35)
+			if Stats.weapon_id == "fog_cutter":
+				var fcn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", fcn)
+				if fcn % 6 == 0:
+					for f2 in get_tree().get_nodes_in_group("enemies"):
+						if f2.get("dead") == true:
+							continue
+						f2.set("slow_t", 1.5)
+					Sfx.play("soul")
 			if Stats.weapon_id == "salt_lantern":
 				var sln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", sln)
