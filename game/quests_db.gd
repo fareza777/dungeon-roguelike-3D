@@ -110,6 +110,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Shell Cracker", "desc": "Slay 5 Fathom Crabs (0/5)", "kind": "crab_kill", "need": 5})
 		steps.append({"title": "Last Rites", "desc": "Slay 4 Quarter Ghosts (0/4)", "kind": "ghost_kill", "need": 4})
 		steps.append({"title": "Uncoil", "desc": "Slay 6 Salt Eels (0/6)", "kind": "salteel_kill", "need": 6})
+		steps.append({"title": "Pull the Wall Down", "desc": "Slay 3 Deck Brutes (0/3)", "kind": "brute_kill", "need": 3})
 		steps.append({"title": "Herald's Due", "desc": "Slay 5 Foam Heralds (0/5)", "kind": "herald_kill", "need": 5})
 		steps.append({"title": "Sprite Pest", "desc": "Slay 6 Salt Sprites (0/6)", "kind": "sprite_kill", "need": 6})
 		steps.append({"title": "Union Buster", "desc": "Slay 4 Bilge Smiths (0/4)", "kind": "smith_kill", "need": 4})
