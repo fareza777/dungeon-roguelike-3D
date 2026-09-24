@@ -924,7 +924,7 @@ func _physics_process(delta: float) -> void:
 				engage = prefer_range
 			if dist < engage:
 				state = "windup"
-				state_t = windup_t * (1.0 - 0.4 * (1.0 - hp / hp_max) if affix == "charged" else 1.0)
+				state_t = windup_t * (1.0 - 0.4 * (1.0 - hp / hp_max) if (affix == "charged" or arch_id == "bilge_fury") else 1.0)
 				velocity = Vector3.ZERO
 				scale = _base_scale * 1.06
 				if mat != null:
@@ -941,7 +941,7 @@ func _physics_process(delta: float) -> void:
 				# mage mundur kalau player terlalu dekat
 				elif ranged and dist < prefer_range * 0.55:
 					dir = -dir
-				var mv_: Vector3 = dir * speed * (0.5 if slow_t > 0.0 else 1.0)
+				var mv_: Vector3 = dir * speed * (0.5 if slow_t > 0.0 else 1.0) * (1.0 + 0.5 * (1.0 - hp / hp_max) if arch_id == "bilge_fury" else 1.0)
 				if eel:
 					eel_t -= delta
 					if eel_t <= 0.0 and dist < 2.4 * room_tile and dist > engage * 1.2:

@@ -654,6 +654,7 @@ const BESTIARY := {
 	"bell_ringer": ["The Bell Ringer", "His bell knits the dead back together — silence the tolling first."],
 	"moorling": ["The Moorling", "A sodden thing of the moor — it lobs what the water gave it."],
 	"keel_mastiff": ["The Keel Mastiff", "A hound of splinters and rope — it lunges when the pack bays."],
+	"bilge_fury": ["Bilge Fury", "A crew-hand who raged one breath too long — the madder it bleeds, the faster it swings."],
 	"salt_lich": ["The Salt Lich", "A cleric of the drowned church — it reads your shape from afar and posts it a soul."],
 	"deck_brute": ["The Deck Brute", "A wall of dead muscle and splinters; it does not hurry, and it does not stop."],
 	"salt_eel": ["The Salt Eel", "It knots itself out of the black water and strikes before the coil shows."],
@@ -698,7 +699,7 @@ const KILLER_NAMES := {
 	"bell_ringer": "a Bell Ringer",
 	"moorling": "a Moorling",
 	"keel_mastiff": "a Keel Mastiff",
-	"salt_lich": "a Salt Lich",
+	"salt_lich": "a Salt Lich", "bilge_fury": "a Bilge Fury",
 	"deck_brute": "a Deck Brute",
 	"salt_eel": "a Salt Eel",
 	"quarter_ghost": "a Quarter Ghost",
@@ -777,6 +778,7 @@ const KILLER_TIPS := {
 	"bell_ringer": "Tip: the Bell Ringer mends his flock with every toll — cut him down first.",
 	"moorling": "Tip: the Moorling throws slow, heavy sludge — strafe the lob, don't backpedal.",
 	"keel_mastiff": "Tip: the Keel Mastiff lunges — sidestep the leap, don't retreat in a line.",
+	"bilge_fury": "Tip: a Bilge Fury swings faster the more you hurt it — kill it quickly or kite the frenzy.",
 	"salt_lich": "Tip: Salt Liches telegraph a long windup — close the gap fast or weave between bolts.",
 	"deck_brute": "Tip: Deck Brutes barely feel knockback — break their windup with a stun, or never be there when it lands.",
 	"salt_eel": "Tip: Salt Eels lunge in a straight bite — sidestep and the coil overshoots.",
@@ -4390,6 +4392,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("salteel_kill")
 	if e.arch_id == "deck_brute":
 		_quest_event("brute_kill")
+	if e.arch_id == "bilge_fury":
+		_quest_event("fury_kill")
 	if e.arch_id == "salt_lich":
 		_quest_event("lich_kill")
 	if e.arch_id == "quarter_ghost":
