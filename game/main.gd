@@ -14332,7 +14332,7 @@ func _throne_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("THE CROWN NAMES — " + (omen_name if omen_name != "" else "no oath yet sworn"))
 		return
-	if idx == 32:
+	if idx == 31:
 		if Stats.souls < _soul_cost(6):
 			toast("Six souls — the bailiff isn't free")
 			return
@@ -14344,7 +14344,7 @@ func _throne_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("BAILIFF'S SHARE — the court's collector works your purse (+15% souls this floor)")
 		return
-	if idx == 31:
+	if idx == 32:
 		Stats.earn_souls(4)
 		_souls_l()
 		_quest_event("throne")
