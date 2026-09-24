@@ -15100,6 +15100,7 @@ func _on_throne_invoked(s) -> void:
 		{"text": "Bailiff's Share — pay 6 souls: the court's collector works your purse — +15% souls this floor"},
 		{"text": "Clerk's Pension — pay 5 souls: the record office remembers your name — +12% XP this floor"},
 		{"text": "Royal Assay — pay 5 souls: the crown's assayer weighs your edge — +6% crit this run"},
+		{"text": "Court Physician — pay 5 souls: the crown's leech bleeds the pain away — heal 35% HP"},
 		{"text": "Walk away"}])
 
 
@@ -15150,12 +15151,25 @@ func _throne_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("BAILIFF'S SHARE — the court's collector works your purse (+15% souls this floor)")
 		return
-	if idx == 34:
+	if idx == 35:
 		Stats.earn_souls(4)
 		_souls_l()
 		_quest_event("throne")
 		Sfx.play("soul")
 		toast("CLEAN HANDS — the crown pays +4 souls to the incorruptible")
+		return
+	if idx == 34:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the court's fee")
+			return
+		Stats.souls -= _soul_cost(5)
+		_count_deal()
+		_souls_l()
+		if player != null and is_instance_valid(player):
+			player.hp = minf(player.hp + Stats.get_stat("max_hp") * 0.35, Stats.get_stat("max_hp"))
+			player.hp_changed.emit(player.hp)
+		Sfx.play("shrine")
+		toast("COURT PHYSICIAN — the crown's leech bleeds the pain away (+35% HP)")
 		return
 	if idx == 33:
 		if Stats.souls < _soul_cost(5):
