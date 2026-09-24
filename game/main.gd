@@ -9708,12 +9708,23 @@ func _on_qm_invoked(s) -> void:
 		{"text": "Deck Rite — pay 4 souls: the bosun's blessing read over the hold — +1 Armor this run"},
 		{"text": "Salt Scrip — pay 3 souls: the crew logs the lessons — +10% XP this floor"},
 		{"text": "Grog Ration — pay 3 souls: a mug pulled from the bilge — mend 30%"},
+		{"text": "Salt Chits — pay 4 souls: the crew's IOU honors the deep — +10% souls this run"},
 		{"text": "Walk away"}])
 
 
 func _qm_deal(idx: int) -> void:
-	if idx == 16:
+	if idx == 17:
 		toast("The post shutters its stores")
+		return
+	if idx == 16:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the chits aren't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_souls_l()
+		Stats.soul_gain_pct += 0.1
+		Sfx.play("shrine")
+		toast("SALT CHITS — the crew's paper is good coin down here")
 		return
 	if idx == 15:
 		if Stats.souls < _soul_cost(3):
