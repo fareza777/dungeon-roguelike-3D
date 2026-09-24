@@ -353,6 +353,7 @@ var mudlarks_due := false
 var kelp_tithe := false
 var bosuns_chit := false
 var deck_psalm := false
+var leech_bond := false
 var drift_verse := false
 var pearl_octave := false
 var undertow_aria := false
@@ -1601,6 +1602,9 @@ func _new_run(new_seed: int) -> void:
 		Stats.buff_atk_pct -= 0.1
 		bosuns_chit = false
 	deck_psalm = false
+	if leech_bond:
+		Stats.buff_lifesteal -= 0.08
+		leech_bond = false
 	kelp_tithe = false
 	if vigils_gage:
 		Stats.dodge -= 0.1
@@ -8635,12 +8639,24 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Bilge Bond — pay 4 souls: the muck hums your rhythm — skill charges −15% this floor"},
 		{"text": "Mudlark's Due — pay 3 souls: the silt teaches slipping — +8% dodge this floor"},
 		{"text": "Kelp Tithe — pay 3 souls: the wrack feeds you — orbs mend +30% this floor"},
+		{"text": "Leech Bond — pay 5 souls: the mud's hunger lends you its teeth — +8% lifesteal this floor"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 36:
+	if idx == 37:
 		toast("The water settles back into the stone")
+		return
+	if idx == 36:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the bond isn't free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_souls_l()
+		leech_bond = true
+		Stats.buff_lifesteal += 0.08
+		Sfx.play("shrine")
+		toast("LEECH BOND — the mud's teeth, lent")
 		return
 	if idx == 35:
 		if Stats.souls < _soul_cost(3):
