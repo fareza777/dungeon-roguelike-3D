@@ -250,7 +250,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred", "seafaring", "feytouched", "knotted", "belltoll", "soulfed", "gutted", "beacon", "spry", "keenedged", "tidewrought", "lurker", "hoarfrost"][randi() % 61]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred", "seafaring", "feytouched", "knotted", "belltoll", "soulfed", "gutted", "beacon", "spry", "keenedged", "tidewrought", "lurker", "hoarfrost", "reefbound"][randi() % 62]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -429,6 +429,12 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				# ototnya terlilit tali kusut — tebal, tapi lamban
 				hp *= 1.4
 				speed *= 0.9
+				xp_val = int(xp_val * 1.4)
+			"reefbound":
+				# teritip — pukulan yang mendarat menumbuhkan karang (heal di blok hit)
+				hp *= 1.25
+				hp_max = hp
+				speed *= 0.85
 				xp_val = int(xp_val * 1.4)
 			"hoarfrost":
 				# beku — pukulan mendinginkan darah pemain (chill_t di blok hit)
@@ -1012,6 +1018,8 @@ func _physics_process(delta: float) -> void:
 									p.set("rust_t", 3.0)
 								if affix == "hoarfrost" and q == p:
 									p.set("chill_t", maxf(float(p.get("chill_t")), 2.5))
+								if affix == "reefbound" and q == p:
+									hp = minf(hp_max, hp + dmg * 0.5)
 								if affix == "riptide" and q == p:
 									var rdir: Vector3 = p.global_position - global_position
 									rdir.y = 0
