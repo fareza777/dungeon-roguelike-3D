@@ -112,6 +112,7 @@ const DB := {
 	"gunnel_watch": {"name": "Gunnel Watch", "chip": "GNW", "desc": "Someone's always on lookout — +6% dodge, −4% ATK.", "rarity": 1, "mods": {"dodge": 0.06, "atk_pct": -0.04}},
 	"bilge_jewel": {"name": "Bilge Jewel", "chip": "BJW", "desc": "It caught the light of a hundred drowned torches — +8% XP, +4% souls.", "rarity": 1, "mods": {"xp_pct": 0.08, "soul_gain_pct": 0.04}},
 	"anchorite_mask": {"name": "Anchorite's Mask", "chip": "ANM", "desc": "The hermit's face, worn toward the deep — +10% ATK, −8% dodge.", "rarity": 2, "mods": {"atk_pct": 0.10, "dodge": -0.08}},
+	"crowsfoot": {"name": "Crowsfoot Charm", "chip": "CFT", "desc": "Lashed from the mast's own line — +8% souls, +3% dodge.", "rarity": 1, "mods": {"soul_gain_pct": 0.08, "dodge": 0.03}},
 "undertow_idol": {"name": "Undertow Idol", "chip": "UTI", "desc": "A drowned god's little likeness — it pulls for you — +6% ATK, +4% souls.", "rarity": 1, "mods": {"atk_pct": 0.06, "soul_gain_pct": 0.04}},
 "grief_bell": {"name": "Grief Bell", "chip": "GRB", "desc": "Its toll hardens every hand that hears it — +10% ATK, −6% dodge.", "rarity": 2, "mods": {"atk_pct": 0.10, "dodge": -0.06}},
 "bilge_stone": {"name": "Bilge Stone", "chip": "BST", "desc": "Ballast that learned to keep a man standing — +1 Armor, +8% Max HP.", "rarity": 1, "mods": {"armor": 1, "max_hp_pct": 0.08}},
@@ -176,7 +177,7 @@ const DB := {
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
 
-const RARITY_COLORS := [Color(0.85, 0.85, 0.9), Color(0.4, 0.7, 1.0), Color(1.0, 0.6, 0.15)]
+const RARITY_COLORS := [Color(0.85, 0.85, 0.9), Color(0.4, 0.7, 1.0), Color(1.0, 0.6, 0.15), Color(0.75, 0.35, 1.0)]
 
 
 static func roll_choices(owned: Array, rng: RandomNumberGenerator, n := 3) -> Array:
