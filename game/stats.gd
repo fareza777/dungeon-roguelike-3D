@@ -270,6 +270,7 @@ const ACH_DEF := {
 	"soulheavy": "Soul Heavy (hold 500 souls at once)",
 	"full_ledger": "Full Ledger (strike 60 bargains in one run)",
 	"deep_reckoned": "Deep Reckoned (see 170 different omens)",
+	"salt_chronicler": "Salt Chronicler (see 180 different omens)",
 	"full_satchel": "Full Satchel (hold 3 soul vials at once)",
 	"medic": "Ship's Medic (hold 5 soul vials at once)",
 	"sixtypacts": "Sixty Pacts (60 omens sworn total)",
