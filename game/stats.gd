@@ -279,6 +279,7 @@ const ACH_DEF := {
 	"deepveteran": "Veteran of the Deep (survive to floor 120 — few come back with their name)",
 	"pactmaster": "Master of Pacts (swear 120 omens — the deep keeps every one)",
 	"deepdebtor": "The Deep's Debtor (swear 140 omens — the ledger never closes)",
+	"fullledger": "Full Ledger (swear 160 omens — every pact the deep offers)",
 	"threequarters": "Three Quarters (reach Floor 75)",
 	"centurion_deep": "Centurion of the Deep (reach Floor 100)",
 	"deepwater": "Deep Water (reach Floor 40)",

@@ -11329,6 +11329,8 @@ func _omen_deal(idx: int) -> void:
 		_ach("pactmaster")
 	if Stats.oaths_sworn >= 140:
 		_ach("deepdebtor")
+	if Stats.oaths_sworn >= 160:
+		_ach("fullledger")
 	_ach("omen1")
 	if omen_count >= 2:
 		_ach("doubloath")
