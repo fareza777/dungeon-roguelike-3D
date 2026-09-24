@@ -413,6 +413,7 @@ var sheet_bend := false
 var crews_grog := false
 var bosuns_ration := false
 var oakum_chit := false
+var riggers_song := false
 var second_verse := false
 var chorus_deep := false
 var harbor_verse := false
@@ -1902,6 +1903,9 @@ func _new_run(new_seed: int) -> void:
 	if bosuns_ration:
 		Stats.buff_atk_pct -= 0.08
 		bosuns_ration = false
+	if riggers_song:
+		Stats.buff_aspd -= 0.10
+		riggers_song = false
 	if oakum_chit:
 		Stats.soul_gain_pct -= 0.12
 		oakum_chit = false
@@ -11403,6 +11407,7 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Crew's Grog — pay 4 souls: the barrel waters the whole watch — +10% XP this floor"},
 		{"text": "Bosun's Ration — pay 3 souls: salted hardtack for the watch — +8% ATK this floor"},
 		{"text": "Oakum Chit — pay 3 souls: the caulking seals your seams — souls pay +12% more this floor"},
+		{"text": "Riggers' Song — pay 4 souls: the rope-hands teach your wrists — +10% attack speed this floor"},
 		{"text": "Walk away"}])
 
 
@@ -11432,6 +11437,18 @@ func _keel_deal(idx: int) -> void:
 		toast("OAKUM CHIT — the deck seals tight")
 		return
 	if idx == 39:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the song isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_count_deal()
+		_souls_l()
+		riggers_song = true
+		Stats.buff_aspd += 0.10
+		Sfx.play("shrine")
+		toast("RIGGERS' SONG — the rhythm quickens the wrist")
+		return
+	if idx == 40:
 		toast("The stone settles — the sea keeps its bargains")
 		return
 	if idx == 36:
