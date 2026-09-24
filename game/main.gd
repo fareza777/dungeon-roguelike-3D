@@ -7985,15 +7985,15 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge += 0.1
 			oname = "FATHOM PACT"
 		86:
-			crews_share = true
-			Stats.soul_gain_pct += 0.15
-			Stats.buff_xp_pct -= 0.08
-			oname = "CREW'S SHARE"
-		87:
 			bosuns_debt = true
 			Stats.buff_xp_pct += 0.15
 			oname = "BOSUN'S DEBT"
 		87:
+			crews_share = true
+			Stats.soul_gain_pct += 0.15
+			Stats.buff_xp_pct -= 0.08
+			oname = "CREW'S SHARE"
+		88:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
