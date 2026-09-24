@@ -493,6 +493,7 @@ var bailiff_share := false
 var kelp_tithe := false
 var bosuns_chit := false
 var deck_psalm := false
+var tar_smoke := false
 var rope_tackle := false
 var murk_purse := false
 var soul_ledger := false
@@ -2153,6 +2154,7 @@ func _new_run(new_seed: int) -> void:
 		Stats.buff_atk_pct -= 0.1
 		bosuns_chit = false
 	deck_psalm = false
+	tar_smoke = false
 	rope_tackle = false
 	murk_purse = false
 	if soul_ledger:
@@ -4309,6 +4311,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.xp_val = int(ceilf(e.xp_val * 1.1))
 	if deep_salve and not e.is_boss:
 		e.xp_val = int(ceilf(e.xp_val * 0.85))
+	if tar_smoke and not e.is_boss:
+		e.aggro_range = float(e.aggro_range) * 0.88
 	if deck_psalm and not e.is_boss:
 		e.dmg = int(maxi(1, floorf(float(e.dmg) * 0.88)))
 	if royal_overlook and not e.is_boss:
@@ -13720,6 +13724,7 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Rigging Scrip — pay 4 souls: the yardarms lend their sway — +8% speed, −5% dodge this run"},
 		{"text": "Hull Grease — pay 4 souls: pitch-slick seams slide you past their reach — +5% dodge, +4% speed this run"},
 		{"text": "Keel Primer — pay 5 souls: fresh pitch over old scars — +1 armor, +3% XP this run"},
+		{"text": "Tar Smoke — pay 4 souls: the brazier's reek blinds their aim — foes −12% sight this floor"},
 		{"text": "Walk away"}])
 
 
@@ -13832,9 +13837,22 @@ func _keel_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("RIGGING OIL — the line runs slick through your hands (+10% attack speed this floor)")
 		return
-	if idx == 50:
+	if idx == 51:
 		toast("The stone settles — the sea keeps its bargains")
 		return
+	if idx == 50:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the smoke isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_count_deal()
+		_souls_l()
+		tar_smoke = true
+		for pf in get_tree().get_nodes_in_group("enemies"):
+			if pf.get("state") != "dead" and not pf.get("is_boss"):
+				pf.aggro_range = float(pf.aggro_range) * 0.88
+		Sfx.play("shrine")
+		toast("TAR SMOKE — the brazier's reek clouds their dead eyes (−12% foe sight this floor)")
 	if idx == 49:
 		if Stats.souls < _soul_cost(5):
 			toast("Five souls — the primer isn't free")
