@@ -248,6 +248,14 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "deckcleaver":
+				var dc_ = get_tree().current_scene
+				dc_.set("net_n", int(dc_.get("net_n")) + 1)
+				if int(dc_.get("net_n")) >= 6:
+					dc_.set("net_n", 0)
+					for dcf in get_tree().get_nodes_in_group("enemies"):
+						if dcf.get("state") != "dead" and dcf != f and dcf.global_position.distance_to(global_position) < 1.6:
+							dcf.take_hit(global_position, float(Stats.get_stat("atk")) * 0.5)
 			if Stats.weapon_id == "oarlock":
 				var ol_ = get_tree().current_scene
 				ol_.set("net_n", int(ol_.get("net_n")) + 1)
