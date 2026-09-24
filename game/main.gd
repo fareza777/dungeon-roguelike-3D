@@ -419,6 +419,7 @@ var drowned_mercy := false
 var rivers_tithe := false
 var boatswain_call := false
 var court_fool := false
+var bilge_ballad := false
 var salt_lullaby := false
 var coil_chit := false
 var rope_allowance := false
@@ -1883,6 +1884,9 @@ func _new_run(new_seed: int) -> void:
 		Stats.dodge -= 0.12
 		boatswain_call = false
 	court_fool = false
+	if bilge_ballad:
+		Stats.buff_xp_pct -= 0.12
+		bilge_ballad = false
 	salt_lullaby = false
 	if coil_chit:
 		Stats.dodge -= 0.08
@@ -12018,16 +12022,29 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Wake Verse — pay 3 souls: the chorus quickens your step — +8% speed this floor"},
 		{"text": "Requiem Note — pay 4 souls: a note for the gone — +8% dodge this floor"},
 		{"text": "Dirge Half — pay 3 souls: the low half-note drags the dead's stride — foes −10% speed this floor"},
+		{"text": "Ballad of the Bilge — pay 4 souls: the chorus sings your lessons — +12% XP this floor"},
 		{"text": "Walk away"}])
 
 
 func _siren_deal(idx: int) -> void:
-	if idx == 32:
+	if idx == 33:
 		Stats.earn_souls(2)
 		_souls_l()
 		_quest_event("siren")
 		Sfx.play("soul")
 		toast("UNSUNG — you walk, and the conch pays +2 souls for your silence")
+		return
+	if idx == 32:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the ballad isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_count_deal()
+		_souls_l()
+		bilge_ballad = true
+		Stats.buff_xp_pct += 0.12
+		Sfx.play("shrine")
+		toast("BALLAD OF THE BILGE — the chorus sings your lessons")
 		return
 	if idx == 31:
 		if Stats.souls < _soul_cost(3):
