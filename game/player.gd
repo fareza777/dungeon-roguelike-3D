@@ -392,6 +392,19 @@ func _strike() -> void:
 						if mcc != null and mcc.has_method("_damage_number"):
 							mcc._damage_number(global_position + Vector3(0, 0.9, 0), "CLEANSED", Color(0.7, 0.9, 1.0), true)
 						Sfx.play("shrine")
+			if Stats.weapon_id == "belay_hook":
+				var bhn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", bhn)
+				if bhn % 5 == 0 and f != null and f.get("state") != "dead":
+					var bdir: Vector3 = global_position - f.global_position
+					bdir.y = 0
+					if bdir.length() > 0.8 * room_tile:
+						f.global_position = global_position - bdir.normalized() * 0.8 * room_tile
+						f.set("slow_t", 1.5)
+						Sfx.play("hook")
+						var mbh := get_tree().current_scene
+						if mbh != null and mbh.has_method("_damage_number"):
+							mbh._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "YOINKED", Color(0.8, 0.6, 0.3), false)
 			if Stats.weapon_id == "salt_lantern":
 				var sln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", sln)
