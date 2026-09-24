@@ -870,6 +870,7 @@ var mimic_pending := false
 var shrine_used := false
 var shrine_count := 0
 var blessings_run := 0
+var deals_run := 0
 var dice_wins := 0
 var urn_count := 0
 var salvage_ct := 0
@@ -1462,6 +1463,7 @@ func _reset_run_state() -> void:
 	wolf_n = 0
 	shrine_count = 0
 	blessings_run = 0
+	deals_run = 0
 	dice_wins = 0
 	urn_count = 0
 	_biomes_run = {}
@@ -5378,6 +5380,7 @@ func _oracle_deal(idx: int) -> void:
 		_finalize_death()
 		return
 	Stats.souls -= _soul_cost(8 if sea_burial else 15)
+	_count_deal()
 	Stats.save_game()
 	_souls_l()
 	run_state = "playing"
@@ -8547,6 +8550,7 @@ func _mirror_deal(idx: int) -> void:
 			toast("The mirror finds nothing of equal worth")
 			return
 		Stats.souls -= _soul_cost(6)
+		_count_deal()
 		_souls_l()
 		var mirrored: String = ppool[rng.randi_range(0, ppool.size() - 1)]
 		Stats.add_relic(mirrored)
@@ -8567,6 +8571,7 @@ func _mirror_deal(idx: int) -> void:
 		toast("The mirror finds nothing worth trading")
 		return
 	Stats.souls -= _soul_cost(4)
+	_count_deal()
 	_souls_l()
 	var nid: String = String(opts[rng.randi() % opts.size()])
 	player.equip_weapon(nid)
@@ -8619,6 +8624,7 @@ func _bounty_deal(idx: int) -> void:
 			toast("Four souls to sweeten the contract — the stone is patient")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		bounty_epic = true
 	var table: Array = biome["enemies"]
@@ -8722,6 +8728,7 @@ func _well_deal(idx: int) -> void:
 		toast("Five souls — the well only takes real coin")
 		return
 	Stats.souls -= _soul_cost(5)
+	_count_deal()
 	_souls_l()
 	Sfx.play("soul")
 	var roll := rng.randf()
@@ -8825,6 +8832,7 @@ func _fountain_deal(idx: int) -> void:
 			toast("Four souls for a full cup — the fountain doesn't beg")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		if player != null and is_instance_valid(player):
 			player.hp = Stats.get_stat("max_hp")
@@ -8909,6 +8917,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Three souls — the sponge isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		if player != null and is_instance_valid(player):
 			player.hp = minf(player.max_hp, player.hp + player.max_hp * 0.3)
@@ -8921,6 +8930,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Three souls — the purse isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		murk_purse = true
 		Sfx.play("shrine")
@@ -8931,6 +8941,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Five souls — the bond isn't free")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		leech_bond = true
 		Stats.buff_lifesteal += 0.08
@@ -8942,6 +8953,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Three souls — the wrack isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		kelp_tithe = true
 		Sfx.play("shrine")
@@ -8952,6 +8964,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Three souls — the silt isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		mudlarks_due = true
 		Stats.dodge += 0.08
@@ -8963,6 +8976,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Four souls — the bond isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		bilge_bond = true
 		Sfx.play("shrine")
@@ -8973,6 +8987,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Six souls — the mud's price")
 			return
 		Stats.souls -= _soul_cost(6)
+		_count_deal()
 		_souls_l()
 		silt_press = true
 		Stats.soul_gain_pct += 0.15
@@ -8984,6 +8999,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Eight souls — the oyster's price")
 			return
 		Stats.souls -= _soul_cost(8)
+		_count_deal()
 		_souls_l()
 		oyster_toll = true
 		Stats.buff_xp_pct += 0.15
@@ -8995,6 +9011,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Six souls — the nacre isn't free")
 			return
 		Stats.souls -= _soul_cost(6)
+		_count_deal()
 		_souls_l()
 		pearl_graft = true
 		Stats.buff_atk_pct += 0.15
@@ -9006,6 +9023,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Four souls — the graft isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		brine_graft = true
 		Stats.buff_armor += 1
@@ -9017,6 +9035,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Four souls — the breath isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		deep_breath = true
 		Sfx.play("shrine")
@@ -9026,6 +9045,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Three souls to fill the satchel")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		vials = (3 if wide_satchel else 2)
 		Sfx.play("shrine")
@@ -9035,6 +9055,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Four souls — the sea buries none cheaply")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		sea_burial = true
 		Sfx.play("shrine")
@@ -9045,6 +9066,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Four souls — the undertow isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		undertow = true
 		_quest_event("drowned")
@@ -9056,6 +9078,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Three souls — the scrub isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		if player != null and is_instance_valid(player):
 			for deb in ["weak_t", "chill_t", "root_t", "venom_t", "silence_t", "rust_t"]:
@@ -9068,6 +9091,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Three souls — the line isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		Stats.buff_atk_pct += 0.1
 		drift_line = true
@@ -9081,6 +9105,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Three souls — the salt isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		Stats.buff_lifesteal += 0.08
 		if player != null and is_instance_valid(player):
@@ -9093,6 +9118,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Five souls — the net isn't free")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		netgain_n = 5
 		Sfx.play("shrine")
@@ -9103,6 +9129,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Two souls — the brine isn't free")
 			return
 		Stats.souls -= _soul_cost(2)
+		_count_deal()
 		_souls_l()
 		if player != null and is_instance_valid(player):
 			player.set("venom_t", 0.0)
@@ -9116,6 +9143,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Five souls — the ward isn't free")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		for f in get_tree().get_nodes_in_group("enemies"):
 			if f.get("state") != "dead" and not bool(f.get("is_boss")):
@@ -9128,6 +9156,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Six souls — the sea doesn't lend for free")
 			return
 		Stats.souls -= _soul_cost(6)
+		_count_deal()
 		_souls_l()
 		for sk in skill_cd:
 			skill_cd[sk] = 0.0
@@ -9138,6 +9167,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Three souls — the salt isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		salt_purse = true
 		Sfx.play("shrine")
@@ -9147,6 +9177,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Two souls — the tide tithes the poor too")
 		else:
 			Stats.souls -= _soul_cost(2)
+			_count_deal()
 			_souls_l()
 			salt_tithe = true
 			Sfx.play("shrine")
@@ -9156,6 +9187,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Four souls — the undertow only drags for coin")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		var cpool: Array = []
 		for rid_c in ITEMS.DB:
@@ -9177,6 +9209,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Four souls — the tide won't lift an empty purse")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		if player != null and is_instance_valid(player):
 			player.hp = Stats.get_stat("max_hp")
@@ -9202,6 +9235,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Five souls — the pearl isn't free")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		Stats.buff_armor += 1
 		if player != null and is_instance_valid(player):
@@ -9214,6 +9248,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Five souls — the powder isn't free")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		Stats.buff_xp_pct += 0.1
 		Sfx.play("shrine")
@@ -9224,6 +9259,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Four souls — the font isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		Stats.curse_dmg -= 0.1
 		Sfx.play("shrine")
@@ -9234,6 +9270,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Four souls — the moon doesn't pour free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		moonwater = true
 		Sfx.play("shrine")
@@ -9244,6 +9281,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Three souls — the rosary isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		salt_rosary = true
 		Sfx.play("shrine")
@@ -9254,6 +9292,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Two souls — the knot isn't free")
 			return
 		Stats.souls -= _soul_cost(2)
+		_count_deal()
 		_souls_l()
 		dowser_knot = true
 		Sfx.play("shrine")
@@ -9264,6 +9303,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Three souls — the wool's still dripping")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		wet_wool = true
 		Sfx.play("shrine")
@@ -9274,6 +9314,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Two souls — the scrip's not free")
 			return
 		Stats.souls -= _soul_cost(2)
+		_count_deal()
 		_souls_l()
 		pale_scrip = true
 		Sfx.play("shrine")
@@ -9284,6 +9325,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Three souls — the lantern's oil isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		fog_lantern_d = true
 		Sfx.play("shrine")
@@ -9294,6 +9336,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Three souls — the mist's not free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		Stats.buff_xp_pct += 0.1
 		Sfx.play("shrine")
@@ -9304,6 +9347,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Four souls — the graft's not free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		Stats.buff_maxhp_pct += 0.1
 		if player != null and is_instance_valid(player):
@@ -9316,6 +9360,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Three souls — the wine's not free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		for skk in skill_cd.keys():
 			skill_cd[skk] = maxf(0.0, float(skill_cd[skk]) - 1.0)
@@ -9330,6 +9375,7 @@ func _drowned_deal(idx: int) -> void:
 			toast("Two souls — the rinse isn't free")
 			return
 		Stats.souls -= _soul_cost(2)
+		_count_deal()
 		_souls_l()
 		if player != null and is_instance_valid(player):
 			player.set("venom_t", 0.0)
@@ -9394,6 +9440,7 @@ func _vault_deal(idx: int) -> void:
 		toast("The vault is already empty")
 		return
 	Stats.souls -= _soul_cost(5)
+	_count_deal()
 	_souls_l()
 	var rid12: String = String(vpool[rng.randi() % vpool.size()])
 	Stats.add_relic(rid12)
@@ -9477,6 +9524,11 @@ func _curse_deal(idx: int) -> void:
 		_refresh_buffs()
 
 
+func _count_deal() -> void:
+	deals_run += 1
+	if deals_run >= 15:
+		_ach("spender")
+
 func _mahzan_deal(idx: int) -> void:
 	if bargainer and not bargain_used:
 		bargain_used = true
@@ -9524,6 +9576,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Not enough souls (need 5)")
 			else:
 				Stats.souls -= _soul_cost(5)
+				_count_deal()
 				_souls_l()
 				vials = 2
 				_vial_btn()
@@ -9535,6 +9588,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Not enough souls (need 15)")
 			else:
 				Stats.souls -= _soul_cost(15)
+				_count_deal()
 				_souls_l()
 				Stats.mahzan_debt = 0.0
 				toast("Debt settled — Max HP restored")
@@ -9545,6 +9599,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Not enough souls (need 8)")
 			else:
 				Stats.souls -= _soul_cost(8)
+				_count_deal()
 				_souls_l()
 				Stats.curse_dmg = maxf(0.0, Stats.curse_dmg - 0.3)
 				Stats.curse_xp = maxf(0.0, Stats.curse_xp - 0.5)
@@ -9554,6 +9609,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Not enough souls (need 8)")
 			else:
 				Stats.souls -= _soul_cost(8)
+				_count_deal()
 				_souls_l()
 				Stats.reroll_extra += 1
 				toast("Kismet Thread — every draft gains a second reroll")
@@ -9562,6 +9618,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Not enough souls (need 6)")
 			else:
 				Stats.souls -= _soul_cost(6)
+				_count_deal()
 				_souls_l()
 				Stats.buff_xp_pct += 0.3
 				toast("Pale Pawn — +30% XP this run")
@@ -9577,6 +9634,7 @@ func _mahzan_deal(idx: int) -> void:
 					toast("Mahzan has no blade worth your souls")
 				else:
 					Stats.souls -= _soul_cost(5)
+					_count_deal()
 					_souls_l()
 					var nid: String = String(opts[rng.randi() % opts.size()])
 					player.equip_weapon(nid)
@@ -9596,6 +9654,7 @@ func _mahzan_deal(idx: int) -> void:
 					toast("His trove is picked clean — your souls return")
 				else:
 					Stats.souls -= _soul_cost(3)
+					_count_deal()
 					_souls_l()
 					var rid10: String = String(tpool[rng.randi() % tpool.size()])
 					Stats.add_relic(rid10)
@@ -9614,6 +9673,7 @@ func _mahzan_deal(idx: int) -> void:
 					toast("He has no more secrets to sell")
 				else:
 					Stats.souls -= _soul_cost(2)
+					_count_deal()
 					_souls_l()
 					var sl: String = String(unseen[rng.randi() % unseen.size()])
 					Stats.lore_seen.append(sl)
@@ -9624,6 +9684,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Mahzan demands nine — not a drop less")
 			else:
 				Stats.souls -= _soul_cost(9)
+				_count_deal()
 				_souls_l()
 				Stats.buff_maxhp_pct += 0.1
 				player.hp += Stats.get_stat("max_hp") - Stats.get_stat("max_hp") / 1.1
@@ -9634,6 +9695,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Twelve souls for a spare life — death isn't cheap, Kael")
 			else:
 				Stats.souls -= _soul_cost(12)
+				_count_deal()
 				_souls_l()
 				Stats.revive_left += 1
 				Sfx.play("shrine")
@@ -9643,6 +9705,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Four souls, Kael — insurance isn't free")
 			else:
 				Stats.souls -= _soul_cost(4)
+				_count_deal()
 				_souls_l()
 				trap_wrapped += 2
 				Sfx.play("shrine")
@@ -9652,6 +9715,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Eight souls — the deep doesn't dredge cheap")
 			else:
 				Stats.souls -= _soul_cost(8)
+				_count_deal()
 				_souls_l()
 				var jpool := ["clamheart", "pressure_suit", "tidebound_anklet", "keelhook", "deaf_cap", "soul_creel", "drowned_oar", "kings_ledger"]
 				var open_j: Array = jpool.filter(func(j): return not Stats.relics.has(j))
@@ -9664,6 +9728,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Four souls — the song isn't free")
 			else:
 				Stats.souls -= _soul_cost(4)
+				_count_deal()
 				_souls_l()
 				sirensong_deal = true
 				Sfx.play("shrine")
@@ -9673,6 +9738,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Three souls — the rotgut's not cheap")
 			else:
 				Stats.souls -= _soul_cost(3)
+				_count_deal()
 				_souls_l()
 				Stats.buff_maxhp_pct += 0.15
 				rotgut_drunk = true
@@ -9685,6 +9751,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Two souls — the ale's not free")
 			else:
 				Stats.souls -= _soul_cost(2)
+				_count_deal()
 				_souls_l()
 				Stats.buff_speed_pct += 0.08
 				pale_drunk = true
@@ -9697,6 +9764,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Four souls — even mystery meat costs")
 			else:
 				Stats.souls -= _soul_cost(4)
+				_count_deal()
 				_souls_l()
 				var meat := rng.randi() % 4
 				if meat == 0:
@@ -9722,6 +9790,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Three souls — the lark doesn't sing free")
 			else:
 				Stats.souls -= _soul_cost(3)
+				_count_deal()
 				_souls_l()
 				mudlark = true
 				Sfx.play("shrine")
@@ -9731,6 +9800,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Three souls — the bilge isn't free")
 			else:
 				Stats.souls -= _soul_cost(3)
+				_count_deal()
 				_souls_l()
 				if player != null and is_instance_valid(player):
 					player.hp = minf(Stats.get_stat("max_hp"), player.hp + Stats.get_stat("max_hp") * 0.3)
@@ -9743,6 +9813,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Five souls — the compass points where it likes")
 			else:
 				Stats.souls -= _soul_cost(5)
+				_count_deal()
 				_souls_l()
 				for ri_c in range(info.ranges.size()):
 					discovered[ri_c] = true
@@ -9754,6 +9825,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Four souls — the shanty doesn't sing for free")
 			else:
 				Stats.souls -= _soul_cost(4)
+				_count_deal()
 				_souls_l()
 				Stats.cd_reduction += 0.1
 				Sfx.play("shrine")
@@ -9763,6 +9835,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Four souls — the prayer isn't free")
 			else:
 				Stats.souls -= _soul_cost(4)
+				_count_deal()
 				_souls_l()
 				Stats.buff_atk_pct += 0.12
 				if player != null:
@@ -9774,6 +9847,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Three souls — the oil isn't free")
 			else:
 				Stats.souls -= _soul_cost(3)
+				_count_deal()
 				_souls_l()
 				lantern_oil = true
 				Sfx.play("shrine")
@@ -9783,6 +9857,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Five souls — the crow takes no credit")
 			else:
 				Stats.souls -= _soul_cost(5)
+				_count_deal()
 				_souls_l()
 				crows_share = true
 				Sfx.play("shrine")
@@ -9792,6 +9867,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Four souls — the table isn't free")
 			else:
 				Stats.souls -= _soul_cost(4)
+				_count_deal()
 				_souls_l()
 				var mh_gm: float = Stats.get_stat("max_hp")
 				player.hp = minf(mh_gm, player.hp + mh_gm * 0.4)
@@ -9803,6 +9879,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Four souls — the crow eats first")
 			else:
 				Stats.souls -= _soul_cost(4)
+				_count_deal()
 				_souls_l()
 				Stats.soul_gain_pct += 0.2
 				Sfx.play("shrine")
@@ -9812,6 +9889,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Five souls — the dice only roll for paying customers")
 			else:
 				Stats.souls -= _soul_cost(5)
+				_count_deal()
 				if rng.randf() < 0.5:
 					Stats.earn_souls(12)
 					_souls_l()
@@ -9829,6 +9907,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Three souls — the ledger doesn't open free")
 			else:
 				Stats.souls -= _soul_cost(3)
+				_count_deal()
 				_souls_l()
 				if quest_idx < quest_steps.size():
 					var stq: Dictionary = quest_steps[quest_idx]
@@ -9842,6 +9921,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Four souls — the cheer isn't free")
 			else:
 				Stats.souls -= _soul_cost(4)
+				_count_deal()
 				_souls_l()
 				vials += 1
 				_vial_btn()
@@ -9855,6 +9935,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Three souls — the rum's not free")
 			else:
 				Stats.souls -= _soul_cost(3)
+				_count_deal()
 				_souls_l()
 				Stats.buff_atk_pct += 0.05
 				if player != null and is_instance_valid(player):
@@ -9866,6 +9947,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Three souls — the galley doesn't do charity")
 			else:
 				Stats.souls -= _soul_cost(3)
+				_count_deal()
 				_souls_l()
 				if player != null and is_instance_valid(player):
 					player.silence_t = 0.0
@@ -9880,6 +9962,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Four souls — the gilt isn't free")
 			else:
 				Stats.souls -= _soul_cost(4)
+				_count_deal()
 				_souls_l()
 				vials = mini(vials + 1, 3 if wide_satchel else 2)
 				player.hp = minf(player.max_hp, player.hp + player.max_hp * 0.3)
@@ -9890,6 +9973,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Five souls — the knot isn't free")
 			else:
 				Stats.souls -= _soul_cost(5)
+				_count_deal()
 				_souls_l()
 				omen_cd_add -= 1.0
 				Sfx.play("shrine")
@@ -9899,6 +9983,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Eight souls — the ledger isn't free")
 			else:
 				Stats.souls -= _soul_cost(8)
+				_count_deal()
 				_souls_l()
 				Stats.buff_aspd += 0.15
 				Sfx.play("shrine")
@@ -9908,6 +9993,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Eight souls — the ledger isn't free")
 			else:
 				Stats.souls -= _soul_cost(8)
+				_count_deal()
 				_souls_l()
 				soul_ledger = true
 				Stats.soul_gain_pct += 0.2
@@ -9918,6 +10004,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Seven souls — the annuity isn't free")
 			else:
 				Stats.souls -= _soul_cost(7)
+				_count_deal()
 				_souls_l()
 				Stats.buff_xp_pct += 0.15
 				Sfx.play("shrine")
@@ -9927,6 +10014,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Eight souls — the toll isn't free")
 			else:
 				Stats.souls -= _soul_cost(8)
+				_count_deal()
 				_souls_l()
 				Stats.buff_crit += 0.12
 				Sfx.play("shrine")
@@ -9936,6 +10024,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Fourteen souls — bonds aren't cheap")
 			else:
 				Stats.souls -= _soul_cost(14)
+				_count_deal()
 				_souls_l()
 				Stats.buff_armor += 3
 				Sfx.play("shrine")
@@ -9945,6 +10034,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Four souls — the scrip isn't free")
 			else:
 				Stats.souls -= _soul_cost(4)
+				_count_deal()
 				_souls_l()
 				Stats.buff_xp_pct += 0.1
 				Sfx.play("shrine")
@@ -9954,6 +10044,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Twelve souls — heavy coin for heavy hide")
 			else:
 				Stats.souls -= _soul_cost(12)
+				_count_deal()
 				_souls_l()
 				Stats.buff_armor += 2
 				Sfx.play("shrine")
@@ -9963,6 +10054,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Eight souls for a clean berth")
 			else:
 				Stats.souls -= _soul_cost(8)
+				_count_deal()
 				_souls_l()
 				var mh_ := Stats.get_stat("max_hp")
 				player.hp = mh_
@@ -9975,6 +10067,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Three souls — the toll isn't free")
 			else:
 				Stats.souls -= _soul_cost(3)
+				_count_deal()
 				_souls_l()
 				keelmans_toll = true
 				for f in get_tree().get_nodes_in_group("enemies"):
@@ -9987,6 +10080,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Six souls — the tide won't bet on credit")
 			else:
 				Stats.souls -= _soul_cost(6)
+				_count_deal()
 				if rng.randf() < 0.5:
 					Stats.earn_souls(12)
 					toast("SALT WAGER — the tide pays double")
@@ -9999,6 +10093,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Four souls — the ink is worth more")
 			else:
 				Stats.souls -= _soul_cost(4)
+				_count_deal()
 				_souls_l()
 				for ri_c in range(info.ranges.size()):
 					discovered[ri_c] = true
@@ -10010,6 +10105,7 @@ func _mahzan_deal(idx: int) -> void:
 				toast("Two souls — even rats cost something")
 			else:
 				Stats.souls -= _soul_cost(2)
+				_count_deal()
 				_souls_l()
 				rat_ration = true
 				Sfx.play("shrine")
@@ -10077,6 +10173,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Three souls — the splice isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		splice_line = true
 		Stats.buff_speed_pct += 0.06
@@ -10088,6 +10185,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Four souls — the tackle isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		rope_tackle = true
 		for sid3 in skill_cd.keys():
@@ -10100,6 +10198,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Five souls — the psalm isn't free")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		deck_psalm = true
 		for pf in get_tree().get_nodes_in_group("enemies"):
@@ -10113,6 +10212,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Three souls — the rites aren't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		rigging_rites = true
 		Stats.buff_aspd += 0.08
@@ -10124,6 +10224,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Four souls — the pulley isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		sheave_toll = true
 		Stats.buff_xp_pct += 0.1
@@ -10135,6 +10236,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Three souls — the ring isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		grommets_due = true
 		Stats.buff_atk_pct += 0.08
@@ -10146,6 +10248,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Five souls — the knot isn't free")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		knot_refuge = true
 		Stats.dodge += 0.1
@@ -10157,6 +10260,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Six souls — the tar pot isn't free")
 			return
 		Stats.souls -= _soul_cost(6)
+		_count_deal()
 		_souls_l()
 		hull_pitch = true
 		Stats.buff_armor += 1
@@ -10168,6 +10272,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Four souls — the bell isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		watch_bell = true
 		for f in get_tree().get_nodes_in_group("enemies"):
@@ -10181,6 +10286,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Three souls — the spike isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		marlin_spike = true
 		Stats.buff_speed_pct += 0.1
@@ -10192,6 +10298,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Three souls — the knots aren't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		Stats.dodge += 0.05
 		knotwork = true
@@ -10203,6 +10310,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Three souls — the sheath isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		salt_sheath = true
 		Stats.buff_crit += 0.08
@@ -10214,6 +10322,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Three souls — the knots aren't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		tar_knots = true
 		Sfx.play("shrine")
@@ -10224,6 +10333,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Four souls — the wick isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		Stats.buff_aspd += 0.15
 		Sfx.play("shrine")
@@ -10234,6 +10344,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Three souls — the splice isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		line_splice = true
 		if player != null and is_instance_valid(player):
@@ -10246,6 +10357,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Four souls — the beads aren't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		ballast_beads = true
 		Stats.buff_armor += 1
@@ -10259,6 +10371,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Four souls — the powder's not free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		powder_toll = true
 		Stats.buff_atk_pct += 0.15
@@ -10272,6 +10385,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Three souls — the ropes aren't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		for rk_ in skill_cd.keys():
 			skill_cd[rk_] = maxf(0.0, float(skill_cd[rk_]) - 1.0)
@@ -10283,6 +10397,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Four souls — the iron's priced by the keel")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		Stats.buff_armor += 2
 		Sfx.play("shrine")
@@ -10293,6 +10408,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Four souls — the fuel isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		dash_fuel = true
 		Sfx.play("shrine")
@@ -10303,6 +10419,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Three souls — the timbers aren't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		timber_shiver = true
 		Sfx.play("shrine")
@@ -10313,6 +10430,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Three souls — the bonus isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		hull_bonus = true
 		Sfx.play("shrine")
@@ -10323,6 +10441,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Four souls — the tar isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		if player != null and is_instance_valid(player):
 			player.hp = minf(Stats.get_stat("max_hp"), player.hp + Stats.get_stat("max_hp") * 0.25)
@@ -10338,6 +10457,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Three souls — the toll isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		gangway = true
 		Sfx.play("shrine")
@@ -10348,6 +10468,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Three souls — the wind isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		Stats.soul_gain_pct += 0.15
 		Sfx.play("shrine")
@@ -10358,6 +10479,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Three souls — the rigging isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		Stats.buff_armor += 1
 		if player != null and is_instance_valid(player):
@@ -10370,6 +10492,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Four souls — the anchor isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		for f in get_tree().get_nodes_in_group("enemies"):
 			if f.get("state") != "dead" and not bool(f.get("is_boss")):
@@ -10381,6 +10504,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Four souls — the sail isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		Stats.buff_speed_pct += 0.1
 		if player != null and is_instance_valid(player):
@@ -10392,6 +10516,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Three souls — the loot isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		Stats.buff_xp_pct += 0.25
 		Sfx.play("shrine")
@@ -10401,6 +10526,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Five souls — the keel doesn't haul free")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		var hauled := 0
 		for fh in get_tree().get_nodes_in_group("enemies"):
@@ -10427,6 +10553,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Two souls — the keel doesn't pray for free")
 			return
 		Stats.souls -= _soul_cost(2)
+		_count_deal()
 		_souls_l()
 		keel_prayer = true
 		Sfx.play("shrine")
@@ -10436,6 +10563,7 @@ func _keel_deal(idx: int) -> void:
 			toast("Four souls — the net isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		Stats.buff_xp_pct += 0.3
 		Sfx.play("shrine")
@@ -10511,6 +10639,7 @@ func _qm_deal(idx: int) -> void:
 			toast("Three souls — the ledger isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		coil_chit = true
 		Stats.dodge += 0.08
@@ -10522,6 +10651,7 @@ func _qm_deal(idx: int) -> void:
 			toast("Two souls — the stores aren't free")
 			return
 		Stats.souls -= _soul_cost(2)
+		_count_deal()
 		_souls_l()
 		if player != null and is_instance_valid(player):
 			player.hp = minf(player.max_hp, player.hp + player.max_hp * 0.2)
@@ -10536,6 +10666,7 @@ func _qm_deal(idx: int) -> void:
 			toast("Four souls — the chit isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		bosuns_chit = true
 		Stats.buff_atk_pct += 0.1
@@ -10547,6 +10678,7 @@ func _qm_deal(idx: int) -> void:
 			toast("Five souls — the stash isn't free")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		vials += 1
 		_vial_btn()
@@ -10561,6 +10693,7 @@ func _qm_deal(idx: int) -> void:
 			toast("Four souls — the chits aren't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		Stats.soul_gain_pct += 0.1
 		Sfx.play("shrine")
@@ -10571,6 +10704,7 @@ func _qm_deal(idx: int) -> void:
 			toast("Three souls — the ration isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		var mh2_ := Stats.get_stat("max_hp")
 		player.hp = minf(mh2_, player.hp + mh2_ * 0.3)
@@ -10584,6 +10718,7 @@ func _qm_deal(idx: int) -> void:
 			toast("Three souls — the scrip isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		salt_scrip = true
 		Stats.buff_xp_pct += 0.1
@@ -10595,6 +10730,7 @@ func _qm_deal(idx: int) -> void:
 			toast("Four souls — the rite isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		Stats.buff_armor += 1
 		if player != null and is_instance_valid(player):
@@ -10607,6 +10743,7 @@ func _qm_deal(idx: int) -> void:
 			toast("Four souls — the powder isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		powder_keg = 3
 		Sfx.play("shrine")
@@ -10617,6 +10754,7 @@ func _qm_deal(idx: int) -> void:
 			toast("Three souls — the splice isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		splice_kills = 5
 		_quest_event("qm")
@@ -10628,6 +10766,7 @@ func _qm_deal(idx: int) -> void:
 			toast("Three souls — the ward isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		Stats.buff_atk_pct += 0.1
 		Sfx.play("shrine")
@@ -10638,6 +10777,7 @@ func _qm_deal(idx: int) -> void:
 			toast("Three souls — the manifest isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		deck_manifest = true
 		Stats.soul_gain_pct += 0.15
@@ -10649,6 +10789,7 @@ func _qm_deal(idx: int) -> void:
 			toast("Four souls — the code isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		for wc_ in skill_cd.keys():
 			skill_cd[wc_] = maxf(0.0, float(skill_cd[wc_]) - 2.0)
@@ -10660,6 +10801,7 @@ func _qm_deal(idx: int) -> void:
 			toast("Three souls — the pork's not free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		Stats.buff_maxhp_pct += 0.15
 		if player != null and is_instance_valid(player):
@@ -10674,6 +10816,7 @@ func _qm_deal(idx: int) -> void:
 			toast("Four souls — the tar pot isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		Stats.buff_armor += 1
 		tar_smear = true
@@ -10685,6 +10828,7 @@ func _qm_deal(idx: int) -> void:
 			toast("Three souls — the rum's rationed")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		Stats.buff_speed_pct += 0.1
 		if player != null and is_instance_valid(player):
@@ -10699,6 +10843,7 @@ func _qm_deal(idx: int) -> void:
 			toast("Four souls — the compass isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		for ri_c in range(info.ranges.size()):
 			discovered[ri_c] = true
@@ -10711,6 +10856,7 @@ func _qm_deal(idx: int) -> void:
 			toast("Three souls — the ration isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		vials += 1
 		_vial_btn()
@@ -10722,6 +10868,7 @@ func _qm_deal(idx: int) -> void:
 			toast("Eight souls — the quartermaster doesn't loan")
 			return
 		Stats.souls -= _soul_cost(8)
+		_count_deal()
 		_souls_l()
 		spawn_weapon_drop(player.global_position + Vector3(0, 0, -0.6 * info.tile), WDB.roll_drop(rng, Stats.weapon_id))
 		Sfx.play("shrine")
@@ -10731,6 +10878,7 @@ func _qm_deal(idx: int) -> void:
 			toast("Four souls — the whetstone isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		Stats.buff_atk_pct += 0.1
 		if player != null and is_instance_valid(player):
@@ -10742,6 +10890,7 @@ func _qm_deal(idx: int) -> void:
 			toast("Three souls — the biscuit isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		if player != null and is_instance_valid(player):
 			player.hp = minf(Stats.get_stat("max_hp"), player.hp + Stats.get_stat("max_hp") * 0.25)
@@ -10805,6 +10954,7 @@ func _siren_deal(idx: int) -> void:
 			toast("Six souls — the verse isn't free")
 			return
 		Stats.souls -= _soul_cost(6)
+		_count_deal()
 		_souls_l()
 		second_verse = true
 		Stats.buff_aspd += 0.15
@@ -10816,6 +10966,7 @@ func _siren_deal(idx: int) -> void:
 			toast("Five souls — the hush isn't free")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		salt_lullaby = true
 		for lf in get_tree().get_nodes_in_group("enemies"):
@@ -10829,6 +10980,7 @@ func _siren_deal(idx: int) -> void:
 			toast("Four souls — the aria isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		salt_aria = true
 		Stats.soul_gain_pct += 0.12
@@ -10840,6 +10992,7 @@ func _siren_deal(idx: int) -> void:
 			toast("Five souls — the chant isn't free")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		wake_chant = true
 		Stats.buff_speed_pct += 0.12
@@ -10851,6 +11004,7 @@ func _siren_deal(idx: int) -> void:
 			toast("Four souls — the aria isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		undertow_aria = true
 		for f2 in get_tree().get_nodes_in_group("enemies"):
@@ -10865,6 +11019,7 @@ func _siren_deal(idx: int) -> void:
 			toast("Five souls — the octave isn't free")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		pearl_octave = true
 		Sfx.play("shrine")
@@ -10875,6 +11030,7 @@ func _siren_deal(idx: int) -> void:
 			toast("Four souls — the verse isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		drift_verse = true
 		Stats.dodge += 0.08
@@ -10886,6 +11042,7 @@ func _siren_deal(idx: int) -> void:
 			toast("Three souls — the depths don't hum for free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		fathomsong = true
 		for f in get_tree().get_nodes_in_group("enemies"):
@@ -10899,6 +11056,7 @@ func _siren_deal(idx: int) -> void:
 			toast("Four souls — the verse isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		low_verse = true
 		for f in get_tree().get_nodes_in_group("enemies"):
@@ -10912,6 +11070,7 @@ func _siren_deal(idx: int) -> void:
 			toast("Three souls — the hymn isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		Stats.event_soul_bonus += 1
 		brine_hymn = true
@@ -10923,6 +11082,7 @@ func _siren_deal(idx: int) -> void:
 			toast("Four souls — the whistle isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		Stats.buff_aspd += 0.1
 		Sfx.play("shrine")
@@ -10933,6 +11093,7 @@ func _siren_deal(idx: int) -> void:
 			toast("Four souls — the rest isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		if player != null and is_instance_valid(player):
 			player.hp = player.max_hp
@@ -10947,6 +11108,7 @@ func _siren_deal(idx: int) -> void:
 			toast("Three souls — the dirge isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		dirge_note = true
 		Sfx.play("shrine")
@@ -10957,6 +11119,7 @@ func _siren_deal(idx: int) -> void:
 			toast("Three souls — the ledger's ink isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		melody_ledger = true
 		Sfx.play("shrine")
@@ -10967,6 +11130,7 @@ func _siren_deal(idx: int) -> void:
 			toast("Five souls — the overture isn't free")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		for fs_ in skill_cd.keys():
 			skill_cd[fs_] = 0.0
@@ -10978,6 +11142,7 @@ func _siren_deal(idx: int) -> void:
 			toast("Four souls — the chorus wants its cut")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		chorus_cut = true
 		Sfx.play("shrine")
@@ -10988,6 +11153,7 @@ func _siren_deal(idx: int) -> void:
 			toast("Five souls — the verse wants its fee")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		Stats.cd_reduction += 0.15
 		Sfx.play("shrine")
@@ -10998,6 +11164,7 @@ func _siren_deal(idx: int) -> void:
 			toast("Four souls — the echo isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		Stats.buff_crit += 0.1
 		if player != null and is_instance_valid(player):
@@ -11010,6 +11177,7 @@ func _siren_deal(idx: int) -> void:
 			toast("Five souls — the last verse isn't free")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		final_verse = true
 		_quest_event("siren")
@@ -11021,6 +11189,7 @@ func _siren_deal(idx: int) -> void:
 			toast("Five souls — the lull isn't free")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		storm_lull = true
 		Sfx.play("shrine")
@@ -11031,6 +11200,7 @@ func _siren_deal(idx: int) -> void:
 			toast("Five souls — the cradle isn't free")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		cradle_deep = true
 		_quest_event("siren")
@@ -11042,6 +11212,7 @@ func _siren_deal(idx: int) -> void:
 			toast("Three souls — the rust song isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		song_rust = true
 		Sfx.play("shrine")
@@ -11052,6 +11223,7 @@ func _siren_deal(idx: int) -> void:
 			toast("Four souls — the shanty isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		Stats.buff_xp_pct += 0.15
 		Sfx.play("shrine")
@@ -11177,6 +11349,7 @@ func _throne_deal(idx: int) -> void:
 			toast("Five souls — the court isn't free")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		royal_overlook = true
 		Sfx.play("shrine")
@@ -11189,6 +11362,7 @@ func _throne_deal(idx: int) -> void:
 			toast("Five souls — the tally isn't free")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		courts_tally = true
 		Stats.soul_gain_pct += 0.12
@@ -11200,6 +11374,7 @@ func _throne_deal(idx: int) -> void:
 			toast("Six souls — the court's regard isn't free")
 			return
 		Stats.souls -= _soul_cost(6)
+		_count_deal()
 		_souls_l()
 		regal_favor = true
 		Stats.buff_xp_pct += 0.15
@@ -11211,6 +11386,7 @@ func _throne_deal(idx: int) -> void:
 			toast("Five souls — the crown's tax isn't free")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		vassals_claim = true
 		for vf in get_tree().get_nodes_in_group("enemies"):
@@ -11225,6 +11401,7 @@ func _throne_deal(idx: int) -> void:
 			toast("Six souls — the hush isn't free")
 			return
 		Stats.souls -= _soul_cost(6)
+		_count_deal()
 		_souls_l()
 		crowns_hush = true
 		for f2 in get_tree().get_nodes_in_group("enemies"):
@@ -11238,6 +11415,7 @@ func _throne_deal(idx: int) -> void:
 			toast("Seven souls — the gage isn't free")
 			return
 		Stats.souls -= _soul_cost(7)
+		_count_deal()
 		_souls_l()
 		vigils_gage = true
 		Stats.dodge += 0.1
@@ -11249,6 +11427,7 @@ func _throne_deal(idx: int) -> void:
 			toast("Nine souls — the muster isn't free")
 			return
 		Stats.souls -= _soul_cost(9)
+		_count_deal()
 		_souls_l()
 		Stats.buff_armor += 2
 		Sfx.play("shrine")
@@ -11259,6 +11438,7 @@ func _throne_deal(idx: int) -> void:
 			toast("Five souls — the King's time isn't cheap")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		for sk in skill_cd:
 			skill_cd[sk] = 0.0
@@ -11270,6 +11450,7 @@ func _throne_deal(idx: int) -> void:
 			toast("Five souls — the surgeon doesn't work for thanks")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		if player != null and is_instance_valid(player):
 			player.hp = minf(Stats.get_stat("max_hp"), player.hp + Stats.get_stat("max_hp") * 0.5)
@@ -11284,6 +11465,7 @@ func _throne_deal(idx: int) -> void:
 			toast("Six souls — decrees don't come cheap")
 			return
 		Stats.souls -= _soul_cost(6)
+		_count_deal()
 		_souls_l()
 		crowns_decree = true
 		Sfx.play("shrine")
@@ -11294,6 +11476,7 @@ func _throne_deal(idx: int) -> void:
 			toast("Five souls — the vigil isn't cheap")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		crowns_vigil = true
 		Sfx.play("shrine")
@@ -11304,6 +11487,7 @@ func _throne_deal(idx: int) -> void:
 			toast("Four souls — the crown's cushions aren't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		if player != null and is_instance_valid(player):
 			player.hp = minf(Stats.get_stat("max_hp"), player.hp + Stats.get_stat("max_hp") * 0.4)
@@ -11317,6 +11501,7 @@ func _throne_deal(idx: int) -> void:
 			toast("Five souls — the writ's ink isn't free")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		if quest_idx < quest_steps.size():
 			var rw: Dictionary = quest_steps[quest_idx]
@@ -11329,6 +11514,7 @@ func _throne_deal(idx: int) -> void:
 			toast("Six souls — the crown's mercy is dear")
 			return
 		Stats.souls -= _soul_cost(6)
+		_count_deal()
 		_souls_l()
 		if player != null and is_instance_valid(player):
 			player.venom_t = 0.0
@@ -11345,6 +11531,7 @@ func _throne_deal(idx: int) -> void:
 			toast("Five souls — the crown doesn't shove cheap")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		kneel_not = true
 		Sfx.play("shrine")
@@ -11355,6 +11542,7 @@ func _throne_deal(idx: int) -> void:
 			toast("Four souls — the summons isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		court_summons = true
 		Sfx.play("shrine")
@@ -11365,6 +11553,7 @@ func _throne_deal(idx: int) -> void:
 			toast("Four souls — the crown doesn't lend cheap")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		Stats.buff_atk_pct += 0.1
 		Sfx.play("shrine")
@@ -11375,6 +11564,7 @@ func _throne_deal(idx: int) -> void:
 			toast("Four souls — the vigil isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		Stats.buff_armor += 1
 		Sfx.play("shrine")
@@ -11386,6 +11576,7 @@ func _throne_deal(idx: int) -> void:
 			toast("Five souls — the ransom isn't free")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		if player != null and is_instance_valid(player):
 			for deb in ["weak_t", "chill_t", "root_t", "venom_t", "silence_t"]:
@@ -11403,6 +11594,7 @@ func _throne_deal(idx: int) -> void:
 			toast("You bear no grudge — the crown is amused")
 			return
 		Stats.souls -= _soul_cost(8)
+		_count_deal()
 		_souls_l()
 		Stats.nemesis = ""
 		Sfx.play("shrine")
@@ -11413,6 +11605,7 @@ func _throne_deal(idx: int) -> void:
 			toast("Four souls — the court's leech isn't free")
 			return
 		Stats.souls -= _soul_cost(4)
+		_count_deal()
 		_souls_l()
 		if player != null and is_instance_valid(player):
 			player.set("venom_t", 0.0)
@@ -11429,6 +11622,7 @@ func _throne_deal(idx: int) -> void:
 			toast("Six souls — the crown's tithe isn't negotiable")
 			return
 		Stats.souls -= _soul_cost(6)
+		_count_deal()
 		_souls_l()
 		Stats.buff_maxhp_pct += 0.15
 		Sfx.play("shrine")
@@ -11438,6 +11632,7 @@ func _throne_deal(idx: int) -> void:
 			toast("Five souls — oaths aren't free")
 			return
 		Stats.souls -= _soul_cost(5)
+		_count_deal()
 		_souls_l()
 		crown_oath = true
 		Sfx.play("shrine")
@@ -11447,6 +11642,7 @@ func _throne_deal(idx: int) -> void:
 			toast("Three souls — the crown doesn't beg")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		var bpool: Array = []
 		for ridb in ITEMS.DB:
@@ -11461,6 +11657,7 @@ func _throne_deal(idx: int) -> void:
 			toast("Three souls — the crown's blade isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		if player != null and is_instance_valid(player):
 			player.hp = maxf(1.0, player.hp * 0.75)
@@ -11474,6 +11671,7 @@ func _throne_deal(idx: int) -> void:
 			toast("Three souls — the crown's eye isn't free")
 			return
 		Stats.souls -= _soul_cost(3)
+		_count_deal()
 		_souls_l()
 		var evname := "CLEAR WATER — no omen stirs this floor"
 		for ename in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide"]:
