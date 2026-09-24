@@ -558,6 +558,15 @@ func _strike() -> void:
 					var mgo := get_tree().current_scene
 					if mgo != null and mgo.has_method("_damage_number"):
 						mgo._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "SWEEP", Color(0.6, 0.8, 0.85), false)
+			if Stats.weapon_id == "toll_hook":
+				var thn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", thn)
+				if thn % 7 == 0:
+					Sfx.play("soul", 0.7)
+					Stats.earn_souls(1)
+					var mth := get_tree().current_scene
+					if mth != null and mth.has_method("_damage_number"):
+						mth._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "TOLL +1 ◈", Color(0.9, 0.8, 0.4), false)
 			if Stats.weapon_id == "hull_mender":
 				var hmn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", hmn)
