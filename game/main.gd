@@ -10895,6 +10895,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Salt Obol — pay 5 souls: a coin for the ferryman — +10% XP, +3% crit this run"},
 			{"text": "Final Receipt — pay 8 souls: Mahzan signs in full — +6% ATK, +6% XP this run"},
 			{"text": "Pale Interest — pay 6 souls: the debt collects itself — +10% ATK, −5% speed this run"},
+			{"text": "Fortune's Dredge — pay 8 souls: Mahzan hauls up a relic the sea owes you"},
 		]
 	)
 
@@ -13020,6 +13021,23 @@ func _mahzan_deal(idx: int) -> void:
 				Stats.buff_speed_pct -= 0.05
 				Sfx.play("shrine")
 				toast("PALE INTEREST — the debt collects itself (+10% ATK, −5% speed this run)")
+		68:
+			if Stats.souls < _soul_cost(8):
+				toast("Eight souls — the dredge isn't free")
+			else:
+				Stats.souls -= _soul_cost(8)
+				_count_deal()
+				_souls_l()
+				var jpool2 := ["leechers_oath", "bell_buoy", "drowned_chaplain", "pearl_scrip", "dowsers_eye", "undying_lung", "siren_farewell", "clamheart"]
+				var open2: Array = jpool2.filter(func(j): return not Stats.relics.has(j))
+				if open2.is_empty():
+					Stats.earn_souls(5)
+					toast("FORTUNE'S DREDGE comes up empty — the shop refunds in kind (+5 souls)")
+				else:
+					var jrid2 := String(open2[rng.randi() % open2.size()])
+					Stats.add_relic(jrid2)
+					Sfx.play("shrine")
+					toast("FORTUNE'S DREDGE — hauled up " + String(ITEMS.DB[jrid2]["name"]))
 
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
