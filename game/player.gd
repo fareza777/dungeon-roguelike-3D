@@ -240,6 +240,13 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "deckhands_edge":
+				var de_ = get_tree().current_scene
+				de_.set("net_n", int(de_.get("net_n")) + 1)
+				if int(de_.get("net_n")) >= 2:
+					de_.set("net_n", 0)
+					var dd_: Vector3 = (f.global_position - global_position).normalized()
+					f.velocity += dd_ * 5.5
 			if Stats.weapon_id == "galebrand":
 				var gb_ = get_tree().current_scene
 				gb_.set("net_n", int(gb_.get("net_n")) + 1)
