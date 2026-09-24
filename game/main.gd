@@ -294,6 +294,7 @@ var brine_hymn := false
 var keelmans_toll := false
 var knotwork := false
 var low_verse := false
+var salt_scrip := false
 var pilgrims_purse := false
 var crows_toll := false
 var crowns_decree := false
@@ -1387,6 +1388,9 @@ func _new_run(new_seed: int) -> void:
 		Stats.dodge -= 0.05
 		knotwork = false
 	low_verse = false
+	if salt_scrip:
+		Stats.buff_xp_pct -= 0.1
+		salt_scrip = false
 	if deck_manifest:
 		Stats.soul_gain_pct -= 0.15
 		deck_manifest = false
@@ -8965,12 +8969,24 @@ func _on_qm_invoked(s) -> void:
 		{"text": "Deck Manifest — pay 3 souls: the crew logs every catch — +15% souls this floor"},
 		{"text": "Powder Ward — pay 3 souls: powder-burned hands are steady hands — +10% ATK this run"},
 		{"text": "Deck Rite — pay 4 souls: the bosun's blessing read over the hold — +1 Armor this run"},
+		{"text": "Salt Scrip — pay 3 souls: the crew logs the lessons — +10% XP this floor"},
 		{"text": "Walk away"}])
 
 
 func _qm_deal(idx: int) -> void:
-	if idx == 14:
+	if idx == 15:
 		toast("The post shutters its stores")
+		return
+	if idx == 14:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the scrip isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		salt_scrip = true
+		Stats.buff_xp_pct += 0.1
+		Sfx.play("shrine")
+		toast("SALT SCRIP — every lesson logged in salt")
 		return
 	if idx == 13:
 		if Stats.souls < _soul_cost(4):
