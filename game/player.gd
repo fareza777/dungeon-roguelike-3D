@@ -597,6 +597,19 @@ func _strike() -> void:
 					var mms := get_tree().current_scene
 					if mms != null and mms.has_method("_damage_number"):
 						mms._damage_number(f.global_position + Vector3(0.3, 0.7 * room_tile, 0), "STING", Color(1.0, 0.7, 0.4), false)
+			if Stats.weapon_id == "keel_hammer":
+				var khn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", khn)
+				if khn % 8 == 0:
+					Sfx.play("thunder", 0.6)
+					var mkh := get_tree().current_scene
+					for nf in get_tree().get_nodes_in_group("enemies"):
+						if nf.get("state") != "dead" and nf.global_position.distance_to(f.global_position) < 2.5 * room_tile:
+							var kdir: Vector3 = nf.global_position - f.global_position
+							kdir.y = 0.0
+							nf.kb += kdir.normalized() * 7.0
+					if mkh != null and mkh.has_method("_damage_number"):
+						mkh._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "SPLINTERED", Color(0.9, 0.6, 0.4), true)
 			if Stats.weapon_id == "deck_reaver":
 				var drn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", drn)
