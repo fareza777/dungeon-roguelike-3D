@@ -10192,6 +10192,8 @@ func _drowned_deal(idx: int) -> void:
 	if player != null and is_instance_valid(player):
 		_burst(player.global_position + Vector3(0, 0.4, 0), Color(0.35, 0.95, 0.85))
 	Stats.drowned_deals += 1
+	if Stats.drowned_deals >= 5:
+		_ach("river_purse")
 	if Stats.drowned_deals >= 8:
 		_ach("deepdisciple")
 	_quest_event("drowned")

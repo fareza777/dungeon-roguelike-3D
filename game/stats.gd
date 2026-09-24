@@ -249,6 +249,7 @@ const ACH_DEF := {
 	"hadal": "Hadal Pilgrim (reach Floor 50)",
 	"trenchwalker": "Trench Walker (reach Floor 55)",
 	"clear_ledger": "Clear Ledger (repay your Mahzan debt)",
+	"river_purse": "River Purse (take 5 drowned deals)",
 	"liberator": "Thrall Liberator (free 15 thralls)",
 	"spender": "Spender (buy 15 deals in one run)",
 	"fulldeck": "Full Deck (every meta upgrade maxed)",
