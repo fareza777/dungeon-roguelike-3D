@@ -12769,6 +12769,13 @@ func _show_banner(title: String, sub: String, col: Color = Color(1.0, 0.85, 0.4)
 	ui.banner_sub.text = sub
 	ui.banner.visible = true
 	ui.dim.visible = true
+	ui.banner_t.pivot_offset = ui.banner_t.size * 0.5
+	ui.banner_t.scale = Vector2(0.7, 0.7)
+	ui.banner_t.modulate.a = 0.0
+	var btw: Tween = ui.banner_t.create_tween()
+	btw.set_parallel(true)
+	btw.tween_property(ui.banner_t, "scale", Vector2.ONE, 0.4).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	btw.tween_property(ui.banner_t, "modulate:a", 1.0, 0.25)
 
 
 func _hide_banner() -> void:
