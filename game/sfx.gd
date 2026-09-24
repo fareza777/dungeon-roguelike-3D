@@ -38,6 +38,7 @@ const BANK := {
 	"hook": "res://assets/audio/sfx/hit.wav",
 	"swoosh": "res://assets/audio/sfx/swing.wav",
 	"armor": "res://assets/audio/sfx/hit.wav",
+	"crit": "res://assets/audio/sfx/hit.wav",
 	"fire": "res://assets/audio/sfx/thunder.wav",
 }
 const MUSIC_BANK := {
