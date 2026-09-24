@@ -10519,6 +10519,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_armor += 3
 			Stats.soul_gain_pct -= 0.04
 			toast("Pale Vigil: someone stands watch — +3 armor, −4% souls this run")
+		161:
+			Stats.dodge += 0.04
+			Stats.buff_xp_pct += 0.04
+			Stats.soul_gain_pct -= 0.03
+			toast("Pale Crest: the wave's white cap on your helm — +4% dodge, +4% XP, −3% souls this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -16850,6 +16855,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Deep Cadence — you move to the sea's slow drum: +5% dodge, −3% attack speed this run"},
 			{"text": "Low Light — the last lamp drinks deep: +4% lifesteal, −3% speed this run"},
 			{"text": "Pale Vigil — someone stands watch while you bleed: +3 armor, −4% souls this run"},
+			{"text": "Pale Crest — the wave's white cap on your helm: +4% dodge, +4% XP, −3% souls this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
