@@ -15042,6 +15042,8 @@ func _refresh_buffs() -> void:
 		list.append(["PACT +%d%%" % int(Stats.curse_dmg * 100.0), Color(0.95, 0.25, 0.2)])
 	if Stats.curse_xp > 0.0:
 		list.append(["+%d%% XP" % int(Stats.curse_xp * 100.0), Color(0.8, 0.55, 1.0)])
+	if Stats.ng_plus > 0:
+		list.append(["♛ NG+%d" % Stats.ng_plus, Color(1.0, 0.85, 0.3)])
 	if omen_name != "":
 		var otxt := "☗ %d oaths" % omen_count if omen_count >= 3 else "☗ " + omen_name
 		list.append([otxt, Color(0.9, 0.7, 1.0)])
