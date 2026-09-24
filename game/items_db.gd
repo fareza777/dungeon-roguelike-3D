@@ -122,6 +122,7 @@ const DB := {
 	"bellringer_coil": {"name": "Bellringer's Coil", "chip": "BC", "desc": "The pull-rope of a drowned chapel — skills recharge 5% faster, +3% ATK.", "rarity": 2, "mods": {"cd_red": 0.05, "atk_pct": 0.03}},
 	"dirge_page": {"name": "Dirge Page", "chip": "DP", "desc": "A torn verse that still teaches — +6% XP, +4% souls.", "rarity": 1, "mods": {"xp_pct": 0.06, "soul_gain_pct": 0.04}},
 	"frostbrand": {"name": "Frostbrand", "chip": "FB", "desc": "A brand of sea-ice — slowed foes take +12% damage.", "rarity": 1, "mods": {}},
+	"crows_coin": {"name": "Crow's Coin", "chip": "CC", "desc": "A black coin warm in the fist — +10% souls from every payout.", "rarity": 1, "mods": {"soul_gain_pct": 0.10}},
 "undertow_idol": {"name": "Undertow Idol", "chip": "UTI", "desc": "A drowned god's little likeness — it pulls for you — +6% ATK, +4% souls.", "rarity": 1, "mods": {"atk_pct": 0.06, "soul_gain_pct": 0.04}},
 "grief_bell": {"name": "Grief Bell", "chip": "GRB", "desc": "Its toll hardens every hand that hears it — +10% ATK, −6% dodge.", "rarity": 2, "mods": {"atk_pct": 0.10, "dodge": -0.06}},
 "bilge_stone": {"name": "Bilge Stone", "chip": "BST", "desc": "Ballast that learned to keep a man standing — +1 Armor, +8% Max HP.", "rarity": 1, "mods": {"armor": 1, "max_hp_pct": 0.08}},
