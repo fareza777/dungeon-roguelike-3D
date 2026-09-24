@@ -10688,6 +10688,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP ANNEX — your ledger joins the sea's own (+7% ATK)... and its interest compounds (−4% souls)"},
 		{"text": "GREY PENNY — one coin, always spinning (+5% crit)... spun thin (−1 armor)"},
 		{"text": "CREW'S PORTION — every dead hand gets its share (+6% souls)... the shares come out of yours (−4% ATK)"},
+		{"text": "HULL TALLY — the ship counts its wounded (+5% max HP)... and marks the count on you (−3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -11492,6 +11493,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "CREW'S PORTION"
 		173:
+			Stats.buff_maxhp_pct += 0.05
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL TALLY"
+		174:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -11710,6 +11715,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP ANNEX": "Write your name in the sea's margins, Kael — the margins write back.",
 	"GREY PENNY": "A penny spent twice is worth half as much, Kael — the sea taught you that one.",
 	"CREW'S PORTION": "The crew divides what's caught, Kael — even from the purse of the living.",
+	"HULL TALLY": "Every plank remembers its sailor's weight, Kael — it keeps yours too.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
