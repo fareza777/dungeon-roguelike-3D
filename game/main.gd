@@ -216,6 +216,7 @@ var keel_hauled := false
 var bilge_sworn := false
 var salt_forfeit := false
 var dead_reckoner := false
+var pale_dock := false
 var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
@@ -1362,6 +1363,7 @@ func _reset_run_state() -> void:
 	bilge_sworn = false
 	salt_forfeit = false
 	dead_reckoner = false
+	pale_dock = false
 	combo_rate_bonus = 0.0
 	solitary = false
 	pawn_discount = false
@@ -3498,7 +3500,7 @@ func _spawn_health_orb(pos: Vector3) -> void:
 	var orb = HORB.new()
 	room.add_child(orb)
 	orb.global_position = pos + Vector3(0, 0.5, 0)
-	orb.setup((2.0 if bloodwarm or full_draught else (1.5 if pearl_octave or balmy_sea else 1.0)) * (1.3 if kelp_tithe else 1.0), info.tile)
+	orb.setup((2.0 if bloodwarm or full_draught else (1.5 if pearl_octave or balmy_sea else 1.0)) * (1.3 if kelp_tithe else 1.0) * (0.7 if pale_dock else 1.0), info.tile)
 
 
 func _spawn_obelisks(last_room: int) -> void:
@@ -7414,6 +7416,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE SWORN — the bilge slows them all (−8% foe speed)... but the purse pays (−10% souls)"},
 		{"text": "SALT FORFEIT — pay your vigor up front (−10% Max HP)... and the dead pay interest (+15% XP)"},
 		{"text": "DEAD RECKONER — the chart draws them nearer (+20% foe aggro)... but the purse knows (+15% souls)"},
+		{"text": "PALE DOCK — the berths run dry (orbs mend −30%)... but the toll pays (+15% souls)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -7464,7 +7467,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 85 if Stats.nemesis != "" else 84
+	var osize := 86 if Stats.nemesis != "" else 85
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -7824,6 +7827,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct += 0.15
 			oname = "DEAD RECKONER"
 		84:
+			pale_dock = true
+			Stats.soul_gain_pct += 0.15
+			oname = "PALE DOCK"
+		85:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -7918,6 +7925,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE SWORN": "Sworn to the lowest deck — everything down there moves slower, even the dying.",
 	"SALT FORFEIT": "Blood first, glory later — the sea always collects its collateral.",
 	"DEAD RECKONER": "Plot the course and the dead plot back — fair trade for a fuller purse.",
+	"PALE DOCK": "Every berth taken is a berth you cannot have — the purse compensates.",
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
