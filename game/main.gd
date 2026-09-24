@@ -16539,6 +16539,8 @@ func _process(delta: float) -> void:
 				cbf.offset_right = -140 + 280.0 * f2
 				cbf.offset_left = -140
 				cbf.visible = combo >= 3
+			if ui.has("combo_l") and combo >= 3 and combo_t < 1.3:
+				ui.combo_l.modulate = Color(1.0, 0.45 + 0.3 * absf(sin(Time.get_ticks_msec() / 90.0)), 0.15)
 			if combo_t <= 0.0:
 				_combo_set(0)
 
