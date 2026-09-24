@@ -248,6 +248,21 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "wakefang":
+				var wf_ = get_tree().current_scene
+				wf_.set("net_n", int(wf_.get("net_n")) + 1)
+				if int(wf_.get("net_n")) >= 6:
+					wf_.set("net_n", 0)
+					var wffar: Node3D = null
+					var wfd := 0.0
+					for other3 in get_tree().get_nodes_in_group("enemies"):
+						if other3.get("state") != "dead" and other3 != f:
+							var d3: float = global_position.distance_to(other3.global_position)
+							if d3 > wfd:
+								wfd = d3
+								wffar = other3
+					if wffar != null:
+						wffar.take_hit(global_position, float(Stats.get_stat("atk")) * 0.7)
 			if Stats.weapon_id == "thresh_hook":
 				var th_ = get_tree().current_scene
 				th_.set("net_n", int(th_.get("net_n")) + 1)
