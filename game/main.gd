@@ -8043,15 +8043,15 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_xp_pct += 0.15
 			oname = "BOSUN'S DEBT"
 		87:
-			Stats.buff_lifesteal += 0.08
-			Stats.buff_speed_pct -= 0.1
-			palm_tar = true
-			oname = "PALM TAR"
-		88:
 			crews_share = true
 			Stats.soul_gain_pct += 0.15
 			Stats.buff_xp_pct -= 0.08
 			oname = "CREW'S SHARE"
+		88:
+			Stats.buff_lifesteal += 0.08
+			Stats.buff_speed_pct -= 0.1
+			palm_tar = true
+			oname = "PALM TAR"
 		89:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
