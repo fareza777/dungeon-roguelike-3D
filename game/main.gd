@@ -10010,6 +10010,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_armor += 1
 			Stats.soul_gain_pct += 0.02
 			toast("Plate Tithe: the yard plates your purse and your back — +1 armor, +2% souls this run")
+		142:
+			Stats.buff_aspd += 0.03
+			Stats.dodge += 0.03
+			toast("Steady Hand: the line never shakes — +3% attack speed, +3% dodge this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -15748,6 +15752,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Crow's Tithe — the lookout counts your coin: +4% souls, +3% attack speed this run"},
 			{"text": "Mast Lookout — eyes in the crow's nest: +4% crit, +2% speed this run"},
 			{"text": "Plate Tithe — the yard plates your purse and your back: +1 armor, +2% souls this run"},
+			{"text": "Steady Hand — the line never shakes: +3% attack speed, +3% dodge this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
