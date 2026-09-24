@@ -241,7 +241,17 @@ func _build() -> void:
 	row.add_child(bs)
 	var ba := _make_btn("◈ ABOUT", false)
 	ba.custom_minimum_size = Vector2(184, 60)
-	ba.pressed.connect(func() -> void: about_panel.visible = true)
+	ba.pressed.connect(func() -> void:
+		about_panel.visible = true
+		var ap: Node = about_panel.get_child(about_panel.get_child_count() - 1)
+		if ap is PanelContainer:
+			ap.pivot_offset = ap.size * 0.5
+			ap.scale = Vector2(0.85, 0.85)
+			ap.modulate.a = 0.0
+			var atw: Tween = ap.create_tween()
+			atw.set_parallel(true)
+			atw.tween_property(ap, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+			atw.tween_property(ap, "modulate:a", 1.0, 0.18))
 	row.add_child(ba)
 
 	var row2 := HBoxContainer.new()
