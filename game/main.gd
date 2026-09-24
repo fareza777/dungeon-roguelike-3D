@@ -7328,6 +7328,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Keelman's Toll — pay 3 souls: the dead wade −8% slower this floor"},
 			{"text": "Salt Bond — pay 5 souls: a knot in the cord — your skills charge −1s this run"},
 			{"text": "Salt Haven — pay 8 souls: the ghost draws you a clean berth — mend to full now"},
+			{"text": "Iron Purse — pay 12 souls: heavy coin, heavier hide — +2 Armor this run"},
 		]
 	)
 
@@ -8720,6 +8721,15 @@ func _mahzan_deal(idx: int) -> void:
 				omen_cd_add -= 1.0
 				Sfx.play("shrine")
 				toast("SALT BOND — the cord pulls your skills along")
+		41:
+			if Stats.souls < _soul_cost(12):
+				toast("Twelve souls — heavy coin for heavy hide")
+			else:
+				Stats.souls -= _soul_cost(12)
+				_souls_l()
+				Stats.buff_armor += 2
+				Sfx.play("shrine")
+				toast("IRON PURSE — your purse clanks like plate")
 		40:
 			if Stats.souls < _soul_cost(8):
 				toast("Eight souls for a clean berth")
