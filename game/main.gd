@@ -12136,7 +12136,7 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Brine Mend — pay 5 souls: the river knits what the wreck tore — heal 50%, +3% dodge this run"},
 		{"text": "Fathom Salve — pay 6 souls: deep-water balm — full mend, +2% max HP this run"},
 		{"text": "Brine Toll — pay 4 souls: the river's passage tax — +6% speed, +4% souls this run"},
-		{"text": "Keelmark — pay 3 souls: the water brands you — +2 armor, −3% dodge this run"},
+		{"text": "Brine Brand — pay 3 souls: the water marks you — +2 armor, −3% dodge this run"},
 		{"text": "Walk away"}])
 
 
@@ -12240,7 +12240,7 @@ func _drowned_deal(idx: int) -> void:
 		Stats.buff_armor += 2
 		Stats.dodge -= 0.03
 		Sfx.play("shrine")
-		toast("KEELMARK — the water's brand settles cold on your skin (+2 armor, −3% dodge)")
+		toast("BRINE BRAND — the water's mark settles cold on your skin (+2 armor, −3% dodge)")
 		return
 	if idx == 55:
 		if Stats.souls < _soul_cost(6):
