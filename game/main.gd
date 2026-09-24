@@ -3899,6 +3899,9 @@ func _blood_stain(pos: Vector3) -> void:
 	m.rotation.y = randf() * TAU
 	room.add_child(m)
 	m.global_position = pos + Vector3(randf_range(-0.08, 0.08) * info.tile, 0.02 * info.tile, randf_range(-0.08, 0.08) * info.tile)
+	m.scale = Vector3(0.4, 1.0, 0.4)
+	var bstw: Tween = m.create_tween()
+	bstw.tween_property(m, "scale", Vector3.ONE, 0.35).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 
 func _spawn_tidepools() -> void:
