@@ -277,6 +277,15 @@ func _build() -> void:
 	bso.pressed.connect(func() -> void:
 		_refresh_souls()
 		souls_panel.visible = true
+		var sp: Node = souls_panel.get_child(souls_panel.get_child_count() - 1)
+		if sp is PanelContainer:
+			sp.pivot_offset = sp.size * 0.5
+			sp.scale = Vector2(0.85, 0.85)
+			sp.modulate.a = 0.0
+			var stw: Tween = sp.create_tween()
+			stw.set_parallel(true)
+			stw.tween_property(sp, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+			stw.tween_property(sp, "modulate:a", 1.0, 0.18)
 	)
 	vb.add_child(bso)
 
