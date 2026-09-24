@@ -141,6 +141,7 @@ var is_waver := false
 var is_gale := false
 var kiter := false
 var is_chiller := false
+var is_venom := false
 var is_ruster := false
 var is_widow := false
 var burst := false
@@ -213,6 +214,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 	is_gale = bool(a.get("gale", false))
 	kiter = bool(a.get("kiter", false))
 	is_chiller = bool(a.get("chiller", false))
+	is_venom = bool(a.get("venomshot", false))
 	is_ruster = bool(a.get("ruster", false))
 	is_widow = bool(a.get("widow", false))
 	burst = bool(a.get("burst", false))
@@ -1166,6 +1168,12 @@ func _physics_process(delta: float) -> void:
 										var gm: StandardMaterial3D = pr.orb.mesh.material
 										gm.albedo_color = Color(0.6, 0.9, 1.0)
 										gm.emission = Color(0.4, 0.8, 0.95)
+								if is_venom:
+									pr.effect = "venom"
+									if pr.orb != null:
+										var vm: StandardMaterial3D = pr.orb.mesh.material
+										vm.albedo_color = Color(0.45, 0.85, 0.3)
+										vm.emission = Color(0.3, 0.7, 0.2)
 								if is_waver:
 									pr.effect = "weak"
 									if pr.orb != null:

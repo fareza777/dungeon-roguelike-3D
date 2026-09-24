@@ -106,4 +106,9 @@ func _physics_process(delta: float) -> void:
 			var m9 := get_tree().current_scene
 			if m9 != null and m9.has_method("_damage_number"):
 				m9._damage_number(p.global_position + Vector3(0, 1.2, 0), "WEAKENED", Color(0.9, 0.6, 0.3), true)
+		if effect == "venom" and not p.get("dead"):
+			p.set("venom_t", 4.0)
+			var mv := get_tree().current_scene
+			if mv != null and mv.has_method("_damage_number"):
+				mv._damage_number(p.global_position + Vector3(0, 1.2, 0), "VENOMED", Color(0.5, 0.9, 0.3), true)
 		queue_free()
