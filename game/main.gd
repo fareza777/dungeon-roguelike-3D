@@ -3969,7 +3969,7 @@ const FIRST_SEEN := {
 	"keel_sexton": "A Keel Sexton strikes its spade on stone — the graveyard answers.",
 	"chain_warden": "A Chain Warden drags its length of rusted links — your ankles and your purse.",
 	"salt_curate": "A Salt Curate lifts its chalice — the wounded rise, and your hands go soft.",
-	"keel_verger": "A Keel Verger tolls its procession bell — the pack quickens at its word."
+	"keel_verger": "A Keel Verger tolls its procession bell — the pack quickens at its word.",
 	"keel_summoner": "A Keel Summoner sounds the muster — it will not stop until the bell is drowned.",
 	"brine_monk": "A Brine Monk bows its head — its open palm saps the strength from your arm.",
 	"deck_rigger": "A Deck Rigger unfurls its line — its hook bites from farther than you think.",
