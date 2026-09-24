@@ -220,6 +220,7 @@ var pale_dock := false
 var fathom_pact := false
 var bosuns_debt := false
 var crews_share := false
+var palm_tar := false
 var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
@@ -1409,6 +1410,7 @@ func _reset_run_state() -> void:
 	fathom_pact = false
 	bosuns_debt = false
 	crews_share = false
+	palm_tar = false
 	combo_rate_bonus = 0.0
 	solitary = false
 	pawn_discount = false
@@ -7618,6 +7620,7 @@ func _offer_omens() -> void:
 		{"text": "FATHOM PACT — the deep steadies your footing (+10% dodge)... but its pupils strike +12% harder"},
 		{"text": "BOSUN'S DEBT — the whistle calls, your hands answer slow (+10% skill recharge)... but the crew learns (+15% XP)"},
 		{"text": "CREW'S SHARE — every pocket pays the purser (+15% souls)... but the lessons thin (−8% XP)"},
+		{"text": "PALM TAR — tarred palms never let go (+8% lifesteal)... but your boots drag (−10% speed)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -7668,7 +7671,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 89 if Stats.nemesis != "" else 88
+	var osize := 90 if Stats.nemesis != "" else 89
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -8040,11 +8043,16 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_xp_pct += 0.15
 			oname = "BOSUN'S DEBT"
 		87:
+			Stats.buff_lifesteal += 0.08
+			Stats.buff_speed_pct -= 0.1
+			palm_tar = true
+			oname = "PALM TAR"
+		88:
 			crews_share = true
 			Stats.soul_gain_pct += 0.15
 			Stats.buff_xp_pct -= 0.08
 			oname = "CREW'S SHARE"
-		88:
+		89:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -8143,6 +8151,7 @@ func _omen_deal(idx: int) -> void:
 	"FATHOM PACT": "Stand steady and let them come — the deep likes a duel.",
 	"BOSUN'S DEBT": "The boatswain lends you tempo — and collects it back, with interest.",
 	"CREW'S SHARE": "The crew eats first, the hero last — that's the law of the ship.",
+	"PALM TAR": "Once the tar takes hold it never truly lets you go.",
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
