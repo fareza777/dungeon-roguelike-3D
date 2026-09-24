@@ -9864,6 +9864,12 @@ func _floor_intro_lines(boss_floor: bool) -> void:
 			{"who": "kael", "text": "Oracle... how do you know these halls so well?"},
 			{"who": "oracle", "text": "I walked them when they were bright, Kael — long before the bone took the throne."},
 		]
+	elif Stats.floor_num == 8:
+		lines = [
+			{"who": "knight", "text": "Two wrecks down, and the water's learning your name, sir."},
+			{"who": "kael", "text": "Let it learn it angry, Vane. I've no patience for polite seas."},
+			{"who": "oracle", "text": "Anger floats, Kael — but it also sinks the careless."},
+		]
 	elif Stats.floor_num == 4:
 		lines = [
 			{"who": "mahzan", "text": "Buyer! You descend nicely. The drowned say the fourth floor is where the sea first tastes stone."},
