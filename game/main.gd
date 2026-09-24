@@ -197,7 +197,9 @@ const LORE_LINES := [
 	"At Golden Hour the drowned remember they were rich once — and pay for remembering.",
 	"The Keel Scribe copies every name the sea takes — read your own page and it writes you back.",
 	"The Leechers' trade is simple: a pint of you for a pound of them, and they never lose.",
-	"The Orator preached to empty pews for a hundred years before the pews started answering.",]
+	"The Orator preached to empty pews for a hundred years before the pews started answering.",
+	"The Mistral Imps were cabin boys once — now they ride the wind that outlived their ship.",
+	"A Soulheavy brute sinks slower than the rest — the sea weighs what it is owed.",]
 
 var dungeon_tex: Texture2D
 var skeleton_tex: Texture2D
