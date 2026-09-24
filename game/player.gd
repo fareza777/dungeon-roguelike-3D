@@ -648,6 +648,14 @@ func _strike() -> void:
 					var mgo := get_tree().current_scene
 					if mgo != null and mgo.has_method("_damage_number"):
 						mgo._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "STROKE", Color(0.6, 0.75, 0.55), false)
+			if Stats.weapon_id == "pale_trident":
+				var ptn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", ptn)
+				if ptn % 3 == 0:
+					f.set("slow_t", 1.5)
+					var ptm := get_tree().current_scene
+					if ptm != null and ptm.has_method("_damage_number"):
+						ptm._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "TRINE", Color(0.7, 0.9, 0.8), false)
 			if Stats.weapon_id == "pilot_lantern":
 				var pln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", pln)
