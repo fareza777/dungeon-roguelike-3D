@@ -6538,6 +6538,11 @@ func _quest_event(kind: String, num: int = 1) -> void:
 	if int(st["done"]) >= int(st["need"]):
 		quest_idx += 1
 		Sfx.play("quest")
+	elif ui.has("quest_d"):
+		var qf: Label = ui.quest_d
+		qf.modulate = Color(1.0, 0.9, 0.45)
+		var pftw := qf.create_tween()
+		pftw.tween_property(qf, "modulate", Color(1, 1, 1, 0.72), 0.4)
 		Stats.earn_souls(2)
 		_souls_l()
 		toast("QUEST STEP DONE — +2 souls")
