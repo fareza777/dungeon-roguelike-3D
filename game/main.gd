@@ -267,6 +267,7 @@ var halfway_dead := false
 var rich_vein := false
 var wraiths_due := false
 var pale_lantern_ev := false
+var saltgrave_ev := false
 var wet_wool := false
 var ballast_beads := false
 var dowser_knot := false
@@ -1078,6 +1079,9 @@ func _apply_biome() -> void:
 	elif pale_lantern_ev:
 		env.fog_light_color = Color(0.65, 0.75, 0.5)
 		env.ambient_light_color = Color(0.7, 0.8, 0.55)
+	elif saltgrave_ev:
+		env.fog_light_color = Color(0.75, 0.7, 0.55)
+		env.ambient_light_color = Color(0.8, 0.75, 0.6)
 		env.ambient_light_color = Color(0.6, 0.55, 0.45)
 		sun.light_energy = 0.9
 		env.ambient_light_color = Color(0.45, 0.75, 0.55)
@@ -1345,6 +1349,9 @@ func _new_run(new_seed: int) -> void:
 	if deck_manifest:
 		Stats.soul_gain_pct -= 0.15
 		deck_manifest = false
+	if saltgrave_ev:
+		Stats.soul_gain_pct -= 0.2
+		saltgrave_ev = false
 	pale_scrip = false
 	song_rust = false
 	undertow = false
@@ -1487,6 +1494,10 @@ func _new_run(new_seed: int) -> void:
 	pale_lantern_ev = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and not wolfsbane and not thin_veil and not low_water and not drift_tide and not soul_swarm and not gauntlet and not brisk and not shoal_tide and not salvage_tide and not gale_tide and not mercy_tide and not eel_tide and not swell_tide and not kelp_bed and not barnacle_bloom and not sodden and not bile_tide and not mire_hollow and not dark_lantern and not halfwreck and not merchant_tide and not hungry_urns and not bilge_run and not pale_squall and not soul_flush and not kings_tithe and not black_calm and not gun_smoke and not greedy_tide and not drift_wreck and not long_watch and not salted_deck and not crows_tide and not long_night and not halfway_dead and not rich_vein and not wraiths_due and Stats.floor_num >= 6 and not boss_floor and rng.randf() < 0.03
 	if pale_lantern_ev:
 		Stats.event_soul_bonus = 1
+	saltgrave_ev = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and not wolfsbane and not thin_veil and not low_water and not drift_tide and not soul_swarm and not gauntlet and not brisk and not shoal_tide and not salvage_tide and not gale_tide and not mercy_tide and not eel_tide and not swell_tide and not kelp_bed and not barnacle_bloom and not sodden and not bile_tide and not mire_hollow and not dark_lantern and not halfwreck and not merchant_tide and not hungry_urns and not bilge_run and not pale_squall and not soul_flush and not kings_tithe and not black_calm and not gun_smoke and not greedy_tide and not drift_wreck and not long_watch and not salted_deck and not crows_tide and not long_night and not halfway_dead and not rich_vein and not wraiths_due and not pale_lantern_ev and Stats.floor_num >= 5 and not boss_floor and rng.randf() < 0.03
+	if saltgrave_ev:
+		Stats.soul_gain_pct += 0.2
+		omen_hp_mult *= 1.1
 	halfway_dead = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not bone_chorus and not wolfsbane and not thin_veil and not low_water and not drift_tide and not soul_swarm and not gauntlet and not brisk and not shoal_tide and not salvage_tide and not gale_tide and not mercy_tide and not eel_tide and not swell_tide and not kelp_bed and not barnacle_bloom and not sodden and not bile_tide and not mire_hollow and not dark_lantern and not halfwreck and not merchant_tide and not hungry_urns and not bilge_run and not pale_squall and not soul_flush and not kings_tithe and not black_calm and not gun_smoke and not greedy_tide and not drift_wreck and not long_watch and not salted_deck and not crows_tide and not long_night and Stats.floor_num >= 7 and not boss_floor and rng.randf() < 0.03
 	if halfway_dead:
 		Stats.event_soul_bonus = 1
@@ -1652,7 +1663,7 @@ func _new_run(new_seed: int) -> void:
 	dead_weight = not choir and not dread_tide and not starved_deep and not abyssal_hymn and not dead_calm and not boss_floor and Stats.floor_num >= 14 and rng.randf() < 0.08
 	Stats.dead_weight = dead_weight
 	shell_game = not blood_moon and not soul_rush and not fading_light and not echoing and not storm_cellar and not gilded_tides and not soul_drift and not grave_hunger and not giant_hall and not shrouded and not ossuary and not mirror_hall and not ashfall and not hungry_walls and not candlelit and not verdant and not umbral_tide and not abyssal_patience and not choir and Stats.floor_num >= 11 and Stats.floor_num <= 12 and rng.randf() < 0.15
-	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe", "tar_smear", "black_calm", "bilge_iron", "gun_smoke", "greedy_tide", "drift_wreck", "chorus_cut", "long_watch", "fog_lantern_d", "crowns_rest", "salted_deck", "pale_scrip", "rat_ration", "crows_tide", "powder_toll", "wet_wool", "melody_ledger", "long_night", "ballast_beads", "dowser_knot", "crowns_vigil", "halfway_dead", "deck_manifest", "dirge_note", "line_splice", "salt_rosary", "crowns_decree", "rich_vein", "wraiths_due", "pale_lantern_ev"]:
+	for evf in ["blood_moon", "soul_rush", "fading_light", "echoing", "storm_cellar", "gilded_tides", "soul_drift", "grave_hunger", "giant_hall", "shrouded", "ossuary", "mirror_hall", "ashfall", "hungry_walls", "candlelit", "verdant", "bone_chorus", "wolfsbane", "sunken_tide", "low_tide", "glass_sea", "deep_current", "dread_tide", "starved_deep", "choir", "shell_game", "abyssal_hymn", "dead_calm", "dead_weight", "thin_veil", "low_water", "drift_tide", "soul_swarm", "gauntlet", "brisk", "shoal_tide", "salvage_tide", "gale_tide", "mercy_tide", "eel_tide", "swell_tide", "kelp_bed", "barnacle_bloom", "sodden", "bile_tide", "mire_hollow", "dark_lantern", "halfwreck", "merchant_tide", "hungry_urns", "bilge_run", "pale_squall", "soul_flush", "kings_tithe", "tar_smear", "black_calm", "bilge_iron", "gun_smoke", "greedy_tide", "drift_wreck", "chorus_cut", "long_watch", "fog_lantern_d", "crowns_rest", "salted_deck", "pale_scrip", "rat_ration", "crows_tide", "powder_toll", "wet_wool", "melody_ledger", "long_night", "ballast_beads", "dowser_knot", "crowns_vigil", "halfway_dead", "deck_manifest", "dirge_note", "line_splice", "salt_rosary", "crowns_decree", "rich_vein", "wraiths_due", "pale_lantern_ev", "saltgrave_ev"]:
 		if get(evf):
 			events_run[evf] = true
 			break
@@ -1988,6 +1999,10 @@ func _new_run(new_seed: int) -> void:
 		Sfx.play("souls")
 	elif pale_lantern_ev:
 		_lvl_banner("≋ PALE LANTERN — THE LOST LIGHT THE WAY")
+	elif saltgrave_ev:
+		_lvl_banner("≋ SALTGRAVE — THE DEAD SIT THICK ON THE BONES")
+		toast("The salt keeps them standing +10% longer... but every soul pays +20%")
+		Sfx.play("souls")
 		toast("Wisps gather thick tonight • every kill spills +1 soul • the floor tithes +1")
 		Sfx.play("souls")
 		toast("The dead arrive already dying • the floor tithes +1")
@@ -4042,6 +4057,10 @@ func _on_enemy_died(e) -> void:
 				Stats.earn_souls(1)
 				_souls_l()
 				Stats.save_game()
+			elif saltgrave_ev:
+				Stats.earn_souls(1)
+				_souls_l()
+				Stats.save_game()
 				toast("≋ VEIN TITHE — +2 souls")
 			elif low_tide:
 				Stats.earn_souls(3)
@@ -4203,6 +4222,8 @@ func _on_enemy_died(e) -> void:
 				_quest_event("wraithed")
 			if pale_lantern_ev:
 				_quest_event("lanternwalk")
+			if saltgrave_ev:
+				_quest_event("saltgrave_walk")
 			if dark_water:
 				_quest_event("darkwalk")
 			if glass_sea:
@@ -11263,6 +11284,8 @@ func _refresh_buffs() -> void:
 		list.append(["≋ DUE", Color(0.55, 0.7, 0.9)])
 	elif pale_lantern_ev:
 		list.append(["≋ PALE", Color(0.7, 0.8, 0.5)])
+	elif saltgrave_ev:
+		list.append(["≋ GRAVE", Color(0.8, 0.75, 0.55)])
 	if Stats.soul_sealed:
 		list.append(["PRICE", Color(0.9, 0.2, 0.25)])
 	if Stats.curse_dmg > 0.0:
