@@ -327,6 +327,18 @@ func _strike() -> void:
 				if bwn % 7 == 0:
 					f.set("burn_t", float(f.get("burn_t")) + 3.0)
 					Sfx.play("hit2")
+			if Stats.weapon_id == "ropes_end":
+				var ren: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", ren)
+				if ren % 9 == 0:
+					for rf in get_tree().get_nodes_in_group("enemies"):
+						if rf.get("dead") == true:
+							continue
+						var rfd: Vector3 = global_position - rf.global_position
+						rfd.y = 0
+						if rfd.length() > 0.2:
+							rf.velocity += rfd.normalized() * 7.0
+					Sfx.play("hook")
 			if Stats.weapon_id == "salt_lantern":
 				var sln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", sln)
