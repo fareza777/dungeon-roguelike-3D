@@ -248,6 +248,12 @@ func _strike() -> void:
 			if not crit and Stats.relics.has("grave_rose") and not bool(f.get("fs_hit")):
 				crit = true
 				f.set("fs_hit", true)
+			if Stats.weapon_id == "kedge":
+				var kg_ = get_tree().current_scene
+				kg_.set("net_n", int(kg_.get("net_n")) + 1)
+				if int(kg_.get("net_n")) >= 5:
+					kg_.set("net_n", 0)
+					velocity += (f.global_position - global_position).normalized() * 8.0
 			if Stats.weapon_id == "garroter":
 				var gr_ = get_tree().current_scene
 				gr_.set("net_n", int(gr_.get("net_n")) + 1)
