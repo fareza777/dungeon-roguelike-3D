@@ -455,6 +455,16 @@ func _strike() -> void:
 						mlb._souls_l()
 					if mlb != null and mlb.has_method("_damage_number"):
 						mlb._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "LEDGER", Color(0.85, 0.95, 0.5), true)
+			if Stats.weapon_id == "keelscore":
+				var ksn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", ksn)
+				if ksn % 5 == 0:
+					f.set("slow_t", 0.9)
+					f.take_hit(global_position, Stats.get_stat("atk") * 0.5)
+					Sfx.play("hit", 0.75)
+					var mks := get_tree().current_scene
+					if mks != null and mks.has_method("_damage_number"):
+						mks._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "SCORE", Color(0.7, 0.9, 1.0), false)
 			if Stats.weapon_id == "wraithbell":
 				var wbn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", wbn)
