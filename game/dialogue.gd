@@ -129,6 +129,13 @@ func play(lines: Array) -> void:
 	_choices = []
 	active = true
 	visible = true
+	_panel.pivot_offset = Vector2(_panel.size.x * 0.5, _panel.size.y)
+	_panel.position.y += 30
+	_panel.modulate.a = 0.0
+	var ptw: Tween = _panel.create_tween()
+	ptw.set_parallel(true)
+	ptw.tween_property(_panel, "position:y", _panel.position.y - 30, 0.25).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	ptw.tween_property(_panel, "modulate:a", 1.0, 0.2)
 	_show(0)
 
 
