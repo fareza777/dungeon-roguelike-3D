@@ -9498,7 +9498,7 @@ func _combo_set(n: int) -> void:
 		return
 	if combo >= 3:
 		ui.combo_l.visible = true
-		ui.combo_l.text = "COMBO ×%d" % combo
+		ui.combo_l.text = ("FRENZY ×%d" % combo) if combo >= 30 else "COMBO ×%d" % combo
 		if combo >= 40:
 			ui.combo_l.modulate = Color(1.0, 0.3, 0.6)
 		elif combo >= 25:
