@@ -238,6 +238,7 @@ const ACH_DEF := {
 	"fortyknells": "Forty Knells (40 skill casts in one run)",
 	"versatile": "Versatile (cast 6 different skills in one run)",
 	"bright_purse": "Bright Purse (a single soulspill paid 5+ souls)",
+	"century_knells": "Hundred Knells (cast 100 skills in one run)",
 	"seventypacts": "Hundred Pacts (swore 70 omens)",
 	"eightypacts": "Eighty Pacts (swore 80 omens)",
 	"smiths_pride": "Weaponsmith's Pride (master 5 weapons)",

@@ -8134,6 +8134,8 @@ func _cast_skill(id: String) -> void:
 	casts_run += 1
 	if casts_run >= 40:
 		_ach("fortyknells")
+	if casts_run >= 100:
+		_ach("century_knells")
 
 
 func _heavy_attack() -> void:
