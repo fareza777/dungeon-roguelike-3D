@@ -597,6 +597,18 @@ func _strike() -> void:
 					var mms := get_tree().current_scene
 					if mms != null and mms.has_method("_damage_number"):
 						mms._damage_number(f.global_position + Vector3(0.3, 0.7 * room_tile, 0), "STING", Color(1.0, 0.7, 0.4), false)
+			if Stats.weapon_id == "grim_fathom":
+				var gfn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", gfn)
+				if gfn % 8 == 0:
+					Sfx.play("hook", 0.7)
+					var gfd: Vector3 = global_position - f.global_position
+					gfd.y = 0.0
+					if gfd.length() > 0.5:
+						f.kb += gfd.normalized() * 6.0
+					var mgf := get_tree().current_scene
+					if mgf != null and mgf.has_method("_damage_number"):
+						mgf._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "HOISTED", Color(0.5, 0.6, 0.8), false)
 			if Stats.weapon_id == "saltwire":
 				var swn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", swn)
