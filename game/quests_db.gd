@@ -199,6 +199,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Banish the Wraith", "desc": "Slay Keel Wraiths (0/4)", "kind": "wraithkill", "need": 4})
 		steps.append({"title": "Plug the Well", "desc": "Slay PITCHWELL elites (0/3)", "kind": "affix_pitchwell", "need": 3})
 		steps.append({"title": "Coin Bleeder", "desc": "Slay GILTBORN elites (0/3)", "kind": "affix_giltborn", "need": 3})
+		steps.append({"title": "Cinder Cull", "desc": "Slay CHARBORN elites (0/3)", "kind": "affix_charborn", "need": 3})
 		steps.append({"title": "Paid in Full", "desc": "Slay 35 foes with the Gilt Edge (0/35)", "kind": "kill_gilt_edge", "need": 35})
 		steps.append({"title": "Lantern Bearer", "desc": "Slay 40 foes with the Lantern Maul (0/40)", "kind": "kill_lantern_maul", "need": 40})
 		steps.append({"title": "Hold Your Nose", "desc": "Get bilge-soaked by 2 vents (0/2)", "kind": "bilge_soak", "need": 2})
