@@ -9976,6 +9976,7 @@ func _offer_omens() -> void:
 		{"text": "TITHE OF TEETH — your craft quickens (+10% skill recharge)... but the drowned grow stubborn (+10% foe HP)"},
 		{"text": "DEEP WAGES — the wreck pays in cold coin (+20% souls)... but it teaches nothing (−15% XP)"},
 		{"text": "GRIM RECKON — the dead pay their respects (+15% souls)... but the reckoning costs flesh (−10% Max HP)"},
+		{"text": "HARROWED KEEL — the wreck teaches rough lessons (+12% XP)... and every one of them draws blood (+8% damage taken)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -10618,6 +10619,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_maxhp_pct -= 0.10
 			oname = "GRIM RECKON"
 		133:
+			Stats.buff_xp_pct += 0.12
+			Stats.curse_dmg += 0.08
+			oname = "HARROWED KEEL"
+		134:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -10783,6 +10788,7 @@ func _omen_deal(idx: int) -> void:
 	"TITHE OF TEETH": "It pays in quickness and collects in thick skulls — the sea always balances her books.",
 	"DEEP WAGES": "Coin by the fistful, wisdom by the drop — the sea pays what it will not teach.",
 	"GRIM RECKON": "Generous tides and shallow graves, warrior — they come from the same sea.",
+	"HARROWED KEEL": "The sea's lessons are carved below the waterline, Kael — you learn or you sink.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
