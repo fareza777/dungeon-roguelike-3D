@@ -5924,7 +5924,7 @@ func _on_enemy_died(e) -> void:
 	if e.arch_id == "keel_verger":
 		_quest_event("verger_kill")
 	if e.arch_id == "deep_chaplain":
-		_quest_event("chaplain_kill")
+		_quest_event("dchaplain_kill")
 	if e.arch_id == "keel_scribe":
 		_quest_event("scribe_kill")
 	if e.arch_id == "soul_toller":
