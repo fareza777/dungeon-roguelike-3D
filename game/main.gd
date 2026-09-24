@@ -212,6 +212,7 @@ var widows_ledger := false
 var flotsam_kin := false
 var scurvy := false
 var draft_hole := false
+var keel_hauled := false
 var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
@@ -1315,6 +1316,7 @@ func _reset_run_state() -> void:
 	flotsam_kin = false
 	scurvy = false
 	draft_hole = false
+	keel_hauled = false
 	combo_rate_bonus = 0.0
 	solitary = false
 	pawn_discount = false
@@ -7181,6 +7183,7 @@ func _offer_omens() -> void:
 		{"text": "FLOTSAM KIN — the wreck-schools quicken +8%... their drift teaches +15% XP"},
 		{"text": "SCURVY — gums bleed, ribs show (−10% Max HP)... but starvation teaches (+15% XP)"},
 		{"text": "DRAFT HOLE — the current pulls at your hands (skills −15% charge)... and theirs too (+10% foe speed)"},
+		{"text": "KEEL HAULED — barnacles plate your hull (+1 Armor)... but drag (−8% speed)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -7231,7 +7234,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 81 if Stats.nemesis != "" else 80
+	var osize := 82 if Stats.nemesis != "" else 81
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -7573,6 +7576,11 @@ func _omen_deal(idx: int) -> void:
 			omen_cd_add -= 1.0
 			oname = "DRAFT HOLE"
 		80:
+			keel_hauled = true
+			Stats.buff_armor += 1
+			Stats.buff_speed_pct -= 0.08
+			oname = "KEEL HAULED"
+		81:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -7661,6 +7669,7 @@ func _omen_deal(idx: int) -> void:
 	"FLOTSAM KIN": "Sworn to the drift — everything loose in the water belongs to it.",
 	"SCURVY": "The oldest pact on any ship — suffer now, learn faster.",
 	"DRAFT HOLE": "Sailors pray for a fair wind; the deep lends a faster current to whoever asks.",
+	"KEEL HAULED": "Scraped hulls sail true — but a clean hull is a dead sailor's vanity.",
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
