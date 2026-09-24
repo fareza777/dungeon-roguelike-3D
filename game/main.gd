@@ -188,6 +188,7 @@ var env: Environment
 var joystick
 var ui := {}
 var trauma := 0.0
+var fov_punch := 0.0
 var run_state := "playing"
 var seed_val := 7
 var autotest := false
@@ -3985,6 +3986,7 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		boss_ref = e
 		var tier := _boss_tier()
 		boss_name = String(tier["name"])
+		fov_punch = 1.0
 		e.tier_idx = 4 if Stats.floor_num >= 25 else (Stats.floor_num / 5 - 1) % 4
 		M.paint(e, M.toon(skeleton_tex, tier["tint"], 0.35, true))
 		if ui.has("boss_name"):
@@ -16571,6 +16573,11 @@ func _process(delta: float) -> void:
 		if trauma > 0.0:
 			trauma = max(0.0, trauma - delta * 1.8)
 			cam.global_position += Vector3(randf_range(-1, 1), randf_range(-0.6, 0.6), randf_range(-1, 1)) * trauma * 0.18
+		if fov_punch > 0.0:
+			fov_punch = max(0.0, fov_punch - delta * 1.6)
+			cam.fov = 42.0 - fov_punch * 7.0
+		elif cam.fov != 42.0:
+			cam.fov = lerpf(cam.fov, 42.0, 1.0 - pow(0.01, delta))
 		cam.look_at(player.global_position + Vector3(0, 0, -0.9 * s))
 	# Prayer of the Fallen: berdiri di atas noda darah 2s -> +1 jiwa (sekali per lantai)
 	if not prayed and player != null and is_instance_valid(player) and not stain_positions.is_empty():
