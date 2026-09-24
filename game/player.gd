@@ -597,6 +597,15 @@ func _strike() -> void:
 					var mms := get_tree().current_scene
 					if mms != null and mms.has_method("_damage_number"):
 						mms._damage_number(f.global_position + Vector3(0.3, 0.7 * room_tile, 0), "STING", Color(1.0, 0.7, 0.4), false)
+			if Stats.weapon_id == "deck_reaver":
+				var drn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", drn)
+				if drn % 9 == 0:
+					Sfx.play("crit", 0.8)
+					f.take_hit(global_position, Stats.get_stat("atk") * 2.5)
+					var mdr := get_tree().current_scene
+					if mdr != null and mdr.has_method("_damage_number"):
+						mdr._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "CARVED", Color(1.0, 0.5, 0.3), true)
 			if Stats.weapon_id == "grim_fathom":
 				var gfn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", gfn)
