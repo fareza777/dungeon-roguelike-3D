@@ -12619,7 +12619,12 @@ func _update_hp(hp: float) -> void:
 			var ctw: Tween = cells[i].create_tween()
 			ctw.tween_property(cells[i], "color", Color(0.28, 0.12, 0.14), 0.4)
 		elif i < full:
-			cells[i].color = Color(0.9, 0.16, 0.22)
+			if i >= int(ceil(prev_hp)) and prev_hp >= 0.0:
+				cells[i].color = Color(0.5, 1.0, 0.6)
+				var gtw: Tween = cells[i].create_tween()
+				gtw.tween_property(cells[i], "color", Color(0.9, 0.16, 0.22), 0.45)
+			else:
+				cells[i].color = Color(0.9, 0.16, 0.22)
 	if ui.has("hp_text"):
 		ui.hp_text.text = "%d/%d" % [maxi(int(ceil(hp)), 0), maxh]
 	if prev_hp >= 0.0 and hp < prev_hp - 0.001:
