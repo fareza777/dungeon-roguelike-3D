@@ -96,6 +96,7 @@ const DB := {
 	"sea_chart": {"name": "Sea Chart", "chip": "SC", "desc": "+10% Speed, +5% Crit", "rarity": 1, "mods": {"speed_pct": 0.1, "crit": 0.05}},
 	"splintered_oar": {"name": "Splintered Oar", "chip": "SO", "desc": "The oar remembers rowing — your dash carries you 30% farther", "rarity": 0, "mods": {}},
 	"deck_plank": {"name": "Deck Plank", "chip": "DP", "desc": "Sure footing on any deck — +5% Speed, +5% Attack Speed", "rarity": 0, "mods": {"speed_pct": 0.05, "atk_speed_pct": 0.05}},
+	"dead_reckoner": {"name": "Dead Reckoner", "chip": "DR", "desc": "Every room you clear pays +1 soul", "rarity": 1, "mods": {}},
 	"tar_beads": {"name": "Tar Beads", "chip": "TB", "desc": "Rosary strung with tar — skills recharge +8% faster", "rarity": 1, "mods": {"cd_red": 0.08}},
 	"knotmaster_ring": {"name": "Knotmaster's Ring", "chip": "KR", "desc": "A braid of cord and gold — +8% crit", "rarity": 2, "mods": {"crit": 0.08}},
 	"salted_dice": {"name": "Salted Dice", "chip": "SD", "desc": "Loaded bones that favor the holder — +6% crit, +6% dodge", "rarity": 2, "mods": {"crit": 0.06, "dodge": 0.06}},

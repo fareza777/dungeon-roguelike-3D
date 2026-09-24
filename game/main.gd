@@ -3822,6 +3822,9 @@ func _on_enemy_died(e) -> void:
 	if run_state == "playing":
 		if _room_alive(e.room_idx) == 0:
 			rooms_cleared += 1
+			if Stats.relics.has("dead_reckoner"):
+				Stats.earn_souls(1)
+				_souls_l()
 			if pale_scrip:
 				Stats.earn_souls(1)
 				_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), "SCRIP +1", Color(0.8, 0.85, 0.6), false)
