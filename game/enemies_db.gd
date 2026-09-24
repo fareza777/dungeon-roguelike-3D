@@ -141,6 +141,7 @@ const DB := {
 	"soul_toller": {"glb": "Skeleton_Mage.glb", "hp": 3.8, "spd": 0.7, "dmg": 1.5, "windup": 0.75, "reach": 0.8, "aggro": 6.5, "xp": 12, "tint": Color(0.9, 0.8, 0.3), "scale": 1.15, "kb_resist": 0.4},
 	"keel_scribe": {"glb": "Skeleton_Mage.glb", "hp": 3.4, "spd": 1.2, "dmg": 1, "windup": 0.5, "reach": 0.75, "aggro": 7.5, "xp": 12, "tint": Color(0.6, 0.75, 0.85), "scale": 1.0, "kb_resist": 0.2, "healer": true, "phase": true},
 	"salt_widow": {"glb": "Skeleton_Mage.glb", "hp": 3.8, "spd": 0.9, "dmg": 2, "windup": 0.6, "reach": 0.7, "prefer": 3.4, "aggro": 7.5, "xp": 13, "tint": Color(0.45, 0.5, 0.6), "scale": 1.0, "kb_resist": 0.25, "ranged": true, "proj_speed": 3.0, "hookshot": true, "healer": true},
+	"keel_leecher": {"glb": "Skeleton_Mage.glb", "hp": 3.2, "spd": 1.6, "dmg": 2, "windup": 0.55, "reach": 0.8, "aggro": 6.0, "xp": 10, "tint": Color(0.5, 0.35, 0.7), "scale": 1.0, "warper": true, "leech": true, "kb_resist": 0.1},
 	# BOSS: Raja Tulang — tiap lantai kelipatan 5
 	"bone_king": {"glb": "Skeleton_Warrior.glb", "hp": 42.0, "spd": 0.8, "dmg": 2, "windup": 0.85, "reach": 0.95, "aggro": 9.9, "xp": 15, "tint": Color(1.15, 0.45, 0.4), "scale": 1.85, "kb_resist": 0.9, "boss": true},
 }
