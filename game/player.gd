@@ -534,7 +534,7 @@ func _strike() -> void:
 					var mkl := get_tree().current_scene
 					if mkl != null and mkl.has_method("_damage_number"):
 						mkl._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "LANTERN", Color(0.95, 0.8, 0.4), false)
-					if Stats.level % 3 == 0:
+					if randf() < 0.35:
 						Stats.earn_souls(1)
 			if Stats.weapon_id == "saltverdict":
 				var svn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
