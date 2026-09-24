@@ -164,7 +164,8 @@ const LORE_LINES := [
 "The Saltcaller was a chapel bell once — it rings for whoever is still breathing.",
 "Pelican Bone keeps its pockets full of drowned coins — the sea's smallest miser.",
 "The Salt Gibbet was a scaffold once. The noose it wore is now the barb it throws.",
-"The Lantern Jaw walked the wrecks with a wick for a tongue — it still lights the hunt for every corpse behind it.",]
+"The Lantern Jaw walked the wrecks with a wick for a tongue — it still lights the hunt for every corpse behind it.",
+	"The wrecks still sing if you press your ear to the hull — every verse a name the sea forgot.",]
 
 var dungeon_tex: Texture2D
 var skeleton_tex: Texture2D
