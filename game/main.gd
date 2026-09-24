@@ -621,6 +621,7 @@ const BESTIARY := {
 	"bell_ringer": ["The Bell Ringer", "His bell knits the dead back together — silence the tolling first."],
 	"moorling": ["The Moorling", "A sodden thing of the moor — it lobs what the water gave it."],
 	"keel_mastiff": ["The Keel Mastiff", "A hound of splinters and rope — it lunges when the pack bays."],
+	"bilge_rat": ["The Bilge Rat", "It ate the crew that fed it — and kept the teeth."],
 	"gunnel_wight": ["The Gunnel Wight", "It pinned the rail to its own spine — every swing carries the ship's weight."],
 	"foam_herald": ["The Foam Herald", "It arrives before the wave — a white rush and a rusty edge."],
 	"salt_sprite": ["The Salt Sprite", "A crystallized giggle — it skips and spits and is never where you swing."],
@@ -658,6 +659,7 @@ const KILLER_NAMES := {
 	"bell_ringer": "a Bell Ringer",
 	"moorling": "a Moorling",
 	"keel_mastiff": "a Keel Mastiff",
+	"bilge_rat": "a Bilge Rat",
 	"gunnel_wight": "a Gunnel Wight",
 	"foam_herald": "a Foam Herald",
 	"salt_sprite": "a Salt Sprite",
@@ -730,6 +732,7 @@ const KILLER_TIPS := {
 	"bell_ringer": "Tip: the Bell Ringer mends his flock with every toll — cut him down first.",
 	"moorling": "Tip: the Moorling throws slow, heavy sludge — strafe the lob, don't backpedal.",
 	"keel_mastiff": "Tip: the Keel Mastiff lunges — sidestep the leap, don't retreat in a line.",
+	"bilge_rat": "Tip: Bilge Rats come in packs — one good sweep feeds the purse.",
 	"gunnel_wight": "Tip: the Gunnel Wight swings slow but ends fights — respect the windup.",
 	"foam_herald": "Tip: the Foam Herald lunges past you — turn, don't chase.",
 	"salt_sprite": "Tip: the Salt Sprite is brittle but quick — dash INTO it, don't chase it.",
@@ -4138,6 +4141,11 @@ func _on_enemy_died(e) -> void:
 			sf_.hp = minf(float(sf_.hp_max), float(sf_.hp) + float(sf_.hp_max) * 0.1)
 	if player != null and is_instance_valid(player) and float(player.get("slip_t")) > 0.0:
 		_quest_event("swift_kill")
+	if e.arch_id == "bilge_rat":
+		_quest_event("rat_kill")
+		if rng.randf() < 0.15:
+			Stats.earn_souls(1)
+			_souls_l()
 	if e.arch_id == "gunnel_wight":
 		_quest_event("wight_kill")
 	if e.arch_id == "foam_herald":
