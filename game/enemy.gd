@@ -246,7 +246,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred", "seafaring", "feytouched", "knotted"][randi() % 52]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred", "seafaring", "feytouched", "knotted", "belltoll"][randi() % 53]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -426,6 +426,10 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				hp *= 1.4
 				speed *= 0.9
 				xp_val = int(xp_val * 1.4)
+			"belltoll":
+				# genta kematian — matinya membisukan gerombolannya sesaat
+				hp *= 1.2
+				xp_val = int(xp_val * 1.5)
 			"seafaring":
 				slow_immune = true
 				xp_val = int(xp_val * 1.25)
@@ -1478,6 +1482,17 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 					mm2._shock_ring(global_position)
 				if mm2.has_method("_burst"):
 					mm2._burst(global_position, Color(1.0, 0.4, 1.0))
+		if affix == "belltoll":
+			for bt_ in get_tree().get_nodes_in_group("enemies"):
+				if bt_ != self and bt_.get("state") != "dead" and bt_.global_position.distance_to(global_position) < 3.0 * room_tile:
+					if bt_.has_method("stun"):
+						bt_.stun(1.5)
+			var mbt := get_tree().current_scene
+			if mbt != null:
+				if mbt.has_method("_shock_ring"):
+					mbt._shock_ring(global_position)
+				if mbt.has_method("_damage_number"):
+					mbt._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "TOLLED", Color(0.95, 0.8, 0.3), false)
 		if affix == "keelborn":
 			Stats.earn_souls(3)
 			var mm4 := get_tree().current_scene
