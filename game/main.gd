@@ -10593,6 +10593,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_crit += 0.05
 			Stats.buff_speed_pct -= 0.04
 			toast("Crest Sworn: sworn to the breaking wave's edge — +5% crit, −4% speed this run")
+		164:
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_speed_pct += 0.03
+			Stats.buff_xp_pct -= 0.03
+			toast("Bell Buoy: the marker rings you home — +4% souls, +3% speed, −3% XP this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17017,6 +17022,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Pale Crest — the wave's white cap on your helm: +4% dodge, +4% XP, −3% souls this run"},
 			{"text": "Grey Tally — the purser's grey ink: +1 armor, +4% souls, −3% speed this run"},
 			{"text": "Crest Sworn — sworn to the breaking wave's edge: +5% crit, −4% speed this run"},
+			{"text": "Bell Buoy — the marker rings you home: +4% souls, +3% speed, −3% XP this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
