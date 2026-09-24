@@ -322,6 +322,7 @@ var pearl_graft := false
 var oyster_toll := false
 var watch_bell := false
 var hull_pitch := false
+var knot_refuge := false
 var drift_verse := false
 var pearl_octave := false
 var pilgrims_purse := false
@@ -1484,6 +1485,9 @@ func _new_run(new_seed: int) -> void:
 	if hull_pitch:
 		Stats.buff_armor -= 1
 		hull_pitch = false
+	if knot_refuge:
+		Stats.dodge -= 0.1
+		knot_refuge = false
 	if drift_verse:
 		Stats.dodge -= 0.08
 		drift_verse = false
@@ -9156,12 +9160,24 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Marlin Spike — pay 3 souls: a sailor's point between the ribs — +10% speed this floor"},
 		{"text": "Watch Bell — pay 4 souls: the bell rings their approach — foes telegraph +15% slower this floor"},
 		{"text": "Hull Pitch — pay 6 souls: hot tar on your planks — +1 Armor this floor"},
+		{"text": "Knot of Refuge — pay 5 souls: a slipknot in your step — +10% dodge this floor"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 25:
+	if idx == 26:
 		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 25:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the knot isn't free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_souls_l()
+		knot_refuge = true
+		Stats.dodge += 0.1
+		Sfx.play("shrine")
+		toast("KNOT OF REFUGE — your step slips the hook")
 		return
 	if idx == 24:
 		if Stats.souls < _soul_cost(6):
