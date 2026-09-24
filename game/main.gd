@@ -225,6 +225,7 @@ var omen_done := false
 var omen_done2 := false # pakta kedua di lantai 11
 var omen_hp_mult := 1.0
 var omen_boss_mult := 1.0
+var crown_suspicion := false
 var omen_name := ""
 var fatehand := false
 var nemesis_bounty := false
@@ -1773,6 +1774,7 @@ func _reset_run_state() -> void:
 	omen_name = ""
 	omen_hp_mult = 1.0
 	omen_boss_mult = 1.0
+	crown_suspicion = false
 	fatehand = false
 	nemesis_bounty = false
 	candle_tax = false
@@ -3894,6 +3896,9 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.hp_max = e.hp
 	if dead_lantern and bool(e.get("elite")):
 		e.hp *= 1.15
+		e.hp_max = e.hp
+	if crown_suspicion and bool(e.get("elite")):
+		e.hp *= 1.10
 		e.hp_max = e.hp
 	if hull_song:
 		e.speed *= 1.05
@@ -9804,6 +9809,7 @@ func _offer_omens() -> void:
 		{"text": "SALTFARE — the passage pays quick feet (+12% speed)... but the fare is steep (−8% souls)"},
 		{"text": "PALE HERALD — the herald tolls the fall early (+10% XP)... but the kings grow thicker skulls (bosses +10% HP)"},
 		{"text": "BALANCED LEDGER — the book keeps you honest (+10% souls, +10% XP)... but the margin is thin (−5% crit)"},
+		{"text": "CROWN'S SUSPICION — every bargain comes cheaper (−1 soul cost)... but the King marks his own (elites +10% HP)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -9827,6 +9833,8 @@ func _soul_cost(n: int) -> int:
 	if salt_ledger:
 		disc -= 1
 	if deck_alms:
+		disc += 1
+	if crown_suspicion:
 		disc += 1
 	var nn := n - disc
 	if merchant_tide:
@@ -9858,7 +9866,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 129 if Stats.nemesis != "" else 128
+	var osize := 130 if Stats.nemesis != "" else 129
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -10411,6 +10419,9 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_crit -= 0.05
 			oname = "BALANCED LEDGER"
 		128:
+			crown_suspicion = true
+			oname = "CROWN'S SUSPICION"
+		129:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -10571,6 +10582,7 @@ func _omen_deal(idx: int) -> void:
 	"SALTFARE": "The crossing always costs, Kael — the swift pay in coin, the slow in blood.",
 	"PALE HERALD": "The herald rings ahead of the crown, Kael — take the lesson, pay the thicker skull.",
 	"BALANCED LEDGER": "The sea keeps every book in pairs, Kael — rich pages are always the thinnest.",
+	"CROWN'S SUSPICION": "Cheaper tribute means watching eyes, Kael — the crown trusts nothing it hasn't priced.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
