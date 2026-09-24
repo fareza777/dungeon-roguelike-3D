@@ -289,6 +289,7 @@ var tar_knots := false
 var salt_sheath := false
 var brine_hymn := false
 var keelmans_toll := false
+var knotwork := false
 var pilgrims_purse := false
 var crows_toll := false
 var crowns_decree := false
@@ -1371,6 +1372,9 @@ func _new_run(new_seed: int) -> void:
 		Stats.event_soul_bonus -= 1
 		brine_hymn = false
 	keelmans_toll = false
+	if knotwork:
+		Stats.dodge -= 0.05
+		knotwork = false
 	if deck_manifest:
 		Stats.soul_gain_pct -= 0.15
 		deck_manifest = false
@@ -8549,12 +8553,24 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Hull Wick — pay 4 souls: tarred hemp in your grip — +15% attack speed this run"},
 		{"text": "Tar Knots — pay 3 souls: ropework lessons — your blows shove them 30% further this floor"},
 		{"text": "Salt Sheath — pay 3 souls: the blade remembers its salt — +8% crit this floor"},
+		{"text": "Knotwork — pay 3 souls: laced hand-wrapping — +5% dodge this floor"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 21:
+	if idx == 22:
 		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 21:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the knots aren't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		Stats.dodge += 0.05
+		knotwork = true
+		Sfx.play("shrine")
+		toast("KNOTWORK — your hands learn to slip the blows")
 		return
 	if idx == 20:
 		if Stats.souls < _soul_cost(3):
