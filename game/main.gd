@@ -6475,6 +6475,9 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_crit += 0.12
 			Stats.dodge -= 0.05
 			toast("Crow's Gambit: +12% crit — but you weave a touch slower")
+		66:
+			Stats.buff_lifesteal += 0.08
+			toast("Salt Veins: the brine runs in you — +8% lifesteal this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -9665,6 +9668,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Shanty Lung — your skills charge −1s... but your Max HP −10%"},
 			{"text": "Bilge Ledger — every kill pays +25% souls... but −10% XP"},
 			{"text": "Crow's Gambit — +12% crit... but −5% dodge"},
+			{"text": "Salt Veins — the brine runs in you: +8% lifesteal this run"},
 		]
 	)
 
