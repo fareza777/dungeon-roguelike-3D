@@ -6516,6 +6516,10 @@ func _on_dlg_choice(idx: int) -> void:
 		66:
 			Stats.buff_lifesteal += 0.08
 			toast("Salt Veins: the brine runs in you — +8% lifesteal this run")
+		67:
+			Stats.buff_xp_pct += 0.15
+			Stats.buff_speed_pct -= 0.05
+			toast("Dead Wake: the deep teaches every stroke — +15% XP, −5% speed")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -9724,6 +9728,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Bilge Ledger — every kill pays +25% souls... but −10% XP"},
 			{"text": "Crow's Gambit — +12% crit... but −5% dodge"},
 			{"text": "Salt Veins — the brine runs in you: +8% lifesteal this run"},
+			{"text": "Dead Wake — the deep teaches every stroke: +15% XP, −5% speed"},
 		]
 	)
 
