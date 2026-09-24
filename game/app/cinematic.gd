@@ -15,6 +15,9 @@ var vo: AudioStreamPlayer
 var label: Label
 var panel_img: TextureRect
 var fade: Tween = null
+var bar_t: ColorRect = null
+var bar_b: ColorRect = null
+var dots: HBoxContainer = null
 
 
 func _ready() -> void:
@@ -37,6 +40,43 @@ func _ready() -> void:
 	panel_img.set_anchors_preset(Control.PRESET_FULL_RECT)
 	panel_img.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(panel_img)
+
+	# letterbox bars — sinematik turun dari atas/bawah
+	bar_t = ColorRect.new()
+	bar_t.color = Color(0.0, 0.0, 0.02)
+	bar_t.set_anchors_preset(Control.PRESET_TOP_WIDE)
+	bar_t.custom_minimum_size = Vector2(0, 0)
+	bar_t.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(bar_t)
+	bar_b = ColorRect.new()
+	bar_b.color = Color(0.0, 0.0, 0.02)
+	bar_b.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
+	bar_b.custom_minimum_size = Vector2(0, 0)
+	bar_b.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(bar_b)
+	var btw := create_tween().set_parallel(true)
+	btw.tween_property(bar_t, "custom_minimum_size:y", 60.0, 0.8).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	btw.tween_property(bar_b, "custom_minimum_size:y", 60.0, 0.8).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+
+	# page dots — progress cerita
+	dots = HBoxContainer.new()
+	dots.anchor_left = 0.5
+	dots.anchor_right = 0.5
+	dots.anchor_top = 1.0
+	dots.anchor_bottom = 1.0
+	dots.offset_left = -60
+	dots.offset_right = 60
+	dots.offset_top = -52
+	dots.offset_bottom = -40
+	dots.alignment = BoxContainer.ALIGNMENT_CENTER
+	dots.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	for di in range(LINES.size()):
+		var d := Label.new()
+		d.text = "●"
+		d.add_theme_font_size_override("font_size", 13)
+		d.modulate = Color(1, 1, 1, 0.25) if di != 0 else Color(0.95, 0.78, 0.35, 0.95)
+		dots.add_child(d)
+	add_child(dots)
 
 	# gradasi gelap bawah supaya caption kebaca
 	var shade := ColorRect.new()
@@ -125,6 +165,10 @@ func _show(i: int) -> void:
 	var ln: Dictionary = LINES[i]
 	label.text = ln["text"]
 	label.modulate.a = 0.0
+	if dots != null:
+		for di in range(dots.get_child_count()):
+			var dd: Label = dots.get_child(di)
+			dd.modulate = Color(0.95, 0.78, 0.35, 0.95) if di == i else Color(1, 1, 1, 0.25)
 	var img_path := "res://assets/ui/" + String(ln["img"])
 	if ResourceLoader.exists(img_path):
 		panel_img.texture = load(img_path)
