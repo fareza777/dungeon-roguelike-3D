@@ -8497,6 +8497,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_armor += 1
 			Stats.buff_speed_pct -= 0.03
 			toast("Blackpool: the still water knows no hurry — +1 Armor, −3% speed")
+		108:
+			Stats.dodge += 0.06
+			Stats.buff_xp_pct += 0.05
+			toast("Hermit's Verse: the lone voice carries furthest — +6% dodge, +5% XP")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -13254,6 +13258,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Dead Reckoner's Verse — the hymn counts your coin: +10% souls, −5% XP"},
 			{"text": "Gale's Mercy — the wind spares the fleet-footed: +4% dodge, −3% speed"},
 			{"text": "Blackpool — the still water knows no hurry: +1 Armor, −3% speed"},
+			{"text": "Hermit's Verse — the lone voice carries furthest: +6% dodge, +5% XP"},
 		]
 	)
 
