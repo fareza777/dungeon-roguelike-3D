@@ -318,6 +318,7 @@ var pearl_graft := false
 var watch_bell := false
 var hull_pitch := false
 var drift_verse := false
+var pearl_octave := false
 var pilgrims_purse := false
 var crows_toll := false
 var crowns_decree := false
@@ -1467,6 +1468,7 @@ func _new_run(new_seed: int) -> void:
 		hull_pitch = false
 	if drift_verse:
 		Stats.dodge -= 0.08
+	pearl_octave = false
 		drift_verse = false
 	if pearl_graft:
 		Stats.buff_atk_pct -= 0.15
@@ -3253,7 +3255,7 @@ func _spawn_health_orb(pos: Vector3) -> void:
 	var orb = HORB.new()
 	room.add_child(orb)
 	orb.global_position = pos + Vector3(0, 0.5, 0)
-	orb.setup(2.0 if bloodwarm or full_draught else 1.0, info.tile)
+	orb.setup(2.0 if bloodwarm or full_draught else (1.5 if pearl_octave else 1.0), info.tile)
 
 
 func _spawn_obelisks(last_room: int) -> void:
@@ -9609,16 +9611,27 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Low Verse — pay 4 souls: the bass note drags their arms — foes telegraph +10% slower this floor"},
 		{"text": "Fathomsong — pay 3 souls: the depths hum you quieter — the dead notice you −15% later this floor"},
 		{"text": "Drift Verse — pay 4 souls: a verse of floating steps — +8% dodge this floor"},
+		{"text": "Pearl Octave — pay 5 souls: nacre rings in your wounds — orbs mend +50% this floor"},
 		{"text": "Walk away"}])
 
 
 func _siren_deal(idx: int) -> void:
-	if idx == 21:
+	if idx == 22:
 		Stats.earn_souls(2)
 		_souls_l()
 		_quest_event("siren")
 		Sfx.play("soul")
 		toast("UNSUNG — you walk, and the conch pays +2 souls for your silence")
+		return
+	if idx == 21:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the octave isn't free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_souls_l()
+		pearl_octave = true
+		Sfx.play("shrine")
+		toast("PEARL OCTAVE — nacre rings in your wounds")
 		return
 	if idx == 20:
 		if Stats.souls < _soul_cost(4):
