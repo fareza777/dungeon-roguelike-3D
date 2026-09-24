@@ -203,11 +203,17 @@ func _show(i: int) -> void:
 	_type_tw = create_tween()
 	var chars := full.length()
 	var dur: float = clampf(chars / 45.0, 0.4, 4.0)
-	_type_tw.tween_method(func(n: int) -> void: _text_l.text = full.substr(0, n), 0, chars, dur)
+	_type_tw.tween_method(_type_step.bind(full), 0, chars, dur)
 	_type_tw.tween_callback(func() -> void:
 		_typing = false
 		_after_typed()
 	)
+
+
+func _type_step(n: int, full: String) -> void:
+	_text_l.text = full.substr(0, n)
+	if n % 6 == 0 and n > 0:
+		Sfx.play("click")
 
 
 func _after_typed() -> void:
