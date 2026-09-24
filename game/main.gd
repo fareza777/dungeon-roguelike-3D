@@ -8696,6 +8696,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE LEDGER — the hold tallies your kills (+12% souls)... but the ink costs lessons (−10% XP)"},
 		{"text": "SNATCHED PURSE — the Widows fill your hold (+15% souls)... but their fingers mark your stride (−3% dodge)"},
 		{"text": "GRIM GALLEY — the drowned row with you (+12% souls, +5% ATK)... but their oars drag at your blade (−8% attack speed)"},
+		{"text": "TIDE-CRAZED — the moon rides your arm (+15% attack speed)... but the sea strips your seams (−1 Armor)"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -8750,7 +8751,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 107 if Stats.nemesis != "" else 106
+	var osize := 108 if Stats.nemesis != "" else 107
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -9214,6 +9215,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd -= 0.08
 			oname = "GRIM GALLEY"
+		107:
+			Stats.buff_aspd += 0.15
+			Stats.buff_armor -= 1
+			oname = "TIDE-CRAZED"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
 	if not Stats.oaths_seen.has(oname):
 		Stats.oaths_seen.append(oname)
@@ -9328,6 +9333,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE LEDGER": "Every kill earns a line; every lesson spends one.",
 	"SNATCHED PURSE": "What the dead drop, the widow counts. Your purse grows — watch your step.",
 	"GRIM GALLEY": "Six grey oars rise beside your blade. They row for you — they row through you.",
+	"TIDE-CRAZED": "The moon pulls at your knife-hand like it pulls the sea. You swing in her rhythm now.",
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
