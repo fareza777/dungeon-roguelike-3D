@@ -16749,8 +16749,8 @@ func _toggle_pause() -> void:
 			if rnames.size() > 0:
 				rel_names = "
 Relics: " + ", ".join(rnames)
-		ui.pause_stats.text = "Floor %d  •  %d kills  •  best combo ×%d  •  %d:%02d  •  %+d souls  •  ☠ %d
-%s%s  •  %d relics%s%s%s" % [Stats.floor_num, kills_run, combo_max, pm, ps, Stats.souls - run_souls_start, revives_run, wname, stat_line, Stats.relics.size(), omen_line, deal_line, rel_names]
+		ui.pause_stats.text = "Floor %d  %s  •  %d kills  •  best combo ×%d  •  %d:%02d  •  %+d souls  •  ☠ %d
+%s%s  •  %d relics%s%s%s" % [Stats.floor_num, String(biome.get("name", "")), kills_run, combo_max, pm, ps, Stats.souls - run_souls_start, revives_run, wname, stat_line, Stats.relics.size(), omen_line, deal_line, rel_names]
 	Sfx.play("click")
 
 
