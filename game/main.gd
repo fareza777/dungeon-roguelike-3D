@@ -15131,6 +15131,7 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Keel Verse — pay 4 souls: the hull-side verse lines your purse — +8% souls this run"},
 		{"text": "Deep Verse — pay 4 souls: the low harmony steadies your hand — +6% crit, +2% speed this run"},
 		{"text": "Mourning Verse — pay 5 souls: the sad verse hardens the heart — +1 armor, +4% lifesteal this run"},
+		{"text": "Finale — pay 4 souls: the closing note lingers — +6% dodge this run"},
 		{"text": "Walk away"}])
 
 
@@ -15180,6 +15181,17 @@ func _siren_deal(idx: int) -> void:
 		Stats.buff_lifesteal += 0.04
 		Sfx.play("shrine")
 		toast("MOURNING VERSE — the sad verse hardens the heart (+1 armor, +4% lifesteal)")
+		return
+	if idx == 42:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the finale isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_count_deal()
+		_souls_l()
+		Stats.dodge += 0.06
+		Sfx.play("shrine")
+		toast("FINALE — the closing note lingers in your step (+6% dodge)")
 		return
 	if idx == 38:
 		if Stats.souls < _soul_cost(6):
