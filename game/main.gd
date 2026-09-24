@@ -10631,6 +10631,7 @@ func _offer_omens() -> void:
 		{"text": "THIN WAKE — ride your own bow-wave (+6% attack speed)... the ride carries its price (+4% damage taken)"},
 		{"text": "GREY LEDGER — every entry pays interest (+8% XP)... every balance in blood (+5% damage taken)"},
 		{"text": "DEEP TICKET — first-class passage on the down current (+5% attack speed)... baggage fees in souls (−4% souls)"},
+		{"text": "DEEP QUOTIENT — every lesson measured twice (+7% XP)... every measurement costs (−3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -11411,6 +11412,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.04
 			oname = "DEEP TICKET"
 		167:
+			Stats.buff_xp_pct += 0.07
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP QUOTIENT"
+		168:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -11623,6 +11628,7 @@ func _omen_deal(idx: int) -> void:
 	"THIN WAKE": "A fast wake is a shallow one — mind what shows above the waterline, Kael.",
 	"GREY LEDGER": "The deep keeps excellent books — the interest is terrible, Kael.",
 	"DEEP TICKET": "The fast current takes anyone — it only charges what you brought, Kael.",
+	"DEEP QUOTIENT": "The deep keeps dividing your take by its own, Kael — fractions are always in its favor.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
