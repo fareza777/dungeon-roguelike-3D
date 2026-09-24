@@ -208,6 +208,7 @@ var salt_ration := false
 var hard_tack := false
 var leaden_purse := false
 var widows_ledger := false
+var flotsam_kin := false
 var combo_rate_bonus := 0.0
 var solitary := false
 var pawn_discount := false
@@ -1274,6 +1275,7 @@ func _reset_run_state() -> void:
 	hard_tack = false
 	leaden_purse = false
 	widows_ledger = false
+	flotsam_kin = false
 	combo_rate_bonus = 0.0
 	solitary = false
 	pawn_discount = false
@@ -2569,6 +2571,8 @@ func _spawn_enemy(sp: Dictionary, arch_id: String, elite: bool, golden := false)
 		e.speed *= 1.08
 	if fading_light and not e.is_boss:
 		e.speed *= 1.12
+	if flotsam_kin and not e.is_boss:
+		e.speed *= 1.08
 	if leeward_ev and not e.is_boss:
 		e.speed *= 1.1
 	if keelmans_toll and not e.is_boss:
@@ -6969,6 +6973,7 @@ func _offer_omens() -> void:
 		{"text": "HARD TACK — chew iron bread (+15% XP)... the dead hit like it too (+15% dmg)"},
 		{"text": "LEADEN PURSE — coin weighs your belt (−15% souls)... and their boots (−10% foe speed)"},
 		{"text": "WIDOW'S LEDGER — her purse pays +15% souls... the dead pay +8% vigor"},
+		{"text": "FLOTSAM KIN — the wreck-schools quicken +8%... their drift teaches +15% XP"},
 		] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
 	)
 
@@ -7019,7 +7024,7 @@ func _pdodged() -> void:
 
 
 func _omen_deal(idx: int) -> void:
-	var osize := 78 if Stats.nemesis != "" else 77
+	var osize := 79 if Stats.nemesis != "" else 78
 	if idx >= osize:
 		omen_refusals += 1
 		if omen_refusals >= 2:
@@ -7348,6 +7353,10 @@ func _omen_deal(idx: int) -> void:
 			omen_hp_mult *= 1.08
 			oname = "WIDOW'S LEDGER"
 		77:
+			flotsam_kin = true
+			Stats.buff_xp_pct += 0.15
+			oname = "FLOTSAM KIN"
+		78:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -7431,6 +7440,7 @@ func _omen_deal(idx: int) -> void:
 		"GOLD HULL": "Gilded ships sink finest — the coin was never worth the planks.",
 		"SALT RATION": "Thin rations, sharp blades — hungry crews fight like the starving do.",
 	"WIDOW'S LEDGER": "She keeps the books for every drowned sailor — and her interest compounds in marrow.",
+	"FLOTSAM KIN": "Sworn to the drift — everything loose in the water belongs to it.",
 		"HARD TACK": "Iron bread for iron nerves — what doesn't break your teeth breaks the foe.",
 		"LEADEN PURSE": "Heavy purses slow every ship — yours and theirs alike.",
 		"PILOT DEAD": "They smell the living on you — lean in, the pay's better anyway.",
