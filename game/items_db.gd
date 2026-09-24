@@ -117,6 +117,8 @@ const DB := {
 	"bosun_ring": {"name": "Bosun's Ring", "chip": "BSR", "desc": "The whistle's last note caught in brass — +6% ATK, +4% souls.", "rarity": 2, "mods": {"atk_pct": 0.06, "soul_gain_pct": 0.04}},
 	"storm_glass": {"name": "Storm Glass", "chip": "SG", "desc": "The drop inside still falls upward — +8% XP, +3% dodge.", "rarity": 2, "mods": {"xp_pct": 0.08, "dodge": 0.03}},
 	"pilot_lantern": {"name": "Pilot Lantern", "chip": "PLN", "desc": "The harbor light nobody lit — +6% souls, +5% speed.", "rarity": 1, "mods": {"soul_gain_pct": 0.06, "speed_pct": 0.05}},
+	"lurcher_grip": {"name": "Lurcher's Grip", "chip": "LG", "desc": "The hand remembers what it took — +6% ATK, +4% lifesteal.", "rarity": 2, "mods": {"atk_pct": 0.06, "lifesteal": 0.04}},
+	"gospel_barnacle": {"name": "Gospel Barnacle", "chip": "GB", "desc": "It still hums the Reverend's verse — +1 armor, +5% XP.", "rarity": 1, "mods": {"armor": 1.0, "xp_pct": 0.05}},
 "undertow_idol": {"name": "Undertow Idol", "chip": "UTI", "desc": "A drowned god's little likeness — it pulls for you — +6% ATK, +4% souls.", "rarity": 1, "mods": {"atk_pct": 0.06, "soul_gain_pct": 0.04}},
 "grief_bell": {"name": "Grief Bell", "chip": "GRB", "desc": "Its toll hardens every hand that hears it — +10% ATK, −6% dodge.", "rarity": 2, "mods": {"atk_pct": 0.10, "dodge": -0.06}},
 "bilge_stone": {"name": "Bilge Stone", "chip": "BST", "desc": "Ballast that learned to keep a man standing — +1 Armor, +8% Max HP.", "rarity": 1, "mods": {"armor": 1, "max_hp_pct": 0.08}},
