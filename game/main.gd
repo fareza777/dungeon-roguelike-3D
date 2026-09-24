@@ -4535,7 +4535,7 @@ func _on_enemy_died(e) -> void:
 	if e.arch_id == "pale_lantern":
 		_quest_event("lantern_kill")
 	if e.arch_id == "gunnel_fiend":
-		_quest_event("fiend_kill")
+		_quest_event("gunnel_kill")
 	if e.arch_id == "salt_lich":
 		_quest_event("lich_kill")
 	if e.arch_id == "quarter_ghost":
