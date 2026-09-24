@@ -316,6 +316,7 @@ var brine_graft := false
 var marlin_spike := false
 var fathomsong := false
 var pearl_graft := false
+var oyster_toll := false
 var watch_bell := false
 var hull_pitch := false
 var drift_verse := false
@@ -1477,6 +1478,9 @@ func _new_run(new_seed: int) -> void:
 	if pearl_graft:
 		Stats.buff_atk_pct -= 0.15
 		pearl_graft = false
+	if oyster_toll:
+		Stats.buff_xp_pct -= 0.15
+		oyster_toll = false
 	if deck_manifest:
 		Stats.soul_gain_pct -= 0.15
 		deck_manifest = false
@@ -8033,12 +8037,24 @@ func _on_drowned_invoked(s) -> void:
 		{"text": "Tide Pearl — pay 5 souls: held to the chest, it hardens — +1 Armor this run"},
 		{"text": "Salt Splice — pay 4 souls: salt stitched under the skin — +1 Armor this floor"},
 		{"text": "Pearl Graft — pay 6 souls: nacre under the blade-hand — +15% ATK this floor"},
+		{"text": "Oyster Toll — pay 8 souls: the shell's lesson — +15% XP this floor"},
 		{"text": "Walk away"}])
 
 
 func _drowned_deal(idx: int) -> void:
-	if idx == 31:
+	if idx == 32:
 		toast("The water settles back into the stone")
+		return
+	if idx == 31:
+		if Stats.souls < _soul_cost(8):
+			toast("Eight souls — the oyster's price")
+			return
+		Stats.souls -= _soul_cost(8)
+		_souls_l()
+		oyster_toll = true
+		Stats.buff_xp_pct += 0.15
+		Sfx.play("shrine")
+		toast("OYSTER TOLL — the shell teaches what the tide charges")
 		return
 	if idx == 30:
 		if Stats.souls < _soul_cost(6):
