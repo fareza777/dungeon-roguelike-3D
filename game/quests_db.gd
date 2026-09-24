@@ -159,6 +159,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Break the Pulpit", "desc": "Slay 4 Deck Reverends (0/4)", "kind": "reverend_kill", "need": 4})
 		steps.append({"title": "Topple the Mast", "desc": "Slay 3 Mast Lurchers (0/3)", "kind": "lurcher_kill", "need": 3})
 		steps.append({"title": "Fogwader", "desc": "Reach the exit through bilge fog (0/1)", "kind": "fogwade", "need": 1})
+		steps.append({"title": "Still the Dirge", "desc": "Slay 3 Dirge Singers (0/3)", "kind": "dirge_kill", "need": 3})
 		steps.append({"title": "Slickwalker", "desc": "Clear an OIL SLICK floor (0/1)", "kind": "slickwalk", "need": 1})
 		steps.append({"title": "Ship's Credit", "desc": "Strike 3 deals this run (0/3)", "kind": "deal_made", "need": 3})
 		steps.append({"title": "Giant Killer", "desc": "Slay a LEVIATHAN elite (0/1)", "kind": "affix_leviathan", "need": 1})
