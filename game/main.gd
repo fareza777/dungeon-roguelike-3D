@@ -7576,6 +7576,7 @@ func _cast_skill(id: String) -> void:
 		var ctw: Tween = player.create_tween()
 		ctw.tween_property(player.mat, "shader_parameter/flash", 0.0, 0.3)
 	_burst(player.global_position + Vector3(0, 0.5, 0), Color(0.5, 0.7, 1.0))
+	trauma = minf(trauma + 0.12, 0.45)
 	if skill_ui.has(id):
 		var sbtn: Node = skill_ui[id]["btn"]
 		sbtn.pivot_offset = sbtn.size * 0.5
