@@ -364,6 +364,7 @@ var murk_purse := false
 var soul_ledger := false
 var courts_tally := false
 var splice_line := false
+var second_verse := false
 var leech_bond := false
 var salt_lullaby := false
 var regal_favor := false
@@ -1652,6 +1653,9 @@ func _new_run(new_seed: int) -> void:
 	if splice_line:
 		Stats.buff_speed_pct -= 0.06
 		splice_line = false
+	if second_verse:
+		Stats.buff_aspd -= 0.15
+		second_verse = false
 	if leech_bond:
 		Stats.buff_lifesteal -= 0.08
 		leech_bond = false
@@ -10720,16 +10724,28 @@ func _on_siren_invoked(sh) -> void:
 		{"text": "Wake Chant — pay 5 souls: the water carries your step — +12% speed this floor"},
 		{"text": "Salt Aria — pay 4 souls: the verse rings your pockets — +12% souls this floor"},
 		{"text": "Salt Lullaby — pay 5 souls: her hush slows the dead's hands — foe windups +15% longer this floor"},
+		{"text": "Second Verse — pay 6 souls: her refrain quickens your arm — +15% attack speed this floor"},
 		{"text": "Walk away"}])
 
 
 func _siren_deal(idx: int) -> void:
-	if idx == 26:
+	if idx == 27:
 		Stats.earn_souls(2)
 		_souls_l()
 		_quest_event("siren")
 		Sfx.play("soul")
 		toast("UNSUNG — you walk, and the conch pays +2 souls for your silence")
+		return
+	if idx == 26:
+		if Stats.souls < _soul_cost(6):
+			toast("Six souls — the verse isn't free")
+			return
+		Stats.souls -= _soul_cost(6)
+		_souls_l()
+		second_verse = true
+		Stats.buff_aspd += 0.15
+		Sfx.play("shrine")
+		toast("SECOND VERSE — her refrain quickens")
 		return
 	if idx == 25:
 		if Stats.souls < _soul_cost(5):
