@@ -8781,6 +8781,9 @@ func _on_dlg_choice(idx: int) -> void:
 		112:
 			Stats.buff_aspd += 0.06
 			toast("Deckhand's Knot: the line settles into your wrist — +6% attack speed")
+		113:
+			Stats.dodge += 0.05
+			toast("Sunder's Luck: the ship's bell rings for you — +5% dodge")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -13648,6 +13651,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Barnacle Mail — wreck-shell plates your shoulders: +2 Armor, −3% speed"},
 			{"text": "Candlemas — a wick for every soul you've lit: +5% crit chance"},
 			{"text": "Deckhand's Knot — the line settles into your wrist: +6% attack speed"},
+			{"text": "Sunder's Luck — the ship's bell rings for you: +5% dodge"},
 		]
 	)
 
