@@ -1191,6 +1191,13 @@ func _physics_process(delta: float) -> void:
 											mtb._souls_l()
 										if mtb.has_method("_damage_number"):
 											mtb._damage_number(p.global_position + Vector3(0, 1.0 * room_tile, 0), "SEIZED -1", Color(0.9, 0.75, 0.3), true)
+								var mlt := get_tree().current_scene
+								if mlt != null and bool(mlt.get("leech_tide")) and q == p and int(Stats.souls) > 0:
+									Stats.souls -= 1
+									if mlt.has_method("_souls_l"):
+										mlt._souls_l()
+									if mlt.has_method("_damage_number"):
+										mlt._damage_number(p.global_position + Vector3(0, 1.0 * room_tile, 0), "LEECH -1", Color(0.6, 0.3, 0.4), false)
 								if affix == "brinetouched" and q == p:
 									p.set("chill_t", maxf(float(p.get("chill_t")), 1.5))
 								if affix == "hoarfrost" and q == p:
