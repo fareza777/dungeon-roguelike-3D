@@ -14389,6 +14389,14 @@ func _show_banner(title: String, sub: String, col: Color = Color(1.0, 0.85, 0.4)
 	btw.set_parallel(true)
 	btw.tween_property(ui.banner_t, "scale", Vector2.ONE, 0.4).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	btw.tween_property(ui.banner_t, "modulate:a", 1.0, 0.25)
+	ui.banner_sub.modulate.a = 0.0
+	ui.banner_sub.position.y += 14
+	var bstw: Tween = ui.banner_sub.create_tween()
+	bstw.set_parallel(true)
+	bstw.tween_interval(0.15)
+	bstw.chain().tween_property(ui.banner_sub, "modulate:a", 1.0, 0.3)
+	var bsy: float = ui.banner_sub.position.y - 14
+	bstw.parallel().tween_property(ui.banner_sub, "position:y", bsy, 0.3).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
 
 func _hide_banner() -> void:
