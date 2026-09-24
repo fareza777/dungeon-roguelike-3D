@@ -300,6 +300,7 @@ var knotwork := false
 var low_verse := false
 var salt_scrip := false
 var brine_graft := false
+var marlin_spike := false
 var pilgrims_purse := false
 var crows_toll := false
 var crowns_decree := false
@@ -1406,6 +1407,9 @@ func _new_run(new_seed: int) -> void:
 	if brine_graft:
 		Stats.buff_armor -= 1
 		brine_graft = false
+	if marlin_spike:
+		Stats.buff_speed_pct -= 0.1
+		marlin_spike = false
 	if deck_manifest:
 		Stats.soul_gain_pct -= 0.15
 		deck_manifest = false
@@ -8732,12 +8736,24 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Tar Knots — pay 3 souls: ropework lessons — your blows shove them 30% further this floor"},
 		{"text": "Salt Sheath — pay 3 souls: the blade remembers its salt — +8% crit this floor"},
 		{"text": "Knotwork — pay 3 souls: laced hand-wrapping — +5% dodge this floor"},
+		{"text": "Marlin Spike — pay 3 souls: a sailor's point between the ribs — +10% speed this floor"},
 		{"text": "Walk away"}])
 
 
 func _keel_deal(idx: int) -> void:
-	if idx == 22:
+	if idx == 23:
 		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 22:
+		if Stats.souls < _soul_cost(3):
+			toast("Three souls — the spike isn't free")
+			return
+		Stats.souls -= _soul_cost(3)
+		_souls_l()
+		marlin_spike = true
+		Stats.buff_speed_pct += 0.1
+		Sfx.play("shrine")
+		toast("MARLIN SPIKE — quick feet on a slick deck")
 		return
 	if idx == 21:
 		if Stats.souls < _soul_cost(3):
