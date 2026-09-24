@@ -59,6 +59,7 @@ const DB := {
 	"irontide": {"name": "Iron Tide", "short": "IRON", "cd": 24.0, "unlock": 55, "desc": "Skin turns to hull-plating — for 5s, every blow against you bites its striker back for half."},
 	"riptidesnare": {"name": "Riptide Snare", "short": "SNARE", "cd": 13.0, "unlock": 77, "desc": "A rip current knots beneath you — foes near you are rooted where they stand."},
 	"saltward": {"name": "Salt Ward", "short": "WARD", "cd": 12.0, "unlock": 79, "desc": "A ring of burning salt — foes near you wade half-speed for a breath."},
+	"saltmaw": {"name": "Salt Maw", "short": "MAW", "cd": 15.0, "unlock": 89, "desc": "The deep bites — every foe within two tiles takes 1.4× ATK and wades slow for 2s."},
 	"ghostnet": {"name": "Ghost Net", "short": "NET", "cd": 13.0, "unlock": 87, "desc": "Cast the drowned fisher's net — every foe near you wades half-speed for 4s."},
 	"brinelash": {"name": "Brine Lash", "short": "LASH", "cd": 10.0, "unlock": 85, "desc": "Crack a rope of brine — the three nearest foes take 1.2× ATK and reel."},
 	"warpaint": {"name": "Warpaint", "short": "PAINT", "cd": 14.0, "unlock": 83, "desc": "Slap the old war-ochre on — +30% ATK for 5s."},
@@ -81,7 +82,7 @@ const DB := {
 	},
 }
 
-const ORDER := ["dash", "whirl", "thunder", "warcry", "nova", "judge", "sunder", "chains", "storm", "mend", "rites", "seismic", "kingsfall", "lance", "gravestep", "tidecall", "snapjaw", "graveseal", "riptide", "soultithe", "anchordrop", "soulfall", "keelsplit", "bloodtide", "sealegs", "deadreckon", "becalm", "irontide", "dragline", "deadlight", "broadside", "fogsong", "saltbomb", "deadweight", "keelram", "hullsplinter", "crowsdive", "salvagehook", "riptidesnare", "saltward", "bilgesnare", "warpaint", "brinelash", "ghostnet"]
+const ORDER := ["dash", "whirl", "thunder", "warcry", "nova", "judge", "sunder", "chains", "storm", "mend", "rites", "seismic", "kingsfall", "lance", "gravestep", "tidecall", "snapjaw", "graveseal", "riptide", "soultithe", "anchordrop", "soulfall", "keelsplit", "bloodtide", "sealegs", "deadreckon", "becalm", "irontide", "dragline", "deadlight", "broadside", "fogsong", "saltbomb", "deadweight", "keelram", "hullsplinter", "crowsdive", "salvagehook", "riptidesnare", "saltward", "bilgesnare", "warpaint", "brinelash", "ghostnet", "saltmaw"]
 
 
 static func get_s(id: String) -> Dictionary:
