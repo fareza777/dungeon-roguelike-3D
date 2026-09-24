@@ -14230,6 +14230,7 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Chain Draught — pay 4 souls: drink the links' weight — +10% attack speed, −3% dodge this run"},
 		{"text": "Rivet Fund — pay 4 souls: the stone bolts you down — +1 armor, +3% dodge this run"},
 		{"text": "Keel's Tally — pay 4 souls: the stone counts every lesson — +8% XP this run"},
+		{"text": "Rivet Song — pay 4 souls: each rivet hums a plate onto your ribs — +3 armor, −2% speed this run"},
 		{"text": "Walk away"}])
 
 
@@ -14342,8 +14343,20 @@ func _keel_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("RIGGING OIL — the line runs slick through your hands (+10% attack speed this floor)")
 		return
-	if idx == 54:
+	if idx == 55:
 		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 54:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the song isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_count_deal()
+		_souls_l()
+		Stats.buff_armor += 3
+		Stats.buff_speed_pct -= 0.02
+		Sfx.play("shrine")
+		toast("RIVET SONG — each rivet hums a plate onto your ribs (+3 armor, −2% speed)")
 		return
 	if idx == 53:
 		if Stats.souls < _soul_cost(4):
