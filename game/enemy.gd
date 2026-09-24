@@ -258,7 +258,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred", "seafaring", "feytouched", "knotted", "belltoll", "soulfed", "gutted", "beacon", "spry", "keenedged", "tidewrought", "lurker", "hoarfrost", "reefbound", "flotsam", "brinetouched", "bilged", "gilded", "saltbitten", "leeched", "windlashed", "halfshell", "soulwrought", "leaden", "grasping", "hungry", "numbing", "soulbound", "saltkin", "powderkeg", "hollow", "tarbound", "lagged", "bitter", "leviathan", "stormborn", "sundered", "reefsplit"][randi() % 86]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred", "seafaring", "feytouched", "knotted", "belltoll", "soulfed", "gutted", "beacon", "spry", "keenedged", "tidewrought", "lurker", "hoarfrost", "reefbound", "flotsam", "brinetouched", "bilged", "gilded", "saltbitten", "leeched", "windlashed", "halfshell", "soulwrought", "leaden", "grasping", "hungry", "numbing", "soulbound", "saltkin", "powderkeg", "hollow", "tarbound", "lagged", "bitter", "leviathan", "stormborn", "sundered", "reefsplit", "warped"][randi() % 87]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -523,6 +523,10 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				xp_val = int(ceilf(xp_val * 1.4))
 			"reefsplit":
 				speed *= 0.85
+				xp_val = int(ceilf(xp_val * 1.3))
+			"warped":
+				hp *= 1.1
+				hp_max = hp
 				xp_val = int(ceilf(xp_val * 1.3))
 			"brinetouched":
 				hp *= 1.15
@@ -1592,6 +1596,13 @@ func _lurk_reveal() -> void:
 func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 	if state == "dead":
 		return
+	if affix == "warped" and randf() < 0.3:
+		var wdir2: Vector3 = Vector3(randf_range(-1.0, 1.0), 0, randf_range(-1.0, 1.0))
+		if wdir2.length() > 0.01:
+			global_position += wdir2.normalized() * room_tile * 0.9
+			var mwarp := get_tree().current_scene
+			if mwarp != null and mwarp.has_method("_burst"):
+				mwarp._burst(global_position, Color(0.5, 0.3, 0.9))
 	if affix == "saltkin":
 		dmg_taken *= 1.15
 	if vuln_t > 0.0:
