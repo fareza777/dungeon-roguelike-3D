@@ -11481,6 +11481,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Cold Comfort — pay 5 souls: a chill settles into your seams — +1 armor, −4% speed"},
 			{"text": "Hex Auction — pay 6 souls: Mahzan bids the dark against you — +12% ATK, +4% damage taken"},
 			{"text": "Pale Escrow — pay 4 souls: Mahzan holds your coin — +6 souls at floor's end"},
+			{"text": "Soul Mortgage — pay 5 souls: borrowed strength at ruinous rates — +10% ATK, −4% XP this run"},
 		]
 	)
 
@@ -13711,6 +13712,17 @@ func _mahzan_deal(idx: int) -> void:
 				escrow_pending = true
 				Sfx.play("shrine")
 				toast("PALE ESCROW — Mahzan pockets your coin for later (+6 souls at floor's end)")
+		72:
+			if Stats.souls < _soul_cost(5):
+				toast("Five souls — the mortgage isn't free")
+			else:
+				Stats.souls -= _soul_cost(5)
+				_count_deal()
+				_souls_l()
+				Stats.buff_atk_pct += 0.10
+				Stats.buff_xp_pct -= 0.04
+				Sfx.play("shrine")
+				toast("SOUL MORTGAGE — borrowed strength at ruinous rates (+10% ATK, −4% XP)")
 
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
