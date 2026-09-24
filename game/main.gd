@@ -9106,6 +9106,8 @@ func _hero_equip(wid: String) -> void:
 	Sfx.play("pickup")
 	if Stats.owned_weapons.size() >= 15:
 		_ach("arsenal")
+	if Stats.owned_weapons.size() >= 25:
+		_ach("arsenal_master")
 	if Stats.owned_weapons.size() >= 5:
 		_ach("w5")
 	if Stats.owned_weapons.size() >= 8:

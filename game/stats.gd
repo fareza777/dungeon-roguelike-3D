@@ -193,6 +193,7 @@ const ACH_DEF := {
 	"keelhaul5": "Catch & Release (keelhauled 5 foes at once)",
 	"bombsquad": "Bomb Squad (disarmed 5 traps in one run)",
 	"arsenal": "Full Arsenal (own 15 weapons at once)",
+	"arsenal_master": "Arsenal Master (own 25 weapons at once)",
 	"websurgeon": "Web Surgeon (slay 10 Hull Widows)",
 	"quarteroath": "Quarter Sworn (swore 25 omens across your runs)",
 	"salt_merchant": "Salt Merchant (earned 150 souls in one run)",
