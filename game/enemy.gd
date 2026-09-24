@@ -1728,7 +1728,11 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 				mb._boss_banter(1)
 	var away: Vector3 = global_position - from_pos
 	away.y = 0
-	kb = away.normalized() * room_tile * 1.4 * (1.0 - kb_resist)
+	var kbf := 1.4
+	var rime_scene := get_tree().current_scene
+	if rime_scene != null and bool(rime_scene.get("rime_tide") or false):
+		kbf *= 1.4
+	kb = away.normalized() * room_tile * kbf * (1.0 - kb_resist)
 	if mat != null:
 		mat.set_shader_parameter("flash", 1.0)
 		var tw := create_tween()
