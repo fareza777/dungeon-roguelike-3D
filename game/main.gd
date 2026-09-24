@@ -564,6 +564,7 @@ const BESTIARY := {
 	"wrack_eel": ["The Wrack Eel", "A lash of cold muscle — it strikes across the room in a blink."],
 	"rust_saw": ["The Rust Saw", "A blade gone to rot and tetanus — its wounds fester long after the cut."],
 	"bell_ringer": ["The Bell Ringer", "His bell knits the dead back together — silence the tolling first."],
+	"foamcutter": ["The Foamcutter", "A wake with teeth — it slides sideways through your guard."],
 	"gallows_rev": ["The Gallows Revenant", "Hanged twice and walked away from both. It does not hurry — it does not need to."],
 	"kelter_fiend": ["The Kelter Fiend", "Salt-blooded and furious — it dashes through your blows and shrugs off every shove."],
 	"salvage_rat": ["The Salvage Rat", "A purse on legs — quick, yellow, and gone if you blink. Catch it for the souls."],
@@ -587,6 +588,7 @@ const KILLER_NAMES := {
 	"brute": "a Bone Brute", "bomber": "a Boom Bones", "archer": "a Skeletal Archer",
 	"necromancer": "the Necromancer", "crawler": "a Crypt Crawler", "gaoler": "the Gaoler", "weeper": "the Weeper", "sentinel": "a Bone Sentinel", "shade": "the Shade", "hexer": "the Hex Priest", "spiker": "a Spiked Cadaver", "lurker": "the Dweller", "golem": "the Bone Golem", "maiden": "the Wailing Maiden", "revenant": "the Revenant", "shieldbearer": "the Shieldbearer", "herald": "the Herald", "batterer": "the Batterer", "duelist": "the Pale Duelist", "hound": "a Bone Hound", "moth": "a Soul Moth", "orator": "the Grave Orator", "crowned": "the Crowned", "tither": "the Tithing", "digger": "the Gravedigger", "drowned": "the Drowned One", "keelhound": "a Keelhound", "maw": "a Barnacle Maw", "siren": "the Void Siren", "gargoyle": "a Pearl Gargoyle", "mireling": "a Mireling", "saltghast": "a Saltghast", "waver": "a Waver", "keelbeak": "a Keelbeak", "bilge_witch": "a Bilge Witch", "rust_jaw": "a Rust Jaw", "salt_herald": "a Salt Herald", "hull_widow": "a Hull Widow", "deck_gunner": "a Deck Gunner", "reef_caller": "a Reef Caller", "chum_gnawer": "a Chum Gnawer", "rotting_bride": "a Rotting Bride", "salt_cantor": "a Salt Cantor", "kelter_husk": "a Kelter Husk", "deck_brood": "a Deck Brood", "rust_fanatic": "a Rust Fanatic", "chimehead": "a Chimehead", "bilge_sprite": "a Bilge Sprite", "salt_leech": "a Salt Leech", "gutter_chaplain": "a Gutter Chaplain", "bell_warden": "a Bell Warden", "hookfin": "a Hookfin", "wrack_eel": "a Wrack Eel", "rust_saw": "a Rust Saw",
 	"bell_ringer": "a Bell Ringer",
+	"foamcutter": "a Foamcutter",
 	"gallows_rev": "a Gallows Revenant",
 	"kelter_fiend": "a Kelter Fiend",
 	"salvage_rat": "a Salvage Rat",
@@ -645,6 +647,7 @@ const KILLER_TIPS := {
 	"wrack_eel": "Tip: the Wrack Eel coils then lunges across the deck — keep circling, never back-pedal.",
 	"rust_saw": "Tip: the Rust Saw's blade leaves rot in the wound — end the fight fast or bleed rust.",
 	"bell_ringer": "Tip: the Bell Ringer mends his flock with every toll — cut him down first.",
+	"foamcutter": "Tip: the Foamcutter slips your flank mid-swing — let it come to you, then cut the wake.",
 	"gallows_rev": "Tip: the Gallows Revenant won't be moved and won't be hurried — circle it, never trade.",
 	"kelter_fiend": "Tip: the Kelter Fiend barely feels your knockback — pin it with a stun or cut its charge short.",
 	"salvage_rat": "Tip: the Salvage Rat bolts the moment it smells you — corner it or dash, the purse is worth the chase.",
@@ -3729,6 +3732,8 @@ func _on_enemy_died(e) -> void:
 	for sf_ in get_tree().get_nodes_in_group("enemies"):
 		if sf_ != e and sf_.get("affix") == "soulfed" and sf_.get("state") != "dead" and sf_.global_position.distance_to(e.global_position) < 4.0 * info.tile:
 			sf_.hp = minf(float(sf_.hp_max), float(sf_.hp) + float(sf_.hp_max) * 0.1)
+	if e.arch_id == "foamcutter":
+		_quest_event("foam_kill")
 	if e.arch_id == "gallows_rev":
 		_quest_event("revenant_kill")
 	if e.arch_id == "kelter_fiend":
