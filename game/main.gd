@@ -16787,7 +16787,11 @@ func _process(delta: float) -> void:
 			if ui.has("combo_l") and combo >= 3 and combo_t < 1.3:
 				ui.combo_l.modulate = Color(1.0, 0.45 + 0.3 * absf(sin(Time.get_ticks_msec() / 90.0)), 0.15)
 			if combo_t <= 0.0:
+				var lost_n := combo
 				_combo_set(0)
+				if lost_n >= 8 and player != null and is_instance_valid(player):
+					Sfx.play("hurt", 0.5)
+					_damage_number(player.global_position + Vector3(0, 1.2 * info.tile, 0), "COMBO LOST ×%d" % lost_n, Color(0.9, 0.4, 0.3), false)
 
 		# bar HP boss mengikuti sisa nyawa
 		if boss_ref != null and is_instance_valid(boss_ref) and boss_ref.activated:
