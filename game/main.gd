@@ -7969,6 +7969,9 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_armor += 1
 			Stats.buff_atk_pct += 0.04
 			toast("Tar Grip: your palms stick to the haft — +1 Armor, +4% ATK")
+		97:
+			Stats.buff_speed_pct += 0.08
+			toast("Foam Step: the deck barely touches your heels — +8% speed")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -12438,6 +12441,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Galley Nets — the trawl's slack is yours: +6% dodge, +4% speed"},
 			{"text": "Leech Bond — the eels lend their hunger: +5% lifesteal, −5% Max HP"},
 			{"text": "Tar Grip — your palms stick to the haft: +1 Armor, +4% ATK"},
+			{"text": "Foam Step — the deck barely touches your heels: +8% speed"},
 		]
 	)
 
