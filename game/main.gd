@@ -10081,6 +10081,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Bone Tally — pay 4 souls: each notch marks a throat — +8% crit this floor"},
 			{"text": "Keel Wager — pay 6 souls: the coin spins — fifty-fifty: +15 souls or −10% max HP"},
 		{"text": "Tide Account — pay 7 souls: Mahzan converts your lessons into coin — +15% souls, −10% XP this run"},
+		{"text": "Rigging Debt — pay 6 souls: Mahzan laces you light-footed — +8% dodge this run"},
 		]
 	)
 
