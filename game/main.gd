@@ -8090,6 +8090,9 @@ func _on_dlg_choice(idx: int) -> void:
 		99:
 			Stats.buff_xp_pct += 0.12
 			toast("Keel Hymn: the hull sings your lessons back — +12% XP")
+		100:
+			Stats.crit += 0.08
+			toast("Rigger's Eye: you see the seams in every knot — +8% crit")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -12630,6 +12633,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Foam Step — the deck barely touches your heels: +8% speed"},
 			{"text": "Salt Pension — the drowned pay their arrears: +10% souls"},
 			{"text": "Keel Hymn — the hull sings your lessons back: +12% XP"},
+			{"text": "Rigger's Eye — you see the seams in every knot: +8% crit"},
 		]
 	)
 
