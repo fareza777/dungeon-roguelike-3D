@@ -6928,7 +6928,7 @@ func _on_dlg_choice(idx: int) -> void:
 		77:
 			Stats.soul_gain_pct += 0.2
 			Stats.buff_maxhp_pct -= 0.1
-			toast("Salt Vein: the purse swells, the pulse thins — +20% souls, −10% Max HP")
+			toast("Brine Dividend: the purse swells, the pulse thins — +20% souls, −10% Max HP")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -10402,7 +10402,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Coil Keeper — the rope's give is yours: +10% dodge, −5% ATK"},
 			{"text": "Bilge Boarding — planks over your ribs: +1 Armor, −5% speed"},
 			{"text": "Foam Crown — the sea lends a crest: +1 Armor, +5% souls"},
-			{"text": "Salt Vein — the purse swells thin: +20% souls, −10% Max HP"},
+			{"text": "Brine Dividend — the purse swells thin: +20% souls, −10% Max HP"},
 		]
 	)
 
