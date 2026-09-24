@@ -147,6 +147,7 @@ const LORE_LINES := [
 	"A loose ship still floats, Kael — she just reminds you how thin the hull is.",
 	"A lantern in a dead hand still counts as a lantern, Kael. Douse it kindly.",
 	"A Keel Scribe writes only what the sea already knows, Kael — which is why it never writes about you.",
+	"Salt Widows were the wreck's last surgeons — they still stitch, Kael, they just ran out of anesthetic.",
 	"The sea does not count in years down here — she counts in tides owed.",
 	"The Reef Caller never learned a war song, Kael — it only ever learned yours.",
 	"A wormwood charm tastes bitter so the venom forgets where your heart is.",
@@ -5086,6 +5087,8 @@ func _souls_l() -> void:
 		_ach("fullpurse")
 	if Stats.souls >= 200:
 		_ach("deepcoffers")
+	if Stats.souls >= 300:
+		_ach("salthoard")
 	if Stats.souls_run >= 150:
 		_ach("salt_merchant")
 	if lucky_net and Stats.souls > _souls_seen:
