@@ -10786,6 +10786,9 @@ func _omen_deal(idx: int) -> void:
 		Stats.save_game()
 	omen_count += 1
 	Stats.oaths_sworn += 1
+	_quest_event("omen_sworn")
+	if omen_count >= 3:
+		_quest_event("omen_sworn_floor")
 	if omen_count >= 4:
 		_ach("pact_stack")
 	if Stats.oaths_sworn >= 5:
