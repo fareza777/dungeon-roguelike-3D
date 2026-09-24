@@ -356,6 +356,7 @@ var bosuns_chit := false
 var deck_psalm := false
 var leech_bond := false
 var salt_lullaby := false
+var regal_favor := false
 var drift_verse := false
 var pearl_octave := false
 var undertow_aria := false
@@ -1614,6 +1615,9 @@ func _new_run(new_seed: int) -> void:
 		Stats.buff_lifesteal -= 0.08
 		leech_bond = false
 	salt_lullaby = false
+	if regal_favor:
+		Stats.buff_xp_pct -= 0.15
+		regal_favor = false
 	kelp_tithe = false
 	if vigils_gage:
 		Stats.dodge -= 0.1
@@ -10844,16 +10848,28 @@ func _on_throne_invoked(s) -> void:
 		{"text": "Vigil's Gage — pay 7 souls: the crown's shadow covers your step — +10% dodge this floor"},
 		{"text": "Crown's Hush — pay 6 souls: the court's hush falls over you — foes notice you −20% later this floor"},
 		{"text": "Vassal's Claim — pay 5 souls: the crown taxes its own — foes −10% HP this floor"},
+		{"text": "Regal Favor — pay 6 souls: the court notices your deeds — +15% XP this floor"},
 		{"text": "Walk away"}])
 
 
 func _throne_deal(idx: int) -> void:
-	if idx == 23:
+	if idx == 24:
 		Stats.earn_souls(4)
 		_souls_l()
 		_quest_event("throne")
 		Sfx.play("soul")
 		toast("CLEAN HANDS — the crown pays +4 souls to the incorruptible")
+		return
+	if idx == 23:
+		if Stats.souls < _soul_cost(6):
+			toast("Six souls — the court's regard isn't free")
+			return
+		Stats.souls -= _soul_cost(6)
+		_souls_l()
+		regal_favor = true
+		Stats.buff_xp_pct += 0.15
+		Sfx.play("shrine")
+		toast("REGAL FAVOR — the court notes your name")
 		return
 	if idx == 22:
 		if Stats.souls < _soul_cost(5):
