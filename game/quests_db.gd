@@ -116,6 +116,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Hull's Ghost", "desc": "Clear 2 KEEL SPIRIT floors (0/2)", "kind": "spiritwalk", "need": 2})
 		steps.append({"title": "Light Carrier", "desc": "Clear 2 LANTERN WAKE floors (0/2)", "kind": "wakewalk", "need": 2})
 		steps.append({"title": "Through the Murk", "desc": "Clear 2 FOG BANK floors (0/2)", "kind": "fogwalk", "need": 2})
+		steps.append({"title": "Slow Hours", "desc": "Clear 2 TIDE CLOCK floors (0/2)", "kind": "clockwalk", "need": 2})
 		steps.append({"title": "Hangman's Walk", "desc": "Clear 2 GALLOWS TIDE floors (0/2)", "kind": "gallowswalk", "need": 2})
 		steps.append({"title": "Salt-Fevered", "desc": "Clear 2 SALTSICK floors (0/2)", "kind": "saltwalk", "need": 2})
 		steps.append({"title": "Ember Walker", "desc": "Clear 2 EMBER WAKE floors (0/2)", "kind": "emberwalk", "need": 2})
