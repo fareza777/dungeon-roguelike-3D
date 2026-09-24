@@ -836,6 +836,7 @@ const BESTIARY := {
 	"keel_scribe": ["Keel Scribe", "A drowned notary that keeps the wreck's ledger wet — it blinks between the fallen and inks their wounds closed. Catch it mid-stroke."],
 	"salt_widow": ["Salt Widow", "She knits the drowned back together and reels the living in — cut her line before she cuts your throat."],
 	"keel_leecher": ["Keel Leecher", "It blinks through the hull to latch onto the nearest warm vein — keep moving."],
+	"rust_leech": ["Rust Leech", "Its bolts carry the bilge's thirst — every hit you take feeds it."],
 	"keel_summoner": ["Keel Summoner", "It tolls the wreck's muster bell — each note drags more dead crew from the bilge."],
 	"gunnel_fiend": ["Gunnel Fiend", "It claws along the rail faster than it walks — when it coils, it's already midair."],
 	"pale_lantern": ["Pale Lantern", "A wick of drowned light walking a dead sailor's frame — snuff it and every shadow in the room flinches."],
@@ -884,7 +885,7 @@ const KILLER_NAMES := {
 	"bell_ringer": "a Bell Ringer",
 	"moorling": "a Moorling",
 	"keel_mastiff": "a Keel Mastiff",
-	"salt_lich": "a Salt Lich", "bilge_fury": "a Bilge Fury", "siren_thrall": "a Siren Thrall", "pale_lantern": "a Pale Lantern", "gunnel_fiend": "a Gunnel Fiend", "bilge_cantor": "a Bilge Cantor", "tide_bailiff": "a Tide Bailiff", "salt_skimmer": "a Salt Skimmer", "brine_monk": "a Brine Monk", "deck_rigger": "a Deck Rigger", "dread_gull": "a Dread Gull", "gale_singer": "a Gale Singer", "snatch_widow": "a Snatch Widow", "gunnel_gnat": "a Gunnel Gnat", "deck_reverend": "a Deck Reverend", "mast_lurcher": "a Mast Lurcher", "dirge_singer": "a Dirge Singer", "the_boatswain": "the Boatswain", "gloom_lantern": "a Gloom Lantern", "wick_tender": "a Wick Tender", "sodden_deckhand": "a Sodden Deckhand", "brine_widow": "a Brine Widow", "keelwright": "a Keelwright", "bilge_tender": "a Bilge Tender", "keel_sapper": "a Keel Sapper", "keel_chorister": "a Keel Chorister", "pitch_tender": "a Pitch Tender", "keel_wraith": "a Keel Wraith", "brood_keel": "a Brood Keel", "brine_hag": "a Brine Hag", "salt_devout": "a Salt Devout", "jeerjack": "a Jeerjack", "salt_gallows": "a Salt Gallows", "soul_toller": "a Soul Toller", "keel_scribe": "a Keel Scribe", "salt_widow": "a Salt Widow", "keel_leecher": "a Keel Leecher", "keel_summoner": "a Keel Summoner",
+	"salt_lich": "a Salt Lich", "bilge_fury": "a Bilge Fury", "siren_thrall": "a Siren Thrall", "pale_lantern": "a Pale Lantern", "gunnel_fiend": "a Gunnel Fiend", "bilge_cantor": "a Bilge Cantor", "tide_bailiff": "a Tide Bailiff", "salt_skimmer": "a Salt Skimmer", "brine_monk": "a Brine Monk", "deck_rigger": "a Deck Rigger", "dread_gull": "a Dread Gull", "gale_singer": "a Gale Singer", "snatch_widow": "a Snatch Widow", "gunnel_gnat": "a Gunnel Gnat", "deck_reverend": "a Deck Reverend", "mast_lurcher": "a Mast Lurcher", "dirge_singer": "a Dirge Singer", "the_boatswain": "the Boatswain", "gloom_lantern": "a Gloom Lantern", "wick_tender": "a Wick Tender", "sodden_deckhand": "a Sodden Deckhand", "brine_widow": "a Brine Widow", "keelwright": "a Keelwright", "bilge_tender": "a Bilge Tender", "keel_sapper": "a Keel Sapper", "keel_chorister": "a Keel Chorister", "pitch_tender": "a Pitch Tender", "keel_wraith": "a Keel Wraith", "brood_keel": "a Brood Keel", "brine_hag": "a Brine Hag", "salt_devout": "a Salt Devout", "jeerjack": "a Jeerjack", "salt_gallows": "a Salt Gallows", "soul_toller": "a Soul Toller", "keel_scribe": "a Keel Scribe", "salt_widow": "a Salt Widow", "keel_leecher": "a Keel Leecher", "keel_summoner": "a Keel Summoner", "rust_leech": "a Rust Leech",
 	"deck_brute": "a Deck Brute",
 	"salt_eel": "a Salt Eel",
 	"quarter_ghost": "a Quarter Ghost",
@@ -999,6 +1000,7 @@ const KILLER_TIPS := {
 	"keel_scribe": "Tip: the Keel Scribe mends the fallen mid-blink — cut it the moment it reappears.",
 	"salt_widow": "Tip: the Salt Widow drags you into the pack she mends — break her line or break her first.",
 	"keel_leecher": "Tip: the Keel Leecher warps to your side mid-combo — kill it before it drinks.",
+	"rust_leech": "Tip: a Rust Leech sips your blood from afar — close the gap or break its line.",
 	"keel_summoner": "Tip: the Keel Summoner raises the bilge crew faster than you can cut them — silence the bell first.",
 	"salt_lich": "Tip: Salt Liches telegraph a long windup — close the gap fast or weave between bolts.",
 	"deck_brute": "Tip: Deck Brutes barely feel knockback — break their windup with a stun, or never be there when it lands.",
@@ -3799,6 +3801,7 @@ const FIRST_SEEN := {
 	"keel_scribe": "A Keel Scribe drifts between the dead — its pen keeps wet pages.",
 	"salt_widow": "A Salt Widow waits at the range of her line — she mends what she hooks.",
 	"keel_leecher": "A Keel Leecher circles your wake — it strikes only from where you aren't.",
+	"rust_leech": "A Rust Leech tastes the air for you — its bolts drink what they hit.",
 	"keel_summoner": "A Keel Summoner sounds the muster — it will not stop until the bell is drowned.",
 	"brine_monk": "A Brine Monk bows its head — its open palm saps the strength from your arm.",
 	"deck_rigger": "A Deck Rigger unfurls its line — its hook bites from farther than you think.",
@@ -5674,6 +5677,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("leecher_kill")
 	if e.arch_id == "keel_summoner":
 		_quest_event("summoner_kill")
+	if e.arch_id == "rust_leech":
+		_quest_event("rustleech_kill")
 	if e.arch_id == "keel_scribe":
 		_quest_event("scribe_kill")
 	if e.arch_id == "soul_toller":
