@@ -10063,6 +10063,7 @@ func _offer_omens() -> void:
 		{"text": "HARROWED KEEL — the wreck teaches rough lessons (+12% XP)... and every one of them draws blood (+8% damage taken)"},
 		{"text": "PALE WAGER — the wreck sharpens your edge (+10% ATK)... and thickens the hulls it sends (+8% foe HP)"},
 		{"text": "WAKE LEVY — the current carries you faster (+8% speed)... and carries every blow to you (+8% damage taken)"},
+		{"text": "GRIM TRADE — the wreck trades you muscle for plate (+10% ATK)... but peels your hull (−1 armor)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -10719,6 +10720,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.curse_dmg += 0.08
 			oname = "WAKE LEVY"
 		136:
+			Stats.buff_atk_pct += 0.10
+			Stats.buff_armor -= 1
+			oname = "GRIM TRADE"
+		137:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -10887,6 +10892,7 @@ func _omen_deal(idx: int) -> void:
 	"HARROWED KEEL": "The sea's lessons are carved below the waterline, Kael — you learn or you sink.",
 	"PALE WAGER": "A wager struck in drowned light, Kael — your edge for their hulls. The sea always collects.",
 	"WAKE LEVY": "Ride the wreck's wake and it rides you back, Kael — speed is never free.",
+	"GRIM TRADE": "Iron out, flesh in, Kael — the wreck's scales always balance.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
