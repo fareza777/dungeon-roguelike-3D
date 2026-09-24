@@ -7532,6 +7532,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_xp_pct += 0.1
 			Stats.soul_gain_pct -= 0.05
 			toast("Galley Spice: the pot's seasoning clings to you — +10% XP, −5% souls")
+		89:
+			Stats.dodge += 0.06
+			Stats.buff_aspd += 0.06
+			Stats.soul_gain_pct -= 0.05
+			toast("Slip Knot: you slide through the rope's bite — +6% dodge, +6% haste, −5% souls")
 			toast("Hull Tithe: ironwood ribs for a price — +15% Max HP, −10% dodge")
 		50:
 			Stats.buff_aspd += 0.15
@@ -11441,6 +11446,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Hull Tithe — ironwood ribs for a price: +15% Max HP, −10% dodge"},
 			{"text": "Keel Net — the trawl gathers what spills: +8% dodge, −5% speed"},
 			{"text": "Galley Spice — hot meals, warm bones: +10% XP, −5% souls"},
+			{"text": "Slip Knot — the knot gives, then bites: +6% dodge, +6% attack speed, −5% souls"},
 		]
 	)
 
