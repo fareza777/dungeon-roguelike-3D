@@ -378,6 +378,20 @@ func _strike() -> void:
 						if mgr.has_method("_damage_number"):
 							mgr._damage_number(global_position + Vector3(0, 0.9, 0), "+1 ◈", Color(0.5, 0.95, 1.0), false)
 						Sfx.play("soul")
+			if Stats.weapon_id == "curse_cutter":
+				var ccn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", ccn)
+				if ccn % 5 == 0:
+					var had_curse := false
+					for deb in ["chill_t", "weak_t", "root_t", "venom_t", "silence_t", "rust_t"]:
+						if float(get(deb)) > 0.0:
+							had_curse = true
+						set(deb, 0.0)
+					if had_curse:
+						var mcc := get_tree().current_scene
+						if mcc != null and mcc.has_method("_damage_number"):
+							mcc._damage_number(global_position + Vector3(0, 0.9, 0), "CLEANSED", Color(0.7, 0.9, 1.0), true)
+						Sfx.play("shrine")
 			if Stats.weapon_id == "salt_lantern":
 				var sln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", sln)
