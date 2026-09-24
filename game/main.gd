@@ -383,6 +383,7 @@ var soul_ledger := false
 var courts_tally := false
 var royal_overlook := false
 var crowns_reprieve := false
+var crowns_hand := false
 var splice_line := false
 var rigging_rest := false
 var hull_count := false
@@ -1740,6 +1741,7 @@ func _new_run(new_seed: int) -> void:
 	if crowns_reprieve:
 		Stats.cd_reduction -= 0.12
 		crowns_reprieve = false
+	crowns_hand = false
 	if splice_line:
 		Stats.buff_speed_pct -= 0.06
 		splice_line = false
@@ -10746,6 +10748,18 @@ func _keel_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("RIGGING RITES — every line tuned tight")
 		return
+	if idx == 28:
+		if Stats.souls < _soul_cost(5):
+			toast("Five souls — the throne's touch isn't free")
+			return
+		Stats.souls -= _soul_cost(5)
+		_count_deal()
+		_souls_l()
+		Stats.buff_atk_pct += 0.06
+		crowns_hand = true
+		Sfx.play("shrine")
+		toast("CROWN'S HAND — the throne blesses your blade")
+		return
 	if idx == 27:
 		if Stats.souls < _soul_cost(4):
 			toast("Four souls — the pulley isn't free")
@@ -11928,11 +11942,12 @@ func _on_throne_invoked(s) -> void:
 		{"text": "Royal Overlook — pay 5 souls: the court looks away — foes −10% damage this floor"},
 		{"text": "Sovereign's Rest — pay 6 souls: the crown's own physician attends — mend 40%"},
 		{"text": "Crown's Reprieve — pay 4 souls: a royal breath between strikes — skills recharge 12% faster this floor"},
+		{"text": "Crown's Hand — pay 5 souls: the throne lays a finger on your blade — +6% ATK this floor"},
 		{"text": "Walk away"}])
 
 
 func _throne_deal(idx: int) -> void:
-	if idx == 28:
+	if idx == 29:
 		Stats.earn_souls(4)
 		_souls_l()
 		_quest_event("throne")
