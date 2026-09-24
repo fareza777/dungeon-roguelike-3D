@@ -98,6 +98,7 @@ var eel_dash_t := 0.0
 var eel_dir := Vector3.ZERO
 var chime_t := 7.0
 var husk_shell := false
+var halfshell_shell := false
 var cantor_t := 6.5
 var bride_t := 5.5
 var oath_t := 3.0
@@ -251,7 +252,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred", "seafaring", "feytouched", "knotted", "belltoll", "soulfed", "gutted", "beacon", "spry", "keenedged", "tidewrought", "lurker", "hoarfrost", "reefbound", "flotsam", "brinetouched", "bilged", "gilded", "saltbitten", "leeched", "windlashed"][randi() % 69]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred", "seafaring", "feytouched", "knotted", "belltoll", "soulfed", "gutted", "beacon", "spry", "keenedged", "tidewrought", "lurker", "hoarfrost", "reefbound", "flotsam", "brinetouched", "bilged", "gilded", "saltbitten", "leeched", "windlashed", "halfshell"][randi() % 70]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -452,6 +453,10 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 			"windlashed":
 				hp *= 1.05
 				xp_val = int(ceilf(xp_val * 1.3))
+			"halfshell":
+				hp *= 0.9
+				xp_val = int(ceilf(xp_val * 1.4))
+				halfshell_shell = true
 			"brinetouched":
 				hp *= 1.15
 				xp_val = int(ceilf(xp_val * 1.3))
@@ -1459,6 +1464,12 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 		return
 	if is_lurker and not lurk_revealed:
 		_lurk_reveal()
+	if halfshell_shell:
+		halfshell_shell = false
+		dmg_taken = 0.0
+		var hs2_ := get_tree().current_scene
+		if hs2_ != null and hs2_.has_method("_damage_number"):
+			hs2_._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "SHELL CRACKED", Color(0.7, 0.75, 0.6), false)
 	if husk_shell:
 		# kelter husk: pukulan pertama pecahkan cangkang saja
 		husk_shell = false
