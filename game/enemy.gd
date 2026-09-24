@@ -1071,6 +1071,8 @@ func _physics_process(delta: float) -> void:
 							elif burst:
 								# dua peluru berurutan — bidak pertama lurus, kedua mengejar
 								pr.launch(global_position + Vector3(0, 1.0 * scale.x, 0), q2.global_position + Vector3(0, 0.9, 0), proj_speed, dmg, 0.35 * room_tile)
+								if mat != null:
+									mat.set_shader_parameter("flash", 0.85)
 								await get_tree().create_timer(0.22).timeout
 								if state != "dead":
 									var pr2 = PROJ.new()
@@ -1078,6 +1080,8 @@ func _physics_process(delta: float) -> void:
 									pr2.launch(global_position + Vector3(0, 1.0 * scale.x, 0), q2.global_position + Vector3(0, 0.9, 0), proj_speed, dmg, 0.35 * room_tile)
 							else:
 								pr.launch(global_position + Vector3(0, 1.0 * scale.x, 0), q2.global_position + Vector3(0, 0.9, 0), proj_speed, dmg, 0.35 * room_tile)
+								if mat != null:
+									mat.set_shader_parameter("flash", 0.85)
 						state = "recover"
 						state_t = 1.1
 				else:
