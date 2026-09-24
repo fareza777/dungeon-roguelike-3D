@@ -212,6 +212,7 @@ const DB := {
 	"grim_hourglass": {"name": "Grim Hourglass", "chip": "GH", "desc": "The sand runs black and fast — +6% attack speed, +2% XP", "rarity": 1, "mods": {"atk_speed": 0.06, "xp_pct": 0.02}},
 	"chain_rose": {"name": "Chain Rose", "chip": "CR", "desc": "A rose of rusted links that blooms where the drowned paid in full — +3% Max HP, souls mend", "rarity": 1, "mods": {"max_hp_pct": 0.03}},
 	"toll_lantern": {"name": "Toll Lantern", "chip": "TL", "desc": "A light that counts every coin it guides home — +4% souls, +2% dodge", "rarity": 1, "mods": {"soul_gain_pct": 0.04, "dodge": 0.02}},
+	"wake_coin": {"name": "Wake Coin", "chip": "WC", "desc": "A fare already paid — the current hurries you along — +4% XP, +2% speed", "rarity": 1, "mods": {"xp_pct": 0.04, "speed_pct": 0.02}},
 # ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
