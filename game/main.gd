@@ -5325,6 +5325,11 @@ func _pick_relic(i: int) -> void:
 	var id: String = draft_choices[i]
 	var before := Stats.get_stat("max_hp")
 	Stats.add_relic(id)
+	var rr: int = int(ITEMS.DB[id].get("rarity", 0))
+	var rcol: Color = Color(0.55, 0.85, 1.0) if rr == 0 else (Color(0.65, 0.95, 0.55) if rr == 1 else (Color(0.75, 0.5, 1.0) if rr == 2 else Color(1.0, 0.8, 0.25)))
+	toast("◆ %s — %s" % [String(ITEMS.DB[id]["name"]), String(ITEMS.DB[id]["desc"])])
+	if player != null and is_instance_valid(player):
+		_souls(player.global_position, 8 + rr * 4, rcol)
 	if Stats.relics.size() >= 10:
 		_ach("col10")
 	if id == "tulang_kesatria":
