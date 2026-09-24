@@ -13140,6 +13140,7 @@ func _on_keel_invoked(s) -> void:
 		{"text": "Fathom Chalk — pay 5 souls: the deep marks your aim — +8% crit this floor"},
 		{"text": "Rigging Oil — pay 4 souls: the line runs slick through your hands — +10% attack speed this floor"},
 		{"text": "Tarred Seams — pay 5 souls: pitch seals your seams against the deep — +1 armor, +4% dodge"},
+		{"text": "Rigging Scrip — pay 4 souls: the yardarms lend their sway — +8% speed, −5% dodge this run"},
 		{"text": "Walk away"}])
 
 
@@ -13252,8 +13253,20 @@ func _keel_deal(idx: int) -> void:
 		Sfx.play("shrine")
 		toast("RIGGING OIL — the line runs slick through your hands (+10% attack speed this floor)")
 		return
-	if idx == 47:
+	if idx == 48:
 		toast("The stone settles — the sea keeps its bargains")
+		return
+	if idx == 47:
+		if Stats.souls < _soul_cost(4):
+			toast("Four souls — the scrip isn't free")
+			return
+		Stats.souls -= _soul_cost(4)
+		_count_deal()
+		_souls_l()
+		Stats.buff_speed_pct += 0.08
+		Stats.dodge -= 0.05
+		Sfx.play("shrine")
+		toast("RIGGING SCRIP — the yardarms lend their sway (+8% speed, −5% dodge)")
 		return
 	if idx == 46:
 		if Stats.souls < _soul_cost(5):
