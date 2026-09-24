@@ -6335,6 +6335,9 @@ func _on_enemy_died(e) -> void:
 	# permata XP terakhir, supaya logika gerbang di atas tidak keganggu bila gem gagal
 	if e.golden:
 		_damage_number(e.global_position, "LUCKY ×3", Color(1.0, 0.85, 0.3), true)
+		Stats.golden_kills += 1
+		if Stats.golden_kills >= 10:
+			_ach("gilded_foe")
 	if e.elite and String(biome.get("name", "")) == "Sunken Reliquary":
 		Stats.earn_souls(4)
 		_souls_l()

@@ -76,6 +76,7 @@ var curse_xp := 0.0 # pakta obelisk: jiwa lebih kaya (stack)
 var best_floor := 0
 var total_kills := 0
 var floors_cleared := 0
+var golden_kills := 0
 var arch_kills: Dictionary = {}
 var dread_survived := 0 # kill total per arketipe — abadi
 var traps_defused := 0
@@ -245,6 +246,7 @@ const ACH_DEF := {
 	"ringer10": "Ringer of Bells (slay 10 Bell Ringers)",
 	"thousand_cuts": "A Thousand Cuts (1,000 lifetime kills)",
 	"halfcentury": "Half Century (clear 50 floors)",
+	"gilded_foe": "Gilded Foe (slay 10 golden foes)",
 	"threequarters": "Three Quarters (reach Floor 75)",
 	"centurion_deep": "Centurion of the Deep (reach Floor 100)",
 	"deepwater": "Deep Water (reach Floor 40)",
@@ -587,6 +589,8 @@ func note_floor() -> void:
 		ach["thousand_cuts"] = true
 	if floors_cleared >= 50 and not ach.has("halfcentury"):
 		ach["halfcentury"] = true
+	if golden_kills >= 10 and not ach.has("gilded_foe"):
+		ach["gilded_foe"] = true
 	if floor_num >= 55 and not ach.has("trenchwalker"):
 		ach["trenchwalker"] = true
 
@@ -676,7 +680,7 @@ func save_game() -> void:
 	var f := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if f != null:
 		f.store_string(JSON.stringify({
-			"best_floor": best_floor, "total_kills": total_kills, "floors_cleared": floors_cleared, "runs": runs, "arch_kills": arch_kills, "dread_survived": dread_survived,
+			"best_floor": best_floor, "total_kills": total_kills, "floors_cleared": floors_cleared, "golden_kills": golden_kills, "runs": runs, "arch_kills": arch_kills, "dread_survived": dread_survived,
 			"boss_kills": boss_kills, "ng_plus": ng_plus,
 			"traps_defused": traps_defused,
 	"wisps_caught": wisps_caught, "forges_used": forges_used, "prays": prays, "oaths_sworn": oaths_sworn,
@@ -704,6 +708,7 @@ func load_game() -> void:
 		if d is Dictionary:
 			best_floor = int(d.get("best_floor", 0))
 			floors_cleared = int(d.get("floors_cleared", 0))
+			golden_kills = int(d.get("golden_kills", 0))
 			total_kills = int(d.get("total_kills", 0))
 			arch_kills = d.get("arch_kills", {})
 			dread_survived = int(d.get("dread_survived", 0))
