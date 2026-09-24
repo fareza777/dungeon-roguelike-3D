@@ -1159,6 +1159,11 @@ func _physics_process(delta: float) -> void:
 								if affix == "windlashed" and q == p:
 									var wdir: Vector3 = (p.global_position - global_position).normalized()
 									p.velocity += wdir * 14.0
+								if affix == "stormborn" and q == p:
+									var sdir: Vector3 = (p.global_position - global_position).normalized()
+									p.velocity += sdir * 10.0
+									if mat != null:
+										mat.set_shader_parameter("flash", 0.6)
 								if arch_id == "quarter_ghost" and q == p:
 									hp = minf(hp_max, hp + dmg * 0.4)
 								if arch_id == "brine_monk" and q == p:
