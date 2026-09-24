@@ -187,6 +187,11 @@ func _show(i: int) -> void:
 	tw.tween_property(slide_box, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_BACK)
 	for d in dots.get_children():
 		d.color = GOLD if d.name == "dot%d" % i else Color(1, 1, 1, 0.2)
+		if d.name == "dot%d" % i:
+			d.pivot_offset = d.size * 0.5
+			d.scale = Vector2(1.6, 1.6)
+			var dtw: Tween = d.create_tween()
+			dtw.tween_property(d, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	btn_next.text = "START" if i == SLIDES.size() - 1 else "NEXT"
 	Sfx.play("page")
 
