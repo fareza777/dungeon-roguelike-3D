@@ -10981,6 +10981,8 @@ func _count_deal() -> void:
 		_ach("spender")
 	if deals_run >= 25:
 		_ach("open_purse")
+	if deals_run >= 40:
+		_ach("ledger_lord")
 
 func _mahzan_deal(idx: int) -> void:
 	if bargainer and not bargain_used:
