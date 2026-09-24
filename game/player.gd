@@ -25,6 +25,7 @@ var rust_t := 0.0
 var hp := 5.0
 var max_hp := 5.0
 var attack_cooldown := 0.45
+var atk_buf := 0.0
 var cd := 0.0
 var invuln := 0.0
 var dead := false
@@ -122,6 +123,10 @@ func _physics_process(delta: float) -> void:
 	if dead:
 		return
 	cd = max(0.0, cd - delta)
+	atk_buf = max(0.0, atk_buf - delta)
+	if atk_buf > 0.0 and cd <= 0.0 and not dead and not Stats.draft_open:
+		atk_buf = 0.0
+		attack()
 	invuln = max(0.0, invuln - delta)
 	anim_lock = max(0.0, anim_lock - delta)
 	var tick := delta * (2.0 if Stats.relics.has("pressure_suit") else 1.0) * (1.3 if Stats.relics.has("brine_rat") else 1.0)
@@ -197,7 +202,10 @@ func _physics_process(delta: float) -> void:
 
 
 func attack() -> void:
-	if dead or cd > 0.0 or Stats.draft_open:
+	if dead or Stats.draft_open:
+		return
+	if cd > 0.0:
+		atk_buf = 0.15
 		return
 	cd = attack_cooldown
 	attacked.emit()
