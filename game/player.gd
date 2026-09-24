@@ -366,6 +366,18 @@ func _strike() -> void:
 						if mst != null and mst.has_method("_damage_number"):
 							mst._damage_number(sns[0].global_position + Vector3(0, 0.8, 0), "ROOTED", Color(0.4, 0.8, 0.5), false)
 						Sfx.play("hook")
+			if Stats.weapon_id == "grim_reel":
+				var grn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", grn)
+				if grn % 7 == 0:
+					Stats.earn_souls(1)
+					var mgr := get_tree().current_scene
+					if mgr != null:
+						if mgr.has_method("_souls_l"):
+							mgr._souls_l()
+						if mgr.has_method("_damage_number"):
+							mgr._damage_number(global_position + Vector3(0, 0.9, 0), "+1 ◈", Color(0.5, 0.95, 1.0), false)
+						Sfx.play("soul")
 			if Stats.weapon_id == "salt_lantern":
 				var sln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", sln)
