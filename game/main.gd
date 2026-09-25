@@ -21540,6 +21540,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Jota: The bilge jota-step fills and teaches you, Kael.")
+		2664:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Jota: The crest jota-step guards and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -25958,6 +25962,7 @@ func _offer_omens() -> void:
 		{"text": "FOG HIERATEION — the fog hierateion-sanctuary guards and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE HIERATEION — the wake hierateion-sanctuary quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE HIERATEION — the bilge hierateion-sanctuary fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
+		{"text": "CREST HIERATEION — the crest hierateion-sanctuary guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -48040,6 +48045,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE HIERATEION"
 		4385:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST HIERATEION"
+		4386:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -52495,6 +52505,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG HIERATEION": "The fog hierateion-sanctuary opens its hierateia in your fog, Kael — well-guarded and filled, at a cost.",
 	"WAKE HIERATEION": "The wake hierateion-sanctuary opens its hierateia in your wake, Kael — quicker and filled, at a cost.",
 	"BILGE HIERATEION": "The bilge hierateion-sanctuary opens its hierateia in your hold, Kael — richer and wiser, at a cost.",
+	"CREST HIERATEION": "The crest hierateion-sanctuary opens its hierateia on your crest, Kael — guarded and keen, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -60320,6 +60331,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Jota — the fog jota-step guards and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Jota — the wake jota-step quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Jota — the bilge jota-step fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Jota — the crest jota-step guards and sharpens you (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
