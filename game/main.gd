@@ -11531,6 +11531,7 @@ func _offer_omens() -> void:
 		{"text": "PALE ROLL — the pale count's roll finds you sharp and slippery (+4% crit, +5% dodge)... and thin of plate (−2 armor)"},
 		{"text": "FOG ROLL — the mist's roll calls you ghost-footed (+6% dodge, +3% speed)... and fog-handed (−4% ATK)"},
 		{"text": "DEEP ROLL — the trench's roll plates you for the pressure (+2 armor, +5% XP)... the plating slows your swing (−3% attack speed)"},
+		{"text": "BILGE ROLL — the hold's roll pays you in slosh and edge (+7% souls, +3% attack speed)... wet decks betray your footing (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12748,6 +12749,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_aspd -= 0.03
 			oname = "DEEP ROLL"
 		267:
+			Stats.soul_gain_pct += 0.07
+			Stats.buff_aspd += 0.03
+			Stats.dodge -= 0.04
+			oname = "BILGE ROLL"
+		268:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13066,6 +13072,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE ROLL": "The pale count's roll, Kael — it finds you sharp and slippery, and thin of plate.",
 	"FOG ROLL": "The mist's roll calls you ghost-footed, Kael — and fog-handed for the calling.",
 	"DEEP ROLL": "The trench's roll plates you for the pressure, Kael — plating always swings slower.",
+	"BILGE ROLL": "The hold's roll pays you in slosh and edge, Kael — wet decks always betray footing.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
