@@ -8164,11 +8164,20 @@ func _build_draft_cards() -> void:
 			xtw.tween_property(sb, "bg_color", card_bg, 0.12))
 		card.gui_input.connect(func(e: InputEvent) -> void:
 			if (e is InputEventMouseButton or e is InputEventScreenTouch) and e.pressed:
+				if bool(card.get_meta("picked", false)):
+					return
+				card.set_meta("picked", true)
 				Sfx.play("click")
 				var ptw: Tween = card.create_tween()
 				ptw.tween_property(card, "scale", Vector2(0.88, 0.88), 0.05)
-				ptw.tween_property(card, "scale", Vector2.ONE, 0.15).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-				_pick_relic(idx)
+				ptw.tween_property(card, "scale", Vector2(1.14, 1.14), 0.16).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+				for oc in ui.draft_cards.get_children():
+					if oc != card:
+						var otw: Tween = oc.create_tween()
+						otw.tween_property(oc, "modulate:a", 0.25, 0.18)
+				var dt2: Tween = card.create_tween()
+				dt2.tween_interval(0.24)
+				dt2.tween_callback(func() -> void: _pick_relic(idx))
 		)
 		ui.draft_cards.add_child(card)
 		if int(it["rarity"]) >= 2:
