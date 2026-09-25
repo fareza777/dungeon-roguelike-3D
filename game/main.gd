@@ -5530,6 +5530,8 @@ func _spawn_squire() -> void:
 	squire_ref.setup(info.tile, maxf(1.0, Stats.get_stat("atk") * 0.35))
 	if bosun_mark:
 		squire_ref.dmg *= 1.2
+	_shock_ring(squire_ref.global_position, Color(0.95, 0.88, 0.6))
+	_burst(squire_ref.global_position + Vector3(0, 0.4 * info.tile, 0), Color(0.95, 0.88, 0.6))
 	toast("Your squire kneels... then rises to fight")
 
 
