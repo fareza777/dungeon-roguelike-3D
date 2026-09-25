@@ -11767,6 +11767,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE ORDINANCE — the trail's standing law carries and pays you (+6% speed, +4% souls)... and leaves your guard for the carrying (−3% dodge)"},
 		{"text": "BILGE ORDINANCE — the hold's standing law fills and instructs you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "CREST ORDINANCE — the breaker's standing law lifts your guard and arm (+5% dodge, +5% ATK)... and offers less in return (−4% souls)"},
+		{"text": "SALT ORDINANCE — the brine standing law fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13629,6 +13630,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.04
 			oname = "CREST ORDINANCE"
 		396:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "SALT ORDINANCE"
+		397:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -14078,6 +14084,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE ORDINANCE": "The trail's standing law carries and pays you, Kael — it leaves your guard for the carrying.",
 	"BILGE ORDINANCE": "The hold's standing law fills and instructs you, Kael — it shifts your guard for the filling.",
 	"CREST ORDINANCE": "The breaker's standing law lifts your guard and arm, Kael — it offers less in return for the lifting.",
+	"SALT ORDINANCE": "The brine standing law fills and teaches you, Kael — it shifts your guard for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
