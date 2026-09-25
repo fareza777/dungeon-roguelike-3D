@@ -12319,6 +12319,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH APPENDIX — the deep-cut appendix hones your arm and speed (+5% ATK, +4% attack speed)... and opens your guard for the honing (−4% dodge)"},
 		{"text": "BOTTOM APPENDIX — the deepest appendix fills and guards you (+7% souls, +4% dodge)... and weakens your arm for the filling (−3% ATK)"},
 		{"text": "GRIM APPENDIX — the grim appendix arms, guards and plates you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the plating (−4% speed)"},
+		{"text": "FOG APPENDIX — the misted appendix cloaks and fills you (+7% dodge, +4% souls)... and weakens your arm for the cloaking (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -16526,6 +16527,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM APPENDIX"
 		857:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG APPENDIX"
+		858:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -17438,6 +17444,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH APPENDIX": "The deep-cut appendix hones your arm and speed, Kael — it opens your guard for the honing.",
 	"BOTTOM APPENDIX": "The deepest appendix fills and guards you, Kael — it weakens your arm for the filling.",
 	"GRIM APPENDIX": "The grim appendix arms, guards and plates you, Kael — it slows your step for the plating.",
+	"FOG APPENDIX": "The misted appendix cloaks and fills you, Kael — it weakens your arm for the cloaking.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
