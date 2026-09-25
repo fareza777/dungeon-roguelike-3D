@@ -17884,6 +17884,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Rondeau: The storm rondeau-verse sharpens and empowers you, Kael.")
+		1771:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Rondeau: The keel rondeau-verse fills and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -21409,6 +21413,7 @@ func _offer_omens() -> void:
 		{"text": "GREY TROPARIA — the grey troparia-book guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE TROPARIA — the tide troparia-book quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM TROPARIA — the storm troparia-book sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
+		{"text": "KEEL TROPARIA — the keel troparia-book fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -38966,6 +38971,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM TROPARIA"
 		3492:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL TROPARIA"
+		3493:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -42528,6 +42538,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY TROPARIA": "The grey troparia-book greys its troparia-chants into your tread, Kael — guarded and wiser, at a cost.",
 	"TIDE TROPARIA": "The tide troparia-book rolls its troparia-chants into your wake, Kael — quicker and sharper, at a cost.",
 	"STORM TROPARIA": "The storm troparia-book thunders its troparia-chants through your grip, Kael — sharpened and empowered, at a cost.",
+	"KEEL TROPARIA": "The keel troparia-book rivets its troparia-chants to your ribs, Kael — richer and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -49460,6 +49471,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Rondeau — the grey rondeau-verse guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Rondeau — the tide rondeau-verse quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Rondeau — the storm rondeau-verse sharpens and empowers you (+5% ATK, +6% crit)"},
+		{"text": "Keel Rondeau — the keel rondeau-verse fills and plates you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
