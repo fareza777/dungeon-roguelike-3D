@@ -12384,6 +12384,8 @@ func _omen_deal(idx: int) -> void:
 		_ach("deep_reckoned")
 	if Stats.oaths_seen.size() >= 180:
 		_ach("salt_chronicler")
+	if Stats.oaths_seen.size() >= 200:
+		_ach("oath_collector")
 	Stats.save_game()
 	omen_count += 1
 	Stats.oaths_sworn += 1
