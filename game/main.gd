@@ -11067,6 +11067,7 @@ func _offer_omens() -> void:
 		{"text": "GREY SALARY — a pension paid in pale souls (+7% souls)... the paperwork costs you lessons (−4% XP)"},
 		{"text": "FOG PENSION — the mist's annuity, paid in misses (+7% dodge)... its fog swallows your lessons (−5% XP)"},
 		{"text": "SALT WARRANT — the exchequer's writ of seizure (+5% ATK, +4% souls)... it seizes your plating (−2 armor)"},
+		{"text": "BOTTOM WARRANT — the trench's writ, stamped in pressure (+6% ATK)... it pins your footing (−5% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12017,6 +12018,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_armor -= 2
 			oname = "SALT WARRANT"
 		208:
+			Stats.buff_atk_pct += 0.06
+			Stats.dodge -= 0.05
+			oname = "BOTTOM WARRANT"
+		209:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12274,6 +12279,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY SALARY": "Pensions in the deep are paid forever, Kael — the deductions are equally eternal.",
 	"FOG PENSION": "The fog pays out in narrow escapes, Kael — it keeps the lessons for its trouble.",
 	"SALT WARRANT": "A writ of seizure works both ways down here, Kael — it takes what it pleases.",
+	"BOTTOM WARRANT": "Pressure makes a fine signature, Kael — it holds as well on your feet as on the page.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
