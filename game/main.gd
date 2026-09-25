@@ -11795,6 +11795,7 @@ func _offer_omens() -> void:
 		{"text": "GRIM ASSIZE — the hard court law covers arm, guard, and plate (+5% ATK, +4% dodge, +2 armor)... and settles on your step (−4% speed)"},
 		{"text": "FOG ASSIZE — the mist's court law veils and pays you (+7% dodge, +4% souls)... and weakens your arm for the veiling (−4% ATK)"},
 		{"text": "WAKE ASSIZE — the trail's court law carries and pays you (+6% speed, +4% souls)... and leaves your guard for the carrying (−3% dodge)"},
+		{"text": "BILGE ASSIZE — the hold's court law fills and instructs you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13800,6 +13801,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "WAKE ASSIZE"
 		424:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.dodge -= 0.03
+			oname = "BILGE ASSIZE"
+		425:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -14279,6 +14285,7 @@ func _omen_deal(idx: int) -> void:
 	"GRIM ASSIZE": "The hard court law covers arm, guard, and plate, Kael — it settles on your step for the covering.",
 	"FOG ASSIZE": "The mist's court law veils and pays you, Kael — it weakens your arm for the veiling.",
 	"WAKE ASSIZE": "The trail's court law carries and pays you, Kael — it leaves your guard for the carrying.",
+	"BILGE ASSIZE": "The hold's court law fills and instructs you, Kael — it shifts your guard for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
