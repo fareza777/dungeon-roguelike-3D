@@ -12103,6 +12103,7 @@ func _offer_omens() -> void:
 		{"text": "BOTTOM SCROLL — the floor's scroll fills and veils you (+7% souls, +4% dodge)... and weakens your arm for the filling (−3% ATK)"},
 		{"text": "GRIM SCROLL — the stern scroll arms, guards and plates you (+5% ATK, +4% dodge, +2 armor)... and weighs your step for the teaching (−4% speed)"},
 		{"text": "FOG SCROLL — the grey scroll shrouds and pays you (+7% dodge, +4% souls)... and weakens your arm for the shrouding (−4% ATK)"},
+		{"text": "WAKE SCROLL — the trailing scroll speeds and pays you (+6% speed, +4% souls)... and leaves your guard for the speeding (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -15319,6 +15320,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "FOG SCROLL"
 		663:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "WAKE SCROLL"
+		664:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -16037,6 +16043,7 @@ func _omen_deal(idx: int) -> void:
 	"BOTTOM SCROLL": "The floor's scroll fills and veils you, Kael — it weakens your arm for the filling.",
 	"GRIM SCROLL": "The stern scroll arms, guards and plates you, Kael — it weighs your step for the teaching.",
 	"FOG SCROLL": "The grey scroll shrouds and pays you, Kael — it weakens your arm for the shrouding.",
+	"WAKE SCROLL": "The trailing scroll speeds and pays you, Kael — it leaves your guard for the speeding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
