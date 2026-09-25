@@ -20471,6 +20471,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.07
 			Stats.soul_gain_pct += 0.04
 			toast("Fog Contredanse: The fog contredanse-figure guards and fills you, Kael.")
+		2407:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			toast("Wake Contredanse: The wake contredanse-figure quickens and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -24632,6 +24636,7 @@ func _offer_omens() -> void:
 		{"text": "BOTTOM PENTEKOSTALION — the bottom pentekostalion-hymn fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 		{"text": "GRIM PENTEKOSTALION — the grim pentekostalion-hymn hardens, guards and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 		{"text": "FOG PENTEKOSTALION — the fog pentekostalion-hymn guards and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
+		{"text": "WAKE PENTEKOSTALION — the wake pentekostalion-hymn quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -45412,6 +45417,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "FOG PENTEKOSTALION"
 		4128:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "WAKE PENTEKOSTALION"
+		4129:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -49610,6 +49620,7 @@ func _omen_deal(idx: int) -> void:
 	"BOTTOM PENTEKOSTALION": "The bottom pentekostalion-hymn raises its pentekostalia into your purse, Kael — richer and guarded, at a cost.",
 	"GRIM PENTEKOSTALION": "The grim pentekostalion-hymn raises its pentekostalia across your guard, Kael — harder, guarded and plated, at a cost.",
 	"FOG PENTEKOSTALION": "The fog pentekostalion-hymn raises its pentekostalia in your spray, Kael — guarded and filled, at a cost.",
+	"WAKE PENTEKOSTALION": "The wake pentekostalion-hymn raises its pentekostalia in your foam, Kael — quicker and filled, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -57178,6 +57189,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bottom Contredanse — the bottom contredanse-figure fills and guards you (+7% souls, +4% dodge)"},
 		{"text": "Grim Contredanse — the grim contredanse-figure hardens, guards and plates you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Contredanse — the fog contredanse-figure guards and fills you (+7% dodge, +4% souls)"},
+		{"text": "Wake Contredanse — the wake contredanse-figure quickens and fills you (+6% speed, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
