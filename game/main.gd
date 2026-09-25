@@ -14036,6 +14036,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Barcarolle: The tide barcarolle-chant quickens and sharpens you, Kael.")
+		825:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Barcarolle: The storm barcarolle-chant sharpens and empowers you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -16616,6 +16620,7 @@ func _offer_omens() -> void:
 		{"text": "GREY PSALTERIUM — the grey psalterium-psalm guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE PSALTERIUM — the tide psalterium-psalm quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM PSALTERIUM — the storm psalterium-psalm sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
+		{"text": "KEEL PSALTERIUM — the keel psalterium-psalm fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -29385,6 +29390,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM PSALTERIUM"
 		2547:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL PSALTERIUM"
+		2548:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -31998,6 +32008,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY PSALTERIUM": "The grey psalterium-psalm drones its wisdom over your shoulders, Kael — guarded and wiser, at a cost.",
 	"TIDE PSALTERIUM": "The tide psalterium-psalm pulls your feet along its measure, Kael — swifter and sharper, at a cost.",
 	"STORM PSALTERIUM": "The storm psalterium-psalm thunders through your arms, Kael — sharper and deadlier, at a cost.",
+	"KEEL PSALTERIUM": "The keel psalterium-psalm anchors its verses in your hull, Kael — richer and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -37984,6 +37995,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Barcarolle — the pale barcarolle-chant guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Barcarolle — the grey barcarolle-chant guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Barcarolle — the tide barcarolle-chant quickens and sharpens you (+6% speed, +4% ATK)"},
+		{"text": "Storm Barcarolle — the storm barcarolle-chant sharpens and empowers you (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
