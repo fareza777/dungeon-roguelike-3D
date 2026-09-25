@@ -13769,6 +13769,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Berceuse: The tide berceuse-hush quickens and sharpens you, Kael.")
+		765:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Berceuse: The storm berceuse-hush sharpens and empowers you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -37226,6 +37230,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Berceuse — the pale berceuse-hush guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Berceuse — the grey berceuse-hush guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Berceuse — the tide berceuse-hush quickens and sharpens you (+6% speed, +4% ATK)"},
+		{"text": "Storm Berceuse — the storm berceuse-hush sharpens and empowers you (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
