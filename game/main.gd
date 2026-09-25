@@ -12846,6 +12846,7 @@ func _offer_omens() -> void:
 		{"text": "BOTTOM PRIMER — the deepest-bound first-book fills and guards you (+7% souls, +4% dodge)... and weakens your arm for the guarding (−3% ATK)"},
 		{"text": "GRIM PRIMER — the solemn first-book arms, guards and plates you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the solemnity (−4% speed)"},
 		{"text": "FOG PRIMER — the mist's first-book veils and fills you (+7% dodge, +4% souls)... and weakens your arm for the veiling (−4% ATK)"},
+		{"text": "WAKE PRIMER — the trailing first-book speeds you and fills your purse (+6% speed, +4% souls)... and shifts your guard for the speeding (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -19186,6 +19187,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "FOG PRIMER"
 		1278:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "WAKE PRIMER"
+		1279:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -20522,6 +20528,7 @@ func _omen_deal(idx: int) -> void:
 	"BOTTOM PRIMER": "The deepest-bound first-book fills and guards you, Kael — it weakens your arm for the guarding.",
 	"GRIM PRIMER": "The solemn first-book arms, guards and plates you, Kael — it slows your step for the solemnity.",
 	"FOG PRIMER": "The mist's first-book veils and fills you, Kael — it weakens your arm for the veiling.",
+	"WAKE PRIMER": "The trailing first-book speeds you and fills your purse, Kael — it shifts your guard for the speeding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
