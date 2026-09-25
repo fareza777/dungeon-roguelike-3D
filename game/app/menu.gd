@@ -76,6 +76,7 @@ func panel_pop(cc: Control) -> void:
 	var p: Control = cc.find_child("panel", true, false)
 	if p == null:
 		return
+	Sfx.play("page")
 	p.pivot_offset = p.size * 0.5
 	p.scale = Vector2(0.9, 0.9)
 	var ptw: Tween = p.create_tween()
@@ -289,6 +290,7 @@ func _build() -> void:
 	ba.custom_minimum_size = Vector2(184, 60)
 	ba.pressed.connect(func() -> void:
 		about_panel.visible = true
+		Sfx.play("page")
 		var ap: Node = about_panel.get_child(about_panel.get_child_count() - 1)
 		if ap is PanelContainer:
 			ap.pivot_offset = ap.size * 0.5
@@ -323,6 +325,7 @@ func _build() -> void:
 	bso.pressed.connect(func() -> void:
 		_refresh_souls()
 		souls_panel.visible = true
+		Sfx.play("page")
 		var spn: Node = souls_panel.get_child(souls_panel.get_child_count() - 1)
 		if spn is PanelContainer:
 			spn.pivot_offset = spn.size * 0.5
@@ -340,6 +343,7 @@ func _build() -> void:
 	bac.pressed.connect(func() -> void:
 		_refresh_ach()
 		ach_panel.visible = true
+		Sfx.play("page")
 		var apn: Node = ach_panel.get_child(ach_panel.get_child_count() - 1)
 		if apn is PanelContainer:
 			apn.pivot_offset = apn.size * 0.5
