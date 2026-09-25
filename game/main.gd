@@ -16843,6 +16843,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Canzonetta: The tide canzonetta-air quickens and sharpens you, Kael.")
+		1515:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Canzonetta: The storm canzonetta-air sharpens and empowers you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -20112,6 +20116,7 @@ func _offer_omens() -> void:
 		{"text": "PALE ASMATIKON — the pale asmatikon-book guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY ASMATIKON — the grey asmatikon-book guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE ASMATIKON — the tide asmatikon-book quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
+		{"text": "STORM ASMATIKON — the storm asmatikon-book sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -36372,6 +36377,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE ASMATIKON"
 		3236:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM ASMATIKON"
+		3237:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -39678,6 +39688,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE ASMATIKON": "The pale asmatikon-book opens its asmatic-odes at your side, Kael — guarded, at a cost.",
 	"GREY ASMATIKON": "The grey asmatikon-book opens its asmatic-odes under your breath, Kael — guarded, at a cost.",
 	"TIDE ASMATIKON": "The tide asmatikon-book opens its asmatic-odes at your heels, Kael — swifter, at a cost.",
+	"STORM ASMATIKON": "The storm asmatikon-book opens its asmatic-odes in thunder, Kael — sharpened and empowered, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -46354,6 +46365,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Canzonetta — the pale canzonetta-air guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Canzonetta — the grey canzonetta-air guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Canzonetta — the tide canzonetta-air quickens and sharpens you (+6% speed, +4% ATK)"},
+		{"text": "Storm Canzonetta — the storm canzonetta-air sharpens and empowers you (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
