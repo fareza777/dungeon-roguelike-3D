@@ -16896,6 +16896,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.06
 			Stats.soul_gain_pct += 0.05
 			toast("Pale Ballata: The pale ballata-verse guards and fills you, Kael.")
+		1528:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Grey Ballata: The grey ballata-verse guards and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -20178,6 +20182,7 @@ func _offer_omens() -> void:
 		{"text": "SALT ASMATIKON — the salt asmatikon-book fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 		{"text": "DEEP PAPADIKE — the deep papadike-book sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 		{"text": "PALE PAPADIKE — the pale papadike-book guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
+		{"text": "GREY PAPADIKE — the grey papadike-book guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -36504,6 +36509,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "PALE PAPADIKE"
 		3249:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "GREY PAPADIKE"
+		3250:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -39823,6 +39833,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT ASMATIKON": "The salt asmatikon-book sprinkles its asmatic-odes over your ledger, Kael — richer and wiser, at a cost.",
 	"DEEP PAPADIKE": "The deep papadike-book opens its papadic-verses across your blade, Kael — sharpened, at a cost.",
 	"PALE PAPADIKE": "The pale papadike-book opens its papadic-verses at your side, Kael — guarded, at a cost.",
+	"GREY PAPADIKE": "The grey papadike-book opens its papadic-verses under your breath, Kael — guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -46512,6 +46523,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Salt Canzonetta — the salt canzonetta-air fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Ballata — the deep ballata-verse sharpens and guards you (+5% ATK, +3% dodge)"},
 		{"text": "Pale Ballata — the pale ballata-verse guards and fills you (+6% dodge, +5% souls)"},
+		{"text": "Grey Ballata — the grey ballata-verse guards and teaches you (+5% dodge, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
