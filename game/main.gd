@@ -11164,6 +11164,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_atk_pct += 0.03
 			toast("Salt Canticle: the brine choir's weighing chant — +6% souls, +3% ATK this run")
+		203:
+			Stats.buff_speed_pct += 0.05
+			Stats.soul_gain_pct += 0.03
+			toast("Wake Canticle: the current choir's hauling chant — +5% speed, +3% souls this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -18173,6 +18177,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Pale Chorus — the white choir's falling song: +4% dodge, +4% XP this run"},
 			{"text": "Fog Canticle — the mist choir's hiding chant: +4% dodge, +4% ATK this run"},
 			{"text": "Salt Canticle — the brine choir's weighing chant: +6% souls, +3% ATK this run"},
+			{"text": "Wake Canticle — the current choir's hauling chant: +5% speed, +3% souls this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
