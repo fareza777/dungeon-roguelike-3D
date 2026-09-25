@@ -12505,6 +12505,7 @@ func _offer_omens() -> void:
 		{"text": "GREY EXCERPT — the grey chosen passage guards and teaches you (+5% dodge, +5% XP)... and weakens your arm for the guarding (−4% ATK)"},
 		{"text": "TIDE EXCERPT — the flowing chosen passage speeds and arms you (+6% speed, +4% ATK)... and shifts your guard for the speeding (−3% dodge)"},
 		{"text": "STORM EXCERPT — the tempest's chosen passage charges your arm and aim (+5% ATK, +6% crit)... and uncovers your guard for the charge (−4% dodge)"},
+		{"text": "KEEL EXCERPT — the hull chosen passage fills your purse and plates your hide (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -17446,6 +17447,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM EXCERPT"
 		1002:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL EXCERPT"
+		1003:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -18506,6 +18512,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY EXCERPT": "The grey chosen passage guards and teaches you, Kael — it weakens your arm for the guarding.",
 	"TIDE EXCERPT": "The flowing chosen passage speeds and arms you, Kael — it shifts your guard for the speeding.",
 	"STORM EXCERPT": "The tempest's chosen passage charges your arm and aim, Kael — it uncovers your guard for the charge.",
+	"KEEL EXCERPT": "The hull chosen passage fills your purse and plates your hide, Kael — it shifts your guard for the plating.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
