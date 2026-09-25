@@ -14227,6 +14227,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE SEQUENCE — the tide sequence-chant speeds and sharpens you (+6% speed, +4% ATK)... and shifts your guard for the speeding (−3% dodge)"},
 		{"text": "STORM SEQUENCE — the gale sequence-chant sharpens and keens you (+5% ATK, +6% crit)... and shifts your guard for the keening (−4% dodge)"},
 		{"text": "KEEL SEQUENCE — the hull sequence-chant fills and plates you (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
+		{"text": "HULL SEQUENCE — the plank sequence-chant bulks and guards you (+6% max HP, +4% dodge)... and slows your step for the bulking (−3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -23961,6 +23962,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL SEQUENCE"
 		1948:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL SEQUENCE"
+		1949:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -25967,6 +25973,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE SEQUENCE": "The tide sequence-chant speeds and sharpens you, Kael — it shifts your guard for the speeding.",
 	"STORM SEQUENCE": "The gale sequence-chant sharpens and keens you, Kael — it shifts your guard for the keening.",
 	"KEEL SEQUENCE": "The hull sequence-chant fills and plates you, Kael — it shifts your guard for the plating.",
+	"HULL SEQUENCE": "The plank sequence-chant bulks and guards you, Kael — it slows your step for the bulking.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
