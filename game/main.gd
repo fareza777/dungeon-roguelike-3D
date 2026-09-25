@@ -20084,6 +20084,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_armor += 3
 			toast("Keel Galliarda: The keel galliarda-leap fills and plates you, Kael.")
+		2312:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			toast("Hull Galliarda: The hull galliarda-leap toughens and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -24150,6 +24154,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE PROSPHORA — the tide prosphora-offering quickens and hardens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM PROSPHORA — the storm prosphora-offering hardens and sharpens you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL PROSPHORA — the keel prosphora-offering fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
+		{"text": "HULL PROSPHORA — the hull prosphora-offering toughens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -44448,6 +44453,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL PROSPHORA"
 		4033:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL PROSPHORA"
+		4034:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -48551,6 +48561,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE PROSPHORA": "The tide prosphora-offering drags its prosphorai through your wake, Kael — quicker and harder, at a cost.",
 	"STORM PROSPHORA": "The storm prosphora-offering cracks its prosphorai into your swings, Kael — harder and keener, at a cost.",
 	"KEEL PROSPHORA": "The keel prosphora-offering rivets its prosphorai along your ribs, Kael — richer and plated, at a cost.",
+	"HULL PROSPHORA": "The hull prosphora-offering planks its prosphorai over your hull, Kael — tougher and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -56024,6 +56035,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Tide Galliarda — the tide galliarda-leap quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Galliarda — the storm galliarda-leap sharpens and strikes you (+5% ATK, +6% crit)"},
 		{"text": "Keel Galliarda — the keel galliarda-leap fills and plates you (+6% souls, +3 armor)"},
+		{"text": "Hull Galliarda — the hull galliarda-leap toughens and guards you (+6% max HP, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
