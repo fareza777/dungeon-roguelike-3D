@@ -18929,6 +18929,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 0.06
 			Stats.dodge += 0.04
 			toast("Hull Ballo: The hull ballo-verse bulks and guards you, Kael.")
+		2028:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			toast("Trench Ballo: The trench ballo-verse sharpens and hastens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -22711,6 +22715,7 @@ func _offer_omens() -> void:
 		{"text": "STORM ONOMASTIKON — the storm onomastikon-book sharpens and strikes you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL ONOMASTIKON — the keel onomastikon-book fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL ONOMASTIKON — the hull onomastikon-book bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
+		{"text": "TRENCH ONOMASTIKON — the trench onomastikon-book sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -41570,6 +41575,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL ONOMASTIKON"
 		3749:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH ONOMASTIKON"
+		3750:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -45389,6 +45399,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM ONOMASTIKON": "The storm onomastikon-book names its onomastika like thunder, Kael — sharper and striking, at a cost.",
 	"KEEL ONOMASTIKON": "The keel onomastikon-book names its onomastika to your ribs, Kael — richer and plated, at a cost.",
 	"HULL ONOMASTIKON": "The hull onomastikon-book names its onomastika over your heart, Kael — bulked and guarded, at a cost.",
+	"TRENCH ONOMASTIKON": "The trench onomastikon-book names its onomastika down your arm, Kael — sharpened and hastened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -52578,6 +52589,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Storm Ballo — the storm ballo-verse sharpens and strikes you (+5% ATK, +6% crit)"},
 		{"text": "Keel Ballo — the keel ballo-verse fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Ballo — the hull ballo-verse bulks and guards you (+6% max HP, +4% dodge)"},
+		{"text": "Trench Ballo — the trench ballo-verse sharpens and hastens you (+5% ATK, +4% ASPD)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
