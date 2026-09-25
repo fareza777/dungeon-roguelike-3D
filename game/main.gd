@@ -16014,6 +16014,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.04
 			Stats.buff_armor += 2
 			toast("Grim Saltarello: The grim saltarello-leap sharpens, guards, and plates you, Kael.")
+		1311:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			toast("Fog Saltarello: The fog saltarello-leap shrouds and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -19079,6 +19083,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH ORDINO — the trench ordino-rubric sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 		{"text": "BOTTOM ORDINO — the bottom ordino-rubric fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 		{"text": "GRIM ORDINO — the grim ordino-rubric sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
+		{"text": "FOG ORDINO — the fog ordino-rubric shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -34306,6 +34311,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM ORDINO"
 		3032:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG ORDINO"
+		3033:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -37404,6 +37414,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH ORDINO": "The trench ordino-rubric drives its service-rubrics down your arm, Kael — sharpened and hastened, at a cost.",
 	"BOTTOM ORDINO": "The bottom ordino-rubric settles its service-rubrics in your purse, Kael — richer and guarded, at a cost.",
 	"GRIM ORDINO": "The grim ordino-rubric drops its service-rubrics like ballast in your bones, Kael — sharpened, guarded, plated, at a cost.",
+	"FOG ORDINO": "The fog ordino-rubric veils its service-rubrics over your silhouette, Kael — shrouded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -43876,6 +43887,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Trench Saltarello — the trench saltarello-leap sharpens and hastens you (+5% ATK, +4% ASPD)"},
 		{"text": "Bottom Saltarello — the bottom saltarello-leap fills and guards you (+7% souls, +4% dodge)"},
 		{"text": "Grim Saltarello — the grim saltarello-leap sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
+		{"text": "Fog Saltarello — the fog saltarello-leap shrouds and fills you (+7% dodge, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
