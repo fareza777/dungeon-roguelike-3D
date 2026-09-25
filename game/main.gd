@@ -13908,6 +13908,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP JUBILATE — the deep joy-shout sharpens and steadies you (+7% ATK, +3% dodge)... and claims its toll from your purse (−3% souls)"},
 		{"text": "PALE JUBILATE — the wan joy-shout veils and fills you (+6% dodge, +5% souls)... and dulls your edge for the veiling (−4% ATK)"},
 		{"text": "GREY JUBILATE — the ashen joy-shout veils and schools you (+5% dodge, +5% XP)... and dulls your edge for the schooling (−4% ATK)"},
+		{"text": "TIDE JUBILATE — the tide joy-shout speeds and sharpens you (+6% speed, +4% ATK)... and shifts your guard for the speeding (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -23247,6 +23248,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY JUBILATE"
 		1870:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE JUBILATE"
+		1871:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -25175,6 +25181,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP JUBILATE": "The deep joy-shout sharpens and steadies you, Kael — it takes its toll from your purse.",
 	"PALE JUBILATE": "The wan joy-shout veils and fills you, Kael — it dulls your edge for the veiling.",
 	"GREY JUBILATE": "The ashen joy-shout veils and schools you, Kael — it dulls your edge for the schooling.",
+	"TIDE JUBILATE": "The tide joy-shout speeds and sharpens you, Kael — it shifts your guard for the speeding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
