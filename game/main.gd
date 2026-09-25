@@ -5366,6 +5366,9 @@ func _spawn_knight() -> void:
 		knight_ref.set("dmg", float(knight_ref.get("dmg")) * 1.2)
 	if vane_floors == 4 or vane_floors == 8 or vane_floors == 12:
 		toast("⚔ Sir Vane remembers his captain's forms (+%d%% ATK)" % int(vane_mult * 100.0))
+		_shock_ring(knight_ref.global_position, Color(0.55, 0.8, 1.0))
+		_burst(knight_ref.global_position + Vector3(0, 0.5 * info.tile, 0), Color(0.5, 0.8, 1.0))
+		Sfx.play("levelup")
 
 
 func _on_cage_freed(s) -> void:
