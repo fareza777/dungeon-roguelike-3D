@@ -39761,6 +39761,7 @@ func _process(delta: float) -> void:
 			var heavy_threshold := 0.4 if Stats.relics.has("pendulum") else 0.6
 			if atk_hold_t >= heavy_threshold and not atk_charged:
 				atk_charged = true
+				Sfx.play("xp", 0.75)
 				if Stats.haptics: Input.vibrate_handheld(60)
 				ui.atk_btn.modulate = Color(1.35, 1.15, 0.6)
 				var ctw: Tween = ui.atk_btn.create_tween()
