@@ -20401,6 +20401,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Ecossaise: The bottom ecossaise-reel fills and guards you, Kael.")
+		2390:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Ecossaise: The grim ecossaise-reel hardens, guards and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -24545,6 +24550,7 @@ func _offer_omens() -> void:
 		{"text": "HULL SLUZEBNIK — the hull sluzebnik-tome toughens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH SLUZEBNIK — the trench sluzebnik-tome hardens and hastens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
 		{"text": "BOTTOM SLUZEBNIK — the bottom sluzebnik-tome fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM SLUZEBNIK — the grim sluzebnik-tome hardens, guards and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -45238,6 +45244,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM SLUZEBNIK"
 		4111:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM SLUZEBNIK"
+		4112:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -49419,6 +49431,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL SLUZEBNIK": "The hull sluzebnik-tome reads its sluzebniki over your hull, Kael — tougher and guarded, at a cost.",
 	"TRENCH SLUZEBNIK": "The trench sluzebnik-tome reads its sluzebniki into your wrists, Kael — harder and hastened, at a cost.",
 	"BOTTOM SLUZEBNIK": "The bottom sluzebnik-tome reads its sluzebniki into your purse, Kael — richer and guarded, at a cost.",
+	"GRIM SLUZEBNIK": "The grim sluzebnik-tome reads its sluzebniki across your guard, Kael — harder, guarded and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -56970,6 +56983,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Ecossaise — the hull ecossaise-reel toughens and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Ecossaise — the trench ecossaise-reel hardens and hastens you (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Ecossaise — the bottom ecossaise-reel fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Ecossaise — the grim ecossaise-reel hardens, guards and plates you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
