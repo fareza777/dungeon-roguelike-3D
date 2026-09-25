@@ -21938,6 +21938,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_armor += 3
 			toast("Keel Paduana: The keel paduana-step fills and armors you, Kael.")
+		2762:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			toast("Hull Paduana: The hull paduana-step thickens and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -26454,6 +26458,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE ENCOLPION — the tide encolpion-medal quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM ENCOLPION — the storm encolpion-medal sharpens and lucks you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL ENCOLPION — the keel encolpion-medal fills and armors you... at a cost (+6% souls, +3 armor, -4% dodge)"},
+		{"text": "HULL ENCOLPION — the hull encolpion-medal thickens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -49032,6 +49037,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL ENCOLPION"
 		4483:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL ENCOLPION"
+		4484:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -53585,6 +53595,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE ENCOLPION": "The tide encolpion-medal hangs its encolpia in your tide, Kael — quicker and keen, at a cost.",
 	"STORM ENCOLPION": "The storm encolpion-medal hangs its encolpia through your thunder, Kael — keen and lucky, at a cost.",
 	"KEEL ENCOLPION": "The keel encolpion-medal hangs its encolpia in your hold, Kael — filled and plated, at a cost.",
+	"HULL ENCOLPION": "The hull encolpion-medal hangs its encolpia on your hull, Kael — thick and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -61508,6 +61519,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Tide Paduana — the tide paduana-step quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Paduana — the storm paduana-step sharpens and lucks you (+5% ATK, +6% crit)"},
 		{"text": "Keel Paduana — the keel paduana-step fills and armors you (+6% souls, +3 armor)"},
+		{"text": "Hull Paduana — the hull paduana-step thickens and guards you (+6% max HP, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
