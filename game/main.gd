@@ -13959,6 +13959,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_xp_pct += 0.04
 			toast("Salt Sonata: The salt sonata-song fills and teaches you, Kael. Sonata suffix #47 complete.")
+		806:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.03
+			toast("Deep Lied: The deep lied-tune sharpens and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -16520,6 +16524,7 @@ func _offer_omens() -> void:
 		{"text": "CREST COLLECTARIUM — the crest collectarium-prayer guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT COLLECTARIUM — the salt collectarium-prayer fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 		{"text": "DEEP EVANGELIARY — the deep evangeliary-gospel sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
+		{"text": "PALE EVANGELIARY — the pale evangeliary-gospel guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -29193,6 +29198,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "DEEP EVANGELIARY"
 		2528:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE EVANGELIARY"
+		2529:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -31787,6 +31797,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST COLLECTARIUM": "The crest collectarium-prayer crowns your guard with white foam, Kael — guarded and deadly, at a cost.",
 	"SALT COLLECTARIUM": "The salt collectarium-prayer closes its gathered verses over you, Kael — richer and wiser, at a cost. COLLECTARIUM #149 complete.",
 	"DEEP EVANGELIARY": "The deep evangeliary-gospel preaches to your arm, Kael — sharper, at a cost. EVANGELIARY #150.",
+	"PALE EVANGELIARY": "The pale evangeliary-gospel shrouds your step, Kael — guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -37754,6 +37765,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bilge Sonata — the bilge sonata-song fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Sonata — the crest sonata-song guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Sonata — the salt sonata-song fills and teaches you (+6% souls, +4% XP)"},
+		{"text": "Deep Lied — the deep lied-tune sharpens and guards you (+5% ATK, +3% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
