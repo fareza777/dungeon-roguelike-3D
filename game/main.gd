@@ -38177,6 +38177,14 @@ func _process(delta: float) -> void:
 					_quest_event("chest_open")
 					Sfx.play("chest")
 					_burst(info.chest.global_position, Color(1.0, 0.85, 0.3))
+					if is_instance_valid(info.chest):
+						var cnd: Node3D = info.chest
+						cnd.pivot_offset = Vector3.ZERO
+						var chb: Vector3 = cnd.scale
+						cnd.scale = chb * 0.8
+						var ctw2: Tween = cnd.create_tween()
+						ctw2.tween_property(cnd, "scale", chb * 1.12, 0.1)
+						ctw2.tween_property(cnd, "scale", chb, 0.12).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 					_souls(info.chest.global_position, 8, Color(1.0, 0.8, 0.35))
 					M.paint(info.chest, M.toon(dungeon_tex, Color(0.45, 0.4, 0.32), 0.1))
 					if QDB.is_boss_floor(Stats.floor_num):
