@@ -11928,6 +11928,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH CHRONICLE — the cutting's record edges and quickens your arm (+5% ATK, +4% attack speed)... and uncovers your guard for the edging (−4% dodge)"},
 		{"text": "BOTTOM CHRONICLE — the floor's record fills and veils you (+7% souls, +4% dodge)... and weakens your arm for the filling (−3% ATK)"},
 		{"text": "GRIM CHRONICLE — the dark record arms, guards and plates you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the writing (−4% speed)"},
+		{"text": "FOG CHRONICLE — the mist's record veils and pays you (+7% dodge, +4% souls)... and weakens your arm for the veiling (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -14607,6 +14608,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM CHRONICLE"
 		557:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG CHRONICLE"
+		558:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -15219,6 +15225,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH CHRONICLE": "The cutting's record edges and quickens your arm, Kael — it uncovers your guard for the edging.",
 	"BOTTOM CHRONICLE": "The floor's record fills and veils you, Kael — it weakens your arm for the filling.",
 	"GRIM CHRONICLE": "The dark record arms, guards and plates you, Kael — it slows your step for the writing.",
+	"FOG CHRONICLE": "The mist's record veils and pays you, Kael — it weakens your arm for the veiling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
