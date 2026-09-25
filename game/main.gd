@@ -11669,6 +11669,7 @@ func _offer_omens() -> void:
 		{"text": "STORM DECREE — the gale's command edges and quickens your arm (+6% crit, +5% attack speed)... and slows your step for the edging (−4% speed)"},
 		{"text": "GRIM DECREE — the reaper's command arms and plates you (+8% ATK, +2 armor)... and leaves your guard open (−4% dodge)"},
 		{"text": "KEEL DECREE — the hull's command arms and pays you (+5% ATK, +5% souls)... and loosens your guard for the paying (−3% dodge)"},
+		{"text": "PALE DECREE — the white count's command veils and pays you (+6% dodge, +4% souls)... and weakens your arm for the veiling (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13123,6 +13124,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "KEEL DECREE"
 		315:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE DECREE"
+		316:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13491,6 +13497,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM DECREE": "The gale's command edges and quickens your arm, Kael — it slows your step for the edging.",
 	"GRIM DECREE": "The reaper's command arms and plates you, Kael — it leaves your guard open for the arming.",
 	"KEEL DECREE": "The hull's command arms and pays you, Kael — it loosens your guard for the paying.",
+	"PALE DECREE": "The white count's command veils and pays you, Kael — it weakens your arm for the veiling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
