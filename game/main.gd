@@ -13492,6 +13492,7 @@ func _offer_omens() -> void:
 		{"text": "GREY GLORIA — the ashen glory-song veils and teaches you (+5% dodge, +5% XP)... and weakens your arm for the veiling (−4% ATK)"},
 		{"text": "TIDE GLORIA — the surging glory-song speeds you and arms you (+6% speed, +4% ATK)... and shifts your guard for the speeding (−3% dodge)"},
 		{"text": "STORM GLORIA — the tempest's glory-song arms and sharpens you (+5% ATK, +6% crit)... and shifts your guard for the sharpening (−4% dodge)"},
+		{"text": "KEEL GLORIA — the ship's glory-song fills and plates you (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -22385,6 +22386,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM GLORIA"
 		1782:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL GLORIA"
+		1783:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -24225,6 +24231,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY GLORIA": "The ashen glory-song veils and teaches you, Kael — it weakens your arm for the veiling.",
 	"TIDE GLORIA": "The surging glory-song speeds you and arms you, Kael — it shifts your guard for the speeding.",
 	"STORM GLORIA": "The tempest's glory-song arms and sharpens you, Kael — it shifts your guard for the sharpening.",
+	"KEEL GLORIA": "The ship's glory-song fills and plates you, Kael — it shifts your guard for the plating.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
