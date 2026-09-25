@@ -277,6 +277,10 @@ func _physics_process(delta: float) -> void:
 					if ml2 != null:
 						if ml2.has_method("_quest_event"):
 							ml2._quest_event("trap_disarm")
+						if ml2.has_method("_shock_ring"):
+							ml2._shock_ring(global_position, Color(0.5, 0.95, 0.7))
+						if ml2.has_method("_souls"):
+							ml2._souls(global_position, 6, Color(0.5, 0.95, 0.7))
 						if Stats.relics.has("clamheart"):
 							Stats.earn_souls(1)
 							if ml2.has_method("_souls_l"):
