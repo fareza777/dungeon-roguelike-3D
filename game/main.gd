@@ -15501,6 +15501,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Nocturnelle: The tide nocturnelle-night quickens and sharpens you, Kael.")
+		1185:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Nocturnelle: The storm nocturnelle-night sharpens and empowers you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -18440,6 +18444,7 @@ func _offer_omens() -> void:
 		{"text": "PALE CEREMONIALE — the pale ceremoniale-rite guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY CEREMONIALE — the grey ceremoniale-rite guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE CEREMONIALE — the tide ceremoniale-rite quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
+		{"text": "STORM CEREMONIALE — the storm ceremoniale-rite sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -33028,6 +33033,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE CEREMONIALE"
 		2906:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM CEREMONIALE"
+		2907:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -36000,6 +36010,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE CEREMONIALE": "The pale ceremoniale-rite reads its solemn-rites at your side, Kael — guarded, at a cost.",
 	"GREY CEREMONIALE": "The grey ceremoniale-rite murmurs its solemn-rites through your ears, Kael — guarded and wiser, at a cost.",
 	"TIDE CEREMONIALE": "The tide ceremoniale-rite drums its solemn-rites under your feet, Kael — swifter, at a cost.",
+	"STORM CEREMONIALE": "The storm ceremoniale-rite crashes its solemn-rites open, Kael — sharpened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -42346,6 +42357,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Nocturnelle — the pale nocturnelle-night guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Nocturnelle — the grey nocturnelle-night guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Nocturnelle — the tide nocturnelle-night quickens and sharpens you (+6% speed, +4% ATK)"},
+		{"text": "Storm Nocturnelle — the storm nocturnelle-night sharpens and empowers you (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
