@@ -21690,6 +21690,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Tango: The storm tango-step sharpens and lucks you, Kael.")
+		2701:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Tango: The keel tango-step fills and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -26145,6 +26149,7 @@ func _offer_omens() -> void:
 		{"text": "GREY MANDYAS — the grey mandyas-mantle guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE MANDYAS — the tide mandyas-mantle quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM MANDYAS — the storm mandyas-mantle sharpens and lucks you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
+		{"text": "KEEL MANDYAS — the keel mandyas-mantle fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -48414,6 +48419,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM MANDYAS"
 		4422:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL MANDYAS"
+		4423:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -52906,6 +52916,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY MANDYAS": "The grey mandyas-mantle drapes its mandyades through your grey watch, Kael — guarded and wiser, at a cost.",
 	"TIDE MANDYAS": "The tide mandyas-mantle drapes its mandyades in your tide, Kael — quicker and keen, at a cost.",
 	"STORM MANDYAS": "The storm mandyas-mantle drapes its mandyades through your thunder, Kael — keen and lucky, at a cost.",
+	"KEEL MANDYAS": "The keel mandyas-mantle drapes its mandyades along your keel, Kael — richer and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -60768,6 +60779,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Tango — the grey tango-step guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Tango — the tide tango-step quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Tango — the storm tango-step sharpens and lucks you (+5% ATK, +6% crit)"},
+		{"text": "Keel Tango — the keel tango-step fills and plates you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
