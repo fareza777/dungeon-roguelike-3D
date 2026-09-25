@@ -285,6 +285,8 @@ var rust_bounty := false
 var deep_charter := false
 var salty_wages := false
 var gunnel_tide := false
+var floor_tag := ""
+var _tag_floor_banner := false
 var dead_wages := false
 var riggers_due := false
 var tides_favor := false
@@ -3528,6 +3530,8 @@ func _new_run(new_seed: int) -> void:
 	_combo_set(0)
 	print("ROOM seed=%d floor=%d biome=%s rooms=%d enemies=%d gates=%d boss=%s" % [seed_val, Stats.floor_num, biome["name"], info.get("room_count", 1), info.enemy_spawns.size(), gates.size(), str(QDB.is_boss_floor(Stats.floor_num))])
 	_floor_intro_lines(boss_floor)
+	_tag_floor_banner = true
+	floor_tag = ""
 	if blood_moon:
 		_lvl_banner("☽ BLOOD MOON — THE DEAD HUNGER")
 		toast("Enemies +25% HP • +50% XP")
@@ -4193,6 +4197,9 @@ func _new_run(new_seed: int) -> void:
 		Sfx.play("souls")
 	elif Stats.floor_num > 1:
 		_lvl_banner("FLOOR %d — %s" % [Stats.floor_num, String(biome["name"]).to_upper()])
+	_tag_floor_banner = false
+	if floor_tag != "":
+		ui.floor_label.text = "%s • %s" % [ui.floor_label.text, floor_tag.split("—")[0].strip_edges()]
 
 
 func _build_gates() -> void:
@@ -10329,6 +10336,8 @@ func _boss_card_show(bn: String, sub: String) -> void:
 
 
 func _lvl_banner(txt: String) -> void:
+	if _tag_floor_banner and floor_tag == "" and not txt.begins_with("FLOOR"):
+		floor_tag = txt
 	if not ui.has("lvl_banner"):
 		return
 	var l: Label = ui.lvl_banner
