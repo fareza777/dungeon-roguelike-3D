@@ -19987,6 +19987,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.soul_gain_pct += 0.04
 			toast("Wake Chiffron: The wake chiffron-flourish quickens and fills you, Kael.")
+		2288:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Bilge Chiffron: The bilge chiffron-flourish fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -24029,6 +24033,7 @@ func _offer_omens() -> void:
 		{"text": "GRIM HAGIASMA — the grim hagiasma-font hardens, guards and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 		{"text": "FOG HAGIASMA — the fog hagiasma-font guards and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE HAGIASMA — the wake hagiasma-font quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
+		{"text": "BILGE HAGIASMA — the bilge hagiasma-font fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -44206,6 +44211,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "WAKE HAGIASMA"
 		4009:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.dodge -= 0.03
+			oname = "BILGE HAGIASMA"
+		4010:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -48285,6 +48295,7 @@ func _omen_deal(idx: int) -> void:
 	"GRIM HAGIASMA": "The grim hagiasma-font gnashes its hagiasmata across your guard, Kael — harder, guarded and plated, at a cost.",
 	"FOG HAGIASMA": "The fog hagiasma-font veils its hagiasmata in your spray, Kael — guarded and filled, at a cost.",
 	"WAKE HAGIASMA": "The wake hagiasma-font trails its hagiasmata in your foam, Kael — quicker and filled, at a cost.",
+	"BILGE HAGIASMA": "The bilge hagiasma-font pumps its hagiasmata into your purse, Kael — richer and wiser, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -55734,6 +55745,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grim Chiffron — the grim chiffron-flourish hardens, guards and plates you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Chiffron — the fog chiffron-flourish guards and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Chiffron — the wake chiffron-flourish quickens and fills you (+6% speed, +4% souls)"},
+		{"text": "Bilge Chiffron — the bilge chiffron-flourish fills and teaches you (+5% souls, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
