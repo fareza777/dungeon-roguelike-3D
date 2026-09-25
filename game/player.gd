@@ -890,6 +890,21 @@ func _strike() -> void:
 					var mnp := get_tree().current_scene
 					if mnp != null and mnp.has_method("_damage_number"):
 						mnp._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "NEAP", Color(0.42, 0.55, 0.62), false)
+			if Stats.weapon_id == "spring_edge":
+				var SPn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", SPn)
+				if SPn % 8 == 0:
+					Sfx.play("swoosh", 0.7)
+					var sprs: Array = []
+					for sf in get_tree().get_nodes_in_group("enemies"):
+						if sf.get("state") != "dead" and sf.global_position.distance_to(global_position) < 5.0 * room_tile:
+							sprs.append(sf)
+					sprs.sort_custom(func(sa: Object, sb: Object) -> bool: return sa.global_position.distance_squared_to(global_position) < sb.global_position.distance_squared_to(global_position))
+					for sf2 in sprs.slice(0, 2):
+						sf2.kb += (global_position - sf2.global_position).normalized() * 16.0
+					var msp := get_tree().current_scene
+					if msp != null and msp.has_method("_damage_number"):
+						msp._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "SPRING", Color(0.38, 0.72, 0.8), false)
 			if Stats.weapon_id == "pilot_lantern":
 				var pln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", pln)
