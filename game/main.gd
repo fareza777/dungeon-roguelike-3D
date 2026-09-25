@@ -20731,6 +20731,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_xp_pct += 0.04
 			toast("Salt Schottische: The salt schottische-step fills and teaches you, Kael.")
+		2471:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.03
+			toast("Deep Varsovienne: The deep varsovienne-turn sharpens and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -24956,6 +24960,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE PROSKOMIDIA — the bilge proskomidia-rite fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 		{"text": "CREST PROSKOMIDIA — the crest proskomidia-rite guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT PROSKOMIDIA — the salt proskomidia-rite fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
+		{"text": "DEEP EPIMANIKIA — the deep epimanikia-cuffs sharpen and guard you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -46060,6 +46065,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT PROSKOMIDIA"
 		4192:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP EPIMANIKIA"
+		4193:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -50322,6 +50332,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE PROSKOMIDIA": "The bilge proskomidia-rite prepares its proskomidiai into your purse, Kael — richer and wiser, at a cost.",
 	"CREST PROSKOMIDIA": "The crest proskomidia-rite prepares its proskomidiai across your crest, Kael — guarded and keen, at a cost.",
 	"SALT PROSKOMIDIA": "The salt proskomidia-rite prepares its proskomidiai over your salt, Kael — richer and wiser, at a cost.",
+	"DEEP EPIMANIKIA": "The deep epimanikia-cuffs clasp their epimanikia over your wrists, Kael — keen and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -57954,6 +57965,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bilge Schottische — the bilge schottische-step fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Schottische — the crest schottische-step guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Schottische — the salt schottische-step fills and teaches you (+6% souls, +4% XP)"},
+		{"text": "Deep Varsovienne — the deep varsovienne-turn sharpens and guards you (+5% ATK, +3% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
