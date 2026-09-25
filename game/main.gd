@@ -13753,6 +13753,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_xp_pct += 0.04
 			toast("Salt Fantasia: The salt fantasia-dance fills and teaches you, Kael.")
+		761:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.03
+			toast("Deep Berceuse: The deep berceuse-hush sharpens and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -37185,6 +37189,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bilge Fantasia — the bilge fantasia-dance fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Fantasia — the crest fantasia-dance guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Fantasia — the salt fantasia-dance fills and teaches you (+6% souls, +4% XP)"},
+		{"text": "Deep Berceuse — the deep berceuse-hush sharpens and guards you (+5% ATK, +3% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
