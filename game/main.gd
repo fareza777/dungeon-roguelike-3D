@@ -16685,6 +16685,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.04
 			Stats.buff_armor += 2
 			toast("Grim Frottola: The grim frottola-song sharpens, guards, and plates you, Kael.")
+		1476:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			toast("Fog Frottola: The fog frottola-song shrouds and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -19915,6 +19919,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH STICHERARION — the trench sticherarion-book sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 		{"text": "BOTTOM STICHERARION — the bottom sticherarion-book fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 		{"text": "GRIM STICHERARION — the grim sticherarion-book sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
+		{"text": "FOG STICHERARION — the fog sticherarion-book shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -35978,6 +35983,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM STICHERARION"
 		3197:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG STICHERARION"
+		3198:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -39245,6 +39255,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH STICHERARION": "The trench sticherarion-book drives its stichera down your arm, Kael — sharpened and hastened, at a cost.",
 	"BOTTOM STICHERARION": "The bottom sticherarion-book settles its stichera in your purse, Kael — richer and guarded, at a cost.",
 	"GRIM STICHERARION": "The grim sticherarion-book drops its stichera like ballast in your bones, Kael — sharpened, guarded, plated, at a cost.",
+	"FOG STICHERARION": "The fog sticherarion-book rolls its stichera over your eyes, Kael — shrouded and richer, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -45882,6 +45893,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Trench Frottola — the trench frottola-song sharpens and hastens you (+5% ATK, +4% ASPD)"},
 		{"text": "Bottom Frottola — the bottom frottola-song fills and guards you (+7% souls, +4% dodge)"},
 		{"text": "Grim Frottola — the grim frottola-song sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
+		{"text": "Fog Frottola — the fog frottola-song shrouds and fills you (+7% dodge, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
