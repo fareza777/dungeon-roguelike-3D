@@ -12311,6 +12311,7 @@ func _offer_omens() -> void:
 		{"text": "SALT PROLOGUE — the brine prologue fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "DEEP APPENDIX — the drowned appendix arms and veils you (+7% ATK, +3% dodge)... and skims your purse for the adding (−3% souls)"},
 		{"text": "PALE APPENDIX — the white appendix veils and fills you (+6% dodge, +5% souls)... and weakens your arm for the veiling (−4% ATK)"},
+		{"text": "GREY APPENDIX — the grey appendix guards and teaches you (+5% dodge, +5% XP)... and weakens your arm for the guarding (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -16477,6 +16478,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "PALE APPENDIX"
 		849:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "GREY APPENDIX"
+		850:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -17381,6 +17387,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT PROLOGUE": "The brine prologue fills and teaches you, Kael — it shifts your guard for the filling.",
 	"DEEP APPENDIX": "The drowned appendix arms and veils you, Kael — it skims your purse for the adding.",
 	"PALE APPENDIX": "The white appendix veils and fills you, Kael — it weakens your arm for the veiling.",
+	"GREY APPENDIX": "The grey appendix guards and teaches you, Kael — it weakens your arm for the guarding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
