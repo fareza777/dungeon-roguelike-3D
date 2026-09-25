@@ -18567,6 +18567,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Ballabile: The trench ballabile-verse sharpens and hastens you, Kael.")
+		1939:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Ballabile: The bottom ballabile-verse fills and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -22260,6 +22264,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL ANTIPHONALIA — the keel antiphonalia-book fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL ANTIPHONALIA — the hull antiphonalia-book bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH ANTIPHONALIA — the trench antiphonalia-book sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
+		{"text": "BOTTOM ANTIPHONALIA — the bottom antiphonalia-book fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -40668,6 +40673,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH ANTIPHONALIA"
 		3660:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM ANTIPHONALIA"
+		3661:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -44398,6 +44408,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL ANTIPHONALIA": "The keel antiphonalia-book rivets its antiphonaliae to your ribs, Kael — richer and plated, at a cost.",
 	"HULL ANTIPHONALIA": "The hull antiphonalia-book swells its antiphonaliae through your frame, Kael — bulked and guarded, at a cost.",
 	"TRENCH ANTIPHONALIA": "The trench antiphonalia-book drives its antiphonaliae down your arm, Kael — sharpened and hastened, at a cost.",
+	"BOTTOM ANTIPHONALIA": "The bottom antiphonalia-book settles its antiphonaliae in your purse, Kael — richer and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -51498,6 +51509,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Ballabile — the keel ballabile-verse fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Ballabile — the hull ballabile-verse bulks and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Ballabile — the trench ballabile-verse sharpens and hastens you (+5% ATK, +4% ASPD)"},
+		{"text": "Bottom Ballabile — the bottom ballabile-verse fills and guards you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
