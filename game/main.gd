@@ -18990,6 +18990,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 0.06
 			Stats.dodge += 0.04
 			toast("Hull Bassadanza: The hull bassadanza-verse bulks and guards you, Kael.")
+		2043:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			toast("Trench Bassadanza: The trench bassadanza-verse sharpens and hastens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -22787,6 +22791,7 @@ func _offer_omens() -> void:
 		{"text": "STORM PANTEKLISI — the storm panteklisi-book sharpens and strikes you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL PANTEKLISI — the keel panteklisi-book fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL PANTEKLISI — the hull panteklisi-book bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
+		{"text": "TRENCH PANTEKLISI — the trench panteklisi-book sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -41722,6 +41727,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL PANTEKLISI"
 		3764:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH PANTEKLISI"
+		3765:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -45556,6 +45566,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM PANTEKLISI": "The storm panteklisi-book cracks its panteklese like thunder, Kael — sharper and striking, at a cost.",
 	"KEEL PANTEKLISI": "The keel panteklisi-book bolts its panteklese to your ribs, Kael — richer and plated, at a cost.",
 	"HULL PANTEKLISI": "The hull panteklisi-book planks its panteklese over your heart, Kael — bulked and guarded, at a cost.",
+	"TRENCH PANTEKLISI": "The trench panteklisi-book drives its panteklese down your arm, Kael — sharpened and hastened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -52760,6 +52771,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Storm Bassadanza — the storm bassadanza-verse sharpens and strikes you (+5% ATK, +6% crit)"},
 		{"text": "Keel Bassadanza — the keel bassadanza-verse fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Bassadanza — the hull bassadanza-verse bulks and guards you (+6% max HP, +4% dodge)"},
+		{"text": "Trench Bassadanza — the trench bassadanza-verse sharpens and hastens you (+5% ATK, +4% ASPD)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
