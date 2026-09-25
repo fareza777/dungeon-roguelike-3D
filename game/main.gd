@@ -15904,6 +15904,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Almain: The bilge almain-measure fills and teaches you, Kael.")
+		1284:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Almain: The crest almain-measure guards and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -18942,6 +18946,7 @@ func _offer_omens() -> void:
 		{"text": "FOG PAREKKLESION — the fog parekklesion-chapel shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE PAREKKLESION — the wake parekklesion-chapel quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE PAREKKLESION — the bilge parekklesion-chapel fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
+		{"text": "CREST PAREKKLESION — the crest parekklesion-chapel guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -34032,6 +34037,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE PAREKKLESION"
 		3005:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST PAREKKLESION"
+		3006:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -37103,6 +37113,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG PAREKKLESION": "The fog parekklesion-chapel veils its side-chapels over your silhouette, Kael — shrouded, at a cost.",
 	"WAKE PAREKKLESION": "The wake parekklesion-chapel trails its side-chapels in your wake, Kael — swifter, at a cost.",
 	"BILGE PAREKKLESION": "The bilge parekklesion-chapel slops its side-chapels through your head, Kael — richer and wiser, at a cost.",
+	"CREST PAREKKLESION": "The crest parekklesion-chapel raises its side-chapels like a wave-crest, Kael — guarded and sharpened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -43548,6 +43559,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Almain — the fog almain-measure shrouds and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Almain — the wake almain-measure quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Almain — the bilge almain-measure fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Almain — the crest almain-measure guards and sharpens you (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
