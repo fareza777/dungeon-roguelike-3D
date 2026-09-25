@@ -8291,7 +8291,7 @@ func _cast_skill(id: String) -> void:
 			Sfx.play("shrine")
 			_damage_number(player.global_position + Vector3(0, 0.9 * info.tile, 0), "REPRIEVE", Color(0.62, 0.7, 0.75), false)
 		"deeppeal":
-			Sfx.play("bell" if "bell" else "shrine")
+			Sfx.play("shrine")
 			trauma = minf(trauma + 0.25, 1.0)
 			for f in get_tree().get_nodes_in_group("enemies"):
 				if f.get("state") != "dead" and (f.global_position - player.global_position).length() < 2.0 * info.tile:
