@@ -15,6 +15,7 @@ var ach_panel: CenterContainer = null
 var ach_rows: VBoxContainer = null
 var ach_title: Label = null
 var toast_l: Label = null
+var souls_flash_id := ""
 
 const GOLD := Color(0.95, 0.78, 0.35)
 const INK := Color(0.07, 0.06, 0.12, 0.88)
@@ -733,14 +734,24 @@ func _refresh_souls() -> void:
 		var d: Dictionary = Stats.META_DEF[id]
 		var lv: int = int(Stats.meta.get(id, 0))
 		var mx: int = int(d["max"])
+		var card := PanelContainer.new()
+		var csb := StyleBoxFlat.new()
+		var afford: bool = lv < mx and Stats.souls >= Stats.meta_cost(id)
+		csb.bg_color = Color(0.11, 0.09, 0.18, 0.92) if lv < mx else Color(0.07, 0.06, 0.11, 0.85)
+		csb.border_color = Color(0.75, 0.58, 1.0, 0.75) if afford else (Color(0.5, 0.42, 0.72, 0.3) if lv < mx else Color(0.4, 0.4, 0.45, 0.25))
+		csb.set_border_width_all(1)
+		csb.set_corner_radius_all(10)
+		csb.set_content_margin_all(10)
+		card.add_theme_stylebox_override("panel", csb)
 		var row := HBoxContainer.new()
 		row.add_theme_constant_override("separation", 10)
+		card.add_child(row)
 		var info := VBoxContainer.new()
 		info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		var nm := Label.new()
 		nm.text = "%s  %s" % [String(d["name"]), "◆".repeat(lv) + "◇".repeat(mx - lv)]
 		nm.add_theme_font_size_override("font_size", 18)
-		nm.modulate = Color(1.0, 0.95, 0.85)
+		nm.modulate = Color(0.72, 0.6, 1.0) if lv >= mx else Color(1.0, 0.95, 0.85)
 		info.add_child(nm)
 		var ds := Label.new()
 		ds.text = String(d["desc"])
@@ -757,13 +768,20 @@ func _refresh_souls() -> void:
 			if Stats.buy_meta(bb_id):
 				Sfx.play("levelup")
 				_toast("Bound: %s Lv %d" % [String(bb_d["name"]), int(Stats.meta[bb_id])])
+				souls_flash_id = bb_id
 			else:
 				Sfx.play("deny")
 				_toast("Not enough souls")
 			_refresh_souls()
 		)
 		row.add_child(bb)
-		souls_rows.add_child(row)
+		souls_rows.add_child(card)
+		if souls_flash_id == id:
+			souls_flash_id = ""
+			card.pivot_offset = card.get_combined_minimum_size() * 0.5
+			card.scale = Vector2(0.94, 0.94)
+			var ctw: Tween = card.create_tween()
+			ctw.tween_property(card, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 
 func _build_ach() -> void:
