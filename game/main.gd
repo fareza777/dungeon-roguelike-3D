@@ -15255,6 +15255,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL REPROACHES — the keel reproaches-verse fills and plates you (+6% souls, +3 armor)... and shifts your guard for the filling (−4% dodge)"},
 		{"text": "HULL REPROACHES — the hull reproaches-verse broadens and guards you (+6% Max HP, +4% dodge)... and slows your step for the broadening (−3% speed)"},
 		{"text": "TRENCH REPROACHES — the trench reproaches-verse sharpens and hastens you (+5% ATK, +4% attack speed)... and shifts your guard for the sharpening (−4% dodge)"},
+		{"text": "BOTTOM REPROACHES — the bottom reproaches-verse fills and guards you (+7% souls, +4% dodge)... and dulls your edge for the filling (−3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -26671,6 +26672,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH REPROACHES"
 		2280:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM REPROACHES"
+		2281:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -29009,6 +29015,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL REPROACHES": "The keel reproaches-verse fills and plates you, Kael — it shifts your guard for the filling.",
 	"HULL REPROACHES": "The hull reproaches-verse broadens and guards you, Kael — it slows your step for the broadening.",
 	"TRENCH REPROACHES": "The trench reproaches-verse sharpens and hastens you, Kael — it shifts your guard for the sharpening.",
+	"BOTTOM REPROACHES": "The bottom reproaches-verse fills and guards you, Kael — it dulls your edge for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
