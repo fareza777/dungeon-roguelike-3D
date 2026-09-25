@@ -21333,6 +21333,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Bolero: The bilge bolero-turn fills and teaches you, Kael.")
+		2619:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Bolero: The crest bolero-turn guards and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -25706,6 +25710,7 @@ func _offer_omens() -> void:
 		{"text": "FOG HEORTOLOGION — the fog heortologion-calendar guards and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE HEORTOLOGION — the wake heortologion-calendar quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE HEORTOLOGION — the bilge heortologion-calendar fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
+		{"text": "CREST HEORTOLOGION — the crest heortologion-calendar guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -47560,6 +47565,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE HEORTOLOGION"
 		4340:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST HEORTOLOGION"
+		4341:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -51970,6 +51980,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG HEORTOLOGION": "The fog heortologion-calendar marks its heortologia in your spray, Kael — guarded and filled, at a cost.",
 	"WAKE HEORTOLOGION": "The wake heortologion-calendar marks its heortologia in your foam, Kael — quicker and filled, at a cost.",
 	"BILGE HEORTOLOGION": "The bilge heortologion-calendar marks its heortologia in your purse, Kael — richer and wiser, at a cost.",
+	"CREST HEORTOLOGION": "The crest heortologion-calendar marks its heortologia on your crest, Kael — guarded and keen, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -59750,6 +59761,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Bolero — the fog bolero-turn guards and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Bolero — the wake bolero-turn quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Bolero — the bilge bolero-turn fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Bolero — the crest bolero-turn guards and sharpens you (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
