@@ -15208,6 +15208,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 0.06
 			Stats.dodge += 0.04
 			toast("Hull Courante: The hull courante-run bulks and guards you, Kael.")
+		1113:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			toast("Trench Courante: The trench courante-run sharpens and hastens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -18076,6 +18080,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL PARALITURGIKI — the keel paraliturgiki-rite fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL PARALITURGIKI — the hull paraliturgiki-rite bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH PARALITURGIKI — the trench paraliturgiki-rite sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
+		{"text": "BOTTOM PARALITURGIKI — the bottom paraliturgiki-rite fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -32304,6 +32309,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH PARALITURGIKI"
 		2835:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM PARALITURGIKI"
+		2836:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -35205,6 +35215,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL PARALITURGIKI": "The keel paraliturgiki-rite moors its lesser-offices to your hull, Kael — richer and plated, at a cost.",
 	"HULL PARALITURGIKI": "The hull paraliturgiki-rite planks its lesser-offices along your ribs, Kael — bulkier and guarded, at a cost.",
 	"TRENCH PARALITURGIKI": "The trench paraliturgiki-rite murmurs its lesser-offices down your spine, Kael — sharper and quicker, at a cost.",
+	"BOTTOM PARALITURGIKI": "The bottom paraliturgiki-rite settles its lesser-offices in your purse, Kael — richer and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -41479,6 +41490,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Storm Courante — the storm courante-run sharpens and empowers you (+5% ATK, +6% crit)"},
 		{"text": "Keel Courante — the keel courante-run fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Courante — the hull courante-run bulks and guards you (+6% max HP, +4% dodge)"},
+		{"text": "Trench Courante — the trench courante-run sharpens and hastens you (+5% ATK, +4% ASPD)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
