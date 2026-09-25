@@ -20385,6 +20385,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Ecossaise: The storm ecossaise-reel sharpens and strikes you, Kael.")
+		2386:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Ecossaise: The keel ecossaise-reel fills and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -24525,6 +24529,7 @@ func _offer_omens() -> void:
 		{"text": "GREY SLUZEBNIK — the grey sluzebnik-tome guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE SLUZEBNIK — the tide sluzebnik-tome quickens and hardens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM SLUZEBNIK — the storm sluzebnik-tome hardens and sharpens you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
+		{"text": "KEEL SLUZEBNIK — the keel sluzebnik-tome fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -45198,6 +45203,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM SLUZEBNIK"
 		4107:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL SLUZEBNIK"
+		4108:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -49375,6 +49385,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY SLUZEBNIK": "The grey sluzebnik-tome reads its sluzebniki over your shoulders, Kael — guarded and wiser, at a cost.",
 	"TIDE SLUZEBNIK": "The tide sluzebnik-tome reads its sluzebniki through your wake, Kael — quicker and harder, at a cost.",
 	"STORM SLUZEBNIK": "The storm sluzebnik-tome reads its sluzebniki into your swings, Kael — harder and keener, at a cost.",
+	"KEEL SLUZEBNIK": "The keel sluzebnik-tome reads its sluzebniki along your ribs, Kael — richer and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -56922,6 +56933,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Ecossaise — the grey ecossaise-reel guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Ecossaise — the tide ecossaise-reel quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Ecossaise — the storm ecossaise-reel sharpens and strikes you (+5% ATK, +6% crit)"},
+		{"text": "Keel Ecossaise — the keel ecossaise-reel fills and plates you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
