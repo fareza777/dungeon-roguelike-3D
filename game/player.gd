@@ -1438,6 +1438,7 @@ func _strike() -> void:
 					crit = true
 			if crit:
 				dmg *= 2.0
+				Sfx.play("crit", 1.3 + randf() * 0.15)
 			if Stats.weapon_id == "war_blade" and f.hp < f.hp_max * 0.35:
 				dmg *= 1.5
 			if Stats.weapon_id == "keelhook":
