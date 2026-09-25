@@ -16444,6 +16444,7 @@ func _offer_omens() -> void:
 		{"text": "SALT ORDINALE — the salt ordinale-rite fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 		{"text": "DEEP COLLECTARIUM — the deep collectarium-prayer sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 		{"text": "PALE COLLECTARIUM — the pale collectarium-prayer guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
+		{"text": "GREY COLLECTARIUM — the grey collectarium-prayer guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -29046,6 +29047,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "PALE COLLECTARIUM"
 		2514:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "GREY COLLECTARIUM"
+		2515:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -31626,6 +31632,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT ORDINALE": "The salt ordinale-rite closes its rubric around you, Kael — richer and wiser, at a cost. ORDINALE #148 complete.",
 	"DEEP COLLECTARIUM": "The deep collectarium-prayer gathers around your arm, Kael — sharper, at a cost.",
 	"PALE COLLECTARIUM": "The pale collectarium-prayer shrouds your step, Kael — guarded, at a cost.",
+	"GREY COLLECTARIUM": "The grey collectarium-prayer drapes its verses over your shoulders, Kael — guarded and wiser, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
