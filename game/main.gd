@@ -15343,6 +15343,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.04
 			Stats.buff_armor += 2
 			toast("Grim Musette: The grim musette-air sharpens, guards, and plates you, Kael.")
+		1146:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			toast("Fog Musette: The fog musette-air shrouds and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -18243,6 +18247,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH BENEDICTIONALE — the trench benedictionale-rite sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 		{"text": "BOTTOM BENEDICTIONALE — the bottom benedictionale-rite fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 		{"text": "GRIM BENEDICTIONALE — the grim benedictionale-rite sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
+		{"text": "FOG BENEDICTIONALE — the fog benedictionale-rite shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -32634,6 +32639,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM BENEDICTIONALE"
 		2867:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG BENEDICTIONALE"
+		2868:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -35567,6 +35577,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH BENEDICTIONALE": "The trench benedictionale-rite murmurs its blessing-rites down your spine, Kael — sharper and quicker, at a cost.",
 	"BOTTOM BENEDICTIONALE": "The bottom benedictionale-rite settles its blessing-rites in your purse, Kael — richer and guarded, at a cost.",
 	"GRIM BENEDICTIONALE": "The grim benedictionale-rite drops its blessing-rites like ballast in your bones, Kael — sharper, guarded, plated, at a cost.",
+	"FOG BENEDICTIONALE": "The fog benedictionale-rite veils its blessing-rites over your silhouette, Kael — shrouded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -41874,6 +41885,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Trench Musette — the trench musette-air sharpens and hastens you (+5% ATK, +4% ASPD)"},
 		{"text": "Bottom Musette — the bottom musette-air fills and guards you (+7% souls, +4% dodge)"},
 		{"text": "Grim Musette — the grim musette-air sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
+		{"text": "Fog Musette — the fog musette-air shrouds and fills you (+7% dodge, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
