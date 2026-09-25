@@ -11245,6 +11245,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE EDICT — the wake itself issues the decree: forward, always forward (+5% ATK)... nothing behind you keeps its plate (−1 armor)"},
 		{"text": "PALE EDICT — the pale court's decree drifts down like ash (+6% dodge)... its ink stains heavy (−4% ATK)"},
 		{"text": "KEEL EDICT — the keel's decree cuts two ways: blade and purse alike (+4% ATK, +4% souls)... and it never teaches (−4% XP)"},
+		{"text": "SALT EDICT — the white court's decree crystallizes around you (+2 armor, +5% souls)... its weight slows your step (−5% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12267,6 +12268,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_xp_pct -= 0.04
 			oname = "KEEL EDICT"
 		225:
+			Stats.buff_armor += 2
+			Stats.soul_gain_pct += 0.05
+			Stats.dodge -= 0.05
+			oname = "SALT EDICT"
+		226:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12541,6 +12547,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE EDICT": "The wake only writes one law, Kael — forward. It never says what it costs.",
 	"PALE EDICT": "The pale court's decrees arrive like weather, Kael — everyone under them gets a little greyer.",
 	"KEEL EDICT": "A keel's decree is the ship's first law, Kael — it cuts the water, and it cuts whoever leans on it.",
+	"SALT EDICT": "Salt-law keeps what it names, Kael — you walk out armored, and you walk out slower.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
