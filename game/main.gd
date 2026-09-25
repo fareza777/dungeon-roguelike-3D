@@ -9710,6 +9710,10 @@ func _build_skill_buttons(layer: CanvasLayer) -> void:
 		var sbp := sb.duplicate() as StyleBoxFlat
 		sbp.bg_color = Color(0.25, 0.4, 0.55, 0.95)
 		b.add_theme_stylebox_override("pressed", sbp)
+		var sbhh := sb.duplicate() as StyleBoxFlat
+		sbhh.bg_color = Color(0.16, 0.24, 0.34, 0.95)
+		sbhh.border_color = Color(0.7, 0.9, 1.0)
+		b.add_theme_stylebox_override("hover", sbhh)
 		b.pivot_offset = Vector2(39, 39)
 		b.anchor_left = 1.0
 		b.anchor_right = 1.0
@@ -21471,6 +21475,10 @@ func _build_ui() -> void:
 	sb2.bg_color = Color(0.8, 0.24, 0.22, 0.95)
 	sb2.border_color = Color(1.0, 0.9, 0.6)
 	atk.add_theme_stylebox_override("pressed", sb2)
+	var sbh := sb.duplicate() as StyleBoxFlat
+	sbh.bg_color = Color(0.62, 0.17, 0.18, 0.92)
+	sbh.border_color = Color(1.0, 0.88, 0.55)
+	atk.add_theme_stylebox_override("hover", sbh)
 	atk.add_theme_color_override("font_color", Color(1.0, 0.92, 0.75))
 	atk.add_theme_color_override("font_outline_color", Color(0.15, 0.02, 0.02, 1.0))
 	atk.add_theme_constant_override("outline_size", 6)
@@ -21717,6 +21725,10 @@ func _build_ui() -> void:
 	var vsb2 := vsb.duplicate() as StyleBoxFlat
 	vsb2.bg_color = Color(0.15, 0.4, 0.32, 0.95)
 	vbtn.add_theme_stylebox_override("pressed", vsb2)
+	var vsbh := vsb.duplicate() as StyleBoxFlat
+	vsbh.bg_color = Color(0.12, 0.3, 0.24, 0.95)
+	vsbh.border_color = Color(0.5, 1.0, 0.85)
+	vbtn.add_theme_stylebox_override("hover", vsbh)
 	vbtn.add_theme_color_override("font_color", Color(0.75, 1.0, 0.9))
 	vbtn.add_theme_color_override("font_outline_color", Color(0, 0.1, 0.08, 1))
 	vbtn.add_theme_constant_override("outline_size", 5)
