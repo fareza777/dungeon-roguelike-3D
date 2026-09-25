@@ -12291,6 +12291,7 @@ func _offer_omens() -> void:
 		{"text": "GRIM EPILOGUE — the grim epilogue arms, guards and plates you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the plating (−4% speed)"},
 		{"text": "FOG EPILOGUE — the misted epilogue cloaks and fills you (+7% dodge, +4% souls)... and weakens your arm for the cloaking (−4% ATK)"},
 		{"text": "WAKE EPILOGUE — the trailing epilogue speeds and fills you (+6% speed, +4% souls)... and shifts your guard for the speeding (−3% dodge)"},
+		{"text": "BILGE EPILOGUE — the filthy epilogue fills and teaches you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -16356,6 +16357,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "WAKE EPILOGUE"
 		829:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.dodge -= 0.03
+			oname = "BILGE EPILOGUE"
+		830:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -17240,6 +17246,7 @@ func _omen_deal(idx: int) -> void:
 	"GRIM EPILOGUE": "The grim epilogue arms, guards and plates you, Kael — it slows your step for the plating.",
 	"FOG EPILOGUE": "The misted epilogue cloaks and fills you, Kael — it weakens your arm for the cloaking.",
 	"WAKE EPILOGUE": "The trailing epilogue speeds and fills you, Kael — it shifts your guard for the speeding.",
+	"BILGE EPILOGUE": "The filthy epilogue fills and teaches you, Kael — it shifts your guard for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
