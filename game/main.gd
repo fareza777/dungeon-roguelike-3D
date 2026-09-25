@@ -12598,6 +12598,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE OCTAVO — the flowing folded page speeds and arms you (+6% speed, +4% ATK)... and shifts your guard for the speeding (−3% dodge)"},
 		{"text": "STORM OCTAVO — the tempest's folded page charges your arm and aim (+5% ATK, +6% crit)... and uncovers your guard for the charge (−4% dodge)"},
 		{"text": "KEEL OCTAVO — the hull folded page fills your purse and plates your hide (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
+		{"text": "HULL OCTAVO — the shipwright's folded page fills your frame and guards you (+6% max HP, +4% dodge)... and slows your step for the filling (−3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -17924,6 +17925,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL OCTAVO"
 		1078:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL OCTAVO"
+		1079:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -19060,6 +19066,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE OCTAVO": "The flowing folded page speeds and arms you, Kael — it shifts your guard for the speeding.",
 	"STORM OCTAVO": "The tempest's folded page charges your arm and aim, Kael — it uncovers your guard for the charge.",
 	"KEEL OCTAVO": "The hull folded page fills your purse and plates your hide, Kael — it shifts your guard for the plating.",
+	"HULL OCTAVO": "The shipwright's folded page fills your frame and guards you, Kael — it slows your step for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
