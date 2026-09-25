@@ -14605,6 +14605,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Capriccio: The bottom capriccio-whim fills and guards you, Kael.")
+		965:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Capriccio: The grim capriccio-whim sharpens, guards, and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17325,6 +17330,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH TRIADIKON — the trench triadikon-canon sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 		{"text": "BOTTOM TRIADIKON — the bottom triadikon-canon fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 		{"text": "GRIM TRIADIKON — the grim triadikon-canon sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
+		{"text": "FOG TRIADIKON — the fog triadikon-canon shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -30804,6 +30810,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM TRIADIKON"
 		2687:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG TRIADIKON"
+		2688:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -33557,6 +33568,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH TRIADIKON": "The trench triadikon-canon rakes its three-ode charge down your spine, Kael — sharper and quicker, at a cost.",
 	"BOTTOM TRIADIKON": "The bottom triadikon-canon drops its three-ode charge into your purse, Kael — richer and guarded, at a cost.",
 	"GRIM TRIADIKON": "The grim triadikon-canon tolls its three-ode charge over your blade, Kael — sharper, guarded, plated, at a cost.",
+	"FOG TRIADIKON": "The fog triadikon-canon mists its three-ode charge around you, Kael — shrouded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -39683,6 +39695,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Capriccio — the hull capriccio-whim bulks and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Capriccio — the trench capriccio-whim sharpens and hastens you (+5% ATK, +4% ASPD)"},
 		{"text": "Bottom Capriccio — the bottom capriccio-whim fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Capriccio — the grim capriccio-whim sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
