@@ -1238,6 +1238,7 @@ var still_waters := false
 var bone_veil := false
 var veil_used := false
 var _souls_seen := 0
+var _foes_seen := -1
 var _souls_net := 0
 var dlg: DialogueUI = null
 var dlg_pending_choice := -1
@@ -5941,7 +5942,14 @@ func _on_enemy_died(e) -> void:
 			_souls_l()
 			_damage_number(player.global_position + Vector3(0, 0.8, 0), "LEECH SEED RIPENS — +1 soul", Color(0.6, 1.0, 0.6), true)
 	if ui.has("kills_label"):
-		ui.kills_label.text = "☠ %d  ·  FOES %d" % [kills_run, _room_alive(current_room)]
+		var foes_now := _room_alive(current_room)
+		if _foes_seen >= 0 and foes_now < _foes_seen:
+			ui.kills_label.pivot_offset = ui.kills_label.size * 0.5
+			ui.kills_label.scale = Vector2(1.22, 1.22)
+			var ktw := create_tween()
+			ktw.tween_property(ui.kills_label, "scale", Vector2.ONE, 0.2)
+		_foes_seen = foes_now
+		ui.kills_label.text = "☠ %d  ·  FOES %d" % [kills_run, foes_now]
 	# Sir Vane: celoteh perang tiap ~15 kill bersama
 	if kills_run >= 100:
 		_ach("centurion")
