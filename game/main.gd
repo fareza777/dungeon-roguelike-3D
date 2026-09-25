@@ -20462,6 +20462,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Contredanse: The bottom contredanse-figure fills and guards you, Kael.")
+		2405:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Contredanse: The grim contredanse-figure hardens, guards and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -24621,6 +24626,7 @@ func _offer_omens() -> void:
 		{"text": "HULL PENTEKOSTALION — the hull pentekostalion-hymn toughens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH PENTEKOSTALION — the trench pentekostalion-hymn hardens and hastens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
 		{"text": "BOTTOM PENTEKOSTALION — the bottom pentekostalion-hymn fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM PENTEKOSTALION — the grim pentekostalion-hymn hardens, guards and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -45390,6 +45396,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM PENTEKOSTALION"
 		4126:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM PENTEKOSTALION"
+		4127:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -49586,6 +49598,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL PENTEKOSTALION": "The hull pentekostalion-hymn raises its pentekostalia over your hull, Kael — tougher and guarded, at a cost.",
 	"TRENCH PENTEKOSTALION": "The trench pentekostalion-hymn raises its pentekostalia into your wrists, Kael — harder and hastened, at a cost.",
 	"BOTTOM PENTEKOSTALION": "The bottom pentekostalion-hymn raises its pentekostalia into your purse, Kael — richer and guarded, at a cost.",
+	"GRIM PENTEKOSTALION": "The grim pentekostalion-hymn raises its pentekostalia across your guard, Kael — harder, guarded and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -57152,6 +57165,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Contredanse — the hull contredanse-figure toughens and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Contredanse — the trench contredanse-figure hardens and hastens you (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Contredanse — the bottom contredanse-figure fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Contredanse — the grim contredanse-figure hardens, guards and plates you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
