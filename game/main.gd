@@ -10967,6 +10967,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_xp_pct += 0.02
 			toast("Crest Gospel: the wave-deacon's ringing word — +5% ATK, +2% XP this run")
+		188:
+			Stats.buff_armor += 3
+			Stats.buff_speed_pct -= 0.03
+			toast("Bilge Psalm: the hold-choir's low note — +3 armor, −3% speed this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17775,6 +17779,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Grey Gospel — the pale deacon's even word: +5% crit, +3% souls this run"},
 			{"text": "Salt Gospel — the white deacon's bright word: +6% souls, +3% speed this run"},
 			{"text": "Crest Gospel — the wave-deacon's ringing word: +5% ATK, +2% XP this run"},
+			{"text": "Bilge Psalm — the hold-choir's low note: +3 armor, −3% speed this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
