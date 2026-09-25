@@ -19576,6 +19576,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.dodge += 0.03
 			toast("Deep Turdion: The deep turdion-step sharpens and guards you, Kael.")
+		2187:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			toast("Pale Turdion: The pale turdion-step guards and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -23517,6 +23521,7 @@ func _offer_omens() -> void:
 		{"text": "CREST NOMOKANON — the crest nomokanon-book guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT NOMOKANON — the salt nomokanon-book fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 		{"text": "DEEP SIGILLION — the deep sigillion-book sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
+		{"text": "PALE SIGILLION — the pale sigillion-book guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -43182,6 +43187,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "DEEP SIGILLION"
 		3908:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE SIGILLION"
+		3909:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -47160,6 +47170,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST NOMOKANON": "The crest nomokanon-book breaks its nomokanona on your blade, Kael — guarded and sharpened, at a cost.",
 	"SALT NOMOKANON": "The salt nomokanon-book crusts its nomokanona on your palms, Kael — richer and wiser, at a cost.",
 	"DEEP SIGILLION": "The deep sigillion-book stamps its sigillia like a wound, Kael — sharper and guarded, at a cost.",
+	"PALE SIGILLION": "The pale sigillion-book lifts its sigillia like a shroud, Kael — guarded and richer, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -54508,6 +54519,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Crest Mezzavia — the crest mezzavia-step guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Mezzavia — the salt mezzavia-step fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Turdion — the deep turdion-step sharpens and guards you (+5% ATK, +3% dodge)"},
+		{"text": "Pale Turdion — the pale turdion-step guards and fills you (+6% dodge, +5% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
