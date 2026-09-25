@@ -36892,12 +36892,24 @@ func _toggle_lore() -> void:
 		var i := 0
 		for line in Stats.lore_seen:
 			i += 1
+			var card := PanelContainer.new()
+			var csb := StyleBoxFlat.new()
+			csb.bg_color = Color(0.11, 0.09, 0.16, 0.9)
+			csb.border_color = Color(0.65, 0.55, 0.9, 0.4)
+			csb.set_border_width_all(1)
+			csb.set_corner_radius_all(8)
+			csb.set_content_margin_all(8)
+			card.add_theme_stylebox_override("panel", csb)
 			var l := Label.new()
 			l.text = "%02d — %s" % [i, line]
 			l.modulate = Color(0.9, 0.82, 1.0, 0.95)
 			l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 			l.add_theme_font_size_override("font_size", 15)
-			ui.lore_list.add_child(l)
+			l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			card.add_child(l)
+			ui.lore_list.add_child(card)
+			card.modulate = Color(1, 1, 1, 0)
+			card.create_tween().tween_property(card, "modulate:a", 1.0, 0.2).set_delay(minf(i * 0.025, 0.6))
 	lore_panel.visible = true
 
 
