@@ -14408,6 +14408,7 @@ func _offer_omens() -> void:
 		{"text": "STORM STICHERON — the storm sticheron-hymn sharpens and strikes you (+5% ATK, +6% crit)... and shifts your guard for the striking (−4% dodge)"},
 		{"text": "KEEL STICHERON — the keel sticheron-hymn fills and plates you (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
 		{"text": "HULL STICHERON — the plank sticheron-hymn bulks and guards you (+6% max HP, +4% dodge)... and slows your step for the bulking (−3% speed)"},
+		{"text": "TRENCH STICHERON — the trench sticheron-hymn sharpens and quickens you (+5% ATK, +4% attack speed)... and shifts your guard for the quickening (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -24451,6 +24452,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL STICHERON"
 		2009:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH STICHERON"
+		2010:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -26518,6 +26524,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM STICHERON": "The storm sticheron-hymn sharpens and strikes you, Kael — it shifts your guard for the striking.",
 	"KEEL STICHERON": "The keel sticheron-hymn fills and plates you, Kael — it shifts your guard for the plating.",
 	"HULL STICHERON": "The plank sticheron-hymn bulks and guards you, Kael — it slows your step for the bulking.",
+	"TRENCH STICHERON": "The trench sticheron-hymn sharpens and quickens you, Kael — it shifts your guard for the quickening.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
