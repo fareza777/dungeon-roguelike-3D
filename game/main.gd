@@ -19104,6 +19104,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Balletto: The storm balletto-verse sharpens and strikes you, Kael.")
+		2071:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Balletto: The keel balletto-verse fills and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -22929,6 +22933,7 @@ func _offer_omens() -> void:
 		{"text": "GREY STATIONALIS — the grey stationalis-book guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE STATIONALIS — the tide stationalis-book quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM STATIONALIS — the storm stationalis-book sharpens and strikes you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
+		{"text": "KEEL STATIONALIS — the keel stationalis-book fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -42006,6 +42011,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM STATIONALIS"
 		3792:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL STATIONALIS"
+		3793:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -45868,6 +45878,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY STATIONALIS": "The grey stationalis-book clasps its stationale on your shoulders, Kael — guarded and wiser, at a cost.",
 	"TIDE STATIONALIS": "The tide stationalis-book washes its stationale over your feet, Kael — quicker and sharper, at a cost.",
 	"STORM STATIONALIS": "The storm stationalis-book cracks its stationale like thunder, Kael — sharper and striking, at a cost.",
+	"KEEL STATIONALIS": "The keel stationalis-book bolts its stationale to your ribs, Kael — richer and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -53100,6 +53111,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Balletto — the grey balletto-verse guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Balletto — the tide balletto-verse quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Balletto — the storm balletto-verse sharpens and strikes you (+5% ATK, +6% crit)"},
+		{"text": "Keel Balletto — the keel balletto-verse fills and plates you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
