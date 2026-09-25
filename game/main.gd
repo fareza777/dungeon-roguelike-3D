@@ -21824,6 +21824,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Seguidilla: The trench seguidilla-step sharpens and quickens you, Kael.")
+		2734:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Seguidilla: The bottom seguidilla-step fills and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -26312,6 +26316,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL KOUKOULION — the keel koukoulion-hood fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL KOUKOULION — the hull koukoulion-hood swells and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH KOUKOULION — the trench koukoulion-hood sharpens and quickens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
+		{"text": "BOTTOM KOUKOULION — the bottom koukoulion-hood fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -48748,6 +48753,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH KOUKOULION"
 		4455:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM KOUKOULION"
+		4456:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -53273,6 +53283,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL KOUKOULION": "The keel koukoulion-hood folds its koukoulia along your keel, Kael — richer and plated, at a cost.",
 	"HULL KOUKOULION": "The hull koukoulion-hood folds its koukoulia along your hull, Kael — heartier and guarded, at a cost.",
 	"TRENCH KOUKOULION": "The trench koukoulion-hood folds its koukoulia along your trench, Kael — keen and quicker, at a cost.",
+	"BOTTOM KOUKOULION": "The bottom koukoulion-hood folds its koukoulia in the deep, Kael — richer and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -61168,6 +61179,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Seguidilla — the keel seguidilla-step fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Seguidilla — the hull seguidilla-step swells and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Seguidilla — the trench seguidilla-step sharpens and quickens you (+5% ATK, +4% atk speed)"},
+		{"text": "Bottom Seguidilla — the bottom seguidilla-step fills and guards you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
