@@ -17758,6 +17758,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Tarantella: The tide tarantella-verse quickens and sharpens you, Kael.")
+		1740:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Tarantella: The storm tarantella-verse sharpens and empowers you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -21252,6 +21256,7 @@ func _offer_omens() -> void:
 		{"text": "PALE SEQUENTIALE — the pale sequentiale-book guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY SEQUENTIALE — the grey sequentiale-book guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE SEQUENTIALE — the tide sequentiale-book quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
+		{"text": "STORM SEQUENTIALE — the storm sequentiale-book sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -38652,6 +38657,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE SEQUENTIALE"
 		3461:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM SEQUENTIALE"
+		3462:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -42183,6 +42193,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE SEQUENTIALE": "The pale sequentiale-book pales its sequentialia over your form, Kael — guarded and richer, at a cost.",
 	"GREY SEQUENTIALE": "The grey sequentiale-book greys its sequentialia into your lessons, Kael — guarded and taught, at a cost.",
 	"TIDE SEQUENTIALE": "The tide sequentiale-book speeds its sequentialia into your stride, Kael — quickened and sharpened, at a cost.",
+	"STORM SEQUENTIALE": "The storm sequentiale-book opens its sequentialia in thunder, Kael — sharpened and empowered, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -49084,6 +49095,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Tarantella — the pale tarantella-verse guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Tarantella — the grey tarantella-verse guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Tarantella — the tide tarantella-verse quickens and sharpens you (+6% speed, +4% ATK)"},
+		{"text": "Storm Tarantella — the storm tarantella-verse sharpens and empowers you (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
