@@ -15168,6 +15168,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.soul_gain_pct += 0.04
 			toast("Wake Allemande: The wake allemande-step quickens and fills you, Kael.")
+		1103:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Bilge Allemande: The bilge allemande-step fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -18026,6 +18030,7 @@ func _offer_omens() -> void:
 		{"text": "FOG LIKNON — the fog liknon-fan shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE LIKNON — the wake liknon-fan quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE LIKNON — the bilge liknon-fan fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
+		{"text": "CREST LIKNON — the crest liknon-fan guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -32204,6 +32209,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE LIKNON"
 		2825:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST LIKNON"
+		2826:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -35095,6 +35105,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG LIKNON": "The fog liknon-fan veils its processional-fans over your silhouette, Kael — shrouded, at a cost.",
 	"WAKE LIKNON": "The wake liknon-fan trails its processional-fans in your wake, Kael — swifter, at a cost.",
 	"BILGE LIKNON": "The bilge liknon-fan slops its processional-fans through your head, Kael — richer and wiser, at a cost.",
+	"CREST LIKNON": "The crest liknon-fan raises its processional-fans like a wave-crest, Kael — guarded and sharpened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -41359,6 +41370,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grim Allemande — the grim allemande-step sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Allemande — the fog allemande-step shrouds and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Allemande — the wake allemande-step quickens and fills you (+6% speed, +4% souls)"},
+		{"text": "Bilge Allemande — the bilge allemande-step fills and teaches you (+5% souls, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
