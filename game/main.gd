@@ -15440,6 +15440,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Tambourin: The tide tambourin-beat quickens and sharpens you, Kael.")
+		1170:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Tambourin: The storm tambourin-beat sharpens and empowers you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -18364,6 +18368,7 @@ func _offer_omens() -> void:
 		{"text": "PALE ANTIPHONARIUM — the pale antiphonarium-antiphon guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY ANTIPHONARIUM — the grey antiphonarium-antiphon guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE ANTIPHONARIUM — the tide antiphonarium-antiphon quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
+		{"text": "STORM ANTIPHONARIUM — the storm antiphonarium-antiphon sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -32876,6 +32881,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE ANTIPHONARIUM"
 		2891:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM ANTIPHONARIUM"
+		2892:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -35833,6 +35843,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE ANTIPHONARIUM": "The pale antiphonarium-antiphon calls its antiphon-books at your side, Kael — guarded, at a cost.",
 	"GREY ANTIPHONARIUM": "The grey antiphonarium-antiphon murmurs its antiphon-books through your ears, Kael — guarded and wiser, at a cost.",
 	"TIDE ANTIPHONARIUM": "The tide antiphonarium-antiphon drums its antiphon-books under your feet, Kael — swifter, at a cost.",
+	"STORM ANTIPHONARIUM": "The storm antiphonarium-antiphon crashes its antiphon-books open, Kael — sharpened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -42164,6 +42175,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Tambourin — the pale tambourin-beat guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Tambourin — the grey tambourin-beat guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Tambourin — the tide tambourin-beat quickens and sharpens you (+6% speed, +4% ATK)"},
+		{"text": "Storm Tambourin — the storm tambourin-beat sharpens and empowers you (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
