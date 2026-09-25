@@ -885,8 +885,11 @@ func _refresh_ach() -> void:
 		rsb.set_corner_radius_all(8)
 		rsb.set_content_margin_all(8)
 		row.add_theme_stylebox_override("panel", rsb)
+		var def = Stats.ACH_DEF[id]
+		var aname: String = String(def.get("name", id)) if def is Dictionary else String(def)
+		var adesc: String = String(def.get("desc", "")) if def is Dictionary else ""
 		var l := Label.new()
-		l.text = ("◆ " if got else "◇ ") + String(Stats.ACH_DEF[id])
+		l.text = ("◆ " if got else "◇ ") + aname + ("" if adesc == "" else " — " + adesc)
 		l.add_theme_font_size_override("font_size", 16)
 		l.modulate = Color(1.0, 0.9, 0.55) if got else Color(1, 1, 1, 0.35)
 		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
