@@ -11087,6 +11087,7 @@ func _offer_omens() -> void:
 		{"text": "FOG WARRANT — the mist's writ of concealment (+6% dodge)... served cold, it dulls your edge (−4% ATK)"},
 		{"text": "SALT SUMMONS — the exchequer calls you to account; the hearing teaches (+6% XP)... attendance costs plating (−1 armor)"},
 		{"text": "DEEP SUMMONS — the trench calls, and your arm answers sharp (+6% ATK)... it keeps your tolls for the fare (−4% souls)"},
+		{"text": "GREY SUMMONS — the pale bailiff calls, and souls gather (+5% souls, +5% dodge)... the hearing blunts your arm (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12058,6 +12059,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.04
 			oname = "DEEP SUMMONS"
 		213:
+			Stats.soul_gain_pct += 0.05
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "GREY SUMMONS"
+		214:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12320,6 +12326,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG WARRANT": "The mist hides what the court cannot catch, Kael — it never learned to swing a blade.",
 	"SALT SUMMONS": "Every summons is also a lecture, Kael — the exchequer reads the whole ledger aloud.",
 	"DEEP SUMMONS": "When the deep calls, you answer in blade or in coin, Kael — it prefers both.",
+	"GREY SUMMONS": "The bailiff's summons never says what was taken, Kael — only what was left.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
