@@ -14406,6 +14406,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Impromptu: The storm impromptu-caprice sharpens and empowers you, Kael.")
+		916:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Impromptu: The keel impromptu-caprice fills and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17077,6 +17081,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE EPIKLESIS — the tide epiklesis-call quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM EPIKLESIS — the storm epiklesis-call sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL EPIKLESIS — the keel epiklesis-call fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
+		{"text": "HULL EPIKLESIS — the hull epiklesis-call bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -30307,6 +30312,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL EPIKLESIS"
 		2638:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL EPIKLESIS"
+		2639:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -33011,6 +33021,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE EPIKLESIS": "The tide epiklesis-call pulls your feet along its invocation, Kael — swifter and sharper, at a cost.",
 	"STORM EPIKLESIS": "The storm epiklesis-call thunders its invocation through your arms, Kael — sharper and deadlier, at a cost.",
 	"KEEL EPIKLESIS": "The keel epiklesis-call anchors its invocation in your hull, Kael — richer and plated, at a cost.",
+	"HULL EPIKLESIS": "The hull epiklesis-call planks its invocation along your ribs, Kael — bulkier and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -39088,6 +39099,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Impromptu — the grey impromptu-caprice guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Impromptu — the tide impromptu-caprice quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Impromptu — the storm impromptu-caprice sharpens and empowers you (+5% ATK, +6% crit)"},
+		{"text": "Keel Impromptu — the keel impromptu-caprice fills and plates you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
