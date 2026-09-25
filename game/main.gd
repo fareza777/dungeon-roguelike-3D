@@ -13758,6 +13758,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP ALLELUIA — the deep glory-shout sharpens and steadies you (+7% ATK, +3% dodge)... and claims its toll from your purse (−3% souls)"},
 		{"text": "PALE ALLELUIA — the wan glory-shout veils and fills you (+6% dodge, +5% souls)... and dulls your edge for the veiling (−4% ATK)"},
 		{"text": "GREY ALLELUIA — the ashen glory-shout veils and schools you (+5% dodge, +5% XP)... and dulls your edge for the schooling (−4% ATK)"},
+		{"text": "TIDE ALLELUIA — the tide glory-shout speeds and sharpens you (+6% speed, +4% ATK)... and shifts your guard for the speeding (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -22945,6 +22946,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY ALLELUIA"
 		1840:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE ALLELUIA"
+		1841:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -24843,6 +24849,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP ALLELUIA": "The deep glory-shout sharpens and steadies you, Kael — it takes its toll from your purse.",
 	"PALE ALLELUIA": "The wan glory-shout veils and fills you, Kael — it dulls your edge for the veiling.",
 	"GREY ALLELUIA": "The ashen glory-shout veils and schools you, Kael — it dulls your edge for the schooling.",
+	"TIDE ALLELUIA": "The tide glory-shout speeds and sharpens you, Kael — it shifts your guard for the speeding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
