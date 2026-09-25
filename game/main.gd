@@ -19759,6 +19759,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.dodge += 0.03
 			toast("Deep Farandole: The deep farandole-chain sharpens and guards you, Kael.")
+		2232:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			toast("Pale Farandole: The pale farandole-chain guards and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -23745,6 +23749,7 @@ func _offer_omens() -> void:
 		{"text": "CREST DIPTYCHOS — the crest diptychos-tablet guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT DIPTYCHOS — the salt diptychos-tablet fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 		{"text": "DEEP SYNDESMOS — the deep syndesmos-scroll sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
+		{"text": "PALE SYNDESMOS — the pale syndesmos-scroll guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -43638,6 +43643,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "DEEP SYNDESMOS"
 		3953:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE SYNDESMOS"
+		3954:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -47661,6 +47671,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST DIPTYCHOS": "The crest diptychos-tablet breaks its diptycha on your blade, Kael — guarded and sharpened, at a cost.",
 	"SALT DIPTYCHOS": "The salt diptychos-tablet crusts its diptycha on your palms, Kael — richer and wiser, at a cost.",
 	"DEEP SYNDESMOS": "The deep syndesmos-scroll binds its syndesmoi like a wound, Kael — sharper and guarded, at a cost.",
+	"PALE SYNDESMOS": "The pale syndesmos-scroll binds its syndesmoi like a shroud, Kael — guarded and richer, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -55054,6 +55065,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Crest Rigadoon — the crest rigadoon-step guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Rigadoon — the salt rigadoon-step fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Farandole — the deep farandole-chain sharpens and guards you (+5% ATK, +3% dodge)"},
+		{"text": "Pale Farandole — the pale farandole-chain guards and fills you (+6% dodge, +5% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
