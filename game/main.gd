@@ -12141,6 +12141,7 @@ func _offer_omens() -> void:
 		{"text": "SALT CODICIL — the brine codicil fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "DEEP FOLIO — the drowned folio arms and veils you (+7% ATK, +3% dodge)... and skims your purse for the arming (−3% souls)"},
 		{"text": "PALE FOLIO — the white folio veils and fills you (+6% dodge, +5% souls)... and weakens your arm for the veiling (−4% ATK)"},
+		{"text": "GREY FOLIO — the grey folio guards and teaches you (+5% dodge, +5% XP)... and weakens your arm for the guarding (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -15463,6 +15464,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "PALE FOLIO"
 		684:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "GREY FOLIO"
+		685:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -16202,6 +16208,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT CODICIL": "The brine codicil fills and teaches you, Kael — it shifts your guard for the filling.",
 	"DEEP FOLIO": "The drowned folio arms and veils you, Kael — it skims your purse for the arming.",
 	"PALE FOLIO": "The white folio veils and fills you, Kael — it weakens your arm for the veiling.",
+	"GREY FOLIO": "The grey folio guards and teaches you, Kael — it weakens your arm for the guarding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
