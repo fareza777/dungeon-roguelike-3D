@@ -12060,6 +12060,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.soul_gain_pct += 0.04
 			toast("Wake Chanson: the wake chanson-tune — +6% speed, +4% souls this run")
+		368:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Bilge Chanson: the bilge chanson-tune — +5% souls, +5% XP this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30838,6 +30842,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grim Chanson — the grim chanson-tune: +5% ATK, +4% dodge, +2 armor this run"},
 		{"text": "Fog Chanson — the mist chanson-tune: +7% dodge, +4% souls this run"},
 		{"text": "Wake Chanson — the wake chanson-tune: +6% speed, +4% souls this run"},
+		{"text": "Bilge Chanson — the bilge chanson-tune: +5% souls, +5% XP this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
