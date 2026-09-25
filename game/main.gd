@@ -14414,6 +14414,7 @@ func _offer_omens() -> void:
 		{"text": "FOG STICHERON — the fog sticheron-hymn shrouds and fills you (+7% dodge, +4% souls)... and dulls your edge for the shrouding (−4% ATK)"},
 		{"text": "WAKE STICHERON — the wake sticheron-hymn quickens and fills you (+6% speed, +4% souls)... and shifts your guard for the quickening (−3% dodge)"},
 		{"text": "BILGE STICHERON — the bilge sticheron-hymn fills and teaches you (+5% souls, +5% XP)... and shifts your guard for the teaching (−3% dodge)"},
+		{"text": "CREST STICHERON — the crest sticheron-hymn guards and sharpens you (+5% dodge, +5% ATK)... and lightens your purse for the sharpening (−4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -24488,6 +24489,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE STICHERON"
 		2015:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST STICHERON"
+		2016:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -26561,6 +26567,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG STICHERON": "The fog sticheron-hymn shrouds and fills you, Kael — it dulls your edge for the shrouding.",
 	"WAKE STICHERON": "The wake sticheron-hymn quickens and fills you, Kael — it shifts your guard for the quickening.",
 	"BILGE STICHERON": "The bilge sticheron-hymn fills and teaches you, Kael — it shifts your guard for the teaching.",
+	"CREST STICHERON": "The crest sticheron-hymn guards and sharpens you, Kael — it lightens your purse for the sharpening.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
