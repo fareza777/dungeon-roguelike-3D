@@ -17791,6 +17791,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.soul_gain_pct += 0.04
 			toast("Wake Tarantella: The wake tarantella-verse quickens and fills you, Kael.")
+		1748:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Bilge Tarantella: The bilge tarantella-verse fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -21293,6 +21297,7 @@ func _offer_omens() -> void:
 		{"text": "GRIM SEQUENTIALE — the grim sequentiale-book sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 		{"text": "FOG SEQUENTIALE — the fog sequentiale-book shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE SEQUENTIALE — the wake sequentiale-book quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
+		{"text": "BILGE SEQUENTIALE — the bilge sequentiale-book fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -38734,6 +38739,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "WAKE SEQUENTIALE"
 		3469:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.dodge -= 0.03
+			oname = "BILGE SEQUENTIALE"
+		3470:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -42273,6 +42283,7 @@ func _omen_deal(idx: int) -> void:
 	"GRIM SEQUENTIALE": "The grim sequentiale-book drops its sequentialia like ballast in your bones, Kael — sharpened, guarded, plated, at a cost.",
 	"FOG SEQUENTIALE": "The fog sequentiale-book rolls its sequentialia over your eyes, Kael — shrouded and richer, at a cost.",
 	"WAKE SEQUENTIALE": "The wake sequentiale-book pours its sequentialia into your wake, Kael — swifter and richer, at a cost.",
+	"BILGE SEQUENTIALE": "The bilge sequentiale-book sloshes its sequentialia over your feet, Kael — richer and wiser, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -49182,6 +49193,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grim Tarantella — the grim tarantella-verse sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Tarantella — the fog tarantella-verse shrouds and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Tarantella — the wake tarantella-verse quickens and fills you (+6% speed, +4% souls)"},
+		{"text": "Bilge Tarantella — the bilge tarantella-verse fills and teaches you (+5% souls, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
