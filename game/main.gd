@@ -18527,6 +18527,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Villancico: The bilge villancico-verse fills and teaches you, Kael.")
+		1929:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Villancico: The crest villancico-verse guards and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -22210,6 +22214,7 @@ func _offer_omens() -> void:
 		{"text": "FOG RESPONSORIUM — the fog responsorium-book shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE RESPONSORIUM — the wake responsorium-book quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE RESPONSORIUM — the bilge responsorium-book fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
+		{"text": "CREST RESPONSORIUM — the crest responsorium-book guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -40568,6 +40573,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE RESPONSORIUM"
 		3650:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST RESPONSORIUM"
+		3651:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -44288,6 +44298,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG RESPONSORIUM": "The fog responsorium-book rolls its responsoria over your eyes, Kael — shrouded and richer, at a cost.",
 	"WAKE RESPONSORIUM": "The wake responsorium-book streams its responsoria behind you, Kael — quicker and richer, at a cost.",
 	"BILGE RESPONSORIUM": "The bilge responsorium-book sloshes its responsoria into your boots, Kael — richer and wiser, at a cost.",
+	"CREST RESPONSORIUM": "The crest responsorium-book breaks its responsoria on your blade, Kael — guarded and sharpened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -51378,6 +51389,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Villancico — the fog villancico-verse shrouds and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Villancico — the wake villancico-verse quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Villancico — the bilge villancico-verse fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Villancico — the crest villancico-verse guards and sharpens you (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
