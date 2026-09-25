@@ -14374,6 +14374,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.soul_gain_pct += 0.04
 			toast("Wake Ballade: The wake ballade-tale quickens and fills you, Kael.")
+		908:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Bilge Ballade: The bilge ballade-tale fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17037,6 +17041,7 @@ func _offer_omens() -> void:
 		{"text": "FOG DIPTYCH — the fog diptych-entry shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE DIPTYCH — the wake diptych-entry quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE DIPTYCH — the bilge diptych-entry fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
+		{"text": "CREST DIPTYCH — the crest diptych-entry guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -30227,6 +30232,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE DIPTYCH"
 		2630:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST DIPTYCH"
+		2631:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -32923,6 +32933,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG DIPTYCH": "The fog diptych-entry veils your name in white ink, Kael — shrouded, at a cost.",
 	"WAKE DIPTYCH": "The wake diptych-entry trails its names in your foam, Kael — swifter and richer, at a cost.",
 	"BILGE DIPTYCH": "The bilge diptych-entry seeps its names into your pockets, Kael — richer and wiser, at a cost.",
+	"CREST DIPTYCH": "The crest diptych-entry breaks its names over your blade, Kael — guarded and sharper, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -38992,6 +39003,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grim Ballade — the grim ballade-tale sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Ballade — the fog ballade-tale shrouds and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Ballade — the wake ballade-tale quickens and fills you (+6% speed, +4% souls)"},
+		{"text": "Bilge Ballade — the bilge ballade-tale fills and teaches you (+5% souls, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
