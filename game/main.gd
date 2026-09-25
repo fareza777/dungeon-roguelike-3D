@@ -21556,6 +21556,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.06
 			Stats.soul_gain_pct += 0.05
 			toast("Pale Sardana: The pale sardana-circle guards and fills you, Kael.")
+		2668:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Grey Sardana: The grey sardana-circle guards and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -25978,6 +25982,7 @@ func _offer_omens() -> void:
 		{"text": "SALT HIERATEION — the salt hierateion-sanctuary fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 		{"text": "DEEP KATAPETASMA — the deep katapetasma-veil sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 		{"text": "PALE KATAPETASMA — the pale katapetasma-veil guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
+		{"text": "GREY KATAPETASMA — the grey katapetasma-veil guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -48080,6 +48085,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "PALE KATAPETASMA"
 		4389:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "GREY KATAPETASMA"
+		4390:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -52539,6 +52549,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT HIERATEION": "The salt hierateion-sanctuary opens its hierateia over your salt, Kael — richer and wiser, at a cost.",
 	"DEEP KATAPETASMA": "The deep katapetasma-veil parts its katapetasmata over your blade, Kael — keen and guarded, at a cost.",
 	"PALE KATAPETASMA": "The pale katapetasma-veil parts its katapetasmata over your wake, Kael — guarded and filled, at a cost.",
+	"GREY KATAPETASMA": "The grey katapetasma-veil parts its katapetasmata through your grey watch, Kael — guarded and wiser, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -60368,6 +60379,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Salt Jota — the salt jota-step fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Sardana — the deep sardana-circle sharpens and guards you (+5% ATK, +3% dodge)"},
 		{"text": "Pale Sardana — the pale sardana-circle guards and fills you (+6% dodge, +5% souls)"},
+		{"text": "Grey Sardana — the grey sardana-circle guards and teaches you (+5% dodge, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
