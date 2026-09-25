@@ -17709,6 +17709,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 0.06
 			Stats.dodge += 0.04
 			toast("Hull Passemezzo: The hull passemezzo-verse bulks and guards you, Kael.")
+		1728:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			toast("Trench Passemezzo: The trench passemezzo-verse sharpens and hastens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -21191,6 +21195,7 @@ func _offer_omens() -> void:
 		{"text": "STORM MELODOS — the storm melodos-book sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL MELODOS — the keel melodos-book fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL MELODOS — the hull melodos-book bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
+		{"text": "TRENCH MELODOS — the trench melodos-book sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -38530,6 +38535,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL MELODOS"
 		3449:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH MELODOS"
+		3450:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -42049,6 +42059,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM MELODOS": "The storm melodos-book opens its melodois in thunder, Kael — sharpened and empowered, at a cost.",
 	"KEEL MELODOS": "The keel melodos-book rivets its melodois to your ribs, Kael — richer and plated, at a cost.",
 	"HULL MELODOS": "The hull melodos-book swells its melodois through your frame, Kael — bulked and guarded, at a cost.",
+	"TRENCH MELODOS": "The trench melodos-book drives its melodois down your arm, Kael — sharpened and hastened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -48938,6 +48949,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Storm Passemezzo — the storm passemezzo-verse sharpens and empowers you (+5% ATK, +6% crit)"},
 		{"text": "Keel Passemezzo — the keel passemezzo-verse fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Passemezzo — the hull passemezzo-verse bulks and guards you (+6% max HP, +4% dodge)"},
+		{"text": "Trench Passemezzo — the trench passemezzo-verse sharpens and hastens you (+5% ATK, +4% ASPD)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
