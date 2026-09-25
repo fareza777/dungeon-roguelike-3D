@@ -17408,6 +17408,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Galliard: The trench galliard-verse sharpens and hastens you, Kael.")
+		1654:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Galliard: The bottom galliard-verse fills and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -20816,6 +20820,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL EORTOLOGION — the keel eortologion-book fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL EORTOLOGION — the hull eortologion-book bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH EORTOLOGION — the trench eortologion-book sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
+		{"text": "BOTTOM EORTOLOGION — the bottom eortologion-book fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -37780,6 +37785,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH EORTOLOGION"
 		3375:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM EORTOLOGION"
+		3376:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -41225,6 +41235,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL EORTOLOGION": "The keel eortologion-book rivets its eortologia to your ribs, Kael — richer and plated, at a cost.",
 	"HULL EORTOLOGION": "The hull eortologion-book swells its eortologia through your frame, Kael — bulked and guarded, at a cost.",
 	"TRENCH EORTOLOGION": "The trench eortologion-book drives its eortologia down your arm, Kael — sharpened and hastened, at a cost.",
+	"BOTTOM EORTOLOGION": "The bottom eortologion-book settles its eortologia in your purse, Kael — richer and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -48040,6 +48051,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Galliard — the keel galliard-verse fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Galliard — the hull galliard-verse bulks and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Galliard — the trench galliard-verse sharpens and hastens you (+5% ATK, +4% ASPD)"},
+		{"text": "Bottom Galliard — the bottom galliard-verse fills and guards you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
