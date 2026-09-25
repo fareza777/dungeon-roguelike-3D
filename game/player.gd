@@ -853,6 +853,15 @@ func _strike() -> void:
 					var mse := get_tree().current_scene
 					if mse != null and mse.has_method("_damage_number"):
 						mse._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "SESSION", Color(0.66, 0.64, 0.7), false)
+			if Stats.weapon_id == "scribe_edge":
+				var SCn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", SCn)
+				if SCn % 8 == 0:
+					Stats.earn_souls(1)
+					f.set("slow_t", 1.2)
+					var mscr := get_tree().current_scene
+					if mscr != null and mscr.has_method("_damage_number"):
+						mscr._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "SCRIBE", Color(0.6, 0.55, 0.72), false)
 			if Stats.weapon_id == "pilot_lantern":
 				var pln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", pln)
