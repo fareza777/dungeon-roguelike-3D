@@ -11781,6 +11781,7 @@ func _offer_omens() -> void:
 		{"text": "FOG STATUTE — the mist's written law veils and pays you (+7% dodge, +4% souls)... and weakens your arm for the veiling (−4% ATK)"},
 		{"text": "WAKE STATUTE — the trail's written law carries and pays you (+6% speed, +4% souls)... and leaves your guard for the carrying (−3% dodge)"},
 		{"text": "BILGE STATUTE — the hold's written law fills and instructs you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
+		{"text": "CREST STATUTE — the breaker's written law lifts your guard and arm (+5% dodge, +5% ATK)... and offers less in return (−4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13715,6 +13716,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE STATUTE"
 		410:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST STATUTE"
+		411:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -14180,6 +14186,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG STATUTE": "The mist's written law veils and pays you, Kael — it weakens your arm for the veiling.",
 	"WAKE STATUTE": "The trail's written law carries and pays you, Kael — it leaves your guard for the carrying.",
 	"BILGE STATUTE": "The hold's written law fills and instructs you, Kael — it shifts your guard for the filling.",
+	"CREST STATUTE": "The breaker's written law lifts your guard and arm, Kael — it offers less in return for the lifting.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
