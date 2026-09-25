@@ -54,8 +54,10 @@ func _physics_process(delta: float) -> void:
 			if p.get("dead") != true:
 				var d: Vector3 = p.global_position + Vector3(0.0, 0.8, 0.0) - global_position
 				var dist := d.length()
-				if dist < 1.4 * tile * (1.0 + Stats.magnet):
-					global_position += d.normalized() * (6.0 + t * 6.0) * delta
+				var range := 1.4 * tile * (1.0 + Stats.magnet)
+				if dist < range:
+					var zip := 1.0 + clampf(1.0 - dist / range, 0.0, 1.0) * 2.6
+					global_position += d.normalized() * (6.0 + t * 6.0) * zip * delta
 					if dist < 0.6:
 						absorbed = true
 						var maxh := Stats.get_stat("max_hp")
