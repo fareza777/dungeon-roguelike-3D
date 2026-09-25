@@ -11173,6 +11173,7 @@ func _offer_omens() -> void:
 		{"text": "BOTTOM SUMMONS — the deepest court calls, and the court sharpens your arm (+6% ATK)... the long climb dulls memory (−5% XP)"},
 		{"text": "GREY EDICT — the clerk's decree bears the pale seal (+3 armor)... signed hands move slow (−4% speed)"},
 		{"text": "FOG EDICT — the mist's own decree, half-read and half-honored (+5% dodge)... vague ink dulls resolve (−5% ATK)"},
+		{"text": "BILGE EDICT — the hold's decree, stamped in tar and edge (+8% ATK)... the ink runs off with your purse (−7% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12169,6 +12170,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.05
 			oname = "FOG EDICT"
 		219:
+			Stats.buff_atk_pct += 0.08
+			Stats.soul_gain_pct -= 0.07
+			oname = "BILGE EDICT"
+		220:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12437,6 +12442,7 @@ func _omen_deal(idx: int) -> void:
 	"BOTTOM SUMMONS": "The deepest court never lets you leave the same, Kael — it keeps the memory and pays in edge.",
 	"GREY EDICT": "The pale seal never dries, Kael — once you're named in grey ink, the ink keeps your name.",
 	"FOG EDICT": "Nobody reads fog-law twice the same, Kael — the vagueness is the mercy.",
+	"BILGE EDICT": "The hold's law is always sharper than the court's, Kael — and always wetter.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
