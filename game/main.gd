@@ -9795,6 +9795,11 @@ func _tick_skill_ui(delta: float) -> void:
 			b.modulate = Color(1, 1, 1, 1)
 			b.text = String(SK.DB[id]["short"])
 			lab.text = ""
+			b.pivot_offset = b.size * 0.5
+			b.scale = Vector2(1.35, 1.35)
+			var utw: Tween = b.create_tween()
+			utw.tween_property(b, "scale", Vector2.ONE, 0.32).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+			Sfx.play("levelup", 0.9)
 		elif skill_cd[id] > 0.0:
 			b.modulate = Color(1, 1, 1, 0.45)
 			b.text = ""
