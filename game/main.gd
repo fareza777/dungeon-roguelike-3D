@@ -15074,6 +15074,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Sarabande: The tide sarabande-pace quickens and sharpens you, Kael.")
+		1080:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Sarabande: The storm sarabande-pace sharpens and empowers you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17909,6 +17913,7 @@ func _offer_omens() -> void:
 		{"text": "GREY STICHERA — the grey stichera-verse guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE STICHERA — the tide stichera-verse quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM STICHERA — the storm stichera-verse sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
+		{"text": "KEEL STICHERA — the keel stichera-verse fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -31970,6 +31975,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM STICHERA"
 		2802:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL STICHERA"
+		2803:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -34838,6 +34848,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY STICHERA": "The grey stichera-verse drones its refrain-lines through you, Kael — guarded and wiser, at a cost.",
 	"TIDE STICHERA": "The tide stichera-verse rolls its refrain-lines under your feet, Kael — swifter, at a cost.",
 	"STORM STICHERA": "The storm stichera-verse cracks its refrain-lines through your wrists, Kael — sharper, at a cost.",
+	"KEEL STICHERA": "The keel stichera-verse moors its refrain-lines to your hull, Kael — richer and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -41079,6 +41090,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Sarabande — the pale sarabande-pace guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Sarabande — the grey sarabande-pace guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Sarabande — the tide sarabande-pace quickens and sharpens you (+6% speed, +4% ATK)"},
+		{"text": "Storm Sarabande — the storm sarabande-pace sharpens and empowers you (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
