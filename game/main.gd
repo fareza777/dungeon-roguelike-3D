@@ -12840,6 +12840,7 @@ func _offer_omens() -> void:
 		{"text": "GREY PRIMER — the ashen first-book guards and teaches you (+5% dodge, +5% XP)... and weakens your arm for the teaching (−4% ATK)"},
 		{"text": "TIDE PRIMER — the flowing first-book speeds and arms you (+6% speed, +4% ATK)... and shifts your guard for the speeding (−3% dodge)"},
 		{"text": "STORM PRIMER — the tempest's first-book arms and sharpens you (+5% ATK, +6% crit)... and shifts your guard for the sharpening (−4% dodge)"},
+		{"text": "KEEL PRIMER — the hull's first-book fills and plates you (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -19149,6 +19150,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM PRIMER"
 		1272:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL PRIMER"
+		1273:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -20479,6 +20485,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY PRIMER": "The ashen first-book guards and teaches you, Kael — it weakens your arm for the teaching.",
 	"TIDE PRIMER": "The flowing first-book speeds and arms you, Kael — it shifts your guard for the speeding.",
 	"STORM PRIMER": "The tempest's first-book arms and sharpens you, Kael — it shifts your guard for the sharpening.",
+	"KEEL PRIMER": "The hull's first-book fills and plates you, Kael — it shifts your guard for the plating.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -23362,7 +23369,7 @@ func _keel_deal(idx: int) -> void:
 		Stats.buff_armor += 1
 		Stats.buff_xp_pct += 0.03
 		Sfx.play("shrine")
-		toast("KEEL PRIMER — fresh pitch over old scars (+1 armor, +3% XP)")
+		toast("KEEL COAT — fresh pitch over old scars (+1 armor, +3% XP)")
 		return
 	if idx == 48:
 		if Stats.souls < _soul_cost(4):
