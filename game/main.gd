@@ -11911,6 +11911,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL GAZETTE — the spine's bulletin fills and covers you (+6% souls, +3 armor)... and leaves your guard for the covering (−4% dodge)"},
 		{"text": "HULL GAZETTE — the body's bulletin holds and guards you (+6% max HP, +4% dodge)... and settles on your step (−3% speed)"},
 		{"text": "TRENCH GAZETTE — the depths' bulletin sharpens your arm (+5% ATK, +4% attack speed)... and leaves your guard for the sharpening (−4% dodge)"},
+		{"text": "BOTTOM GAZETTE — the floor's bulletin fills and veils you (+7% souls, +4% dodge)... and weakens your arm for the filling (−3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -14503,6 +14504,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH GAZETTE"
 		540:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM GAZETTE"
+		541:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -15098,6 +15104,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL GAZETTE": "The spine's bulletin fills and covers you, Kael — it leaves your guard for the covering.",
 	"HULL GAZETTE": "The body's bulletin holds and guards you, Kael — it settles on your step for the holding.",
 	"TRENCH GAZETTE": "The depths' bulletin sharpens your arm, Kael — it leaves your guard for the sharpening.",
+	"BOTTOM GAZETTE": "The floor's bulletin fills and veils you, Kael — it weakens your arm for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
