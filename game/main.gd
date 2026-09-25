@@ -14113,6 +14113,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Arioso: The trench arioso-verse sharpens and hastens you, Kael.")
+		844:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Arioso: The bottom arioso-verse fills and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -16712,6 +16716,7 @@ func _offer_omens() -> void:
 		{"text": "HULL HYMNALE — the hull hymnale-hymn bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH HYMNALE — the trench hymnale-hymn sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 		{"text": "BOTTOM HYMNALE — the bottom hymnale-hymn fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM HYMNALE — the grim hymnale-hymn sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -29577,6 +29582,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM HYMNALE"
 		2566:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM HYMNALE"
+		2567:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -32209,6 +32220,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL HYMNALE": "The hull hymnale-hymn planks its melody along your ribs, Kael — bulkier and guarded, at a cost.",
 	"TRENCH HYMNALE": "The trench hymnale-hymn drills its melody into your wrists, Kael — sharper and quicker, at a cost.",
 	"BOTTOM HYMNALE": "The bottom hymnale-hymn settles its melody into your purse, Kael — richer and guarded, at a cost.",
+	"GRIM HYMNALE": "The grim hymnale-hymn reads you your own requiem, Kael — sharper, guarded, plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -38214,6 +38226,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Arioso — the keel arioso-verse fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Arioso — the hull arioso-verse bulks and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Arioso — the trench arioso-verse sharpens and hastens you (+5% ATK, +4% ASPD)"},
+		{"text": "Bottom Arioso — the bottom arioso-verse fills and guards you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
