@@ -15134,6 +15134,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP SARUM — the deep sarum-rite sharpens and guards you (+7% ATK, +3% dodge)... and lightens your purse for the sharpening (−3% souls)"},
 		{"text": "PALE SARUM — the pale sarum-rite guards and fills you (+6% dodge, +5% souls)... and dulls your edge for the guarding (−4% ATK)"},
 		{"text": "GREY SARUM — the grey sarum-rite guards and teaches you (+5% dodge, +5% XP)... and dulls your edge for the teaching (−4% ATK)"},
+		{"text": "TIDE SARUM — the tide sarum-rite quickens and sharpens you (+6% speed, +4% ATK)... and shifts your guard for the quickening (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -26373,6 +26374,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY SARUM"
 		2245:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE SARUM"
+		2246:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -28676,6 +28682,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP SARUM": "The deep sarum-rite sharpens and guards you, Kael — it lightens your purse for the sharpening.",
 	"PALE SARUM": "The pale sarum-rite guards and fills you, Kael — it dulls your edge for the guarding.",
 	"GREY SARUM": "The grey sarum-rite guards and teaches you, Kael — it dulls your edge for the teaching.",
+	"TIDE SARUM": "The tide sarum-rite quickens and sharpens you, Kael — it shifts your guard for the quickening.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
