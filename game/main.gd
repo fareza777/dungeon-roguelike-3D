@@ -16144,6 +16144,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.soul_gain_pct += 0.04
 			toast("Wake Tropicale: The wake tropicale-verse quickens and fills you, Kael.")
+		1343:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Bilge Tropicale: The bilge tropicale-verse fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -19241,6 +19245,7 @@ func _offer_omens() -> void:
 		{"text": "GRIM THEOTOKARION — the grim theotokarion-hymn sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 		{"text": "FOG THEOTOKARION — the fog theotokarion-hymn shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE THEOTOKARION — the wake theotokarion-hymn quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
+		{"text": "BILGE THEOTOKARION — the bilge theotokarion-hymn fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -34630,6 +34635,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "WAKE THEOTOKARION"
 		3064:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.dodge -= 0.03
+			oname = "BILGE THEOTOKARION"
+		3065:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -37760,6 +37770,7 @@ func _omen_deal(idx: int) -> void:
 	"GRIM THEOTOKARION": "The grim theotokarion-hymn drops its theotokia like ballast in your bones, Kael — sharpened, guarded, plated, at a cost.",
 	"FOG THEOTOKARION": "The fog theotokarion-hymn veils its theotokia over your silhouette, Kael — shrouded, at a cost.",
 	"WAKE THEOTOKARION": "The wake theotokarion-hymn trails its theotokia in your wake, Kael — swifter, at a cost.",
+	"BILGE THEOTOKARION": "The bilge theotokarion-hymn slops its theotokia through your head, Kael — richer and wiser, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -44264,6 +44275,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grim Tropicale — the grim tropicale-verse sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Tropicale — the fog tropicale-verse shrouds and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Tropicale — the wake tropicale-verse quickens and fills you (+6% speed, +4% souls)"},
+		{"text": "Bilge Tropicale — the bilge tropicale-verse fills and teaches you (+5% souls, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
