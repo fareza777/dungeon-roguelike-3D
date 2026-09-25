@@ -17648,6 +17648,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 0.06
 			Stats.dodge += 0.04
 			toast("Hull Minuet: The hull minuet-verse bulks and guards you, Kael.")
+		1713:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			toast("Trench Minuet: The trench minuet-verse sharpens and hastens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -21115,6 +21119,7 @@ func _offer_omens() -> void:
 		{"text": "STORM ANTOLOGION — the storm antologion-book sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL ANTOLOGION — the keel antologion-book fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL ANTOLOGION — the hull antologion-book bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
+		{"text": "TRENCH ANTOLOGION — the trench antologion-book sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -38378,6 +38383,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL ANTOLOGION"
 		3434:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH ANTOLOGION"
+		3435:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -41882,6 +41892,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM ANTOLOGION": "The storm antologion-book opens its antologia in thunder, Kael — sharpened and empowered, at a cost.",
 	"KEEL ANTOLOGION": "The keel antologion-book rivets its antologia to your ribs, Kael — richer and plated, at a cost.",
 	"HULL ANTOLOGION": "The hull antologion-book swells its antologia through your frame, Kael — bulked and guarded, at a cost.",
+	"TRENCH ANTOLOGION": "The trench antologion-book drives its antologia down your arm, Kael — sharpened and hastened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -48756,6 +48767,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Storm Minuet — the storm minuet-verse sharpens and empowers you (+5% ATK, +6% crit)"},
 		{"text": "Keel Minuet — the keel minuet-verse fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Minuet — the hull minuet-verse bulks and guards you (+6% max HP, +4% dodge)"},
+		{"text": "Trench Minuet — the trench minuet-verse sharpens and hastens you (+5% ATK, +4% ASPD)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
