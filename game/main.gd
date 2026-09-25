@@ -13122,6 +13122,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.04
 			Stats.buff_armor += 2
 			toast("Grim Fugue: the grim fugue-voice — +5% ATK, +4% dodge, +2 armor this run")
+		621:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			toast("Fog Fugue: the fog fugue-voice — +7% dodge, +4% souls this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -35227,6 +35231,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Trench Fugue — the trench fugue-voice: +5% ATK, +4% attack speed this run"},
 		{"text": "Bottom Fugue — the bottom fugue-voice: +7% souls, +4% dodge this run"},
 		{"text": "Grim Fugue — the grim fugue-voice: +5% ATK, +4% dodge, +2 armor this run"},
+		{"text": "Fog Fugue — the fog fugue-voice: +7% dodge, +4% souls this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
