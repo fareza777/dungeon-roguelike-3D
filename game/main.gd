@@ -15188,6 +15188,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.06
 			Stats.soul_gain_pct += 0.05
 			toast("Pale Courante: The pale courante-run guards and fills you, Kael.")
+		1108:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Grey Courante: The grey courante-run guards and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -18051,6 +18055,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP PARALITURGIKI — the deep paraliturgiki-rite sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 		{"text": "PALE PARALITURGIKI — the pale paraliturgiki-rite guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY PARALITURGIKI — the grey paraliturgiki-rite guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
+		{"text": "TIDE PARALITURGIKI — the tide paraliturgiki-rite quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -32254,6 +32259,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY PARALITURGIKI"
 		2830:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE PARALITURGIKI"
+		2831:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -35150,6 +35160,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP PARALITURGIKI": "The deep paraliturgiki-rite recites its lesser-offices over your blade, Kael — sharpened, at a cost.",
 	"PALE PARALITURGIKI": "The pale paraliturgiki-rite reads its lesser-offices at your side, Kael — guarded, at a cost.",
 	"GREY PARALITURGIKI": "The grey paraliturgiki-rite mumbles its lesser-offices through your ears, Kael — guarded and wiser, at a cost.",
+	"TIDE PARALITURGIKI": "The tide paraliturgiki-rite drums its lesser-offices under your feet, Kael — swifter, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -41419,6 +41430,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Salt Allemande — the salt allemande-step fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Courante — the deep courante-run sharpens and guards you (+5% ATK, +3% dodge)"},
 		{"text": "Pale Courante — the pale courante-run guards and fills you (+6% dodge, +5% souls)"},
+		{"text": "Grey Courante — the grey courante-run guards and teaches you (+5% dodge, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
