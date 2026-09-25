@@ -21446,6 +21446,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Fandango: The storm fandango-step sharpens and lucks you, Kael.")
+		2641:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Fandango: The keel fandango-step fills and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -25841,6 +25845,7 @@ func _offer_omens() -> void:
 		{"text": "GREY KALYMMATA — the grey kalymmata-veils guard and teach you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE KALYMMATA — the tide kalymmata-veils quicken and sharpen you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM KALYMMATA — the storm kalymmata-veils sharpen and luck you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
+		{"text": "KEEL KALYMMATA — the keel kalymmata-veils fill and plate you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -47806,6 +47811,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM KALYMMATA"
 		4362:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL KALYMMATA"
+		4363:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -52238,6 +52248,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY KALYMMATA": "The grey kalymmata-veils draw their kalymmata through your grey watch, Kael — guarded and wiser, at a cost.",
 	"TIDE KALYMMATA": "The tide kalymmata-veils draw their kalymmata in your tide, Kael — quicker and keen, at a cost.",
 	"STORM KALYMMATA": "The storm kalymmata-veils draw their kalymmata through your thunder, Kael — keen and lucky, at a cost.",
+	"KEEL KALYMMATA": "The keel kalymmata-veils draw their kalymmata along your keel, Kael — richer and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -60040,6 +60051,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Fandango — the grey fandango-step guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Fandango — the tide fandango-step quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Fandango — the storm fandango-step sharpens and lucks you (+5% ATK, +6% crit)"},
+		{"text": "Keel Fandango — the keel fandango-step fills and plates you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
