@@ -21877,6 +21877,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_armor += 3
 			toast("Keel Alemana: The keel alemana-turn fills and plates you, Kael.")
+		2747:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			toast("Hull Alemana: The hull alemana-turn swells and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -26378,6 +26382,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE SAKKELION — the tide sakkelion-pouch quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM SAKKELION — the storm sakkelion-pouch sharpens and lucks you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL SAKKELION — the keel sakkelion-pouch fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
+		{"text": "HULL SAKKELION — the hull sakkelion-pouch swells and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -48880,6 +48885,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL SAKKELION"
 		4468:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL SAKKELION"
+		4469:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -53418,6 +53428,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE SAKKELION": "The tide sakkelion-pouch opens its sakkelia in your tide, Kael — quicker and keen, at a cost.",
 	"STORM SAKKELION": "The storm sakkelion-pouch opens its sakkelia through your thunder, Kael — keen and lucky, at a cost.",
 	"KEEL SAKKELION": "The keel sakkelion-pouch opens its sakkelia along your keel, Kael — richer and plated, at a cost.",
+	"HULL SAKKELION": "The hull sakkelion-pouch opens its sakkelia along your hull, Kael — heartier and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -61326,6 +61337,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Tide Alemana — the tide alemana-turn quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Alemana — the storm alemana-turn sharpens and lucks you (+5% ATK, +6% crit)"},
 		{"text": "Keel Alemana — the keel alemana-turn fills and plates you (+6% souls, +3 armor)"},
+		{"text": "Hull Alemana — the hull alemana-turn swells and guards you (+6% max HP, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
