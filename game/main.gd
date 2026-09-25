@@ -17189,6 +17189,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_atk_pct += 0.05
 			toast("Crest Basse: The crest basse-verse guards and sharpens you, Kael.")
+		1600:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			toast("Salt Basse: The salt basse-verse fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -20543,6 +20547,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE DIATAXIS — the wake diataxis-book quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE DIATAXIS — the bilge diataxis-book fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 		{"text": "CREST DIATAXIS — the crest diataxis-book guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
+		{"text": "SALT DIATAXIS — the salt diataxis-book fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -37234,6 +37239,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.04
 			oname = "CREST DIATAXIS"
 		3321:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "SALT DIATAXIS"
+		3322:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -40625,6 +40635,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE DIATAXIS": "The wake diataxis-book pours its diataxeis into your wake, Kael — swifter and richer, at a cost.",
 	"BILGE DIATAXIS": "The bilge diataxis-book sloshes its diataxeis over your feet, Kael — richer and wiser, at a cost.",
 	"CREST DIATAXIS": "The crest diataxis-book raises its diataxeis like a wave-crest, Kael — guarded and sharpened, at a cost.",
+	"SALT DIATAXIS": "The salt diataxis-book sprinkles its diataxeis over your ledger, Kael — richer and wiser, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -47386,6 +47397,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Wake Basse — the wake basse-verse quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Basse — the bilge basse-verse fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Basse — the crest basse-verse guards and sharpens you (+5% dodge, +5% ATK)"},
+		{"text": "Salt Basse — the salt basse-verse fills and teaches you (+6% souls, +4% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
