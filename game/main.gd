@@ -20845,6 +20845,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Gargouillade: The bilge gargouillade-leap fills and teaches you, Kael.")
+		2499:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Gargouillade: The crest gargouillade-leap guards and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -25098,6 +25102,7 @@ func _offer_omens() -> void:
 		{"text": "FOG PHELONION — the fog phelonion-vestment guards and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE PHELONION — the wake phelonion-vestment quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE PHELONION — the bilge phelonion-vestment fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
+		{"text": "CREST PHELONION — the crest phelonion-vestment guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -46344,6 +46349,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE PHELONION"
 		4220:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST PHELONION"
+		4221:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -50634,6 +50644,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG PHELONION": "The fog phelonion-vestment drapes its phelonia in your spray, Kael — guarded and filled, at a cost.",
 	"WAKE PHELONION": "The wake phelonion-vestment drapes its phelonia in your foam, Kael — quicker and filled, at a cost.",
 	"BILGE PHELONION": "The bilge phelonion-vestment drapes its phelonia into your purse, Kael — richer and wiser, at a cost.",
+	"CREST PHELONION": "The crest phelonion-vestment drapes its phelonia across your crest, Kael — guarded and keen, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -58294,6 +58305,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Gargouillade — the fog gargouillade-leap guards and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Gargouillade — the wake gargouillade-leap quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Gargouillade — the bilge gargouillade-leap fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Gargouillade — the crest gargouillade-leap guards and sharpens you (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
