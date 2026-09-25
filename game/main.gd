@@ -15090,6 +15090,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Sarabande: The trench sarabande-pace sharpens and hastens you, Kael.")
+		1084:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Sarabande: The bottom sarabande-pace fills and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17929,6 +17933,7 @@ func _offer_omens() -> void:
 		{"text": "HULL STICHERA — the hull stichera-verse bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH STICHERA — the trench stichera-verse sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 		{"text": "BOTTOM STICHERA — the bottom stichera-verse fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM STICHERA — the grim stichera-verse sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -32010,6 +32015,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM STICHERA"
 		2806:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM STICHERA"
+		2807:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -34882,6 +34893,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL STICHERA": "The hull stichera-verse planks its refrain-lines along your ribs, Kael — bulkier and guarded, at a cost.",
 	"TRENCH STICHERA": "The trench stichera-verse rakes its refrain-lines down your spine, Kael — sharper and quicker, at a cost.",
 	"BOTTOM STICHERA": "The bottom stichera-verse drops its refrain-lines into your purse, Kael — richer and guarded, at a cost.",
+	"GRIM STICHERA": "The grim stichera-verse lays its refrain-lines like ballast in your bones, Kael — sharper, guarded, plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -41127,6 +41139,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Sarabande — the keel sarabande-pace fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Sarabande — the hull sarabande-pace bulks and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Sarabande — the trench sarabande-pace sharpens and hastens you (+5% ATK, +4% ASPD)"},
+		{"text": "Bottom Sarabande — the bottom sarabande-pace fills and guards you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
