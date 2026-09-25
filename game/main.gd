@@ -19613,6 +19613,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.04
 			Stats.buff_armor += 2
 			toast("Grim Turdion: The grim turdion-step sharpens, guards, and plates you, Kael.")
+		2196:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			toast("Fog Turdion: The fog turdion-step shrouds and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -23563,6 +23567,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH SIGILLION — the trench sigillion-book sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 		{"text": "BOTTOM SIGILLION — the bottom sigillion-book fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 		{"text": "GRIM SIGILLION — the grim sigillion-book sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
+		{"text": "FOG SIGILLION — the fog sigillion-book shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -43274,6 +43279,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM SIGILLION"
 		3917:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG SIGILLION"
+		3918:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -47261,6 +47271,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH SIGILLION": "The trench sigillion-book drives its sigillia down your arm, Kael — sharpened and hastened, at a cost.",
 	"BOTTOM SIGILLION": "The bottom sigillion-book settles its sigillia in your purse, Kael — richer and guarded, at a cost.",
 	"GRIM SIGILLION": "The grim sigillion-book drops its sigillia like ballast in your bones, Kael — sharpened, guarded, plated, at a cost.",
+	"FOG SIGILLION": "The fog sigillion-book rolls its sigillia over your eyes, Kael — shrouded and richer, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -54618,6 +54629,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Trench Turdion — the trench turdion-step sharpens and hastens you (+5% ATK, +4% ASPD)"},
 		{"text": "Bottom Turdion — the bottom turdion-step fills and guards you (+7% souls, +4% dodge)"},
 		{"text": "Grim Turdion — the grim turdion-step sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
+		{"text": "Fog Turdion — the fog turdion-step shrouds and fills you (+7% dodge, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
