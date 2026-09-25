@@ -17608,6 +17608,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.soul_gain_pct += 0.04
 			toast("Wake Canarie: The wake canarie-verse quickens and fills you, Kael.")
+		1703:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Bilge Canarie: The bilge canarie-verse fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -21065,6 +21069,7 @@ func _offer_omens() -> void:
 		{"text": "GRIM KATHISMATA — the grim kathismata-book sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 		{"text": "FOG KATHISMATA — the fog kathismata-book shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE KATHISMATA — the wake kathismata-book quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
+		{"text": "BILGE KATHISMATA — the bilge kathismata-book fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -38278,6 +38283,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "WAKE KATHISMATA"
 		3424:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.dodge -= 0.03
+			oname = "BILGE KATHISMATA"
+		3425:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -41772,6 +41782,7 @@ func _omen_deal(idx: int) -> void:
 	"GRIM KATHISMATA": "The grim kathismata-book drops its kathisma-verses like ballast in your bones, Kael — sharpened, guarded, plated, at a cost.",
 	"FOG KATHISMATA": "The fog kathismata-book rolls its kathisma-verses over your eyes, Kael — shrouded and richer, at a cost.",
 	"WAKE KATHISMATA": "The wake kathismata-book pours its kathisma-verses into your wake, Kael — swifter and richer, at a cost.",
+	"BILGE KATHISMATA": "The bilge kathismata-book sloshes its kathisma-verses over your feet, Kael — richer and wiser, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -48636,6 +48647,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grim Canarie — the grim canarie-verse sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Canarie — the fog canarie-verse shrouds and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Canarie — the wake canarie-verse quickens and fills you (+6% speed, +4% souls)"},
+		{"text": "Bilge Canarie — the bilge canarie-verse fills and teaches you (+5% souls, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
