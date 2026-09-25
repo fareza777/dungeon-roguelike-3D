@@ -161,6 +161,7 @@ const DB := {
 	"salt_carrier": {"glb": "Skeleton_Mage.glb", "hp": 4.0, "spd": 0.85, "dmg": 2, "windup": 0.65, "reach": 0.85, "aggro": 7.0, "xp": 17, "tint": Color(0.7, 0.72, 0.6), "scale": 1.15, "kb_resist": 0.4, "wisp_drop": true, "tither": true},
 	"grey_clerk": {"glb": "Skeleton_Mage.glb", "hp": 3.6, "spd": 0.9, "dmg": 2, "windup": 0.6, "reach": 0.85, "aggro": 6.5, "xp": 18, "tint": Color(0.62, 0.62, 0.66), "scale": 1.05, "kb_resist": 0.3, "tither": true},
 	"salt_bailiff": {"glb": "Skeleton_Mage.glb", "hp": 4.4, "spd": 0.78, "dmg": 3, "windup": 0.7, "reach": 0.9, "aggro": 7.0, "xp": 19, "tint": Color(0.72, 0.7, 0.62), "scale": 1.2, "kb_resist": 0.5},
+	"deep_usher": {"glb": "Skeleton_Warrior.glb", "hp": 4.6, "spd": 0.85, "dmg": 3, "windup": 0.7, "reach": 0.9, "aggro": 7.5, "xp": 18, "tint": Color(0.6, 0.62, 0.7), "scale": 1.1, "kb_resist": 0.4, "knocker": true},
 	"pale_auditor": {"glb": "Skeleton_Mage.glb", "hp": 3.8, "spd": 1.05, "dmg": 2, "windup": 0.55, "reach": 0.8, "aggro": 8.0, "xp": 18, "tint": Color(0.78, 0.78, 0.82), "scale": 1.0, "kb_resist": 0.25, "tither": true},
 	"tithe_wright": {"glb": "Skeleton_Mage.glb", "hp": 4.8, "spd": 0.75, "dmg": 2, "windup": 0.8, "reach": 0.85, "aggro": 7.0, "xp": 20, "tint": Color(0.68, 0.7, 0.75), "scale": 1.15, "kb_resist": 0.5, "healer": true, "wisp_drop": true},
 	# BOSS: Raja Tulang — tiap lantai kelipatan 5
