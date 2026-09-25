@@ -14895,6 +14895,7 @@ func _offer_omens() -> void:
 		{"text": "STORM AINOI — the storm ainoi-psalm sharpens and deadlies you (+5% ATK, +6% crit)... and shifts your guard for the sharpening (−4% dodge)"},
 		{"text": "KEEL AINOI — the keel ainoi-psalm fills and plates you (+6% souls, +3 armor)... and shifts your guard for the filling (−4% dodge)"},
 		{"text": "HULL AINOI — the hull ainoi-psalm broadens and guards you (+6% Max HP, +4% dodge)... and slows your step for the broadening (−3% speed)"},
+		{"text": "TRENCH AINOI — the trench ainoi-psalm sharpens and hastens you (+5% ATK, +4% attack speed)... and shifts your guard for the sharpening (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -25850,6 +25851,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL AINOI"
 		2189:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH AINOI"
+		2190:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -28097,6 +28103,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM AINOI": "The storm ainoi-psalm sharpens and deadlies you, Kael — it shifts your guard for the sharpening.",
 	"KEEL AINOI": "The keel ainoi-psalm fills and plates you, Kael — it shifts your guard for the filling.",
 	"HULL AINOI": "The hull ainoi-psalm broadens and guards you, Kael — it slows your step for the broadening.",
+	"TRENCH AINOI": "The trench ainoi-psalm sharpens and hastens you, Kael — it shifts your guard for the sharpening.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
