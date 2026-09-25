@@ -17978,6 +17978,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Siciliano: The bilge siciliano-verse fills and teaches you, Kael.")
+		1794:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Siciliano: The crest siciliano-verse guards and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -21526,6 +21530,7 @@ func _offer_omens() -> void:
 		{"text": "FOG PROCESSIONARIUM — the fog processionarium-book shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE PROCESSIONARIUM — the wake processionarium-book quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE PROCESSIONARIUM — the bilge processionarium-book fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
+		{"text": "CREST PROCESSIONARIUM — the crest processionarium-book guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -39200,6 +39205,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE PROCESSIONARIUM"
 		3515:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST PROCESSIONARIUM"
+		3516:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -42785,6 +42795,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG PROCESSIONARIUM": "The fog processionarium-book rolls its processionaria over your eyes, Kael — shrouded and richer, at a cost.",
 	"WAKE PROCESSIONARIUM": "The wake processionarium-book pours its processionaria into your wake, Kael — swifter and richer, at a cost.",
 	"BILGE PROCESSIONARIUM": "The bilge processionarium-book sloshes its processionaria over your feet, Kael — richer and wiser, at a cost.",
+	"CREST PROCESSIONARIUM": "The crest processionarium-book raises its processionaria like a wave-crest, Kael — guarded and sharpened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -49740,6 +49751,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Siciliano — the fog siciliano-verse shrouds and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Siciliano — the wake siciliano-verse quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Siciliano — the bilge siciliano-verse fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Siciliano — the crest siciliano-verse guards and sharpens you (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
