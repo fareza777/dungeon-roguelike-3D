@@ -338,6 +338,15 @@ func _build() -> void:
 	bac.pressed.connect(func() -> void:
 		_refresh_ach()
 		ach_panel.visible = true
+		var apn: Node = ach_panel.get_child(ach_panel.get_child_count() - 1)
+		if apn is PanelContainer:
+			apn.pivot_offset = apn.size * 0.5
+			apn.scale = Vector2(0.85, 0.85)
+			apn.modulate.a = 0.0
+			var atw: Tween = apn.create_tween()
+			atw.set_parallel(true)
+			atw.tween_property(apn, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+			atw.tween_property(apn, "modulate:a", 1.0, 0.18)
 	)
 	vb.add_child(bac)
 
