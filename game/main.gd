@@ -10272,16 +10272,25 @@ func toast(txt: String) -> void:
 			_toast_queue.append(txt)
 		return
 	var _tpfx := ""
+	var _tcol := Color(1, 1, 1, 0.92)
+	var _tl := txt.to_lower()
 	if txt.length() > 0 and txt.unicode_at(0) < 0x2000:
-		if "soul" in txt.to_lower() or "◈" in txt:
+		if "soul" in _tl or "◈" in txt:
 			_tpfx = "◈ "
-		elif "ATK" in txt or "armor" in txt.to_lower() or "armor" in txt.to_lower():
+			_tcol = Color(1.0, 0.85, 0.45)
+		elif "ATK" in txt or "armor" in _tl:
 			_tpfx = "⚔ "
-		elif "heal" in txt.to_lower() or "mend" in txt.to_lower() or "HP" in txt:
+			_tcol = Color(1.0, 0.75, 0.5)
+		elif "heal" in _tl or "mend" in _tl or "HP" in txt:
 			_tpfx = "✚ "
-		elif "quest" in txt.to_lower():
+			_tcol = Color(0.6, 1.0, 0.65)
+		elif "quest" in _tl:
 			_tpfx = "✦ "
+			_tcol = Color(0.7, 0.9, 1.0)
+	if "bites" in _tl or "rage" in _tl or "dies" in _tl or "doom" in _tl or "blood debt" in _tl or "−" in txt or "falls" in _tl:
+		_tcol = Color(1.0, 0.5, 0.45)
 	ui.toast.text = _tpfx + txt
+	ui.toast.add_theme_color_override("font_color", _tcol)
 	ui.toast_panel.visible = true
 	ui.toast_panel.modulate.a = 1.0
 	if toast_tween != null and toast_tween.is_valid():
