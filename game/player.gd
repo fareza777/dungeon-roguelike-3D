@@ -835,6 +835,15 @@ func _strike() -> void:
 					var mfe := get_tree().current_scene
 					if mfe != null and mfe.has_method("_damage_number"):
 						mfe._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "FOLIO", Color(0.72, 0.68, 0.62), false)
+			if Stats.weapon_id == "verdict_edge":
+				var VEn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", VEn)
+				if VEn % 9 == 0:
+					Stats.earn_souls(1)
+					f.stun(0.7)
+					var mve := get_tree().current_scene
+					if mve != null and mve.has_method("_damage_number"):
+						mve._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "VERDICT", Color(0.62, 0.6, 0.66), false)
 			if Stats.weapon_id == "pilot_lantern":
 				var pln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", pln)
