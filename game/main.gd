@@ -13382,6 +13382,7 @@ func _offer_omens() -> void:
 		{"text": "HULL SANCTUS — the shipwright's holy-chant fills your frame and guards you (+6% max HP, +4% dodge)... and slows your step for the filling (−3% speed)"},
 		{"text": "TRENCH SANCTUS — the trench-diver's holy-chant arms and quickens you (+5% ATK, +4% ASPD)... and shifts your guard for the quickening (−4% dodge)"},
 		{"text": "BOTTOM SANCTUS — the deepest holy-chant fills and veils you (+7% souls, +4% dodge)... and weakens your arm for the filling (−3% ATK)"},
+		{"text": "GRIM SANCTUS — the reaper's holy-chant arms and guards and plates you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the plating (−4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -21839,6 +21840,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM SANCTUS"
 		1696:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM SANCTUS"
+		1697:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -23593,6 +23600,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL SANCTUS": "The shipwright's holy-chant fills your frame and guards you, Kael — it slows your step for the filling.",
 	"TRENCH SANCTUS": "The trench-diver's holy-chant arms and quickens you, Kael — it shifts your guard for the quickening.",
 	"BOTTOM SANCTUS": "The deepest holy-chant fills and veils you, Kael — it weakens your arm for the filling.",
+	"GRIM SANCTUS": "The reaper's holy-chant arms and guards and plates you, Kael — it slows your step for the plating.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
