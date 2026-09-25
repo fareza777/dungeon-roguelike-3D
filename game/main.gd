@@ -18307,6 +18307,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Descort: The tide descort-verse quickens and sharpens you, Kael.")
+		1875:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Descort: The storm descort-verse sharpens and empowers you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -21936,6 +21940,7 @@ func _offer_omens() -> void:
 		{"text": "PALE FESTOLOGION — the pale festologion-book guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY FESTOLOGION — the grey festologion-book guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE FESTOLOGION — the tide festologion-book quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
+		{"text": "STORM FESTOLOGION — the storm festologion-book sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -40020,6 +40025,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE FESTOLOGION"
 		3596:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM FESTOLOGION"
+		3597:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -43686,6 +43696,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE FESTOLOGION": "The pale festologion-book pales its festologia over your form, Kael — guarded and richer, at a cost.",
 	"GREY FESTOLOGION": "The grey festologion-book greys its festologia into your tread, Kael — guarded and wiser, at a cost.",
 	"TIDE FESTOLOGION": "The tide festologion-book rolls its festologia into your wake, Kael — quicker and sharper, at a cost.",
+	"STORM FESTOLOGION": "The storm festologion-book thunders its festologia through your grip, Kael — sharpened and empowered, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -50722,6 +50733,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Descort — the pale descort-verse guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Descort — the grey descort-verse guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Descort — the tide descort-verse quickens and sharpens you (+6% speed, +4% ATK)"},
+		{"text": "Storm Descort — the storm descort-verse sharpens and empowers you (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
