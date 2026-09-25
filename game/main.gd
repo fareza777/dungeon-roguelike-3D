@@ -19279,6 +19279,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Grey Saltarelli: The grey saltarelli-verse guards and teaches you, Kael.")
+		2114:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			toast("Tide Saltarelli: The tide saltarelli-verse quickens and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -23147,6 +23151,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP CANTATORIUM — the deep cantatorium-book sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 		{"text": "PALE CANTATORIUM — the pale cantatorium-book guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY CANTATORIUM — the grey cantatorium-book guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
+		{"text": "TIDE CANTATORIUM — the tide cantatorium-book quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -42442,6 +42447,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY CANTATORIUM"
 		3835:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE CANTATORIUM"
+		3836:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -46347,6 +46357,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP CANTATORIUM": "The deep cantatorium-book holds its cantatorie in your fist, Kael — sharper and guarded, at a cost.",
 	"PALE CANTATORIUM": "The pale cantatorium-book whitens its cantatorie over your shoulders, Kael — guarded and richer, at a cost.",
 	"GREY CANTATORIUM": "The grey cantatorium-book clasps its cantatorie on your shoulders, Kael — guarded and wiser, at a cost.",
+	"TIDE CANTATORIUM": "The tide cantatorium-book washes its cantatorie over your feet, Kael — quicker and sharper, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -53622,6 +53633,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Deep Saltarelli — the deep saltarelli-verse sharpens and guards you (+5% ATK, +3% dodge)"},
 		{"text": "Pale Saltarelli — the pale saltarelli-verse guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Saltarelli — the grey saltarelli-verse guards and teaches you (+5% dodge, +5% XP)"},
+		{"text": "Tide Saltarelli — the tide saltarelli-verse quickens and sharpens you (+6% speed, +4% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
