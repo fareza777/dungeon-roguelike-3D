@@ -13318,6 +13318,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE LAUD — the surging hymn of honor speeds you and arms you (+6% speed, +4% ATK)... and shifts your guard for the speeding (−3% dodge)"},
 		{"text": "STORM LAUD — the tempest's hymn of honor arms and sharpens you (+5% ATK, +6% crit)... and shifts your guard for the sharpening (−4% dodge)"},
 		{"text": "KEEL LAUD — the ship's hymn of honor fills and plates you (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
+		{"text": "HULL LAUD — the shipwright's hymn of honor fills your frame and guards you (+6% max HP, +4% dodge)... and slows your step for the filling (−3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -21532,6 +21533,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL LAUD"
 		1648:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL LAUD"
+		1649:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -23238,6 +23244,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE LAUD": "The surging hymn of honor speeds you and arms you, Kael — it shifts your guard for the speeding.",
 	"STORM LAUD": "The tempest's hymn of honor arms and sharpens you, Kael — it shifts your guard for the sharpening.",
 	"KEEL LAUD": "The ship's hymn of honor fills and plates you, Kael — it shifts your guard for the plating.",
+	"HULL LAUD": "The shipwright's hymn of honor fills your frame and guards you, Kael — it slows your step for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
