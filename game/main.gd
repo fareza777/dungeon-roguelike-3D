@@ -13722,6 +13722,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Fantasia: The trench fantasia-dance sharpens and hastens you, Kael.")
+		754:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Fantasia: The bottom fantasia-dance fills and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -37083,6 +37087,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Fantasia — the keel fantasia-dance fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Fantasia — the hull fantasia-dance bulks and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Fantasia — the trench fantasia-dance sharpens and hastens you (+5% ATK, +4% attack speed)"},
+		{"text": "Bottom Fantasia — the bottom fantasia-dance fills and guards you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
