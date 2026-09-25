@@ -890,10 +890,15 @@ func _mk_aura() -> void:
 	torus.outer_radius = 0.40
 	var rm := StandardMaterial3D.new()
 	rm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	rm.albedo_color = Color(1.0, 0.25, 0.18, 0.7)
+	if nemesis:
+		rm.albedo_color = Color(1.0, 0.15, 0.45, 0.8)
+		rm.emission = Color(1.0, 0.1, 0.4)
+		rm.emission_energy_multiplier = 2.4
+	else:
+		rm.albedo_color = Color(1.0, 0.25, 0.18, 0.7)
+		rm.emission = Color(1.0, 0.2, 0.12)
+		rm.emission_energy_multiplier = 1.8
 	rm.emission_enabled = true
-	rm.emission = Color(1.0, 0.2, 0.12)
-	rm.emission_energy_multiplier = 1.8
 	rm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	torus.material = rm
 	ring.mesh = torus
