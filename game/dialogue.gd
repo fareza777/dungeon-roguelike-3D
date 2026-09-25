@@ -241,17 +241,28 @@ func _show_choices() -> void:
 		b.text = "%d. %s" % [i + 1, String(ch.get("text", "..."))]
 		b.add_theme_font_size_override("font_size", 19)
 		b.custom_minimum_size = Vector2(0, 56)
+		var ctext := String(ch.get("text", ""))
+		var accent := Color(0.95, 0.78, 0.35, 0.8)
+		if ctext.begins_with("☗"):
+			accent = Color(0.68, 0.48, 1.0, 0.9)
+		elif ctext.begins_with("☠"):
+			accent = Color(1.0, 0.32, 0.32, 0.9)
+		elif ctext.begins_with("✦"):
+			accent = Color(0.45, 0.95, 0.72, 0.9)
+		elif ctext.begins_with("Walk") or ctext.begins_with("Let the dark") or ctext.begins_with("Leave") or ctext.begins_with("Pass") or ctext.begins_with("Nothing") or ctext.begins_with("No, "):
+			accent = Color(0.55, 0.55, 0.62, 0.6)
 		var sb := StyleBoxFlat.new()
 		sb.bg_color = Color(0.13, 0.12, 0.2)
-		sb.border_color = Color(0.95, 0.78, 0.35, 0.8)
+		sb.border_color = accent
 		sb.set_border_width_all(2)
 		sb.set_corner_radius_all(10)
 		b.add_theme_stylebox_override("normal", sb)
 		var sbh := sb.duplicate() as StyleBoxFlat
 		sbh.bg_color = Color(0.2, 0.18, 0.28)
+		sbh.border_color = Color(accent.r, accent.g, accent.b, 1.0)
 		b.add_theme_stylebox_override("hover", sbh)
 		var sbp := sb.duplicate() as StyleBoxFlat
-		sbp.bg_color = Color(0.32, 0.26, 0.14)
+		sbp.bg_color = accent.darkened(0.62)
 		b.add_theme_stylebox_override("pressed", sbp)
 		b.modulate = Color(1, 1, 1, 0)
 		b.position.y = 8
