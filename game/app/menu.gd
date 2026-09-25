@@ -256,6 +256,12 @@ func _build() -> void:
 		var bc := _make_btn("▶ CONTINUE — Floor %d" % int(Stats.saved_run.get("floor", 1)))
 		bc.pressed.connect(_on_continue)
 		vb.add_child(bc)
+		var bcsb := bc.get_theme_stylebox("normal") as StyleBoxFlat
+		if bcsb != null:
+			var cbtw: Tween = bc.create_tween()
+			cbtw.set_loops()
+			cbtw.tween_property(bcsb, "border_color", Color(0.55, 0.95, 0.9), 1.1)
+			cbtw.tween_property(bcsb, "border_color", GOLD, 1.1)
 
 	var bn := _make_btn("⚔ NEW GAME")
 	bn.pressed.connect(_on_new)
