@@ -12715,6 +12715,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Responsory: the bottom responsory-call — +7% souls, +4% dodge this run")
+		530:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Responsory: the grim responsory-call — +5% ATK, +4% dodge, +2 armor this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -33987,6 +33992,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Responsory — the hull responsory-call: +6% Max HP, +4% dodge this run"},
 		{"text": "Trench Responsory — the trench responsory-call: +5% ATK, +4% attack speed this run"},
 		{"text": "Bottom Responsory — the bottom responsory-call: +7% souls, +4% dodge this run"},
+		{"text": "Grim Responsory — the grim responsory-call: +5% ATK, +4% dodge, +2 armor this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
