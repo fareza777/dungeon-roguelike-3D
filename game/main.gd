@@ -14457,6 +14457,7 @@ func _offer_omens() -> void:
 		{"text": "BOTTOM HIRMOS — the floor hirmos-verse fills and guards you (+7% souls, +4% dodge)... and dulls your edge for the filling (−3% ATK)"},
 		{"text": "GRIM HIRMOS — the grim hirmos-verse steels and guards you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the steeling (−4% speed)"},
 		{"text": "FOG HIRMOS — the fog hirmos-verse shrouds and fills you (+7% dodge, +4% souls)... and dulls your edge for the shrouding (−4% ATK)"},
+		{"text": "WAKE HIRMOS — the wake hirmos-verse quickens and fills you (+6% speed, +4% souls)... and shifts your guard for the quickening (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -24749,6 +24750,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "FOG HIRMOS"
 		2058:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "WAKE HIRMOS"
+		2059:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -26865,6 +26871,7 @@ func _omen_deal(idx: int) -> void:
 	"BOTTOM HIRMOS": "The floor hirmos-verse fills and guards you, Kael — it dulls your edge for the filling.",
 	"GRIM HIRMOS": "The grim hirmos-verse steels and guards you, Kael — it slows your step for the steeling.",
 	"FOG HIRMOS": "The fog hirmos-verse shrouds and fills you, Kael — it dulls your edge for the shrouding.",
+	"WAKE HIRMOS": "The wake hirmos-verse quickens and fills you, Kael — it shifts your guard for the quickening.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
