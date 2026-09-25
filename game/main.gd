@@ -11883,6 +11883,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Carol: the bilge joy-song — +5% souls, +5% XP this run")
+		324:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Carol: the crest joy-song — +5% dodge, +5% ATK this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30299,6 +30303,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Carol — the mist joy-song: +7% dodge, +4% souls this run"},
 		{"text": "Wake Carol — the wake joy-song: +6% speed, +4% souls this run"},
 		{"text": "Bilge Carol — the bilge joy-song: +5% souls, +5% XP this run"},
+		{"text": "Crest Carol — the crest joy-song: +5% dodge, +5% ATK this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
