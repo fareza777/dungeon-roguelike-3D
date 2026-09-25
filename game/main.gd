@@ -14882,6 +14882,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.06
 			Stats.soul_gain_pct += 0.05
 			toast("Pale Romanza: The pale romanza-song guards and fills you, Kael.")
+		1033:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Grey Romanza: The grey romanza-song guards and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17670,6 +17674,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP ANASTASIMATARION — the deep anastasimatarion-resurrection sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 		{"text": "PALE ANASTASIMATARION — the pale anastasimatarion-resurrection guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY ANASTASIMATARION — the grey anastasimatarion-resurrection guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
+		{"text": "TIDE ANASTASIMATARION — the tide anastasimatarion-resurrection quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -31493,6 +31498,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY ANASTASIMATARION"
 		2755:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE ANASTASIMATARION"
+		2756:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -34314,6 +34324,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP ANASTASIMATARION": "The deep anastasimatarion-resurrection tolls its rising-canons over you, Kael — sharper, at a cost.",
 	"PALE ANASTASIMATARION": "The pale anastasimatarion-resurrection tolls its rising-canons over your guard, Kael — guarded, at a cost.",
 	"GREY ANASTASIMATARION": "The grey anastasimatarion-resurrection drones its rising-canons through you, Kael — guarded and wiser, at a cost.",
+	"TIDE ANASTASIMATARION": "The tide anastasimatarion-resurrection rolls its rising-canons under your feet, Kael — swifter, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -40508,6 +40519,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Salt Pastorale — the salt pastorale-air fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Romanza — the deep romanza-song sharpens and guards you (+5% ATK, +3% dodge)"},
 		{"text": "Pale Romanza — the pale romanza-song guards and fills you (+6% dodge, +5% souls)"},
+		{"text": "Grey Romanza — the grey romanza-song guards and teaches you (+5% dodge, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
