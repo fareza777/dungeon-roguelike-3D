@@ -17083,6 +17083,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Grey Bergerette: The grey bergerette-verse guards and teaches you, Kael.")
+		1574:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			toast("Tide Bergerette: The tide bergerette-verse quickens and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -20411,6 +20415,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP HYPOTYPOSIS — the deep hypotyposis-book sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 		{"text": "PALE HYPOTYPOSIS — the pale hypotyposis-book guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY HYPOTYPOSIS — the grey hypotyposis-book guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
+		{"text": "TIDE HYPOTYPOSIS — the tide hypotyposis-book quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -36970,6 +36975,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY HYPOTYPOSIS"
 		3295:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE HYPOTYPOSIS"
+		3296:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -40335,6 +40345,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP HYPOTYPOSIS": "The deep hypotyposis-book opens its hypotyposeis across your blade, Kael — sharpened, at a cost.",
 	"PALE HYPOTYPOSIS": "The pale hypotyposis-book opens its hypotyposeis at your side, Kael — guarded, at a cost.",
 	"GREY HYPOTYPOSIS": "The grey hypotyposis-book opens its hypotyposeis under your breath, Kael — guarded, at a cost.",
+	"TIDE HYPOTYPOSIS": "The tide hypotyposis-book opens its hypotyposeis at your heels, Kael — swifter, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -47070,6 +47081,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Deep Bergerette — the deep bergerette-verse sharpens and guards you (+5% ATK, +3% dodge)"},
 		{"text": "Pale Bergerette — the pale bergerette-verse guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Bergerette — the grey bergerette-verse guards and teaches you (+5% dodge, +5% XP)"},
+		{"text": "Tide Bergerette — the tide bergerette-verse quickens and sharpens you (+6% speed, +4% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
