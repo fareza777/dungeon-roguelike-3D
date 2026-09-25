@@ -1113,7 +1113,7 @@ func _physics_process(delta: float) -> void:
 				global_position = pw.global_position + off.normalized() * prefer_range
 				global_position.x = clampf(global_position.x, bounds.get("min_x", -100.0), bounds.get("max_x", 100.0))
 				global_position.z = clampf(global_position.z, bounds.get("min_z", -100.0), bounds.get("max_z", 100.0))
-				Sfx.play("dash")
+				Sfx.play("dash", 0.9 + randf() * 0.25)
 				var mw := get_tree().current_scene
 				if mw != null and mw.has_method("_burst"):
 					mw._burst(global_position, Color(0.6, 0.4, 1.0))
@@ -1346,7 +1346,7 @@ func _physics_process(delta: float) -> void:
 								var msr := get_tree().current_scene
 								if msr != null and msr.has_method("_damage_number"):
 									msr._damage_number(q2.global_position + Vector3(0, 0.8 * room_tile, 0), "ENCHANTED", Color(0.7, 0.5, 1.15), false)
-								Sfx.play("souls")
+								Sfx.play("souls", 0.95 + randf() * 0.15)
 							elif burst:
 								# dua peluru berurutan — bidak pertama lurus, kedua mengejar
 								pr.launch(global_position + Vector3(0, 1.0 * scale.x, 0), q2.global_position + Vector3(0, 0.9, 0), proj_speed, dmg, 0.35 * room_tile)
@@ -1365,7 +1365,7 @@ func _physics_process(delta: float) -> void:
 						state_t = 1.1
 				else:
 					anim_lock = M.play_action(ap, ["melee_attack"], 1.3) * 0.7
-					Sfx.play("swing")
+					Sfx.play("swing", 0.92 + randf() * 0.16)
 					if dash:
 						kb += Vector3(sin(rotation.y), 0, cos(rotation.y)) * room_tile * 2.8
 					await get_tree().create_timer(0.13).timeout
