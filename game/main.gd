@@ -4418,6 +4418,13 @@ func _spawn_player(pos: Vector3) -> void:
 	player.attacked.connect(_on_player_attacked)
 	player.stepped.connect(_step_dust)
 	player.revived.connect(_on_player_revived)
+	var model_sc: Vector3 = model.scale
+	model.scale = Vector3(0.01, 0.01, 0.01)
+	var sptw: Tween = model.create_tween()
+	sptw.tween_property(model, "scale", model_sc, 0.45).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	_shock_ring(pos)
+	_burst(pos + Vector3(0, 0.4 * info.tile, 0), Color(0.5, 0.8, 1.0))
+	Sfx.play("shrine")
 
 
 func _on_player_hp(hp: float) -> void:
