@@ -898,7 +898,7 @@ const BESTIARY := {
 	"keel_widow": ["Keel Widow", "The eldest widow — her keening wakes the room and her irons mark the condemned."],
 	"deep_verger": ["Deep Verger", "He carries the deep church's wand — his processions end in drownings."],
 	"salt_carrier": ["Salt Carrier", "A beast of soul-burden — it skims the toll and drops what it cannot carry."],
-	"grey_clerk": ["Grey Clerk", "He audits your purse mid-fight — his strikes skim souls like a counting-house."),
+	"grey_clerk": ["Grey Clerk", "He audits your purse mid-fight — his strikes skim souls like a counting-house."],
 	"keel_summoner": ["Keel Summoner", "It tolls the wreck's muster bell — each note drags more dead crew from the bilge."],
 	"gunnel_fiend": ["Gunnel Fiend", "It claws along the rail faster than it walks — when it coils, it's already midair."],
 	"pale_lantern": ["Pale Lantern", "A wick of drowned light walking a dead sailor's frame — snuff it and every shadow in the room flinches."],
