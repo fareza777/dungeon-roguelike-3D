@@ -16018,6 +16018,7 @@ func _offer_omens() -> void:
 		{"text": "HULL SACRAMENTARY — the hull sacramentary-rite bulks and guards you (+6% max HP, +4% dodge)... and slows your step for the bulking (−3% speed)"},
 		{"text": "TRENCH SACRAMENTARY — the trench sacramentary-rite sharpens and hastens you (+5% ATK, +4% attack speed)... and bares you for the hastening (−4% dodge)"},
 		{"text": "BOTTOM SACRAMENTARY — the bottom sacramentary-rite fills and guards you (+7% souls, +4% dodge)... and blunts your edge for the keeping (−3% ATK)"},
+		{"text": "GRIM SACRAMENTARY — the grim sacramentary-rite sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the plating (−4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -28275,6 +28276,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM SACRAMENTARY"
 		2446:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM SACRAMENTARY"
+		2447:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -30779,6 +30786,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL SACRAMENTARY": "The hull sacramentary-rite bulks and guards you, Kael — it slows your step for the bulking.",
 	"TRENCH SACRAMENTARY": "The trench sacramentary-rite sharpens and hastens you, Kael — it bares you for the hastening.",
 	"BOTTOM SACRAMENTARY": "The bottom sacramentary-rite fills and guards you, Kael — it blunts your edge for the keeping.",
+	"GRIM SACRAMENTARY": "The grim sacramentary-rite sharpens, guards, and plates you, Kael — it slows your step for the plating.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
