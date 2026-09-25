@@ -17002,6 +17002,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Canzona: The bilge canzona-air fills and teaches you, Kael.")
+		1554:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Canzona: The crest canzona-air guards and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -20310,6 +20314,7 @@ func _offer_omens() -> void:
 		{"text": "FOG SYNAPTE — the fog synapte-book shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE SYNAPTE — the wake synapte-book quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE SYNAPTE — the bilge synapte-book fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
+		{"text": "CREST SYNAPTE — the crest synapte-book guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -36768,6 +36773,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE SYNAPTE"
 		3275:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST SYNAPTE"
+		3276:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -40113,6 +40123,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG SYNAPTE": "The fog synapte-book rolls its synaptic-prayers over your eyes, Kael — shrouded and richer, at a cost.",
 	"WAKE SYNAPTE": "The wake synapte-book pours its synaptic-prayers into your wake, Kael — swifter and richer, at a cost.",
 	"BILGE SYNAPTE": "The bilge synapte-book sloshes its synaptic-prayers over your feet, Kael — richer and wiser, at a cost.",
+	"CREST SYNAPTE": "The crest synapte-book raises its synaptic-prayers like a wave-crest, Kael — guarded and sharpened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -46828,6 +46839,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Canzona — the fog canzona-air shrouds and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Canzona — the wake canzona-air quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Canzona — the bilge canzona-air fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Canzona — the crest canzona-air guards and sharpens you (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
