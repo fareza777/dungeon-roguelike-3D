@@ -10490,6 +10490,8 @@ func _combo_set(n: int) -> void:
 			ui.combo_l.visible = false
 		if ui.has("combo_bar"):
 			ui.combo_bar.visible = false
+		if ui.has("combo_bar_bg"):
+			ui.combo_bar_bg.visible = false
 
 
 # ---------------- bar HP boss ----------------
@@ -34385,7 +34387,26 @@ func _build_ui() -> void:
 	cl.visible = false
 	layer.add_child(cl)
 	ui["combo_l"] = cl
-	# bar drain tipis di bawah label kombo
+	# bar drain tipis di bawah label kombo — rail gelap + drain oranye
+	var crail := PanelContainer.new()
+	crail.anchor_left = 0.5
+	crail.anchor_right = 0.5
+	crail.anchor_top = 1.0
+	crail.anchor_bottom = 1.0
+	crail.offset_left = -143
+	crail.offset_right = 143
+	crail.offset_top = -324
+	crail.offset_bottom = -316
+	crail.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var crsb := StyleBoxFlat.new()
+	crsb.bg_color = Color(0.05, 0.04, 0.02, 0.78)
+	crsb.border_color = Color(1.0, 0.65, 0.2, 0.35)
+	crsb.set_border_width_all(1)
+	crsb.set_corner_radius_all(4)
+	crail.add_theme_stylebox_override("panel", crsb)
+	crail.visible = false
+	layer.add_child(crail)
+	ui["combo_bar_bg"] = crail
 	var cbar := ColorRect.new()
 	cbar.anchor_left = 0.5
 	cbar.anchor_right = 0.5
@@ -34396,6 +34417,7 @@ func _build_ui() -> void:
 	cbar.offset_top = -322
 	cbar.offset_bottom = -318
 	cbar.color = Color(1.0, 0.65, 0.2, 0.85)
+	cbar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	cbar.visible = false
 	layer.add_child(cbar)
 	ui["combo_bar"] = cbar
@@ -36022,7 +36044,10 @@ func _process(delta: float) -> void:
 				var f2: float = clampf(combo_t / (5.8 if Stats.relics.has("relik_tempo") else 4.0), 0.0, 1.0)
 				cbf.offset_right = -140 + 280.0 * f2
 				cbf.offset_left = -140
+				cbf.color = Color(1.0, lerp(0.28, 0.65, f2), 0.12, 0.85)
 				cbf.visible = combo >= 3
+				if ui.has("combo_bar_bg"):
+					ui.combo_bar_bg.visible = combo >= 3
 			if ui.has("combo_l") and combo >= 3 and combo_t < 1.3:
 				ui.combo_l.modulate = Color(1.0, 0.45 + 0.3 * absf(sin(Time.get_ticks_msec() / 90.0)), 0.15)
 			if combo_t <= 0.0:
