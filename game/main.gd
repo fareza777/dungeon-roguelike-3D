@@ -11633,6 +11633,7 @@ func _offer_omens() -> void:
 		{"text": "GRIM EDICT — the reaper's decree edges your arm for severing (+6% crit, +4% ATK)... and leaves your guard open (−4% dodge)"},
 		{"text": "TIDE EDICT — the current's decree carries your step and guard (+6% speed, +3% dodge)... and takes your arm for the carrying (−3% ATK)"},
 		{"text": "STORM EDICT — the gale's decree rides your arm like lightning (+6% attack speed, +4% crit)... and thins your plate for the riding (−2 armor)"},
+		{"text": "HULL EDICT — the ship's decree plates you broad and deep (+8% HP, +2 armor)... and loads your step for the plating (−4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12997,6 +12998,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_armor -= 2
 			oname = "STORM EDICT"
 		297:
+			Stats.buff_maxhp_pct += 0.08
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "HULL EDICT"
+		298:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13345,6 +13351,7 @@ func _omen_deal(idx: int) -> void:
 	"GRIM EDICT": "The reaper's decree edges your arm for severing, Kael — it leaves your guard open for the edge.",
 	"TIDE EDICT": "The current's decree carries your step and guard, Kael — it takes your arm for the carrying.",
 	"STORM EDICT": "The gale's decree rides your arm like lightning, Kael — it thins your plate for the riding.",
+	"HULL EDICT": "The ship's decree plates you broad and deep, Kael — it loads your step for the plating.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
