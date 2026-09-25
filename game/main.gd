@@ -6494,7 +6494,9 @@ func _on_enemy_died(e) -> void:
 	# MOTHER affix: elite ini pecah jadi 2 crawler saat mati
 	if e.get("affix") == "mother":
 		for _mi in range(2):
-			_spawn_enemy({"pos": e.global_position + Vector3(randf_range(-0.4, 0.4) * info.tile, 0, randf_range(-0.4, 0.4) * info.tile), "room": e.room_idx}, "crawler", false)
+			var cpos: Vector3 = e.global_position + Vector3(randf_range(-0.4, 0.4) * info.tile, 0, randf_range(-0.4, 0.4) * info.tile)
+			_spawn_enemy({"pos": cpos, "room": e.room_idx}, "crawler", false)
+			_burst(cpos + Vector3(0, 0.35 * info.tile, 0), Color(0.6, 0.95, 0.45))
 		_damage_number(e.global_position, "SPLITS!", Color(0.7, 1.0, 0.5), true)
 	# HOARDED affix: elite menelan senjata — dijatuhkan saat mati
 	if e.get("affix") == "hoarded":
