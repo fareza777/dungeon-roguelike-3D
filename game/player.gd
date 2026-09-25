@@ -759,6 +759,14 @@ func _strike() -> void:
 						var mpg := get_tree().current_scene
 						if mpg != null and mpg.has_method("_damage_number"):
 							mpg._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "HOOK", Color(0.65, 0.68, 0.7), false)
+			if Stats.weapon_id == "audit_edge":
+				var aen: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", aen)
+				if aen % 8 == 0:
+					Stats.earn_souls(1)
+					var mae := get_tree().current_scene
+					if mae != null and mae.has_method("_damage_number"):
+						mae._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "AUDIT", Color(0.85, 0.85, 0.7), false)
 			if Stats.weapon_id == "pilot_lantern":
 				var pln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", pln)
