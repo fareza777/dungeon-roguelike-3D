@@ -12660,6 +12660,7 @@ func _offer_omens() -> void:
 		{"text": "BOTTOM MANUSCRIPT — the deepest hand-written page fills your purse and guards you (+7% souls, +4% dodge)... and weakens your arm for the filling (−3% ATK)"},
 		{"text": "GRIM MANUSCRIPT — the grim hand-written page arms you, guards you, and plates you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the plating (−4% speed)"},
 		{"text": "FOG MANUSCRIPT — the mist's hand-written page veils and fills you (+7% dodge, +4% souls)... and weakens your arm for the veiling (−4% ATK)"},
+		{"text": "WAKE MANUSCRIPT — the trailing hand-written page speeds you and fills your purse (+6% speed, +4% souls)... and shifts your guard for the speeding (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -18240,6 +18241,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "FOG MANUSCRIPT"
 		1128:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "WAKE MANUSCRIPT"
+		1129:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -19426,6 +19432,7 @@ func _omen_deal(idx: int) -> void:
 	"BOTTOM MANUSCRIPT": "The deepest hand-written page fills your purse and guards you, Kael — it weakens your arm for the filling.",
 	"GRIM MANUSCRIPT": "The grim hand-written page arms you, guards you, and plates you, Kael — it slows your step for the plating.",
 	"FOG MANUSCRIPT": "The mist's hand-written page veils and fills you, Kael — it weakens your arm for the veiling.",
+	"WAKE MANUSCRIPT": "The trailing hand-written page speeds you and fills your purse, Kael — it shifts your guard for the speeding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
