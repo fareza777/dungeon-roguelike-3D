@@ -11746,6 +11746,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL PROCLAMATION — the backbone's announcement steadies your arm and plates you (+5% ATK, +3 armor)... and offers less in return (−4% souls)"},
 		{"text": "HULL PROCLAMATION — the ship's announcement plates you broadest (+9% HP)... and loads your step for the plating (−4% speed)"},
 		{"text": "TRENCH PROCLAMATION — the rift's announcement arms and drives you (+7% ATK, +3% speed)... and leaves your guard for the driving (−3% dodge)"},
+		{"text": "BOTTOM PROCLAMATION — the floor's announcement fills and veils you (+7% souls, +4% dodge)... and weakens your arm for the filling (−3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13502,6 +13503,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TRENCH PROCLAMATION"
 		375:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM PROCLAMATION"
+		376:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13930,6 +13936,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL PROCLAMATION": "The backbone's announcement steadies your arm and plates you, Kael — it offers less in return for the steadying.",
 	"HULL PROCLAMATION": "The ship's announcement plates you broadest, Kael — it loads your step for the plating.",
 	"TRENCH PROCLAMATION": "The rift's announcement arms and drives you, Kael — it leaves your guard for the driving.",
+	"BOTTOM PROCLAMATION": "The floor's announcement fills and veils you, Kael — it weakens your arm for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
