@@ -13070,6 +13070,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE VADEMECUM — the surging guide speeds you and arms you (+6% speed, +4% ATK)... and shifts your guard for the speeding (−3% dodge)"},
 		{"text": "STORM VADEMECUM — the tempest's guide arms and sharpens you (+5% ATK, +6% crit)... and shifts your guard for the sharpening (−4% dodge)"},
 		{"text": "KEEL VADEMECUM — the hull's guide fills and plates you (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
+		{"text": "HULL VADEMECUM — the shipwright's guide fills your frame and guards you (+6% max HP, +4% dodge)... and slows your step for the filling (−3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -20296,6 +20297,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL VADEMECUM"
 		1453:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL VADEMECUM"
+		1454:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -21807,6 +21813,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE VADEMECUM": "The surging guide speeds you and arms you, Kael — it shifts your guard for the speeding.",
 	"STORM VADEMECUM": "The tempest's guide arms and sharpens you, Kael — it shifts your guard for the sharpening.",
 	"KEEL VADEMECUM": "The hull's guide fills and plates you, Kael — it shifts your guard for the plating.",
+	"HULL VADEMECUM": "The shipwright's guide fills your frame and guards you, Kael — it slows your step for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
