@@ -15822,6 +15822,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Pavane: The trench pavane-pace sharpens and hastens you, Kael.")
+		1264:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Pavane: The bottom pavane-pace fills and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -18840,6 +18844,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL PROOIMION — the keel prooimion-prelude fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL PROOIMION — the hull prooimion-prelude bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH PROOIMION — the trench prooimion-prelude sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
+		{"text": "BOTTOM PROOIMION — the bottom prooimion-prelude fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -33828,6 +33833,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH PROOIMION"
 		2985:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM PROOIMION"
+		2986:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -36879,6 +36889,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL PROOIMION": "The keel prooimion-prelude rivets its prelude-verses to your ribs, Kael — richer and plated, at a cost.",
 	"HULL PROOIMION": "The hull prooimion-prelude swells its prelude-verses through your frame, Kael — bulked and guarded, at a cost.",
 	"TRENCH PROOIMION": "The trench prooimion-prelude drives its prelude-verses down your arm, Kael — sharpened and hastened, at a cost.",
+	"BOTTOM PROOIMION": "The bottom prooimion-prelude settles its prelude-verses in your purse, Kael — richer and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -43304,6 +43315,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Pavane — the keel pavane-pace fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Pavane — the hull pavane-pace bulks and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Pavane — the trench pavane-pace sharpens and hastens you (+5% ATK, +4% ASPD)"},
+		{"text": "Bottom Pavane — the bottom pavane-pace fills and guards you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
