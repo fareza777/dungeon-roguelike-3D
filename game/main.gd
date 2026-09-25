@@ -19393,6 +19393,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.dodge += 0.03
 			toast("Deep Corrente: The deep corrente-verse sharpens and guards you, Kael.")
+		2142:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			toast("Pale Corrente: The pale corrente-verse guards and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -23289,6 +23293,7 @@ func _offer_omens() -> void:
 		{"text": "CREST STICHEROLOGION — the crest sticherologion-book guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT STICHEROLOGION — the salt sticherologion-book fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 		{"text": "DEEP AKOLOUTHIARION — the deep akolouthiarion-book sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
+		{"text": "PALE AKOLOUTHIARION — the pale akolouthiarion-book guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -42726,6 +42731,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "DEEP AKOLOUTHIARION"
 		3863:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE AKOLOUTHIARION"
+		3864:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -46659,6 +46669,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST STICHEROLOGION": "The crest sticherologion-book breaks its sticherologie on your blade, Kael — guarded and sharpened, at a cost.",
 	"SALT STICHEROLOGION": "The salt sticherologion-book crusts its sticherologie on your palms, Kael — richer and wiser, at a cost.",
 	"DEEP AKOLOUTHIARION": "The deep akolouthiarion-book holds its akolouthiaria in your fist, Kael — sharper and guarded, at a cost.",
+	"PALE AKOLOUTHIARION": "The pale akolouthiarion-book whitens its akolouthiaria over your shoulders, Kael — guarded and richer, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -53962,6 +53973,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Crest Passamezzo — the crest passamezzo-verse guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Passamezzo — the salt passamezzo-verse fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Corrente — the deep corrente-verse sharpens and guards you (+5% ATK, +3% dodge)"},
+		{"text": "Pale Corrente — the pale corrente-verse guards and fills you (+6% dodge, +5% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
