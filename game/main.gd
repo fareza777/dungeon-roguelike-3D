@@ -11523,6 +11523,7 @@ func _offer_omens() -> void:
 		{"text": "GRIM ACCOUNT — the grim book credits your arm (+7% ATK)... and grimly audits your steps (−4% dodge)"},
 		{"text": "TRENCH ACCOUNT — the last book credits all of you (+4% ATK, +4% souls, +4% XP)... and takes its toll (−3 armor)"},
 		{"text": "KEEL ROLL — the hull's roll of the dead speeds your stride (+6% speed)... a roll of the dead is a light purse (−4% souls)"},
+		{"text": "WAKE ROLL — the wake's roll calls you quick-handed (+5% attack speed, +3% dodge)... its calling costs your schooling (−4% XP)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12720,6 +12721,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.04
 			oname = "KEEL ROLL"
 		263:
+			Stats.buff_aspd += 0.05
+			Stats.dodge += 0.03
+			Stats.buff_xp_pct -= 0.04
+			oname = "WAKE ROLL"
+		264:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13034,6 +13040,7 @@ func _omen_deal(idx: int) -> void:
 	"GRIM ACCOUNT": "The grim book credits your arm, Kael — and grimly audits where your feet stand.",
 	"TRENCH ACCOUNT": "The last book credits all of you, Kael — it takes its toll in plate and rivets.",
 	"KEEL ROLL": "The hull's roll of the dead, Kael — it speeds the living and lightens their purses.",
+	"WAKE ROLL": "The wake's roll calls you quick-handed, Kael — its calling comes out of your schooling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
