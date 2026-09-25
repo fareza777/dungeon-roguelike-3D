@@ -15794,6 +15794,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.dodge += 0.03
 			toast("Deep Pavane: The deep pavane-pace sharpens and guards you, Kael.")
+		1257:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			toast("Pale Pavane: The pale pavane-pace guards and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -18805,6 +18809,7 @@ func _offer_omens() -> void:
 		{"text": "CREST KONDAKARION — the crest kondakarion-poem guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT KONDAKARION — the salt kondakarion-poem fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 		{"text": "DEEP PROOIMION — the deep prooimion-prelude sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
+		{"text": "PALE PROOIMION — the pale prooimion-prelude guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -33758,6 +33763,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "DEEP PROOIMION"
 		2978:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE PROOIMION"
+		2979:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -36802,6 +36812,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST KONDAKARION": "The crest kondakarion-poem raises its kontakia like a wave-crest, Kael — guarded and sharpened, at a cost.",
 	"SALT KONDAKARION": "The salt kondakarion-poem sprinkles its kontakia over your ledger, Kael — richer and wiser, at a cost.",
 	"DEEP PROOIMION": "The deep prooimion-prelude sounds its prelude-verses across your blade, Kael — sharpened, at a cost.",
+	"PALE PROOIMION": "The pale prooimion-prelude sounds its prelude-verses at your side, Kael — guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -43220,6 +43231,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Crest Bransle — the crest bransle-step guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Bransle — the salt bransle-step fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Pavane — the deep pavane-pace sharpens and guards you (+5% ATK, +3% dodge)"},
+		{"text": "Pale Pavane — the pale pavane-pace guards and fills you (+6% dodge, +5% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
