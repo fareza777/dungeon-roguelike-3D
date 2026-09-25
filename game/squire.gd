@@ -1,4 +1,5 @@
 extends Node3D
+const M = preload("res://materials.gd")
 # Bone Squire — antek setia dari relic "tulang_kesatria".
 # Mengekor player, menebas musuh terdekat tiap ~1.1 detik (dmg = 35% ATK pemain).
 
