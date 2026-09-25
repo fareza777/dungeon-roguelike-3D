@@ -11812,6 +11812,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE PRECEPT — the trail's teaching carries and pays you (+6% speed, +4% souls)... and leaves your guard for the carrying (−3% dodge)"},
 		{"text": "BILGE PRECEPT — the hold's teaching fills and instructs you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "CREST PRECEPT — the breaker's teaching lifts your guard and arm (+5% dodge, +5% ATK)... and offers less in return (−4% souls)"},
+		{"text": "SALT PRECEPT — the brine teaching fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13903,6 +13904,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.04
 			oname = "CREST PRECEPT"
 		441:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "SALT PRECEPT"
+		442:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -14399,6 +14405,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE PRECEPT": "The trail's teaching carries and pays you, Kael — it leaves your guard for the carrying.",
 	"BILGE PRECEPT": "The hold's teaching fills and instructs you, Kael — it shifts your guard for the filling.",
 	"CREST PRECEPT": "The breaker's teaching lifts your guard and arm, Kael — it offers less in return for the lifting.",
+	"SALT PRECEPT": "The brine teaching fills and teaches you, Kael — it shifts your guard for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
