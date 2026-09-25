@@ -11845,6 +11845,7 @@ func _offer_omens() -> void:
 		{"text": "SALT CITATION — the brine summons fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "DEEP INJUNCTION — the trench's command arms and guards you (+7% ATK, +3% dodge)... and offers less in return (−3% souls)"},
 		{"text": "PALE INJUNCTION — the white command veils and pays you (+6% dodge, +5% souls)... and weakens your arm for the veiling (−4% ATK)"},
+		{"text": "GREY INJUNCTION — the pale command instructs and guards you (+5% XP, +5% dodge)... and weakens your arm for the teaching (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -14103,6 +14104,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "PALE INJUNCTION"
 		474:
+			Stats.buff_xp_pct += 0.05
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "GREY INJUNCTION"
+		475:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -14632,6 +14638,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT CITATION": "The brine summons fills and teaches you, Kael — it shifts your guard for the filling.",
 	"DEEP INJUNCTION": "The trench's command arms and guards you, Kael — it offers less in return for the command.",
 	"PALE INJUNCTION": "The white command veils and pays you, Kael — it weakens your arm for the veiling.",
+	"GREY INJUNCTION": "The pale command instructs and guards you, Kael — it weakens your arm for the teaching.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
