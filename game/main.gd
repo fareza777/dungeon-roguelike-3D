@@ -12826,6 +12826,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH TREATISE — the fathom's long-form arms you and quickens your swing (+5% ATK, +4% attack speed)... and shifts your guard for the quickening (−4% dodge)"},
 		{"text": "BOTTOM TREATISE — the deepest-bound long-form fills and guards you (+7% souls, +4% dodge)... and weakens your arm for the guarding (−3% ATK)"},
 		{"text": "GRIM TREATISE — the solemn long-form arms, guards and plates you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the solemnity (−4% speed)"},
+		{"text": "FOG TREATISE — the mist's long-form veils and fills you (+7% dodge, +4% souls)... and weakens your arm for the veiling (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -19085,6 +19086,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM TREATISE"
 		1262:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG TREATISE"
+		1263:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -20405,6 +20411,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH TREATISE": "The fathom's long-form arms you and quickens your swing, Kael — it shifts your guard for the quickening.",
 	"BOTTOM TREATISE": "The deepest-bound long-form fills and guards you, Kael — it weakens your arm for the guarding.",
 	"GRIM TREATISE": "The solemn long-form arms, guards and plates you, Kael — it slows your step for the solemnity.",
+	"FOG TREATISE": "The mist's long-form veils and fills you, Kael — it weakens your arm for the veiling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
