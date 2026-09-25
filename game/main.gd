@@ -14303,6 +14303,7 @@ func _offer_omens() -> void:
 		{"text": "STORM KONTAKION — the gale kontakion-hymn sharpens and keens you (+5% ATK, +6% crit)... and shifts your guard for the keening (−4% dodge)"},
 		{"text": "KEEL KONTAKION — the hull kontakion-hymn fills and plates you (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
 		{"text": "HULL KONTAKION — the plank kontakion-hymn bulks and guards you (+6% max HP, +4% dodge)... and slows your step for the bulking (−3% speed)"},
+		{"text": "TRENCH KONTAKION — the trench kontakion-hymn sharpens and quickens you (+5% ATK, +4% attack speed)... and shifts your guard for the quickening (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -24118,6 +24119,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL KONTAKION"
 		1964:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH KONTAKION"
+		1965:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -26140,6 +26146,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM KONTAKION": "The gale kontakion-hymn sharpens and keens you, Kael — it shifts your guard for the keening.",
 	"KEEL KONTAKION": "The hull kontakion-hymn fills and plates you, Kael — it shifts your guard for the plating.",
 	"HULL KONTAKION": "The plank kontakion-hymn bulks and guards you, Kael — it slows your step for the bulking.",
+	"TRENCH KONTAKION": "The trench kontakion-hymn sharpens and quickens you, Kael — it shifts your guard for the quickening.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
