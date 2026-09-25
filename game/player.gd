@@ -775,6 +775,14 @@ func _strike() -> void:
 					var mbm := get_tree().current_scene
 					if mbm != null and mbm.has_method("_damage_number"):
 						mbm._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "SERVE", Color(0.85, 0.8, 0.6), false)
+			if Stats.weapon_id == "docket_blade":
+				var dkn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", dkn)
+				if dkn % 9 == 0:
+					f.stun(1.0)
+					var mdk := get_tree().current_scene
+					if mdk != null and mdk.has_method("_damage_number"):
+						mdk._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "HEARING", Color(0.7, 0.7, 0.66), false)
 			if Stats.weapon_id == "pilot_lantern":
 				var pln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", pln)
