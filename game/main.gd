@@ -12160,9 +12160,17 @@ func _offer_omens() -> void:
 		var _op := rng.randi_range(0, omen_opts.size() - 1)
 		if not omen_pick.has(_op):
 			omen_pick.append(_op)
+	var _od_opts: Array = []
+	for _oi in omen_pick:
+		var _od := Dictionary(omen_opts[_oi]).duplicate()
+		_od["text"] = "☗ " + String(_od["text"])
+		_od_opts.append(_od)
+	if Stats.nemesis != "":
+		_od_opts.append({"text": "☠ BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"})
+	_od_opts.append({"text": "Walk alone — swear nothing"})
 	_say(
 		[{"who": "oracle", "text": oline}],
-		[omen_opts[omen_pick[0]], omen_opts[omen_pick[1]], omen_opts[omen_pick[2]]] + ([{"text": "BLOOD DEBT — your nemesis +25% HP; its skull pays an epic relic"}] if Stats.nemesis != "" else []) + [{"text": "Walk alone — swear nothing"}]
+		_od_opts
 	)
 
 
