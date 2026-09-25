@@ -13569,6 +13569,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Grey Passacaglia: The grey passacaglia-tread guards and teaches you, Kael.")
+		719:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			toast("Tide Passacaglia: The tide passacaglia-tread quickens and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -36726,6 +36730,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Deep Passacaglia — the deep passacaglia-tread sharpens and guards you (+5% ATK, +3% dodge)"},
 		{"text": "Pale Passacaglia — the pale passacaglia-tread guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Passacaglia — the grey passacaglia-tread guards and teaches you (+5% dodge, +5% XP)"},
+		{"text": "Tide Passacaglia — the tide passacaglia-tread quickens and sharpens you (+6% speed, +4% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
