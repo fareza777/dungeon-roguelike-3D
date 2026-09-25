@@ -11439,6 +11439,7 @@ func _offer_omens() -> void:
 		{"text": "SALT NOTE — the brine promissory reads you rich (+6% souls, +2% ATK)... rich is a target (−4% dodge)"},
 		{"text": "DEEP NOTE — the trench promissory reads you studious (+7% XP)... its margin bleeds you thin (−1 armor)"},
 		{"text": "WAKE NOTE — the trailing promissory reads you swift (+5% speed, +3% souls)... swift forgets its grip (−3% ATK)"},
+		{"text": "KEEL NOTE — the hull's promissory reads you striking (+4% ATK, +3% attack speed)... the hull collects (−3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12566,6 +12567,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "WAKE NOTE"
 		248:
+			Stats.buff_atk_pct += 0.04
+			Stats.buff_aspd += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "KEEL NOTE"
+		249:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12865,6 +12871,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT NOTE": "The brine promissory reads you as rich, Kael — and rich is just another word for target.",
 	"DEEP NOTE": "The trench promissory reads you as studious, Kael — its margin bleeds you thin.",
 	"WAKE NOTE": "The trailing promissory reads you as swift, Kael — and swift forgets its grip.",
+	"KEEL NOTE": "The hull's promissory reads you as striking, Kael — the hull always collects.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
