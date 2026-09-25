@@ -13439,6 +13439,7 @@ func _offer_omens() -> void:
 		{"text": "HULL MAGNIFICAT — the shipwright's glorifying-song fills your frame and guards you (+6% max HP, +4% dodge)... and slows your step for the filling (−3% speed)"},
 		{"text": "TRENCH MAGNIFICAT — the trench-diver's glorifying-song arms and quickens you (+5% ATK, +4% ASPD)... and shifts your guard for the quickening (−4% dodge)"},
 		{"text": "BOTTOM MAGNIFICAT — the deepest glorifying-song fills and veils you (+7% souls, +4% dodge)... and weakens your arm for the filling (−3% ATK)"},
+		{"text": "GRIM MAGNIFICAT — the grave glorifying-song arms, veils and plates you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the veiling (−4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -22124,6 +22125,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM MAGNIFICAT"
 		1741:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM MAGNIFICAT"
+		1742:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -23923,6 +23930,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL MAGNIFICAT": "The shipwright's glorifying-song fills your frame and guards you, Kael — it slows your step for the filling.",
 	"TRENCH MAGNIFICAT": "The trench-diver's glorifying-song arms and quickens you, Kael — it shifts your guard for the quickening.",
 	"BOTTOM MAGNIFICAT": "The deepest glorifying-song fills and veils you, Kael — it weakens your arm for the filling.",
+	"GRIM MAGNIFICAT": "The grave glorifying-song arms, veils and plates you, Kael — it slows your step for the veiling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
