@@ -12487,6 +12487,7 @@ func _offer_omens() -> void:
 		{"text": "SALT FOOTNOTE — the brine mark's margin note fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "DEEP ENDNOTE — the deepest closing note honors your arm and guard (+7% ATK, +3% dodge)... and empties your purse for the honor (−3% souls)"},
 		{"text": "PALE ENDNOTE — the white closing note veils and fills you (+6% dodge, +5% souls)... and weakens your arm for the veiling (−4% ATK)"},
+		{"text": "GREY ENDNOTE — the grey closing note guards and teaches you (+5% dodge, +5% XP)... and weakens your arm for the guarding (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -17337,6 +17338,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "PALE ENDNOTE"
 		984:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "GREY ENDNOTE"
+		985:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -18379,6 +18385,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT FOOTNOTE": "The brine mark's margin note fills and teaches you, Kael — it shifts your guard for the filling.",
 	"DEEP ENDNOTE": "The deepest closing note honors your arm and guard, Kael — it empties your purse for the honor.",
 	"PALE ENDNOTE": "The white closing note veils and fills you, Kael — it weakens your arm for the veiling.",
+	"GREY ENDNOTE": "The grey closing note guards and teaches you, Kael — it weakens your arm for the guarding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
