@@ -227,6 +227,7 @@ const DB := {
 	"carriers_knot": {"name": "Carrier's Knot", "chip": "KN", "desc": "A knot the soul-porters tie for luck — +6% souls, −3% speed", "rarity": 1, "mods": {"soul_gain_pct": 0.06, "speed_pct": -0.03}},
 	"fog_tithe": {"name": "Fog Tithe", "chip": "FH", "desc": "A coin the mist presses into your palm — +4% dodge, +3% souls", "rarity": 1, "mods": {"dodge": 0.04, "soul_gain_pct": 0.03}},
 	"pale_ledger": {"name": "Pale Ledger", "chip": "PL", "desc": "a grey clerk's abridged tally — +6% souls, −2% ATK", "rarity": 2, "mods": {"soul_gain_pct": 0.06, "atk_pct": -0.02}},
+	"grey_seal": {"name": "Grey Seal", "chip": "GS", "desc": "the pale court's stamp of passage — +3 armor, +2% souls", "rarity": 2, "mods": {"armor": 3, "soul_gain_pct": 0.02}},
 # ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
