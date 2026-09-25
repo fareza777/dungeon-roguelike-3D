@@ -12557,6 +12557,7 @@ func _offer_omens() -> void:
 		{"text": "PALE INCUNABLE — the white cradle-book veils and fills you (+6% dodge, +5% souls)... and weakens your arm for the veiling (−4% ATK)"},
 		{"text": "GREY INCUNABLE — the grey cradle-book guards and teaches you (+5% dodge, +5% XP)... and weakens your arm for the guarding (−4% ATK)"},
 		{"text": "TIDE INCUNABLE — the flowing cradle-book speeds and arms you (+6% speed, +4% ATK)... and shifts your guard for the speeding (−3% dodge)"},
+		{"text": "STORM INCUNABLE — the tempest's cradle-book charges your arm and aim (+5% ATK, +6% crit)... and uncovers your guard for the charge (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -17721,6 +17722,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE INCUNABLE"
 		1046:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM INCUNABLE"
+		1047:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -18825,6 +18831,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE INCUNABLE": "The white cradle-book veils and fills you, Kael — it weakens your arm for the veiling.",
 	"GREY INCUNABLE": "The grey cradle-book guards and teaches you, Kael — it weakens your arm for the guarding.",
 	"TIDE INCUNABLE": "The flowing cradle-book speeds and arms you, Kael — it shifts your guard for the speeding.",
+	"STORM INCUNABLE": "The tempest's cradle-book charges your arm and aim, Kael — it uncovers your guard for the charge.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
