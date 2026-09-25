@@ -14527,6 +14527,7 @@ func _offer_omens() -> void:
 		{"text": "GREY EXAPOSTEILARION — the grey exaposteilarion-hymn guards and teaches you (+5% dodge, +5% XP)... and dulls your edge for the teaching (−4% ATK)"},
 		{"text": "TIDE EXAPOSTEILARION — the tide exaposteilarion-hymn quickens and sharpens you (+6% speed, +4% ATK)... and shifts your guard for the quickening (−3% dodge)"},
 		{"text": "STORM EXAPOSTEILARION — the storm exaposteilarion-hymn sharpens and strikes you (+5% ATK, +6% crit)... and shifts your guard for the striking (−4% dodge)"},
+		{"text": "KEEL EXAPOSTEILARION — the keel exaposteilarion-hymn fills and plates you (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -24864,6 +24865,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM EXAPOSTEILARION"
 		2067:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL EXAPOSTEILARION"
+		2068:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -26989,6 +26995,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY EXAPOSTEILARION": "The grey exaposteilarion-hymn guards and teaches you, Kael — it dulls your edge for the teaching.",
 	"TIDE EXAPOSTEILARION": "The tide exaposteilarion-hymn quickens and sharpens you, Kael — it shifts your guard for the quickening.",
 	"STORM EXAPOSTEILARION": "The storm exaposteilarion-hymn sharpens and strikes you, Kael — it shifts your guard for the striking.",
+	"KEEL EXAPOSTEILARION": "The keel exaposteilarion-hymn fills and plates you, Kael — it shifts your guard for the plating.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
