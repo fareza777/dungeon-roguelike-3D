@@ -14373,6 +14373,7 @@ func _offer_omens() -> void:
 		{"text": "SALT KONTAKION — the brine kontakion-hymn fills and schools you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "DEEP TROPARION — the deep troparion-hymn sharpens and guards you (+7% ATK, +3% dodge)... and lightens your purse for the sharpening (−3% souls)"},
 		{"text": "PALE TROPARION — the wan troparion-hymn guards and fills you (+6% dodge, +5% souls)... and dulls your edge for the guarding (−4% ATK)"},
+		{"text": "GREY TROPARION — the ashen troparion-hymn guards and schools you (+5% dodge, +5% XP)... and dulls your edge for the guarding (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -24239,6 +24240,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "PALE TROPARION"
 		1974:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "GREY TROPARION"
+		1975:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -26271,6 +26277,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT KONTAKION": "The brine kontakion-hymn fills and schools you, Kael — it shifts your guard for the filling.",
 	"DEEP TROPARION": "The deep troparion-hymn sharpens and guards you, Kael — it lightens your purse for the sharpening.",
 	"PALE TROPARION": "The wan troparion-hymn guards and fills you, Kael — it dulls your edge for the guarding.",
+	"GREY TROPARION": "The ashen troparion-hymn guards and schools you, Kael — it dulls your edge for the guarding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
