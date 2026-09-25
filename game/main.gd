@@ -21426,6 +21426,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_xp_pct += 0.04
 			toast("Salt Csardas: The salt csardas-spin fills and teaches you, Kael.")
+		2636:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.03
+			toast("Deep Fandango: The deep fandango-step sharpens and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -25816,6 +25820,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE MOLIEBEN — the bilge molieben-service fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 		{"text": "CREST MOLIEBEN — the crest molieben-service guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT MOLIEBEN — the salt molieben-service fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
+		{"text": "DEEP KALYMMATA — the deep kalymmata-veils sharpen and guard you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -47756,6 +47761,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT MOLIEBEN"
 		4357:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP KALYMMATA"
+		4358:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -52183,6 +52193,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE MOLIEBEN": "The bilge molieben-service holds its moliebens in your purse, Kael — richer and wiser, at a cost.",
 	"CREST MOLIEBEN": "The crest molieben-service holds its moliebens on your crest, Kael — guarded and keen, at a cost.",
 	"SALT MOLIEBEN": "The salt molieben-service holds its moliebens over your salt, Kael — richer and wiser, at a cost.",
+	"DEEP KALYMMATA": "The deep kalymmata-veils draw their kalymmata over your blade, Kael — keen and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -59980,6 +59991,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bilge Csardas — the bilge csardas-spin fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Csardas — the crest csardas-spin guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Csardas — the salt csardas-spin fills and teaches you (+6% souls, +4% XP)"},
+		{"text": "Deep Fandango — the deep fandango-step sharpens and guards you (+5% ATK, +3% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
