@@ -12663,6 +12663,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.07
 			Stats.soul_gain_pct += 0.04
 			toast("Fog Trope: the fog trope-verse — +7% dodge, +4% souls this run")
+		517:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			toast("Wake Trope: the wake trope-verse — +6% speed, +4% souls this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -33710,6 +33714,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bottom Trope — the bottom trope-verse: +7% souls, +4% dodge this run"},
 		{"text": "Grim Trope — the grim trope-verse: +5% ATK, +4% dodge, +2 armor this run"},
 		{"text": "Fog Trope — the fog trope-verse: +7% dodge, +4% souls this run"},
+		{"text": "Wake Trope — the wake trope-verse: +6% speed, +4% souls this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
