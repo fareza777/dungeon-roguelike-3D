@@ -12043,6 +12043,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Chanson: the trench chanson-tune — +5% ATK, +4% attack speed this run")
+		364:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Chanson: the bottom chanson-tune — +7% souls, +4% dodge this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30817,6 +30821,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Chanson — the keel chanson-tune: +6% souls, +3 armor this run"},
 		{"text": "Hull Chanson — the hull chanson-tune: +6% max HP, +4% dodge this run"},
 		{"text": "Trench Chanson — the trench chanson-tune: +5% ATK, +4% attack speed this run"},
+		{"text": "Bottom Chanson — the bottom chanson-tune: +7% souls, +4% dodge this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
