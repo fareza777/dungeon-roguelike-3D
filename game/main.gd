@@ -10993,6 +10993,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_xp_pct += 0.05
 			Stats.buff_armor += 2
 			toast("Deep Hymn: the trench-choir's longest verse — +5% XP, +2 armor this run")
+		190:
+			Stats.soul_gain_pct += 0.07
+			Stats.buff_armor -= 2
+			toast("Pale Psalm: the grey-choir's collecting note — +7% souls, −2 armor this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17823,6 +17827,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Crest Gospel — the wave-deacon's ringing word: +5% ATK, +2% XP this run"},
 			{"text": "Bilge Psalm — the hold-choir's low note: +3 armor, −3% speed this run"},
 			{"text": "Deep Hymn — the trench-choir's longest verse: +5% XP, +2 armor this run"},
+			{"text": "Pale Psalm — the grey-choir's collecting note: +7% souls, −2 armor this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
