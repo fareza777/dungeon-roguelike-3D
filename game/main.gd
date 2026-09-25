@@ -12024,6 +12024,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL ACCORD — the ship's accord fills and armors you (+6% souls, +3 armor)... and leaves your guard for the filling (−4% dodge)"},
 		{"text": "HULL ACCORD — the vessel's accord hardens and guards you (+6% max HP, +4% dodge)... and slows your step for the hardening (−3% speed)"},
 		{"text": "TRENCH ACCORD — the cutting's accord edges and quickens your arm (+5% ATK, +4% attack speed)... and uncovers your guard for the edging (−4% dodge)"},
+		{"text": "BOTTOM ACCORD — the floor's accord fills and veils you (+7% souls, +4% dodge)... and weakens your arm for the filling (−3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -14920,6 +14921,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH ACCORD"
 		600:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM ACCORD"
+		601:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -15575,6 +15581,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL ACCORD": "The ship's accord fills and armors you, Kael — it leaves your guard for the filling.",
 	"HULL ACCORD": "The vessel's accord hardens and guards you, Kael — it slows your step for the hardening.",
 	"TRENCH ACCORD": "The cutting's accord edges and quickens your arm, Kael — it uncovers your guard for the edging.",
+	"BOTTOM ACCORD": "The floor's accord fills and veils you, Kael — it weakens your arm for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
