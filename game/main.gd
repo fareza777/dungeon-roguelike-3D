@@ -11724,6 +11724,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE FIAT — the hold's decree fills and instructs you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "CREST FIAT — the breaker's decree lifts your guard and arm (+5% dodge, +5% ATK)... and offers less in return (−4% souls)"},
 		{"text": "DEEP UKASE — the trench's proclamation arms and guards you (+7% ATK, +3% dodge)... and offers less in return (−3% souls)"},
+		{"text": "PALE UKASE — the white proclamation veils and pays you (+6% dodge, +5% souls)... and presses your step for the veiling (−4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13370,6 +13371,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "DEEP UKASE"
 		353:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_speed_pct -= 0.04
+			oname = "PALE UKASE"
+		354:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13776,6 +13782,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE FIAT": "The hold's decree fills and instructs you, Kael — it shifts your guard for the filling.",
 	"CREST FIAT": "The breaker's decree lifts your guard and arm, Kael — it offers less in return for the lifting.",
 	"DEEP UKASE": "The trench's proclamation arms and guards you, Kael — it offers less in return for the proclamation.",
+	"PALE UKASE": "The white proclamation veils and pays you, Kael — it presses your step for the veiling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
