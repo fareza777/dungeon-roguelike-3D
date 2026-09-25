@@ -11921,6 +11921,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP CHRONICLE — the trench's record arms and guards you (+7% ATK, +3% dodge)... and offers less in return (−3% souls)"},
 		{"text": "PALE CHRONICLE — the white record veils and pays you (+6% dodge, +5% souls)... and weakens your arm for the veiling (−4% ATK)"},
 		{"text": "GREY CHRONICLE — the pale record instructs and guards you (+5% XP, +5% dodge)... and weakens your arm for the teaching (−4% ATK)"},
+		{"text": "TIDE CHRONICLE — the current's record carries and arms you (+6% speed, +4% ATK)... and leaves your guard for the carrying (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -14564,6 +14565,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY CHRONICLE"
 		550:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE CHRONICLE"
+		551:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -15169,6 +15175,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP CHRONICLE": "The trench's record arms and guards you, Kael — it offers less in return for the writing.",
 	"PALE CHRONICLE": "The white record veils and pays you, Kael — it weakens your arm for the veiling.",
 	"GREY CHRONICLE": "The pale record instructs and guards you, Kael — it weakens your arm for the teaching.",
+	"TIDE CHRONICLE": "The current's record carries and arms you, Kael — it leaves your guard for the carrying.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
