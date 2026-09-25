@@ -11693,6 +11693,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE MANDATE — the hold's charge fills and instructs you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "CREST MANDATE — the breaker's charge lifts your guard and arm (+5% dodge, +5% ATK)... and offers less in return (−4% souls)"},
 		{"text": "DEEP FIAT — the trench's decree arms and drives you (+6% ATK, +5% speed)... and leaves your guard for the driving (−3% dodge)"},
+		{"text": "PALE FIAT — the white decree veils and pays you (+6% dodge, +4% souls)... and presses your step for the veiling (−4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13269,6 +13270,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "DEEP FIAT"
 		339:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_speed_pct -= 0.04
+			oname = "PALE FIAT"
+		340:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13661,6 +13667,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE MANDATE": "The hold's charge fills and instructs you, Kael — it shifts your guard for the filling.",
 	"CREST MANDATE": "The breaker's charge lifts your guard and arm, Kael — it offers less in return for the lifting.",
 	"DEEP FIAT": "The trench's decree arms and drives you, Kael — it leaves your guard for the driving.",
+	"PALE FIAT": "The white decree veils and pays you, Kael — it presses your step for the veiling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
