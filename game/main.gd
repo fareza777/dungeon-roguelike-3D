@@ -12052,6 +12052,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE EMBARGO — the current's ban carries and arms you (+6% speed, +4% ATK)... and leaves your guard for the carrying (−3% dodge)"},
 		{"text": "STORM EMBARGO — the tempest's ban charges your arm and aim (+5% ATK, +6% crit)... and uncovers your guard for the charge (−4% dodge)"},
 		{"text": "KEEL EMBARGO — the ship's ban fills and armors you (+6% souls, +3 armor)... and leaves your guard for the filling (−4% dodge)"},
+		{"text": "HULL EMBARGO — the vessel's ban hardens and guards you (+6% max HP, +4% dodge)... and slows your step for the hardening (−3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -15014,6 +15015,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL EMBARGO"
 		613:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL EMBARGO"
+		614:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -15682,6 +15688,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE EMBARGO": "The current's ban carries and arms you, Kael — it leaves your guard for the carrying.",
 	"STORM EMBARGO": "The tempest's ban charges your arm and aim, Kael — it uncovers your guard for the charge.",
 	"KEEL EMBARGO": "The ship's ban fills and armors you, Kael — it leaves your guard for the filling.",
+	"HULL EMBARGO": "The vessel's ban hardens and guards you, Kael — it slows your step for the hardening.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
