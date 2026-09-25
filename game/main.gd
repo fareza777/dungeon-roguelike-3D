@@ -12005,6 +12005,7 @@ func _offer_omens() -> void:
 		{"text": "HULL DOCTRINE — the vessel's doctrine hardens and guards you (+6% max HP, +4% dodge)... and slows your step for the hardening (−3% speed)"},
 		{"text": "TRENCH DOCTRINE — the cutting's doctrine edges and quickens your arm (+5% ATK, +4% attack speed)... and uncovers your guard for the edging (−4% dodge)"},
 		{"text": "BOTTOM DOCTRINE — the floor's doctrine fills and veils you (+7% souls, +4% dodge)... and weakens your arm for the filling (−3% ATK)"},
+		{"text": "GRIM DOCTRINE — the stern doctrine arms, guards and plates you (+5% ATK, +4% dodge, +2 armor)... and weighs your step for the teaching (−4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -14830,6 +14831,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM DOCTRINE"
 		586:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM DOCTRINE"
+		587:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -15471,6 +15478,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL DOCTRINE": "The vessel's doctrine hardens and guards you, Kael — it slows your step for the hardening.",
 	"TRENCH DOCTRINE": "The cutting's doctrine edges and quickens your arm, Kael — it uncovers your guard for the edging.",
 	"BOTTOM DOCTRINE": "The floor's doctrine fills and veils you, Kael — it weakens your arm for the filling.",
+	"GRIM DOCTRINE": "The stern doctrine arms, guards and plates you, Kael — it weighs your step for the teaching.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
