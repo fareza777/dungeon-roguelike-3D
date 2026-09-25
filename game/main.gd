@@ -12471,6 +12471,7 @@ func _offer_omens() -> void:
 		{"text": "CREST BREVIER — the wave's small print guards and arms you (+5% dodge, +5% ATK)... and empties your purse for the guarding (−4% souls)"},
 		{"text": "SALT BREVIER — the brine mark's small print fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "DEEP FOOTNOTE — the deepest margin note honors your arm and guard (+7% ATK, +3% dodge)... and empties your purse for the honor (−3% souls)"},
+		{"text": "PALE FOOTNOTE — the white margin note veils and fills you (+6% dodge, +5% souls)... and weakens your arm for the veiling (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -17240,6 +17241,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "DEEP FOOTNOTE"
 		968:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE FOOTNOTE"
+		969:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -18266,6 +18272,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST BREVIER": "The wave's small print guards and arms you, Kael — it empties your purse for the guarding.",
 	"SALT BREVIER": "The brine mark's small print fills and teaches you, Kael — it shifts your guard for the filling.",
 	"DEEP FOOTNOTE": "The deepest margin note honors your arm and guard, Kael — it empties your purse for the honor.",
+	"PALE FOOTNOTE": "The white margin note veils and fills you, Kael — it weakens your arm for the veiling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
