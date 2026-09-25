@@ -11662,6 +11662,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE VERDICT — the wake's ruling speeds your hands to the record (+6% attack speed, +5% souls)... and leaves your guard open (−4% dodge)"},
 		{"text": "DEEP DECREE — the trench's command arms and pays you (+7% ATK, +3% souls)... and presses off your plate (−2 armor)"},
 		{"text": "TIDE DECREE — the current's command carries step and guard (+5% speed, +5% dodge)... and carries off your coin (−3% souls)"},
+		{"text": "STORM DECREE — the gale's command edges and quickens your arm (+6% crit, +5% attack speed)... and slows your step for the edging (−4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13101,6 +13102,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "TIDE DECREE"
 		312:
+			Stats.buff_crit += 0.06
+			Stats.buff_aspd += 0.05
+			Stats.buff_speed_pct -= 0.04
+			oname = "STORM DECREE"
+		313:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13466,6 +13472,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE VERDICT": "The wake's ruling speeds your hands to the record, Kael — it leaves your guard open to do it.",
 	"DEEP DECREE": "The trench's command arms and pays you, Kael — it presses off your plate for the payment.",
 	"TIDE DECREE": "The current's command carries your step and guard, Kael — it carries off your coin in the same water.",
+	"STORM DECREE": "The gale's command edges and quickens your arm, Kael — it slows your step for the edging.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
