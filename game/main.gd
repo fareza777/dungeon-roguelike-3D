@@ -12270,6 +12270,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE PREFACE — the flowing preface speeds and arms you (+6% speed, +4% ATK)... and shifts your guard for the speeding (−3% dodge)"},
 		{"text": "STORM PREFACE — the tempest's preface charges your arm and aim (+5% ATK, +6% crit)... and uncovers your guard for the charge (−4% dodge)"},
 		{"text": "KEEL PREFACE — the ship's preface fills and armors you (+6% souls, +3 armor)... and leaves your guard for the filling (−4% dodge)"},
+		{"text": "HULL PREFACE — the hull's preface hardens and guards you (+6% Max HP, +4% dodge)... and slows your step for the hardening (−3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -16228,6 +16229,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL PREFACE"
 		808:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL PREFACE"
+		809:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -17091,6 +17097,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE PREFACE": "The flowing preface speeds and arms you, Kael — it shifts your guard for the speeding.",
 	"STORM PREFACE": "The tempest's preface charges your arm and aim, Kael — it uncovers your guard for the charge.",
 	"KEEL PREFACE": "The ship's preface fills and armors you, Kael — it leaves your guard for the filling.",
+	"HULL PREFACE": "The hull's preface hardens and guards you, Kael — it slows your step for the hardening.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
