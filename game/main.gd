@@ -16636,6 +16636,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Strambotto: The bilge strambotto-verse fills and teaches you, Kael.")
+		1464:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Strambotto: The crest strambotto-verse guards and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -19854,6 +19858,7 @@ func _offer_omens() -> void:
 		{"text": "FOG EVLOGITARION — the fog evlogitarion-hymn shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE EVLOGITARION — the wake evlogitarion-hymn quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE EVLOGITARION — the bilge evlogitarion-hymn fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
+		{"text": "CREST EVLOGITARION — the crest evlogitarion-hymn guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -35856,6 +35861,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE EVLOGITARION"
 		3185:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST EVLOGITARION"
+		3186:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -39111,6 +39121,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG EVLOGITARION": "The fog evlogitarion-hymn rolls its evlogitaria over your eyes, Kael — shrouded and richer, at a cost.",
 	"WAKE EVLOGITARION": "The wake evlogitarion-hymn trails its evlogitaria behind your heels, Kael — swifter and richer, at a cost.",
 	"BILGE EVLOGITARION": "The bilge evlogitarion-hymn slops its evlogitaria through your head, Kael — richer and wiser, at a cost.",
+	"CREST EVLOGITARION": "The crest evlogitarion-hymn raises its evlogitaria like a wave-crest, Kael — guarded and sharpened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -45736,6 +45747,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Strambotto — the fog strambotto-verse shrouds and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Strambotto — the wake strambotto-verse quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Strambotto — the bilge strambotto-verse fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Strambotto — the crest strambotto-verse guards and sharpens you (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
