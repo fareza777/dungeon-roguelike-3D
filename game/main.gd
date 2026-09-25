@@ -15639,6 +15639,7 @@ func _offer_omens() -> void:
 		{"text": "CREST HOROLOGION — the crest horologion-hour guards and sharpens you (+5% dodge, +5% ATK)... and lightens your purse for the guarding (−4% souls)"},
 		{"text": "SALT HOROLOGION — the salt horologion-hour fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "DEEP EUCHOLOGION — the deep euchologion-rite sharpens and guards you (+7% ATK, +3% dodge)... and lightens your purse for the sharpening (−3% souls)"},
+		{"text": "PALE EUCHOLOGION — the pale euchologion-rite guards and fills you (+6% dodge, +5% souls)... and dulls your edge for the guarding (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -27400,6 +27401,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "DEEP EUCHOLOGION"
 		2348:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE EUCHOLOGION"
+		2349:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -29806,6 +29812,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST HOROLOGION": "The crest horologion-hour guards and sharpens you, Kael — it lightens your purse for the guarding.",
 	"SALT HOROLOGION": "The salt horologion-hour fills and teaches you, Kael — it shifts your guard for the filling.",
 	"DEEP EUCHOLOGION": "The deep euchologion-rite sharpens and guards you, Kael — it lightens your purse for the sharpening.",
+	"PALE EUCHOLOGION": "The pale euchologion-rite guards and fills you, Kael — it dulls your edge for the guarding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
