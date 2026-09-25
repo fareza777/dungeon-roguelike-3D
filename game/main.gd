@@ -16355,6 +16355,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Forlana: The tide forlana-step quickens and sharpens you, Kael.")
+		1395:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Forlana: The storm forlana-step sharpens and empowers you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -19504,6 +19508,7 @@ func _offer_omens() -> void:
 		{"text": "PALE CANONIKON — the pale canonikon-book guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY CANONIKON — the grey canonikon-book guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE CANONIKON — the tide canonikon-book quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
+		{"text": "STORM CANONIKON — the storm canonikon-book sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -35156,6 +35161,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE CANONIKON"
 		3116:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM CANONIKON"
+		3117:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -38342,6 +38352,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE CANONIKON": "The pale canonikon-book opens its canon-offices at your side, Kael — guarded, at a cost.",
 	"GREY CANONIKON": "The grey canonikon-book opens its canon-offices under your breath, Kael — guarded, at a cost.",
 	"TIDE CANONIKON": "The tide canonikon-book opens its canon-offices at your heels, Kael — swifter, at a cost.",
+	"STORM CANONIKON": "The storm canonikon-book opens its canon-offices in thunder, Kael — sharpened and empowered, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -44898,6 +44909,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Forlana — the pale forlana-step guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Forlana — the grey forlana-step guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Forlana — the tide forlana-step quickens and sharpens you (+6% speed, +4% ATK)"},
+		{"text": "Storm Forlana — the storm forlana-step sharpens and empowers you (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
