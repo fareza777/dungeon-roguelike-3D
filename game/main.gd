@@ -11790,6 +11790,7 @@ func _offer_omens() -> void:
 		{"text": "STORM ASSIZE — the tempest's court law charges your arm and aim (+5% ATK, +6% crit)... and uncovers your guard for the charge (−4% dodge)"},
 		{"text": "KEEL ASSIZE — the spine's court law fills and covers you (+6% souls, +3 armor)... and leaves your guard for the covering (−4% dodge)"},
 		{"text": "HULL ASSIZE — the body's court law holds and guards you (+6% max HP, +4% dodge)... and settles on your step (−3% speed)"},
+		{"text": "TRENCH ASSIZE — the depths' court law sharpens your arm (+5% ATK, +4% attack speed)... and leaves your guard for the sharpening (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13769,6 +13770,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL ASSIZE"
 		419:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH ASSIZE"
+		420:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -14243,6 +14249,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM ASSIZE": "The tempest's court law charges your arm and aim, Kael — it uncovers your guard for the charge.",
 	"KEEL ASSIZE": "The spine's court law fills and covers you, Kael — it leaves your guard for the covering.",
 	"HULL ASSIZE": "The body's court law holds and guards you, Kael — it settles on your step for the holding.",
+	"TRENCH ASSIZE": "The depths' court law sharpens your arm, Kael — it leaves your guard for the sharpening.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
