@@ -14396,6 +14396,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH AKATHIST — the trench akathist-hymn sharpens and quickens you (+5% ATK, +4% attack speed)... and shifts your guard for the quickening (−4% dodge)"},
 		{"text": "BOTTOM AKATHIST — the floor akathist-hymn fills and guards you (+7% souls, +4% dodge)... and dulls your edge for the filling (−3% ATK)"},
 		{"text": "GRIM AKATHIST — the grim akathist-hymn steels and guards you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the steeling (−4% speed)"},
+		{"text": "FOG AKATHIST — the fog akathist-hymn shrouds and fills you (+7% dodge, +4% souls)... and dulls your edge for the shrouding (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -24379,6 +24380,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM AKATHIST"
 		1997:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG AKATHIST"
+		1998:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -26434,6 +26440,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH AKATHIST": "The trench akathist-hymn sharpens and quickens you, Kael — it shifts your guard for the quickening.",
 	"BOTTOM AKATHIST": "The floor akathist-hymn fills and guards you, Kael — it dulls your edge for the filling.",
 	"GRIM AKATHIST": "The grim akathist-hymn steels and guards you, Kael — it slows your step for the steeling.",
+	"FOG AKATHIST": "The fog akathist-hymn shrouds and fills you, Kael — it dulls your edge for the shrouding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
