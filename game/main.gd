@@ -14085,6 +14085,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.dodge += 0.03
 			toast("Deep Arioso: The deep arioso-verse sharpens and guards you, Kael.")
+		837:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			toast("Pale Arioso: The pale arioso-verse guards and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -16677,6 +16681,7 @@ func _offer_omens() -> void:
 		{"text": "SALT PSALTERIUM — the salt psalterium-psalm fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 		{"text": "DEEP HYMNALE — the deep hymnale-hymn sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 		{"text": "PALE HYMNALE — the pale hymnale-hymn guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
+		{"text": "GREY HYMNALE — the grey hymnale-hymn guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -29507,6 +29512,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "PALE HYMNALE"
 		2559:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "GREY HYMNALE"
+		2560:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -32132,6 +32142,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT PSALTERIUM": "The salt psalterium-psalm closes its grey book over you, Kael — richer and wiser, at a cost. PSALTERIUM #151 complete.",
 	"DEEP HYMNALE": "The deep hymnale-hymn resonates through your arm, Kael — sharper, at a cost. HYMNALE #152.",
 	"PALE HYMNALE": "The pale hymnale-hymn veils your step in melody, Kael — guarded, at a cost.",
+	"GREY HYMNALE": "The grey hymnale-hymn drones its wisdom over you, Kael — guarded and wiser, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -38130,6 +38141,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Crest Barcarolle — the crest barcarolle-chant guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Barcarolle — the salt barcarolle-chant fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Arioso — the deep arioso-verse sharpens and guards you (+5% ATK, +3% dodge)"},
+		{"text": "Pale Arioso — the pale arioso-verse guards and fills you (+6% dodge, +5% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
