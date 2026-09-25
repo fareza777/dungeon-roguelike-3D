@@ -20706,6 +20706,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Schottische: The bottom schottische-step fills and guards you, Kael.")
+		2465:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Schottische: The grim schottische-step hardens, guards and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -24925,6 +24930,7 @@ func _offer_omens() -> void:
 		{"text": "HULL PROSKOMIDIA — the hull proskomidia-rite steadies and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH PROSKOMIDIA — the trench proskomidia-rite hardens and hastens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
 		{"text": "BOTTOM PROSKOMIDIA — the bottom proskomidia-rite fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM PROSKOMIDIA — the grim proskomidia-rite hardens, guards and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -45998,6 +46004,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM PROSKOMIDIA"
 		4186:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM PROSKOMIDIA"
+		4187:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -50254,6 +50266,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL PROSKOMIDIA": "The hull proskomidia-rite prepares its proskomidiai around your frame, Kael — steadier and guarded, at a cost.",
 	"TRENCH PROSKOMIDIA": "The trench proskomidia-rite prepares its proskomidiai down your trench, Kael — harder and hastened, at a cost.",
 	"BOTTOM PROSKOMIDIA": "The bottom proskomidia-rite prepares its proskomidiai on your floor, Kael — richer and guarded, at a cost.",
+	"GRIM PROSKOMIDIA": "The grim proskomidia-rite prepares its proskomidiai across your guard, Kael — harder, guarded and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -57880,6 +57893,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Schottische — the hull schottische-step steadies and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Schottische — the trench schottische-step hardens and hastens you (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Schottische — the bottom schottische-step fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Schottische — the grim schottische-step hardens, guards and plates you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
