@@ -19905,6 +19905,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 0.06
 			Stats.dodge += 0.04
 			toast("Hull Estate: The hull estate-measure toughens and guards you, Kael.")
+		2268:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			toast("Trench Estate: The trench estate-measure hardens and hastens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -23927,6 +23931,7 @@ func _offer_omens() -> void:
 		{"text": "STORM ORTHROSEON — the storm orthroseon-matins hardens and sharpens you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL ORTHROSEON — the keel orthroseon-matins fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL ORTHROSEON — the hull orthroseon-matins toughens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
+		{"text": "TRENCH ORTHROSEON — the trench orthroseon-matins hardens and hastens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -44002,6 +44007,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL ORTHROSEON"
 		3989:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH ORTHROSEON"
+		3990:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -48061,6 +48071,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM ORTHROSEON": "The storm orthroseon-matins cracks its orthroseoi into your swings, Kael — harder and keener, at a cost.",
 	"KEEL ORTHROSEON": "The keel orthroseon-matins rivets its orthroseoi along your ribs, Kael — richer and plated, at a cost.",
 	"HULL ORTHROSEON": "The hull orthroseon-matins planks its orthroseoi over your hull, Kael — tougher and guarded, at a cost.",
+	"TRENCH ORTHROSEON": "The trench orthroseon-matins grinds its orthroseoi into your wrists, Kael — harder and hastened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -55490,6 +55501,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Storm Estate — the storm estate-measure sharpens and strikes you (+5% ATK, +6% crit)"},
 		{"text": "Keel Estate — the keel estate-measure fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Estate — the hull estate-measure toughens and guards you (+6% max HP, +4% dodge)"},
+		{"text": "Trench Estate — the trench estate-measure hardens and hastens you (+5% ATK, +4% atk speed)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
