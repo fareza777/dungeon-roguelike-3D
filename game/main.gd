@@ -22138,6 +22138,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.04
 			Stats.buff_armor += 2
 			toast("Grim Gopak: The grim gopak-leap sharpens, guards and armors you, Kael.")
+		2811:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			toast("Fog Gopak: The fog gopak-leap guards and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -26703,6 +26707,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH KOMBOSKINI — the trench komboskini-knots sharpen and hasten you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
 		{"text": "BOTTOM KOMBOSKINI — the bottom komboskini-knots fill and guard you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 		{"text": "GRIM KOMBOSKINI — the grim komboskini-knots sharpen, guard and armor you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
+		{"text": "FOG KOMBOSKINI — the fog komboskini-knots guard and fill you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -49530,6 +49535,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM KOMBOSKINI"
 		4532:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG KOMBOSKINI"
+		4533:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -54132,6 +54142,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH KOMBOSKINI": "The trench komboskini-knots tie their komboskinia in your trench, Kael — keen and quick, at a cost.",
 	"BOTTOM KOMBOSKINI": "The bottom komboskini-knots tie their komboskinia at your bottom, Kael — filled and guarded, at a cost.",
 	"GRIM KOMBOSKINI": "The grim komboskini-knots tie their komboskinia through your grim vigil, Kael — keen, guarded, plated, at a cost.",
+	"FOG KOMBOSKINI": "The fog komboskini-knots tie their komboskinia in your fog, Kael — guarded and filled, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -62104,6 +62115,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Trench Gopak — the trench gopak-leap sharpens and hastens you (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Gopak — the bottom gopak-leap fills and guards you (+7% souls, +4% dodge)"},
 		{"text": "Grim Gopak — the grim gopak-leap sharpens, guards and armors you (+5% ATK, +4% dodge, +2 armor)"},
+		{"text": "Fog Gopak — the fog gopak-leap guards and fills you (+7% dodge, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
