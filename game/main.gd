@@ -12771,6 +12771,7 @@ func _offer_omens() -> void:
 		{"text": "GRIM COMPENDIUM — the solemn full-tome arms, guards and plates you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the solemnity (−4% speed)"},
 		{"text": "FOG COMPENDIUM — the mist's full-tome veils and fills you (+7% dodge, +4% souls)... and weakens your arm for the veiling (−4% ATK)"},
 		{"text": "WAKE COMPENDIUM — the trailing full-tome speeds you and fills your purse (+6% speed, +4% souls)... and shifts your guard for the speeding (−3% dodge)"},
+		{"text": "BILGE COMPENDIUM — the bilgewater full-tome fills and teaches you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -18812,6 +18813,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "WAKE COMPENDIUM"
 		1219:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.dodge -= 0.03
+			oname = "BILGE COMPENDIUM"
+		1220:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -20089,6 +20095,7 @@ func _omen_deal(idx: int) -> void:
 	"GRIM COMPENDIUM": "The solemn full-tome arms, guards and plates you, Kael — it slows your step for the solemnity.",
 	"FOG COMPENDIUM": "The mist's full-tome veils and fills you, Kael — it weakens your arm for the veiling.",
 	"WAKE COMPENDIUM": "The trailing full-tome speeds you and fills your purse, Kael — it shifts your guard for the speeding.",
+	"BILGE COMPENDIUM": "The bilgewater full-tome fills and teaches you, Kael — it shifts your guard for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
