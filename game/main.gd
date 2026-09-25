@@ -14402,6 +14402,7 @@ func _offer_omens() -> void:
 		{"text": "CREST AKATHIST — the crest akathist-hymn guards and sharpens you (+5% dodge, +5% ATK)... and lightens your purse for the sharpening (−4% souls)"},
 		{"text": "SALT AKATHIST — the brine akathist-hymn fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the teaching (−3% dodge)"},
 		{"text": "DEEP STICHERON — the deep sticheron-hymn sharpens and guards you (+7% ATK, +3% dodge)... and lightens your purse for the sharpening (−3% souls)"},
+		{"text": "PALE STICHERON — the pale sticheron-hymn guards and fills you (+6% dodge, +5% souls)... and dulls your edge for the guarding (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -24415,6 +24416,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "DEEP STICHERON"
 		2003:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE STICHERON"
+		2004:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -26476,6 +26482,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST AKATHIST": "The crest akathist-hymn guards and sharpens you, Kael — it lightens your purse for the sharpening.",
 	"SALT AKATHIST": "The brine akathist-hymn fills and teaches you, Kael — it shifts your guard for the teaching.",
 	"DEEP STICHERON": "The deep sticheron-hymn sharpens and guards you, Kael — it lightens your purse for the sharpening.",
+	"PALE STICHERON": "The pale sticheron-hymn guards and fills you, Kael — it dulls your edge for the guarding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
