@@ -17229,6 +17229,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Ronde: The bottom ronde-verse fills and guards you, Kael.")
+		1610:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Ronde: The grim ronde-verse sharpens, guards, and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -20593,6 +20598,7 @@ func _offer_omens() -> void:
 		{"text": "HULL SYNTAGMATION — the hull syntagmation-book bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH SYNTAGMATION — the trench syntagmation-book sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 		{"text": "BOTTOM SYNTAGMATION — the bottom syntagmation-book fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM SYNTAGMATION — the grim syntagmation-book sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -37334,6 +37340,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM SYNTAGMATION"
 		3331:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM SYNTAGMATION"
+		3332:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -40735,6 +40747,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL SYNTAGMATION": "The hull syntagmation-book swells its syntagmata through your frame, Kael — bulked and guarded, at a cost.",
 	"TRENCH SYNTAGMATION": "The trench syntagmation-book drives its syntagmata down your arm, Kael — sharpened and hastened, at a cost.",
 	"BOTTOM SYNTAGMATION": "The bottom syntagmation-book settles its syntagmata in your purse, Kael — richer and guarded, at a cost.",
+	"GRIM SYNTAGMATION": "The grim syntagmation-book drops its syntagmata like ballast in your bones, Kael — sharpened, guarded, plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -47506,6 +47519,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Ronde — the hull ronde-verse bulks and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Ronde — the trench ronde-verse sharpens and hastens you (+5% ATK, +4% ASPD)"},
 		{"text": "Bottom Ronde — the bottom ronde-verse fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Ronde — the grim ronde-verse sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
