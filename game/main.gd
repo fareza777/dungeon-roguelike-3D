@@ -11740,6 +11740,7 @@ func _offer_omens() -> void:
 		{"text": "SALT UKASE — the brine proclamation fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "DEEP PROCLAMATION — the trench's announcement arms and fills you (+6% ATK, +4% souls)... and leaves your guard for the arming (−3% dodge)"},
 		{"text": "PALE PROCLAMATION — the white announcement veils and pays you (+6% dodge, +5% souls)... and weakens your arm for the veiling (−4% ATK)"},
+		{"text": "GREY PROCLAMATION — the pale announcement covers and fills you (+5% souls, +5% XP, +2 armor)... and settles on your step (−5% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13466,6 +13467,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "PALE PROCLAMATION"
 		369:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.05
+			oname = "GREY PROCLAMATION"
+		370:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13888,6 +13895,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT UKASE": "The brine proclamation fills and teaches you, Kael — it shifts your guard for the filling.",
 	"DEEP PROCLAMATION": "The trench's announcement arms and fills you, Kael — it leaves your guard for the arming.",
 	"PALE PROCLAMATION": "The white announcement veils and pays you, Kael — it weakens your arm for the veiling.",
+	"GREY PROCLAMATION": "The pale announcement covers and fills you, Kael — it settles on your step for the covering.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
