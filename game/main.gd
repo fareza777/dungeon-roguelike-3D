@@ -11145,7 +11145,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE WARRANT — the hold's writ, stamped in slick and edge (+7% ATK)... wet footing betrays you (−6% dodge)"},
 		{"text": "PALE SUMMONS — the grey court's call is a long lecture (+7% XP)... the usher collects in souls (−4% souls)"},
 		{"text": "BOTTOM SUMMONS — the deepest court calls, and the court sharpens your arm (+6% ATK)... the long climb dulls memory (−5% XP)"},
-		{"text": "GREY WARRANT — the clerk's writ bears the pale seal (+3 armor)... signed hands move slow (−4% speed)"},
+		{"text": "GREY EDICT — the clerk's decree bears the pale seal (+3 armor)... signed hands move slow (−4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12136,7 +12136,7 @@ func _omen_deal(idx: int) -> void:
 		217:
 			Stats.buff_armor += 3
 			Stats.buff_speed_pct -= 0.04
-			oname = "GREY WARRANT"
+			oname = "GREY EDICT"
 		218:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
@@ -12404,7 +12404,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE WARRANT": "Signed in the wettest ink there is, Kael — everything signed in bilge water slides.",
 	"PALE SUMMONS": "The grey court never finishes a lecture early, Kael — tip the usher or it runs longer.",
 	"BOTTOM SUMMONS": "The deepest court never lets you leave the same, Kael — it keeps the memory and pays in edge.",
-	"GREY WARRANT": "The pale seal never dries, Kael — once you're named in grey ink, the ink keeps your name.",
+	"GREY EDICT": "The pale seal never dries, Kael — once you're named in grey ink, the ink keeps your name.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
