@@ -14809,6 +14809,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_atk_pct += 0.05
 			toast("Crest Prelude: The crest prelude-opening guards and sharpens you, Kael.")
+		1015:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			toast("Salt Prelude: The salt prelude-opening fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17579,6 +17583,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE PEDALION — the bilge pedalion-rudder fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 		{"text": "CREST PEDALION — the crest pedalion-rudder guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT PEDALION — the salt pedalion-rudder fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
+		{"text": "DEEP PARAKLITIKI — the deep paraklitiki-office sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -31311,6 +31316,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT PEDALION"
 		2737:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP PARAKLITIKI"
+		2738:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -34114,6 +34124,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE PEDALION": "The bilge pedalion-rudder steeps its canons in your pockets, Kael — richer and wiser, at a cost.",
 	"CREST PEDALION": "The crest pedalion-rudder foams its canons over your blade, Kael — guarded and sharper, at a cost.",
 	"SALT PEDALION": "The salt pedalion-rudder crystallizes its canons in your purse, Kael — richer and wiser, at a cost.",
+	"DEEP PARAKLITIKI": "The deep paraklitiki-office intones its weekday canons over you, Kael — sharper, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -40290,6 +40301,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Wake Prelude — the wake prelude-opening quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Prelude — the bilge prelude-opening fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Prelude — the crest prelude-opening guards and sharpens you (+5% dodge, +5% ATK)"},
+		{"text": "Salt Prelude — the salt prelude-opening fills and teaches you (+6% souls, +4% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
