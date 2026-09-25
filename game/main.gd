@@ -13146,6 +13146,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.dodge += 0.03
 			toast("Deep Partita: The deep partita-round sharpens and guards you, Kael.")
+		627:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			toast("Pale Partita: The pale partita-round guards and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -35363,6 +35367,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Crest Fugue — the crest fugue-voice: +5% dodge, +5% ATK this run"},
 		{"text": "Salt Fugue — the salt fugue-voice: +6% souls, +4% XP this run"},
 		{"text": "Deep Partita — the deep partita-round sharpens and guards you (+5% ATK, +3% dodge)"},
+		{"text": "Pale Partita — the pale partita-round guards and fills you (+6% dodge, +5% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
