@@ -11773,6 +11773,7 @@ func _offer_omens() -> void:
 		{"text": "GREY STATUTE — the pale written law covers you for the count (+5% dodge, +5% XP, +2 armor)... and weakens your arm for the covering (−4% ATK)"},
 		{"text": "TIDE STATUTE — the current's written law carries and arms you (+6% speed, +4% ATK)... and leaves your guard for the carrying (−3% dodge)"},
 		{"text": "STORM STATUTE — the tempest's written law charges your arm and aim (+5% ATK, +6% crit)... and uncovers your guard for the charge (−4% dodge)"},
+		{"text": "KEEL STATUTE — the spine's written law fills and covers you (+6% souls, +3 armor)... and leaves your guard for the covering (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13666,6 +13667,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM STATUTE"
 		402:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL STATUTE"
+		403:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -14123,6 +14129,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY STATUTE": "The pale written law covers you for the count, Kael — it weakens your arm for the covering.",
 	"TIDE STATUTE": "The current's written law carries and arms you, Kael — it leaves your guard for the carrying.",
 	"STORM STATUTE": "The tempest's written law charges your arm and aim, Kael — it uncovers your guard for the charge.",
+	"KEEL STATUTE": "The spine's written law fills and covers you, Kael — it leaves your guard for the covering.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
