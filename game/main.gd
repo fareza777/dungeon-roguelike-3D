@@ -5836,8 +5836,9 @@ func _souls_l() -> void:
 		var t2: String = "◈ %d souls" % Stats.souls if Stats.souls > 0 else ""
 		if t2 != ui.souls_label.text and Stats.souls > 0:
 			ui.souls_label.pivot_offset = ui.souls_label.size * 0.5
-			ui.souls_label.scale = Vector2(1.3, 1.3)
-			ui.souls_label.modulate = Color(1.0, 0.9, 0.4)
+			var spent: bool = sdelta < 0
+			ui.souls_label.scale = Vector2(1.3, 1.3) if not spent else Vector2(0.85, 0.85)
+			ui.souls_label.modulate = Color(1.0, 0.9, 0.4) if not spent else Color(1.0, 0.45, 0.4)
 			var tw := create_tween()
 			tw.set_parallel(true)
 			tw.tween_property(ui.souls_label, "scale", Vector2.ONE, 0.25)
@@ -5847,11 +5848,11 @@ func _souls_l() -> void:
 		var t3 := "⇄ " + String(WDB.get_w(Stats.weapon_id).get("name", "?")).to_upper()
 		if t3 != ui.swap_btn.text:
 			ui.swap_btn.text = t3
-	if sdelta > 0 and ui.has("hud_layer") and ui.has("souls_label"):
+	if sdelta != 0 and ui.has("hud_layer") and ui.has("souls_label"):
 		var sl := Label.new()
-		sl.text = "+%d ◈" % sdelta
+		sl.text = "+%d ◈" % sdelta if sdelta > 0 else "−%d ◈" % (-sdelta)
 		sl.add_theme_font_size_override("font_size", 20)
-		sl.add_theme_color_override("font_color", Color(1.0, 0.85, 0.4))
+		sl.add_theme_color_override("font_color", Color(1.0, 0.85, 0.4) if sdelta > 0 else Color(1.0, 0.5, 0.45))
 		sl.position = ui.souls_label.global_position + Vector2(0, -6)
 		ui.hud_layer.add_child(sl)
 		var stw := sl.create_tween()
