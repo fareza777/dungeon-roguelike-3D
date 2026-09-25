@@ -16709,6 +16709,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.dodge += 0.03
 			toast("Deep Barzelletta: The deep barzelletta-song sharpens and guards you, Kael.")
+		1482:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			toast("Pale Barzelletta: The pale barzelletta-song guards and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -19945,6 +19949,7 @@ func _offer_omens() -> void:
 		{"text": "CREST STICHERARION — the crest sticherarion-book guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT STICHERARION — the salt sticherarion-book fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 		{"text": "DEEP PROPHETOLOGION — the deep prophetologion-book sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
+		{"text": "PALE PROPHETOLOGION — the pale prophetologion-book guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -36038,6 +36043,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "DEEP PROPHETOLOGION"
 		3203:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE PROPHETOLOGION"
+		3204:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -39311,6 +39321,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST STICHERARION": "The crest sticherarion-book raises its stichera like a wave-crest, Kael — guarded and sharpened, at a cost.",
 	"SALT STICHERARION": "The salt sticherarion-book sprinkles its stichera over your ledger, Kael — richer and wiser, at a cost.",
 	"DEEP PROPHETOLOGION": "The deep prophetologion-book opens its prophet-readings across your blade, Kael — sharpened, at a cost.",
+	"PALE PROPHETOLOGION": "The pale prophetologion-book opens its prophet-readings at your side, Kael — guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -45954,6 +45965,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Crest Frottola — the crest frottola-song guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Frottola — the salt frottola-song fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Barzelletta — the deep barzelletta-song sharpens and guards you (+5% ATK, +3% dodge)"},
+		{"text": "Pale Barzelletta — the pale barzelletta-song guards and fills you (+6% dodge, +5% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
