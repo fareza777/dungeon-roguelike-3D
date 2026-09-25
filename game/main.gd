@@ -18721,6 +18721,7 @@ func _on_mahzan_invoked(s) -> void:
 			{"text": "Pale Bond — pay 5 souls: Mahzan ties your reflexes to the pale count — +5% dodge, +5% crit this run"},
 			{"text": "Quill Debt — pay 6 souls: Mahzan signs you into the ledger's good page — +4% dodge, +4% ATK, +4% crit this run"},
 			{"text": "Storm Scribe — pay 7 souls: Mahzan inks the gale into your ledger — +8% crit, +6% XP this run"},
+			{"text": "Candle's End — pay 5 souls: Mahzan banks your moment — +6% XP, +4% souls this run"},
 		]
 	)
 
@@ -21163,6 +21164,17 @@ func _mahzan_deal(idx: int) -> void:
 				Stats.buff_xp_pct += 0.06
 				Sfx.play("shrine")
 				toast("STORM SCRIBE — the gale is in your ledger (+8% crit, +6% XP)")
+		82:
+			if Stats.souls < _soul_cost(5):
+				toast("Five souls — the candle's burnt low")
+			else:
+				Stats.souls -= _soul_cost(5)
+				_count_deal()
+				_souls_l()
+				Stats.buff_xp_pct += 0.06
+				Stats.soul_gain_pct += 0.04
+				Sfx.play("shrine")
+				toast("CANDLE'S END — the last light banks for you (+6% XP, +4% souls)")
 
 	if player != null and is_instance_valid(player):
 		player.hp = minf(player.hp, Stats.get_stat("max_hp"))
