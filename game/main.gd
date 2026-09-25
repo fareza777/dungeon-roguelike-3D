@@ -19153,6 +19153,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.06
 			Stats.soul_gain_pct += 0.05
 			toast("Pale Carola: The pale carola-verse guards and fills you, Kael.")
+		2083:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Grey Carola: The grey carola-verse guards and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -22990,6 +22994,7 @@ func _offer_omens() -> void:
 		{"text": "SALT STATIONALIS — the salt stationalis-book fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 		{"text": "DEEP EUCHOLOGIARION — the deep euchologiarion-book sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 		{"text": "PALE EUCHOLOGIARION — the pale euchologiarion-book guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
+		{"text": "GREY EUCHOLOGIARION — the grey euchologiarion-book guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -42128,6 +42133,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "PALE EUCHOLOGIARION"
 		3804:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "GREY EUCHOLOGIARION"
+		3805:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -46002,6 +46012,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT STATIONALIS": "The salt stationalis-book crusts its stationale on your palms, Kael — richer and wiser, at a cost.",
 	"DEEP EUCHOLOGIARION": "The deep euchologiarion-book holds its euchologiarie in your fist, Kael — sharper and guarded, at a cost.",
 	"PALE EUCHOLOGIARION": "The pale euchologiarion-book whitens its euchologiarie over your shoulders, Kael — guarded and richer, at a cost.",
+	"GREY EUCHOLOGIARION": "The grey euchologiarion-book clasps its euchologiarie on your shoulders, Kael — guarded and wiser, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -53246,6 +53257,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Salt Balletto — the salt balletto-verse fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Carola — the deep carola-verse sharpens and guards you (+5% ATK, +3% dodge)"},
 		{"text": "Pale Carola — the pale carola-verse guards and fills you (+6% dodge, +5% souls)"},
+		{"text": "Grey Carola — the grey carola-verse guards and teaches you (+5% dodge, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
