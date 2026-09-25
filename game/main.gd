@@ -18706,6 +18706,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.soul_gain_pct += 0.04
 			toast("Wake Cinquepace: The wake cinquepace-verse quickens and fills you, Kael.")
+		1973:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Bilge Cinquepace: The bilge cinquepace-verse fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -22433,6 +22437,7 @@ func _offer_omens() -> void:
 		{"text": "GRIM CERIMONIAL — the grim cerimonial-book sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 		{"text": "FOG CERIMONIAL — the fog cerimonial-book shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE CERIMONIAL — the wake cerimonial-book quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
+		{"text": "BILGE CERIMONIAL — the bilge cerimonial-book fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -41014,6 +41019,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "WAKE CERIMONIAL"
 		3694:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.dodge -= 0.03
+			oname = "BILGE CERIMONIAL"
+		3695:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -44778,6 +44788,7 @@ func _omen_deal(idx: int) -> void:
 	"GRIM CERIMONIAL": "The grim cerimonial-book drops its cerimoniale like ballast in your bones, Kael — sharpened, guarded, plated, at a cost.",
 	"FOG CERIMONIAL": "The fog cerimonial-book rolls its cerimoniale over your eyes, Kael — shrouded and richer, at a cost.",
 	"WAKE CERIMONIAL": "The wake cerimonial-book streams its cerimoniale behind you, Kael — quicker and richer, at a cost.",
+	"BILGE CERIMONIAL": "The bilge cerimonial-book sloshes its cerimoniale into your boots, Kael — richer and wiser, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -51912,6 +51923,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grim Cinquepace — the grim cinquepace-verse sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Cinquepace — the fog cinquepace-verse shrouds and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Cinquepace — the wake cinquepace-verse quickens and fills you (+6% speed, +4% souls)"},
+		{"text": "Bilge Cinquepace — the bilge cinquepace-verse fills and teaches you (+5% souls, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
