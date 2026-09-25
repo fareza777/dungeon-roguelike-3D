@@ -15061,6 +15061,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE JUBILUS — the tide jubilus-chant quickens and sharpens you (+6% speed, +4% ATK)... and shifts your guard for the quickening (−3% dodge)"},
 		{"text": "STORM JUBILUS — the storm jubilus-chant sharpens and strikes you (+5% ATK, +6% crit)... and shifts your guard for the striking (−4% dodge)"},
 		{"text": "KEEL JUBILUS — the keel jubilus-chant fills and plates you (+6% souls, +3 armor)... and shifts your guard for the filling (−4% dodge)"},
+		{"text": "HULL JUBILUS — the hull jubilus-chant broadens and guards you (+6% Max HP, +4% dodge)... and slows your step for the broadening (−3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -26239,6 +26240,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL JUBILUS"
 		2233:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL JUBILUS"
+		2234:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -28530,6 +28536,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE JUBILUS": "The tide jubilus-chant quickens and sharpens you, Kael — it shifts your guard for the quickening.",
 	"STORM JUBILUS": "The storm jubilus-chant sharpens and strikes you, Kael — it shifts your guard for the striking.",
 	"KEEL JUBILUS": "The keel jubilus-chant fills and plates you, Kael — it shifts your guard for the filling.",
+	"HULL JUBILUS": "The hull jubilus-chant broadens and guards you, Kael — it slows your step for the broadening.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
