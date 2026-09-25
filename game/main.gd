@@ -14150,6 +14150,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.06
 			Stats.soul_gain_pct += 0.05
 			toast("Pale Cavatina: The pale cavatina-air guards and fills you, Kael.")
+		853:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Grey Cavatina: The grey cavatina-air guards and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -16758,6 +16762,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP SEQUENTIAE — the deep sequentia-verse sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 		{"text": "PALE SEQUENTIAE — the pale sequentia-verse guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY SEQUENTIAE — the grey sequentia-verse guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
+		{"text": "TIDE SEQUENTIAE — the tide sequentia-verse quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -29669,6 +29674,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY SEQUENTIAE"
 		2575:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE SEQUENTIAE"
+		2576:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -32310,6 +32320,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP SEQUENTIAE": "The deep sequentia-verse follows its alleluia down into you, Kael — sharper, at a cost.",
 	"PALE SEQUENTIAE": "The pale sequentia-verse follows you down in white, Kael — guarded, at a cost.",
 	"GREY SEQUENTIAE": "The grey sequentia-verse recites its wisdom over you, Kael — guarded and wiser, at a cost.",
+	"TIDE SEQUENTIAE": "The tide sequentia-verse pulls your feet along its prose, Kael — swifter and sharper, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -38324,6 +38335,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Salt Arioso — the salt arioso-verse fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Cavatina — the deep cavatina-air sharpens and guards you (+5% ATK, +3% dodge)"},
 		{"text": "Pale Cavatina — the pale cavatina-air guards and fills you (+6% dodge, +5% souls)"},
+		{"text": "Grey Cavatina — the grey cavatina-air guards and teaches you (+5% dodge, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
