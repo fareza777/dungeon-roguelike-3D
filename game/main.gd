@@ -13689,6 +13689,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH CANTUS — the trench chant-melody arms and quickens you (+5% ATK, +4% attack speed)... and shifts your guard for the quickening (−4% dodge)"},
 		{"text": "BOTTOM CANTUS — the deepest chant-melody fills and veils you (+7% souls, +4% dodge)... and weakens your arm for the filling (−3% ATK)"},
 		{"text": "GRIM CANTUS — the grave chant-melody arms, veils and plates you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the veiling (−4% speed)"},
+		{"text": "FOG CANTUS — the mist chant-melody veils and fills you (+7% dodge, +4% souls)... and weakens your arm for the veiling (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -22836,6 +22837,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM CANTUS"
 		1832:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG CANTUS"
+		1833:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -24726,6 +24732,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH CANTUS": "The trench chant-melody arms and quickens you, Kael — it shifts your guard for the quickening.",
 	"BOTTOM CANTUS": "The deepest chant-melody fills and veils you, Kael — it weakens your arm for the filling.",
 	"GRIM CANTUS": "The grave chant-melody arms, veils and plates you, Kael — it slows your step for the veiling.",
+	"FOG CANTUS": "The mist chant-melody veils and fills you, Kael — it weakens your arm for the veiling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
