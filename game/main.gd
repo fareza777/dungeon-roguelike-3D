@@ -21958,6 +21958,12 @@ func _refresh_hud_weapon() -> void:
 	var wlv: int = int(Stats.weapon_lv.get(wid, 1))
 	var wname := String(WDB.DB[wid]["name"])
 	ui.weapon_l.text = ("%s +%d" % [wname, wlv - 1]) if wlv > 1 else wname
+	var wcol: Color = WDB.DB[wid].get("tint", Color(0.95, 0.82, 0.45))
+	ui.weapon_l.add_theme_color_override("font_color", wcol.lerp(Color(1.0, 0.95, 0.8), 0.4))
+	ui.weapon_l.pivot_offset = ui.weapon_l.size * 0.5
+	ui.weapon_l.scale = Vector2(1.18, 1.18)
+	var wtw: Tween = ui.weapon_l.create_tween()
+	wtw.tween_property(ui.weapon_l, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 
 func _update_minimap() -> void:
