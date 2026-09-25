@@ -11997,6 +11997,7 @@ func _offer_omens() -> void:
 		{"text": "CREST MANIFESTO — the breaker's declaration lifts your guard and arm (+5% dodge, +5% ATK)... and offers less in return (−4% souls)"},
 		{"text": "SALT MANIFESTO — the brine declaration fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "DEEP DOCTRINE — the trench's doctrine arms and guards you (+7% ATK, +3% dodge)... and offers less in return (−3% souls)"},
+		{"text": "PALE DOCTRINE — the white doctrine veils and pays you (+6% dodge, +5% souls)... and weakens your arm for the veiling (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -14782,6 +14783,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "DEEP DOCTRINE"
 		578:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE DOCTRINE"
+		579:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -15415,6 +15421,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST MANIFESTO": "The breaker's declaration lifts your guard and arm, Kael — it offers less in return for the lifting.",
 	"SALT MANIFESTO": "The brine declaration fills and teaches you, Kael — it shifts your guard for the filling.",
 	"DEEP DOCTRINE": "The trench's doctrine arms and guards you, Kael — it offers less in return for the preaching.",
+	"PALE DOCTRINE": "The white doctrine veils and pays you, Kael — it weakens your arm for the veiling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
