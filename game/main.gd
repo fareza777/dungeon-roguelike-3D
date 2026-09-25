@@ -11660,6 +11660,7 @@ func _offer_omens() -> void:
 		{"text": "CREST VERDICT — the breaker's ruling lifts your guard and arm (+6% dodge, +4% ATK)... and sheds your plate for the lifting (−2 armor)"},
 		{"text": "FOG VERDICT — the mist's ruling veils your guard and step (+6% dodge, +4% speed)... and veils your striking hand (−4% ATK)"},
 		{"text": "WAKE VERDICT — the wake's ruling speeds your hands to the record (+6% attack speed, +5% souls)... and leaves your guard open (−4% dodge)"},
+		{"text": "DEEP DECREE — the trench's command arms and pays you (+7% ATK, +3% souls)... and presses off your plate (−2 armor)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13089,6 +13090,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "WAKE VERDICT"
 		310:
+			Stats.buff_atk_pct += 0.07
+			Stats.soul_gain_pct += 0.03
+			Stats.buff_armor -= 2
+			oname = "DEEP DECREE"
+		311:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13452,6 +13458,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST VERDICT": "The breaker's ruling lifts your guard and arm, Kael — it sheds your plate for the lifting.",
 	"FOG VERDICT": "The mist's ruling veils your guard and step, Kael — it veils your striking hand in the same paper.",
 	"WAKE VERDICT": "The wake's ruling speeds your hands to the record, Kael — it leaves your guard open to do it.",
+	"DEEP DECREE": "The trench's command arms and pays you, Kael — it presses off your plate for the payment.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
