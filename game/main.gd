@@ -21377,6 +21377,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 0.06
 			Stats.dodge += 0.04
 			toast("Hull Csardas: The hull csardas-spin swells and guards you, Kael.")
+		2628:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			toast("Trench Csardas: The trench csardas-spin hardens and hastens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -25759,6 +25763,7 @@ func _offer_omens() -> void:
 		{"text": "STORM MOLIEBEN — the storm molieben-service sharpens and lucks you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL MOLIEBEN — the keel molieben-service fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL MOLIEBEN — the hull molieben-service swells and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
+		{"text": "TRENCH MOLIEBEN — the trench molieben-service hardens and hastens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -47658,6 +47663,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL MOLIEBEN"
 		4349:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH MOLIEBEN"
+		4350:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -52077,6 +52087,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM MOLIEBEN": "The storm molieben-service holds its moliebens through your thunder, Kael — keen and lucky, at a cost.",
 	"KEEL MOLIEBEN": "The keel molieben-service holds its moliebens along your keel, Kael — richer and plated, at a cost.",
 	"HULL MOLIEBEN": "The hull molieben-service holds its moliebens along your hull, Kael — heartier and guarded, at a cost.",
+	"TRENCH MOLIEBEN": "The trench molieben-service holds its moliebens in your deep water, Kael — harder and quicker, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -59866,6 +59877,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Storm Csardas — the storm csardas-spin sharpens and lucks you (+5% ATK, +6% crit)"},
 		{"text": "Keel Csardas — the keel csardas-spin fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Csardas — the hull csardas-spin swells and guards you (+6% max HP, +4% dodge)"},
+		{"text": "Trench Csardas — the trench csardas-spin hardens and hastens you (+5% ATK, +4% atk speed)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
