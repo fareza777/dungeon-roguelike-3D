@@ -16274,6 +16274,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_atk_pct += 0.05
 			toast("Crest Villanella: The crest villanella-lilt guards and sharpens you, Kael.")
+		1375:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			toast("Salt Villanella: The salt villanella-lilt fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -19403,6 +19407,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE ARSENALITIKON — the wake arsenalitikon-book quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE ARSENALITIKON — the bilge arsenalitikon-book fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 		{"text": "CREST ARSENALITIKON — the crest arsenalitikon-book guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
+		{"text": "SALT ARSENALITIKON — the salt arsenalitikon-book fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -34954,6 +34959,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.04
 			oname = "CREST ARSENALITIKON"
 		3096:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "SALT ARSENALITIKON"
+		3097:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -38116,6 +38126,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE ARSENALITIKON": "The wake arsenalitikon-book trails its armed-offices in your wake, Kael — swifter, at a cost.",
 	"BILGE ARSENALITIKON": "The bilge arsenalitikon-book slops its armed-offices through your head, Kael — richer and wiser, at a cost.",
 	"CREST ARSENALITIKON": "The crest arsenalitikon-book raises its armed-offices like a wave-crest, Kael — guarded and sharpened, at a cost.",
+	"SALT ARSENALITIKON": "The salt arsenalitikon-book sprinkles its armed-offices over your ledger, Kael — richer and wiser, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -44652,6 +44663,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Wake Villanella — the wake villanella-lilt quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Villanella — the bilge villanella-lilt fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Villanella — the crest villanella-lilt guards and sharpens you (+5% dodge, +5% ATK)"},
+		{"text": "Salt Villanella — the salt villanella-lilt fills and teaches you (+6% souls, +4% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
