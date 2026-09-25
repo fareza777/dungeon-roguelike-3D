@@ -21786,9 +21786,14 @@ func _on_shrine_invoked(s) -> void:
 		if not bless_pick.has(_bp):
 			bless_pick.append(_bp)
 	bless_pending = true
+	var _bl_opts: Array = []
+	for _bi in bless_pick:
+		var _bd := Dictionary(bless_opts[_bi]).duplicate()
+		_bd["text"] = "✦ " + String(_bd["text"])
+		_bl_opts.append(_bd)
 	_say(
 		[{"who": "mahzan", "text": mlines[rng.randi_range(0, mlines.size() - 1)]}],
-		[bless_opts[bless_pick[0]], bless_opts[bless_pick[1]], bless_opts[bless_pick[2]], bless_opts[bless_pick[3]]]
+		_bl_opts
 	)
 
 
