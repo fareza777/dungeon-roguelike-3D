@@ -15653,6 +15653,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE EUCHOLOGION — the bilge euchologion-rite fills and teaches you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "CREST EUCHOLOGION — the crest euchologion-rite guards and sharpens you (+5% dodge, +5% ATK)... and lightens your purse for the guarding (−4% souls)"},
 		{"text": "SALT EUCHOLOGION — the salt euchologion-rite fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
+		{"text": "DEEP ANTIPHONALE — the deep antiphonale-refrain sharpens and guards you (+7% ATK, +3% dodge)... and lightens your purse for the sharpening (−3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -27485,6 +27486,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT EUCHOLOGION"
 		2362:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP ANTIPHONALE"
+		2363:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -29905,6 +29911,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE EUCHOLOGION": "The bilge euchologion-rite fills and teaches you, Kael — it shifts your guard for the filling.",
 	"CREST EUCHOLOGION": "The crest euchologion-rite guards and sharpens you, Kael — it lightens your purse for the guarding.",
 	"SALT EUCHOLOGION": "The salt euchologion-rite fills and teaches you, Kael — it shifts your guard for the filling.",
+	"DEEP ANTIPHONALE": "The deep antiphonale-refrain sharpens and guards you, Kael — it lightens your purse for the sharpening.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
