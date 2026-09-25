@@ -15062,6 +15062,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.dodge += 0.03
 			toast("Deep Sarabande: The deep sarabande-pace sharpens and guards you, Kael.")
+		1077:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			toast("Pale Sarabande: The pale sarabande-pace guards and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17894,6 +17898,7 @@ func _offer_omens() -> void:
 		{"text": "SALT MESONYKTIKON — the salt mesonyktikon-vigil fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 		{"text": "DEEP STICHERA — the deep stichera-verse sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 		{"text": "PALE STICHERA — the pale stichera-verse guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
+		{"text": "GREY STICHERA — the grey stichera-verse guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -31940,6 +31945,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "PALE STICHERA"
 		2799:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "GREY STICHERA"
+		2800:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -34805,6 +34815,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT MESONYKTIKON": "The salt mesonyktikon-vigil grinds its midnight-watches into your purse and your head, Kael — richer and wiser, at a cost.",
 	"DEEP STICHERA": "The deep stichera-verse sets its refrain-lines along your blade, Kael — sharper, at a cost.",
 	"PALE STICHERA": "The pale stichera-verse sets its refrain-lines over your guard, Kael — guarded, at a cost.",
+	"GREY STICHERA": "The grey stichera-verse drones its refrain-lines through you, Kael — guarded and wiser, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -41043,6 +41054,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Crest Gavotte — the crest gavotte-step guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Gavotte — the salt gavotte-step fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Sarabande — the deep sarabande-pace sharpens and guards you (+5% ATK, +3% dodge)"},
+		{"text": "Pale Sarabande — the pale sarabande-pace guards and fills you (+6% dodge, +5% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
