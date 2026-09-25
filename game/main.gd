@@ -16819,6 +16819,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Giustiniana: The bilge giustiniana-air fills and teaches you, Kael.")
+		1509:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Giustiniana: The crest giustiniana-air guards and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -20082,6 +20086,7 @@ func _offer_omens() -> void:
 		{"text": "FOG PSALTIKON — the fog psaltikon-book shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE PSALTIKON — the wake psaltikon-book quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE PSALTIKON — the bilge psaltikon-book fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
+		{"text": "CREST PSALTIKON — the crest psaltikon-book guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -36312,6 +36317,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE PSALTIKON"
 		3230:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST PSALTIKON"
+		3231:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -39612,6 +39622,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG PSALTIKON": "The fog psaltikon-book rolls its psaltic-odes over your eyes, Kael — shrouded and richer, at a cost.",
 	"WAKE PSALTIKON": "The wake psaltikon-book pours its psaltic-odes into your wake, Kael — swifter and richer, at a cost.",
 	"BILGE PSALTIKON": "The bilge psaltikon-book sloshes its psaltic-odes over your feet, Kael — richer and wiser, at a cost.",
+	"CREST PSALTIKON": "The crest psaltikon-book raises its psaltic-odes like a wave-crest, Kael — guarded and sharpened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -46282,6 +46293,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Giustiniana — the fog giustiniana-air shrouds and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Giustiniana — the wake giustiniana-air quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Giustiniana — the bilge giustiniana-air fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Giustiniana — the crest giustiniana-air guards and sharpens you (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
