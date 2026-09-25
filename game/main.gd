@@ -13635,6 +13635,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Ricercar: The tide ricercar-search quickens and sharpens you, Kael.")
+		735:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Ricercar: The storm ricercar-search sharpens and empowers you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -36850,6 +36854,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Ricercar — the pale ricercar-search guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Ricercar — the grey ricercar-search guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Ricercar — the tide ricercar-search quickens and sharpens you (+6% speed, +4% ATK)"},
+		{"text": "Storm Ricercar — the storm ricercar-search sharpens and empowers you (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
