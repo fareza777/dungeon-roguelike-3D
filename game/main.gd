@@ -11676,6 +11676,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH DECREE — the deep's command arms and plates you (+6% ATK, +2 armor)... and opens your guard for the arming (−4% dodge)"},
 		{"text": "BOTTOM DECREE — the floor's command sinks all its weight into your arm (+9% ATK)... and anchors step and guard (−3% speed, −3% dodge)"},
 		{"text": "HULL DECREE — the ship's command plates you broadest and deepest (+10% HP)... and loads your step for the plating (−4% speed)"},
+		{"text": "CREST DECREE — the breaker's command lifts your guard and arm (+6% dodge, +5% ATK)... and sheds your plate for the lifting (−2 armor)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13164,6 +13165,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "HULL DECREE"
 		322:
+			Stats.dodge += 0.06
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_armor -= 2
+			oname = "CREST DECREE"
+		323:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13539,6 +13545,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH DECREE": "The deep's command arms and plates you, Kael — it opens your guard for the arming.",
 	"BOTTOM DECREE": "The floor's command sinks all its weight into your arm, Kael — it anchors step and guard for the weight.",
 	"HULL DECREE": "The ship's command plates you broadest and deepest, Kael — it loads your step for the plating.",
+	"CREST DECREE": "The breaker's command lifts your guard and arm, Kael — it sheds your plate for the lifting.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
