@@ -7995,6 +7995,13 @@ func _on_banner_tap() -> void:
 func _tut_show(txt: String) -> void:
 	ui.tut_label.text = txt
 	ui.tut.visible = true
+	ui.tut.pivot_offset = ui.tut.size * 0.5
+	ui.tut.scale = Vector2(0.8, 0.8)
+	ui.tut.modulate.a = 0.0
+	var ttw: Tween = ui.tut.create_tween()
+	ttw.set_parallel(true)
+	ttw.tween_property(ui.tut, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	ttw.tween_property(ui.tut, "modulate:a", 1.0, 0.2)
 
 
 func _tut_hide() -> void:
