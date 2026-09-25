@@ -11465,6 +11465,7 @@ func _offer_omens() -> void:
 		{"text": "LAST LEDGER — the closing book credits your purse (+6% souls, +3% crit)... and debits your footing (−4% dodge)"},
 		{"text": "GREY ACCOUNT — the pale book keeps you in good standing (+4% ATK, +4% XP)... standing is thin cover (−2 armor)"},
 		{"text": "SALT ACCOUNT — the brine book credits your purse wholesale (+7% souls)... wholesale skips the lessons (−4% XP)"},
+		{"text": "PALE ACCOUNT — the white book writes you ghostly (+6% dodge)... ghostly hands hold less coin (−4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12616,6 +12617,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_xp_pct -= 0.04
 			oname = "SALT ACCOUNT"
 		253:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct -= 0.04
+			oname = "PALE ACCOUNT"
+		254:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12920,6 +12925,7 @@ func _omen_deal(idx: int) -> void:
 	"LAST LEDGER": "The closing book credits generously, Kael — it debits just as generously.",
 	"GREY ACCOUNT": "The pale book keeps you in good standing, Kael — and standing is the thinnest cover there is.",
 	"SALT ACCOUNT": "The brine book credits wholesale, Kael — wholesale never bothers with the lessons.",
+	"PALE ACCOUNT": "The white book writes you ghostly, Kael — and ghostly hands hold less coin.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
