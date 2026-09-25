@@ -13979,6 +13979,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Lied: The storm lied-tune sharpens and empowers you, Kael.")
+		811:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Lied: The keel lied-tune fills and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -16545,6 +16549,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE EVANGELIARY — the tide evangeliary-gospel quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM EVANGELIARY — the storm evangeliary-gospel sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL EVANGELIARY — the keel evangeliary-gospel fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
+		{"text": "HULL EVANGELIARY — the hull evangeliary-gospel bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -29243,6 +29248,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL EVANGELIARY"
 		2533:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL EVANGELIARY"
+		2534:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -31842,6 +31852,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE EVANGELIARY": "The tide evangeliary-gospel pulls your feet to its rhythm, Kael — swifter and sharper, at a cost.",
 	"STORM EVANGELIARY": "The storm evangeliary-gospel thunders its good news through your arms, Kael — deadlier, at a cost.",
 	"KEEL EVANGELIARY": "The keel evangeliary-gospel anchors its promises in your hull, Kael — richer and plated, at a cost.",
+	"HULL EVANGELIARY": "The hull evangeliary-gospel planks its good news along your ribs, Kael — bulkier and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -37814,6 +37825,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Lied — the grey lied-tune guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Lied — the tide lied-tune quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Lied — the storm lied-tune sharpens and empowers you (+5% ATK, +6% crit)"},
+		{"text": "Keel Lied — the keel lied-tune fills and plates you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
