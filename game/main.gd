@@ -20584,6 +20584,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Lancers: The bottom lancers-figure fills and guards you, Kael.")
+		2435:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Lancers: The grim lancers-figure hardens, guards and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -24773,6 +24778,7 @@ func _offer_omens() -> void:
 		{"text": "HULL LAXARION — the hull laxarion-shrine toughens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH LAXARION — the trench laxarion-shrine hardens and hastens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
 		{"text": "BOTTOM LAXARION — the bottom laxarion-shrine fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM LAXARION — the grim laxarion-shrine hardens, guards and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -45694,6 +45700,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM LAXARION"
 		4156:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM LAXARION"
+		4157:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -49920,6 +49932,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL LAXARION": "The hull laxarion-shrine keeps its laxaria over your hull, Kael — tougher and guarded, at a cost.",
 	"TRENCH LAXARION": "The trench laxarion-shrine keeps its laxaria into your wrists, Kael — harder and hastened, at a cost.",
 	"BOTTOM LAXARION": "The bottom laxarion-shrine keeps its laxaria into your purse, Kael — richer and guarded, at a cost.",
+	"GRIM LAXARION": "The grim laxarion-shrine keeps its laxaria across your guard, Kael — harder, guarded and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -57516,6 +57529,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Lancers — the hull lancers-figure toughens and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Lancers — the trench lancers-figure hardens and hastens you (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Lancers — the bottom lancers-figure fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Lancers — the grim lancers-figure hardens, guards and plates you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
