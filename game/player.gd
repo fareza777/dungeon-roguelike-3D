@@ -905,6 +905,15 @@ func _strike() -> void:
 					var msp := get_tree().current_scene
 					if msp != null and msp.has_method("_damage_number"):
 						msp._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "SPRING", Color(0.38, 0.72, 0.8), false)
+			if Stats.weapon_id == "canticle_edge":
+				var cen: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", cen)
+				if cen % 9 == 0 and hp < max_hp:
+					Sfx.play("heal", 0.7)
+					hp = minf(max_hp, hp + max_hp * 0.03)
+					var mce := get_tree().current_scene
+					if mce != null and mce.has_method("_damage_number"):
+						mce._damage_number(global_position + Vector3(0, 1.1 * room_tile, 0), "CANTICLE", Color(0.7, 0.9, 0.6), false)
 			if Stats.weapon_id == "pilot_lantern":
 				var pln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", pln)
