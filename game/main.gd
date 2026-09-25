@@ -12345,6 +12345,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE APPENDIX — the filthy appendix fills and teaches you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "CREST APPENDIX — the breaking appendix guards and arms you (+5% dodge, +5% ATK)... and drains your purse for the guarding (−4% souls)"},
 		{"text": "SALT APPENDIX — the brine appendix fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
+		{"text": "DEEP TITLE — the deepest title honors your arm and guard (+7% ATK, +3% dodge)... and empties your purse for the honor (−3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -16577,6 +16578,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT APPENDIX"
 		862:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP TITLE"
+		863:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -17494,6 +17500,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE APPENDIX": "The filthy appendix fills and teaches you, Kael — it shifts your guard for the filling.",
 	"CREST APPENDIX": "The breaking appendix guards and arms you, Kael — it drains your purse for the guarding.",
 	"SALT APPENDIX": "The brine appendix fills and teaches you, Kael — it shifts your guard for the filling.",
+	"DEEP TITLE": "The deepest title honors your arm and guard, Kael — it empties your purse for the honor.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
