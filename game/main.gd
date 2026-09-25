@@ -20328,6 +20328,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_armor += 3
 			toast("Keel Courantine: The keel courantine-step fills and plates you, Kael.")
+		2372:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			toast("Hull Courantine: The hull courantine-step toughens and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -24454,6 +24458,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE KOLIMARI — the tide kolimari-loaf quickens and hardens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM KOLIMARI — the storm kolimari-loaf hardens and sharpens you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL KOLIMARI — the keel kolimari-loaf fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
+		{"text": "HULL KOLIMARI — the hull kolimari-loaf toughens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -45056,6 +45061,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL KOLIMARI"
 		4093:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL KOLIMARI"
+		4094:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -49219,6 +49229,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE KOLIMARI": "The tide kolimari-loaf breaks its kolimarai through your wake, Kael — quicker and harder, at a cost.",
 	"STORM KOLIMARI": "The storm kolimari-loaf breaks its kolimarai into your swings, Kael — harder and keener, at a cost.",
 	"KEEL KOLIMARI": "The keel kolimari-loaf breaks its kolimarai along your ribs, Kael — richer and plated, at a cost.",
+	"HULL KOLIMARI": "The hull kolimari-loaf breaks its kolimarai over your hull, Kael — tougher and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -56752,6 +56763,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Tide Courantine — the tide courantine-step quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Courantine — the storm courantine-step sharpens and strikes you (+5% ATK, +6% crit)"},
 		{"text": "Keel Courantine — the keel courantine-step fills and plates you (+6% souls, +3 armor)"},
+		{"text": "Hull Courantine — the hull courantine-step toughens and guards you (+6% max HP, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
