@@ -12256,6 +12256,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.07
 			Stats.dodge += 0.03
 			toast("Deep Terce: the deep hour-prayer — +7% ATK, +3% dodge this run")
+		417:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			toast("Pale Terce: the wan hour-prayer — +6% dodge, +5% souls this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -31613,6 +31617,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Crest Compline — the crest night-prayer: +5% dodge, +5% ATK this run"},
 		{"text": "Salt Compline — the brine night-prayer: +6% souls, +4% XP this run"},
 		{"text": "Deep Terce — the deep hour-prayer: +7% ATK, +3% dodge this run"},
+		{"text": "Pale Terce — the wan hour-prayer: +6% dodge, +5% souls this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
