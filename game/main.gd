@@ -11628,6 +11628,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH WRIT — the trench's writ plates your arm in pressure (+6% ATK, +2 armor)... and salts your purse for the plating (−4% souls)"},
 		{"text": "BOTTOM WRIT — the floor's writ sinks all its weight into your arm (+8% ATK)... and anchors your step for the weight (−4% speed)"},
 		{"text": "DEEP EDICT — the trench's decree arms and instructs you (+6% ATK, +4% XP)... and taxes the lesson (−4% souls)"},
+		{"text": "TRENCH EDICT — the deep's decree arms and pays you in pressure-coin (+5% ATK, +5% souls)... and drags your step (−4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12967,6 +12968,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.04
 			oname = "DEEP EDICT"
 		292:
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_speed_pct -= 0.04
+			oname = "TRENCH EDICT"
+		293:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13310,6 +13316,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH WRIT": "The trench's writ plates your arm in pressure, Kael — it salts your purse for the plating.",
 	"BOTTOM WRIT": "The floor's writ sinks all its weight into your arm, Kael — it anchors your step for the weight.",
 	"DEEP EDICT": "The trench's decree arms and instructs you, Kael — it taxes the lesson on the way out.",
+	"TRENCH EDICT": "The deep's decree arms and pays you in pressure-coin, Kael — it drags your step for the payment.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
