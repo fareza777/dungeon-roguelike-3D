@@ -11408,6 +11408,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.soul_gain_pct += 0.04
 			toast("Tide Verse: the current's refrain, hummed soft — +6% speed, +4% souls this run")
+		220:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Grey Verse: the pale refrain, spoken slow — +5% dodge, +5% XP this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -21005,6 +21009,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Hull Litany — the planking's counting prayer, recited deep: +6% souls, +3% dodge this run"},
 			{"text": "Deep Versicle — the trench's short verse, sung low: +5% ATK, +4% dodge this run"},
 			{"text": "Tide Verse — the current's refrain, hummed soft: +6% speed, +4% souls this run"},
+			{"text": "Grey Verse — the pale refrain, spoken slow: +5% dodge, +5% XP this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
