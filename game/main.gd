@@ -10166,11 +10166,25 @@ func _lvl_banner(txt: String) -> void:
 	l.modulate.a = 1.0
 	l.pivot_offset = l.size * 0.5
 	l.scale = Vector2(0.6, 0.6)
+	var band: ColorRect = ui.get("lvl_band")
+	if band != null:
+		band.visible = true
 	var tw := create_tween()
+	tw.set_parallel(true)
 	tw.tween_property(l, "scale", Vector2(1.0, 1.0), 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	if band != null:
+		tw.tween_property(band, "color:a", 0.5, 0.2)
+	tw.chain()
 	tw.tween_interval(1.1)
+	tw.set_parallel(true)
 	tw.tween_property(l, "modulate:a", 0.0, 0.5)
-	tw.tween_callback(func() -> void: l.visible = false)
+	if band != null:
+		tw.tween_property(band, "color:a", 0.0, 0.5)
+	tw.chain()
+	tw.tween_callback(func() -> void:
+		l.visible = false
+		if band != null:
+			band.visible = false)
 
 
 # ---------------- quest berurutan ----------------
@@ -21737,6 +21751,17 @@ func _build_ui() -> void:
 	ui["toast"] = tst
 
 	# banner naik level (non-blokir)
+	var band := ColorRect.new()
+	band.anchor_left = 0.0
+	band.anchor_right = 1.0
+	band.anchor_top = 0.5
+	band.anchor_bottom = 0.5
+	band.offset_top = -285
+	band.offset_bottom = -185
+	band.color = Color(0.02, 0.01, 0.05, 0.0)
+	band.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	layer.add_child(band)
+	ui["lvl_band"] = band
 	var lb := Label.new()
 	lb.anchor_left = 0.5
 	lb.anchor_right = 0.5
