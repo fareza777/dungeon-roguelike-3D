@@ -472,7 +472,19 @@ func _build_settings() -> void:
 	qsb.border_color = Color(0.9, 0.75, 0.3, 0.5)
 	qsb.set_border_width_all(2)
 	qsb.set_corner_radius_all(10)
+	var qsb_h := StyleBoxFlat.new()
+	qsb_h.bg_color = Color(0.14, 0.12, 0.22, 0.97)
+	qsb_h.border_color = Color(1.0, 0.85, 0.4, 0.85)
+	qsb_h.set_border_width_all(2)
+	qsb_h.set_corner_radius_all(10)
+	var qsb_p := StyleBoxFlat.new()
+	qsb_p.bg_color = Color(0.07, 0.06, 0.12, 0.98)
+	qsb_p.border_color = Color(0.9, 0.75, 0.3, 0.9)
+	qsb_p.set_border_width_all(2)
+	qsb_p.set_corner_radius_all(10)
 	qual_opt.add_theme_stylebox_override("normal", qsb)
+	qual_opt.add_theme_stylebox_override("hover", qsb_h)
+	qual_opt.add_theme_stylebox_override("pressed", qsb_p)
 	qual_opt.item_selected.connect(func(ix: int) -> void:
 		Stats.quality = ix - 1
 		Stats.save_game()
@@ -490,6 +502,8 @@ func _build_settings() -> void:
 	shake_opt.selected = 0 if Stats.cam_shake else 1
 	shake_opt.add_theme_font_size_override("font_size", 17)
 	shake_opt.add_theme_stylebox_override("normal", qsb)
+	shake_opt.add_theme_stylebox_override("hover", qsb_h)
+	shake_opt.add_theme_stylebox_override("pressed", qsb_p)
 	shake_opt.item_selected.connect(func(ix: int) -> void:
 		Stats.cam_shake = ix == 0
 		Stats.save_game()
@@ -506,6 +520,8 @@ func _build_settings() -> void:
 	flash_opt.selected = 0 if Stats.screen_flash else 1
 	flash_opt.add_theme_font_size_override("font_size", 17)
 	flash_opt.add_theme_stylebox_override("normal", qsb)
+	flash_opt.add_theme_stylebox_override("hover", qsb_h)
+	flash_opt.add_theme_stylebox_override("pressed", qsb_p)
 	flash_opt.item_selected.connect(func(ix: int) -> void:
 		Stats.screen_flash = ix == 0
 		Stats.save_game()
@@ -523,6 +539,8 @@ func _build_settings() -> void:
 	dn_opt.selected = 0 if Stats.dmg_numbers else 1
 	dn_opt.add_theme_font_size_override("font_size", 17)
 	dn_opt.add_theme_stylebox_override("normal", qsb)
+	dn_opt.add_theme_stylebox_override("hover", qsb_h)
+	dn_opt.add_theme_stylebox_override("pressed", qsb_p)
 	dn_opt.item_selected.connect(func(ix: int) -> void:
 		Stats.dmg_numbers = ix == 0
 		Stats.save_game()
@@ -540,6 +558,8 @@ func _build_settings() -> void:
 	mm_opt.selected = 0 if Stats.show_minimap else 1
 	mm_opt.add_theme_font_size_override("font_size", 17)
 	mm_opt.add_theme_stylebox_override("normal", qsb)
+	mm_opt.add_theme_stylebox_override("hover", qsb_h)
+	mm_opt.add_theme_stylebox_override("pressed", qsb_p)
 	mm_opt.item_selected.connect(func(ix: int) -> void:
 		Stats.show_minimap = ix == 0
 		Stats.save_game()
@@ -557,6 +577,8 @@ func _build_settings() -> void:
 	hp_opt.selected = 0 if Stats.haptics else 1
 	hp_opt.add_theme_font_size_override("font_size", 17)
 	hp_opt.add_theme_stylebox_override("normal", qsb)
+	hp_opt.add_theme_stylebox_override("hover", qsb_h)
+	hp_opt.add_theme_stylebox_override("pressed", qsb_p)
 	hp_opt.item_selected.connect(func(ix: int) -> void:
 		Stats.haptics = ix == 0
 		Stats.save_game()
