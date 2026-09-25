@@ -16015,6 +16015,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE SACRAMENTARY — the tide sacramentary-rite quickens and sharpens you (+6% speed, +4% ATK)... and bares you for the quickening (−3% dodge)"},
 		{"text": "STORM SACRAMENTARY — the storm sacramentary-rite sharpens and empowers you (+5% ATK, +6% crit)... and bares you for the empowering (−4% dodge)"},
 		{"text": "KEEL SACRAMENTARY — the keel sacramentary-rite fills and plates you (+6% souls, +3 armor)... and slows your step for the plating (−4% dodge)"},
+		{"text": "HULL SACRAMENTARY — the hull sacramentary-rite bulks and guards you (+6% max HP, +4% dodge)... and slows your step for the bulking (−3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -28257,6 +28258,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL SACRAMENTARY"
 		2443:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL SACRAMENTARY"
+		2444:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -30758,6 +30764,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE SACRAMENTARY": "The tide sacramentary-rite quickens and sharpens you, Kael — it bares you for the quickening.",
 	"STORM SACRAMENTARY": "The storm sacramentary-rite sharpens and empowers you, Kael — it bares you for the empowering.",
 	"KEEL SACRAMENTARY": "The keel sacramentary-rite fills and plates you, Kael — it slows your step for the plating.",
+	"HULL SACRAMENTARY": "The hull sacramentary-rite bulks and guards you, Kael — it slows your step for the bulking.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
