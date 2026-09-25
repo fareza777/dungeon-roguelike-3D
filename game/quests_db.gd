@@ -247,6 +247,7 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Pass the Audit", "desc": "Endure 2 Pale Audit tides (0/2)", "kind": "paleaudit", "need": 2})
 		steps.append({"title": "Take the Mending", "desc": "Endure 2 Grey Mend tides (0/2)", "kind": "greymend", "need": 2})
 		steps.append({"title": "Count the Fog", "desc": "Endure 2 Fog Tally tides (0/2)", "kind": "fogtally", "need": 2})
+		steps.append({"title": "Keep Drowned Time", "desc": "Endure 2 Grey Clock tides (0/2)", "kind": "greyclock", "need": 2})
 		steps.append({"title": "Fire the Auditor", "desc": "Slay 2 Grey Clerks (0/2)", "kind": "gclerk_kill", "need": 2})
 		steps.append({"title": "Refuse Service", "desc": "Slay 2 Salt Bailiffs (0/2)", "kind": "sbailiff_kill", "need": 2})
 		steps.append({"title": "End the Procession", "desc": "Silence 3 Deep Vergers (0/3)", "kind": "dverger_kill", "need": 3})
