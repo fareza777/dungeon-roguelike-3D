@@ -16379,6 +16379,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE ORDINALE — the tide ordinale-rite quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM ORDINALE — the storm ordinale-rite sharpens and empowers your arm... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL ORDINALE — the keel ordinale-rite fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
+		{"text": "HULL ORDINALE — the hull ordinale-rite bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -28925,6 +28926,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL ORDINALE"
 		2503:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL ORDINALE"
+		2504:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -31494,6 +31500,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE ORDINALE": "The tide ordinale-rite quickens your step in its measure, Kael — swifter, at a cost.",
 	"STORM ORDINALE": "The storm ordinale-rite crackles through your arm, Kael — deadlier, at a cost.",
 	"KEEL ORDINALE": "The keel ordinale-rite plates its rules across your ribs, Kael — richer and harder, at a cost.",
+	"HULL ORDINALE": "The hull ordinale-rite fastens iron ribs to your frame, Kael — sturdier, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
