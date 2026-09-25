@@ -12210,6 +12210,7 @@ func _offer_omens() -> void:
 		{"text": "BOTTOM CLAUSE — the deepest clause fills and guards you (+7% souls, +4% dodge)... and weakens your arm for the filling (−3% ATK)"},
 		{"text": "GRIM CLAUSE — the grim clause arms, guards and plates you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the plating (−4% speed)"},
 		{"text": "FOG CLAUSE — the misted clause cloaks and fills you (+7% dodge, +4% souls)... and weakens your arm for the cloaking (−4% ATK)"},
+		{"text": "WAKE CLAUSE — the trailing clause speeds and fills you (+6% speed, +4% souls)... and shifts your guard for the speeding (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -15890,6 +15891,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "FOG CLAUSE"
 		753:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "WAKE CLAUSE"
+		754:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -16698,6 +16704,7 @@ func _omen_deal(idx: int) -> void:
 	"BOTTOM CLAUSE": "The deepest clause fills and guards you, Kael — it weakens your arm for the filling.",
 	"GRIM CLAUSE": "The grim clause arms, guards and plates you, Kael — it slows your step for the plating.",
 	"FOG CLAUSE": "The misted clause cloaks and fills you, Kael — it weakens your arm for the cloaking.",
+	"WAKE CLAUSE": "The trailing clause speeds and fills you, Kael — it shifts your guard for the speeding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
