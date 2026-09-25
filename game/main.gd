@@ -11593,6 +11593,7 @@ func _offer_omens() -> void:
 		{"text": "FOG WRIT — the mist's writ veils your going (+5% dodge, +4% speed)... and veils your striking hand (−4% ATK)"},
 		{"text": "WAKE WRIT — the wake's writ speeds your hands to the record (+5% attack speed, +5% souls)... and leaves your guard open (−3% dodge)"},
 		{"text": "DEEP WRIT — the trench's writ instructs and pays you (+6% XP, +4% souls)... and presses off your plate (−2 armor)"},
+		{"text": "BILGE WRIT — the hold's writ pays you in dripping salt (+8% souls)... and drowns your striking arm (−3% attack speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12889,6 +12890,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_armor -= 2
 			oname = "DEEP WRIT"
 		283:
+			Stats.soul_gain_pct += 0.08
+			Stats.buff_aspd -= 0.03
+			oname = "BILGE WRIT"
+		284:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13223,6 +13228,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG WRIT": "The mist's writ veils your going, Kael — it veils your striking hand in the same paper.",
 	"WAKE WRIT": "The wake's writ speeds your hands to the record, Kael — it leaves your guard open to do it.",
 	"DEEP WRIT": "The trench's writ instructs and pays you, Kael — it presses off your plate for the tuition.",
+	"BILGE WRIT": "The hold's writ pays you in dripping salt, Kael — it drowns your arm for the payment.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
