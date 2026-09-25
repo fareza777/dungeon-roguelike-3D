@@ -18466,6 +18466,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Lauda: The bilge lauda-verse fills and teaches you, Kael.")
+		1914:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Lauda: The crest lauda-verse guards and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -22134,6 +22138,7 @@ func _offer_omens() -> void:
 		{"text": "FOG HYMNOLOGION — the fog hymnologion-book shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE HYMNOLOGION — the wake hymnologion-book quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE HYMNOLOGION — the bilge hymnologion-book fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
+		{"text": "CREST HYMNOLOGION — the crest hymnologion-book guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -40416,6 +40421,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE HYMNOLOGION"
 		3635:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST HYMNOLOGION"
+		3636:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -44121,6 +44131,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG HYMNOLOGION": "The fog hymnologion-book rolls its hymnologia over your eyes, Kael — shrouded and richer, at a cost.",
 	"WAKE HYMNOLOGION": "The wake hymnologion-book streams its hymnologia behind you, Kael — quicker and richer, at a cost.",
 	"BILGE HYMNOLOGION": "The bilge hymnologion-book soaks its hymnologia in your skull, Kael — richer and wiser, at a cost.",
+	"CREST HYMNOLOGION": "The crest hymnologion-book lifts its hymnologia to your brow, Kael — guarded and sharpened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -51196,6 +51207,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Lauda — the fog lauda-verse shrouds and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Lauda — the wake lauda-verse quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Lauda — the bilge lauda-verse fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Lauda — the crest lauda-verse guards and sharpens you (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
