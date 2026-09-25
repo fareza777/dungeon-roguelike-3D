@@ -11640,6 +11640,7 @@ func _offer_omens() -> void:
 		{"text": "HULL EDICT — the ship's decree plates you broad and deep (+8% HP, +2 armor)... and loads your step for the plating (−4% speed)"},
 		{"text": "CREST EDICT — the breaker decree's lifts your guard and arm (+5% dodge, +5% ATK)... and sheds your plate for the lifting (−2 armor)"},
 		{"text": "FINAL EDICT — the last decree of the drowned court covers everything (+6% ATK, +4% XP, +3% souls)... and your guard signs for all of it (−4% dodge)"},
+		{"text": "DEEP VERDICT — the trench's ruling arms and plates you (+7% ATK, +2 armor)... and fines your purse for the ruling (−4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13020,6 +13021,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "FINAL EDICT"
 		300:
+			Stats.buff_atk_pct += 0.07
+			Stats.buff_armor += 2
+			Stats.soul_gain_pct -= 0.04
+			oname = "DEEP VERDICT"
+		301:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13373,6 +13379,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL EDICT": "The ship's decree plates you broad and deep, Kael — it loads your step for the plating.",
 	"CREST EDICT": "The breaker's decree lifts your guard and arm, Kael — it sheds your plate for the lifting.",
 	"FINAL EDICT": "The last decree of the drowned court covers everything, Kael — your guard signs for all of it.",
+	"DEEP VERDICT": "The trench's ruling arms and plates you, Kael — it fines your purse for the ruling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
