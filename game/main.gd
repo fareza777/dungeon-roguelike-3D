@@ -901,6 +901,7 @@ const BESTIARY := {
 	"deep_verger": ["Deep Verger", "He carries the deep church's wand — his processions end in drownings."],
 	"salt_carrier": ["Salt Carrier", "A beast of soul-burden — it skims the toll and drops what it cannot carry."],
 	"grey_clerk": ["Grey Clerk", "He audits your purse mid-fight — his strikes skim souls like a counting-house."],
+	"salt_bailiff": ["Salt Bailiff", "The court's enforcer — slow, broad, and every blow lands like a served writ."],
 	"keel_summoner": ["Keel Summoner", "It tolls the wreck's muster bell — each note drags more dead crew from the bilge."],
 	"gunnel_fiend": ["Gunnel Fiend", "It claws along the rail faster than it walks — when it coils, it's already midair."],
 	"pale_lantern": ["Pale Lantern", "A wick of drowned light walking a dead sailor's frame — snuff it and every shadow in the room flinches."],
@@ -949,7 +950,7 @@ const KILLER_NAMES := {
 	"bell_ringer": "a Bell Ringer",
 	"moorling": "a Moorling",
 	"keel_mastiff": "a Keel Mastiff",
-	"salt_lich": "a Salt Lich", "bilge_fury": "a Bilge Fury", "siren_thrall": "a Siren Thrall", "pale_lantern": "a Pale Lantern", "gunnel_fiend": "a Gunnel Fiend", "bilge_cantor": "a Bilge Cantor", "tide_bailiff": "a Tide Bailiff", "salt_skimmer": "a Salt Skimmer", "brine_monk": "a Brine Monk", "deck_rigger": "a Deck Rigger", "dread_gull": "a Dread Gull", "gale_singer": "a Gale Singer", "snatch_widow": "a Snatch Widow", "gunnel_gnat": "a Gunnel Gnat", "deck_reverend": "a Deck Reverend", "mast_lurcher": "a Mast Lurcher", "dirge_singer": "a Dirge Singer", "the_boatswain": "the Boatswain", "gloom_lantern": "a Gloom Lantern", "wick_tender": "a Wick Tender", "sodden_deckhand": "a Sodden Deckhand", "brine_widow": "a Brine Widow", "keelwright": "a Keelwright", "bilge_tender": "a Bilge Tender", "keel_sapper": "a Keel Sapper", "keel_chorister": "a Keel Chorister", "pitch_tender": "a Pitch Tender", "keel_wraith": "a Keel Wraith", "brood_keel": "a Brood Keel", "brine_hag": "a Brine Hag", "salt_devout": "a Salt Devout", "jeerjack": "a Jeerjack", "salt_gallows": "a Salt Gallows", "soul_toller": "a Soul Toller", "keel_scribe": "a Keel Scribe", "salt_widow": "a Salt Widow", "keel_leecher": "a Keel Leecher", "keel_summoner": "a Keel Summoner", "rust_leech": "a Rust Leech", "pale_tither": "a Pale Tither", "mistral_imp": "a Mistral Imp", "bilge_prior": "a Bilge Prior", "pallbearer": "a Pallbearer", "keel_sexton": "a Keel Sexton", "chain_warden": "a Chain Warden", "salt_curate": "a Salt Curate", "keel_verger": "a Keel Verger", "deep_chaplain": "a Deep Chaplain", "grey_sexton": "a Grey Sexton", "deep_widow": "a Deep Widow", "pale_ferryman": "a Pale Ferryman", "keel_widow": "a Keel Widow", "deep_verger": "a Deep Verger", "salt_carrier": "a Salt Carrier", "grey_clerk": "a Grey Clerk",
+	"salt_lich": "a Salt Lich", "bilge_fury": "a Bilge Fury", "siren_thrall": "a Siren Thrall", "pale_lantern": "a Pale Lantern", "gunnel_fiend": "a Gunnel Fiend", "bilge_cantor": "a Bilge Cantor", "tide_bailiff": "a Tide Bailiff", "salt_skimmer": "a Salt Skimmer", "brine_monk": "a Brine Monk", "deck_rigger": "a Deck Rigger", "dread_gull": "a Dread Gull", "gale_singer": "a Gale Singer", "snatch_widow": "a Snatch Widow", "gunnel_gnat": "a Gunnel Gnat", "deck_reverend": "a Deck Reverend", "mast_lurcher": "a Mast Lurcher", "dirge_singer": "a Dirge Singer", "the_boatswain": "the Boatswain", "gloom_lantern": "a Gloom Lantern", "wick_tender": "a Wick Tender", "sodden_deckhand": "a Sodden Deckhand", "brine_widow": "a Brine Widow", "keelwright": "a Keelwright", "bilge_tender": "a Bilge Tender", "keel_sapper": "a Keel Sapper", "keel_chorister": "a Keel Chorister", "pitch_tender": "a Pitch Tender", "keel_wraith": "a Keel Wraith", "brood_keel": "a Brood Keel", "brine_hag": "a Brine Hag", "salt_devout": "a Salt Devout", "jeerjack": "a Jeerjack", "salt_gallows": "a Salt Gallows", "soul_toller": "a Soul Toller", "keel_scribe": "a Keel Scribe", "salt_widow": "a Salt Widow", "keel_leecher": "a Keel Leecher", "keel_summoner": "a Keel Summoner", "rust_leech": "a Rust Leech", "pale_tither": "a Pale Tither", "mistral_imp": "a Mistral Imp", "bilge_prior": "a Bilge Prior", "pallbearer": "a Pallbearer", "keel_sexton": "a Keel Sexton", "chain_warden": "a Chain Warden", "salt_curate": "a Salt Curate", "keel_verger": "a Keel Verger", "deep_chaplain": "a Deep Chaplain", "grey_sexton": "a Grey Sexton", "deep_widow": "a Deep Widow", "pale_ferryman": "a Pale Ferryman", "keel_widow": "a Keel Widow", "deep_verger": "a Deep Verger", "salt_carrier": "a Salt Carrier", "grey_clerk": "a Grey Clerk", "salt_bailiff": "a Salt Bailiff",
 	"deck_brute": "a Deck Brute",
 	"salt_eel": "a Salt Eel",
 	"quarter_ghost": "a Quarter Ghost",
@@ -1081,6 +1082,7 @@ const KILLER_TIPS := {
 	"deep_verger": "Tip: the Verger's wand wakes every mourner in the room — put him down before the procession forms.",
 	"salt_carrier": "Tip: the Carrier's pack bursts with souls on death — kill it last and collect.",
 	"grey_clerk": "Tip: the Clerk's quill takes from your purse — put him down before the audit ends.",
+	"salt_bailiff": "Tip: the Bailiff serves every writ with his whole arm — step wide when he winds up.",
 	"keel_summoner": "Tip: the Keel Summoner raises the bilge crew faster than you can cut them — silence the bell first.",
 	"salt_lich": "Tip: Salt Liches telegraph a long windup — close the gap fast or weave between bolts.",
 	"deck_brute": "Tip: Deck Brutes barely feel knockback — break their windup with a stun, or never be there when it lands.",
@@ -4170,6 +4172,7 @@ const FIRST_SEEN := {
 	"deep_verger": "A Deep Verger lifts his drowned wand — the congregation stirs to follow.",
 	"salt_carrier": "A Salt Carrier lumbers in — its pack sloshes with souls it cannot hold.",
 	"grey_clerk": "A Grey Clerk shuffles up, ledger open — your purse is his next column.",
+	"salt_bailiff": "A Salt Bailiff shoulders through — writ in one fist, truncheon in the other.",
 	"keel_summoner": "A Keel Summoner sounds the muster — it will not stop until the bell is drowned.",
 	"brine_monk": "A Brine Monk bows its head — its open palm saps the strength from your arm.",
 	"deck_rigger": "A Deck Rigger unfurls its line — its hook bites from farther than you think.",
@@ -6133,6 +6136,8 @@ func _on_enemy_died(e) -> void:
 		_quest_event("scarrier_kill")
 	if e.arch_id == "grey_clerk":
 		_quest_event("gclerk_kill")
+	if e.arch_id == "salt_bailiff":
+		_quest_event("sbailiff_kill")
 	if e.arch_id == "keel_scribe":
 		_quest_event("scribe_kill")
 	if e.arch_id == "soul_toller":
