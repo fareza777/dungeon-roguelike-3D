@@ -12200,6 +12200,7 @@ func _offer_omens() -> void:
 		{"text": "CREST VOLUME — the breaking volume guards and arms you (+5% dodge, +5% ATK)... and drains your purse for the guarding (−4% souls)"},
 		{"text": "SALT VOLUME — the brine volume fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "DEEP CLAUSE — the drowned clause arms and veils you (+7% ATK, +3% dodge)... and skims your purse for the wording (−3% souls)"},
+		{"text": "PALE CLAUSE — the white clause veils and fills you (+6% dodge, +5% souls)... and weakens your arm for the veiling (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -15829,6 +15830,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "DEEP CLAUSE"
 		743:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE CLAUSE"
+		744:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -16627,6 +16633,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST VOLUME": "The breaking volume guards and arms you, Kael — it drains your purse for the guarding.",
 	"SALT VOLUME": "The brine volume fills and teaches you, Kael — it shifts your guard for the filling.",
 	"DEEP CLAUSE": "The drowned clause arms and veils you, Kael — it skims your purse for the wording.",
+	"PALE CLAUSE": "The white clause veils and fills you, Kael — it weakens your arm for the veiling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
