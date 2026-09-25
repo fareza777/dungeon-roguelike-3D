@@ -9,12 +9,12 @@ signal choice_made(index)
 
 const PORTRAITS := "res://assets/ui/"
 const CHARACTERS := {
-	"kael": {"name": "KAEL", "portrait": "portrait_kael.png", "color": Color(1.0, 0.85, 0.45)},
-	"oracle": {"name": "THE ORACLE", "portrait": "portrait_oracle.png", "color": Color(0.55, 1.0, 0.75)},
-	"raja": {"name": "BONE KING", "portrait": "portrait_raja.png", "color": Color(1.0, 0.45, 0.4)},
-	"mahzan": {"name": "MAHZAN, SPIRIT MERCHANT", "portrait": "portrait_vendor.png", "color": Color(0.75, 0.85, 1.0)},
-	"knight": {"name": "SIR VANE, THE UNMADE", "portrait": "portrait_vane.png", "color": Color(0.55, 0.8, 1.0)},
-	"narator": {"name": "", "portrait": "", "color": Color(1, 1, 1, 0.6)},
+	"kael": {"name": "KAEL", "portrait": "portrait_kael.png", "color": Color(1.0, 0.85, 0.45), "pitch": 1.0},
+	"oracle": {"name": "THE ORACLE", "portrait": "portrait_oracle.png", "color": Color(0.55, 1.0, 0.75), "pitch": 0.78},
+	"raja": {"name": "BONE KING", "portrait": "portrait_raja.png", "color": Color(1.0, 0.45, 0.4), "pitch": 0.6},
+	"mahzan": {"name": "MAHZAN, SPIRIT MERCHANT", "portrait": "portrait_vendor.png", "color": Color(0.75, 0.85, 1.0), "pitch": 1.28},
+	"knight": {"name": "SIR VANE, THE UNMADE", "portrait": "portrait_vane.png", "color": Color(0.55, 0.8, 1.0), "pitch": 0.88},
+	"narator": {"name": "", "portrait": "", "color": Color(1, 1, 1, 0.6), "pitch": 1.05},
 }
 
 var _lines: Array = []
@@ -29,6 +29,7 @@ var _name_l: Label
 var _psb: StyleBoxFlat = null
 var _accent: ColorRect = null
 var _last_who := ""
+var _voice_pitch := 1.0
 var _text_l: RichTextLabel
 var _hint: Label
 var _choice_box: VBoxContainer
@@ -166,6 +167,7 @@ func _show(i: int) -> void:
 	var l: Dictionary = _lines[i]
 	var who: String = l.get("who", "narator")
 	var ch: Dictionary = CHARACTERS.get(who, CHARACTERS["narator"])
+	_voice_pitch = float(ch.get("pitch", 1.0))
 	_name_l.text = String(ch["name"])
 	_name_l.modulate = ch["color"]
 	if _psb:
@@ -214,7 +216,7 @@ func _show(i: int) -> void:
 func _type_step(n: int, full: String) -> void:
 	_text_l.text = full.substr(0, n)
 	if n % 6 == 0 and n > 0:
-		Sfx.play("click")
+		Sfx.play("click", _voice_pitch * randf_range(0.9, 1.1))
 
 
 func _after_typed() -> void:
