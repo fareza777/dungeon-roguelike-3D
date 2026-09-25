@@ -11286,6 +11286,7 @@ func _offer_omens() -> void:
 		{"text": "SALT EDICT — the white court's decree crystallizes around you (+2 armor, +5% souls)... its weight slows your step (−5% dodge)"},
 		{"text": "GREY DECREE — the clerk's highest writ is a history lesson (+6% XP)... its seal-stamp dents your plate (−1 armor)"},
 		{"text": "DEEP DOCKET — the trench's case-list runs long (+5% ATK, +3% XP)... hearings take hours (−5% speed)"},
+		{"text": "GREY CENSUS — the clerk counts your souls and finds them taxable (+6% souls)... the recount muddles memory (−3% XP)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12322,6 +12323,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.05
 			oname = "DEEP DOCKET"
 		228:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct -= 0.03
+			oname = "GREY CENSUS"
+		229:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12599,6 +12604,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT EDICT": "Salt-law keeps what it names, Kael — you walk out armored, and you walk out slower.",
 	"GREY DECREE": "The clerk's highest writs are all history lessons, Kael — mostly the history of drownings.",
 	"DEEP DOCKET": "The trench's docket never empties, Kael — it just files the drowned under 'heard'.",
+	"GREY CENSUS": "The clerk counts everyone twice, Kael — once to know them, once to tax them.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
