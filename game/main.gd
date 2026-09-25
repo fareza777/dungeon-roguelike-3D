@@ -21914,6 +21914,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_xp_pct += 0.04
 			toast("Salt Alemana: The salt alemana-turn fills and teaches you, Kael.")
+		2756:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.03
+			toast("Deep Paduana: The deep paduana-step sharpens and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -26424,6 +26428,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE SAKKELION — the bilge sakkelion-pouch fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 		{"text": "CREST SAKKELION — the crest sakkelion-pouch guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT SAKKELION — the salt sakkelion-pouch fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
+		{"text": "DEEP ENCOLPION — the deep encolpion-medal sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -48972,6 +48977,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT SAKKELION"
 		4477:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP ENCOLPION"
+		4478:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -53519,6 +53529,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE SAKKELION": "The bilge sakkelion-pouch opens its sakkelia in your hold, Kael — richer and wiser, at a cost.",
 	"CREST SAKKELION": "The crest sakkelion-pouch opens its sakkelia on your crest, Kael — guarded and keen, at a cost.",
 	"SALT SAKKELION": "The salt sakkelion-pouch opens its sakkelia over your salt, Kael — richer and wiser, at a cost.",
+	"DEEP ENCOLPION": "The deep encolpion-medal hangs its encolpia over your blade, Kael — keen and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -61436,6 +61447,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bilge Alemana — the bilge alemana-turn fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Alemana — the crest alemana-turn guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Alemana — the salt alemana-turn fills and teaches you (+6% souls, +4% XP)"},
+		{"text": "Deep Paduana — the deep paduana-step sharpens and guards you (+5% ATK, +3% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
