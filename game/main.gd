@@ -12518,6 +12518,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_armor += 3
 			toast("Keel Matins: the keel night-office — +6% souls, +3 armor this run")
+		482:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			toast("Hull Matins: the plank night-office — +6% max HP, +4% dodge this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -33212,6 +33216,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Tide Matins — the tide night-office: +6% speed, +4% ATK this run"},
 		{"text": "Storm Matins — the storm night-office: +5% ATK, +6% crit this run"},
 		{"text": "Keel Matins — the keel night-office: +6% souls, +3 armor this run"},
+		{"text": "Hull Matins — the plank night-office: +6% max HP, +4% dodge this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
