@@ -12800,6 +12800,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP LIBER — the deepest book-of-books honors your arm and guard (+7% ATK, +3% dodge)... and empties your purse for the honor (−3% souls)"},
 		{"text": "PALE LIBER — the white book-of-books veils and fills you (+6% dodge, +5% souls)... and weakens your arm for the veiling (−4% ATK)"},
 		{"text": "GREY LIBER — the ashen book-of-books guards and teaches you (+5% dodge, +5% XP)... and weakens your arm for the teaching (−4% ATK)"},
+		{"text": "TIDE LIBER — the flowing book-of-books speeds and arms you (+6% speed, +4% ATK)... and shifts your guard for the speeding (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -18947,6 +18948,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY LIBER"
 		1240:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE LIBER"
+		1241:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -20245,6 +20251,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP LIBER": "The deepest book-of-books honors your arm and guard, Kael — it empties your purse for the honor.",
 	"PALE LIBER": "The white book-of-books veils and fills you, Kael — it weakens your arm for the veiling.",
 	"GREY LIBER": "The ashen book-of-books guards and teaches you, Kael — it weakens your arm for the teaching.",
+	"TIDE LIBER": "The flowing book-of-books speeds and arms you, Kael — it shifts your guard for the speeding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
