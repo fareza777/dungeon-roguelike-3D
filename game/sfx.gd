@@ -55,6 +55,8 @@ const MUSIC := MUSIC_BANK["dungeon"] # kompat lama
 
 var pool: Array = []
 var music_player: AudioStreamPlayer
+var music_player_b: AudioStreamPlayer
+var music_active: AudioStreamPlayer
 var volume := 0.8 # legacy getter lama — jangan dipakai lagi
 var last_played := ""
 var current_track := ""
@@ -68,6 +70,9 @@ func _ready() -> void:
 		pool.append(p)
 	music_player = AudioStreamPlayer.new()
 	add_child(music_player)
+	music_player_b = AudioStreamPlayer.new()
+	add_child(music_player_b)
+	music_active = music_player
 
 
 func play(n: String, pitch := 1.0) -> void:
@@ -97,19 +102,33 @@ func play_music(track := "dungeon") -> void:
 	var path: String = MUSIC_BANK.get(track, MUSIC)
 	if not ResourceLoader.exists(path):
 		return
-	if music_player.playing and current_track == track:
+	if music_active != null and music_active.playing and current_track == track:
 		return
 	current_track = track
-	music_player.stream = load(path)
-	if music_player.stream != null and music_player.stream is AudioStreamMP3:
-		music_player.stream.loop = true
-	music_player.volume_db = linear_to_db(maxf(Stats.mus_vol() * 0.75, 0.001))
-	music_player.play()
+	var nxt: AudioStreamPlayer = music_player_b if music_active == music_player else music_player
+	var old: AudioStreamPlayer = music_active
+	nxt.stream = load(path)
+	if nxt.stream != null and nxt.stream is AudioStreamMP3:
+		nxt.stream.loop = true
+	nxt.volume_db = -60.0
+	nxt.play()
+	var vt: float = linear_to_db(maxf(Stats.mus_vol() * 0.75, 0.001))
+	_mus_tw = nxt.create_tween()
+	_mus_tw.tween_property(nxt, "volume_db", vt, 1.2)
+	if old != null and old.playing:
+		var otw: Tween = old.create_tween()
+		otw.tween_property(old, "volume_db", -60.0, 1.0)
+		otw.tween_callback(old.stop)
+	music_active = nxt
 
 
 func stop_music() -> void:
-	music_player.stop()
+	if music_active != null and music_active.playing:
+		var stw: Tween = music_active.create_tween()
+		stw.tween_property(music_active, "volume_db", -60.0, 0.6)
+		stw.tween_callback(music_active.stop)
 	current_track = ""
+	music_active = music_player
 
 
 func set_volume(v: float) -> void:
@@ -120,5 +139,5 @@ func set_volume(v: float) -> void:
 
 
 func set_music_volume(v: float) -> void:
-	if music_player.playing:
-		music_player.volume_db = linear_to_db(maxf(v * 0.75, 0.001))
+	if music_active != null and music_active.playing:
+		music_active.volume_db = linear_to_db(maxf(v * 0.75, 0.001))
