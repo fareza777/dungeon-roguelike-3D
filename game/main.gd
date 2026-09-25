@@ -11671,6 +11671,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL DECREE — the hull's command arms and pays you (+5% ATK, +5% souls)... and loosens your guard for the paying (−3% dodge)"},
 		{"text": "PALE DECREE — the white count's command veils and pays you (+6% dodge, +4% souls)... and weakens your arm for the veiling (−4% ATK)"},
 		{"text": "FOG DECREE — the mist's command veils your guard and step (+6% dodge, +4% speed)... and mists your purse (−4% souls)"},
+		{"text": "WAKE DECREE — the wake's command speeds your hands and teaches (+6% attack speed, +4% XP)... and thins your purse (−4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13135,6 +13136,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.04
 			oname = "FOG DECREE"
 		317:
+			Stats.buff_aspd += 0.06
+			Stats.buff_xp_pct += 0.04
+			Stats.soul_gain_pct -= 0.04
+			oname = "WAKE DECREE"
+		318:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13505,6 +13511,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL DECREE": "The hull's command arms and pays you, Kael — it loosens your guard for the paying.",
 	"PALE DECREE": "The white count's command veils and pays you, Kael — it weakens your arm for the veiling.",
 	"FOG DECREE": "The mist's command veils your guard and step, Kael — it mists your purse in the same vapor.",
+	"WAKE DECREE": "The wake's command speeds your hands and teaches, Kael — it thins your purse for the tuition.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
