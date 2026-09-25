@@ -13506,6 +13506,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Chaconne: The trench chaconne-ground sharpens and hastens you, Kael.")
+		709:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Chaconne: The bottom chaconne-ground fills and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -36547,6 +36551,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Chaconne — the keel chaconne-ground fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Chaconne — the hull chaconne-ground bulks and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Chaconne — the trench chaconne-ground sharpens and hastens you (+5% ATK, +4% attack speed)"},
+		{"text": "Bottom Chaconne — the bottom chaconne-ground fills and guards you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
