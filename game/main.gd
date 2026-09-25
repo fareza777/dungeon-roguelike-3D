@@ -14820,6 +14820,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL APOSTICHA — the keel apostichon-verse fills and plates you (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
 		{"text": "HULL APOSTICHA — the hull apostichon-verse bulks and guards you (+6% Max HP, +4% dodge)... and slows your step for the bulk (−3% speed)"},
 		{"text": "TRENCH APOSTICHA — the trench apostichon-verse sharpens and hastens you (+5% ATK, +4% attack speed)... and shifts your guard for the haste (−4% dodge)"},
+		{"text": "BOTTOM APOSTICHA — the bottom apostichon-verse fills and guards you (+7% souls, +4% dodge)... and dulls your edge for the filling (−3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -25704,6 +25705,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH APOSTICHA"
 		2175:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM APOSTICHA"
+		2176:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -27937,6 +27943,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL APOSTICHA": "The keel apostichon-verse fills and plates you, Kael — it shifts your guard for the plating.",
 	"HULL APOSTICHA": "The hull apostichon-verse bulks and guards you, Kael — it slows your step for the bulk.",
 	"TRENCH APOSTICHA": "The trench apostichon-verse sharpens and hastens you, Kael — it shifts your guard for the haste.",
+	"BOTTOM APOSTICHA": "The bottom apostichon-verse fills and guards you, Kael — it dulls your edge for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
