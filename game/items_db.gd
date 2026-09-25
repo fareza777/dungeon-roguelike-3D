@@ -231,6 +231,7 @@ const DB := {
 	"clerks_abacus": {"name": "Clerk's Abacus", "chip": "AX", "desc": "the grey clerk's counting frame — +4% souls, +4% XP", "rarity": 2, "mods": {"soul_gain_pct": 0.04, "xp_pct": 0.04}},
 	"reckoners_slate": {"name": "Reckoner's Slate", "chip": "RE", "desc": "the white count's writing stone — +3% ATK, +4% XP", "rarity": 2, "mods": {"atk_pct": 0.03, "xp_pct": 0.04}},
 	"auditors_lens": {"name": "Auditor's Lens", "chip": "AU", "desc": "the field auditor's seeing-glass — +4% crit, +3% dodge", "rarity": 2, "mods": {"crit": 0.04, "dodge": 0.03}},
+	"audit_crown": {"name": "Audit Crown", "chip": "AC", "desc": "the grey count's weighing diadem — +8% souls, −2 armor (the weighed give back)", "rarity": 2, "mods": {"soul_gain_pct": 0.08, "armor": -2}},
 # ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
