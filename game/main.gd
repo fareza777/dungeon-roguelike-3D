@@ -11763,6 +11763,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH ORDINANCE — the rift's standing law arms and drives you (+7% ATK, +3% speed)... and leaves your guard for the driving (−3% dodge)"},
 		{"text": "BOTTOM ORDINANCE — the floor's standing law fills and veils you (+7% souls, +4% dodge)... and weakens your arm for the filling (−3% ATK)"},
 		{"text": "GRIM ORDINANCE — the hard standing law covers arm, guard, and plate (+5% ATK, +4% dodge, +2 armor)... and settles on your step (−4% speed)"},
+		{"text": "FOG ORDINANCE — the mist's standing law veils and pays you (+7% dodge, +4% souls)... and weakens your arm for the veiling (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13605,6 +13606,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM ORDINANCE"
 		392:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG ORDINANCE"
+		393:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -14050,6 +14056,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH ORDINANCE": "The rift's standing law arms and drives you, Kael — it leaves your guard for the driving.",
 	"BOTTOM ORDINANCE": "The floor's standing law fills and veils you, Kael — it weakens your arm for the filling.",
 	"GRIM ORDINANCE": "The hard standing law covers arm, guard, and plate, Kael — it settles on your step for the covering.",
+	"FOG ORDINANCE": "The mist's standing law veils and pays you, Kael — it weakens your arm for the veiling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
