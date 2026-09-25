@@ -17693,6 +17693,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Grey Passemezzo: The grey passemezzo-verse guards and teaches you, Kael.")
+		1724:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			toast("Tide Passemezzo: The tide passemezzo-verse quickens and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -21171,6 +21175,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP MELODOS — the deep melodos-book sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 		{"text": "PALE MELODOS — the pale melodos-book guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY MELODOS — the grey melodos-book guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
+		{"text": "TIDE MELODOS — the tide melodos-book quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -38490,6 +38495,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY MELODOS"
 		3445:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE MELODOS"
+		3446:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -42005,6 +42015,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP MELODOS": "The deep melodos-book opens its melodois in the deep, Kael — sharpened and guarded, at a cost.",
 	"PALE MELODOS": "The pale melodos-book pales its melodois over your form, Kael — guarded and richer, at a cost.",
 	"GREY MELODOS": "The grey melodos-book greys its melodois into your lessons, Kael — guarded and taught, at a cost.",
+	"TIDE MELODOS": "The tide melodos-book speeds its melodois into your stride, Kael — quickened and sharpened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -48890,6 +48901,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Deep Passemezzo — the deep passemezzo-verse sharpens and guards you (+5% ATK, +3% dodge)"},
 		{"text": "Pale Passemezzo — the pale passemezzo-verse guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Passemezzo — the grey passemezzo-verse guards and teaches you (+5% dodge, +5% XP)"},
+		{"text": "Tide Passemezzo — the tide passemezzo-verse quickens and sharpens you (+6% speed, +4% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
