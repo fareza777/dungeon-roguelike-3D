@@ -19043,6 +19043,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Roegarza: The storm roegarza-verse sharpens and strikes you, Kael.")
+		2056:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Roegarza: The keel roegarza-verse fills and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -22853,6 +22857,7 @@ func _offer_omens() -> void:
 		{"text": "GREY PASCHALIA — the grey paschalia-book guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE PASCHALIA — the tide paschalia-book quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM PASCHALIA — the storm paschalia-book sharpens and strikes you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
+		{"text": "KEEL PASCHALIA — the keel paschalia-book fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -41854,6 +41859,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM PASCHALIA"
 		3777:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL PASCHALIA"
+		3778:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -45701,6 +45711,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY PASCHALIA": "The grey paschalia-book clasps its paschaliae on your shoulders, Kael — guarded and wiser, at a cost.",
 	"TIDE PASCHALIA": "The tide paschalia-book washes its paschaliae over your feet, Kael — quicker and sharper, at a cost.",
 	"STORM PASCHALIA": "The storm paschalia-book cracks its paschaliae like thunder, Kael — sharper and striking, at a cost.",
+	"KEEL PASCHALIA": "The keel paschalia-book bolts its paschaliae to your ribs, Kael — richer and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -52918,6 +52929,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Roegarza — the grey roegarza-verse guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Roegarza — the tide roegarza-verse quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Roegarza — the storm roegarza-verse sharpens and strikes you (+5% ATK, +6% crit)"},
+		{"text": "Keel Roegarza — the keel roegarza-verse fills and plates you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
