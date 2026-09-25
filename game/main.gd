@@ -13306,6 +13306,7 @@ func _offer_omens() -> void:
 		{"text": "FOG MATIN — the misted morning-song veils and fills you (+7% dodge, +4% souls)... and weakens your arm for the veiling (−4% ATK)"},
 		{"text": "WAKE MATIN — the trailing morning-song speeds you and fills you (+6% speed, +4% souls)... and shifts your guard for the speeding (−3% dodge)"},
 		{"text": "BILGE MATIN — the bilgewater morning-song fills and teaches you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
+		{"text": "CREST MATIN — the cresting morning-song guards and arms you (+5% dodge, +5% ATK)... and empties your purse for the arming (−4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -21480,6 +21481,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE MATIN"
 		1640:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST MATIN"
+		1641:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -23178,6 +23184,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG MATIN": "The misted morning-song veils and fills you, Kael — it weakens your arm for the veiling.",
 	"WAKE MATIN": "The trailing morning-song speeds you and fills you, Kael — it shifts your guard for the speeding.",
 	"BILGE MATIN": "The bilgewater morning-song fills and teaches you, Kael — it shifts your guard for the filling.",
+	"CREST MATIN": "The cresting morning-song guards and arms you, Kael — it empties your purse for the arming.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
