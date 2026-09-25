@@ -36332,6 +36332,7 @@ func _build_ui() -> void:
 	pstats.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	pvb.add_child(pstats)
 	ui["pause_stats"] = pstats
+	_pause_section(pvb, "— AUDIO —")
 	_pause_vol_row(pvb, "Music", Stats.mus_vol(), func(v: float) -> void:
 		Stats.music_volume = v
 		Sfx.set_music_volume(v)
@@ -36339,6 +36340,15 @@ func _build_ui() -> void:
 	_pause_vol_row(pvb, "Sound FX", Stats.sfx_vol(), func(v: float) -> void:
 		Stats.sfx_volume = v
 		Stats.save_game())
+	var b_qual := _pause_btn("QUALITY: " + ("LOW" if low_quality else "HIGH"))
+	b_qual.pressed.connect(func() -> void:
+		Stats.quality = 0 if not low_quality else 1
+		_apply_quality()
+		b_qual.text = "QUALITY: " + ("LOW" if low_quality else "HIGH")
+		Stats.save_game()
+		Sfx.play("click"))
+	pvb.add_child(b_qual)
+	_pause_section(pvb, "— RECORDS —")
 	var b_lore := _pause_btn("LORE (%d/%d)" % [Stats.lore_seen.size(), LORE_LINES.size()])
 	b_lore.pressed.connect(func() -> void:
 		Sfx.play("page")
@@ -36349,14 +36359,7 @@ func _build_ui() -> void:
 		Sfx.play("page")
 		_toggle_bestiary())
 	pvb.add_child(b_best)
-	var b_qual := _pause_btn("QUALITY: " + ("LOW" if low_quality else "HIGH"))
-	b_qual.pressed.connect(func() -> void:
-		Stats.quality = 0 if not low_quality else 1
-		_apply_quality()
-		b_qual.text = "QUALITY: " + ("LOW" if low_quality else "HIGH")
-		Stats.save_game()
-		Sfx.play("click"))
-	pvb.add_child(b_qual)
+	_pause_section(pvb, "— RUN —")
 	var b_resume := _pause_btn("RESUME")
 	b_resume.pressed.connect(_toggle_pause)
 	pvb.add_child(b_resume)
@@ -36402,6 +36405,22 @@ func _build_ui() -> void:
 	tip_l.add_theme_constant_override("shadow_offset_x", 1)
 	tip_l.add_theme_constant_override("shadow_offset_y", 2)
 	layer.add_child(tip_l)
+
+
+func _pause_section(vb: VBoxContainer, txt: String) -> void:
+	var cap := Label.new()
+	cap.text = txt
+	cap.add_theme_font_size_override("font_size", 13)
+	cap.modulate = Color(1.0, 0.82, 0.45, 0.7)
+	cap.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	cap.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	vb.add_child(cap)
+	var sep := HSeparator.new()
+	var ssb := StyleBoxFlat.new()
+	ssb.bg_color = Color(1.0, 0.82, 0.45, 0.2)
+	sep.custom_minimum_size = Vector2(0, 1)
+	sep.add_theme_stylebox_override("separator", ssb)
+	vb.add_child(sep)
 
 
 func _pause_vol_row(vb: VBoxContainer, label: String, cur: float, on_change: Callable) -> void:
