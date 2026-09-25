@@ -11340,6 +11340,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_atk_pct += 0.03
 			toast("Salt Litany: the brine count's counting prayer, recited white — +6% souls, +3% ATK this run")
+		217:
+			Stats.soul_gain_pct += 0.06
+			Stats.dodge += 0.03
+			toast("Hull Litany: the planking's counting prayer, recited deep — +6% souls, +3% dodge this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -19119,6 +19123,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Deep Litany — the trench's counting prayer, recited slow: +6% XP, +3% souls this run"},
 			{"text": "Grey Litany — the pale count's counting prayer, recited grey: +5% dodge, +3% XP this run"},
 			{"text": "Salt Litany — the brine count's counting prayer, recited white: +6% souls, +3% ATK this run"},
+			{"text": "Hull Litany — the planking's counting prayer, recited deep: +6% souls, +3% dodge this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
