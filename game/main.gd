@@ -22447,6 +22447,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.07
 			Stats.soul_gain_pct += 0.04
 			toast("Fog Zeibekiko: The fog zeibekiko-step guards and fills you, Kael.")
+		2887:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			toast("Wake Zeibekiko: The wake zeibekiko-step quickens and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -27088,6 +27092,7 @@ func _offer_omens() -> void:
 		{"text": "BOTTOM RIPIDION — the bottom ripidion-fan fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 		{"text": "GRIM RIPIDION — the grim ripidion-fan sharpens, guards and armors you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 		{"text": "FOG RIPIDION — the fog ripidion-fan guards and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
+		{"text": "WAKE RIPIDION — the wake ripidion-fan quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -50300,6 +50305,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "FOG RIPIDION"
 		4608:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "WAKE RIPIDION"
+		4609:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -54978,6 +54988,7 @@ func _omen_deal(idx: int) -> void:
 	"BOTTOM RIPIDION": "The bottom ripidion-fan waves its ripidia at your bottom, Kael — filled and guarded, at a cost.",
 	"GRIM RIPIDION": "The grim ripidion-fan waves its ripidia through your grim vigil, Kael — keen, guarded, plated, at a cost.",
 	"FOG RIPIDION": "The fog ripidion-fan waves its ripidia in your fog, Kael — guarded and filled, at a cost.",
+	"WAKE RIPIDION": "The wake ripidion-fan waves its ripidia in your wake, Kael — quicker and filled, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -63026,6 +63037,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bottom Zeibekiko — the bottom zeibekiko-step fills and guards you (+7% souls, +4% dodge)"},
 		{"text": "Grim Zeibekiko — the grim zeibekiko-step sharpens, guards and armors you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Zeibekiko — the fog zeibekiko-step guards and fills you (+7% dodge, +4% souls)"},
+		{"text": "Wake Zeibekiko — the wake zeibekiko-step quickens and fills you (+6% speed, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
