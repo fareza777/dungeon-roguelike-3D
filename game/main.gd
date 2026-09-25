@@ -13054,6 +13054,7 @@ func _offer_omens() -> void:
 		{"text": "HULL HANDBOOK — the shipwright's manual fills your frame and guards you (+6% max HP, +4% dodge)... and slows your step for the filling (−3% speed)"},
 		{"text": "TRENCH HANDBOOK — the fathom's manual arms you and quickens your swing (+5% ATK, +4% attack speed)... and shifts your guard for the quickening (−4% dodge)"},
 		{"text": "BOTTOM HANDBOOK — the deepest-bound manual fills and guards you (+7% souls, +4% dodge)... and weakens your arm for the guarding (−3% ATK)"},
+		{"text": "GRIM HANDBOOK — the reaper's manual arms, guards, and plates you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the plating (−4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -20219,6 +20220,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM HANDBOOK"
 		1441:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM HANDBOOK"
+		1442:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -21718,6 +21725,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL HANDBOOK": "The shipwright's manual fills your frame and guards you, Kael — it slows your step for the filling.",
 	"TRENCH HANDBOOK": "The fathom's manual arms you and quickens your swing, Kael — it shifts your guard for the quickening.",
 	"BOTTOM HANDBOOK": "The deepest-bound manual fills and guards you, Kael — it weakens your arm for the guarding.",
+	"GRIM HANDBOOK": "The reaper's manual arms, guards, and plates you, Kael — it slows your step for the plating.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
