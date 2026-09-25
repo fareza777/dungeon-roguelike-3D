@@ -11335,6 +11335,7 @@ func _offer_omens() -> void:
 		{"text": "FOG CENSUS — the mist-count of the living loses you in the rolls (+5% dodge, +3% souls)... anonymity dulls the arm (−4% ATK)"},
 		{"text": "DEEP CENSUS — the trench enumerates its drowned, and you sit for the count (+7% XP)... the clerk pockets your toll (−4% souls)"},
 		{"text": "SALT CENSUS — the white count weighs your purse kindly (+5% souls, +3% dodge)... its tallies never teach (−3% XP)"},
+		{"text": "BOTTOM CENSUS — the trench's last roll takes inventory of your plate (+4% max HP, +3% XP)... and files the bill (−3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12389,6 +12390,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_xp_pct -= 0.03
 			oname = "SALT CENSUS"
 		232:
+			Stats.buff_maxhp_pct += 0.04
+			Stats.buff_xp_pct += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "BOTTOM CENSUS"
+		233:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12672,6 +12678,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG CENSUS": "The mist's roll is the only roll the drowned can't audit, Kael — they count you as weather.",
 	"DEEP CENSUS": "The trench enumerates the drowned every tide, Kael — sit still for the count and you're already half-listed.",
 	"SALT CENSUS": "The white count weighs purses, Kael — yours came out a little heavier going in.",
+	"BOTTOM CENSUS": "The last roll of the trench counts plate and pulse, Kael — you registered as larger than you feel.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
