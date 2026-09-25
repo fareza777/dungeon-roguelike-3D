@@ -20275,6 +20275,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Tsamiko: The trench tsamiko-turn hardens and hastens you, Kael.")
+		2359:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Tsamiko: The bottom tsamiko-turn fills and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -24388,6 +24392,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL METANOIAN — the keel metanoian-bow fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL METANOIAN — the hull metanoian-bow toughens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH METANOIAN — the trench metanoian-bow hardens and hastens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
+		{"text": "BOTTOM METANOIAN — the bottom metanoian-bow fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -44924,6 +44929,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH METANOIAN"
 		4080:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM METANOIAN"
+		4081:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -49074,6 +49084,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL METANOIAN": "The keel metanoian-bow bends its metanoiai along your ribs, Kael — richer and plated, at a cost.",
 	"HULL METANOIAN": "The hull metanoian-bow bends its metanoiai over your hull, Kael — tougher and guarded, at a cost.",
 	"TRENCH METANOIAN": "The trench metanoian-bow bends its metanoiai into your wrists, Kael — harder and hastened, at a cost.",
+	"BOTTOM METANOIAN": "The bottom metanoian-bow bends its metanoiai into your purse, Kael — richer and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -56594,6 +56605,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Tsamiko — the keel tsamiko-turn fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Tsamiko — the hull tsamiko-turn toughens and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Tsamiko — the trench tsamiko-turn hardens and hastens you (+5% ATK, +4% atk speed)"},
+		{"text": "Bottom Tsamiko — the bottom tsamiko-turn fills and guards you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
