@@ -11577,6 +11577,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE SUMMONS — the wake's summons calls your hands to court (+5% attack speed, +4% souls)... the calling thins your guard (−3% dodge)"},
 		{"text": "FOG SUMMONS — the mist's summons swallows your footsteps (+6% dodge, +4% attack speed)... and swallows your coin (−4% souls)"},
 		{"text": "TRENCH SUMMONS — the trench's summons schools and plates you (+6% XP, +2 armor)... the schooling dulls your swing (−4% attack speed)"},
+		{"text": "KEEL SUMMONS — the hull's summons sets your sea-legs going (+5% speed, +4% attack speed)... and slims your purse (−3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12848,6 +12849,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_aspd -= 0.04
 			oname = "TRENCH SUMMONS"
 		278:
+			Stats.buff_speed_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.soul_gain_pct -= 0.03
+			oname = "KEEL SUMMONS"
+		279:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13177,6 +13183,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE SUMMONS": "The wake's summons calls your hands to court, Kael — a calling always thins the guard.",
 	"FOG SUMMONS": "The mist's summons swallows your footsteps, Kael — it swallows a little of your coin too.",
 	"TRENCH SUMMONS": "The trench's summons schools and plates you, Kael — the schooling always dulls the swing.",
+	"KEEL SUMMONS": "The hull's summons sets your sea-legs going, Kael — sea-legs never carried a fat purse.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
