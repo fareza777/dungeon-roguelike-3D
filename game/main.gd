@@ -12168,6 +12168,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Aubade: the bottom dawn-song — +7% souls, +4% dodge this run")
+		395:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			toast("Grim Aubade: the grim dawn-song — +5% ATK, +4% dodge this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -31291,6 +31295,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Aubade — the hull dawn-song: +6% max HP, +4% dodge this run"},
 		{"text": "Trench Aubade — the trench dawn-song: +5% ATK, +4% attack speed this run"},
 		{"text": "Bottom Aubade — the bottom dawn-song: +7% souls, +4% dodge this run"},
+		{"text": "Grim Aubade — the grim dawn-song: +5% ATK, +4% dodge this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
