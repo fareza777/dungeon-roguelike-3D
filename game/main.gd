@@ -11530,6 +11530,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE ROLL — the wake's roll calls you quick-handed (+5% attack speed, +3% dodge)... its calling costs your schooling (−4% XP)"},
 		{"text": "PALE ROLL — the pale count's roll finds you sharp and slippery (+4% crit, +5% dodge)... and thin of plate (−2 armor)"},
 		{"text": "FOG ROLL — the mist's roll calls you ghost-footed (+6% dodge, +3% speed)... and fog-handed (−4% ATK)"},
+		{"text": "DEEP ROLL — the trench's roll plates you for the pressure (+2 armor, +5% XP)... the plating slows your swing (−3% attack speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12742,6 +12743,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "FOG ROLL"
 		266:
+			Stats.buff_armor += 2
+			Stats.buff_xp_pct += 0.05
+			Stats.buff_aspd -= 0.03
+			oname = "DEEP ROLL"
+		267:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13059,6 +13065,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE ROLL": "The wake's roll calls you quick-handed, Kael — its calling comes out of your schooling.",
 	"PALE ROLL": "The pale count's roll, Kael — it finds you sharp and slippery, and thin of plate.",
 	"FOG ROLL": "The mist's roll calls you ghost-footed, Kael — and fog-handed for the calling.",
+	"DEEP ROLL": "The trench's roll plates you for the pressure, Kael — plating always swings slower.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
