@@ -11305,6 +11305,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.04
 			Stats.soul_gain_pct += 0.03
 			toast("Keel Psalm: the hull psalm's steadying verse — +4% ATK, +3% souls this run")
+		214:
+			Stats.buff_xp_pct += 0.06
+			Stats.soul_gain_pct += 0.03
+			toast("Deep Litany: the trench's counting prayer, recited slow — +6% XP, +3% souls this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -18650,6 +18654,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Keel Canticle — the hull choir's driving chant: +4% ATK, +4% speed this run"},
 			{"text": "Tide Canticle — the current choir's rising chant: +5% souls, +4% XP this run"},
 			{"text": "Keel Psalm — the hull psalm's steadying verse: +4% ATK, +3% souls this run"},
+			{"text": "Deep Litany — the trench's counting prayer, recited slow: +6% XP, +3% souls this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
