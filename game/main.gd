@@ -12379,6 +12379,7 @@ func _offer_omens() -> void:
 		{"text": "STORM MARGINALIA — the tempest's margin-notes charge your arm and aim (+5% ATK, +6% crit)... and uncover your guard for the charge (−4% dodge)"},
 		{"text": "KEEL MARGINALIA — the ship's margin-notes fill and armor you (+6% souls, +3 armor)... and leave your guard for the filling (−4% dodge)"},
 		{"text": "HULL MARGINALIA — the hull's margin-notes harden and guard you (+6% Max HP, +4% dodge)... and slow your step for the hardening (−3% speed)"},
+		{"text": "TRENCH MARGINALIA — the deep-cut margin-notes hone your arm and speed (+5% ATK, +4% attack speed)... and open your guard for the honing (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -16722,6 +16723,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL MARGINALIA"
 		884:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH MARGINALIA"
+		885:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -17661,6 +17667,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM MARGINALIA": "The tempest's margin-notes charge your arm and aim, Kael — they uncover your guard for the charge.",
 	"KEEL MARGINALIA": "The ship's margin-notes fill and armor you, Kael — they leave your guard for the filling.",
 	"HULL MARGINALIA": "The hull's margin-notes harden and guard you, Kael — they slow your step for the hardening.",
+	"TRENCH MARGINALIA": "The deep-cut margin-notes hone your arm and speed, Kael — they open your guard for the honing.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
