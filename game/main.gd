@@ -12915,6 +12915,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 0.06
 			Stats.dodge += 0.04
 			toast("Hull Hexapsalmos: the hull hexapsalmos-verse — +6% Max HP, +4% dodge this run")
+		573:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			toast("Trench Hexapsalmos: the trench hexapsalmos-verse — +5% ATK, +4% attack speed this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -34654,6 +34658,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Storm Hexapsalmos — the storm hexapsalmos-verse: +5% ATK, +6% crit this run"},
 		{"text": "Keel Hexapsalmos — the keel hexapsalmos-verse: +6% souls, +3 armor this run"},
 		{"text": "Hull Hexapsalmos — the hull hexapsalmos-verse: +6% Max HP, +4% dodge this run"},
+		{"text": "Trench Hexapsalmos — the trench hexapsalmos-verse: +5% ATK, +4% attack speed this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
