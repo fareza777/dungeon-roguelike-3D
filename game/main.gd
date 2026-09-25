@@ -12577,6 +12577,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Neume: the storm neume-phrase — +5% ATK, +6% crit this run")
+		496:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Neume: the keel neume-phrase — +6% souls, +3 armor this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -33497,6 +33501,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Neume — the grey neume-phrase: +5% dodge, +5% XP this run"},
 		{"text": "Tide Neume — the tide neume-phrase: +6% speed, +4% ATK this run"},
 		{"text": "Storm Neume — the storm neume-phrase: +5% ATK, +6% crit this run"},
+		{"text": "Keel Neume — the keel neume-phrase: +6% souls, +3 armor this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
