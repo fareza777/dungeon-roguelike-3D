@@ -748,6 +748,17 @@ func _strike() -> void:
 					var mwe := get_tree().current_scene
 					if mwe != null and mwe.has_method("_damage_number"):
 						mwe._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "WRIT", Color(0.7, 0.75, 0.68), false)
+			if Stats.weapon_id == "pale_gaff":
+				var pgn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", pgn)
+				if pgn % 7 == 0:
+					var pgd: Vector3 = (global_position - f.global_position)
+					pgd.y = 0
+					if pgd.length() > 0.1:
+						f.kb += pgd.normalized() * 2.5
+						var mpg := get_tree().current_scene
+						if mpg != null and mpg.has_method("_damage_number"):
+							mpg._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "HOOK", Color(0.65, 0.68, 0.7), false)
 			if Stats.weapon_id == "pilot_lantern":
 				var pln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", pln)
