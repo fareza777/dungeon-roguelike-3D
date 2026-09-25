@@ -11490,6 +11490,7 @@ func _offer_omens() -> void:
 		{"text": "SALT ACCOUNT — the brine book credits your purse wholesale (+7% souls)... wholesale skips the lessons (−4% XP)"},
 		{"text": "PALE ACCOUNT — the white book writes you ghostly (+6% dodge)... ghostly hands hold less coin (−4% souls)"},
 		{"text": "DEEP ACCOUNT — the trench book credits your frame (+6% XP, +2 armor)... and marks your step (−4% dodge)"},
+		{"text": "KEEL ACCOUNT — the hull book credits your striking arm (+5% ATK, +3% speed)... and hulls your purse (−4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12650,6 +12651,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "DEEP ACCOUNT"
 		255:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_speed_pct += 0.03
+			Stats.soul_gain_pct -= 0.04
+			oname = "KEEL ACCOUNT"
+		256:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12956,6 +12962,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT ACCOUNT": "The brine book credits wholesale, Kael — wholesale never bothers with the lessons.",
 	"PALE ACCOUNT": "The white book writes you ghostly, Kael — and ghostly hands hold less coin.",
 	"DEEP ACCOUNT": "The trench book credits your frame, Kael — it marks your step in the same ink.",
+	"KEEL ACCOUNT": "The hull book credits your striking arm, Kael — and hulls your purse to pay for it.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
