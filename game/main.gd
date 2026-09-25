@@ -14310,6 +14310,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE KONTAKION — the wash kontakion-hymn speeds and fills you (+6% speed, +4% souls)... and shifts your guard for the speeding (−3% dodge)"},
 		{"text": "BILGE KONTAKION — the bilge kontakion-hymn fills and schools you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "CREST KONTAKION — the crest kontakion-hymn guards and sharpens you (+5% dodge, +5% ATK)... and lightens your purse for the guarding (−4% souls)"},
+		{"text": "SALT KONTAKION — the brine kontakion-hymn fills and schools you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -24161,6 +24162,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.04
 			oname = "CREST KONTAKION"
 		1971:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "SALT KONTAKION"
+		1972:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -26190,6 +26196,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE KONTAKION": "The wash kontakion-hymn speeds and fills you, Kael — it shifts your guard for the speeding.",
 	"BILGE KONTAKION": "The bilge kontakion-hymn fills and schools you, Kael — it shifts your guard for the filling.",
 	"CREST KONTAKION": "The crest kontakion-hymn guards and sharpens you, Kael — it lightens your purse for the guarding.",
+	"SALT KONTAKION": "The brine kontakion-hymn fills and schools you, Kael — it shifts your guard for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
