@@ -12061,6 +12061,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE EMBARGO — the swamp ban fills and teaches you (+5% souls, +5% XP)... and uncovers your guard for the filling (−3% dodge)"},
 		{"text": "CREST EMBARGO — the wave-crest ban lifts and arms you (+5% dodge, +5% ATK)... and offers less in return for the lifting (−4% souls)"},
 		{"text": "SALT EMBARGO — the brine ban fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
+		{"text": "DEEP ENTENTE — the trench's entente arms and guards you (+7% ATK, +3% dodge)... and offers less in return (−3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -15069,6 +15070,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT EMBARGO"
 		622:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP ENTENTE"
+		623:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -15746,6 +15752,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE EMBARGO": "The swamp ban fills and teaches you, Kael — it uncovers your guard for the filling.",
 	"CREST EMBARGO": "The wave-crest ban lifts and arms you, Kael — it offers less in return for the lifting.",
 	"SALT EMBARGO": "The brine ban fills and teaches you, Kael — it shifts your guard for the filling.",
+	"DEEP ENTENTE": "The trench's entente arms and guards you, Kael — it offers less in return for the understanding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
