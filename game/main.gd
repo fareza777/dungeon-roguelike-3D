@@ -12542,6 +12542,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL RUBRIC — the hull red-letter heading fills your purse and plates your hide (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
 		{"text": "HULL RUBRIC — the shipwright's red-letter heading fills your frame and guards you (+6% max HP, +4% dodge)... and slows your step for the filling (−3% speed)"},
 		{"text": "TRENCH RUBRIC — the fathom's red-letter heading arms you and quickens your swing (+5% ATK, +4% attack speed)... and shifts your guard for the quickening (−4% dodge)"},
+		{"text": "BOTTOM RUBRIC — the deepest red-letter heading fills your purse and guards you (+7% souls, +4% dodge)... and weakens your arm for the filling (−3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -17650,6 +17651,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH RUBRIC"
 		1035:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM RUBRIC"
+		1036:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -18743,6 +18749,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL RUBRIC": "The hull red-letter heading fills your purse and plates your hide, Kael — it shifts your guard for the plating.",
 	"HULL RUBRIC": "The shipwright's red-letter heading fills your frame and guards you, Kael — it slows your step for the filling.",
 	"TRENCH RUBRIC": "The fathom's red-letter heading arms you and quickens your swing, Kael — it shifts your guard for the quickening.",
+	"BOTTOM RUBRIC": "The deepest red-letter heading fills your purse and guards you, Kael — it weakens your arm for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
