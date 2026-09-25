@@ -19938,6 +19938,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_xp_pct += 0.04
 			toast("Salt Estate: The salt estate-measure fills and teaches you, Kael.")
+		2276:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.03
+			toast("Deep Chiffron: The deep chiffron-flourish sharpens and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -23968,6 +23972,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE ORTHROSEON — the bilge orthroseon-matins fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 		{"text": "CREST ORTHROSEON — the crest orthroseon-matins guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT ORTHROSEON — the salt orthroseon-matins fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
+		{"text": "DEEP HAGIASMA — the deep hagiasma-font hardens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -44084,6 +44089,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT ORTHROSEON"
 		3997:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP HAGIASMA"
+		3998:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -48151,6 +48161,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE ORTHROSEON": "The bilge orthroseon-matins pumps its orthroseoi into your purse, Kael — richer and wiser, at a cost.",
 	"CREST ORTHROSEON": "The crest orthroseon-matins breaks its orthroseoi on your blade, Kael — guarded and sharpened, at a cost.",
 	"SALT ORTHROSEON": "The salt orthroseon-matins crusts its orthroseoi on your palms, Kael — richer and wiser, at a cost.",
+	"DEEP HAGIASMA": "The deep hagiasma-font pours its hagiasmata over your blade, Kael — harder and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -55588,6 +55599,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bilge Estate — the bilge estate-measure fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Estate — the crest estate-measure guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Estate — the salt estate-measure fills and teaches you (+6% souls, +4% XP)"},
+		{"text": "Deep Chiffron — the deep chiffron-flourish sharpens and guards you (+5% ATK, +3% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
