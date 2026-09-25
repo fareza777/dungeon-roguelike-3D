@@ -13679,6 +13679,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE HALLEL — the hold praise-song fills and gilds you (+5% souls, +5% XP)... and shifts your guard for the gilding (−3% dodge)"},
 		{"text": "CREST HALLEL — the wave-crest praise-song veils and arms you (+5% dodge, +5% ATK)... and empties your purse for the arming (−4% souls)"},
 		{"text": "SALT HALLEL — the brine praise-song fills and gilds you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
+		{"text": "DEEP CANTUS — the deep chant-melody sharpens and steadies you (+7% ATK, +3% dodge)... and claims its toll from your purse (−3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -22775,6 +22776,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT HALLEL"
 		1822:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP CANTUS"
+		1823:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -24655,6 +24661,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE HALLEL": "The hold praise-song fills and gilds you, Kael — it shifts your guard for the gilding.",
 	"CREST HALLEL": "The wave-crest praise-song veils and arms you, Kael — it empties your purse for the arming.",
 	"SALT HALLEL": "The brine praise-song fills and gilds you, Kael — it shifts your guard for the filling.",
+	"DEEP CANTUS": "The deep chant-melody sharpens and steadies you, Kael — it takes its toll from your purse.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
