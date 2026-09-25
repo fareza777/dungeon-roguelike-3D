@@ -11868,6 +11868,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH DIKTAT — the depths' decree sharpens your arm (+5% ATK, +4% attack speed)... and leaves your guard for the sharpening (−4% dodge)"},
 		{"text": "BOTTOM DIKTAT — the floor's decree fills and veils you (+7% souls, +4% dodge)... and weakens your arm for the filling (−3% ATK)"},
 		{"text": "GRIM DIKTAT — the hard decree covers arm, guard, and plate (+5% ATK, +4% dodge, +2 armor)... and settles on your step (−4% speed)"},
+		{"text": "FOG DIKTAT — the mist's decree veils and pays you (+7% dodge, +4% souls)... and weakens your arm for the veiling (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -14243,6 +14244,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM DIKTAT"
 		497:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG DIKTAT"
+		498:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -14795,6 +14801,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH DIKTAT": "The depths' decree sharpens your arm, Kael — it leaves your guard for the sharpening.",
 	"BOTTOM DIKTAT": "The floor's decree fills and veils you, Kael — it weakens your arm for the filling.",
 	"GRIM DIKTAT": "The hard decree covers arm, guard, and plate, Kael — it settles on your step for the covering.",
+	"FOG DIKTAT": "The mist's decree veils and pays you, Kael — it weakens your arm for the veiling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
