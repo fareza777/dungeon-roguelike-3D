@@ -1959,6 +1959,10 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 		var htw := create_tween()
 		htw.tween_property(self, "scale", _base_scale * Vector3(1.16, 0.82, 1.16), 0.05)
 		htw.tween_property(self, "scale", _base_scale, 0.14).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		if mat != null:
+			mat.set_shader_parameter("flash", 0.7)
+			var ftw := create_tween()
+			ftw.tween_property(mat, "shader_parameter/flash", 0.0, 0.14)
 	if affix == "sirensong" and not _siren_pulled and not Stats.relics.has("deaf_cap") and hp > 0.0 and hp <= hp_max * 0.4:
 		_siren_pulled = true
 		var p5 := _player()
