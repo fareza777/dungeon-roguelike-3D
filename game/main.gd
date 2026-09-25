@@ -15713,6 +15713,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.07
 			Stats.soul_gain_pct += 0.04
 			toast("Fog Fanfare: The fog fanfare-call shrouds and fills you, Kael.")
+		1237:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			toast("Wake Fanfare: The wake fanfare-call quickens and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -18704,6 +18708,7 @@ func _offer_omens() -> void:
 		{"text": "BOTTOM AKOLOUTHIA — the bottom akolouthia-office fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 		{"text": "GRIM AKOLOUTHIA — the grim akolouthia-office sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 		{"text": "FOG AKOLOUTHIA — the fog akolouthia-office shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
+		{"text": "WAKE AKOLOUTHIA — the wake akolouthia-office quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -33556,6 +33561,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "FOG AKOLOUTHIA"
 		2958:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "WAKE AKOLOUTHIA"
+		2959:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -36580,6 +36590,7 @@ func _omen_deal(idx: int) -> void:
 	"BOTTOM AKOLOUTHIA": "The bottom akolouthia-office settles its daily-offices in your purse, Kael — richer and guarded, at a cost.",
 	"GRIM AKOLOUTHIA": "The grim akolouthia-office drops its daily-offices like ballast in your bones, Kael — sharpened, guarded, plated, at a cost.",
 	"FOG AKOLOUTHIA": "The fog akolouthia-office veils its daily-offices over your silhouette, Kael — shrouded, at a cost.",
+	"WAKE AKOLOUTHIA": "The wake akolouthia-office trails its daily-offices in your wake, Kael — swifter, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -42978,6 +42989,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bottom Fanfare — the bottom fanfare-call fills and guards you (+7% souls, +4% dodge)"},
 		{"text": "Grim Fanfare — the grim fanfare-call sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Fanfare — the fog fanfare-call shrouds and fills you (+7% dodge, +4% souls)"},
+		{"text": "Wake Fanfare — the wake fanfare-call quickens and fills you (+6% speed, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
