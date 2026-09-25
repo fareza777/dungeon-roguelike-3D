@@ -15154,6 +15154,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL HEXAPSALMOS — the keel hexapsalmos-psalm fills and plates you (+6% souls, +3 armor)... and shifts your guard for the filling (−4% dodge)"},
 		{"text": "HULL HEXAPSALMOS — the hull hexapsalmos-psalm broadens and guards you (+6% Max HP, +4% dodge)... and slows your step for the broadening (−3% speed)"},
 		{"text": "TRENCH HEXAPSALMOS — the trench hexapsalmos-psalm sharpens and hastens you (+5% ATK, +4% attack speed)... and shifts your guard for the sharpening (−4% dodge)"},
+		{"text": "BOTTOM HEXAPSALMOS — the bottom hexapsalmos-psalm fills and guards you (+7% souls, +4% dodge)... and dulls your edge for the filling (−3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -26494,6 +26495,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH HEXAPSALMOS"
 		2265:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM HEXAPSALMOS"
+		2266:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -28817,6 +28823,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL HEXAPSALMOS": "The keel hexapsalmos-psalm fills and plates you, Kael — it shifts your guard for the filling.",
 	"HULL HEXAPSALMOS": "The hull hexapsalmos-psalm broadens and guards you, Kael — it slows your step for the broadening.",
 	"TRENCH HEXAPSALMOS": "The trench hexapsalmos-psalm sharpens and hastens you, Kael — it shifts your guard for the sharpening.",
+	"BOTTOM HEXAPSALMOS": "The bottom hexapsalmos-psalm fills and guards you, Kael — it dulls your edge for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
