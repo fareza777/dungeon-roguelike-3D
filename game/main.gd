@@ -22483,6 +22483,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Trepak: The storm trepak-stomp sharpens and brutalizes you, Kael.")
+		2896:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Trepak: The keel trepak-stomp fills and armors you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -27133,6 +27137,7 @@ func _offer_omens() -> void:
 		{"text": "GREY PANIKADILO — the grey panikadilo guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE PANIKADILO — the tide panikadilo quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM PANIKADILO — the storm panikadilo sharpens and brutalizes you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
+		{"text": "KEEL PANIKADILO — the keel panikadilo fills and armors you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -50390,6 +50395,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM PANIKADILO"
 		4617:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL PANIKADILO"
+		4618:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -55077,6 +55087,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY PANIKADILO": "The grey panikadilo sways its panikadila over your grey hours, Kael — guarded and taught, at a cost.",
 	"TIDE PANIKADILO": "The tide panikadilo sways its panikadila with your tide, Kael — quicker and keener, at a cost.",
 	"STORM PANIKADILO": "The storm panikadilo sways its panikadila through your storm, Kael — keen and cruel, at a cost.",
+	"KEEL PANIKADILO": "The keel panikadilo sways its panikadila above your keel, Kael — filled and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -63134,6 +63145,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Trepak — the grey trepak-stomp guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Trepak — the tide trepak-stomp quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Trepak — the storm trepak-stomp sharpens and brutalizes you (+5% ATK, +6% crit)"},
+		{"text": "Keel Trepak — the keel trepak-stomp fills and armors you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
