@@ -13535,6 +13535,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL CREDO — the keel creed-hymn fills and plates you (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
 		{"text": "HULL CREDO — the hull creed-hymn fills and guards you (+6% max HP, +4% dodge)... and slows your step for the filling (−3% speed)"},
 		{"text": "TRENCH CREDO — the trench creed-hymn arms and quickens you (+5% ATK, +4% ASPD)... and shifts your guard for the quickening (−4% dodge)"},
+		{"text": "BOTTOM CREDO — the deepest creed-hymn fills and veils you (+7% souls, +4% dodge)... and weakens your arm for the filling (−3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -22519,6 +22520,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH CREDO"
 		1800:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM CREDO"
+		1801:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -24377,6 +24383,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL CREDO": "The keel creed-hymn fills and plates you, Kael — it shifts your guard for the plating.",
 	"HULL CREDO": "The hull creed-hymn fills and guards you, Kael — it slows your step for the filling.",
 	"TRENCH CREDO": "The trench creed-hymn arms and quickens you, Kael — it shifts your guard for the quickening.",
+	"BOTTOM CREDO": "The deepest creed-hymn fills and veils you, Kael — it weakens your arm for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
