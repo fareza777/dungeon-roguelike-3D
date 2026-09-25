@@ -12955,6 +12955,7 @@ func _offer_omens() -> void:
 		{"text": "GREY QUARTO — the ashen fold-book guards and teaches you (+5% dodge, +5% XP)... and weakens your arm for the teaching (−4% ATK)"},
 		{"text": "TIDE QUARTO — the flowing fold-book speeds and arms you (+6% speed, +4% ATK)... and shifts your guard for the speeding (−3% dodge)"},
 		{"text": "STORM QUARTO — the tempest's fold-book arms and sharpens you (+5% ATK, +6% crit)... and shifts your guard for the sharpening (−4% dodge)"},
+		{"text": "KEEL QUARTO — the hull's fold-book fills and plates you (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -19720,6 +19721,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM QUARTO"
 		1362:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL QUARTO"
+		1363:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -21140,6 +21146,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY QUARTO": "The ashen fold-book guards and teaches you, Kael — it weakens your arm for the teaching.",
 	"TIDE QUARTO": "The flowing fold-book speeds and arms you, Kael — it shifts your guard for the speeding.",
 	"STORM QUARTO": "The tempest's fold-book arms and sharpens you, Kael — it shifts your guard for the sharpening.",
+	"KEEL QUARTO": "The hull's fold-book fills and plates you, Kael — it shifts your guard for the plating.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
