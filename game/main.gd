@@ -13299,6 +13299,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE MATIN — the surging morning-song speeds you and arms you (+6% speed, +4% ATK)... and shifts your guard for the speeding (−3% dodge)"},
 		{"text": "STORM MATIN — the tempest's morning-song arms and sharpens you (+5% ATK, +6% crit)... and shifts your guard for the sharpening (−4% dodge)"},
 		{"text": "KEEL MATIN — the ship's morning-song fills and plates you (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
+		{"text": "HULL MATIN — the shipwright's morning-song fills your frame and guards you (+6% max HP, +4% dodge)... and slows your step for the filling (−3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -21437,6 +21438,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL MATIN"
 		1633:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL MATIN"
+		1634:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -23128,6 +23134,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE MATIN": "The surging morning-song speeds you and arms you, Kael — it shifts your guard for the speeding.",
 	"STORM MATIN": "The tempest's morning-song arms and sharpens you, Kael — it shifts your guard for the sharpening.",
 	"KEEL MATIN": "The ship's morning-song fills and plates you, Kael — it shifts your guard for the plating.",
+	"HULL MATIN": "The shipwright's morning-song fills your frame and guards you, Kael — it slows your step for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
