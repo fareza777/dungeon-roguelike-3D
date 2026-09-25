@@ -16404,6 +16404,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH ORDINALE — the trench ordinale-rite sharpens and hastens your arm... at a cost (+5% ATK, +4% attack speed, -4% dodge)"},
 		{"text": "BOTTOM ORDINALE — the bottom ordinale-rite fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 		{"text": "GRIM ORDINALE — the grim ordinale-rite sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
+		{"text": "FOG ORDINALE — the fog ordinale-rite shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -28971,6 +28972,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM ORDINALE"
 		2507:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG ORDINALE"
+		2508:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -31544,6 +31550,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH ORDINALE": "The trench ordinale-rite winds its rules into your arm, Kael — faster, at a cost.",
 	"BOTTOM ORDINALE": "The bottom ordinale-rite piles its rules like coin, Kael — richer, at a cost.",
 	"GRIM ORDINALE": "The grim ordinale-rite shackles iron rules to your arm, Kael — deadlier and harder, at a cost.",
+	"FOG ORDINALE": "The fog ordinale-rite wraps your steps in white rules, Kael — untouchable, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
