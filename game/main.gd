@@ -15513,6 +15513,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 0.06
 			Stats.dodge += 0.04
 			toast("Hull Nocturnelle: The hull nocturnelle-night bulks and guards you, Kael.")
+		1188:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			toast("Trench Nocturnelle: The trench nocturnelle-night sharpens and hastens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -18455,6 +18459,7 @@ func _offer_omens() -> void:
 		{"text": "STORM CEREMONIALE — the storm ceremoniale-rite sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL CEREMONIALE — the keel ceremoniale-rite fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL CEREMONIALE — the hull ceremoniale-rite bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
+		{"text": "TRENCH CEREMONIALE — the trench ceremoniale-rite sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -33058,6 +33063,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL CEREMONIALE"
 		2909:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH CEREMONIALE"
+		2910:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -36033,6 +36043,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM CEREMONIALE": "The storm ceremoniale-rite crashes its solemn-rites open, Kael — sharpened, at a cost.",
 	"KEEL CEREMONIALE": "The keel ceremoniale-rite rivets its solemn-rites to your ribs, Kael — richer and plated, at a cost.",
 	"HULL CEREMONIALE": "The hull ceremoniale-rite folds its solemn-rites around your frame, Kael — bulked and guarded, at a cost.",
+	"TRENCH CEREMONIALE": "The trench ceremoniale-rite drags its solemn-rites through your knuckles, Kael — sharpened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -42382,6 +42393,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Storm Nocturnelle — the storm nocturnelle-night sharpens and empowers you (+5% ATK, +6% crit)"},
 		{"text": "Keel Nocturnelle — the keel nocturnelle-night fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Nocturnelle — the hull nocturnelle-night bulks and guards you (+6% max HP, +4% dodge)"},
+		{"text": "Trench Nocturnelle — the trench nocturnelle-night sharpens and hastens you (+5% ATK, +4% ASPD)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
