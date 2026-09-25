@@ -13955,6 +13955,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_atk_pct += 0.05
 			toast("Crest Sonata: The crest sonata-song guards and sharpens you, Kael.")
+		805:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			toast("Salt Sonata: The salt sonata-song fills and teaches you, Kael. Sonata suffix #47 complete.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -16515,6 +16519,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE COLLECTARIUM — the bilge collectarium-prayer fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 		{"text": "CREST COLLECTARIUM — the crest collectarium-prayer guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT COLLECTARIUM — the salt collectarium-prayer fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
+		{"text": "DEEP EVANGELIARY — the deep evangeliary-gospel sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -29183,6 +29188,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT COLLECTARIUM"
 		2527:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP EVANGELIARY"
+		2528:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -31776,6 +31786,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE COLLECTARIUM": "The bilge collectarium-prayer leaks its grey lessons into your purse, Kael — richer and wiser, at a cost.",
 	"CREST COLLECTARIUM": "The crest collectarium-prayer crowns your guard with white foam, Kael — guarded and deadly, at a cost.",
 	"SALT COLLECTARIUM": "The salt collectarium-prayer closes its gathered verses over you, Kael — richer and wiser, at a cost. COLLECTARIUM #149 complete.",
+	"DEEP EVANGELIARY": "The deep evangeliary-gospel preaches to your arm, Kael — sharper, at a cost. EVANGELIARY #150.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -37742,6 +37753,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Wake Sonata — the wake sonata-song quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Sonata — the bilge sonata-song fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Sonata — the crest sonata-song guards and sharpens you (+5% dodge, +5% ATK)"},
+		{"text": "Salt Sonata — the salt sonata-song fills and teaches you (+6% souls, +4% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
