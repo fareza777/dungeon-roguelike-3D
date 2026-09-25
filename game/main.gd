@@ -11695,6 +11695,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP FIAT — the trench's decree arms and drives you (+6% ATK, +5% speed)... and leaves your guard for the driving (−3% dodge)"},
 		{"text": "PALE FIAT — the white decree veils and pays you (+6% dodge, +4% souls)... and presses your step for the veiling (−4% speed)"},
 		{"text": "GREY FIAT — the pale decree teaches and fills you (+6% XP, +5% souls)... and shifts your guard for the teaching (−3% dodge)"},
+		{"text": "TIDE FIAT — the current's decree carries and arms you (+6% speed, +4% ATK)... and offers less in return (−3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13281,6 +13282,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "GREY FIAT"
 		341:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.soul_gain_pct -= 0.03
+			oname = "TIDE FIAT"
+		342:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13675,6 +13681,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP FIAT": "The trench's decree arms and drives you, Kael — it leaves your guard for the driving.",
 	"PALE FIAT": "The white decree veils and pays you, Kael — it presses your step for the veiling.",
 	"GREY FIAT": "The pale decree teaches and fills you, Kael — it shifts your guard for the teaching.",
+	"TIDE FIAT": "The current's decree carries and arms you, Kael — it offers less in return for the carrying.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
