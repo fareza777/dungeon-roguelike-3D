@@ -8119,6 +8119,18 @@ func _build_draft_cards() -> void:
 		if Stats.relics.count(rid_card) > 0:
 			dl.text += "
 — owned ×%d —" % Stats.relics.count(rid_card)
+		else:
+			var newl := Label.new()
+			newl.text = "✦ NEW"
+			newl.modulate = Color(1.0, 0.9, 0.45)
+			newl.add_theme_font_size_override("font_size", 12)
+			newl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			newl.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			cvb.add_child(newl)
+			var ntw: Tween = card.create_tween()
+			ntw.set_loops()
+			ntw.tween_property(newl, "modulate:a", 0.45, 0.5)
+			ntw.tween_property(newl, "modulate:a", 1.0, 0.5)
 		dl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		dl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		for cc in [chip, nl, rl, dl]:
