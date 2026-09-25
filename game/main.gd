@@ -21654,6 +21654,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.07
 			Stats.soul_gain_pct += 0.04
 			toast("Fog Polka: The fog polka-step guards and fills you, Kael.")
+		2692:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			toast("Wake Polka: The wake polka-step quickens and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -26100,6 +26104,7 @@ func _offer_omens() -> void:
 		{"text": "BOTTOM KAMPYLION — the bottom kampylion-crook fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 		{"text": "GRIM KAMPYLION — the grim kampylion-crook sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 		{"text": "FOG KAMPYLION — the fog kampylion-crook guards and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
+		{"text": "WAKE KAMPYLION — the wake kampylion-crook quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -48324,6 +48329,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "FOG KAMPYLION"
 		4413:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "WAKE KAMPYLION"
+		4414:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -52807,6 +52817,7 @@ func _omen_deal(idx: int) -> void:
 	"BOTTOM KAMPYLION": "The bottom kampylion-crook bends its kampylia in the deep, Kael — richer and guarded, at a cost.",
 	"GRIM KAMPYLION": "The grim kampylion-crook bends its kampylia over your grim watch, Kael — keen, guarded, and plated, at a cost.",
 	"FOG KAMPYLION": "The fog kampylion-crook bends its kampylia in your fog, Kael — well-guarded and filled, at a cost.",
+	"WAKE KAMPYLION": "The wake kampylion-crook bends its kampylia in your wake, Kael — quicker and filled, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -60660,6 +60671,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bottom Polka — the bottom polka-step fills and guards you (+7% souls, +4% dodge)"},
 		{"text": "Grim Polka — the grim polka-step sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Polka — the fog polka-step guards and fills you (+7% dodge, +4% souls)"},
+		{"text": "Wake Polka — the wake polka-step quickens and fills you (+6% speed, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
