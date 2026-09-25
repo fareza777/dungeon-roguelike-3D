@@ -14683,6 +14683,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Volante: The bilge volante-flight fills and teaches you, Kael.")
+		984:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Volante: The crest volante-flight guards and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17422,6 +17426,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE PENTEKOSTARION — the wake pentekostarion-season quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE PENTEKOSTARION — the bilge pentekostarion-season fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 		{"text": "CREST PENTEKOSTARION — the crest pentekostarion-season guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
+		{"text": "SALT PENTEKOSTARION — the salt pentekostarion-season fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -30997,6 +31002,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.04
 			oname = "CREST PENTEKOSTARION"
 		2706:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "SALT PENTEKOSTARION"
+		2707:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -33769,6 +33779,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE PENTEKOSTARION": "The wake pentekostarion-season drags its fifty days in your foam, Kael — swifter and richer, at a cost.",
 	"BILGE PENTEKOSTARION": "The bilge pentekostarion-season steeps its fifty days in your pockets, Kael — richer and wiser, at a cost.",
 	"CREST PENTEKOSTARION": "The crest pentekostarion-season breaks its fifty days over your blade, Kael — guarded and sharper, at a cost.",
+	"SALT PENTEKOSTARION": "The salt pentekostarion-season crystallizes its fifty days in your purse, Kael — richer and wiser, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -39914,6 +39925,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Volante — the fog volante-flight shrouds and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Volante — the wake volante-flight quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Volante — the bilge volante-flight fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Volante — the crest volante-flight guards and sharpens you (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
