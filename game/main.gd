@@ -22255,6 +22255,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Sirtaki: The bottom sirtaki-step fills and guards you, Kael.")
+		2840:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Sirtaki: The grim sirtaki-step sharpens, guards and armors you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -26849,6 +26854,7 @@ func _offer_omens() -> void:
 		{"text": "HULL KAMILAVKA — the hull kamilavka-hat thickens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH KAMILAVKA — the trench kamilavka-hat sharpens and hastens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
 		{"text": "BOTTOM KAMILAVKA — the bottom kamilavka-hat fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM KAMILAVKA — the grim kamilavka-hat sharpens, guards and armors you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -49822,6 +49828,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM KAMILAVKA"
 		4561:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM KAMILAVKA"
+		4562:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -54453,6 +54465,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL KAMILAVKA": "The hull kamilavka-hat crowns its kamilavki on your hull, Kael — thick and guarded, at a cost.",
 	"TRENCH KAMILAVKA": "The trench kamilavka-hat crowns its kamilavki in your trench, Kael — keen and quick, at a cost.",
 	"BOTTOM KAMILAVKA": "The bottom kamilavka-hat crowns its kamilavki at your bottom, Kael — filled and guarded, at a cost.",
+	"GRIM KAMILAVKA": "The grim kamilavka-hat crowns its kamilavki through your grim vigil, Kael — keen, guarded, plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -62454,6 +62467,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Sirtaki — the hull sirtaki-step thickens and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Sirtaki — the trench sirtaki-step sharpens and hastens you (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Sirtaki — the bottom sirtaki-step fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Sirtaki — the grim sirtaki-step sharpens, guards and armors you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
