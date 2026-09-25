@@ -871,6 +871,15 @@ func _strike() -> void:
 					var minke := get_tree().current_scene
 					if minke != null and minke.has_method("_damage_number"):
 						minke._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "INK", Color(0.32, 0.3, 0.5), false)
+			if Stats.weapon_id == "verdict_blade":
+				var VBn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", VBn)
+				if VBn % 10 == 0:
+					Stats.earn_souls(2)
+					f.stun(1.0)
+					var mvb := get_tree().current_scene
+					if mvb != null and mvb.has_method("_damage_number"):
+						mvb._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "VERDICT", Color(0.5, 0.48, 0.4), false)
 			if Stats.weapon_id == "pilot_lantern":
 				var pln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", pln)
