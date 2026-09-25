@@ -13906,6 +13906,7 @@ func _offer_omens() -> void:
 		{"text": "CREST DOXOLOGY — the crest praise-hymn guards and sharpens you (+5% dodge, +5% ATK)... and lightens your purse for the guarding (−4% souls)"},
 		{"text": "SALT DOXOLOGY — the brine praise-hymn fills and gilds you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "DEEP JUBILATE — the deep joy-shout sharpens and steadies you (+7% ATK, +3% dodge)... and claims its toll from your purse (−3% souls)"},
+		{"text": "PALE JUBILATE — the wan joy-shout veils and fills you (+6% dodge, +5% souls)... and dulls your edge for the veiling (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -23235,6 +23236,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "DEEP JUBILATE"
 		1868:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE JUBILATE"
+		1869:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -25161,6 +25167,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST DOXOLOGY": "The crest praise-hymn guards and sharpens you, Kael — it lightens your purse for the guarding.",
 	"SALT DOXOLOGY": "The brine praise-hymn fills and gilds you, Kael — it shifts your guard for the filling.",
 	"DEEP JUBILATE": "The deep joy-shout sharpens and steadies you, Kael — it takes its toll from your purse.",
+	"PALE JUBILATE": "The wan joy-shout veils and fills you, Kael — it dulls your edge for the veiling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
