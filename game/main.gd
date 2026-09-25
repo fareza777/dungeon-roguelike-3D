@@ -21702,6 +21702,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Tango: The trench tango-step sharpens and quickens you, Kael.")
+		2704:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Tango: The bottom tango-step fills and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -26160,6 +26164,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL MANDYAS — the keel mandyas-mantle fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL MANDYAS — the hull mandyas-mantle swells and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH MANDYAS — the trench mandyas-mantle sharpens and quickens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
+		{"text": "BOTTOM MANDYAS — the bottom mandyas-mantle fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -48444,6 +48449,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH MANDYAS"
 		4425:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM MANDYAS"
+		4426:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -52939,6 +52949,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL MANDYAS": "The keel mandyas-mantle drapes its mandyades along your keel, Kael — richer and plated, at a cost.",
 	"HULL MANDYAS": "The hull mandyas-mantle drapes its mandyades along your hull, Kael — heartier and guarded, at a cost.",
 	"TRENCH MANDYAS": "The trench mandyas-mantle drapes its mandyades along your trench, Kael — keen and quicker, at a cost.",
+	"BOTTOM MANDYAS": "The bottom mandyas-mantle drapes its mandyades in the deep, Kael — richer and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -60804,6 +60815,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Tango — the keel tango-step fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Tango — the hull tango-step swells and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Tango — the trench tango-step sharpens and quickens you (+5% ATK, +4% atk speed)"},
+		{"text": "Bottom Tango — the bottom tango-step fills and guards you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
