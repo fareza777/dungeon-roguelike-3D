@@ -20747,6 +20747,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Varsovienne: The tide varsovienne-turn quickens and sharpens you, Kael.")
+		2475:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Varsovienne: The storm varsovienne-turn hardens and keenens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -24976,6 +24980,7 @@ func _offer_omens() -> void:
 		{"text": "PALE EPIMANIKIA — the pale epimanikia-cuffs guard and fill you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY EPIMANIKIA — the grey epimanikia-cuffs guard and teach you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE EPIMANIKIA — the tide epimanikia-cuffs quicken and harden you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
+		{"text": "STORM EPIMANIKIA — the storm epimanikia-cuffs harden and keener you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -46100,6 +46105,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE EPIMANIKIA"
 		4196:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM EPIMANIKIA"
+		4197:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -50366,6 +50376,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE EPIMANIKIA": "The pale epimanikia-cuffs clasp their epimanikia over your wake, Kael — guarded and filled, at a cost.",
 	"GREY EPIMANIKIA": "The grey epimanikia-cuffs clasp their epimanikia over your shoulders, Kael — guarded and wiser, at a cost.",
 	"TIDE EPIMANIKIA": "The tide epimanikia-cuffs clasp their epimanikia through your wake, Kael — quicker and harder, at a cost.",
+	"STORM EPIMANIKIA": "The storm epimanikia-cuffs clasp their epimanikia under your thunder, Kael — harder and keener, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -58002,6 +58013,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Varsovienne — the pale varsovienne-turn guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Varsovienne — the grey varsovienne-turn guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Varsovienne — the tide varsovienne-turn quickens and sharpens you (+6% speed, +4% ATK)"},
+		{"text": "Storm Varsovienne — the storm varsovienne-turn hardens and keenens you (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
