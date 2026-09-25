@@ -16985,6 +16985,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Canzona: The bottom canzona-air fills and guards you, Kael.")
+		1550:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Canzona: The grim canzona-air sharpens, guards, and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -20289,6 +20294,7 @@ func _offer_omens() -> void:
 		{"text": "HULL SYNAPTE — the hull synapte-book bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH SYNAPTE — the trench synapte-book sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 		{"text": "BOTTOM SYNAPTE — the bottom synapte-book fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM SYNAPTE — the grim synapte-book sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -36726,6 +36732,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM SYNAPTE"
 		3271:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM SYNAPTE"
+		3272:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -40067,6 +40079,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL SYNAPTE": "The hull synapte-book swells its synaptic-prayers through your frame, Kael — bulked and guarded, at a cost.",
 	"TRENCH SYNAPTE": "The trench synapte-book drives its synaptic-prayers down your arm, Kael — sharpened and hastened, at a cost.",
 	"BOTTOM SYNAPTE": "The bottom synapte-book settles its synaptic-prayers in your purse, Kael — richer and guarded, at a cost.",
+	"GRIM SYNAPTE": "The grim synapte-book drops its synaptic-prayers like ballast in your bones, Kael — sharpened, guarded, plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -46778,6 +46791,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Canzona — the hull canzona-air bulks and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Canzona — the trench canzona-air sharpens and hastens you (+5% ATK, +4% ASPD)"},
 		{"text": "Bottom Canzona — the bottom canzona-air fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Canzona — the grim canzona-air sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
