@@ -21597,6 +21597,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.soul_gain_pct += 0.04
 			toast("Wake Sardana: The wake sardana-circle quickens and fills you, Kael.")
+		2678:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Bilge Sardana: The bilge sardana-circle fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -26029,6 +26033,7 @@ func _offer_omens() -> void:
 		{"text": "GRIM KATAPETASMA — the grim katapetasma-veil sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 		{"text": "FOG KATAPETASMA — the fog katapetasma-veil guards and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE KATAPETASMA — the wake katapetasma-veil quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
+		{"text": "BILGE KATAPETASMA — the bilge katapetasma-veil fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -48182,6 +48187,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "WAKE KATAPETASMA"
 		4399:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.dodge -= 0.03
+			oname = "BILGE KATAPETASMA"
+		4400:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -52651,6 +52661,7 @@ func _omen_deal(idx: int) -> void:
 	"GRIM KATAPETASMA": "The grim katapetasma-veil parts its katapetasmata over your grim watch, Kael — keen, guarded, and plated, at a cost.",
 	"FOG KATAPETASMA": "The fog katapetasma-veil parts its katapetasmata in your fog, Kael — well-guarded and filled, at a cost.",
 	"WAKE KATAPETASMA": "The wake katapetasma-veil parts its katapetasmata in your wake, Kael — quicker and filled, at a cost.",
+	"BILGE KATAPETASMA": "The bilge katapetasma-veil parts its katapetasmata in your hold, Kael — richer and wiser, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -60490,6 +60501,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grim Sardana — the grim sardana-circle sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Sardana — the fog sardana-circle guards and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Sardana — the wake sardana-circle quickens and fills you (+6% speed, +4% souls)"},
+		{"text": "Bilge Sardana — the bilge sardana-circle fills and teaches you (+5% souls, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
