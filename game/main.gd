@@ -11805,6 +11805,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Descant: the abyss counter-melody — +7% souls, +4% dodge this run")
+		305:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Descant: the grim counter-melody — +5% ATK, +4% dodge, +2 armor this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30096,6 +30101,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Descant — the hull counter-melody: +6% max HP, +4% dodge this run"},
 		{"text": "Trench Descant — the trench counter-melody: +5% ATK, +4% attack speed this run"},
 		{"text": "Bottom Descant — the abyss counter-melody: +7% souls, +4% dodge this run"},
+		{"text": "Grim Descant — the grim counter-melody: +5% ATK, +4% dodge, +2 armor this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
