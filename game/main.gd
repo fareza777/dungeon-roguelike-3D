@@ -13889,6 +13889,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_xp_pct += 0.04
 			toast("Salt Sinfonia: The salt sinfonia-choir fills and teaches you, Kael. Sinfonia suffix #46 complete.")
+		791:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.03
+			toast("Deep Sonata: The deep sonata-song sharpens and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -37563,6 +37567,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bilge Sinfonia — the bilge sinfonia-choir fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Sinfonia — the crest sinfonia-choir guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Sinfonia — the salt sinfonia-choir fills and teaches you (+6% souls, +4% XP)"},
+		{"text": "Deep Sonata — the deep sonata-song sharpens and guards you (+5% ATK, +3% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
