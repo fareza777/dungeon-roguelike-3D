@@ -15977,6 +15977,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.dodge += 0.03
 			toast("Deep Saltarello: The deep saltarello-leap sharpens and guards you, Kael.")
+		1302:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			toast("Pale Saltarello: The pale saltarello-leap guards and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -19033,6 +19037,7 @@ func _offer_omens() -> void:
 		{"text": "CREST SYNAXARIA — the crest synaxaria-reading guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT SYNAXARIA — the salt synaxaria-reading fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 		{"text": "DEEP ORDINO — the deep ordino-rubric sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
+		{"text": "PALE ORDINO — the pale ordino-rubric guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -34214,6 +34219,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "DEEP ORDINO"
 		3023:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE ORDINO"
+		3024:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -37303,6 +37313,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST SYNAXARIA": "The crest synaxaria-reading raises its festal-readings like a wave-crest, Kael — guarded and sharpened, at a cost.",
 	"SALT SYNAXARIA": "The salt synaxaria-reading sprinkles its festal-readings over your ledger, Kael — richer and wiser, at a cost.",
 	"DEEP ORDINO": "The deep ordino-rubric sounds its service-rubrics across your blade, Kael — sharpened, at a cost.",
+	"PALE ORDINO": "The pale ordino-rubric sounds its service-rubrics at your side, Kael — guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -43766,6 +43777,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Crest Volta — the crest volta-turn guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Volta — the salt volta-turn fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Saltarello — the deep saltarello-leap sharpens and guards you (+5% ATK, +3% dodge)"},
+		{"text": "Pale Saltarello — the pale saltarello-leap guards and fills you (+6% dodge, +5% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
