@@ -19747,6 +19747,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Rigadoon: The bilge rigadoon-step fills and teaches you, Kael.")
+		2229:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Rigadoon: The crest rigadoon-step guards and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -23730,6 +23734,7 @@ func _offer_omens() -> void:
 		{"text": "FOG DIPTYCHOS — the fog diptychos-tablet shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE DIPTYCHOS — the wake diptychos-tablet quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE DIPTYCHOS — the bilge diptychos-tablet fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
+		{"text": "CREST DIPTYCHOS — the crest diptychos-tablet guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -43608,6 +43613,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE DIPTYCHOS"
 		3950:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST DIPTYCHOS"
+		3951:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -47628,6 +47638,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG DIPTYCHOS": "The fog diptychos-tablet rolls its diptycha over your eyes, Kael — shrouded and richer, at a cost.",
 	"WAKE DIPTYCHOS": "The wake diptychos-tablet streams its diptycha behind you, Kael — quicker and richer, at a cost.",
 	"BILGE DIPTYCHOS": "The bilge diptychos-tablet pumps its diptycha into your purse, Kael — richer and wiser, at a cost.",
+	"CREST DIPTYCHOS": "The crest diptychos-tablet breaks its diptycha on your blade, Kael — guarded and sharpened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -55018,6 +55029,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Rigadoon — the fog rigadoon-step shrouds and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Rigadoon — the wake rigadoon-step quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Rigadoon — the bilge rigadoon-step fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Rigadoon — the crest rigadoon-step guards and sharpens you (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
