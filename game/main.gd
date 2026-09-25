@@ -14386,6 +14386,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE TROPARION — the bilge troparion-hymn fills and teaches you (+5% souls, +5% XP)... and shifts your guard for the teaching (−3% dodge)"},
 		{"text": "CREST TROPARION — the crest troparion-hymn guards and sharpens you (+5% dodge, +5% ATK)... and lightens your purse for the sharpening (−4% souls)"},
 		{"text": "SALT TROPARION — the brine troparion-hymn fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the teaching (−3% dodge)"},
+		{"text": "DEEP AKATHIST — the deep akathist-hymn sharpens and guards you (+7% ATK, +3% dodge)... and lightens your purse for the sharpening (−3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -24318,6 +24319,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT TROPARION"
 		1987:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP AKATHIST"
+		1988:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -26363,6 +26369,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE TROPARION": "The bilge troparion-hymn fills and teaches you, Kael — it shifts your guard for the teaching.",
 	"CREST TROPARION": "The crest troparion-hymn guards and sharpens you, Kael — it lightens your purse for the sharpening.",
 	"SALT TROPARION": "The brine troparion-hymn fills and teaches you, Kael — it shifts your guard for the teaching.",
+	"DEEP AKATHIST": "The deep akathist-hymn sharpens and guards you, Kael — it lightens your purse for the sharpening.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
