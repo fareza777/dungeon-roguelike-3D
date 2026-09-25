@@ -16453,6 +16453,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Bergamasca: The bilge bergamasca-reel fills and teaches you, Kael.")
+		1419:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Bergamasca: The crest bergamasca-reel guards and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -19626,6 +19630,7 @@ func _offer_omens() -> void:
 		{"text": "FOG SUPRASL — the fog suprasl-codex shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE SUPRASL — the wake suprasl-codex quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE SUPRASL — the bilge suprasl-codex fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
+		{"text": "CREST SUPRASL — the crest suprasl-codex guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -35400,6 +35405,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE SUPRASL"
 		3140:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST SUPRASL"
+		3141:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -38610,6 +38620,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG SUPRASL": "The fog suprasl-codex rolls its codex-offices over your eyes, Kael — shrouded and richer, at a cost.",
 	"WAKE SUPRASL": "The wake suprasl-codex trails its codex-offices behind your heels, Kael — swifter and richer, at a cost.",
 	"BILGE SUPRASL": "The bilge suprasl-codex slops its codex-offices through your head, Kael — richer and wiser, at a cost.",
+	"CREST SUPRASL": "The crest suprasl-codex raises its codex-offices like a wave-crest, Kael — guarded and sharpened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -45190,6 +45201,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Bergamasca — the fog bergamasca-reel shrouds and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Bergamasca — the wake bergamasca-reel quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Bergamasca — the bilge bergamasca-reel fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Bergamasca — the crest bergamasca-reel guards and sharpens you (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
