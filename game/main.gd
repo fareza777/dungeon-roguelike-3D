@@ -21133,6 +21133,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Soutenu: The bottom soutenu-turn fills and guards you, Kael.")
+		2570:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Soutenu: The grim soutenu-turn hardens, guards and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -25457,6 +25462,7 @@ func _offer_omens() -> void:
 		{"text": "HULL ARTOKLASIA — the hull artoklasia-breaking steadies and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH ARTOKLASIA — the trench artoklasia-breaking hardens and hastens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
 		{"text": "BOTTOM ARTOKLASIA — the bottom artoklasia-breaking fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM ARTOKLASIA — the grim artoklasia-breaking hardens, guards and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -47062,6 +47068,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM ARTOKLASIA"
 		4291:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM ARTOKLASIA"
+		4292:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -51423,6 +51435,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL ARTOKLASIA": "The hull artoklasia-breaking breaks its artoklasiai around your frame, Kael — steadier and guarded, at a cost.",
 	"TRENCH ARTOKLASIA": "The trench artoklasia-breaking breaks its artoklasiai down your trench, Kael — harder and hastened, at a cost.",
 	"BOTTOM ARTOKLASIA": "The bottom artoklasia-breaking breaks its artoklasiai on your floor, Kael — richer and guarded, at a cost.",
+	"GRIM ARTOKLASIA": "The grim artoklasia-breaking breaks its artoklasiai across your guard, Kael — harder, guarded and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -59154,6 +59167,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Soutenu — the hull soutenu-turn steadies and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Soutenu — the trench soutenu-turn hardens and hastens you (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Soutenu — the bottom soutenu-turn fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Soutenu — the grim soutenu-turn hardens, guards and plates you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
