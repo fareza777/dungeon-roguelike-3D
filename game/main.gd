@@ -11521,6 +11521,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE ACCOUNT — the bilge book credits your belly (+8% souls)... and bilges your stride (−3% speed)"},
 		{"text": "BOTTOM ACCOUNT — the deep book credits your lessons (+8% XP)... and deeps your swing (−3% attack speed)"},
 		{"text": "GRIM ACCOUNT — the grim book credits your arm (+7% ATK)... and grimly audits your steps (−4% dodge)"},
+		{"text": "TRENCH ACCOUNT — the last book credits all of you (+4% ATK, +4% souls, +4% XP)... and takes its toll (−3 armor)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12708,6 +12709,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "GRIM ACCOUNT"
 		261:
+			Stats.buff_atk_pct += 0.04
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_xp_pct += 0.04
+			Stats.buff_armor -= 3
+			oname = "TRENCH ACCOUNT"
+		262:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13020,6 +13027,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE ACCOUNT": "The bilge book credits your belly, Kael — it bilges your stride to slow your spending.",
 	"BOTTOM ACCOUNT": "The deep book credits your lessons, Kael — and deeps your swing in the same ledger.",
 	"GRIM ACCOUNT": "The grim book credits your arm, Kael — and grimly audits where your feet stand.",
+	"TRENCH ACCOUNT": "The last book credits all of you, Kael — it takes its toll in plate and rivets.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
