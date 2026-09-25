@@ -11896,6 +11896,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL MISSIVE — the spine's letter fills and covers you (+6% souls, +3 armor)... and leaves your guard for the covering (−4% dodge)"},
 		{"text": "HULL MISSIVE — the body's letter holds and guards you (+6% max HP, +4% dodge)... and settles on your step (−3% speed)"},
 		{"text": "TRENCH MISSIVE — the depths' letter sharpens your arm (+5% ATK, +4% attack speed)... and leaves your guard for the sharpening (−4% dodge)"},
+		{"text": "BOTTOM MISSIVE — the floor's letter fills and veils you (+7% souls, +4% dodge)... and weakens your arm for the filling (−3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -14412,6 +14413,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH MISSIVE"
 		525:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM MISSIVE"
+		526:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -14992,6 +14998,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL MISSIVE": "The spine's letter fills and covers you, Kael — it leaves your guard for the covering.",
 	"HULL MISSIVE": "The body's letter holds and guards you, Kael — it settles on your step for the holding.",
 	"TRENCH MISSIVE": "The depths' letter sharpens your arm, Kael — it leaves your guard for the sharpening.",
+	"BOTTOM MISSIVE": "The floor's letter fills and veils you, Kael — it weakens your arm for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
