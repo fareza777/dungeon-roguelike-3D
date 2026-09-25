@@ -15253,6 +15253,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Grey Loure: The grey loure-step guards and teaches you, Kael.")
+		1124:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			toast("Tide Loure: The tide loure-step quickens and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -18132,6 +18136,7 @@ func _offer_omens() -> void:
 		{"text": "PALE AGENDA — the pale agenda-rite guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY AGENDA — the grey agenda-rite guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE AGENDA — the tide agenda-rite quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
+		{"text": "STORM AGENDA — the storm agenda-rite sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -32416,6 +32421,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE AGENDA"
 		2846:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM AGENDA"
+		2847:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -35328,6 +35338,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE AGENDA": "The pale agenda-rite reads its appointed-offices at your side, Kael — guarded, at a cost.",
 	"GREY AGENDA": "The grey agenda-rite murmurs its appointed-offices through your ears, Kael — guarded and wiser, at a cost.",
 	"TIDE AGENDA": "The tide agenda-rite drums its appointed-offices under your feet, Kael — swifter, at a cost.",
+	"STORM AGENDA": "The storm agenda-rite thunders its appointed-offices over your wrists, Kael — sharper, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -41613,6 +41624,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Deep Loure — the deep loure-step sharpens and guards you (+5% ATK, +3% dodge)"},
 		{"text": "Pale Loure — the pale loure-step guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Loure — the grey loure-step guards and teaches you (+5% dodge, +5% XP)"},
+		{"text": "Tide Loure — the tide loure-step quickens and sharpens you (+6% speed, +4% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
