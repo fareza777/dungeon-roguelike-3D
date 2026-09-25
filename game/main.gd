@@ -15417,6 +15417,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH OKTOECHOS — the trench oktoechos-mode sharpens and hastens you (+5% ATK, +4% attack speed)... and shifts your guard for the sharpening (−4% dodge)"},
 		{"text": "BOTTOM OKTOECHOS — the bottom oktoechos-mode fills and guards you (+7% souls, +4% dodge)... and dulls your edge for the filling (−3% ATK)"},
 		{"text": "GRIM OKTOECHOS — the grim oktoechos-mode sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the sharpening (−4% speed)"},
+		{"text": "FOG OKTOECHOS — the fog oktoechos-mode shrouds and fills you (+7% dodge, +4% souls)... and dulls your edge for the shrouding (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -26996,6 +26997,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM OKTOECHOS"
 		2312:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG OKTOECHOS"
+		2313:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -29366,6 +29372,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH OKTOECHOS": "The trench oktoechos-mode sharpens and hastens you, Kael — it shifts your guard for the sharpening.",
 	"BOTTOM OKTOECHOS": "The bottom oktoechos-mode fills and guards you, Kael — it dulls your edge for the filling.",
 	"GRIM OKTOECHOS": "The grim oktoechos-mode sharpens, guards, and plates you, Kael — it slows your step for the sharpening.",
+	"FOG OKTOECHOS": "The fog oktoechos-mode shrouds and fills you, Kael — it dulls your edge for the shrouding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
