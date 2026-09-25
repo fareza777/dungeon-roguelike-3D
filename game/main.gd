@@ -12400,6 +12400,7 @@ func _offer_omens() -> void:
 		{"text": "FOG COLOPHON — the misted mark cloaks and fills you (+7% dodge, +4% souls)... and weakens your arm for the cloaking (−4% ATK)"},
 		{"text": "WAKE COLOPHON — the trailing mark speeds and fills you (+6% speed, +4% souls)... and shifts your guard for the speeding (−3% dodge)"},
 		{"text": "BILGE COLOPHON — the filthy mark fills and teaches you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
+		{"text": "CREST COLOPHON — the breaking mark guards and arms you (+5% dodge, +5% ATK)... and drains your purse for the guarding (−4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -16850,6 +16851,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE COLOPHON"
 		905:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST COLOPHON"
+		906:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -17810,6 +17816,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG COLOPHON": "The misted mark cloaks and fills you, Kael — it weakens your arm for the cloaking.",
 	"WAKE COLOPHON": "The trailing mark speeds and fills you, Kael — it shifts your guard for the speeding.",
 	"BILGE COLOPHON": "The filthy mark fills and teaches you, Kael — it shifts your guard for the filling.",
+	"CREST COLOPHON": "The breaking mark guards and arms you, Kael — it drains your purse for the guarding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
