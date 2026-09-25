@@ -14910,6 +14910,7 @@ func _offer_omens() -> void:
 		{"text": "STORM EOTHINON — the storm eothinon-dawn sharpens and deadlies you (+5% ATK, +6% crit)... and shifts your guard for the sharpening (−4% dodge)"},
 		{"text": "KEEL EOTHINON — the keel eothinon-dawn fills and plates you (+6% souls, +3 armor)... and shifts your guard for the filling (−4% dodge)"},
 		{"text": "HULL EOTHINON — the hull eothinon-dawn broadens and guards you (+6% Max HP, +4% dodge)... and slows your step for the broadening (−3% speed)"},
+		{"text": "TRENCH EOTHINON — the trench eothinon-dawn sharpens and hastens you (+5% ATK, +4% attack speed)... and shifts your guard for the sharpening (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -25941,6 +25942,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL EOTHINON"
 		2204:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH EOTHINON"
+		2205:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -28203,6 +28209,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM EOTHINON": "The storm eothinon-dawn sharpens and deadlies you, Kael — it shifts your guard for the sharpening.",
 	"KEEL EOTHINON": "The keel eothinon-dawn fills and plates you, Kael — it shifts your guard for the filling.",
 	"HULL EOTHINON": "The hull eothinon-dawn broadens and guards you, Kael — it slows your step for the broadening.",
+	"TRENCH EOTHINON": "The trench eothinon-dawn sharpens and hastens you, Kael — it shifts your guard for the sharpening.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
