@@ -12679,6 +12679,7 @@ func _offer_omens() -> void:
 		{"text": "BOTTOM CARTOUCHE — the deepest name-oval fills your purse and guards you (+7% souls, +4% dodge)... and weakens your arm for the filling (−3% ATK)"},
 		{"text": "GRIM CARTOUCHE — the grim name-oval arms you, guards you, and plates you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the plating (−4% speed)"},
 		{"text": "FOG CARTOUCHE — the mist's name-oval veils and fills you (+7% dodge, +4% souls)... and weakens your arm for the veiling (−4% ATK)"},
+		{"text": "WAKE CARTOUCHE — the trailing name-oval speeds you and fills your purse (+6% speed, +4% souls)... and shifts your guard for the speeding (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -18335,6 +18336,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "FOG CARTOUCHE"
 		1143:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "WAKE CARTOUCHE"
+		1144:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -19536,6 +19542,7 @@ func _omen_deal(idx: int) -> void:
 	"BOTTOM CARTOUCHE": "The deepest name-oval fills your purse and guards you, Kael — it weakens your arm for the filling.",
 	"GRIM CARTOUCHE": "The grim name-oval arms you, guards you, and plates you, Kael — it slows your step for the plating.",
 	"FOG CARTOUCHE": "The mist's name-oval veils and fills you, Kael — it weakens your arm for the veiling.",
+	"WAKE CARTOUCHE": "The trailing name-oval speeds you and fills your purse, Kael — it shifts your guard for the speeding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
