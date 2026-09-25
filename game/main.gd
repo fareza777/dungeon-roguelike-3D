@@ -13417,6 +13417,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_armor += 3
 			toast("Keel Oratorio: The keel oratorio-ode fills and plates you, Kael.")
+		692:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			toast("Hull Oratorio: The hull oratorio-ode bulks and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -36229,6 +36233,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Tide Oratorio — the tide oratorio-ode quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Oratorio — the storm oratorio-ode sharpens and empowers you (+5% ATK, +6% crit)"},
 		{"text": "Keel Oratorio — the keel oratorio-ode fills and plates you (+6% souls, +3 armor)"},
+		{"text": "Hull Oratorio — the hull oratorio-ode bulks and guards you (+6% max HP, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
