@@ -11432,6 +11432,7 @@ func _offer_omens() -> void:
 		{"text": "FOG NOTE — the mist's promissory reads you light (+5% dodge, +3% speed)... light means empty (−3% souls)"},
 		{"text": "PALE NOTE — the white promissory reads you armed (+5% ATK, +3% crit)... the margin takes its fee (−4% souls)"},
 		{"text": "SALT NOTE — the brine promissory reads you rich (+6% souls, +2% ATK)... rich is a target (−4% dodge)"},
+		{"text": "DEEP NOTE — the trench promissory reads you studious (+7% XP)... its margin bleeds you thin (−1 armor)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12550,6 +12551,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "SALT NOTE"
 		246:
+			Stats.buff_xp_pct += 0.07
+			Stats.buff_armor -= 1
+			oname = "DEEP NOTE"
+		247:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12847,6 +12852,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG NOTE": "The mist's promissory reads you as light, Kael — and the drowned can't strike what isn't there.",
 	"PALE NOTE": "The white promissory reads you as armed, Kael — the margin always takes its fee.",
 	"SALT NOTE": "The brine promissory reads you as rich, Kael — and rich is just another word for target.",
+	"DEEP NOTE": "The trench promissory reads you as studious, Kael — its margin bleeds you thin.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
