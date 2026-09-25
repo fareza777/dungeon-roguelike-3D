@@ -16267,6 +16267,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE PONTIFICALE — the wake pontificale-rite quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE PONTIFICALE — the bilge pontificale-rite fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 		{"text": "CREST PONTIFICALE — the crest pontificale-rite guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
+		{"text": "SALT PONTIFICALE — the salt pontificale-rite fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -28702,6 +28703,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.04
 			oname = "CREST PONTIFICALE"
 		2481:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "SALT PONTIFICALE"
+		2482:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -31249,6 +31255,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE PONTIFICALE": "The wake pontificale-rite hauls at your heels, Kael — swifter and richer, at a cost.",
 	"BILGE PONTIFICALE": "The bilge pontificale-rite rises around you, Kael — richer and wiser, at a cost.",
 	"CREST PONTIFICALE": "The crest pontificale-rite breaks white across your guard, Kael — safer and sharper, at a cost.",
+	"SALT PONTIFICALE": "The salt pontificale-rite settles on your shoulders, Kael — heavier and wiser, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
