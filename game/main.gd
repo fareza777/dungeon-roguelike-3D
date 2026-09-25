@@ -19405,6 +19405,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Corrente: The tide corrente-verse quickens and sharpens you, Kael.")
+		2145:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Corrente: The storm corrente-verse sharpens and strikes you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -23304,6 +23308,7 @@ func _offer_omens() -> void:
 		{"text": "PALE AKOLOUTHIARION — the pale akolouthiarion-book guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY AKOLOUTHIARION — the grey akolouthiarion-book guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE AKOLOUTHIARION — the tide akolouthiarion-book quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
+		{"text": "STORM AKOLOUTHIARION — the storm akolouthiarion-book sharpens and strikes you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -42756,6 +42761,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE AKOLOUTHIARION"
 		3866:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM AKOLOUTHIARION"
+		3867:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -46692,6 +46702,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE AKOLOUTHIARION": "The pale akolouthiarion-book whitens its akolouthiaria over your shoulders, Kael — guarded and richer, at a cost.",
 	"GREY AKOLOUTHIARION": "The grey akolouthiarion-book clasps its akolouthiaria on your shoulders, Kael — guarded and wiser, at a cost.",
 	"TIDE AKOLOUTHIARION": "The tide akolouthiarion-book washes its akolouthiaria over your feet, Kael — quicker and sharper, at a cost.",
+	"STORM AKOLOUTHIARION": "The storm akolouthiarion-book cracks its akolouthiaria like thunder, Kael — sharper and striking, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -53998,6 +54009,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Corrente — the pale corrente-verse guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Corrente — the grey corrente-verse guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Corrente — the tide corrente-verse quickens and sharpens you (+6% speed, +4% ATK)"},
+		{"text": "Storm Corrente — the storm corrente-verse sharpens and strikes you (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
