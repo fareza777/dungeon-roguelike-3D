@@ -19543,6 +19543,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Mezzavia: The trench mezzavia-step sharpens and hastens you, Kael.")
+		2179:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Mezzavia: The bottom mezzavia-step fills and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -23476,6 +23480,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL NOMOKANON — the keel nomokanon-book fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL NOMOKANON — the hull nomokanon-book bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH NOMOKANON — the trench nomokanon-book sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
+		{"text": "BOTTOM NOMOKANON — the bottom nomokanon-book fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -43100,6 +43105,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH NOMOKANON"
 		3900:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM NOMOKANON"
+		3901:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -47070,6 +47080,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL NOMOKANON": "The keel nomokanon-book bolts its nomokanona to your ribs, Kael — richer and plated, at a cost.",
 	"HULL NOMOKANON": "The hull nomokanon-book planks its nomokanona over your heart, Kael — bulked and guarded, at a cost.",
 	"TRENCH NOMOKANON": "The trench nomokanon-book drives its nomokanona down your arm, Kael — sharpened and hastened, at a cost.",
+	"BOTTOM NOMOKANON": "The bottom nomokanon-book settles its nomokanona in your purse, Kael — richer and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -54410,6 +54421,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Mezzavia — the keel mezzavia-step fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Mezzavia — the hull mezzavia-step bulks and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Mezzavia — the trench mezzavia-step sharpens and hastens you (+5% ATK, +4% ASPD)"},
+		{"text": "Bottom Mezzavia — the bottom mezzavia-step fills and guards you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
