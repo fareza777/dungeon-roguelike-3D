@@ -15568,6 +15568,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE HOROLOGION — the tide horologion-hour quickens and sharpens you (+6% speed, +4% ATK)... and shifts your guard for the quickening (−3% dodge)"},
 		{"text": "STORM HOROLOGION — the storm horologion-hour sharpens and empowers you (+5% ATK, +6% crit)... and shifts your guard for the sharpening (−4% dodge)"},
 		{"text": "KEEL HOROLOGION — the keel horologion-hour fills and plates you (+6% souls, +3 armor)... and shifts your guard for the filling (−4% dodge)"},
+		{"text": "HULL HOROLOGION — the hull horologion-hour bulks and guards you (+6% max HP, +4% dodge)... and slows your step for the bulking (−3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -27278,6 +27279,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL HOROLOGION"
 		2338:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL HOROLOGION"
+		2339:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -29674,6 +29680,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE HOROLOGION": "The tide horologion-hour quickens and sharpens you, Kael — it shifts your guard for the quickening.",
 	"STORM HOROLOGION": "The storm horologion-hour sharpens and empowers you, Kael — it shifts your guard for the sharpening.",
 	"KEEL HOROLOGION": "The keel horologion-hour fills and plates you, Kael — it shifts your guard for the filling.",
+	"HULL HOROLOGION": "The hull horologion-hour bulks and guards you, Kael — it slows your step for the bulking.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
