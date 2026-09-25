@@ -12112,6 +12112,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.dodge += 0.04
 			toast("Grim Rhapsody: the grim rhapsody-tune — +5% ATK, +4% dodge this run")
+		381:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			toast("Fog Rhapsody: the fog rhapsody-tune — +7% dodge, +4% souls this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -31115,6 +31119,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Trench Rhapsody — the trench rhapsody-tune: +5% ATK, +4% attack speed this run"},
 		{"text": "Bottom Rhapsody — the bottom rhapsody-tune: +7% souls, +4% dodge this run"},
 		{"text": "Grim Rhapsody — the grim rhapsody-tune: +5% ATK, +4% dodge this run"},
+		{"text": "Fog Rhapsody — the fog rhapsody-tune: +7% dodge, +4% souls this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
