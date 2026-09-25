@@ -21741,6 +21741,24 @@ func _build_ui() -> void:
 	wl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	layer.add_child(wl)
 	ui["weapon_l"] = wl
+	var pl := Label.new()
+	pl.anchor_left = 0.5
+	pl.anchor_right = 0.5
+	pl.anchor_top = 0.5
+	pl.anchor_bottom = 0.5
+	pl.offset_left = -120
+	pl.offset_right = 120
+	pl.offset_top = 150
+	pl.offset_bottom = 176
+	pl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	pl.add_theme_font_size_override("font_size", 20)
+	pl.add_theme_color_override("font_color", Color(0.65, 0.85, 1.0))
+	pl.add_theme_color_override("font_outline_color", Color(0, 0.05, 0.12, 0.95))
+	pl.add_theme_constant_override("outline_size", 5)
+	pl.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	pl.visible = false
+	layer.add_child(pl)
+	ui["pray_l"] = pl
 	atk.button_up.connect(func() -> void:
 		atk_held = false
 		var twu := atk.create_tween()
@@ -23878,6 +23896,10 @@ func _process(delta: float) -> void:
 				break
 		if near_stain:
 			pray_t += delta
+			if ui.has("pray_l"):
+				ui.pray_l.visible = true
+				ui.pray_l.text = "🕯 PRAYING… %d%%" % int(clampf(pray_t / 2.0, 0.0, 1.0) * 100.0)
+				ui.pray_l.modulate = Color(1.0, 1.0, 1.0).lerp(Color(0.65, 0.85, 1.0), 0.5 + 0.5 * sin(pray_t * 9.0))
 			if pray_t >= 2.0:
 				prayed = true
 				Stats.earn_souls(1)
@@ -23892,6 +23914,8 @@ func _process(delta: float) -> void:
 					_ach("devout")
 		else:
 			pray_t = 0.0
+			if ui.has("pray_l"):
+				ui.pray_l.visible = false
 	# panah elite off-screen: arahkan ke elite teraktivasi terdekat
 	if ui.has("elite_arrow"):
 		var earr2: Label = ui["elite_arrow"]
