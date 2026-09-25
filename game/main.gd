@@ -12862,6 +12862,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL DIGEST — the hull's condensed-book fills and plates you (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
 		{"text": "HULL DIGEST — the shipwright's condensed-book fills your frame and guards you (+6% max HP, +4% dodge)... and slows your step for the filling (−3% speed)"},
 		{"text": "TRENCH DIGEST — the fathom's condensed-book arms you and quickens your swing (+5% ATK, +4% attack speed)... and shifts your guard for the quickening (−4% dodge)"},
+		{"text": "BOTTOM DIGEST — the deepest-bound condensed-book fills and guards you (+7% souls, +4% dodge)... and weakens your arm for the guarding (−3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -19262,6 +19263,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH DIGEST"
 		1290:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM DIGEST"
+		1291:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -20610,6 +20616,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL DIGEST": "The hull's condensed-book fills and plates you, Kael — it shifts your guard for the plating.",
 	"HULL DIGEST": "The shipwright's condensed-book fills your frame and guards you, Kael — it slows your step for the filling.",
 	"TRENCH DIGEST": "The fathom's condensed-book arms you and quickens your swing, Kael — it shifts your guard for the quickening.",
+	"BOTTOM DIGEST": "The deepest-bound condensed-book fills and guards you, Kael — it weakens your arm for the guarding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
