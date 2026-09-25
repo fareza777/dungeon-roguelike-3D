@@ -376,6 +376,17 @@ func _build() -> void:
 	toast_l.visible = false
 	add_child(toast_l)
 
+	var st_i := 0
+	for stc in vb.get_children():
+		if stc == title:
+			continue
+		var st_a: float = stc.modulate.a
+		stc.modulate.a = 0.0
+		var stw: Tween = stc.create_tween()
+		stw.tween_interval(0.045 * st_i)
+		stw.tween_property(stc, "modulate:a", st_a, 0.3)
+		st_i += 1
+
 	_build_settings()
 	_build_about()
 
