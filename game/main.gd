@@ -14691,6 +14691,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_xp_pct += 0.04
 			toast("Salt Volante: The salt volante-flight fills and teaches you, Kael.")
+		986:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.03
+			toast("Deep Scherzo: The deep scherzo-jest sharpens and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17432,6 +17436,7 @@ func _offer_omens() -> void:
 		{"text": "CREST PENTEKOSTARION — the crest pentekostarion-season guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT PENTEKOSTARION — the salt pentekostarion-season fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 		{"text": "DEEP NOMOCANON — the deep nomocanon-law sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
+		{"text": "PALE NOMOCANON — the pale nomocanon-law guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -31017,6 +31022,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "DEEP NOMOCANON"
 		2708:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE NOMOCANON"
+		2709:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -33791,6 +33801,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST PENTEKOSTARION": "The crest pentekostarion-season breaks its fifty days over your blade, Kael — guarded and sharper, at a cost.",
 	"SALT PENTEKOSTARION": "The salt pentekostarion-season crystallizes its fifty days in your purse, Kael — richer and wiser, at a cost.",
 	"DEEP NOMOCANON": "The deep nomocanon-law binds its canons to your blade, Kael — sharper, at a cost.",
+	"PALE NOMOCANON": "The pale nomocanon-law binds its canons around your guard, Kael — guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -39938,6 +39949,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bilge Volante — the bilge volante-flight fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Volante — the crest volante-flight guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Volante — the salt volante-flight fills and teaches you (+6% souls, +4% XP)"},
+		{"text": "Deep Scherzo — the deep scherzo-jest sharpens and guards you (+5% ATK, +3% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
