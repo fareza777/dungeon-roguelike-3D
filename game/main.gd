@@ -16575,6 +16575,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Rispetto: The bilge rispetto-rhyme fills and teaches you, Kael.")
+		1449:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Rispetto: The crest rispetto-rhyme guards and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -19778,6 +19782,7 @@ func _offer_omens() -> void:
 		{"text": "FOG MECHITARIST — the fog mechitarist-book shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE MECHITARIST — the wake mechitarist-book quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE MECHITARIST — the bilge mechitarist-book fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
+		{"text": "CREST MECHITARIST — the crest mechitarist-book guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -35704,6 +35709,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE MECHITARIST"
 		3170:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST MECHITARIST"
+		3171:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -38944,6 +38954,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG MECHITARIST": "The fog mechitarist-book rolls its mechitar-offices over your eyes, Kael — shrouded and richer, at a cost.",
 	"WAKE MECHITARIST": "The wake mechitarist-book trails its mechitar-offices behind your heels, Kael — swifter and richer, at a cost.",
 	"BILGE MECHITARIST": "The bilge mechitarist-book slops its mechitar-offices through your head, Kael — richer and wiser, at a cost.",
+	"CREST MECHITARIST": "The crest mechitarist-book raises its mechitar-offices like a wave-crest, Kael — guarded and sharpened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -45554,6 +45565,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Rispetto — the fog rispetto-rhyme shrouds and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Rispetto — the wake rispetto-rhyme quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Rispetto — the bilge rispetto-rhyme fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Rispetto — the crest rispetto-rhyme guards and sharpens you (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
