@@ -11924,6 +11924,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE CHRONICLE — the current's record carries and arms you (+6% speed, +4% ATK)... and leaves your guard for the carrying (−3% dodge)"},
 		{"text": "STORM CHRONICLE — the tempest's record charges your arm and aim (+5% ATK, +6% crit)... and uncovers your guard for the charge (−4% dodge)"},
 		{"text": "KEEL CHRONICLE — the ship's record fills and armors you (+6% souls, +3 armor)... and leaves your guard for the filling (−4% dodge)"},
+		{"text": "HULL CHRONICLE — the vessel's record hardens and guards you (+6% max HP, +4% dodge)... and slows your step for the hardening (−3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -14582,6 +14583,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL CHRONICLE"
 		553:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL CHRONICLE"
+		554:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -15190,6 +15196,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE CHRONICLE": "The current's record carries and arms you, Kael — it leaves your guard for the carrying.",
 	"STORM CHRONICLE": "The tempest's record charges your arm and aim, Kael — it uncovers your guard for the charge.",
 	"KEEL CHRONICLE": "The ship's record fills and armors you, Kael — it leaves your guard for the filling.",
+	"HULL CHRONICLE": "The vessel's record hardens and guards you, Kael — it slows your step for the hardening.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
