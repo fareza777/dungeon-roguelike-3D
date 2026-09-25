@@ -14662,6 +14662,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Volante: The trench volante-flight sharpens and hastens you, Kael.")
+		979:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Volante: The bottom volante-flight fills and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17396,6 +17400,7 @@ func _offer_omens() -> void:
 		{"text": "HULL PENTEKOSTARION — the hull pentekostarion-season bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH PENTEKOSTARION — the trench pentekostarion-season sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 		{"text": "BOTTOM PENTEKOSTARION — the bottom pentekostarion-season fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM PENTEKOSTARION — the grim pentekostarion-season sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -30945,6 +30950,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM PENTEKOSTARION"
 		2701:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM PENTEKOSTARION"
+		2702:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -33712,6 +33723,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL PENTEKOSTARION": "The hull pentekostarion-season planks its fifty days along your ribs, Kael — bulkier and guarded, at a cost.",
 	"TRENCH PENTEKOSTARION": "The trench pentekostarion-season rakes its fifty days down your spine, Kael — sharper and quicker, at a cost.",
 	"BOTTOM PENTEKOSTARION": "The bottom pentekostarion-season drops its fifty days into your purse, Kael — richer and guarded, at a cost.",
+	"GRIM PENTEKOSTARION": "The grim pentekostarion-season mourns its fifty days over your blade, Kael — sharper, guarded, plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -39852,6 +39864,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Volante — the keel volante-flight fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Volante — the hull volante-flight bulks and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Volante — the trench volante-flight sharpens and hastens you (+5% ATK, +4% ASPD)"},
+		{"text": "Bottom Volante — the bottom volante-flight fills and guards you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
