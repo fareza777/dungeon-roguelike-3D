@@ -16945,6 +16945,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_atk_pct += 0.05
 			toast("Crest Ballata: The crest ballata-verse guards and sharpens you, Kael.")
+		1540:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			toast("Salt Ballata: The salt ballata-verse fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -20239,6 +20243,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE PAPADIKE — the wake papadike-book quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE PAPADIKE — the bilge papadike-book fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 		{"text": "CREST PAPADIKE — the crest papadike-book guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
+		{"text": "SALT PAPADIKE — the salt papadike-book fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -36626,6 +36631,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.04
 			oname = "CREST PAPADIKE"
 		3261:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "SALT PAPADIKE"
+		3262:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -39957,6 +39967,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE PAPADIKE": "The wake papadike-book pours its papadic-verses into your wake, Kael — swifter and richer, at a cost.",
 	"BILGE PAPADIKE": "The bilge papadike-book sloshes its papadic-verses over your feet, Kael — richer and wiser, at a cost.",
 	"CREST PAPADIKE": "The crest papadike-book raises its papadic-verses like a wave-crest, Kael — guarded and sharpened, at a cost.",
+	"SALT PAPADIKE": "The salt papadike-book sprinkles its papadic-verses over your ledger, Kael — richer and wiser, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -46658,6 +46669,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Wake Ballata — the wake ballata-verse quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Ballata — the bilge ballata-verse fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Ballata — the crest ballata-verse guards and sharpens you (+5% dodge, +5% ATK)"},
+		{"text": "Salt Ballata — the salt ballata-verse fills and teaches you (+6% souls, +4% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
