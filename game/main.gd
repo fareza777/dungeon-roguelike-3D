@@ -12027,6 +12027,7 @@ func _offer_omens() -> void:
 		{"text": "BOTTOM ACCORD — the floor's accord fills and veils you (+7% souls, +4% dodge)... and weakens your arm for the filling (−3% ATK)"},
 		{"text": "GRIM ACCORD — the stern accord arms, guards and plates you (+5% ATK, +4% dodge, +2 armor)... and weighs your step for the teaching (−4% speed)"},
 		{"text": "FOG ACCORD — the grey accord shrouds and pays you (+7% dodge, +4% souls)... and weakens your arm for the shrouding (−4% ATK)"},
+		{"text": "WAKE ACCORD — the trailing accord speeds and pays you (+6% speed, +4% souls)... and leaves your guard for the speeding (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -14939,6 +14940,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "FOG ACCORD"
 		603:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "WAKE ACCORD"
+		604:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -15597,6 +15603,7 @@ func _omen_deal(idx: int) -> void:
 	"BOTTOM ACCORD": "The floor's accord fills and veils you, Kael — it weakens your arm for the filling.",
 	"GRIM ACCORD": "The stern accord arms, guards and plates you, Kael — it weighs your step for the teaching.",
 	"FOG ACCORD": "The grey accord shrouds and pays you, Kael — it weakens your arm for the shrouding.",
+	"WAKE ACCORD": "The trailing accord speeds and pays you, Kael — it leaves your guard for the speeding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
