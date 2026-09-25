@@ -11659,6 +11659,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE VERDICT — the current's ruling carries your step and pays your purse (+6% speed, +4% souls)... and weakens your arm for the carrying (−4% ATK)"},
 		{"text": "CREST VERDICT — the breaker's ruling lifts your guard and arm (+6% dodge, +4% ATK)... and sheds your plate for the lifting (−2 armor)"},
 		{"text": "FOG VERDICT — the mist's ruling veils your guard and step (+6% dodge, +4% speed)... and veils your striking hand (−4% ATK)"},
+		{"text": "WAKE VERDICT — the wake's ruling speeds your hands to the record (+6% attack speed, +5% souls)... and leaves your guard open (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13083,6 +13084,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "FOG VERDICT"
 		309:
+			Stats.buff_aspd += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.dodge -= 0.04
+			oname = "WAKE VERDICT"
+		310:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13445,6 +13451,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE VERDICT": "The current's ruling carries your step and pays your purse, Kael — it weakens your arm for the carrying.",
 	"CREST VERDICT": "The breaker's ruling lifts your guard and arm, Kael — it sheds your plate for the lifting.",
 	"FOG VERDICT": "The mist's ruling veils your guard and step, Kael — it veils your striking hand in the same paper.",
+	"WAKE VERDICT": "The wake's ruling speeds your hands to the record, Kael — it leaves your guard open to do it.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
