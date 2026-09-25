@@ -13344,6 +13344,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Grey Ritornello: The grey ritornello-return guards and teaches you, Kael.")
+		674:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			toast("Tide Ritornello: The tide ritornello-return quickens and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -36032,6 +36036,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Deep Ritornello — the deep ritornello-return sharpens and guards you (+5% ATK, +3% dodge)"},
 		{"text": "Pale Ritornello — the pale ritornello-return guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Ritornello — the grey ritornello-return guards and teaches you (+5% dodge, +5% XP)"},
+		{"text": "Tide Ritornello — the tide ritornello-return quickens and sharpens you (+6% speed, +4% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
