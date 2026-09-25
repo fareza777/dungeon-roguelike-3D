@@ -15664,6 +15664,7 @@ func _offer_omens() -> void:
 		{"text": "BOTTOM ANTIPHONALE — the bottom antiphonale-refrain fills and guards you (+7% souls, +4% dodge)... and dulls your edge for the filling (−3% ATK)"},
 		{"text": "GRIM ANTIPHONALE — the grim antiphonale-refrain sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the sharpening (−4% speed)"},
 		{"text": "FOG ANTIPHONALE — the fog antiphonale-refrain shrouds and fills you (+7% dodge, +4% souls)... and dulls your edge for the shrouding (−4% ATK)"},
+		{"text": "WAKE ANTIPHONALE — the wake antiphonale-refrain quickens and fills you (+6% speed, +4% souls)... and shifts your guard for the quickening (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -27552,6 +27553,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "FOG ANTIPHONALE"
 		2373:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "WAKE ANTIPHONALE"
+		2374:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -29983,6 +29989,7 @@ func _omen_deal(idx: int) -> void:
 	"BOTTOM ANTIPHONALE": "The bottom antiphonale-refrain fills and guards you, Kael — it dulls your edge for the filling.",
 	"GRIM ANTIPHONALE": "The grim antiphonale-refrain sharpens, guards, and plates you, Kael — it slows your step for the sharpening.",
 	"FOG ANTIPHONALE": "The fog antiphonale-refrain shrouds and fills you, Kael — it dulls your edge for the shrouding.",
+	"WAKE ANTIPHONALE": "The wake antiphonale-refrain quickens and fills you, Kael — it shifts your guard for the quickening.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
