@@ -18197,6 +18197,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 0.06
 			Stats.dodge += 0.04
 			toast("Hull Caccia: The hull caccia-verse bulks and guards you, Kael.")
+		1848:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			toast("Trench Caccia: The trench caccia-verse sharpens and hastens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -21799,6 +21803,7 @@ func _offer_omens() -> void:
 		{"text": "STORM EUCHOLOGIA — the storm euchologia-book sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL EUCHOLOGIA — the keel euchologia-book fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL EUCHOLOGIA — the hull euchologia-book bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
+		{"text": "TRENCH EUCHOLOGIA — the trench euchologia-book sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -39746,6 +39751,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL EUCHOLOGIA"
 		3569:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH EUCHOLOGIA"
+		3570:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -43385,6 +43395,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM EUCHOLOGIA": "The storm euchologia-book thunders its euchologiae through your grip, Kael — sharpened and empowered, at a cost.",
 	"KEEL EUCHOLOGIA": "The keel euchologia-book rivets its euchologiae to your ribs, Kael — richer and plated, at a cost.",
 	"HULL EUCHOLOGIA": "The hull euchologia-book swells its euchologiae through your frame, Kael — bulked and guarded, at a cost.",
+	"TRENCH EUCHOLOGIA": "The trench euchologia-book drives its euchologiae down your arm, Kael — sharpened and hastened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -50394,6 +50405,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Storm Caccia — the storm caccia-verse sharpens and empowers you (+5% ATK, +6% crit)"},
 		{"text": "Keel Caccia — the keel caccia-verse fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Caccia — the hull caccia-verse bulks and guards you (+6% max HP, +4% dodge)"},
+		{"text": "Trench Caccia — the trench caccia-verse sharpens and hastens you (+5% ATK, +4% ASPD)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
