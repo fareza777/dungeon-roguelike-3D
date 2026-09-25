@@ -7366,6 +7366,7 @@ func _on_enemy_died(e) -> void:
 				_quest_event("bilgewalk")
 			if pale_squall:
 				_quest_event("galesurf")
+				_quest_event("squallwalk")
 			if soul_flush:
 				_quest_event("flushwalk")
 			if kings_tithe:
