@@ -12086,6 +12086,7 @@ func _offer_omens() -> void:
 		{"text": "HULL TABLET — the vessel's tablet hardens and guards you (+6% max HP, +4% dodge)... and slows your step for the hardening (−3% speed)"},
 		{"text": "TRENCH TABLET — the cutting's tablet edges and quickens your arm (+5% ATK, +4% attack speed)... and uncovers your guard for the edging (−4% dodge)"},
 		{"text": "BOTTOM TABLET — the floor's tablet fills and veils you (+7% souls, +4% dodge)... and weakens your arm for the filling (−3% ATK)"},
+		{"text": "GRIM TABLET — the stern tablet arms, guards and plates you (+5% ATK, +4% dodge, +2 armor)... and weighs your step for the teaching (−4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -15215,6 +15216,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM TABLET"
 		646:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM TABLET"
+		647:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -15916,6 +15923,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL TABLET": "The vessel's tablet hardens and guards you, Kael — it slows your step for the hardening.",
 	"TRENCH TABLET": "The cutting's tablet edges and quickens your arm, Kael — it uncovers your guard for the edging.",
 	"BOTTOM TABLET": "The floor's tablet fills and veils you, Kael — it weakens your arm for the filling.",
+	"GRIM TABLET": "The stern tablet arms, guards and plates you, Kael — it weighs your step for the teaching.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
