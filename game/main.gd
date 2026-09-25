@@ -10001,6 +10001,14 @@ func _refresh_hero() -> void:
 		wsb.set_border_width_all(2)
 		wsb.set_corner_radius_all(8)
 		wb.add_theme_stylebox_override("normal", wsb)
+		var wbh := wsb.duplicate() as StyleBoxFlat
+		wbh.bg_color = wsb.bg_color.lightened(0.1)
+		wbh.border_color = Color(0.9, 0.75, 0.3)
+		wb.add_theme_stylebox_override("hover", wbh)
+		var wbp := wsb.duplicate() as StyleBoxFlat
+		wbp.bg_color = wsb.bg_color.lightened(0.18)
+		wb.add_theme_stylebox_override("pressed", wbp)
+		wb.mouse_entered.connect(func() -> void: Sfx.play("click", 1.7))
 		var swid: String = wid
 		wb.pressed.connect(func() -> void: _hero_equip(swid))
 		vb.add_child(wb)
