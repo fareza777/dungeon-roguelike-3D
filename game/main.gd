@@ -8244,19 +8244,31 @@ func _pick_relic(i: int) -> void:
 var casts_run := 0
 var skills_used := {}
 
+func _skill_btn_deny(id: String) -> void:
+	if skill_ui.has(id):
+		var db: Node = skill_ui[id]["btn"]
+		var dbx: float = db.position.x
+		var dtw2: Tween = db.create_tween()
+		for i in range(3):
+			dtw2.tween_property(db, "position:x", dbx + (5.0 if i % 2 == 0 else -5.0), 0.04)
+		dtw2.tween_property(db, "position:x", dbx, 0.05)
+
 func _cast_skill(id: String) -> void:
 	if player == null or not is_instance_valid(player) or player.dead or Stats.draft_open or run_state != "playing":
 		return
 	if float(player.get("silence_t")) > 0.0:
 		Sfx.play("deny")
+		_skill_btn_deny(id)
 		toast("SILENCED — the Hex Priest seals your skills")
 		return
 	if not SK.is_unlocked(id, Stats.level):
 		Sfx.play("deny")
+		_skill_btn_deny(id)
 		toast("%s unlocks at Lv %d" % [SK.DB[id]["name"], int(SK.DB[id]["unlock"])])
 		return
 	if skill_cd[id] > 0.0:
 		Sfx.play("deny")
+		_skill_btn_deny(id)
 		return
 	_quest_event("skill")
 	# cast flash: model bersinar sesaat — respons skill terasa
