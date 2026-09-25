@@ -109,6 +109,12 @@ func _ready() -> void:
 	slot_r = _find_hand_slot(self)
 	equip_weapon(Stats.weapon_id)
 	M.play_fuzzy(ap, ["idle"])
+	var lant := OmniLight3D.new()
+	lant.light_color = Color(1.0, 0.82, 0.55)
+	lant.light_energy = 0.85
+	lant.omni_range = 3.2 * room_tile
+	lant.position.y = 0.9 * room_tile
+	add_child(lant)
 
 
 func _find_hand_slot(node: Node) -> Node3D:
