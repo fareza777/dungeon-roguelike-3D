@@ -28459,8 +28459,16 @@ func _omen_deal(idx: int) -> void:
 		_ach("tenthoath")
 	Sfx.play("shrine")
 	if player != null and is_instance_valid(player):
-		_shock_ring(player.global_position, Color(0.75, 0.55, 1.0))
-		_souls(player.global_position, 10, Color(0.75, 0.6, 1.0))
+		if nemesis_bounty:
+			_shock_ring(player.global_position, Color(0.95, 0.15, 0.2))
+			_souls(player.global_position, 14, Color(1.0, 0.25, 0.3))
+			if vign != null and Stats.screen_flash:
+				vign.modulate.a = 0.45
+				var nvtw: Tween = vign.create_tween()
+				nvtw.tween_property(vign, "modulate:a", 0.0, 0.7)
+		else:
+			_shock_ring(player.global_position, Color(0.75, 0.55, 1.0))
+			_souls(player.global_position, 10, Color(0.75, 0.6, 1.0))
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 	_refresh_buffs()
