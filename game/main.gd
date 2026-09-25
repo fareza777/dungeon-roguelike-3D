@@ -35105,6 +35105,10 @@ func _omen_deal(idx: int) -> void:
 		_ach("final_signatory")
 	if Stats.oaths_seen.size() >= 400:
 		_ach("crown_signatory")
+	if Stats.oaths_seen.size() >= 500:
+		_ach("abyssal_signatory")
+	if Stats.oaths_seen.size() >= 1000:
+		_ach("thousand_oaths")
 	Stats.save_game()
 	omen_count += 1
 	Stats.oaths_sworn += 1

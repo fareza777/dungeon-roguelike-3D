@@ -274,6 +274,8 @@ const ACH_DEF := {
 	"oath_collector": "Oath Collector (see 200 different omens)",
 	"final_signatory": "Final Signatory (see 300 different omens)",
 	"crown_signatory": "Crown Signatory (see 400 different omens)",
+	"abyssal_signatory": "Abyssal Signatory (see 500 different omens)",
+	"thousand_oaths": "Thousand Oaths (see 1000 different omens)",
 	"full_satchel": "Full Satchel (hold 3 soul vials at once)",
 	"medic": "Ship's Medic (hold 5 soul vials at once)",
 	"sixtypacts": "Sixty Pacts (60 omens sworn total)",
