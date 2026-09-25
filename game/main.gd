@@ -13209,6 +13209,7 @@ func _offer_omens() -> void:
 		{"text": "GRIM VESPER — the reaper's evensong arms, guards, and plates you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the plating (−4% speed)"},
 		{"text": "FOG VESPER — the mist's evensong veils and fills you (+7% dodge, +4% souls)... and weakens your arm for the veiling (−4% ATK)"},
 		{"text": "WAKE VESPER — the trailing evensong speeds you and fills your purse (+6% speed, +4% souls)... and shifts your guard for the speeding (−3% dodge)"},
+		{"text": "BILGE VESPER — the bilgewater evensong fills and teaches you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -20998,6 +20999,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "WAKE VESPER"
 		1564:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.dodge -= 0.03
+			oname = "BILGE VESPER"
+		1565:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -22620,6 +22626,7 @@ func _omen_deal(idx: int) -> void:
 	"GRIM VESPER": "The reaper's evensong arms, guards, and plates you, Kael — it slows your step for the plating.",
 	"FOG VESPER": "The mist's evensong veils and fills you, Kael — it weakens your arm for the veiling.",
 	"WAKE VESPER": "The trailing evensong speeds you and fills your purse, Kael — it shifts your guard for the speeding.",
+	"BILGE VESPER": "The bilgewater evensong fills and teaches you, Kael — it shifts your guard for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
