@@ -12476,6 +12476,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE FOOTNOTE — the flowing margin note speeds and arms you (+6% speed, +4% ATK)... and shifts your guard for the speeding (−3% dodge)"},
 		{"text": "STORM FOOTNOTE — the tempest's margin note charges your arm and aim (+5% ATK, +6% crit)... and uncovers your guard for the charge (−4% dodge)"},
 		{"text": "KEEL FOOTNOTE — the hull margin note fills your purse and plates your hide (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
+		{"text": "HULL FOOTNOTE — the shipwright's margin note fills your frame and guards you (+6% max HP, +4% dodge)... and slows your step for the filling (−3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -17270,6 +17271,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL FOOTNOTE"
 		973:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL FOOTNOTE"
+		974:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -18301,6 +18307,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE FOOTNOTE": "The flowing margin note speeds and arms you, Kael — it shifts your guard for the speeding.",
 	"STORM FOOTNOTE": "The tempest's margin note charges your arm and aim, Kael — it uncovers your guard for the charge.",
 	"KEEL FOOTNOTE": "The hull margin note fills your purse and plates your hide, Kael — it shifts your guard for the plating.",
+	"HULL FOOTNOTE": "The shipwright's margin note fills your frame and guards you, Kael — it slows your step for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
