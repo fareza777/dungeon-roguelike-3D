@@ -12352,6 +12352,7 @@ func _offer_omens() -> void:
 		{"text": "STORM TITLE — the tempest's title charges your arm and aim (+5% ATK, +6% crit)... and uncovers your guard for the charge (−4% dodge)"},
 		{"text": "KEEL TITLE — the ship's title fills and armors you (+6% souls, +3 armor)... and leaves your guard for the filling (−4% dodge)"},
 		{"text": "HULL TITLE — the hull's title hardens and guards you (+6% Max HP, +4% dodge)... and slows your step for the hardening (−3% speed)"},
+		{"text": "TRENCH TITLE — the deep-cut title hones your arm and speed (+5% ATK, +4% attack speed)... and opens your guard for the honing (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -16619,6 +16620,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL TITLE"
 		869:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH TITLE"
+		870:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -17543,6 +17549,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM TITLE": "The tempest's title charges your arm and aim, Kael — it uncovers your guard for the charge.",
 	"KEEL TITLE": "The ship's title fills and armors you, Kael — it leaves your guard for the filling.",
 	"HULL TITLE": "The hull's title hardens and guards you, Kael — it slows your step for the hardening.",
+	"TRENCH TITLE": "The deep-cut title hones your arm and speed, Kael — it opens your guard for the honing.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
