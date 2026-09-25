@@ -12173,6 +12173,7 @@ func _offer_omens() -> void:
 		{"text": "PALE SCRIVENER — the white scrivener veils and fills you (+6% dodge, +5% souls)... and weakens your arm for the writing (−4% ATK)"},
 		{"text": "GREY SCRIVENER — the grey scrivener guards and teaches you (+5% dodge, +5% XP)... and weakens your arm for the guarding (−4% ATK)"},
 		{"text": "TIDE SCRIVENER — the flowing scrivener speeds and arms you (+6% speed, +4% ATK)... and shifts your guard for the speeding (−3% dodge)"},
+		{"text": "STORM SCRIVENER — the tempest's scrivener charges your arm and aim (+5% ATK, +6% crit)... and uncovers your guard for the charge (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -15665,6 +15666,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE SCRIVENER"
 		716:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM SCRIVENER"
+		717:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -16436,6 +16442,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE SCRIVENER": "The white scrivener veils and fills you, Kael — it weakens your arm for the writing.",
 	"GREY SCRIVENER": "The grey scrivener guards and teaches you, Kael — it weakens your arm for the guarding.",
 	"TIDE SCRIVENER": "The flowing scrivener speeds and arms you, Kael — it shifts your guard for the speeding.",
+	"STORM SCRIVENER": "The tempest's scrivener charges your arm and aim, Kael — it uncovers your guard for the charge.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
