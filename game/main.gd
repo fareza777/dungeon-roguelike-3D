@@ -12265,6 +12265,7 @@ func _offer_omens() -> void:
 		{"text": "CREST TOME — the breaking tome guards and arms you (+5% dodge, +5% ATK)... and drains your purse for the guarding (−4% souls)"},
 		{"text": "SALT TOME — the brine tome fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "DEEP PREFACE — the drowned preface arms and veils you (+7% ATK, +3% dodge)... and skims your purse for the reading (−3% souls)"},
+		{"text": "PALE PREFACE — the white preface veils and fills you (+6% dodge, +5% souls)... and weakens your arm for the veiling (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -16198,6 +16199,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "DEEP PREFACE"
 		803:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE PREFACE"
+		804:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -17056,6 +17062,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST TOME": "The breaking tome guards and arms you, Kael — it drains your purse for the guarding.",
 	"SALT TOME": "The brine tome fills and teaches you, Kael — it shifts your guard for the filling.",
 	"DEEP PREFACE": "The drowned preface arms and veils you, Kael — it skims your purse for the reading.",
+	"PALE PREFACE": "The white preface veils and fills you, Kael — it weakens your arm for the veiling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
