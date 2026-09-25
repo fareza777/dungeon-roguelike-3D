@@ -21243,6 +21243,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_armor += 3
 			toast("Keel Polonaise: The keel polonaise-march fills and plates you, Kael.")
+		2597:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			toast("Hull Polonaise: The hull polonaise-march swells and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -25594,6 +25598,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE APODEIPNON — the tide apodeipnon-office quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM APODEIPNON — the storm apodeipnon-office sharpens and lucks you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL APODEIPNON — the keel apodeipnon-office fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
+		{"text": "HULL APODEIPNON — the hull apodeipnon-office swells and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -47336,6 +47341,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL APODEIPNON"
 		4318:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL APODEIPNON"
+		4319:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -51724,6 +51734,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE APODEIPNON": "The tide apodeipnon-office keeps its apodeipna in your tide, Kael — quicker and keen, at a cost.",
 	"STORM APODEIPNON": "The storm apodeipnon-office keeps its apodeipna through your thunder, Kael — keen and lucky, at a cost.",
 	"KEEL APODEIPNON": "The keel apodeipnon-office keeps its apodeipna along your keel, Kael — richer and plated, at a cost.",
+	"HULL APODEIPNON": "The hull apodeipnon-office keeps its apodeipna along your hull, Kael — heartier and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -59482,6 +59493,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Tide Polonaise — the tide polonaise-march quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Polonaise — the storm polonaise-march sharpens and lucks you (+5% ATK, +6% crit)"},
 		{"text": "Keel Polonaise — the keel polonaise-march fills and plates you (+6% souls, +3 armor)"},
+		{"text": "Hull Polonaise — the hull polonaise-march swells and guards you (+6% max HP, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
