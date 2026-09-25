@@ -21499,6 +21499,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Grey Jota: The grey jota-step guards and teaches you, Kael.")
+		2654:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			toast("Tide Jota: The tide jota-step quickens and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -25907,6 +25911,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP HIERATEION — the deep hierateion-sanctuary sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 		{"text": "PALE HIERATEION — the pale hierateion-sanctuary guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY HIERATEION — the grey hierateion-sanctuary guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
+		{"text": "TIDE HIERATEION — the tide hierateion-sanctuary quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -47938,6 +47943,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY HIERATEION"
 		4375:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE HIERATEION"
+		4376:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -52383,6 +52393,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP HIERATEION": "The deep hierateion-sanctuary opens its hierateia over your blade, Kael — keen and guarded, at a cost.",
 	"PALE HIERATEION": "The pale hierateion-sanctuary opens its hierateia over your wake, Kael — guarded and filled, at a cost.",
 	"GREY HIERATEION": "The grey hierateion-sanctuary opens its hierateia through your grey watch, Kael — guarded and wiser, at a cost.",
+	"TIDE HIERATEION": "The tide hierateion-sanctuary opens its hierateia in your tide, Kael — quicker and keen, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -60198,6 +60209,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Deep Jota — the deep jota-step sharpens and guards you (+5% ATK, +3% dodge)"},
 		{"text": "Pale Jota — the pale jota-step guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Jota — the grey jota-step guards and teaches you (+5% dodge, +5% XP)"},
+		{"text": "Tide Jota — the tide jota-step quickens and sharpens you (+6% speed, +4% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
