@@ -11346,7 +11346,7 @@ func _offer_omens() -> void:
 		{"text": "SALT CENSUS — the white count weighs your purse kindly (+5% souls, +3% dodge)... its tallies never teach (−3% XP)"},
 		{"text": "BOTTOM CENSUS — the trench's last roll takes inventory of your plate (+4% max HP, +3% XP)... and files the bill (−3% souls)"},
 		{"text": "GREY INVENTORY — the pale clerk counts your hands for stock (+5% ATK)... and charges the audit (−4% speed)"},
-		{"text": "PALE CENSUS — the white roll reads you as someone faster (+6% speed)... and harder to hide (+4% aggro)"},
+		{"text": "PALE CENSUS — the white roll reads you as someone faster (+6% speed)... and harder to hide (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12411,7 +12411,7 @@ func _omen_deal(idx: int) -> void:
 			oname = "GREY INVENTORY"
 		234:
 			Stats.buff_speed_pct += 0.06
-			Stats.buff_aggro_pct += 0.04
+			Stats.dodge -= 0.03
 			oname = "PALE CENSUS"
 		235:
 			nemesis_bounty = true
