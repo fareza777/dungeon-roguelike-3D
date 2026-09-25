@@ -12030,6 +12030,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE ACCORD — the trailing accord speeds and pays you (+6% speed, +4% souls)... and leaves your guard for the speeding (−3% dodge)"},
 		{"text": "BILGE ACCORD — the swamp accord fills and teaches you (+5% souls, +5% XP)... and uncovers your guard for the filling (−3% dodge)"},
 		{"text": "CREST ACCORD — the wave-crest accord lifts and arms you (+5% dodge, +5% ATK)... and offers less in return for the lifting (−4% souls)"},
+		{"text": "SALT ACCORD — the brine accord fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -14957,6 +14958,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.04
 			oname = "CREST ACCORD"
 		606:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "SALT ACCORD"
+		607:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -15618,6 +15624,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE ACCORD": "The trailing accord speeds and pays you, Kael — it leaves your guard for the speeding.",
 	"BILGE ACCORD": "The swamp accord fills and teaches you, Kael — it uncovers your guard for the filling.",
 	"CREST ACCORD": "The wave-crest accord lifts and arms you, Kael — it offers less in return for the lifting.",
+	"SALT ACCORD": "The brine accord fills and teaches you, Kael — it shifts your guard for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
