@@ -14516,6 +14516,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.06
 			Stats.soul_gain_pct += 0.05
 			toast("Pale Etude: The pale etude-study guards and fills you, Kael.")
+		943:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Grey Etude: The grey etude-study guards and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17214,6 +17218,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP SYNODIKON — the deep synodikon-decree sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 		{"text": "PALE SYNODIKON — the pale synodikon-decree guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY SYNODIKON — the grey synodikon-decree guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
+		{"text": "TIDE SYNODIKON — the tide synodikon-decree quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -30581,6 +30586,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY SYNODIKON"
 		2665:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE SYNODIKON"
+		2666:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -33312,6 +33322,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP SYNODIKON": "The deep synodikon-decree anathematizes your weakness, Kael — sharper, at a cost.",
 	"PALE SYNODIKON": "The pale synodikon-decree anathematizes your exposure, Kael — guarded, at a cost.",
 	"GREY SYNODIKON": "The grey synodikon-decree drones its anathemas over you, Kael — guarded and wiser, at a cost.",
+	"TIDE SYNODIKON": "The tide synodikon-decree floods your steps with its anathemas, Kael — swifter, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -39416,6 +39427,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Salt Arabesque — the salt arabesque-ornament fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Etude — the deep etude-study sharpens and guards you (+5% ATK, +3% dodge)"},
 		{"text": "Pale Etude — the pale etude-study guards and fills you (+6% dodge, +5% souls)"},
+		{"text": "Grey Etude — the grey etude-study guards and teaches you (+5% dodge, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
