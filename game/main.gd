@@ -12348,6 +12348,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Nones: the floor canonical-hours — +7% souls, +4% dodge this run")
+		440:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			toast("Grim Nones: the grim canonical-hours — +5% ATK, +4% dodge this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -31834,6 +31838,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Nones — the plank canonical-hours: +6% max HP, +4% dodge this run"},
 		{"text": "Trench Nones — the trench canonical-hours: +5% ATK, +4% attack speed this run"},
 		{"text": "Bottom Nones — the floor canonical-hours: +7% souls, +4% dodge this run"},
+		{"text": "Grim Nones — the grim canonical-hours: +5% ATK, +4% dodge this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
