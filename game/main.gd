@@ -18750,6 +18750,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Zoppa: The trench zoppa-verse sharpens and hastens you, Kael.")
+		1984:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Zoppa: The bottom zoppa-verse fills and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -22488,6 +22492,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL EXULTET — the keel exultet-scroll fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL EXULTET — the hull exultet-scroll bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH EXULTET — the trench exultet-scroll sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
+		{"text": "BOTTOM EXULTET — the bottom exultet-scroll fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -41124,6 +41129,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH EXULTET"
 		3705:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM EXULTET"
+		3706:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -44899,6 +44909,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL EXULTET": "The keel exultet-scroll rivets its proclamation to your ribs, Kael — richer and plated, at a cost.",
 	"HULL EXULTET": "The hull exultet-scroll swells its proclamation through your frame, Kael — bulked and guarded, at a cost.",
 	"TRENCH EXULTET": "The trench exultet-scroll drives its proclamation down your arm, Kael — sharpened and hastened, at a cost.",
+	"BOTTOM EXULTET": "The bottom exultet-scroll settles its proclamation in your purse, Kael — richer and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -52044,6 +52055,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Zoppa — the keel zoppa-verse fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Zoppa — the hull zoppa-verse bulks and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Zoppa — the trench zoppa-verse sharpens and hastens you (+5% ATK, +4% ASPD)"},
+		{"text": "Bottom Zoppa — the bottom zoppa-verse fills and guards you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
