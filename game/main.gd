@@ -21353,6 +21353,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.dodge += 0.03
 			toast("Deep Csardas: The deep csardas-spin sharpens and guards you, Kael.")
+		2622:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			toast("Pale Csardas: The pale csardas-spin guards and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -25729,6 +25733,7 @@ func _offer_omens() -> void:
 		{"text": "CREST HEORTOLOGION — the crest heortologion-calendar guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT HEORTOLOGION — the salt heortologion-calendar fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 		{"text": "DEEP MOLIEBEN — the deep molieben-service sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
+		{"text": "PALE MOLIEBEN — the pale molieben-service guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -47598,6 +47603,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "DEEP MOLIEBEN"
 		4343:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE MOLIEBEN"
+		4344:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -52011,6 +52021,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST HEORTOLOGION": "The crest heortologion-calendar marks its heortologia on your crest, Kael — guarded and keen, at a cost.",
 	"SALT HEORTOLOGION": "The salt heortologion-calendar marks its heortologia over your salt, Kael — richer and wiser, at a cost.",
 	"DEEP MOLIEBEN": "The deep molieben-service holds its moliebens over your blade, Kael — keen and guarded, at a cost.",
+	"PALE MOLIEBEN": "The pale molieben-service holds its moliebens over your wake, Kael — guarded and filled, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -59794,6 +59805,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Crest Bolero — the crest bolero-turn guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Bolero — the salt bolero-turn fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Csardas — the deep csardas-spin sharpens and guards you (+5% ATK, +3% dodge)"},
+		{"text": "Pale Csardas — the pale csardas-spin guards and fills you (+6% dodge, +5% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
