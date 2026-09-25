@@ -10297,6 +10297,14 @@ func toast(txt: String) -> void:
 			_tcol = Color(0.7, 0.9, 1.0)
 	if "bites" in _tl or "rage" in _tl or "dies" in _tl or "doom" in _tl or "blood debt" in _tl or "−" in txt or "falls" in _tl:
 		_tcol = Color(1.0, 0.5, 0.45)
+	if "not enough souls" in _tl and ui.has("souls_label"):
+		ui.souls_label.pivot_offset = ui.souls_label.size * 0.5
+		ui.souls_label.rotation = -0.05
+		ui.souls_label.modulate = Color(1.0, 0.4, 0.35)
+		var dtw := create_tween()
+		dtw.tween_property(ui.souls_label, "rotation", 0.05, 0.07)
+		dtw.tween_property(ui.souls_label, "rotation", 0.0, 0.11)
+		dtw.parallel().tween_property(ui.souls_label, "modulate", Color(1, 1, 1), 0.45)
 	ui.toast.text = _tpfx + txt
 	ui.toast.add_theme_color_override("font_color", _tcol)
 	ui.toast_panel.visible = true
