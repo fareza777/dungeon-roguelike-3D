@@ -14252,6 +14252,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.soul_gain_pct += 0.04
 			toast("Wake Intermezzo: The wake intermezzo-tune quickens and fills you, Kael.")
+		878:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Bilge Intermezzo: The bilge intermezzo-tune fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -16885,6 +16889,7 @@ func _offer_omens() -> void:
 		{"text": "FOG DIURNAL — the fog diurnal-prayer shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE DIURNAL — the wake diurnal-prayer quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE DIURNAL — the bilge diurnal-prayer fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
+		{"text": "CREST DIURNAL — the crest diurnal-prayer guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -29923,6 +29928,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE DIURNAL"
 		2600:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST DIURNAL"
+		2601:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -32589,6 +32599,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG DIURNAL": "The fog diurnal-prayer veils your hours in white, Kael — shrouded, at a cost.",
 	"WAKE DIURNAL": "The wake diurnal-prayer trails its hours in your foam, Kael — swifter and richer, at a cost.",
 	"BILGE DIURNAL": "The bilge diurnal-prayer seeps its hours into your pockets, Kael — richer and wiser, at a cost.",
+	"CREST DIURNAL": "The crest diurnal-prayer breaks its hours over your blade, Kael — guarded and sharper, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -38628,6 +38639,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grim Intermezzo — the grim intermezzo-tune sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Intermezzo — the fog intermezzo-tune shrouds and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Intermezzo — the wake intermezzo-tune quickens and fills you (+6% speed, +4% souls)"},
+		{"text": "Bilge Intermezzo — the bilge intermezzo-tune fills and teaches you (+5% souls, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
