@@ -15337,6 +15337,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE TRIODION — the wake triodion-ode quickens and fills you (+6% speed, +4% souls)... and shifts your guard for the quickening (−3% dodge)"},
 		{"text": "BILGE TRIODION — the bilge triodion-ode fills and teaches you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "CREST TRIODION — the crest triodion-ode guards and sharpens you (+5% dodge, +5% ATK)... and lightens your purse for the guarding (−4% souls)"},
+		{"text": "SALT TRIODION — the salt triodion-ode fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -26860,6 +26861,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.04
 			oname = "CREST TRIODION"
 		2301:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "SALT TRIODION"
+		2302:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -29219,6 +29225,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE TRIODION": "The wake triodion-ode quickens and fills you, Kael — it shifts your guard for the quickening.",
 	"BILGE TRIODION": "The bilge triodion-ode fills and teaches you, Kael — it shifts your guard for the filling.",
 	"CREST TRIODION": "The crest triodion-ode guards and sharpens you, Kael — it lightens your purse for the guarding.",
+	"SALT TRIODION": "The salt triodion-ode fills and teaches you, Kael — it shifts your guard for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
