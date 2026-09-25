@@ -14077,6 +14077,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE OFFERTORY — the tide offer-chant speeds and sharpens you (+6% speed, +4% ATK)... and shifts your guard for the speeding (−3% dodge)"},
 		{"text": "STORM OFFERTORY — the gale offer-chant sharpens and keens you (+5% ATK, +6% crit)... and shifts your guard for the keening (−4% dodge)"},
 		{"text": "KEEL OFFERTORY — the keel offer-chant fills and plates you (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
+		{"text": "HULL OFFERTORY — the hull offer-chant swells and guards you (+6% max HP, +4% dodge)... and slows your step for the swelling (−3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -23659,6 +23660,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL OFFERTORY"
 		1918:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL OFFERTORY"
+		1919:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -25635,6 +25641,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE OFFERTORY": "The tide offer-chant speeds and sharpens you, Kael — it shifts your guard for the speeding.",
 	"STORM OFFERTORY": "The gale offer-chant sharpens and keens you, Kael — it shifts your guard for the keening.",
 	"KEEL OFFERTORY": "The keel offer-chant fills and plates you, Kael — it shifts your guard for the plating.",
+	"HULL OFFERTORY": "The hull offer-chant swells and guards you, Kael — it slows your step for the swelling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
