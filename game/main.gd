@@ -12383,6 +12383,7 @@ func _offer_omens() -> void:
 		{"text": "BOTTOM MARGINALIA — the deepest margin-notes fill and guard you (+7% souls, +4% dodge)... and weaken your arm for the filling (−3% ATK)"},
 		{"text": "GRIM MARGINALIA — the grim margin-notes arm, guard and plate you (+5% ATK, +4% dodge, +2 armor)... and slow your step for the plating (−4% speed)"},
 		{"text": "FOG MARGINALIA — the misted margin-notes cloak and fill you (+7% dodge, +4% souls)... and weaken your arm for the cloaking (−4% ATK)"},
+		{"text": "WAKE MARGINALIA — the trailing margin-notes speed and fill you (+6% speed, +4% souls)... and shift your guard for the speeding (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -16747,6 +16748,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "FOG MARGINALIA"
 		888:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "WAKE MARGINALIA"
+		889:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -17690,6 +17696,7 @@ func _omen_deal(idx: int) -> void:
 	"BOTTOM MARGINALIA": "The deepest margin-notes fill and guard you, Kael — they weaken your arm for the filling.",
 	"GRIM MARGINALIA": "The grim margin-notes arm, guard and plate you, Kael — they slow your step for the plating.",
 	"FOG MARGINALIA": "The misted margin-notes cloak and fill you, Kael — they weaken your arm for the cloaking.",
+	"WAKE MARGINALIA": "The trailing margin-notes speed and fill you, Kael — they shift your guard for the speeding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
