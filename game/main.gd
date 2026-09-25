@@ -14232,6 +14232,7 @@ func _offer_omens() -> void:
 		{"text": "BOTTOM SEQUENCE — the floor sequence-chant fills and guards you (+7% souls, +4% dodge)... and dulls your edge for the filling (−3% ATK)"},
 		{"text": "GRIM SEQUENCE — the grim sequence-chant sharpens, guards and plates you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the plating (−4% speed)"},
 		{"text": "FOG SEQUENCE — the fog sequence-chant guards and fills you (+7% dodge, +4% souls)... and dulls your edge for the guarding (−4% ATK)"},
+		{"text": "WAKE SEQUENCE — the wash sequence-chant speeds and fills you (+6% speed, +4% souls)... and shifts your guard for the speeding (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -23992,6 +23993,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "FOG SEQUENCE"
 		1953:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "WAKE SEQUENCE"
+		1954:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -26003,6 +26009,7 @@ func _omen_deal(idx: int) -> void:
 	"BOTTOM SEQUENCE": "The floor sequence-chant fills and guards you, Kael — it dulls your edge for the filling.",
 	"GRIM SEQUENCE": "The grim sequence-chant sharpens, guards and plates you, Kael — it slows your step for the plating.",
 	"FOG SEQUENCE": "The fog sequence-chant guards and fills you, Kael — it dulls your edge for the guarding.",
+	"WAKE SEQUENCE": "The wash sequence-chant speeds and fills you, Kael — it shifts your guard for the speeding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
