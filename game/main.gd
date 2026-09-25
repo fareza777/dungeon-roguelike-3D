@@ -14900,6 +14900,7 @@ func _offer_omens() -> void:
 		{"text": "GRIM AINOI — the grim ainoi-psalm sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the sharpening (−4% speed)"},
 		{"text": "FOG AINOI — the fog ainoi-psalm guards and fills you (+7% dodge, +4% souls)... and dulls your edge for the guarding (−4% ATK)"},
 		{"text": "WAKE AINOI — the wake ainoi-psalm quickens and fills you (+6% speed, +4% souls)... and shifts your guard for the quickening (−3% dodge)"},
+		{"text": "BILGE AINOI — the bilge ainoi-psalm fills and teaches you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -25881,6 +25882,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "WAKE AINOI"
 		2194:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.dodge -= 0.03
+			oname = "BILGE AINOI"
+		2195:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -28133,6 +28139,7 @@ func _omen_deal(idx: int) -> void:
 	"GRIM AINOI": "The grim ainoi-psalm sharpens, guards, and plates you, Kael — it slows your step for the sharpening.",
 	"FOG AINOI": "The fog ainoi-psalm guards and fills you, Kael — it dulls your edge for the guarding.",
 	"WAKE AINOI": "The wake ainoi-psalm quickens and fills you, Kael — it shifts your guard for the quickening.",
+	"BILGE AINOI": "The bilge ainoi-psalm fills and teaches you, Kael — it shifts your guard for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
