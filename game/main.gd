@@ -21178,6 +21178,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Mazurka: The storm mazurka-step sharpens and lucks you, Kael.")
+		2581:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Mazurka: The keel mazurka-step fills and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -25513,6 +25517,7 @@ func _offer_omens() -> void:
 		{"text": "GREY PANNYCHIS — the grey pannychis-vigil guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE PANNYCHIS — the tide pannychis-vigil quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM PANNYCHIS — the storm pannychis-vigil sharpens and lucks you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
+		{"text": "KEEL PANNYCHIS — the keel pannychis-vigil fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -47174,6 +47179,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM PANNYCHIS"
 		4302:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL PANNYCHIS"
+		4303:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -51546,6 +51556,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY PANNYCHIS": "The grey pannychis-vigil keeps its pannychides through your grey watch, Kael — guarded and wiser, at a cost.",
 	"TIDE PANNYCHIS": "The tide pannychis-vigil keeps its pannychides in your tide, Kael — quicker and keen, at a cost.",
 	"STORM PANNYCHIS": "The storm pannychis-vigil keeps its pannychides through your thunder, Kael — keen and lucky, at a cost.",
+	"KEEL PANNYCHIS": "The keel pannychis-vigil keeps its pannychides along your keel, Kael — richer and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -59288,6 +59299,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Mazurka — the grey mazurka-step guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Mazurka — the tide mazurka-step quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Mazurka — the storm mazurka-step sharpens and lucks you (+5% ATK, +6% crit)"},
+		{"text": "Keel Mazurka — the keel mazurka-step fills and plates you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
