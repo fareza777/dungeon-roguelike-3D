@@ -20499,6 +20499,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Grey Cotillon: The grey cotillon-dance guards and teaches you, Kael.")
+		2414:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			toast("Tide Cotillon: The tide cotillon-dance quickens and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -24667,6 +24671,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP MEGAKOLAION — the deep megakolaion-canon sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 		{"text": "PALE MEGAKOLAION — the pale megakolaion-canon guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY MEGAKOLAION — the grey megakolaion-canon guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
+		{"text": "TIDE MEGAKOLAION — the tide megakolaion-canon quickens and hardens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -45482,6 +45487,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY MEGAKOLAION"
 		4135:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE MEGAKOLAION"
+		4136:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -49687,6 +49697,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP MEGAKOLAION": "The deep megakolaion-canon thunders its megakolaia over your blade, Kael — keen and guarded, at a cost.",
 	"PALE MEGAKOLAION": "The pale megakolaion-canon thunders its megakolaia over your wake, Kael — guarded and filled, at a cost.",
 	"GREY MEGAKOLAION": "The grey megakolaion-canon thunders its megakolaia over your shoulders, Kael — guarded and wiser, at a cost.",
+	"TIDE MEGAKOLAION": "The tide megakolaion-canon thunders its megakolaia through your wake, Kael — quicker and harder, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -57262,6 +57273,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Deep Cotillon — the deep cotillon-dance sharpens and guards you (+5% ATK, +3% dodge)"},
 		{"text": "Pale Cotillon — the pale cotillon-dance guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Cotillon — the grey cotillon-dance guards and teaches you (+5% dodge, +5% XP)"},
+		{"text": "Tide Cotillon — the tide cotillon-dance quickens and sharpens you (+6% speed, +4% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
