@@ -11601,6 +11601,7 @@ func _offer_omens() -> void:
 		{"text": "GREY WRIT — the pale count's writ covers you fully (+4% souls, +4% XP, +2 armor)... and pins your step (−4% dodge)"},
 		{"text": "KEEL WRIT — the hull's writ arms and drives you (+5% ATK, +3% speed)... and hulls your purse for the arming (−4% souls)"},
 		{"text": "TIDE WRIT — the current's writ carries your step and your guard (+5% speed, +4% dodge)... and carries off your coin (−3% souls)"},
+		{"text": "GRIM WRIT — the reaper's writ sharpens your arm to a cruel edge (+7% ATK)... and loosens your guard for the sharpening (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12917,6 +12918,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "TIDE WRIT"
 		287:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge -= 0.04
+			oname = "GRIM WRIT"
+		288:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13255,6 +13260,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY WRIT": "The pale count's writ covers you fully, Kael — it pins your step for the covering.",
 	"KEEL WRIT": "The hull's writ arms and drives you, Kael — it hulls your purse for the arming.",
 	"TIDE WRIT": "The current's writ carries your step and your guard, Kael — it carries off your coin in the same water.",
+	"GRIM WRIT": "The reaper's writ sharpens your arm to a cruel edge, Kael — it loosens your guard for the sharpening.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
