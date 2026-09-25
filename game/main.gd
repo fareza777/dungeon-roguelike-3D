@@ -9628,7 +9628,8 @@ func _heavy_attack() -> void:
 		return
 	player.anim_lock = M.play_action(player.ap, ["1h_melee_attack"], 1.2)
 	Sfx.play("whirl")
-	_shock_ring(player.global_position)
+	var wcol: Color = Color(WDB.get_w(Stats.weapon_id).get("tint", Color(0.5, 0.95, 1.0)))
+	_shock_ring(player.global_position, wcol)
 	var dmg := Stats.get_stat("atk") * 2.5
 	for f in get_tree().get_nodes_in_group("enemies"):
 		if f.global_position.distance_to(player.global_position) < 1.0 * info.tile:
@@ -9646,7 +9647,7 @@ func _heavy_attack() -> void:
 	_quest_event("heavy")
 
 
-func _shock_ring(pos: Vector3) -> void:
+func _shock_ring(pos: Vector3, col: Color = Color(0.5, 0.95, 1.0, 0.9)) -> void:
 	var mi := MeshInstance3D.new()
 	var tm := TorusMesh.new()
 	tm.inner_radius = 0.42
@@ -9654,9 +9655,9 @@ func _shock_ring(pos: Vector3) -> void:
 	mi.mesh = tm
 	var mat := StandardMaterial3D.new()
 	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	mat.albedo_color = Color(0.5, 0.95, 1.0, 0.9)
+	mat.albedo_color = col
 	mat.emission_enabled = true
-	mat.emission = Color(0.4, 0.9, 1.0)
+	mat.emission = Color(col.r * 0.85, col.g * 0.85, col.b * 0.85)
 	mat.emission_energy_multiplier = 3.0
 	mi.material_override = mat
 	room.add_child(mi)
