@@ -12952,6 +12952,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.07
 			Stats.dodge += 0.03
 			toast("Deep Organum: the deep organum-voice — +7% ATK, +3% dodge this run")
+		582:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			toast("Pale Organum: the pale organum-voice — +6% dodge, +5% souls this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -34806,6 +34810,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Crest Hexapsalmos — the crest hexapsalmos-verse: +5% dodge, +5% ATK this run"},
 		{"text": "Salt Hexapsalmos — the salt hexapsalmos-verse: +6% souls, +4% XP this run"},
 		{"text": "Deep Organum — the deep organum-voice: +7% ATK, +3% dodge this run"},
+		{"text": "Pale Organum — the pale organum-voice: +6% dodge, +5% souls this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
