@@ -17290,6 +17290,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Villota: The bottom villota-verse fills and guards you, Kael.")
+		1625:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Villota: The grim villota-verse sharpens, guards, and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -20669,6 +20674,7 @@ func _offer_omens() -> void:
 		{"text": "HULL PRAGMATEIA — the hull pragmateia-book bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH PRAGMATEIA — the trench pragmateia-book sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 		{"text": "BOTTOM PRAGMATEIA — the bottom pragmateia-book fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM PRAGMATEIA — the grim pragmateia-book sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -37486,6 +37492,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM PRAGMATEIA"
 		3346:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM PRAGMATEIA"
+		3347:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -40902,6 +40914,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL PRAGMATEIA": "The hull pragmateia-book swells its pragmateiai through your frame, Kael — bulked and guarded, at a cost.",
 	"TRENCH PRAGMATEIA": "The trench pragmateia-book drives its pragmateiai down your arm, Kael — sharpened and hastened, at a cost.",
 	"BOTTOM PRAGMATEIA": "The bottom pragmateia-book settles its pragmateiai in your purse, Kael — richer and guarded, at a cost.",
+	"GRIM PRAGMATEIA": "The grim pragmateia-book drops its pragmateiai like ballast in your bones, Kael — sharpened, guarded, plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -47688,6 +47701,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Villota — the hull villota-verse bulks and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Villota — the trench villota-verse sharpens and hastens you (+5% ATK, +4% ASPD)"},
 		{"text": "Bottom Villota — the bottom villota-verse fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Villota — the grim villota-verse sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
