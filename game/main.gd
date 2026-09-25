@@ -3490,6 +3490,13 @@ func _new_run(new_seed: int) -> void:
 	_build_minimap()
 	Sfx.play_music("boss" if boss_floor else _biome_track())
 	ui.floor_label.text = "Floor %d • %s%s" % [Stats.floor_num, biome["name"], " (NG+%d)" % Stats.ng_plus if Stats.ng_plus > 0 else ""]
+	ui.floor_label.modulate = Color(1.0, 0.9, 0.55)
+	ui.floor_label.pivot_offset = ui.floor_label.size * 0.5
+	ui.floor_label.scale = Vector2(1.25, 1.25)
+	var fltw: Tween = ui.floor_label.create_tween()
+	fltw.set_parallel(true)
+	fltw.tween_property(ui.floor_label, "modulate", Color(1, 1, 1, 0.6), 0.9)
+	fltw.tween_property(ui.floor_label, "scale", Vector2.ONE, 0.4).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	if Stats.floor_num >= 20 and Stats.ng_plus >= 1:
 		_ach("ngdeep")
 	if Stats.floor_num >= 18:
