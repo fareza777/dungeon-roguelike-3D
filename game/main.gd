@@ -10394,7 +10394,7 @@ func _combo_set(n: int) -> void:
 		return
 	if combo >= 3:
 		ui.combo_l.visible = true
-		ui.combo_l.text = ("FRENZY ×%d" % combo) if combo >= 30 else "COMBO ×%d" % combo
+		ui.combo_l.text = ("★ GODLIKE ×%d" % combo) if combo >= 40 else ("FRENZY ×%d" % combo) if combo >= 30 else "COMBO ×%d" % combo
 		if combo >= 40:
 			ui.combo_l.modulate = Color(1.0, 0.3, 0.6)
 		elif combo >= 25:
@@ -10406,7 +10406,8 @@ func _combo_set(n: int) -> void:
 		else:
 			ui.combo_l.modulate = Color(1.0, 0.7, 0.25)
 		ui.combo_l.pivot_offset = ui.combo_l.size * 0.5
-		ui.combo_l.scale = Vector2(1.35, 1.35)
+		var cpk: float = 1.35 + (0.15 if combo >= 40 else 0.1 if combo >= 25 else 0.05 if combo >= 15 else 0.0)
+		ui.combo_l.scale = Vector2(cpk, cpk)
 		var tw := create_tween()
 		tw.tween_property(ui.combo_l, "scale", Vector2.ONE, 0.18)
 		if combo >= 5:
