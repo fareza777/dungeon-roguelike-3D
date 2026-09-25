@@ -5,6 +5,8 @@ extends Node3D
 var tile := 4.0
 var atk_cd := 0.0
 var t := 0.0
+var ap: AnimationPlayer = null
+var act_lock := 0.0
 var dmg := 1.0
 var is_vane := false # Sir Vane: kadang bicara setelah menebas
 var life_t := -1.0 # >0 = THRALL ghost — memudar saat habis
@@ -18,6 +20,7 @@ func setup(p_tile: float, p_dmg: float, p_tint := Color(0.95, 0.88, 0.6), p_orb 
 		dmg *= 1.5
 	var model: Node3D = load("res://assets/characters/Skeleton_Minion.glb").instantiate()
 	model.scale = Vector3.ONE * 0.62
+	ap = M.anim_player(model)
 	var mat := StandardMaterial3D.new()
 	mat.albedo_color = p_tint
 	mat.metallic = 0.2
@@ -58,6 +61,7 @@ func _physics_process(delta: float) -> void:
 			queue_free()
 			return
 	atk_cd -= delta
+	act_lock -= delta
 	var ps := get_tree().get_nodes_in_group("player")
 	if ps.is_empty():
 		return
@@ -71,6 +75,10 @@ func _physics_process(delta: float) -> void:
 		var spd: float = (3.2 if dp > 2.5 * tile else 1.5) * tile
 		global_position += to_p.normalized() * spd * delta
 		look_at(global_position + to_p.normalized(), Vector3.UP)
+		if act_lock <= 0.0:
+			M.play_fuzzy(ap, ["run", "walk"])
+	elif act_lock <= 0.0:
+		M.play_fuzzy(ap, ["idle"])
 	if atk_cd > 0.0:
 		return
 	var best: Node3D = null
@@ -86,6 +94,7 @@ func _physics_process(delta: float) -> void:
 		atk_cd = 1.1
 		look_at(Vector3(best.global_position.x, global_position.y, best.global_position.z), Vector3.UP)
 		best.take_hit(global_position, dmg)
+		act_lock = max(act_lock, M.play_action(ap, ["attack", "slash", "swing"], 1.5))
 		Sfx.play("swing")
 		var m := get_tree().current_scene
 		if m != null and m.has_method("_damage_number"):
