@@ -11680,6 +11680,7 @@ func _offer_omens() -> void:
 		{"text": "FINAL DECREE — the last command of the drowned court covers everything (+5% ATK, +4% XP, +4% souls)... and your guard signs for all of it (−4% dodge)"},
 		{"text": "DEEP MANDATE — the trench's charge arms and instructs you (+7% ATK, +4% XP)... and presses off your plate (−2 armor)"},
 		{"text": "PALE MANDATE — the white count's charge veils and pays you (+6% dodge, +5% souls)... and weakens your arm for the veiling (−4% ATK)"},
+		{"text": "GREY MANDATE — the pale count's charge covers you fully (+5% souls, +5% XP, +2 armor)... and pins your step (−5% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13189,6 +13190,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "PALE MANDATE"
 		326:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.buff_armor += 2
+			Stats.dodge -= 0.05
+			oname = "GREY MANDATE"
+		327:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13568,6 +13575,7 @@ func _omen_deal(idx: int) -> void:
 	"FINAL DECREE": "The last command of the drowned court covers everything, Kael — your guard signs for all of it.",
 	"DEEP MANDATE": "The trench's charge arms and instructs you, Kael — it presses off your plate for the charge.",
 	"PALE MANDATE": "The white count's charge veils and pays you, Kael — it weakens your arm for the veiling.",
+	"GREY MANDATE": "The pale count's charge covers you fully, Kael — it pins your step for the covering.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
