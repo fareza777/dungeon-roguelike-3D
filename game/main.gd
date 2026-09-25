@@ -13187,6 +13187,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.07
 			Stats.soul_gain_pct += 0.04
 			toast("Fog Partita: The fog partita-round shrouds and fills you, Kael.")
+		637:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			toast("Wake Partita: The wake partita-round quickens and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -35414,6 +35418,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bottom Partita — the bottom partita-round fills and guards you (+7% souls, +4% dodge)"},
 		{"text": "Grim Partita — the grim partita-round sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Partita — the fog partita-round shrouds and fills you (+7% dodge, +4% souls)"},
+		{"text": "Wake Partita — the wake partita-round quickens and fills you (+6% speed, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
