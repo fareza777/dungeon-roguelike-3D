@@ -16485,6 +16485,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH COLLECTARIUM — the trench collectarium-prayer sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 		{"text": "BOTTOM COLLECTARIUM — the bottom collectarium-prayer fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 		{"text": "GRIM COLLECTARIUM — the grim collectarium-prayer sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
+		{"text": "FOG COLLECTARIUM — the fog collectarium-prayer shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -29128,6 +29129,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM COLLECTARIUM"
 		2522:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG COLLECTARIUM"
+		2523:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -31716,6 +31722,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH COLLECTARIUM": "The trench collectarium-prayer drills its verses into your wrists, Kael — sharper and quicker, at a cost.",
 	"BOTTOM COLLECTARIUM": "The bottom collectarium-prayer settles its weight into your purse, Kael — richer and guarded, at a cost.",
 	"GRIM COLLECTARIUM": "The grim collectarium-prayer reads you your own ending, Kael — sharper, guarded, plated, at a cost.",
+	"FOG COLLECTARIUM": "The fog collectarium-prayer blurs the air where you stand, Kael — shrouded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
