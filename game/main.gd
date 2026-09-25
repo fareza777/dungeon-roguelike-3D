@@ -13268,6 +13268,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.dodge += 0.03
 			toast("Deep Cantiga: The deep cantiga-song sharpens and guards you, Kael.")
+		657:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			toast("Pale Cantiga: The pale cantiga-song guards and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -35833,6 +35837,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Crest Planctus — the crest planctus-lament guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Planctus — the salt planctus-lament fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Cantiga — the deep cantiga-song sharpens and guards you (+5% ATK, +3% dodge)"},
+		{"text": "Pale Cantiga — the pale cantiga-song guards and fills you (+6% dodge, +5% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
