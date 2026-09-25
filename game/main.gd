@@ -11281,6 +11281,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL EDICT — the keel's decree cuts two ways: blade and purse alike (+4% ATK, +4% souls)... and it never teaches (−4% XP)"},
 		{"text": "SALT EDICT — the white court's decree crystallizes around you (+2 armor, +5% souls)... its weight slows your step (−5% dodge)"},
 		{"text": "GREY DECREE — the clerk's highest writ is a history lesson (+6% XP)... its seal-stamp dents your plate (−1 armor)"},
+		{"text": "DEEP DOCKET — the trench's case-list runs long (+5% ATK, +3% XP)... hearings take hours (−5% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12312,6 +12313,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_armor -= 1
 			oname = "GREY DECREE"
 		227:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_xp_pct += 0.03
+			Stats.buff_speed_pct -= 0.05
+			oname = "DEEP DOCKET"
+		228:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12588,6 +12594,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL EDICT": "A keel's decree is the ship's first law, Kael — it cuts the water, and it cuts whoever leans on it.",
 	"SALT EDICT": "Salt-law keeps what it names, Kael — you walk out armored, and you walk out slower.",
 	"GREY DECREE": "The clerk's highest writs are all history lessons, Kael — mostly the history of drownings.",
+	"DEEP DOCKET": "The trench's docket never empties, Kael — it just files the drowned under 'heard'.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
