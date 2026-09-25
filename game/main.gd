@@ -12453,6 +12453,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE BREVIER — the flowing small print speeds and arms you (+6% speed, +4% ATK)... and shifts your guard for the speeding (−3% dodge)"},
 		{"text": "STORM BREVIER — the tempest's small print charges your arm and aim (+5% ATK, +6% crit)... and uncovers your guard for the charge (−4% dodge)"},
 		{"text": "KEEL BREVIER — the hull small print fills your purse and plates your hide (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
+		{"text": "HULL BREVIER — the shipwright's small print fills your frame and guards you (+6% max HP, +4% dodge)... and slows your step for the filling (−3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -17171,6 +17172,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL BREVIER"
 		958:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL BREVIER"
+		959:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -18187,6 +18193,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE BREVIER": "The flowing small print speeds and arms you, Kael — it shifts your guard for the speeding.",
 	"STORM BREVIER": "The tempest's small print charges your arm and aim, Kael — it uncovers your guard for the charge.",
 	"KEEL BREVIER": "The hull small print fills your purse and plates your hide, Kael — it shifts your guard for the plating.",
+	"HULL BREVIER": "The shipwright's small print fills your frame and guards you, Kael — it slows your step for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
