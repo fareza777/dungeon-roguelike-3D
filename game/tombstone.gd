@@ -10,6 +10,7 @@ var arch := "brute"
 var room_i := 0
 var done := false
 var base_y := 0.0
+var tick_l: Label3D = null
 
 
 func setup(p_tile: float, p_arch: String, p_room: int) -> void:
@@ -49,6 +50,16 @@ func setup(p_tile: float, p_arch: String, p_room: int) -> void:
 	gl.omni_range = 1.2 * tile
 	gl.position.y = 0.4 * tile
 	add_child(gl)
+	tick_l = Label3D.new()
+	tick_l.font_size = 60
+	tick_l.pixel_size = 0.011
+	tick_l.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	tick_l.modulate = Color(0.75, 0.4, 1.0)
+	tick_l.outline_size = 12
+	tick_l.outline_modulate = Color(0.08, 0.03, 0.12, 0.95)
+	tick_l.text = "3"
+	tick_l.position.y = 0.75 * tile
+	add_child(tick_l)
 
 
 func _physics_process(delta: float) -> void:
@@ -56,6 +67,10 @@ func _physics_process(delta: float) -> void:
 		return
 	t -= delta
 	scale = Vector3.ONE * (0.75 + 0.25 * maxf(0.0, t / 3.0))
+	if tick_l != null:
+		var rem := int(ceil(t))
+		tick_l.text = str(maxi(rem, 1))
+		tick_l.modulate = Color(1.0, 0.3, 0.35) if t < 1.0 else Color(0.75, 0.4, 1.0)
 	if t <= 0.0:
 		done = true
 		release.emit(self)
