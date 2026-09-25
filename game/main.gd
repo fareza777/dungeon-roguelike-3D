@@ -2005,7 +2005,23 @@ func _style_room() -> void:
 		omni.light_energy = biome.get("torch_e", 1.4)
 		omni.omni_range = biome.get("torch_r", 7.0)
 		omni.omni_attenuation = 1.3
-		torch_lights.append({"l": omni, "e": omni.light_energy, "ph": rng.randf() * 6.28})
+		var fg := MeshInstance3D.new()
+		var fgm := SphereMesh.new()
+		fgm.radial_segments = 6
+		fgm.rings = 4
+		fgm.radius = 0.17
+		fgm.height = 0.34
+		var fmat := StandardMaterial3D.new()
+		fmat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		fmat.albedo_color = Color(1.0, 0.62, 0.2, 0.55)
+		fmat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		fmat.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
+		fgm.material = fmat
+		fg.mesh = fgm
+		fg.transparency = 0.35
+		fg.position = Vector3(0.0, 0.42, 0.42)
+		t.add_child(fg)
+		torch_lights.append({"l": omni, "e": omni.light_energy, "ph": rng.randf() * 6.28, "fg": fg})
 
 
 # ---------------- run lifecycle ----------------
@@ -62537,7 +62553,12 @@ func _process(delta: float) -> void:
 		for td in torch_lights:
 			var tl = td["l"]
 			if is_instance_valid(tl):
-				tl.light_energy = float(td["e"]) * (0.9 + 0.1 * sin(floor_t * 7.0 + float(td["ph"])) + 0.04 * sin(floor_t * 23.0 + float(td["ph"]) * 2.0))
+				var flk := 0.9 + 0.1 * sin(floor_t * 7.0 + float(td["ph"])) + 0.04 * sin(floor_t * 23.0 + float(td["ph"]) * 2.0)
+				tl.light_energy = float(td["e"]) * flk
+				var fgi = td.get("fg")
+				if fgi != null and is_instance_valid(fgi):
+					fgi.scale = Vector3.ONE * (0.7 + 0.45 * flk)
+					fgi.transparency = 0.55 - 0.35 * flk
 		if brine_callus:
 			var under_half: bool = player.hp < Stats.get_stat("max_hp") * 0.5
 			if under_half and not callus_on:
