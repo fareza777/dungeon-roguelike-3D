@@ -22203,6 +22203,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.07
 			Stats.soul_gain_pct += 0.04
 			toast("Fog Kalamatianos: The fog kalamatianos-step guards and fills you, Kael.")
+		2827:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			toast("Wake Kalamatianos: The wake kalamatianos-step quickens and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -26784,6 +26788,7 @@ func _offer_omens() -> void:
 		{"text": "BOTTOM ORARION — the bottom orarion-stole fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 		{"text": "GRIM ORARION — the grim orarion-stole sharpens, guards and armors you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 		{"text": "FOG ORARION — the fog orarion-stole guards and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
+		{"text": "WAKE ORARION — the wake orarion-stole quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -49692,6 +49697,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "FOG ORARION"
 		4548:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "WAKE ORARION"
+		4549:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -54310,6 +54320,7 @@ func _omen_deal(idx: int) -> void:
 	"BOTTOM ORARION": "The bottom orarion-stole drapes its oraria at your bottom, Kael — filled and guarded, at a cost.",
 	"GRIM ORARION": "The grim orarion-stole drapes its oraria through your grim vigil, Kael — keen, guarded, plated, at a cost.",
 	"FOG ORARION": "The fog orarion-stole drapes its oraria in your fog, Kael — guarded and filled, at a cost.",
+	"WAKE ORARION": "The wake orarion-stole drapes its oraria in your wake, Kael — quicker and filled, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -62298,6 +62309,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bottom Kalamatianos — the bottom kalamatianos-step fills and guards you (+7% souls, +4% dodge)"},
 		{"text": "Grim Kalamatianos — the grim kalamatianos-step sharpens, guards and armors you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Kalamatianos — the fog kalamatianos-step guards and fills you (+7% dodge, +4% souls)"},
+		{"text": "Wake Kalamatianos — the wake kalamatianos-step quickens and fills you (+6% speed, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
