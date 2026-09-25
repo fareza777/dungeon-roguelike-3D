@@ -11826,6 +11826,7 @@ func _offer_omens() -> void:
 		{"text": "FOG RESCRIPT — the mist's reply veils and pays you (+7% dodge, +4% souls)... and weakens your arm for the veiling (−4% ATK)"},
 		{"text": "WAKE RESCRIPT — the trail's reply carries and pays you (+6% speed, +4% souls)... and leaves your guard for the carrying (−3% dodge)"},
 		{"text": "BILGE RESCRIPT — the hold's reply fills and instructs you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
+		{"text": "CREST RESCRIPT — the breaker's reply lifts your guard and arm (+5% dodge, +5% ATK)... and offers less in return (−4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13988,6 +13989,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE RESCRIPT"
 		455:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST RESCRIPT"
+		456:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -14498,6 +14504,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG RESCRIPT": "The mist's reply veils and pays you, Kael — it weakens your arm for the veiling.",
 	"WAKE RESCRIPT": "The trail's reply carries and pays you, Kael — it leaves your guard for the carrying.",
 	"BILGE RESCRIPT": "The hold's reply fills and instructs you, Kael — it shifts your guard for the filling.",
+	"CREST RESCRIPT": "The breaker's reply lifts your guard and arm, Kael — it offers less in return for the lifting.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
