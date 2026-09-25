@@ -11239,6 +11239,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH WARRANT — the trench's writ, read to you twice (+2 armor, +4% XP)... served with a bill in souls (−4% souls)"},
 		{"text": "BILGE SUMMONS — the hold calls its witnesses and you answer light-footed (+7% dodge)... the attendance fee is souls (−5% souls)"},
 		{"text": "WAKE EDICT — the wake itself issues the decree: forward, always forward (+5% ATK)... nothing behind you keeps its plate (−1 armor)"},
+		{"text": "PALE EDICT — the pale court's decree drifts down like ash (+6% dodge)... its ink stains heavy (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12252,6 +12253,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_armor -= 1
 			oname = "WAKE EDICT"
 		223:
+			Stats.dodge += 0.06
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE EDICT"
+		224:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12524,6 +12529,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH WARRANT": "The trench reads everything twice, Kael — once to you, and once to the water.",
 	"BILGE SUMMONS": "The hold keeps calling witnesses until someone answers, Kael — pay the usher or stay forever.",
 	"WAKE EDICT": "The wake only writes one law, Kael — forward. It never says what it costs.",
+	"PALE EDICT": "The pale court's decrees arrive like weather, Kael — everyone under them gets a little greyer.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
