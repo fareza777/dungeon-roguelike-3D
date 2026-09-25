@@ -255,7 +255,7 @@ func _build() -> void:
 	vb.add_child(sp)
 
 	if Stats.has_run():
-		var bc := _make_btn("▶ CONTINUE — Floor %d" % int(Stats.saved_run.get("floor", 1)))
+		var bc := _make_btn("▶ CONTINUE — Floor %d • Lv %d • %s" % [int(Stats.saved_run.get("floor", 1)), int(Stats.saved_run.get("level", 1)), String(Stats.saved_run.get("weapon_id", "blade")).capitalize().replace("_", " ")])
 		bc.pressed.connect(_on_continue)
 		vb.add_child(bc)
 		var bcsb := bc.get_theme_stylebox("normal") as StyleBoxFlat
