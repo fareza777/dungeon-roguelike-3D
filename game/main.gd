@@ -12417,6 +12417,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE ERRATA — the murk's correction fills your purse and teaches you (+5% souls, +5% XP)... and shifts your guard for the teaching (−3% dodge)"},
 		{"text": "CREST ERRATA — the wave's correction guards and arms you (+5% dodge, +5% ATK)... and empties your purse for the guarding (−4% souls)"},
 		{"text": "SALT ERRATA — the brine mark's correction fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
+		{"text": "DEEP IMPRINT — the deepest stamp honors your arm and guard (+7% ATK, +3% dodge)... and empties your purse for the honor (−3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -16953,6 +16954,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT ERRATA"
 		922:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP IMPRINT"
+		923:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -17933,6 +17939,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE ERRATA": "The murk's correction fills your purse and teaches you, Kael — it shifts your guard for the teaching.",
 	"CREST ERRATA": "The wave's correction guards and arms you, Kael — it empties your purse for the guarding.",
 	"SALT ERRATA": "The brine mark's correction fills and teaches you, Kael — it shifts your guard for the filling.",
+	"DEEP IMPRINT": "The deepest stamp honors your arm and guard, Kael — it empties your purse for the honor.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
