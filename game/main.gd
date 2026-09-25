@@ -16924,6 +16924,9 @@ func _omen_deal(idx: int) -> void:
 		_ach("tenthoath")
 	Sfx.play("shrine")
 	if player != null and is_instance_valid(player):
+		_shock_ring(player.global_position, Color(0.75, 0.55, 1.0))
+		_souls(player.global_position, 10, Color(0.75, 0.6, 1.0))
+	if player != null and is_instance_valid(player):
 		player.refresh_stats()
 	_refresh_buffs()
 	if omen_count >= 3:
