@@ -11580,6 +11580,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL SUMMONS — the hull's summons sets your sea-legs going (+5% speed, +4% attack speed)... and slims your purse (−3% souls)"},
 		{"text": "PALE WRIT — the grey court's writ of passage keeps you light (+6% dodge, +3% souls)... and light of plate (−2 armor)"},
 		{"text": "FOG WRIT — the mist's writ veils your going (+5% dodge, +4% speed)... and veils your striking hand (−4% ATK)"},
+		{"text": "WAKE WRIT — the wake's writ speeds your hands to the record (+5% attack speed, +5% souls)... and leaves your guard open (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12866,6 +12867,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "FOG WRIT"
 		281:
+			Stats.buff_aspd += 0.05
+			Stats.soul_gain_pct += 0.05
+			Stats.dodge -= 0.03
+			oname = "WAKE WRIT"
+		282:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13198,6 +13204,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL SUMMONS": "The hull's summons sets your sea-legs going, Kael — sea-legs never carried a fat purse.",
 	"PALE WRIT": "The grey court's writ keeps you light, Kael — light of foot, light of plate.",
 	"FOG WRIT": "The mist's writ veils your going, Kael — it veils your striking hand in the same paper.",
+	"WAKE WRIT": "The wake's writ speeds your hands to the record, Kael — it leaves your guard open to do it.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
