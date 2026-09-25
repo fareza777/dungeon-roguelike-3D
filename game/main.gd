@@ -15739,6 +15739,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH KYRIALE — the trench kyriale-prayer sharpens and hastens you (+5% ATK, +4% attack speed)... and shifts your guard for the sharpening (−4% dodge)"},
 		{"text": "BOTTOM KYRIALE — the bottom kyriale-prayer fills and guards you (+7% souls, +4% dodge)... and dulls your edge for the filling (−3% ATK)"},
 		{"text": "GRIM KYRIALE — the grim kyriale-prayer sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the sharpening (−4% speed)"},
+		{"text": "FOG KYRIALE — the fog kyriale-prayer shrouds and fills you (+7% dodge, +4% souls)... and dulls your edge for the shrouding (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -27698,6 +27699,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM KYRIALE"
 		2387:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG KYRIALE"
+		2388:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -30143,6 +30149,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH KYRIALE": "The trench kyriale-prayer sharpens and hastens you, Kael — it shifts your guard for the sharpening.",
 	"BOTTOM KYRIALE": "The bottom kyriale-prayer fills and guards you, Kael — it dulls your edge for the filling.",
 	"GRIM KYRIALE": "The grim kyriale-prayer sharpens, guards, and plates you, Kael — it slows your step for the sharpening.",
+	"FOG KYRIALE": "The fog kyriale-prayer shrouds and fills you, Kael — it dulls your edge for the shrouding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
