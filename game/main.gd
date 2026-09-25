@@ -16347,6 +16347,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE PROCESSIONALE — the bilge processionale-march fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 		{"text": "CREST PROCESSIONALE — the crest processionale-march guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT PROCESSIONALE — the salt processionale-march fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
+		{"text": "DEEP ORDINALE — the deep ordinale-rite sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -28863,6 +28864,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT PROCESSIONALE"
 		2497:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP ORDINALE"
+		2498:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -31426,6 +31432,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE PROCESSIONALE": "The bilge processionale-march sloshes wisdom into your purse, Kael — richer, wiser, at a cost.",
 	"CREST PROCESSIONALE": "The crest processionale-march breaks white across your shoulders, Kael — guarded and deadly, at a cost.",
 	"SALT PROCESSIONALE": "The salt processionale-march closes its march around you, Kael — richer and wiser, at a cost. PROCESSIONALE #147 complete.",
+	"DEEP ORDINALE": "The deep ordinale-rite seals its rules upon you, Kael — sharper, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
