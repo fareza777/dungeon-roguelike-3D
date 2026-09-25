@@ -21727,6 +21727,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_atk_pct += 0.05
 			toast("Crest Tango: The crest tango-step guards and sharpens you, Kael.")
+		2710:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			toast("Salt Tango: The salt tango-step fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -26191,6 +26195,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE MANDYAS — the wake mandyas-mantle quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE MANDYAS — the bilge mandyas-mantle fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 		{"text": "CREST MANDYAS — the crest mandyas-mantle guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
+		{"text": "SALT MANDYAS — the salt mandyas-mantle fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -48506,6 +48511,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.04
 			oname = "CREST MANDYAS"
 		4431:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "SALT MANDYAS"
+		4432:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -53007,6 +53017,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE MANDYAS": "The wake mandyas-mantle drapes its mandyades in your wake, Kael — quicker and filled, at a cost.",
 	"BILGE MANDYAS": "The bilge mandyas-mantle drapes its mandyades in your hold, Kael — richer and wiser, at a cost.",
 	"CREST MANDYAS": "The crest mandyas-mantle drapes its mandyades on your crest, Kael — guarded and keen, at a cost.",
+	"SALT MANDYAS": "The salt mandyas-mantle drapes its mandyades over your salt, Kael — richer and wiser, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -60878,6 +60889,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Wake Tango — the wake tango-step quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Tango — the bilge tango-step fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Tango — the crest tango-step guards and sharpens you (+5% dodge, +5% ATK)"},
+		{"text": "Salt Tango — the salt tango-step fills and teaches you (+6% souls, +4% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
