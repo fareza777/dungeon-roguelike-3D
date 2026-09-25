@@ -13739,6 +13739,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.soul_gain_pct += 0.04
 			toast("Wake Fantasia: The wake fantasia-dance quickens and fills you, Kael.")
+		758:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Bilge Fantasia: The bilge fantasia-dance fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -37118,6 +37122,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grim Fantasia — the grim fantasia-dance sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Fantasia — the fog fantasia-dance shrouds and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Fantasia — the wake fantasia-dance quickens and fills you (+6% speed, +4% souls)"},
+		{"text": "Bilge Fantasia — the bilge fantasia-dance fills and teaches you (+5% souls, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
