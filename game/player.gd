@@ -35,6 +35,8 @@ var bounds := {}
 var room_tile := 4.0
 var mat: ShaderMaterial
 var ap: AnimationPlayer
+var lant: OmniLight3D = null
+var lant_t := 0.0
 var kb := Vector3.ZERO
 var kb_in := 1.0 # line_splice: musuh melempar lebih pendek
 var base_v := Vector3.ZERO
@@ -109,7 +111,7 @@ func _ready() -> void:
 	slot_r = _find_hand_slot(self)
 	equip_weapon(Stats.weapon_id)
 	M.play_fuzzy(ap, ["idle"])
-	var lant := OmniLight3D.new()
+	lant = OmniLight3D.new()
 	lant.light_color = Color(1.0, 0.82, 0.55)
 	lant.light_energy = 0.85
 	lant.omni_range = 3.2 * room_tile
@@ -145,6 +147,9 @@ func equip_weapon(id: String) -> void:
 func _physics_process(delta: float) -> void:
 	if dead:
 		return
+	lant_t += delta
+	if lant != null:
+		lant.light_energy = 0.82 + 0.10 * sin(lant_t * 5.3) + 0.05 * sin(lant_t * 13.7)
 	cd = max(0.0, cd - delta)
 	atk_buf = max(0.0, atk_buf - delta)
 	if atk_buf > 0.0 and cd <= 0.0 and not dead and not Stats.draft_open:
