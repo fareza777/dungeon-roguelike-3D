@@ -14833,6 +14833,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Pastorale: The storm pastorale-air sharpens and empowers you, Kael.")
+		1021:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Pastorale: The keel pastorale-air fills and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17609,6 +17613,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE PARAKLITIKI — the tide paraklitiki-office quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM PARAKLITIKI — the storm paraklitiki-office sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL PARAKLITIKI — the keel paraklitiki-office fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
+		{"text": "HULL PARAKLITIKI — the hull paraklitiki-office bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -31371,6 +31376,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL PARAKLITIKI"
 		2743:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL PARAKLITIKI"
+		2744:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -34180,6 +34190,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE PARAKLITIKI": "The tide paraklitiki-office rolls its weekday canons under your feet, Kael — swifter, at a cost.",
 	"STORM PARAKLITIKI": "The storm paraklitiki-office cracks its weekday canons through your wrists, Kael — sharper, at a cost.",
 	"KEEL PARAKLITIKI": "The keel paraklitiki-office moors its weekday canons to your hull, Kael — richer and plated, at a cost.",
+	"HULL PARAKLITIKI": "The hull paraklitiki-office planks its weekday canons along your ribs, Kael — bulkier and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -40362,6 +40373,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Pastorale — the grey pastorale-air guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Pastorale — the tide pastorale-air quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Pastorale — the storm pastorale-air sharpens and empowers you (+5% ATK, +6% crit)"},
+		{"text": "Keel Pastorale — the keel pastorale-air fills and plates you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
