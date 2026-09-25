@@ -13450,6 +13450,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_atk_pct += 0.05
 			toast("Crest Oratorio: The crest oratorio-ode guards and sharpens you, Kael.")
+		700:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			toast("Salt Oratorio: The salt oratorio-ode fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -36270,6 +36274,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Wake Oratorio — the wake oratorio-ode quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Oratorio — the bilge oratorio-ode fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Oratorio — the crest oratorio-ode guards and sharpens you (+5% dodge, +5% ATK)"},
+		{"text": "Salt Oratorio — the salt oratorio-ode fills and teaches you (+6% souls, +4% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
