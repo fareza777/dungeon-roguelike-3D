@@ -18104,6 +18104,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_atk_pct += 0.05
 			toast("Crest Ariette: The crest ariette-verse guards and sharpens you, Kael.")
+		1825:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			toast("Salt Ariette: The salt ariette-verse fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -21683,6 +21687,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE RITUALARIUM — the wake ritualarium-book quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE RITUALARIUM — the bilge ritualarium-book fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 		{"text": "CREST RITUALARIUM — the crest ritualarium-book guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
+		{"text": "SALT RITUALARIUM — the salt ritualarium-book fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -39514,6 +39519,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.04
 			oname = "CREST RITUALARIUM"
 		3546:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "SALT RITUALARIUM"
+		3547:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -43130,6 +43140,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE RITUALARIUM": "The wake ritualarium-book pours its ritualaria into your wake, Kael — swifter and richer, at a cost.",
 	"BILGE RITUALARIUM": "The bilge ritualarium-book sloshes its ritualaria over your feet, Kael — richer and wiser, at a cost.",
 	"CREST RITUALARIUM": "The crest ritualarium-book raises its ritualaria like a wave-crest, Kael — guarded and sharpened, at a cost.",
+	"SALT RITUALARIUM": "The salt ritualarium-book sprinkles its ritualaria over your ledger, Kael — richer and wiser, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -50116,6 +50127,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Wake Ariette — the wake ariette-verse quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Ariette — the bilge ariette-verse fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Ariette — the crest ariette-verse guards and sharpens you (+5% dodge, +5% ATK)"},
+		{"text": "Salt Ariette — the salt ariette-verse fills and teaches you (+6% souls, +4% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
