@@ -11085,6 +11085,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.04
 			Stats.buff_speed_pct += 0.03
 			toast("Pale Verse: the light-choir's faded stanza — +4% dodge, +3% speed this run")
+		196:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_atk_pct += 0.03
+			toast("Salt Chorus: the white choir's counting song — +5% souls, +3% ATK this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17994,6 +17998,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Grey Verse — the pale choir's even couplet: +4% ATK, +4% souls this run"},
 			{"text": "Wake Hymn — the current-choir's trailing song: +5% speed, +3% dodge this run"},
 			{"text": "Pale Verse — the light-choir's faded stanza: +4% dodge, +3% speed this run"},
+			{"text": "Salt Chorus — the white choir's counting song: +5% souls, +3% ATK this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
