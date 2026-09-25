@@ -18787,6 +18787,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.06
 			Stats.soul_gain_pct += 0.05
 			toast("Pale Chiarenzana: The pale chiarenzana-verse guards and fills you, Kael.")
+		1993:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Grey Chiarenzana: The grey chiarenzana-verse guards and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -22534,6 +22538,7 @@ func _offer_omens() -> void:
 		{"text": "SALT EXULTET — the salt exultet-scroll fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 		{"text": "DEEP ROTULUS — the deep rotulus-scroll sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 		{"text": "PALE ROTULUS — the pale rotulus-scroll guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
+		{"text": "GREY ROTULUS — the grey rotulus-scroll guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -41216,6 +41221,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "PALE ROTULUS"
 		3714:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "GREY ROTULUS"
+		3715:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -45000,6 +45010,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT EXULTET": "The salt exultet-scroll crusts its proclamation on your palms, Kael — richer and wiser, at a cost.",
 	"DEEP ROTULUS": "The deep rotulus-scroll winds its rotuli into your steel, Kael — sharper and guarded, at a cost.",
 	"PALE ROTULUS": "The pale rotulus-scroll whitens its rotuli over your shoulders, Kael — guarded and richer, at a cost.",
+	"GREY ROTULUS": "The grey rotulus-scroll greys its rotuli into your tread, Kael — guarded and wiser, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -52154,6 +52165,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Salt Zoppa — the salt zoppa-verse fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Chiarenzana — the deep chiarenzana-verse sharpens and guards you (+5% ATK, +3% dodge)"},
 		{"text": "Pale Chiarenzana — the pale chiarenzana-verse guards and fills you (+6% dodge, +5% souls)"},
+		{"text": "Grey Chiarenzana — the grey chiarenzana-verse guards and teaches you (+5% dodge, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
