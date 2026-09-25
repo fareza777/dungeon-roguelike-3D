@@ -21121,6 +21121,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_armor += 3
 			toast("Keel Soutenu: The keel soutenu-turn fills and plates you, Kael.")
+		2567:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			toast("Hull Soutenu: The hull soutenu-turn steadies and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -25442,6 +25446,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE ARTOKLASIA — the tide artoklasia-breaking quickens and hardens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM ARTOKLASIA — the storm artoklasia-breaking hardens and keenens you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL ARTOKLASIA — the keel artoklasia-breaking fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
+		{"text": "HULL ARTOKLASIA — the hull artoklasia-breaking steadies and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -47032,6 +47037,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL ARTOKLASIA"
 		4288:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL ARTOKLASIA"
+		4289:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -51390,6 +51400,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE ARTOKLASIA": "The tide artoklasia-breaking breaks its artoklasiai through your wake, Kael — quicker and harder, at a cost.",
 	"STORM ARTOKLASIA": "The storm artoklasia-breaking breaks its artoklasiai under your thunder, Kael — harder and keener, at a cost.",
 	"KEEL ARTOKLASIA": "The keel artoklasia-breaking breaks its artoklasiai under your hull, Kael — richer and plated, at a cost.",
+	"HULL ARTOKLASIA": "The hull artoklasia-breaking breaks its artoklasiai around your frame, Kael — steadier and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -59118,6 +59129,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Tide Soutenu — the tide soutenu-turn quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Soutenu — the storm soutenu-turn hardens and keenens you (+5% ATK, +6% crit)"},
 		{"text": "Keel Soutenu — the keel soutenu-turn fills and plates you (+6% souls, +3 armor)"},
+		{"text": "Hull Soutenu — the hull soutenu-turn steadies and guards you (+6% max HP, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
