@@ -194,6 +194,8 @@ static func for_floor(floor_num: int, room_count: int, n_elites: int = 0) -> Arr
 		steps.append({"title": "Glow Wader", "desc": "Wade a Bilge Glow tide (0/1)", "kind": "bilgeglow", "need": 1})
 		steps.append({"title": "Ragged Runner", "desc": "Clear a Run Ragged floor (0/1)", "kind": "runragged", "need": 1})
 		steps.append({"title": "Feast Warden", "desc": "Clear a Feast Tide floor (0/1)", "kind": "feasttide", "need": 1})
+		steps.append({"title": "Deck Sweeper", "desc": "Slay 10 foes on this floor (0/10)", "kind": "kill", "need": 10})
+		steps.append({"title": "Snare Snuffer", "desc": "Trip a keel snare trap (0/1)", "kind": "keel_snare", "need": 1})
 		steps.append({"title": "Purse Diver", "desc": "Clear a Purse Tide floor (0/1)", "kind": "pursetide", "need": 1})
 		steps.append({"title": "Hollow Swimmer", "desc": "Clear a Hollow Tide floor (0/1)", "kind": "hollowtide", "need": 1})
 		steps.append({"title": "Dowager's Debt", "desc": "Clear a Widow's Due floor (0/1)", "kind": "widowsdue", "need": 1})
