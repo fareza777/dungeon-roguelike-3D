@@ -22308,6 +22308,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 0.06
 			Stats.dodge += 0.04
 			toast("Hull Tsifteteli: The hull tsifteteli-shimmy thickens and guards you, Kael.")
+		2853:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			toast("Trench Tsifteteli: The trench tsifteteli-shimmy sharpens and hastens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -26915,6 +26919,7 @@ func _offer_omens() -> void:
 		{"text": "STORM SKUFIA — the storm skufia-cap sharpens and lucks you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL SKUFIA — the keel skufia-cap fills and armors you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL SKUFIA — the hull skufia-cap thickens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
+		{"text": "TRENCH SKUFIA — the trench skufia-cap sharpens and hastens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -49954,6 +49959,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL SKUFIA"
 		4574:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH SKUFIA"
+		4575:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -54598,6 +54608,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM SKUFIA": "The storm skufia-cap settles its skufii through your thunder, Kael — keen and lucky, at a cost.",
 	"KEEL SKUFIA": "The keel skufia-cap settles its skufii in your hold, Kael — filled and plated, at a cost.",
 	"HULL SKUFIA": "The hull skufia-cap settles its skufii on your hull, Kael — thick and guarded, at a cost.",
+	"TRENCH SKUFIA": "The trench skufia-cap settles its skufii in your trench, Kael — keen and quick, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -62612,6 +62623,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Storm Tsifteteli — the storm tsifteteli-shimmy sharpens and lucks you (+5% ATK, +6% crit)"},
 		{"text": "Keel Tsifteteli — the keel tsifteteli-shimmy fills and armors you (+6% souls, +3 armor)"},
 		{"text": "Hull Tsifteteli — the hull tsifteteli-shimmy thickens and guards you (+6% max HP, +4% dodge)"},
+		{"text": "Trench Tsifteteli — the trench tsifteteli-shimmy sharpens and hastens you (+5% ATK, +4% atk speed)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
