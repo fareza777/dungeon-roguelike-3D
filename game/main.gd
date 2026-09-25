@@ -13984,6 +13984,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP TE DEUM — the deep praise-hymn sharpens and guards you (+7% ATK, +3% dodge)... and lightens your purse for the sharpening (−3% souls)"},
 		{"text": "PALE TE DEUM — the wan praise-hymn veils and fills you (+6% dodge, +5% souls)... and dulls your edge for the veiling (−4% ATK)"},
 		{"text": "GREY TE DEUM — the ashen praise-hymn veils and schools you (+5% dodge, +5% XP)... and dulls your edge for the schooling (−4% ATK)"},
+		{"text": "TIDE TE DEUM — the tide praise-hymn speeds and sharpens you (+6% speed, +4% ATK)... and shifts your guard for the speeding (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -23399,6 +23400,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY TE DEUM"
 		1885:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE TE DEUM"
+		1886:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -25342,6 +25348,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP TE DEUM": "The deep praise-hymn sharpens and guards you, Kael — it lightens your purse for the sharpening.",
 	"PALE TE DEUM": "The wan praise-hymn veils and fills you, Kael — it dulls your edge for the veiling.",
 	"GREY TE DEUM": "The ashen praise-hymn veils and schools you, Kael — it dulls your edge for the schooling.",
+	"TIDE TE DEUM": "The tide praise-hymn speeds and sharpens you, Kael — it shifts your guard for the speeding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
