@@ -12732,6 +12732,7 @@ func _offer_omens() -> void:
 		{"text": "STORM PSALTER — the tempest's psalm-book charges your arm and aim (+5% ATK, +6% crit)... and uncovers your guard for the charge (−4% dodge)"},
 		{"text": "KEEL PSALTER — the hull psalm-book fills your purse and plates your hide (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
 		{"text": "HULL PSALTER — the shipwright's psalm-book fills your frame and guards you (+6% max HP, +4% dodge)... and slows your step for the filling (−3% speed)"},
+		{"text": "TRENCH PSALTER — the fathom's psalm-book arms you and quickens your swing (+5% ATK, +4% attack speed)... and shifts your guard for the quickening (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -18595,6 +18596,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL PSALTER"
 		1184:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH PSALTER"
+		1185:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -19837,6 +19843,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM PSALTER": "The tempest's psalm-book charges your arm and aim, Kael — it uncovers your guard for the charge.",
 	"KEEL PSALTER": "The hull psalm-book fills your purse and plates your hide, Kael — it shifts your guard for the plating.",
 	"HULL PSALTER": "The shipwright's psalm-book fills your frame and guards you, Kael — it slows your step for the filling.",
+	"TRENCH PSALTER": "The fathom's psalm-book arms you and quickens your swing, Kael — it shifts your guard for the quickening.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
