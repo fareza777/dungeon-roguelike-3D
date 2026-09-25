@@ -19169,6 +19169,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_armor += 3
 			toast("Keel Carola: The keel carola-verse fills and plates you, Kael.")
+		2087:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			toast("Hull Carola: The hull carola-verse bulks and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -23010,6 +23014,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE EUCHOLOGIARION — the tide euchologiarion-book quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM EUCHOLOGIARION — the storm euchologiarion-book sharpens and strikes you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL EUCHOLOGIARION — the keel euchologiarion-book fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
+		{"text": "HULL EUCHOLOGIARION — the hull euchologiarion-book bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -42168,6 +42173,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL EUCHOLOGIARION"
 		3808:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL EUCHOLOGIARION"
+		3809:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -46046,6 +46056,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE EUCHOLOGIARION": "The tide euchologiarion-book washes its euchologiarie over your feet, Kael — quicker and sharper, at a cost.",
 	"STORM EUCHOLOGIARION": "The storm euchologiarion-book cracks its euchologiarie like thunder, Kael — sharper and striking, at a cost.",
 	"KEEL EUCHOLOGIARION": "The keel euchologiarion-book bolts its euchologiarie to your ribs, Kael — richer and plated, at a cost.",
+	"HULL EUCHOLOGIARION": "The hull euchologiarion-book planks its euchologiarie over your heart, Kael — bulked and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -53294,6 +53305,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Tide Carola — the tide carola-verse quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Carola — the storm carola-verse sharpens and strikes you (+5% ATK, +6% crit)"},
 		{"text": "Keel Carola — the keel carola-verse fills and plates you (+6% souls, +3 armor)"},
+		{"text": "Hull Carola — the hull carola-verse bulks and guards you (+6% max HP, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
