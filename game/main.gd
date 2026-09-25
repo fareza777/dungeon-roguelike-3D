@@ -13256,6 +13256,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Planctus: The bilge planctus-lament fills and teaches you, Kael.")
+		654:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Planctus: The crest planctus-lament guards and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -35606,6 +35610,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Planctus — the fog planctus-lament shrouds and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Planctus — the wake planctus-lament quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Planctus — the bilge planctus-lament fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Planctus — the crest planctus-lament guards and sharpens you (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
