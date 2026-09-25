@@ -13049,6 +13049,7 @@ func _offer_omens() -> void:
 		{"text": "PALE HANDBOOK — the white manual veils and fills you (+6% dodge, +5% souls)... and weakens your arm for the veiling (−4% ATK)"},
 		{"text": "GREY HANDBOOK — the ashen manual veils and teaches you (+5% dodge, +5% XP)... and weakens your arm for the veiling (−4% ATK)"},
 		{"text": "TIDE HANDBOOK — the surging manual speeds you and arms you (+6% speed, +4% ATK)... and shifts your guard for the speeding (−3% dodge)"},
+		{"text": "STORM HANDBOOK — the tempest's manual arms and sharpens you (+5% ATK, +6% crit)... and shifts your guard for the sharpening (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -20189,6 +20190,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE HANDBOOK"
 		1436:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM HANDBOOK"
+		1437:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -21683,6 +21689,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE HANDBOOK": "The white manual veils and fills you, Kael — it weakens your arm for the veiling.",
 	"GREY HANDBOOK": "The ashen manual veils and teaches you, Kael — it weakens your arm for the veiling.",
 	"TIDE HANDBOOK": "The surging manual speeds you and arms you, Kael — it shifts your guard for the speeding.",
+	"STORM HANDBOOK": "The tempest's manual arms and sharpens you, Kael — it shifts your guard for the sharpening.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
