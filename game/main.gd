@@ -13651,6 +13651,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Ricercar: The trench ricercar-search sharpens and hastens you, Kael.")
+		739:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Ricercar: The bottom ricercar-search fills and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -36870,6 +36874,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Ricercar — the keel ricercar-search fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Ricercar — the hull ricercar-search bulks and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Ricercar — the trench ricercar-search sharpens and hastens you (+5% ATK, +4% attack speed)"},
+		{"text": "Bottom Ricercar — the bottom ricercar-search fills and guards you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
