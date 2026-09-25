@@ -19181,6 +19181,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Carola: The bottom carola-verse fills and guards you, Kael.")
+		2090:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Carola: The grim carola-verse sharpens, guards, and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -23025,6 +23030,7 @@ func _offer_omens() -> void:
 		{"text": "HULL EUCHOLOGIARION — the hull euchologiarion-book bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH EUCHOLOGIARION — the trench euchologiarion-book sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 		{"text": "BOTTOM EUCHOLOGIARION — the bottom euchologiarion-book fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM EUCHOLOGIARION — the grim euchologiarion-book sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -42198,6 +42204,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM EUCHOLOGIARION"
 		3811:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM EUCHOLOGIARION"
+		3812:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -46079,6 +46091,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL EUCHOLOGIARION": "The hull euchologiarion-book planks its euchologiarie over your heart, Kael — bulked and guarded, at a cost.",
 	"TRENCH EUCHOLOGIARION": "The trench euchologiarion-book drives its euchologiarie down your arm, Kael — sharpened and hastened, at a cost.",
 	"BOTTOM EUCHOLOGIARION": "The bottom euchologiarion-book settles its euchologiarie in your purse, Kael — richer and guarded, at a cost.",
+	"GRIM EUCHOLOGIARION": "The grim euchologiarion-book drops its euchologiarie like ballast in your bones, Kael — sharpened, guarded, plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -53330,6 +53343,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Carola — the hull carola-verse bulks and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Carola — the trench carola-verse sharpens and hastens you (+5% ATK, +4% ASPD)"},
 		{"text": "Bottom Carola — the bottom carola-verse fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Carola — the grim carola-verse sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
