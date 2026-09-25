@@ -14528,6 +14528,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Etude: The storm etude-study sharpens and empowers you, Kael.")
+		946:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Etude: The keel etude-study fills and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17229,6 +17233,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE SYNODIKON — the tide synodikon-decree quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM SYNODIKON — the storm synodikon-decree sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL SYNODIKON — the keel synodikon-decree fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
+		{"text": "HULL SYNODIKON — the hull synodikon-decree bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -30611,6 +30616,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL SYNODIKON"
 		2668:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL SYNODIKON"
+		2669:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -33345,6 +33355,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE SYNODIKON": "The tide synodikon-decree floods your steps with its anathemas, Kael — swifter, at a cost.",
 	"STORM SYNODIKON": "The storm synodikon-decree thunders its anathemas through your wrists, Kael — sharper, at a cost.",
 	"KEEL SYNODIKON": "The keel synodikon-decree anchors its anathemas to your hull, Kael — richer and plated, at a cost.",
+	"HULL SYNODIKON": "The hull synodikon-decree plasters its anathemas across your ribs, Kael — bulkier and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -39452,6 +39463,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Etude — the grey etude-study guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Etude — the tide etude-study quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Etude — the storm etude-study sharpens and empowers you (+5% ATK, +6% crit)"},
+		{"text": "Keel Etude — the keel etude-study fills and plates you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
