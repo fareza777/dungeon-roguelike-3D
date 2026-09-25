@@ -20788,6 +20788,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_atk_pct += 0.05
 			toast("Crest Varsovienne: The crest varsovienne-turn guards and sharpens you, Kael.")
+		2485:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			toast("Salt Varsovienne: The salt varsovienne-turn fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -25027,6 +25031,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE EPIMANIKIA — the wake epimanikia-cuffs quicken and fill you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE EPIMANIKIA — the bilge epimanikia-cuffs fill and teach you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 		{"text": "CREST EPIMANIKIA — the crest epimanikia-cuffs guard and sharpen you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
+		{"text": "SALT EPIMANIKIA — the salt epimanikia-cuffs fill and teach you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -46202,6 +46207,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.04
 			oname = "CREST EPIMANIKIA"
 		4206:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "SALT EPIMANIKIA"
+		4207:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -50478,6 +50488,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE EPIMANIKIA": "The wake epimanikia-cuffs clasp their epimanikia in your foam, Kael — quicker and filled, at a cost.",
 	"BILGE EPIMANIKIA": "The bilge epimanikia-cuffs clasp their epimanikia into your purse, Kael — richer and wiser, at a cost.",
 	"CREST EPIMANIKIA": "The crest epimanikia-cuffs clasp their epimanikia across your crest, Kael — guarded and keen, at a cost.",
+	"SALT EPIMANIKIA": "The salt epimanikia-cuffs clasp their epimanikia over your salt, Kael — richer and wiser, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -58124,6 +58135,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Wake Varsovienne — the wake varsovienne-turn quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Varsovienne — the bilge varsovienne-turn fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Varsovienne — the crest varsovienne-turn guards and sharpens you (+5% dodge, +5% ATK)"},
+		{"text": "Salt Varsovienne — the salt varsovienne-turn fills and teaches you (+6% souls, +4% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
