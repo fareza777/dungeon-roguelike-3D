@@ -11730,6 +11730,7 @@ func _offer_omens() -> void:
 		{"text": "STORM UKASE — the tempest's proclamation charges your arm and aim (+5% ATK, +6% crit)... and uncovers your guard for the charge (−4% dodge)"},
 		{"text": "KEEL UKASE — the backbone's proclamation steadies your arm and plates you (+5% ATK, +3 armor)... and offers less in return (−4% souls)"},
 		{"text": "HULL UKASE — the ship's proclamation plates you broadest (+9% HP)... and loads your step for the plating (−4% speed)"},
+		{"text": "TRENCH UKASE — the rift's proclamation arms and drives you (+7% ATK, +3% speed)... and leaves your guard for the driving (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13405,6 +13406,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "HULL UKASE"
 		359:
+			Stats.buff_atk_pct += 0.07
+			Stats.buff_speed_pct += 0.03
+			Stats.dodge -= 0.03
+			oname = "TRENCH UKASE"
+		360:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13817,6 +13823,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM UKASE": "The tempest's proclamation charges your arm and aim, Kael — it uncovers your guard for the charge.",
 	"KEEL UKASE": "The backbone's proclamation steadies your arm and plates you, Kael — it offers less in return for the steadying.",
 	"HULL UKASE": "The ship's proclamation plates you broadest, Kael — it loads your step for the plating.",
+	"TRENCH UKASE": "The rift's proclamation arms and drives you, Kael — it leaves your guard for the driving.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
