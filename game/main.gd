@@ -13225,6 +13225,7 @@ func _offer_omens() -> void:
 		{"text": "HULL NOCTURN — the shipwright's night-song fills your frame and guards you (+6% max HP, +4% dodge)... and slows your step for the filling (−3% speed)"},
 		{"text": "TRENCH NOCTURN — the fathom's night-song arms you and quickens your swing (+5% ATK, +4% attack speed)... and shifts your guard for the quickening (−4% dodge)"},
 		{"text": "BOTTOM NOCTURN — the deepest night-song fills and veils you (+7% souls, +4% dodge)... and weakens your arm for the filling (−3% ATK)"},
+		{"text": "GRIM NOCTURN — the reaper's night-song arms and guards and plates you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the plating (−4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -21074,6 +21075,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM NOCTURN"
 		1576:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM NOCTURN"
+		1577:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -22708,6 +22715,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL NOCTURN": "The shipwright's night-song fills your frame and guards you, Kael — it slows your step for the filling.",
 	"TRENCH NOCTURN": "The fathom's night-song arms you and quickens your swing, Kael — it shifts your guard for the quickening.",
 	"BOTTOM NOCTURN": "The deepest night-song fills and veils you, Kael — it weakens your arm for the filling.",
+	"GRIM NOCTURN": "The reaper's night-song arms and guards and plates you, Kael — it slows your step for the plating.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
