@@ -18820,6 +18820,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.04
 			Stats.buff_armor += 2
 			toast("Grim Chiarenzana: The grim chiarenzana-verse sharpens, guards, and plates you, Kael.")
+		2001:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			toast("Fog Chiarenzana: The fog chiarenzana-verse shrouds and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -22575,6 +22579,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH ROTULUS — the trench rotulus-scroll sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 		{"text": "BOTTOM ROTULUS — the bottom rotulus-scroll fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 		{"text": "GRIM ROTULUS — the grim rotulus-scroll sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
+		{"text": "FOG ROTULUS — the fog rotulus-scroll shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -41298,6 +41303,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM ROTULUS"
 		3722:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG ROTULUS"
+		3723:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -45090,6 +45100,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH ROTULUS": "The trench rotulus-scroll drives its rotuli down your arm, Kael — sharpened and hastened, at a cost.",
 	"BOTTOM ROTULUS": "The bottom rotulus-scroll settles its rotuli in your purse, Kael — richer and guarded, at a cost.",
 	"GRIM ROTULUS": "The grim rotulus-scroll drops its rotuli like ballast in your bones, Kael — sharpened, guarded, plated, at a cost.",
+	"FOG ROTULUS": "The fog rotulus-scroll rolls its rotuli over your eyes, Kael — shrouded and richer, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -52252,6 +52263,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Trench Chiarenzana — the trench chiarenzana-verse sharpens and hastens you (+5% ATK, +4% ASPD)"},
 		{"text": "Bottom Chiarenzana — the bottom chiarenzana-verse fills and guards you (+7% souls, +4% dodge)"},
 		{"text": "Grim Chiarenzana — the grim chiarenzana-verse sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
+		{"text": "Fog Chiarenzana — the fog chiarenzana-verse shrouds and fills you (+7% dodge, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
