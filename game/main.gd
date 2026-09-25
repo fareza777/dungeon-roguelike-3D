@@ -36733,30 +36733,48 @@ func _toggle_bestiary() -> void:
 	for arch in BESTIARY.keys():
 		var b: Array = BESTIARY[arch]
 		var n: int = int(Stats.bestiary.get(arch, 0))
+		var card := PanelContainer.new()
+		var csb := StyleBoxFlat.new()
+		if n > 0:
+			csb.bg_color = Color(0.12, 0.08, 0.07, 0.9)
+			csb.border_color = Color(1.0, 0.55, 0.4, 0.45)
+		else:
+			csb.bg_color = Color(0.08, 0.07, 0.09, 0.85)
+			csb.border_color = Color(0.4, 0.35, 0.4, 0.3)
+		csb.set_border_width_all(1)
+		csb.set_corner_radius_all(9)
+		csb.set_content_margin_all(9)
+		card.add_theme_stylebox_override("panel", csb)
 		var row := HBoxContainer.new()
 		row.add_theme_constant_override("separation", 8)
+		row.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		var info := VBoxContainer.new()
 		info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		info.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		var nm := Label.new()
 		nm.text = String(b[0]) if n > 0 else "???"
 		nm.modulate = Color(1.0, 0.9, 0.75, 0.95) if n > 0 else Color(1, 1, 1, 0.3)
 		nm.add_theme_font_size_override("font_size", 17)
+		nm.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		info.add_child(nm)
 		var ds := Label.new()
 		ds.text = String(b[1]) if n > 0 else "Yet unmet — the deep still hides it."
 		ds.modulate = Color(1, 1, 1, 0.55) if n > 0 else Color(1, 1, 1, 0.25)
 		ds.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		ds.add_theme_font_size_override("font_size", 13)
+		ds.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		info.add_child(ds)
 		row.add_child(info)
 		var kl := Label.new()
 		kl.text = "×%d" % n if n > 0 else ""
 		kl.modulate = Color(1.0, 0.6, 0.4, 0.9)
 		kl.add_theme_font_size_override("font_size", 17)
+		kl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		row.add_child(kl)
-		ui.bestiary_list.add_child(row)
-		row.modulate = Color(1, 1, 1, 0)
-		row.create_tween().tween_property(row, "modulate:a", 1.0, 0.22).set_delay(minf(_ridx * 0.018, 0.5))
+		card.add_child(row)
+		ui.bestiary_list.add_child(card)
+		card.modulate = Color(1, 1, 1, 0)
+		card.create_tween().tween_property(card, "modulate:a", 1.0, 0.22).set_delay(minf(_ridx * 0.018, 0.5))
 		_ridx += 1
 	bestiary_panel.visible = true
 
