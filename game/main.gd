@@ -15404,6 +15404,7 @@ func _offer_omens() -> void:
 		{"text": "GREY OKTOECHOS — the grey oktoechos-mode guards and teaches you (+5% dodge, +5% XP)... and dulls your edge for the guarding (−4% ATK)"},
 		{"text": "TIDE OKTOECHOS — the tide oktoechos-mode quickens and sharpens you (+6% speed, +4% ATK)... and shifts your guard for the quickening (−3% dodge)"},
 		{"text": "STORM OKTOECHOS — the storm oktoechos-mode sharpens and hones you (+5% ATK, +6% crit)... and shifts your guard for the sharpening (−4% dodge)"},
+		{"text": "KEEL OKTOECHOS — the keel oktoechos-mode fills and plates you (+6% souls, +3 armor)... and shifts your guard for the filling (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -26957,6 +26958,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM OKTOECHOS"
 		2307:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL OKTOECHOS"
+		2308:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -29322,6 +29328,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY OKTOECHOS": "The grey oktoechos-mode guards and teaches you, Kael — it dulls your edge for the guarding.",
 	"TIDE OKTOECHOS": "The tide oktoechos-mode quickens and sharpens you, Kael — it shifts your guard for the quickening.",
 	"STORM OKTOECHOS": "The storm oktoechos-mode sharpens and hones you, Kael — it shifts your guard for the sharpening.",
+	"KEEL OKTOECHOS": "The keel oktoechos-mode fills and plates you, Kael — it shifts your guard for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
