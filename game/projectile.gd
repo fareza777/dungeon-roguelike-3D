@@ -111,4 +111,7 @@ func _physics_process(delta: float) -> void:
 			var mv := get_tree().current_scene
 			if mv != null and mv.has_method("_damage_number"):
 				mv._damage_number(p.global_position + Vector3(0, 1.2, 0), "VENOMED", Color(0.5, 0.9, 0.3), true)
+		var mi := get_tree().current_scene
+		if mi != null and mi.has_method("_burst"):
+			mi._burst(global_position, Color(0.7, 0.4, 1.0))
 		queue_free()
