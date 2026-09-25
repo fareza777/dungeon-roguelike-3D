@@ -21097,6 +21097,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_xp_pct += 0.04
 			toast("Salt Glissade: The salt glissade-slide fills and teaches you, Kael.")
+		2561:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.03
+			toast("Deep Soutenu: The deep soutenu-turn sharpens and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -25412,6 +25416,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE DISKARION — the bilge diskarion-paten fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 		{"text": "CREST DISKARION — the crest diskarion-paten guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT DISKARION — the salt diskarion-paten fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
+		{"text": "DEEP ARTOKLASIA — the deep artoklasia-breaking sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -46972,6 +46977,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT DISKARION"
 		4282:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP ARTOKLASIA"
+		4283:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -51324,6 +51334,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE DISKARION": "The bilge diskarion-paten raises its diskaria into your purse, Kael — richer and wiser, at a cost.",
 	"CREST DISKARION": "The crest diskarion-paten raises its diskaria across your crest, Kael — guarded and keen, at a cost.",
 	"SALT DISKARION": "The salt diskarion-paten raises its diskaria over your salt, Kael — richer and wiser, at a cost.",
+	"DEEP ARTOKLASIA": "The deep artoklasia-breaking breaks its artoklasiai over your blade, Kael — keen and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -59046,6 +59057,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bilge Glissade — the bilge glissade-slide fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Glissade — the crest glissade-slide guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Glissade — the salt glissade-slide fills and teaches you (+6% souls, +4% XP)"},
+		{"text": "Deep Soutenu — the deep soutenu-turn sharpens and guards you (+5% ATK, +3% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
