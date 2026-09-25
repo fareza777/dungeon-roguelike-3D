@@ -15936,6 +15936,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_armor += 3
 			toast("Keel Volta: The keel volta-turn fills and plates you, Kael.")
+		1292:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			toast("Hull Volta: The hull volta-turn bulks and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -18982,6 +18986,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE SYNAXARIA — the tide synaxaria-reading quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM SYNAXARIA — the storm synaxaria-reading sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL SYNAXARIA — the keel synaxaria-reading fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
+		{"text": "HULL SYNAXARIA — the hull synaxaria-reading bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -34112,6 +34117,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL SYNAXARIA"
 		3013:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL SYNAXARIA"
+		3014:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -37191,6 +37201,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE SYNAXARIA": "The tide synaxaria-reading drums its festal-readings under your feet, Kael — swifter, at a cost.",
 	"STORM SYNAXARIA": "The storm synaxaria-reading crashes its festal-readings open, Kael — sharpened, at a cost.",
 	"KEEL SYNAXARIA": "The keel synaxaria-reading rivets its festal-readings to your ribs, Kael — richer and plated, at a cost.",
+	"HULL SYNAXARIA": "The hull synaxaria-reading swells its festal-readings through your frame, Kael — bulked and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -43644,6 +43655,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Tide Volta — the tide volta-turn quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Volta — the storm volta-turn sharpens and empowers you (+5% ATK, +6% crit)"},
 		{"text": "Keel Volta — the keel volta-turn fills and plates you (+6% souls, +3 armor)"},
+		{"text": "Hull Volta — the hull volta-turn bulks and guards you (+6% max HP, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
