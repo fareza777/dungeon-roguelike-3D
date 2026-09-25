@@ -11679,6 +11679,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Threnody: the trench-diver's lament-turned-hymn — +5% ATK, +4% ASPD this run")
+		274:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Threnody: the deepest lament-turned-hymn — +7% souls, +4% dodge this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29621,6 +29625,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Threnody — the ship's lament-turned-hymn: +6% souls, +3 armor this run"},
 		{"text": "Hull Threnody — the shipwright's lament-turned-hymn: +6% max HP, +4% dodge this run"},
 		{"text": "Trench Threnody — the trench-diver's lament-turned-hymn: +5% ATK, +4% ASPD this run"},
+		{"text": "Bottom Threnody — the deepest lament-turned-hymn: +7% souls, +4% dodge this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
