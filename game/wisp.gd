@@ -93,7 +93,11 @@ func _physics_process(delta: float) -> void:
 				if Stats.relics.has("stoples_bara"):
 					Stats.add_xp(3)
 				Stats.save_game()
-				Sfx.play("xp")
+				var cb_ := 0
+				var cbv_ = m0.get("combo") if m0 != null else null
+				if cbv_ != null:
+					cb_ = int(cbv_)
+				Sfx.play("xp", 0.9 + randf() * 0.08 + minf(cb_, 12) * 0.02)
 				var m := get_tree().current_scene
 				if m != null:
 					if m.has_method("_burst"):
