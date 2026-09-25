@@ -20096,6 +20096,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Galliarda: The bottom galliarda-leap fills and guards you, Kael.")
+		2315:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Galliarda: The grim galliarda-leap hardens, guards and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -24165,6 +24170,7 @@ func _offer_omens() -> void:
 		{"text": "HULL PROSPHORA — the hull prosphora-offering toughens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH PROSPHORA — the trench prosphora-offering hardens and hastens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
 		{"text": "BOTTOM PROSPHORA — the bottom prosphora-offering fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM PROSPHORA — the grim prosphora-offering hardens, guards and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -44478,6 +44484,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM PROSPHORA"
 		4036:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM PROSPHORA"
+		4037:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -48584,6 +48596,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL PROSPHORA": "The hull prosphora-offering planks its prosphorai over your hull, Kael — tougher and guarded, at a cost.",
 	"TRENCH PROSPHORA": "The trench prosphora-offering grinds its prosphorai into your wrists, Kael — harder and hastened, at a cost.",
 	"BOTTOM PROSPHORA": "The bottom prosphora-offering sinks its prosphorai into your purse, Kael — richer and guarded, at a cost.",
+	"GRIM PROSPHORA": "The grim prosphora-offering gnashes its prosphorai across your guard, Kael — harder, guarded and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -56060,6 +56073,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Galliarda — the hull galliarda-leap toughens and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Galliarda — the trench galliarda-leap hardens and hastens you (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Galliarda — the bottom galliarda-leap fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Galliarda — the grim galliarda-leap hardens, guards and plates you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
