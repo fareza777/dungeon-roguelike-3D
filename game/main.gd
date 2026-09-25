@@ -16827,6 +16827,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_xp_pct += 0.04
 			toast("Salt Giustiniana: The salt giustiniana-air fills and teaches you, Kael.")
+		1511:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.03
+			toast("Deep Canzonetta: The deep canzonetta-air sharpens and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -20092,6 +20096,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE PSALTIKON — the bilge psaltikon-book fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 		{"text": "CREST PSALTIKON — the crest psaltikon-book guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT PSALTIKON — the salt psaltikon-book fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
+		{"text": "DEEP ASMATIKON — the deep asmatikon-book sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -36332,6 +36337,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT PSALTIKON"
 		3232:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP ASMATIKON"
+		3233:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -39634,6 +39644,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE PSALTIKON": "The bilge psaltikon-book sloshes its psaltic-odes over your feet, Kael — richer and wiser, at a cost.",
 	"CREST PSALTIKON": "The crest psaltikon-book raises its psaltic-odes like a wave-crest, Kael — guarded and sharpened, at a cost.",
 	"SALT PSALTIKON": "The salt psaltikon-book sprinkles its psaltic-odes over your ledger, Kael — richer and wiser, at a cost.",
+	"DEEP ASMATIKON": "The deep asmatikon-book opens its asmatic-odes across your blade, Kael — sharpened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -46306,6 +46317,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bilge Giustiniana — the bilge giustiniana-air fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Giustiniana — the crest giustiniana-air guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Giustiniana — the salt giustiniana-air fills and teaches you (+6% souls, +4% XP)"},
+		{"text": "Deep Canzonetta — the deep canzonetta-air sharpens and guards you (+5% ATK, +3% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
