@@ -39351,6 +39351,8 @@ func _refresh_buffs() -> void:
 		list.append(["DEBT -%d HP" % int(Stats.mahzan_debt), Color(0.6, 0.4, 0.9)])
 	if player.get("chill_t") != null and player.chill_t > 0.0:
 		list.append(["CHILLED", Color(0.5, 0.8, 1.0)])
+	if player.get("root_t") != null and player.root_t > 0.0:
+		list.append(["⌖ ROOTED", Color(0.6, 0.75, 0.45)])
 	if player.get("silence_t") != null and player.silence_t > 0.0:
 		list.append(["✦ SILENCED", Color(1.0, 0.3, 0.45)])
 	if player.get("weak_t") != null and player.weak_t > 0.0:
