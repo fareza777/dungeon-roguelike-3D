@@ -6,10 +6,17 @@ var life := 4.0
 var tick := 0.0
 var t := 0.0
 var disc: MeshInstance3D = null
+var glow: OmniLight3D = null
 
 
 func setup(p_tile: float) -> void:
 	tile = p_tile
+	glow = OmniLight3D.new()
+	glow.light_color = Color(1.0, 0.45, 0.12)
+	glow.light_energy = 1.1
+	glow.omni_range = 1.3 * tile
+	glow.position.y = 0.3 * tile
+	add_child(glow)
 	disc = MeshInstance3D.new()
 	var dm := CylinderMesh.new()
 	dm.top_radius = 0.55 * tile
@@ -38,6 +45,9 @@ func _physics_process(delta: float) -> void:
 		if life < 1.0 and disc.mesh != null:
 			var mm: StandardMaterial3D = disc.mesh.material
 			mm.albedo_color.a = life * 0.55
+	if glow != null:
+		# api berkerlap tidak beraturan: dua sinus tak selaras + jitter kecil
+		glow.light_energy = (0.9 + 0.25 * sin(t * 11.0) + 0.1 * sin(t * 23.7)) * clampf(life, 0.0, 1.0)
 	if life <= 0.0:
 		queue_free()
 		return
