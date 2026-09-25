@@ -14711,6 +14711,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Scherzo: The storm scherzo-jest sharpens and empowers you, Kael.")
+		991:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Scherzo: The keel scherzo-jest fills and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17457,6 +17461,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE NOMOCANON — the tide nomocanon-law quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM NOMOCANON — the storm nomocanon-law sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL NOMOCANON — the keel nomocanon-law fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
+		{"text": "HULL NOMOCANON — the hull nomocanon-law bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -31067,6 +31072,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL NOMOCANON"
 		2713:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL NOMOCANON"
+		2714:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -33846,6 +33856,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE NOMOCANON": "The tide nomocanon-law rolls its canons under your feet, Kael — swifter, at a cost.",
 	"STORM NOMOCANON": "The storm nomocanon-law cracks its canons through your wrists, Kael — sharper, at a cost.",
 	"KEEL NOMOCANON": "The keel nomocanon-law moors its canons to your hull, Kael — richer and plated, at a cost.",
+	"HULL NOMOCANON": "The hull nomocanon-law planks its canons along your ribs, Kael — bulkier and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -39998,6 +40009,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Scherzo — the grey scherzo-jest guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Scherzo — the tide scherzo-jest quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Scherzo — the storm scherzo-jest sharpens and empowers you (+5% ATK, +6% crit)"},
+		{"text": "Keel Scherzo — the keel scherzo-jest fills and plates you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
