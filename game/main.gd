@@ -15903,6 +15903,7 @@ func _offer_omens() -> void:
 		{"text": "GRIM TYPIKON — the grim typikon-rule sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the sharpening (−4% speed)"},
 		{"text": "FOG TYPIKON — the fog typikon-rule shrouds and fills you (+7% dodge, +4% souls)... and dulls your edge for the shrouding (−4% ATK)"},
 		{"text": "WAKE TYPIKON — the wake typikon-rule quickens and fills you (+6% speed, +4% souls)... and shifts your guard for the quickening (−3% dodge)"},
+		{"text": "BILGE TYPIKON — the bilge typikon-rule fills and teaches you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -28024,6 +28025,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "WAKE TYPIKON"
 		2419:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.dodge -= 0.03
+			oname = "BILGE TYPIKON"
+		2420:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -30501,6 +30507,7 @@ func _omen_deal(idx: int) -> void:
 	"GRIM TYPIKON": "The grim typikon-rule sharpens, guards, and plates you, Kael — it slows your step for the sharpening.",
 	"FOG TYPIKON": "The fog typikon-rule shrouds and fills you, Kael — it dulls your edge for the shrouding.",
 	"WAKE TYPIKON": "The wake typikon-rule quickens and fills you, Kael — it shifts your guard for the quickening.",
+	"BILGE TYPIKON": "The bilge typikon-rule fills and teaches you, Kael — it shifts your guard for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
