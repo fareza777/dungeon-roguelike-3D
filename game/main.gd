@@ -12805,6 +12805,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.07
 			Stats.dodge += 0.03
 			toast("Deep Melisma: the deep melisma-curl — +7% ATK, +3% dodge this run")
+		552:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			toast("Pale Melisma: the pale melisma-curl — +6% dodge, +5% souls this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -34311,6 +34315,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Crest Trisagion — the crest trisagion-hymn: +5% dodge, +5% ATK this run"},
 		{"text": "Salt Trisagion — the salt trisagion-hymn: +6% souls, +4% XP this run"},
 		{"text": "Deep Melisma — the deep melisma-curl: +7% ATK, +3% dodge this run"},
+		{"text": "Pale Melisma — the pale melisma-curl: +6% dodge, +5% souls this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
