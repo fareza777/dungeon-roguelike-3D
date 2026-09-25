@@ -15933,6 +15933,7 @@ func _offer_omens() -> void:
 		{"text": "SALT TYPIKON — the salt typikon-rule fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "DEEP PORTIFORIUM — the deep portiforium-book sharpens and guards you (+7% ATK, +3% dodge)... and lightens your purse for the sharpening (−3% souls)"},
 		{"text": "PALE PORTIFORIUM — the pale portiforium-book guards and fills you (+6% dodge, +5% souls)... and dulls your edge for the guarding (−4% ATK)"},
+		{"text": "GREY PORTIFORIUM — the grey portiforium-book guards and teaches you (+5% dodge, +5% XP)... and dulls your edge for the guarding (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -28079,6 +28080,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "PALE PORTIFORIUM"
 		2424:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "GREY PORTIFORIUM"
+		2425:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -30561,6 +30567,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT TYPIKON": "The salt typikon-rule fills and teaches you, Kael — it shifts your guard for the filling.",
 	"DEEP PORTIFORIUM": "The deep portiforium-book sharpens and guards you, Kael — it lightens your purse for the sharpening.",
 	"PALE PORTIFORIUM": "The pale portiforium-book guards and fills you, Kael — it dulls your edge for the guarding.",
+	"GREY PORTIFORIUM": "The grey portiforium-book guards and teaches you, Kael — it dulls your edge for the guarding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
