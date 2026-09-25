@@ -11630,6 +11630,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP EDICT — the trench's decree arms and instructs you (+6% ATK, +4% XP)... and taxes the lesson (−4% souls)"},
 		{"text": "TRENCH EDICT — the deep's decree arms and pays you in pressure-coin (+5% ATK, +5% souls)... and drags your step (−4% speed)"},
 		{"text": "BOTTOM EDICT — the floor's decree plates and arms you (+7% ATK, +2 armor)... and sinks your step (−4% speed)"},
+		{"text": "GRIM EDICT — the reaper's decree edges your arm for severing (+6% crit, +4% ATK)... and leaves your guard open (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12979,6 +12980,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "BOTTOM EDICT"
 		294:
+			Stats.buff_crit += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.04
+			oname = "GRIM EDICT"
+		295:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13324,6 +13330,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP EDICT": "The trench's decree arms and instructs you, Kael — it taxes the lesson on the way out.",
 	"TRENCH EDICT": "The deep's decree arms and pays you in pressure-coin, Kael — it drags your step for the payment.",
 	"BOTTOM EDICT": "The floor's decree plates and arms you, Kael — it sinks your step for the plating.",
+	"GRIM EDICT": "The reaper's decree edges your arm for severing, Kael — it leaves your guard open for the edge.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
