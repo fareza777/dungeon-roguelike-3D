@@ -12235,6 +12235,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE CHAPTER — the flowing chapter speeds and arms you (+6% speed, +4% ATK)... and shifts your guard for the speeding (−3% dodge)"},
 		{"text": "STORM CHAPTER — the tempest's chapter charges your arm and aim (+5% ATK, +6% crit)... and uncovers your guard for the charge (−4% dodge)"},
 		{"text": "KEEL CHAPTER — the ship's chapter fills and armors you (+6% souls, +3 armor)... and leaves your guard for the filling (−4% dodge)"},
+		{"text": "HULL CHAPTER — the vessel's chapter hardens and guards you (+6% max HP, +4% dodge)... and slows your step for the hardening (−3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -16041,6 +16042,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL CHAPTER"
 		778:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL CHAPTER"
+		779:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -16874,6 +16880,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE CHAPTER": "The flowing chapter speeds and arms you, Kael — it shifts your guard for the speeding.",
 	"STORM CHAPTER": "The tempest's chapter charges your arm and aim, Kael — it uncovers your guard for the charge.",
 	"KEEL CHAPTER": "The ship's chapter fills and armors you, Kael — it leaves your guard for the filling.",
+	"HULL CHAPTER": "The vessel's chapter hardens and guards you, Kael — it slows your step for the hardening.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
