@@ -17331,6 +17331,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Strathspey: The tide strathspey-verse quickens and sharpens you, Kael.")
+		1635:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Strathspey: The storm strathspey-verse sharpens and empowers you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -20720,6 +20724,7 @@ func _offer_omens() -> void:
 		{"text": "PALE POEMATION — the pale poemation-book guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY POEMATION — the grey poemation-book guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE POEMATION — the tide poemation-book quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
+		{"text": "STORM POEMATION — the storm poemation-book sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -37588,6 +37593,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE POEMATION"
 		3356:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM POEMATION"
+		3357:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -41014,6 +41024,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE POEMATION": "The pale poemation-book opens its poemata at your side, Kael — guarded, at a cost.",
 	"GREY POEMATION": "The grey poemation-book opens its poemata under your breath, Kael — guarded, at a cost.",
 	"TIDE POEMATION": "The tide poemation-book opens its poemata at your heels, Kael — swifter, at a cost.",
+	"STORM POEMATION": "The storm poemation-book opens its poemata in thunder, Kael — sharpened and empowered, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -47810,6 +47821,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Strathspey — the pale strathspey-verse guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Strathspey — the grey strathspey-verse guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Strathspey — the tide strathspey-verse quickens and sharpens you (+6% speed, +4% ATK)"},
+		{"text": "Storm Strathspey — the storm strathspey-verse sharpens and empowers you (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
