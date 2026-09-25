@@ -13228,6 +13228,7 @@ func _offer_omens() -> void:
 		{"text": "GRIM NOCTURN — the reaper's night-song arms and guards and plates you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the plating (−4% speed)"},
 		{"text": "FOG NOCTURN — the misted night-song veils and fills you (+7% dodge, +4% souls)... and weakens your arm for the veiling (−4% ATK)"},
 		{"text": "WAKE NOCTURN — the trailing night-song speeds you and fills you (+6% speed, +4% souls)... and shifts your guard for the speeding (−3% dodge)"},
+		{"text": "BILGE NOCTURN — the bilgewater night-song fills and teaches you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -21093,6 +21094,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "WAKE NOCTURN"
 		1579:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.dodge -= 0.03
+			oname = "BILGE NOCTURN"
+		1580:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -22730,6 +22736,7 @@ func _omen_deal(idx: int) -> void:
 	"GRIM NOCTURN": "The reaper's night-song arms and guards and plates you, Kael — it slows your step for the plating.",
 	"FOG NOCTURN": "The misted night-song veils and fills you, Kael — it weakens your arm for the veiling.",
 	"WAKE NOCTURN": "The trailing night-song speeds you and fills you, Kael — it shifts your guard for the speeding.",
+	"BILGE NOCTURN": "The bilgewater night-song fills and teaches you, Kael — it shifts your guard for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
