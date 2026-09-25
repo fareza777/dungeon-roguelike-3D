@@ -16741,6 +16741,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Barzelletta: The bottom barzelletta-song fills and guards you, Kael.")
+		1490:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Barzelletta: The grim barzelletta-song sharpens, guards, and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -19985,6 +19990,7 @@ func _offer_omens() -> void:
 		{"text": "HULL PROPHETOLOGION — the hull prophetologion-book bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH PROPHETOLOGION — the trench prophetologion-book sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 		{"text": "BOTTOM PROPHETOLOGION — the bottom prophetologion-book fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM PROPHETOLOGION — the grim prophetologion-book sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -36118,6 +36124,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM PROPHETOLOGION"
 		3211:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM PROPHETOLOGION"
+		3212:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -39399,6 +39411,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL PROPHETOLOGION": "The hull prophetologion-book swells its prophet-readings through your frame, Kael — bulked and guarded, at a cost.",
 	"TRENCH PROPHETOLOGION": "The trench prophetologion-book drives its prophet-readings down your arm, Kael — sharpened and hastened, at a cost.",
 	"BOTTOM PROPHETOLOGION": "The bottom prophetologion-book settles its prophet-readings in your purse, Kael — richer and guarded, at a cost.",
+	"GRIM PROPHETOLOGION": "The grim prophetologion-book drops its prophet-readings like ballast in your bones, Kael — sharpened, guarded, plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -46050,6 +46063,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Barzelletta — the hull barzelletta-song bulks and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Barzelletta — the trench barzelletta-song sharpens and hastens you (+5% ATK, +4% ASPD)"},
 		{"text": "Bottom Barzelletta — the bottom barzelletta-song fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Barzelletta — the grim barzelletta-song sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
