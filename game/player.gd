@@ -788,13 +788,17 @@ func _strike() -> void:
 				get_tree().current_scene.set("net_n", CEe)
 				if CEe % 8 == 0:
 					Stats.earn_souls(1)
-					mXX._damage_number(f.global_position + Vector3(0, 0.9*room_tile, 0), "ENUMERATE", Color(0.8, 0.85, 1.0), false)
+					var mce := get_tree().current_scene
+					if mce != null and mce.has_method("_damage_number"):
+						mce._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "ENUMERATE", Color(0.8, 0.85, 1.0), false)
 			if Stats.weapon_id == "roll_blade":
 				var RBe: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", RBe)
 				if RBe % 7 == 0:
 					Stats.earn_souls(1)
-					mXX._damage_number(f.global_position + Vector3(0, 0.9*room_tile, 0), "TALLY", Color(0.72, 0.76, 0.82), false)
+					var mrb := get_tree().current_scene
+					if mrb != null and mrb.has_method("_damage_number"):
+						mrb._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "TALLY", Color(0.72, 0.76, 0.82), false)
 			if Stats.weapon_id == "pilot_lantern":
 				var pln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", pln)
