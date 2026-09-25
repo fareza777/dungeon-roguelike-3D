@@ -13081,6 +13081,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_xp_pct += 0.04
 			toast("Salt Toccata: the salt toccata-run — +6% souls, +4% XP this run")
+		611:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			toast("Deep Fugue: the deep fugue-voice — +7% ATK, +3% dodge this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -35176,6 +35180,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bilge Toccata — the bilge toccata-run: +5% souls, +5% XP this run"},
 		{"text": "Crest Toccata — the crest toccata-run: +5% dodge, +5% ATK this run"},
 		{"text": "Salt Toccata — the salt toccata-run: +6% souls, +4% XP this run"},
+		{"text": "Deep Fugue — the deep fugue-voice: +7% ATK, +3% dodge this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
