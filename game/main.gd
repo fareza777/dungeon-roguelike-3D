@@ -21845,6 +21845,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Seguidilla: The bilge seguidilla-step fills and teaches you, Kael.")
+		2739:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Seguidilla: The crest seguidilla-step guards and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -26338,6 +26342,7 @@ func _offer_omens() -> void:
 		{"text": "FOG KOUKOULION — the fog koukoulion-hood guards and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE KOUKOULION — the wake koukoulion-hood quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE KOUKOULION — the bilge koukoulion-hood fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
+		{"text": "CREST KOUKOULION — the crest koukoulion-hood guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -48800,6 +48805,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE KOUKOULION"
 		4460:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST KOUKOULION"
+		4461:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -53330,6 +53340,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG KOUKOULION": "The fog koukoulion-hood folds its koukoulia in your fog, Kael — well-guarded and filled, at a cost.",
 	"WAKE KOUKOULION": "The wake koukoulion-hood folds its koukoulia in your wake, Kael — quicker and filled, at a cost.",
 	"BILGE KOUKOULION": "The bilge koukoulion-hood folds its koukoulia in your hold, Kael — richer and wiser, at a cost.",
+	"CREST KOUKOULION": "The crest koukoulion-hood folds its koukoulia on your crest, Kael — guarded and keen, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -61230,6 +61241,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Seguidilla — the fog seguidilla-step guards and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Seguidilla — the wake seguidilla-step quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Seguidilla — the bilge seguidilla-step fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Seguidilla — the crest seguidilla-step guards and sharpens you (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
