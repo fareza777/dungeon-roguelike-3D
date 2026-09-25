@@ -13170,6 +13170,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 0.06
 			Stats.dodge += 0.04
 			toast("Hull Partita: The hull partita-round bulks and guards you, Kael.")
+		633:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			toast("Trench Partita: The trench partita-round sharpens and hastens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -35393,6 +35397,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Storm Partita — the storm partita-round sharpens and empowers you (+5% ATK, +6% crit)"},
 		{"text": "Keel Partita — the keel partita-round fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Partita — the hull partita-round bulks and guards you (+6% max HP, +4% dodge)"},
+		{"text": "Trench Partita — the trench partita-round sharpens and hastens you (+5% ATK, +4% attack speed)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
