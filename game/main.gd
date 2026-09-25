@@ -18088,6 +18088,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.04
 			Stats.buff_armor += 2
 			toast("Grim Ariette: The grim ariette-verse sharpens, guards, and plates you, Kael.")
+		1821:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			toast("Fog Ariette: The fog ariette-verse shrouds and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -21663,6 +21667,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH RITUALARIUM — the trench ritualarium-book sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 		{"text": "BOTTOM RITUALARIUM — the bottom ritualarium-book fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 		{"text": "GRIM RITUALARIUM — the grim ritualarium-book sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
+		{"text": "FOG RITUALARIUM — the fog ritualarium-book shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -39474,6 +39479,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM RITUALARIUM"
 		3542:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG RITUALARIUM"
+		3543:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -43086,6 +43096,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH RITUALARIUM": "The trench ritualarium-book drives its ritualaria down your arm, Kael — sharpened and hastened, at a cost.",
 	"BOTTOM RITUALARIUM": "The bottom ritualarium-book settles its ritualaria in your purse, Kael — richer and guarded, at a cost.",
 	"GRIM RITUALARIUM": "The grim ritualarium-book drops its ritualaria like ballast in your bones, Kael — sharpened, guarded, plated, at a cost.",
+	"FOG RITUALARIUM": "The fog ritualarium-book rolls its ritualaria over your eyes, Kael — shrouded and richer, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -50068,6 +50079,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Trench Ariette — the trench ariette-verse sharpens and hastens you (+5% ATK, +4% ASPD)"},
 		{"text": "Bottom Ariette — the bottom ariette-verse fills and guards you (+7% souls, +4% dodge)"},
 		{"text": "Grim Ariette — the grim ariette-verse sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
+		{"text": "Fog Ariette — the fog ariette-verse shrouds and fills you (+7% dodge, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
