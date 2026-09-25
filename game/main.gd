@@ -12131,6 +12131,7 @@ func _offer_omens() -> void:
 		{"text": "STORM CODICIL — the tempest's codicil charges your arm and aim (+5% ATK, +6% crit)... and uncovers your guard for the charge (−4% dodge)"},
 		{"text": "KEEL CODICIL — the ship's codicil fills and armors you (+6% souls, +3 armor)... and leaves your guard for the filling (−4% dodge)"},
 		{"text": "HULL CODICIL — the vessel's codicil hardens and guards you (+6% max HP, +4% dodge)... and slows your step for the hardening (−3% speed)"},
+		{"text": "TRENCH CODICIL — the cutting's codicil edges and quickens your arm (+5% ATK, +4% attack speed)... and uncovers your guard for the edging (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -15402,6 +15403,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL CODICIL"
 		674:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH CODICIL"
+		675:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -16131,6 +16137,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM CODICIL": "The tempest's codicil charges your arm and aim, Kael — it uncovers your guard for the charge.",
 	"KEEL CODICIL": "The ship's codicil fills and armors you, Kael — it leaves your guard for the filling.",
 	"HULL CODICIL": "The vessel's codicil hardens and guards you, Kael — it slows your step for the hardening.",
+	"TRENCH CODICIL": "The cutting's codicil edges and quickens your arm, Kael — it uncovers your guard for the edging.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
