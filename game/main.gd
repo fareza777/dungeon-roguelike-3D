@@ -11306,6 +11306,7 @@ func _offer_omens() -> void:
 		{"text": "GREY DECREE — the clerk's highest writ is a history lesson (+6% XP)... its seal-stamp dents your plate (−1 armor)"},
 		{"text": "DEEP DOCKET — the trench's case-list runs long (+5% ATK, +3% XP)... hearings take hours (−5% speed)"},
 		{"text": "GREY CENSUS — the clerk counts your souls and finds them taxable (+6% souls)... the recount muddles memory (−3% XP)"},
+		{"text": "FOG CENSUS — the mist-count of the living loses you in the rolls (+5% dodge, +3% souls)... anonymity dulls the arm (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12346,6 +12347,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_xp_pct -= 0.03
 			oname = "GREY CENSUS"
 		229:
+			Stats.dodge += 0.05
+			Stats.soul_gain_pct += 0.03
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG CENSUS"
+		230:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12624,6 +12630,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY DECREE": "The clerk's highest writs are all history lessons, Kael — mostly the history of drownings.",
 	"DEEP DOCKET": "The trench's docket never empties, Kael — it just files the drowned under 'heard'.",
 	"GREY CENSUS": "The clerk counts everyone twice, Kael — once to know them, once to tax them.",
+	"FOG CENSUS": "The mist's roll is the only roll the drowned can't audit, Kael — they count you as weather.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
