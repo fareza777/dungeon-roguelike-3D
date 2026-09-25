@@ -20869,6 +20869,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Entrechat: The tide entrechat-cross quickens and sharpens you, Kael.")
+		2505:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Entrechat: The storm entrechat-cross hardens and keenens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -25128,6 +25132,7 @@ func _offer_omens() -> void:
 		{"text": "PALE EPIGONATION — the pale epigonation-pad guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY EPIGONATION — the grey epigonation-pad guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE EPIGONATION — the tide epigonation-pad quickens and hardens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
+		{"text": "STORM EPIGONATION — the storm epigonation-pad hardens and keenens you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -46404,6 +46409,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE EPIGONATION"
 		4226:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM EPIGONATION"
+		4227:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -50700,6 +50710,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE EPIGONATION": "The pale epigonation-pad buckles its epigonations over your wake, Kael — guarded and filled, at a cost.",
 	"GREY EPIGONATION": "The grey epigonation-pad buckles its epigonations over your shoulders, Kael — guarded and wiser, at a cost.",
 	"TIDE EPIGONATION": "The tide epigonation-pad buckles its epigonations through your wake, Kael — quicker and harder, at a cost.",
+	"STORM EPIGONATION": "The storm epigonation-pad buckles its epigonations under your thunder, Kael — harder and keener, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -58366,6 +58377,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Entrechat — the pale entrechat-cross guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Entrechat — the grey entrechat-cross guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Entrechat — the tide entrechat-cross quickens and sharpens you (+6% speed, +4% ATK)"},
+		{"text": "Storm Entrechat — the storm entrechat-cross hardens and keenens you (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
