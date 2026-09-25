@@ -20889,6 +20889,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Entrechat: The bottom entrechat-cross fills and guards you, Kael.")
+		2510:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Entrechat: The grim entrechat-cross hardens, guards and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -25153,6 +25158,7 @@ func _offer_omens() -> void:
 		{"text": "HULL EPIGONATION — the hull epigonation-pad steadies and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH EPIGONATION — the trench epigonation-pad hardens and hastens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
 		{"text": "BOTTOM EPIGONATION — the bottom epigonation-pad fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM EPIGONATION — the grim epigonation-pad hardens, guards and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -46454,6 +46460,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM EPIGONATION"
 		4231:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM EPIGONATION"
+		4232:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -50755,6 +50767,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL EPIGONATION": "The hull epigonation-pad buckles its epigonations around your frame, Kael — steadier and guarded, at a cost.",
 	"TRENCH EPIGONATION": "The trench epigonation-pad buckles its epigonations down your trench, Kael — harder and hastened, at a cost.",
 	"BOTTOM EPIGONATION": "The bottom epigonation-pad buckles its epigonations on your floor, Kael — richer and guarded, at a cost.",
+	"GRIM EPIGONATION": "The grim epigonation-pad buckles its epigonations across your guard, Kael — harder, guarded and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -58426,6 +58439,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Entrechat — the hull entrechat-cross steadies and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Entrechat — the trench entrechat-cross hardens and hastens you (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Entrechat — the bottom entrechat-cross fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Entrechat — the grim entrechat-cross hardens, guards and plates you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
