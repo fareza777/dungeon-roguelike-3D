@@ -14149,6 +14149,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP GRADUAL — the deep gradual-chant sharpens and guards you (+7% ATK, +3% dodge)... and lightens your purse for the sharpening (−3% souls)"},
 		{"text": "PALE GRADUAL — the wan gradual-chant guards and fills you (+6% dodge, +5% souls)... and dulls your edge for the guarding (−4% ATK)"},
 		{"text": "GREY GRADUAL — the ashen gradual-chant guards and schools you (+5% dodge, +5% XP)... and dulls your edge for the guarding (−4% ATK)"},
+		{"text": "TIDE GRADUAL — the tide gradual-chant speeds and sharpens you (+6% speed, +4% ATK)... and shifts your guard for the speeding (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -23792,6 +23793,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY GRADUAL"
 		1930:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE GRADUAL"
+		1931:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -25780,6 +25786,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP GRADUAL": "The deep gradual-chant sharpens and guards you, Kael — it lightens your purse for the sharpening.",
 	"PALE GRADUAL": "The wan gradual-chant guards and fills you, Kael — it dulls your edge for the guarding.",
 	"GREY GRADUAL": "The ashen gradual-chant guards and schools you, Kael — it dulls your edge for the guarding.",
+	"TIDE GRADUAL": "The tide gradual-chant speeds and sharpens you, Kael — it shifts your guard for the speeding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
