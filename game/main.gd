@@ -13595,7 +13595,13 @@ func _on_dlg_choice(idx: int) -> void:
 		_ach("sainted")
 	if player != null and is_instance_valid(player):
 		player.refresh_stats()
+		_shock_ring(player.global_position)
 		_burst(player.global_position + Vector3(0, 0.5, 0), Color(1.0, 0.85, 0.4))
+		if vign_g != null and Stats.screen_flash:
+			vign_g.modulate.a = 0.35
+			var bvtw: Tween = vign_g.create_tween()
+			bvtw.tween_property(vign_g, "modulate:a", 0.0, 0.6)
+		Sfx.play("shrine")
 
 
 func _offer_omens() -> void:
