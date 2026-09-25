@@ -18673,6 +18673,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Cinquepace: The tide cinquepace-verse quickens and sharpens you, Kael.")
+		1965:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Cinquepace: The storm cinquepace-verse sharpens and empowers you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -22392,6 +22396,7 @@ func _offer_omens() -> void:
 		{"text": "PALE CERIMONIAL — the pale cerimonial-book guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY CERIMONIAL — the grey cerimonial-book guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE CERIMONIAL — the tide cerimonial-book quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
+		{"text": "STORM CERIMONIAL — the storm cerimonial-book sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -40932,6 +40937,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE CERIMONIAL"
 		3686:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM CERIMONIAL"
+		3687:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -44688,6 +44698,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE CERIMONIAL": "The pale cerimonial-book whitens its cerimoniale over your shoulders, Kael — guarded and richer, at a cost.",
 	"GREY CERIMONIAL": "The grey cerimonial-book greys its cerimoniale into your tread, Kael — guarded and wiser, at a cost.",
 	"TIDE CERIMONIAL": "The tide cerimonial-book rolls its cerimoniale into your wake, Kael — quicker and sharper, at a cost.",
+	"STORM CERIMONIAL": "The storm cerimonial-book thunders its cerimoniale through your grip, Kael — sharpened and empowered, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -51814,6 +51825,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Cinquepace — the pale cinquepace-verse guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Cinquepace — the grey cinquepace-verse guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Cinquepace — the tide cinquepace-verse quickens and sharpens you (+6% speed, +4% ATK)"},
+		{"text": "Storm Cinquepace — the storm cinquepace-verse sharpens and empowers you (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
