@@ -114,7 +114,7 @@ const DB := {
 	"whiteknell": {"name": "White Knell", "short": "WKNE", "cd": 24.0, "unlock": 255, "desc": "Toll the white bell — 0.75x damage to foes within 3.5 tiles; each struck foe is audited for +1 soul."},
 	"greytoll": {"name": "Grey Toll", "short": "GTOL", "cd": 22.0, "unlock": 253, "desc": "Ring the reckoning's bell — 0.8x damage to foes within 3 tiles, and the count yields +1 soul per foe struck."},
 	"palewake": {"name": "Pale Wake", "short": "PWAK", "cd": 20.0, "unlock": 251, "desc": "Your wake turns grey and heavy — 0.7x damage to foes within 3.5 tiles and slows them 2s."},
-"saltwake": {"name": "Salt Wake", "short": "WAKE", "cd": 14.0, "unlock": 111, "desc": "Cut the water behind you — a freezing wake stuns the 3 nearest foes 1.2s, then slows them."},
+	"saltwake": {"name": "Salt Wake", "short": "WAKE", "cd": 14.0, "unlock": 111, "desc": "Cut the water behind you — a freezing wake stuns the 3 nearest foes 1.2s, then slows them."},
 	"netcast": {"name": "Net Cast", "short": "CAST", "cd": 12.0, "unlock": 105, "desc": "Throw the purse-net wide — foes within reach are rooted 3s."},
 	"chumtoss": {"name": "Chum Toss", "short": "CHUM", "cd": 11.0, "unlock": 101, "desc": "Lob a chum line ahead — foes in the lane take 1.2× ATK and are slowed 2s."},
 	"tidesnatch": {"name": "Tide Snatch", "short": "SNATCH", "cd": 14.0, "unlock": 97, "desc": "A hand from the undertow — the 3 nearest foes are dragged to you and dragged slow 3s."},
