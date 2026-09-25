@@ -21747,6 +21747,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Habanera: The tide habanera-step quickens and sharpens you, Kael.")
+		2715:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Habanera: The storm habanera-step sharpens and lucks you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -26216,6 +26220,7 @@ func _offer_omens() -> void:
 		{"text": "PALE RHASON — the pale rhason-robe guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY RHASON — the grey rhason-robe guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE RHASON — the tide rhason-robe quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
+		{"text": "STORM RHASON — the storm rhason-robe sharpens and lucks you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -48556,6 +48561,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE RHASON"
 		4436:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM RHASON"
+		4437:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -53062,6 +53072,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE RHASON": "The pale rhason-robe folds its rhasons over your wake, Kael — guarded and filled, at a cost.",
 	"GREY RHASON": "The grey rhason-robe folds its rhasons through your grey watch, Kael — guarded and wiser, at a cost.",
 	"TIDE RHASON": "The tide rhason-robe folds its rhasons in your tide, Kael — quicker and keen, at a cost.",
+	"STORM RHASON": "The storm rhason-robe folds its rhasons through your thunder, Kael — keen and lucky, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -60938,6 +60949,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Habanera — the pale habanera-step guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Habanera — the grey habanera-step guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Habanera — the tide habanera-step quickens and sharpens you (+6% speed, +4% ATK)"},
+		{"text": "Storm Habanera — the storm habanera-step sharpens and lucks you (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
