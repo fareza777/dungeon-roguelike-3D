@@ -15574,6 +15574,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 0.06
 			Stats.dodge += 0.04
 			toast("Hull Rigaudon: The hull rigaudon-dance bulks and guards you, Kael.")
+		1203:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			toast("Trench Rigaudon: The trench rigaudon-dance sharpens and hastens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -18531,6 +18535,7 @@ func _offer_omens() -> void:
 		{"text": "STORM MENOLOGION — the storm menologion-tale sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL MENOLOGION — the keel menologion-tale fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL MENOLOGION — the hull menologion-tale bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
+		{"text": "TRENCH MENOLOGION — the trench menologion-tale sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -33210,6 +33215,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL MENOLOGION"
 		2924:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH MENOLOGION"
+		2925:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -36200,6 +36210,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM MENOLOGION": "The storm menologion-tale crashes its saints-tales open, Kael — sharpened, at a cost.",
 	"KEEL MENOLOGION": "The keel menologion-tale rivets its saints-tales to your ribs, Kael — richer and plated, at a cost.",
 	"HULL MENOLOGION": "The hull menologion-tale folds its saints-tales around your frame, Kael — bulked and guarded, at a cost.",
+	"TRENCH MENOLOGION": "The trench menologion-tale drags its saints-tales through your knuckles, Kael — sharpened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -42564,6 +42575,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Storm Rigaudon — the storm rigaudon-dance sharpens and empowers you (+5% ATK, +6% crit)"},
 		{"text": "Keel Rigaudon — the keel rigaudon-dance fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Rigaudon — the hull rigaudon-dance bulks and guards you (+6% max HP, +4% dodge)"},
+		{"text": "Trench Rigaudon — the trench rigaudon-dance sharpens and hastens you (+5% ATK, +4% ASPD)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
