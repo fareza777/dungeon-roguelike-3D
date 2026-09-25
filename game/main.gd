@@ -16790,6 +16790,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_armor += 3
 			toast("Keel Giustiniana: The keel giustiniana-air fills and plates you, Kael.")
+		1502:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			toast("Hull Giustiniana: The hull giustiniana-air bulks and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -20046,6 +20050,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE PSALTIKON — the tide psaltikon-book quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM PSALTIKON — the storm psaltikon-book sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL PSALTIKON — the keel psaltikon-book fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
+		{"text": "HULL PSALTIKON — the hull psaltikon-book bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -36240,6 +36245,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL PSALTIKON"
 		3223:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL PSALTIKON"
+		3224:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -39533,6 +39543,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE PSALTIKON": "The tide psaltikon-book opens its psaltic-odes at your heels, Kael — swifter, at a cost.",
 	"STORM PSALTIKON": "The storm psaltikon-book opens its psaltic-odes in thunder, Kael — sharpened and empowered, at a cost.",
 	"KEEL PSALTIKON": "The keel psaltikon-book rivets its psaltic-odes to your ribs, Kael — richer and plated, at a cost.",
+	"HULL PSALTIKON": "The hull psaltikon-book swells its psaltic-odes through your frame, Kael — bulked and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -46196,6 +46207,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Tide Giustiniana — the tide giustiniana-air quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Giustiniana — the storm giustiniana-air sharpens and empowers you (+5% ATK, +6% crit)"},
 		{"text": "Keel Giustiniana — the keel giustiniana-air fills and plates you (+6% souls, +3 armor)"},
+		{"text": "Hull Giustiniana — the hull giustiniana-air bulks and guards you (+6% max HP, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
