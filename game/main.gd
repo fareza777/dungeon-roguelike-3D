@@ -14467,6 +14467,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Arabesque: The storm arabesque-ornament sharpens and empowers you, Kael.")
+		931:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Arabesque: The keel arabesque-ornament fills and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17153,6 +17157,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE PROTHESIS — the tide prothesis-rite quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM PROTHESIS — the storm prothesis-rite sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL PROTHESIS — the keel prothesis-rite fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
+		{"text": "HULL PROTHESIS — the hull prothesis-rite bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -30459,6 +30464,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL PROTHESIS"
 		2653:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL PROTHESIS"
+		2654:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -33178,6 +33188,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE PROTHESIS": "The tide prothesis-rite pulls your feet along its preparation, Kael — swifter and sharper, at a cost.",
 	"STORM PROTHESIS": "The storm prothesis-rite thunders its preparation through your arms, Kael — sharper and deadlier, at a cost.",
 	"KEEL PROTHESIS": "The keel prothesis-rite anchors its preparation in your hull, Kael — richer and plated, at a cost.",
+	"HULL PROTHESIS": "The hull prothesis-rite planks its preparation along your ribs, Kael — bulkier and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -39270,6 +39281,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Arabesque — the grey arabesque-ornament guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Arabesque — the tide arabesque-ornament quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Arabesque — the storm arabesque-ornament sharpens and empowers you (+5% ATK, +6% crit)"},
+		{"text": "Keel Arabesque — the keel arabesque-ornament fills and plates you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
