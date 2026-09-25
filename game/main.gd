@@ -19775,6 +19775,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Farandole: The storm farandole-chain sharpens and strikes you, Kael.")
+		2236:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Farandole: The keel farandole-chain fills and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -23765,6 +23769,7 @@ func _offer_omens() -> void:
 		{"text": "GREY SYNDESMOS — the grey syndesmos-scroll guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE SYNDESMOS — the tide syndesmos-scroll quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM SYNDESMOS — the storm syndesmos-scroll sharpens and strikes you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
+		{"text": "KEEL SYNDESMOS — the keel syndesmos-scroll fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -43678,6 +43683,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM SYNDESMOS"
 		3957:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL SYNDESMOS"
+		3958:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -47705,6 +47715,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY SYNDESMOS": "The grey syndesmos-scroll murmurs its syndesmoi in your ear, Kael — guarded and wiser, at a cost.",
 	"TIDE SYNDESMOS": "The tide syndesmos-scroll draws its syndesmoi like a current, Kael — quicker and sharper, at a cost.",
 	"STORM SYNDESMOS": "The storm syndesmos-scroll binds its syndesmoi like thunder, Kael — sharper and striking, at a cost.",
+	"KEEL SYNDESMOS": "The keel syndesmos-scroll binds its syndesmoi to your ribs, Kael — richer and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -55102,6 +55113,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Farandole — the grey farandole-chain guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Farandole — the tide farandole-chain quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Farandole — the storm farandole-chain sharpens and strikes you (+5% ATK, +6% crit)"},
+		{"text": "Keel Farandole — the keel farandole-chain fills and plates you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
