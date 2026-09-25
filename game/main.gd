@@ -12654,6 +12654,7 @@ func _offer_omens() -> void:
 		{"text": "GREY MANUSCRIPT — the ashen hand-written page guards and teaches you (+5% dodge, +5% XP)... and weakens your arm for the teaching (−4% ATK)"},
 		{"text": "TIDE MANUSCRIPT — the flowing hand-written page speeds and arms you (+6% speed, +4% ATK)... and shifts your guard for the speeding (−3% dodge)"},
 		{"text": "STORM MANUSCRIPT — the tempest's hand-written page charges your arm and aim (+5% ATK, +6% crit)... and uncovers your guard for the charge (−4% dodge)"},
+		{"text": "KEEL MANUSCRIPT — the hull hand-written page fills your purse and plates your hide (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -18203,6 +18204,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM MANUSCRIPT"
 		1122:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL MANUSCRIPT"
+		1123:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -19383,6 +19389,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY MANUSCRIPT": "The ashen hand-written page guards and teaches you, Kael — it weakens your arm for the teaching.",
 	"TIDE MANUSCRIPT": "The flowing hand-written page speeds and arms you, Kael — it shifts your guard for the speeding.",
 	"STORM MANUSCRIPT": "The tempest's hand-written page charges your arm and aim, Kael — it uncovers your guard for the charge.",
+	"KEEL MANUSCRIPT": "The hull hand-written page fills your purse and plates your hide, Kael — it shifts your guard for the plating.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
