@@ -21515,6 +21515,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 0.06
 			Stats.dodge += 0.04
 			toast("Hull Jota: The hull jota-step swells and guards you, Kael.")
+		2658:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			toast("Trench Jota: The trench jota-step sharpens and quickens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -25927,6 +25931,7 @@ func _offer_omens() -> void:
 		{"text": "STORM HIERATEION — the storm hierateion-sanctuary sharpens and lucks you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL HIERATEION — the keel hierateion-sanctuary fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL HIERATEION — the hull hierateion-sanctuary swells and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
+		{"text": "TRENCH HIERATEION — the trench hierateion-sanctuary sharpens and quickens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -47978,6 +47983,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL HIERATEION"
 		4379:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH HIERATEION"
+		4380:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -52427,6 +52437,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM HIERATEION": "The storm hierateion-sanctuary opens its hierateia through your thunder, Kael — keen and lucky, at a cost.",
 	"KEEL HIERATEION": "The keel hierateion-sanctuary opens its hierateia along your keel, Kael — richer and plated, at a cost.",
 	"HULL HIERATEION": "The hull hierateion-sanctuary opens its hierateia along your hull, Kael — heartier and guarded, at a cost.",
+	"TRENCH HIERATEION": "The trench hierateion-sanctuary opens its hierateia along your trench, Kael — keen and quicker, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -60246,6 +60257,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Storm Jota — the storm jota-step sharpens and lucks you (+5% ATK, +6% crit)"},
 		{"text": "Keel Jota — the keel jota-step fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Jota — the hull jota-step swells and guards you (+6% max HP, +4% dodge)"},
+		{"text": "Trench Jota — the trench jota-step sharpens and quickens you (+5% ATK, +4% atk speed)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
