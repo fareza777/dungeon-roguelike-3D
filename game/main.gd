@@ -18136,6 +18136,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 0.06
 			Stats.dodge += 0.04
 			toast("Hull Tordion: The hull tordion-verse bulks and guards you, Kael.")
+		1833:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			toast("Trench Tordion: The trench tordion-verse sharpens and hastens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -21723,6 +21727,7 @@ func _offer_omens() -> void:
 		{"text": "STORM AGENDARIUM — the storm agendarium-book sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL AGENDARIUM — the keel agendarium-book fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL AGENDARIUM — the hull agendarium-book bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
+		{"text": "TRENCH AGENDARIUM — the trench agendarium-book sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -39594,6 +39599,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL AGENDARIUM"
 		3554:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH AGENDARIUM"
+		3555:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -43218,6 +43228,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM AGENDARIUM": "The storm agendarium-book thunders its agendaria through your grip, Kael — sharpened and empowered, at a cost.",
 	"KEEL AGENDARIUM": "The keel agendarium-book rivets its agendaria to your ribs, Kael — richer and plated, at a cost.",
 	"HULL AGENDARIUM": "The hull agendarium-book swells its agendaria through your frame, Kael — bulked and guarded, at a cost.",
+	"TRENCH AGENDARIUM": "The trench agendarium-book drives its agendaria down your arm, Kael — sharpened and hastened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -50212,6 +50223,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Storm Tordion — the storm tordion-verse sharpens and empowers you (+5% ATK, +6% crit)"},
 		{"text": "Keel Tordion — the keel tordion-verse fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Tordion — the hull tordion-verse bulks and guards you (+6% max HP, +4% dodge)"},
+		{"text": "Trench Tordion — the trench tordion-verse sharpens and hastens you (+5% ATK, +4% ASPD)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
