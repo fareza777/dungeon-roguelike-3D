@@ -16368,6 +16368,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP ORDINALE — the deep ordinale-rite sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 		{"text": "PALE ORDINALE — the pale ordinale-rite guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY ORDINALE — the grey ordinale-rite guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
+		{"text": "TIDE ORDINALE — the tide ordinale-rite quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -28899,6 +28900,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY ORDINALE"
 		2500:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE ORDINALE"
+		2501:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -31465,6 +31471,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP ORDINALE": "The deep ordinale-rite seals its rules upon you, Kael — sharper, at a cost.",
 	"PALE ORDINALE": "The pale ordinale-rite shrouds your steps in its rules, Kael — guarded, at a cost.",
 	"GREY ORDINALE": "The grey ordinale-rite copies its wisdom into your bones, Kael — wiser, at a cost.",
+	"TIDE ORDINALE": "The tide ordinale-rite quickens your step in its measure, Kael — swifter, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
