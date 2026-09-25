@@ -11743,6 +11743,7 @@ func _offer_omens() -> void:
 		{"text": "GREY PROCLAMATION — the pale announcement covers and fills you (+5% souls, +5% XP, +2 armor)... and settles on your step (−5% speed)"},
 		{"text": "TIDE PROCLAMATION — the current's announcement carries and arms you (+6% speed, +4% ATK)... and offers less in return (−3% souls)"},
 		{"text": "STORM PROCLAMATION — the tempest's announcement charges your arm and aim (+5% ATK, +6% crit)... and uncovers your guard for the charge (−4% dodge)"},
+		{"text": "KEEL PROCLAMATION — the backbone's announcement steadies your arm and plates you (+5% ATK, +3 armor)... and offers less in return (−4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13485,6 +13486,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM PROCLAMATION"
 		372:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_armor += 3
+			Stats.soul_gain_pct -= 0.04
+			oname = "KEEL PROCLAMATION"
+		373:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13910,6 +13916,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY PROCLAMATION": "The pale announcement covers and fills you, Kael — it settles on your step for the covering.",
 	"TIDE PROCLAMATION": "The current's announcement carries and arms you, Kael — it offers less in return for the carrying.",
 	"STORM PROCLAMATION": "The tempest's announcement charges your arm and aim, Kael — it uncovers your guard for the charge.",
+	"KEEL PROCLAMATION": "The backbone's announcement steadies your arm and plates you, Kael — it offers less in return for the steadying.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
