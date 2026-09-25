@@ -12785,6 +12785,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.07
 			Stats.soul_gain_pct += 0.04
 			toast("Fog Trisagion: the fog trisagion-hymn — +7% dodge, +4% souls this run")
+		547:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			toast("Wake Trisagion: the wake trisagion-hymn — +6% speed, +4% souls this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -34180,6 +34184,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bottom Trisagion — the bottom trisagion-hymn: +7% souls, +4% dodge this run"},
 		{"text": "Grim Trisagion — the grim trisagion-hymn: +5% ATK, +4% dodge, +2 armor this run"},
 		{"text": "Fog Trisagion — the fog trisagion-hymn: +7% dodge, +4% souls this run"},
+		{"text": "Wake Trisagion — the wake trisagion-hymn: +6% speed, +4% souls this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
