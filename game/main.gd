@@ -15631,6 +15631,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_armor += 3
 			toast("Keel Estampie: The keel estampie-stamp fills and plates you, Kael.")
+		1217:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			toast("Hull Estampie: The hull estampie-stamp bulks and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -18602,6 +18606,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE DIAKONIKON — the tide diakonikon-litany quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM DIAKONIKON — the storm diakonikon-litany sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL DIAKONIKON — the keel diakonikon-litany fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
+		{"text": "HULL DIAKONIKON — the hull diakonikon-litany bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -33352,6 +33357,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL DIAKONIKON"
 		2938:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL DIAKONIKON"
+		2939:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -36356,6 +36366,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE DIAKONIKON": "The tide diakonikon-litany drums its deacon-litanies under your feet, Kael — swifter, at a cost.",
 	"STORM DIAKONIKON": "The storm diakonikon-litany crashes its deacon-litanies open, Kael — sharpened, at a cost.",
 	"KEEL DIAKONIKON": "The keel diakonikon-litany rivets its deacon-litanies to your ribs, Kael — richer and plated, at a cost.",
+	"HULL DIAKONIKON": "The hull diakonikon-litany folds its deacon-litanies around your frame, Kael — bulked and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -42734,6 +42745,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Tide Estampie — the tide estampie-stamp quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Estampie — the storm estampie-stamp sharpens and empowers you (+5% ATK, +6% crit)"},
 		{"text": "Keel Estampie — the keel estampie-stamp fills and plates you (+6% souls, +3 armor)"},
+		{"text": "Hull Estampie — the hull estampie-stamp bulks and guards you (+6% max HP, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
