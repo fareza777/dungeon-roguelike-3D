@@ -18474,6 +18474,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_xp_pct += 0.04
 			toast("Salt Lauda: The salt lauda-verse fills and teaches you, Kael.")
+		1916:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.03
+			toast("Deep Villancico: The deep villancico-verse sharpens and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -22144,6 +22148,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE HYMNOLOGION — the bilge hymnologion-book fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 		{"text": "CREST HYMNOLOGION — the crest hymnologion-book guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT HYMNOLOGION — the salt hymnologion-book fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
+		{"text": "DEEP RESPONSORIUM — the deep responsorium-book sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -40436,6 +40441,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT HYMNOLOGION"
 		3637:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP RESPONSORIUM"
+		3638:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -44143,6 +44153,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE HYMNOLOGION": "The bilge hymnologion-book soaks its hymnologia in your skull, Kael — richer and wiser, at a cost.",
 	"CREST HYMNOLOGION": "The crest hymnologion-book lifts its hymnologia to your brow, Kael — guarded and sharpened, at a cost.",
 	"SALT HYMNOLOGION": "The salt hymnologion-book seals its hymnologia in your ledger, Kael — richer and wiser, at a cost.",
+	"DEEP RESPONSORIUM": "The deep responsorium-book opens its responsoria in the deep, Kael — sharpened and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -51220,6 +51231,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bilge Lauda — the bilge lauda-verse fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Lauda — the crest lauda-verse guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Lauda — the salt lauda-verse fills and teaches you (+6% souls, +4% XP)"},
+		{"text": "Deep Villancico — the deep villancico-verse sharpens and guards you (+5% ATK, +3% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
