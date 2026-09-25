@@ -14813,6 +14813,7 @@ func _offer_omens() -> void:
 		{"text": "CREST IDIOMELON — the crest idiomelon-hymn guards and sharpens you (+5% dodge, +5% ATK)... and empties your purse for the guarding (−4% souls)"},
 		{"text": "SALT IDIOMELON — the salt idiomelon-hymn fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "DEEP APOSTICHA — the deep apostichon-verse sharpens and guards you (+7% ATK, +3% dodge)... and empties your purse for the sharpening (−3% souls)"},
+		{"text": "PALE APOSTICHA — the pale apostichon-verse guards and fills you (+6% dodge, +5% souls)... and dulls your edge for the guarding (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -25662,6 +25663,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "DEEP APOSTICHA"
 		2168:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE APOSTICHA"
+		2169:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -27888,6 +27894,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST IDIOMELON": "The crest idiomelon-hymn guards and sharpens you, Kael — it empties your purse for the guarding.",
 	"SALT IDIOMELON": "The salt idiomelon-hymn fills and teaches you, Kael — it shifts your guard for the filling.",
 	"DEEP APOSTICHA": "The deep apostichon-verse sharpens and guards you, Kael — it empties your purse for the sharpening.",
+	"PALE APOSTICHA": "The pale apostichon-verse guards and fills you, Kael — it dulls your edge for the guarding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
