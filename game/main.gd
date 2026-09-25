@@ -12090,6 +12090,7 @@ func _offer_omens() -> void:
 		{"text": "FOG TABLET — the grey tablet shrouds and pays you (+7% dodge, +4% souls)... and weakens your arm for the shrouding (−4% ATK)"},
 		{"text": "WAKE TABLET — the trailing tablet speeds and pays you (+6% speed, +4% souls)... and leaves your guard for the speeding (−3% dodge)"},
 		{"text": "BILGE TABLET — the swamp tablet fills and teaches you (+5% souls, +5% XP)... and uncovers your guard for the filling (−3% dodge)"},
+		{"text": "CREST TABLET — the wave-crest tablet lifts and arms you (+5% dodge, +5% ATK)... and offers less in return for the lifting (−4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -15240,6 +15241,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE TABLET"
 		650:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST TABLET"
+		651:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -15945,6 +15951,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG TABLET": "The grey tablet shrouds and pays you, Kael — it weakens your arm for the shrouding.",
 	"WAKE TABLET": "The trailing tablet speeds and pays you, Kael — it leaves your guard for the speeding.",
 	"BILGE TABLET": "The swamp tablet fills and teaches you, Kael — it uncovers your guard for the filling.",
+	"CREST TABLET": "The wave-crest tablet lifts and arms you, Kael — it offers less in return for the lifting.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
