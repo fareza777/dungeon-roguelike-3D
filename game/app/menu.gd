@@ -635,10 +635,24 @@ func _build_settings() -> void:
 	_settings_section(vb, "— DANGER ZONE —")
 	var wr := _make_btn("⟲ RESET ALL PROGRESS", false)
 	wr.add_theme_color_override("font_color", Color(1.0, 0.5, 0.45))
+	var wr_armed := false
 	wr.pressed.connect(func() -> void:
+		if not wr_armed:
+			wr_armed = true
+			wr.text = "⚠ TAP AGAIN TO CONFIRM WIPE ⚠"
+			wr.modulate = Color(1.0, 0.35, 0.25)
+			Sfx.play("click", 0.7)
+			get_tree().create_timer(3.0).timeout.connect(func() -> void:
+				wr_armed = false
+				wr.text = "⟲ RESET ALL PROGRESS"
+				wr.modulate = Color(1.0, 1.0, 1.0))
+			return
 		Stats.wipe_progress()
 		_toast("All progress wiped")
 		Sfx.play("hurt")
+		wr_armed = false
+		wr.text = "⟲ RESET ALL PROGRESS"
+		wr.modulate = Color(1.0, 1.0, 1.0)
 	)
 	vb.add_child(wr)
 
