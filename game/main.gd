@@ -14272,6 +14272,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.06
 			Stats.soul_gain_pct += 0.05
 			toast("Pale Bagatelle: The pale bagatelle-trifle guards and fills you, Kael.")
+		883:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Grey Bagatelle: The grey bagatelle-trifle guards and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -16910,6 +16914,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP ANAPHORA — the deep anaphora-offering sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 		{"text": "PALE ANAPHORA — the pale anaphora-offering guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY ANAPHORA — the grey anaphora-offering guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
+		{"text": "TIDE ANAPHORA — the tide anaphora-offering quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -29973,6 +29978,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY ANAPHORA"
 		2605:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE ANAPHORA"
+		2606:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -32644,6 +32654,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP ANAPHORA": "The deep anaphora-offering lifts your blade like a chalice, Kael — sharper, at a cost.",
 	"PALE ANAPHORA": "The pale anaphora-offering lifts your step like a host, Kael — guarded, at a cost.",
 	"GREY ANAPHORA": "The grey anaphora-offering intones its rite over you, Kael — guarded and wiser, at a cost.",
+	"TIDE ANAPHORA": "The tide anaphora-offering pulls your feet along its rite, Kael — swifter and sharper, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -38688,6 +38699,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Salt Intermezzo — the salt intermezzo-tune fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Bagatelle — the deep bagatelle-trifle sharpens and guards you (+5% ATK, +3% dodge)"},
 		{"text": "Pale Bagatelle — the pale bagatelle-trifle guards and fills you (+6% dodge, +5% souls)"},
+		{"text": "Grey Bagatelle — the grey bagatelle-trifle guards and teaches you (+5% dodge, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
