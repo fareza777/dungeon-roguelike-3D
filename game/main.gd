@@ -19669,6 +19669,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Anglaise: The bottom anglaise-step fills and guards you, Kael.")
+		2210:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Anglaise: The grim anglaise-step sharpens, guards, and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -23633,6 +23638,7 @@ func _offer_omens() -> void:
 		{"text": "HULL ANTHOLOGION — the hull anthologion-book bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH ANTHOLOGION — the trench anthologion-book sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 		{"text": "BOTTOM ANTHOLOGION — the bottom anthologion-book fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM ANTHOLOGION — the grim anthologion-book sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -43414,6 +43420,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM ANTHOLOGION"
 		3931:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM ANTHOLOGION"
+		3932:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -47415,6 +47427,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL ANTHOLOGION": "The hull anthologion-book planks its anthologia over your heart, Kael — bulked and guarded, at a cost.",
 	"TRENCH ANTHOLOGION": "The trench anthologion-book drives its anthologia down your arm, Kael — sharpened and hastened, at a cost.",
 	"BOTTOM ANTHOLOGION": "The bottom anthologion-book settles its anthologia in your purse, Kael — richer and guarded, at a cost.",
+	"GRIM ANTHOLOGION": "The grim anthologion-book lays its anthologia like ballast in your bones, Kael — sharpened, guarded, plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -54786,6 +54799,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Anglaise — the hull anglaise-step bulks and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Anglaise — the trench anglaise-step sharpens and hastens you (+5% ATK, +4% ASPD)"},
 		{"text": "Bottom Anglaise — the bottom anglaise-step fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Anglaise — the grim anglaise-step sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
