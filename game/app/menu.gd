@@ -431,6 +431,22 @@ func _vol_row(vb: VBoxContainer, label: String, cur: float, on_change: Callable)
 	vb.add_child(s)
 
 
+
+func _settings_section(vb: VBoxContainer, txt: String) -> void:
+	var cap := Label.new()
+	cap.text = txt
+	cap.add_theme_font_size_override("font_size", 14)
+	cap.modulate = Color(1.0, 0.82, 0.45, 0.75)
+	cap.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	vb.add_child(cap)
+	var sep := HSeparator.new()
+	var ssb := StyleBoxFlat.new()
+	ssb.bg_color = Color(1.0, 0.82, 0.45, 0.22)
+	sep.custom_minimum_size = Vector2(0, 1)
+	sep.add_theme_stylebox_override("separator", ssb)
+	vb.add_child(sep)
+
+
 func _build_settings() -> void:
 	settings_panel = CenterContainer.new()
 	settings_panel.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -464,6 +480,7 @@ func _build_settings() -> void:
 	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vb.add_child(t)
 
+	_settings_section(vb, "— AUDIO —")
 	_vol_row(vb, "Music", Stats.mus_vol(), func(v: float) -> void:
 		Stats.music_volume = v
 		Sfx.set_music_volume(v)
@@ -483,6 +500,7 @@ func _build_settings() -> void:
 	)
 	vb.add_child(ts)
 
+	_settings_section(vb, "— DISPLAY —")
 	var ql := Label.new()
 	ql.text = "Graphics quality"
 	ql.add_theme_font_size_override("font_size", 18)
@@ -593,6 +611,7 @@ func _build_settings() -> void:
 	)
 	vb.add_child(mm_opt)
 
+	_settings_section(vb, "— CONTROLS —")
 	var hl := Label.new()
 	hl.text = "Haptics (vibration)"
 	hl.add_theme_font_size_override("font_size", 18)
@@ -612,6 +631,7 @@ func _build_settings() -> void:
 	)
 	vb.add_child(hp_opt)
 
+	_settings_section(vb, "— DANGER ZONE —")
 	var wr := _make_btn("⟲ RESET ALL PROGRESS", false)
 	wr.add_theme_color_override("font_color", Color(1.0, 0.5, 0.45))
 	wr.pressed.connect(func() -> void:
