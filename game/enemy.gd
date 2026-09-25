@@ -873,7 +873,7 @@ func _mk_hpbar() -> void:
 		hpbar_tag = Label3D.new()
 		hpbar_tag.text = ("NEMESIS " + affix.to_upper()).strip_edges() if nemesis else affix.to_upper()
 		hpbar_tag.font_size = 42
-		hpbar_tag.modulate = Color(1.0, 0.75, 0.3)
+		hpbar_tag.modulate = Color(1.0, 0.25, 0.5) if nemesis else Color(1.0, 0.75, 0.3)
 		hpbar_tag.outline_size = 14
 		hpbar_tag.outline_modulate = Color(0.1, 0.05, 0.0, 0.9)
 		hpbar_tag.position = Vector3(0, 1.26 * room_tile, 0)
