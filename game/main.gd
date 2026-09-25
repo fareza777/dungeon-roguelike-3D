@@ -15743,6 +15743,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE KYRIALE — the wake kyriale-prayer quickens and fills you (+6% speed, +4% souls)... and shifts your guard for the quickening (−3% dodge)"},
 		{"text": "BILGE KYRIALE — the bilge kyriale-prayer fills and teaches you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "CREST KYRIALE — the crest kyriale-prayer guards and sharpens you (+5% dodge, +5% ATK)... and lightens your purse for the guarding (−4% souls)"},
+		{"text": "SALT KYRIALE — the salt kyriale-prayer fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -27722,6 +27723,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.04
 			oname = "CREST KYRIALE"
 		2391:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "SALT KYRIALE"
+		2392:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -30171,6 +30177,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE KYRIALE": "The wake kyriale-prayer quickens and fills you, Kael — it shifts your guard for the quickening.",
 	"BILGE KYRIALE": "The bilge kyriale-prayer fills and teaches you, Kael — it shifts your guard for the filling.",
 	"CREST KYRIALE": "The crest kyriale-prayer guards and sharpens you, Kael — it lightens your purse for the guarding.",
+	"SALT KYRIALE": "The salt kyriale-prayer fills and teaches you, Kael — it shifts your guard for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
