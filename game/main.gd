@@ -24616,6 +24616,10 @@ func _refresh_buffs() -> void:
 		l.add_theme_font_size_override("font_size", 15)
 		p.add_child(l)
 		ui.buffs.add_child(p)
+		p.pivot_offset = p.size * 0.5
+		p.scale = Vector2(0.6, 0.6)
+		var bptw: Tween = p.create_tween()
+		bptw.tween_property(p, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 
 func _rebuild_chips() -> void:
