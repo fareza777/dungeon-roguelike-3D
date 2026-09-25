@@ -22357,6 +22357,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Hasapiko: The tide hasapiko-step quickens and sharpens you, Kael.")
+		2865:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Hasapiko: The storm hasapiko-step sharpens and lucks you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -26976,6 +26980,7 @@ func _offer_omens() -> void:
 		{"text": "PALE KLOBUK — the pale klobuk-veil guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY KLOBUK — the grey klobuk-veil guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE KLOBUK — the tide klobuk-veil quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
+		{"text": "STORM KLOBUK — the storm klobuk-veil sharpens and lucks you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -50076,6 +50081,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE KLOBUK"
 		4586:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM KLOBUK"
+		4587:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -54732,6 +54742,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE KLOBUK": "The pale klobuk-veil drapes its klobuki over your wake, Kael — guarded and filled, at a cost.",
 	"GREY KLOBUK": "The grey klobuk-veil drapes its klobuki through your grey watch, Kael — guarded and wiser, at a cost.",
 	"TIDE KLOBUK": "The tide klobuk-veil drapes its klobuki in your tide, Kael — quicker and keen, at a cost.",
+	"STORM KLOBUK": "The storm klobuk-veil drapes its klobuki through your thunder, Kael — keen and lucky, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -62758,6 +62769,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Hasapiko — the pale hasapiko-step guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Hasapiko — the grey hasapiko-step guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Hasapiko — the tide hasapiko-step quickens and sharpens you (+6% speed, +4% ATK)"},
+		{"text": "Storm Hasapiko — the storm hasapiko-step sharpens and lucks you (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
