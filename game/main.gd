@@ -18608,6 +18608,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Grey Quadernaria: The grey quadernaria-verse guards and teaches you, Kael.")
+		1949:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			toast("Tide Quadernaria: The tide quadernaria-verse quickens and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -22311,6 +22315,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP MOUSIKOS — the deep mousikos-book sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 		{"text": "PALE MOUSIKOS — the pale mousikos-book guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY MOUSIKOS — the grey mousikos-book guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
+		{"text": "TIDE MOUSIKOS — the tide mousikos-book quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -40770,6 +40775,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY MOUSIKOS"
 		3670:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE MOUSIKOS"
+		3671:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -44510,6 +44520,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP MOUSIKOS": "The deep mousikos-book sings its mousikoi into your steel, Kael — sharper and guarded, at a cost.",
 	"PALE MOUSIKOS": "The pale mousikos-book whitens its mousikoi over your shoulders, Kael — guarded and richer, at a cost.",
 	"GREY MOUSIKOS": "The grey mousikos-book greys its mousikoi into your tread, Kael — guarded and wiser, at a cost.",
+	"TIDE MOUSIKOS": "The tide mousikos-book rolls its mousikoi into your wake, Kael — quicker and sharper, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -51620,6 +51631,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Deep Quadernaria — the deep quadernaria-verse sharpens and guards you (+5% ATK, +3% dodge)"},
 		{"text": "Pale Quadernaria — the pale quadernaria-verse guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Quadernaria — the grey quadernaria-verse guards and teaches you (+5% dodge, +5% XP)"},
+		{"text": "Tide Quadernaria — the tide quadernaria-verse quickens and sharpens you (+6% speed, +4% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
