@@ -15020,6 +15020,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_armor += 3
 			toast("Keel Gavotte: The keel gavotte-step fills and plates you, Kael.")
+		1067:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			toast("Hull Gavotte: The hull gavotte-step bulks and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17842,6 +17846,7 @@ func _offer_omens() -> void:
 		{"text": "STORM MESONYKTIKON — the storm mesonyktikon-vigil sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL MESONYKTIKON — the keel mesonyktikon-vigil fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL MESONYKTIKON — the hull mesonyktikon-vigil bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
+		{"text": "TRENCH MESONYKTIKON — the trench mesonyktikon-vigil sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -31837,6 +31842,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL MESONYKTIKON"
 		2789:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH MESONYKTIKON"
+		2790:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -34692,6 +34702,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM MESONYKTIKON": "The storm mesonyktikon-vigil cracks its midnight-watches through your wrists, Kael — sharper, at a cost.",
 	"KEEL MESONYKTIKON": "The keel mesonyktikon-vigil moors its midnight-watches to your hull, Kael — richer and plated, at a cost.",
 	"HULL MESONYKTIKON": "The hull mesonyktikon-vigil planks its midnight-watches along your ribs, Kael — bulkier and guarded, at a cost.",
+	"TRENCH MESONYKTIKON": "The trench mesonyktikon-vigil rakes its midnight-watches down your spine, Kael — sharper and quicker, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -40920,6 +40931,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Tide Gavotte — the tide gavotte-step quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Gavotte — the storm gavotte-step sharpens and empowers you (+5% ATK, +6% crit)"},
 		{"text": "Keel Gavotte — the keel gavotte-step fills and plates you (+6% souls, +3 armor)"},
+		{"text": "Hull Gavotte — the hull gavotte-step bulks and guards you (+6% max HP, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
