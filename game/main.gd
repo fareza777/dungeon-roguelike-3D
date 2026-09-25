@@ -13813,6 +13813,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_atk_pct += 0.05
 			toast("Crest Berceuse: The crest berceuse-hush guards and sharpens you, Kael.")
+		775:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			toast("Salt Berceuse: The salt berceuse-hush fills and teaches you, Kael. Berceuse suffix #45 complete.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -37351,6 +37355,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Wake Berceuse — the wake berceuse-hush quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Berceuse — the bilge berceuse-hush fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Berceuse — the crest berceuse-hush guards and sharpens you (+5% dodge, +5% ATK)"},
+		{"text": "Salt Berceuse — the salt berceuse-hush fills and teaches you (+6% souls, +4% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
