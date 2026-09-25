@@ -15485,6 +15485,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_xp_pct += 0.04
 			toast("Salt Tambourin: The salt tambourin-beat fills and teaches you, Kael.")
+		1181:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.03
+			toast("Deep Nocturnelle: The deep nocturnelle-night sharpens and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -18420,6 +18424,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE ANTIPHONARIUM — the bilge antiphonarium-antiphon fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 		{"text": "CREST ANTIPHONARIUM — the crest antiphonarium-antiphon guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT ANTIPHONARIUM — the salt antiphonarium-antiphon fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
+		{"text": "DEEP CEREMONIALE — the deep ceremoniale-rite sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -32988,6 +32993,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT ANTIPHONARIUM"
 		2902:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP CEREMONIALE"
+		2903:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -35956,6 +35966,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE ANTIPHONARIUM": "The bilge antiphonarium-antiphon slops its antiphon-books through your head, Kael — richer and wiser, at a cost.",
 	"CREST ANTIPHONARIUM": "The crest antiphonarium-antiphon raises its antiphon-books like a wave-crest, Kael — guarded and sharpened, at a cost.",
 	"SALT ANTIPHONARIUM": "The salt antiphonarium-antiphon sprinkles its antiphon-books over your ledger, Kael — richer and wiser, at a cost.",
+	"DEEP CEREMONIALE": "The deep ceremoniale-rite reads its solemn-rites across your blade, Kael — sharpened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -42298,6 +42309,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bilge Tambourin — the bilge tambourin-beat fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Tambourin — the crest tambourin-beat guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Tambourin — the salt tambourin-beat fills and teaches you (+6% souls, +4% XP)"},
+		{"text": "Deep Nocturnelle — the deep nocturnelle-night sharpens and guards you (+5% ATK, +3% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
