@@ -18246,6 +18246,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Canso: The tide canso-verse quickens and sharpens you, Kael.")
+		1860:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Canso: The storm canso-verse sharpens and empowers you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -21860,6 +21864,7 @@ func _offer_omens() -> void:
 		{"text": "PALE TROPAROLOGION — the pale troparologion-book guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY TROPAROLOGION — the grey troparologion-book guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE TROPAROLOGION — the tide troparologion-book quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
+		{"text": "STORM TROPAROLOGION — the storm troparologion-book sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -39868,6 +39873,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE TROPAROLOGION"
 		3581:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM TROPAROLOGION"
+		3582:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -43519,6 +43529,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE TROPAROLOGION": "The pale troparologion-book pales its troparologia over your form, Kael — guarded and richer, at a cost.",
 	"GREY TROPAROLOGION": "The grey troparologion-book greys its troparologia into your tread, Kael — guarded and wiser, at a cost.",
 	"TIDE TROPAROLOGION": "The tide troparologion-book rolls its troparologia into your wake, Kael — quicker and sharper, at a cost.",
+	"STORM TROPAROLOGION": "The storm troparologion-book thunders its troparologia through your grip, Kael — sharpened and empowered, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -50540,6 +50551,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Canso — the pale canso-verse guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Canso — the grey canso-verse guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Canso — the tide canso-verse quickens and sharpens you (+6% speed, +4% ATK)"},
+		{"text": "Storm Canso — the storm canso-verse sharpens and empowers you (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
