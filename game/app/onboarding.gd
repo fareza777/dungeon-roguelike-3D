@@ -111,9 +111,23 @@ func _ready() -> void:
 	add_child(btn_next)
 
 	var skip := Button.new()
-	skip.text = "Skip >"
-	skip.add_theme_font_size_override("font_size", 18)
-	skip.modulate = Color(1, 1, 1, 0.5)
+	skip.text = "SKIP ›"
+	skip.add_theme_font_size_override("font_size", 16)
+	skip.add_theme_color_override("font_color", Color(1, 1, 1, 0.75))
+	skip.add_theme_color_override("font_hover_color", Color(1, 1, 1, 1.0))
+	var ssb := StyleBoxFlat.new()
+	ssb.bg_color = Color(0.04, 0.04, 0.08, 0.55)
+	ssb.border_color = Color(1, 1, 1, 0.28)
+	ssb.set_border_width_all(1)
+	ssb.set_corner_radius_all(14)
+	ssb.content_margin_left = 16
+	ssb.content_margin_right = 16
+	skip.add_theme_stylebox_override("normal", ssb)
+	var ssbh := ssb.duplicate() as StyleBoxFlat
+	ssbh.bg_color = Color(0.1, 0.09, 0.16, 0.7)
+	ssbh.border_color = Color(0.95, 0.78, 0.35, 0.7)
+	skip.add_theme_stylebox_override("hover", ssbh)
+	skip.add_theme_stylebox_override("pressed", ssbh)
 	skip.anchor_left = 1.0
 	skip.anchor_right = 1.0
 	skip.offset_left = -150
@@ -192,6 +206,12 @@ func _show(i: int) -> void:
 			d.scale = Vector2(1.6, 1.6)
 			var dtw: Tween = d.create_tween()
 			dtw.tween_property(d, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+			var dpt: Tween = d.create_tween()
+			dpt.set_loops()
+			dpt.tween_property(d, "modulate:a", 0.6, 0.7).set_trans(Tween.TRANS_SINE)
+			dpt.tween_property(d, "modulate:a", 1.0, 0.7).set_trans(Tween.TRANS_SINE)
+		else:
+			d.modulate.a = 1.0
 	btn_next.text = "START" if i == SLIDES.size() - 1 else "NEXT"
 	Sfx.play("page")
 
