@@ -11981,6 +11981,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE CHRONICLE — the hold's record fills and instructs you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "CREST CHRONICLE — the breaker's record lifts your guard and arm (+5% dodge, +5% ATK)... and offers less in return (−4% souls)"},
 		{"text": "SALT CHRONICLE — the brine record fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
+		{"text": "DEEP MANIFESTO — the trench's declaration arms and guards you (+7% ATK, +3% dodge)... and offers less in return (−3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -14685,6 +14686,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT CHRONICLE"
 		562:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP MANIFESTO"
+		563:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -15302,6 +15308,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE CHRONICLE": "The hold's record fills and instructs you, Kael — it shifts your guard for the filling.",
 	"CREST CHRONICLE": "The breaker's record lifts your guard and arm, Kael — it offers less in return for the lifting.",
 	"SALT CHRONICLE": "The brine record fills and teaches you, Kael — it shifts your guard for the filling.",
+	"DEEP MANIFESTO": "The trench's declaration arms and guards you, Kael — it offers less in return for the declaring.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
