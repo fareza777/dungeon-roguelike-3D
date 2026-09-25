@@ -39918,6 +39918,8 @@ func _process(delta: float) -> void:
 				atk_charged = true
 				Sfx.play("xp", 0.75)
 				if Stats.haptics: Input.vibrate_handheld(60)
+				_burst(player.global_position + Vector3(0, 0.5 * info.tile, 0), Color(1.0, 0.85, 0.35))
+				_shock_ring(player.global_position, Color(1.0, 0.85, 0.35))
 				ui.atk_btn.modulate = Color(1.35, 1.15, 0.6)
 				var ctw: Tween = ui.atk_btn.create_tween()
 				ctw.tween_property(ui.atk_btn, "scale", Vector2(1.18, 1.18), 0.12).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
