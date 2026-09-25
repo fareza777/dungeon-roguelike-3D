@@ -12706,6 +12706,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE ANNALS — the bilgewater yearly record fills and teaches you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "CREST ANNALS — the cresting yearly record guards and arms you (+5% dodge, +5% ATK)... and empties your purse for the arming (−4% souls)"},
 		{"text": "SALT ANNALS — the brine yearly record fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
+		{"text": "DEEP REGISTER — the deepest bound record honors your arm and guard (+7% ATK, +3% dodge)... and empties your purse for the honor (−3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -18458,6 +18459,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT ANNALS"
 		1162:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP REGISTER"
+		1163:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -19678,6 +19684,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE ANNALS": "The bilgewater yearly record fills and teaches you, Kael — it shifts your guard for the filling.",
 	"CREST ANNALS": "The cresting yearly record guards and arms you, Kael — it empties your purse for the arming.",
 	"SALT ANNALS": "The brine yearly record fills and teaches you, Kael — it shifts your guard for the filling.",
+	"DEEP REGISTER": "The deepest bound record honors your arm and guard, Kael — it empties your purse for the honor.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
