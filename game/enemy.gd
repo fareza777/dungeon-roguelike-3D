@@ -1981,7 +1981,7 @@ func take_hit(from_pos: Vector3, dmg_taken: float) -> void:
 			var mu2 := get_tree().current_scene
 			if mu2 != null and mu2.has_method("_damage_number"):
 				mu2._damage_number(p5.global_position + Vector3(0, 0.8 * room_tile, 0), "ENCHANTED", Color(0.7, 0.5, 1.15), false)
-	Sfx.play("hit")
+	Sfx.play("hit", 0.9 + randf() * 0.2)
 	if (is_spiky or affix == "thorned") and state != "dead":
 		var p3 := _player()
 		if p3 != null and p3.get("dead") != true and p3.global_position.distance_to(from_pos) < 0.5 * room_tile:

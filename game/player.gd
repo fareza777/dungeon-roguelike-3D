@@ -227,7 +227,7 @@ func attack() -> void:
 		return
 	cd = attack_cooldown
 	attacked.emit()
-	Sfx.play("swing")
+	Sfx.play("swing", 0.94 + randf() * 0.12)
 	var foes := get_tree().get_nodes_in_group("enemies")
 	var best: Node3D = null
 	var bd := 99999.0
