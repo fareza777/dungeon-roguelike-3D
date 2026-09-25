@@ -12376,6 +12376,7 @@ func _offer_omens() -> void:
 		{"text": "PALE MARGINALIA — the white margin-notes veil and fill you (+6% dodge, +5% souls)... and weaken your arm for the veiling (−4% ATK)"},
 		{"text": "GREY MARGINALIA — the grey margin-notes guard and teach you (+5% dodge, +5% XP)... and weaken your arm for the guarding (−4% ATK)"},
 		{"text": "TIDE MARGINALIA — the flowing margin-notes speed and arm you (+6% speed, +4% ATK)... and shift your guard for the speeding (−3% dodge)"},
+		{"text": "STORM MARGINALIA — the tempest's margin-notes charge your arm and aim (+5% ATK, +6% crit)... and uncover your guard for the charge (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -16704,6 +16705,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE MARGINALIA"
 		881:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM MARGINALIA"
+		882:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -17640,6 +17646,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE MARGINALIA": "The white margin-notes veil and fill you, Kael — they weaken your arm for the veiling.",
 	"GREY MARGINALIA": "The grey margin-notes guard and teach you, Kael — they weaken your arm for the guarding.",
 	"TIDE MARGINALIA": "The flowing margin-notes speed and arm you, Kael — they shift your guard for the speeding.",
+	"STORM MARGINALIA": "The tempest's margin-notes charge your arm and aim, Kael — they uncover your guard for the charge.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
