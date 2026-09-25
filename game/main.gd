@@ -12842,6 +12842,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.04
 			Stats.buff_armor += 2
 			toast("Grim Melisma: the grim melisma-curl — +5% ATK, +4% dodge, +2 armor this run")
+		561:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			toast("Fog Melisma: the fog melisma-curl — +7% dodge, +4% souls this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -34357,6 +34361,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Trench Melisma — the trench melisma-curl: +5% ATK, +4% attack speed this run"},
 		{"text": "Bottom Melisma — the bottom melisma-curl: +7% souls, +4% dodge this run"},
 		{"text": "Grim Melisma — the grim melisma-curl: +5% ATK, +4% dodge, +2 armor this run"},
+		{"text": "Fog Melisma — the fog melisma-curl: +7% dodge, +4% souls this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
