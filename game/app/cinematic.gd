@@ -121,10 +121,29 @@ func _ready() -> void:
 	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(hint)
+	var htw := hint.create_tween()
+	htw.set_loops()
+	htw.tween_property(hint, "modulate:a", 0.75, 0.9).set_trans(Tween.TRANS_SINE)
+	htw.tween_property(hint, "modulate:a", 0.3, 0.9).set_trans(Tween.TRANS_SINE)
 
 	var skip := Button.new()
-	skip.text = "Skip >"
-	skip.add_theme_font_size_override("font_size", 20)
+	skip.text = "SKIP ›"
+	skip.add_theme_font_size_override("font_size", 19)
+	skip.add_theme_color_override("font_color", Color(1, 1, 1, 0.8))
+	skip.add_theme_color_override("font_hover_color", Color(1, 1, 1, 1.0))
+	var ssb := StyleBoxFlat.new()
+	ssb.bg_color = Color(0.04, 0.04, 0.08, 0.55)
+	ssb.border_color = Color(1, 1, 1, 0.28)
+	ssb.set_border_width_all(1)
+	ssb.set_corner_radius_all(14)
+	ssb.content_margin_left = 18.0
+	ssb.content_margin_right = 18.0
+	skip.add_theme_stylebox_override("normal", ssb)
+	var ssbh := ssb.duplicate()
+	ssbh.bg_color = Color(0.1, 0.09, 0.16, 0.7)
+	ssbh.border_color = Color(0.95, 0.78, 0.35, 0.7)
+	skip.add_theme_stylebox_override("hover", ssbh)
+	skip.add_theme_stylebox_override("pressed", ssbh)
 	skip.anchor_left = 1.0
 	skip.anchor_right = 1.0
 	skip.offset_left = -150
