@@ -15648,6 +15648,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.04
 			Stats.buff_armor += 2
 			toast("Grim Estampie: The grim estampie-stamp sharpens, guards, and plates you, Kael.")
+		1221:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			toast("Fog Estampie: The fog estampie-stamp shrouds and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -18623,6 +18627,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH DIAKONIKON — the trench diakonikon-litany sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 		{"text": "BOTTOM DIAKONIKON — the bottom diakonikon-litany fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 		{"text": "GRIM DIAKONIKON — the grim diakonikon-litany sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
+		{"text": "FOG DIAKONIKON — the fog diakonikon-litany shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -33394,6 +33399,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM DIAKONIKON"
 		2942:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG DIAKONIKON"
+		2943:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -36402,6 +36412,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH DIAKONIKON": "The trench diakonikon-litany drags its deacon-litanies through your knuckles, Kael — sharpened, at a cost.",
 	"BOTTOM DIAKONIKON": "The bottom diakonikon-litany settles its deacon-litanies in your purse, Kael — richer and guarded, at a cost.",
 	"GRIM DIAKONIKON": "The grim diakonikon-litany drops its deacon-litanies like ballast in your bones, Kael — sharpened, guarded, plated, at a cost.",
+	"FOG DIAKONIKON": "The fog diakonikon-litany veils its deacon-litanies over your silhouette, Kael — shrouded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -42784,6 +42795,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Trench Estampie — the trench estampie-stamp sharpens and hastens you (+5% ATK, +4% ASPD)"},
 		{"text": "Bottom Estampie — the bottom estampie-stamp fills and guards you (+7% souls, +4% dodge)"},
 		{"text": "Grim Estampie — the grim estampie-stamp sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
+		{"text": "Fog Estampie — the fog estampie-stamp shrouds and fills you (+7% dodge, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
