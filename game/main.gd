@@ -15249,6 +15249,7 @@ func _offer_omens() -> void:
 		{"text": "SALT HEXAPSALMOS — the salt hexapsalmos-psalm fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "DEEP REPROACHES — the deep reproaches-verse sharpens and guards you (+7% ATK, +3% dodge)... and lightens your purse for the sharpening (−3% souls)"},
 		{"text": "PALE REPROACHES — the pale reproaches-verse guards and fills you (+6% dodge, +5% souls)... and dulls your edge for the guarding (−4% ATK)"},
+		{"text": "GREY REPROACHES — the grey reproaches-verse guards and teaches you (+5% dodge, +5% XP)... and dulls your edge for the teaching (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -26635,6 +26636,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "PALE REPROACHES"
 		2274:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "GREY REPROACHES"
+		2275:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -28967,6 +28973,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT HEXAPSALMOS": "The salt hexapsalmos-psalm fills and teaches you, Kael — it shifts your guard for the filling.",
 	"DEEP REPROACHES": "The deep reproaches-verse sharpens and guards you, Kael — it lightens your purse for the sharpening.",
 	"PALE REPROACHES": "The pale reproaches-verse guards and fills you, Kael — it dulls your edge for the guarding.",
+	"GREY REPROACHES": "The grey reproaches-verse guards and teaches you, Kael — it dulls your edge for the teaching.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
