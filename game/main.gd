@@ -13280,6 +13280,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Cantiga: The tide cantiga-song quickens and sharpens you, Kael.")
+		660:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Cantiga: The storm cantiga-song sharpens and empowers you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -35848,6 +35852,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Cantiga — the pale cantiga-song guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Cantiga — the grey cantiga-song guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Cantiga — the tide cantiga-song quickens and sharpens you (+6% speed, +4% ATK)"},
+		{"text": "Storm Cantiga — the storm cantiga-song sharpens and empowers you (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
