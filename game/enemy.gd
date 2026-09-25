@@ -1224,6 +1224,8 @@ func _physics_process(delta: float) -> void:
 			if dist < aggro_range:
 				state = "chase"
 				_alert_mark()
+				if randf() < 0.35:
+					Sfx.play("whisper", 0.85 + randf() * 0.2)
 				if digger and not digger_dug:
 					digger_dug = true
 					var mdig := get_tree().current_scene
