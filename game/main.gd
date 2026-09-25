@@ -11683,6 +11683,7 @@ func _offer_omens() -> void:
 		{"text": "GREY MANDATE — the pale count's charge covers you fully (+5% souls, +5% XP, +2 armor)... and pins your step (−5% dodge)"},
 		{"text": "TIDE MANDATE — the current's charge carries your step and guard (+6% speed, +4% dodge)... and takes your arm for the carrying (−3% ATK)"},
 		{"text": "STORM MANDATE — the tempest's charge charges your arm and aim (+5% ATK, +5% crit)... and uncovers your guard for the charge (−3% dodge)"},
+		{"text": "KEEL MANDATE — the backbone's charge steadies your arm, plate, and step (+5% ATK, +2 armor, +3% speed)... and offers less in return (−4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13208,6 +13209,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "STORM MANDATE"
 		329:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct += 0.03
+			Stats.soul_gain_pct -= 0.04
+			oname = "KEEL MANDATE"
+		330:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13590,6 +13597,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY MANDATE": "The pale count's charge covers you fully, Kael — it pins your step for the covering.",
 	"TIDE MANDATE": "The current's charge carries your step and guard, Kael — it takes your arm for the carrying.",
 	"STORM MANDATE": "The tempest's charge charges your arm and aim, Kael — it uncovers your guard for the charge.",
+	"KEEL MANDATE": "The backbone's charge steadies your arm, plate, and step, Kael — it offers less in return for the steadying.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
