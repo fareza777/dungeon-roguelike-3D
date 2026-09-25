@@ -11458,6 +11458,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE NOTE — the trailing promissory reads you swift (+5% speed, +3% souls)... swift forgets its grip (−3% ATK)"},
 		{"text": "KEEL NOTE — the hull's promissory reads you striking (+4% ATK, +3% attack speed)... the hull collects (−3% souls)"},
 		{"text": "FINAL ACCOUNT — the last page of the reckoning pays in full (+5% ATK, +5% souls)... and weighs you for the vault (−5% speed)"},
+		{"text": "LAST LEDGER — the closing book credits your purse (+6% souls, +3% crit)... and debits your footing (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12595,6 +12596,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.05
 			oname = "FINAL ACCOUNT"
 		250:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_crit += 0.03
+			Stats.dodge -= 0.04
+			oname = "LAST LEDGER"
+		251:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12896,6 +12902,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE NOTE": "The trailing promissory reads you as swift, Kael — and swift forgets its grip.",
 	"KEEL NOTE": "The hull's promissory reads you as striking, Kael — the hull always collects.",
 	"FINAL ACCOUNT": "The last page always pays in full, Kael — the question is which side of the ledger you land on.",
+	"LAST LEDGER": "The closing book credits generously, Kael — it debits just as generously.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
