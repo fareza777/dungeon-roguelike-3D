@@ -13381,6 +13381,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.soul_gain_pct += 0.04
 			toast("Wake Ritornello: The wake ritornello-return quickens and fills you, Kael.")
+		683:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Bilge Ritornello: The bilge ritornello-return fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -36078,6 +36082,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grim Ritornello — the grim ritornello-return sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Ritornello — the fog ritornello-return shrouds and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Ritornello — the wake ritornello-return quickens and fills you (+6% speed, +4% souls)"},
+		{"text": "Bilge Ritornello — the bilge ritornello-return fills and teaches you (+5% souls, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
