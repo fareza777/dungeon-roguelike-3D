@@ -11403,7 +11403,7 @@ func _offer_omens() -> void:
 		{"text": "GREY ROLL — the pale count's dice fall kind (+5% crit)... though they cost a coin (−4% souls)"},
 		{"text": "KEEL DUE — the hull's toll posts your share (+6% souls)... but toll-roads are slow roads (−3% speed)"},
 		{"text": "FOG DUE — the mist's toll is paid in absence (+5% dodge)... the clerk takes his coin anyway (−4% souls)"},
-		{"text": "SALT ROLL — the white count's dice come up even (+4% ATK, +4% armor)... luck is never free (−3% XP)"},
+		{"text": "SALT ROLL — the white count's dice come up even (+4% ATK, +1 armor)... luck is never free (−3% XP)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
