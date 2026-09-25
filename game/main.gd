@@ -17823,6 +17823,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Passacaille: The storm passacaille-verse sharpens and empowers you, Kael.")
+		1756:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Passacaille: The keel passacaille-verse fills and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -21333,6 +21337,7 @@ func _offer_omens() -> void:
 		{"text": "GREY HYMNARIUM — the grey hymnarium-book guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE HYMNARIUM — the tide hymnarium-book quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM HYMNARIUM — the storm hymnarium-book sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
+		{"text": "KEEL HYMNARIUM — the keel hymnarium-book fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -38814,6 +38819,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM HYMNARIUM"
 		3477:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL HYMNARIUM"
+		3478:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -42361,6 +42371,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY HYMNARIUM": "The grey hymnarium-book greys its hymnariums into your lessons, Kael — guarded and taught, at a cost.",
 	"TIDE HYMNARIUM": "The tide hymnarium-book speeds its hymnariums into your stride, Kael — quickened and sharpened, at a cost.",
 	"STORM HYMNARIUM": "The storm hymnarium-book opens its hymnariums in thunder, Kael — sharpened and empowered, at a cost.",
+	"KEEL HYMNARIUM": "The keel hymnarium-book rivets its hymnariums to your ribs, Kael — richer and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -49278,6 +49289,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Passacaille — the grey passacaille-verse guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Passacaille — the tide passacaille-verse quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Passacaille — the storm passacaille-verse sharpens and empowers you (+5% ATK, +6% crit)"},
+		{"text": "Keel Passacaille — the keel passacaille-verse fills and plates you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
