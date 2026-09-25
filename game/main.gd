@@ -13452,6 +13452,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP NUNC — the deepest dismissal-song honors your arm and guard (+7% ATK, +3% dodge)... and empties your purse for the honor (−3% souls)"},
 		{"text": "PALE NUNC — the white dismissal-song veils and fills you (+6% dodge, +5% souls)... and weakens your arm for the veiling (−4% ATK)"},
 		{"text": "GREY NUNC — the ashen dismissal-song veils and teaches you (+5% dodge, +5% XP)... and weakens your arm for the veiling (−4% ATK)"},
+		{"text": "TIDE NUNC — the surging dismissal-song speeds you and arms you (+6% speed, +4% ATK)... and shifts your guard for the speeding (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -22183,6 +22184,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY NUNC"
 		1750:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE NUNC"
+		1751:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -23991,6 +23997,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP NUNC": "The deepest dismissal-song honors your arm and guard, Kael — it empties your purse for the honor.",
 	"PALE NUNC": "The white dismissal-song veils and fills you, Kael — it weakens your arm for the veiling.",
 	"GREY NUNC": "The ashen dismissal-song veils and teaches you, Kael — it weakens your arm for the veiling.",
+	"TIDE NUNC": "The surging dismissal-song speeds you and arms you, Kael — it shifts your guard for the speeding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
