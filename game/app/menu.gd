@@ -664,9 +664,14 @@ func _build_souls() -> void:
 	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	vb.add_child(hint)
+	var sc := ScrollContainer.new()
+	sc.custom_minimum_size = Vector2(500, 540)
+	sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	vb.add_child(sc)
 	souls_rows = VBoxContainer.new()
 	souls_rows.add_theme_constant_override("separation", 8)
-	vb.add_child(souls_rows)
+	souls_rows.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	sc.add_child(souls_rows)
 	var back := _make_btn("← BACK", false)
 	back.pressed.connect(func() -> void: souls_panel.visible = false)
 	vb.add_child(back)
