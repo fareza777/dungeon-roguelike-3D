@@ -20601,6 +20601,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Lancers: The bilge lancers-figure fills and teaches you, Kael.")
+		2439:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Lancers: The crest lancers-figure guards and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -24794,6 +24798,7 @@ func _offer_omens() -> void:
 		{"text": "FOG LAXARION — the fog laxarion-shrine guards and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE LAXARION — the wake laxarion-shrine quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE LAXARION — the bilge laxarion-shrine fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
+		{"text": "CREST LAXARION — the crest laxarion-shrine guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -45736,6 +45741,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE LAXARION"
 		4160:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST LAXARION"
+		4161:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -49966,6 +49976,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG LAXARION": "The fog laxarion-shrine keeps its laxaria in your spray, Kael — guarded and filled, at a cost.",
 	"WAKE LAXARION": "The wake laxarion-shrine keeps its laxaria in your foam, Kael — quicker and filled, at a cost.",
 	"BILGE LAXARION": "The bilge laxarion-shrine keeps its laxaria into your purse, Kael — richer and wiser, at a cost.",
+	"CREST LAXARION": "The crest laxarion-shrine keeps its laxaria across your crest, Kael — guarded and keen, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -57566,6 +57577,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Lancers — the fog lancers-figure guards and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Lancers — the wake lancers-figure quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Lancers — the bilge lancers-figure fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Lancers — the crest lancers-figure guards and sharpens you (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
