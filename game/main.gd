@@ -14619,6 +14619,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE PROKEIMENON — the tide prokeimenon-verse quickens and sharpens you (+6% speed, +4% ATK)... and shifts your guard for the quickening (−3% dodge)"},
 		{"text": "STORM PROKEIMENON — the storm prokeimenon-verse sharpens and strikes you (+5% ATK, +6% crit)... and shifts your guard for the striking (−4% dodge)"},
 		{"text": "KEEL PROKEIMENON — the keel prokeimenon-verse fills and plates you (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
+		{"text": "HULL PROKEIMENON — the plank prokeimenon-verse bulks and guards you (+6% max HP, +4% dodge)... and slows your step for the bulking (−3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -25113,6 +25114,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL PROKEIMENON"
 		2098:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL PROKEIMENON"
+		2099:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -27269,6 +27275,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE PROKEIMENON": "The tide prokeimenon-verse quickens and sharpens you, Kael — it shifts your guard for the quickening.",
 	"STORM PROKEIMENON": "The storm prokeimenon-verse sharpens and strikes you, Kael — it shifts your guard for the striking.",
 	"KEEL PROKEIMENON": "The keel prokeimenon-verse fills and plates you, Kael — it shifts your guard for the plating.",
+	"HULL PROKEIMENON": "The plank prokeimenon-verse bulks and guards you, Kael — it slows your step for the bulking.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
