@@ -19027,6 +19027,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.dodge += 0.03
 			toast("Deep Roegarza: The deep roegarza-verse sharpens and guards you, Kael.")
+		2052:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			toast("Pale Roegarza: The pale roegarza-verse guards and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -22833,6 +22837,7 @@ func _offer_omens() -> void:
 		{"text": "CREST PANTEKLISI — the crest panteklisi-book guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT PANTEKLISI — the salt panteklisi-book fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 		{"text": "DEEP PASCHALIA — the deep paschalia-book sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
+		{"text": "PALE PASCHALIA — the pale paschalia-book guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -41814,6 +41819,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "DEEP PASCHALIA"
 		3773:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE PASCHALIA"
+		3774:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -45657,6 +45667,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST PANTEKLISI": "The crest panteklisi-book breaks its panteklese on your blade, Kael — guarded and sharpened, at a cost.",
 	"SALT PANTEKLISI": "The salt panteklisi-book crusts its panteklese on your palms, Kael — richer and wiser, at a cost.",
 	"DEEP PASCHALIA": "The deep paschalia-book holds its paschaliae in your fist, Kael — sharper and guarded, at a cost.",
+	"PALE PASCHALIA": "The pale paschalia-book whitens its paschaliae over your shoulders, Kael — guarded and richer, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -52870,6 +52881,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Crest Bassadanza — the crest bassadanza-verse guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Bassadanza — the salt bassadanza-verse fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Roegarza — the deep roegarza-verse sharpens and guards you (+5% ATK, +3% dodge)"},
+		{"text": "Pale Roegarza — the pale roegarza-verse guards and fills you (+6% dodge, +5% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
