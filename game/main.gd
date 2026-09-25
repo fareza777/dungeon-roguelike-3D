@@ -11537,6 +11537,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP ROLL — the trench's roll plates you for the pressure (+2 armor, +5% XP)... the plating slows your swing (−3% attack speed)"},
 		{"text": "BILGE ROLL — the hold's roll pays you in slosh and edge (+7% souls, +3% attack speed)... wet decks betray your footing (−4% dodge)"},
 		{"text": "SALT DOCKET — the exchequer's docket lists you doubly (+5% souls, +5% ATK)... and bills your plating (−2 armor)"},
+		{"text": "PALE DOCKET — the grey court's docket quickens your case (+5% dodge, +4% crit)... and weighs down your purse (−4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12764,6 +12765,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_armor -= 2
 			oname = "SALT DOCKET"
 		269:
+			Stats.dodge += 0.05
+			Stats.buff_crit += 0.04
+			Stats.soul_gain_pct -= 0.04
+			oname = "PALE DOCKET"
+		270:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13084,6 +13090,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP ROLL": "The trench's roll plates you for the pressure, Kael — plating always swings slower.",
 	"BILGE ROLL": "The hold's roll pays you in slosh and edge, Kael — wet decks always betray footing.",
 	"SALT DOCKET": "The exchequer's docket lists you doubly, Kael — and bills your plating for the listing.",
+	"PALE DOCKET": "The grey court's docket quickens your case, Kael — it weighs your purse for the privilege.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
