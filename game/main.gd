@@ -10043,15 +10043,40 @@ func _refresh_hero() -> void:
 	sl.add_theme_font_size_override("font_size", 15)
 	sl.modulate = Color(1.0, 0.85, 0.4)
 	vb.add_child(sl)
+	var locked_ct := 0
+	var next_lock := ""
+	var next_lock_lv := 0
 	for id in SK.ORDER:
 		var sd: Dictionary = SK.DB[id]
-		var unlocked := SK.is_unlocked(id, Stats.level)
+		if not SK.is_unlocked(id, Stats.level):
+			locked_ct += 1
+			if next_lock == "" or int(sd["unlock"]) < next_lock_lv:
+				next_lock = String(sd["name"])
+				next_lock_lv = int(sd["unlock"])
+			continue
+		var srow := PanelContainer.new()
+		var ssb := StyleBoxFlat.new()
+		ssb.bg_color = Color(0.11, 0.13, 0.2, 0.9)
+		ssb.border_color = Color(0.4, 0.5, 0.8, 0.55)
+		ssb.set_border_width_all(1)
+		ssb.set_corner_radius_all(7)
+		ssb.set_content_margin_all(7)
+		srow.add_theme_stylebox_override("panel", ssb)
 		var sl2 := Label.new()
-		sl2.text = "%s — %s%s" % [sd["name"], sd["desc"], "" if unlocked else " (locked: Lv %d)" % int(sd["unlock"])]
+		sl2.text = "%s %s — %s" % [String(sd.get("short", "◆")), sd["name"], sd["desc"]]
 		sl2.add_theme_font_size_override("font_size", 14)
-		sl2.modulate = Color(1, 1, 1, 0.85) if unlocked else Color(1, 1, 1, 0.35)
+		sl2.modulate = Color(0.9, 0.93, 1.0, 0.9)
 		sl2.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		vb.add_child(sl2)
+		sl2.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		srow.add_child(sl2)
+		vb.add_child(srow)
+	if locked_ct > 0:
+		var lockl := Label.new()
+		lockl.text = "◇ next unlock: %s at Lv %d — %d more locked" % [next_lock, next_lock_lv, locked_ct - 1] if locked_ct > 1 else "◇ next unlock: %s at Lv %d" % [next_lock, next_lock_lv]
+		lockl.add_theme_font_size_override("font_size", 13)
+		lockl.modulate = Color(1, 1, 1, 0.45)
+		lockl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		vb.add_child(lockl)
 
 	var hclose := _pause_btn("CLOSE")
 	hclose.pressed.connect(func() -> void: _toggle_hero(false))
