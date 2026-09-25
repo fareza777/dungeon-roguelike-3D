@@ -20963,6 +20963,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.soul_gain_pct += 0.04
 			toast("Wake Cabriole: The wake cabriole-beat quickens and fills you, Kael.")
+		2528:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Bilge Cabriole: The bilge cabriole-beat fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -25245,6 +25249,7 @@ func _offer_omens() -> void:
 		{"text": "GRIM ARTOPHORION — the grim artophorion-shrine hardens, guards and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 		{"text": "FOG ARTOPHORION — the fog artophorion-shrine guards and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE ARTOPHORION — the wake artophorion-shrine quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
+		{"text": "BILGE ARTOPHORION — the bilge artophorion-shrine fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -46638,6 +46643,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "WAKE ARTOPHORION"
 		4249:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.dodge -= 0.03
+			oname = "BILGE ARTOPHORION"
+		4250:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -50957,6 +50967,7 @@ func _omen_deal(idx: int) -> void:
 	"GRIM ARTOPHORION": "The grim artophorion-shrine houses its artophoria across your guard, Kael — harder, guarded and plated, at a cost.",
 	"FOG ARTOPHORION": "The fog artophorion-shrine houses its artophoria in your spray, Kael — guarded and filled, at a cost.",
 	"WAKE ARTOPHORION": "The wake artophorion-shrine houses its artophoria in your foam, Kael — quicker and filled, at a cost.",
+	"BILGE ARTOPHORION": "The bilge artophorion-shrine houses its artophoria into your purse, Kael — richer and wiser, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -58646,6 +58657,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grim Cabriole — the grim cabriole-beat hardens, guards and plates you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Cabriole — the fog cabriole-beat guards and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Cabriole — the wake cabriole-beat quickens and fills you (+6% speed, +4% souls)"},
+		{"text": "Bilge Cabriole — the bilge cabriole-beat fills and teaches you (+5% souls, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
