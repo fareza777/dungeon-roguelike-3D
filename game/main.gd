@@ -12797,6 +12797,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE GLOSSARY — the bilgewater word-list fills and teaches you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "CREST GLOSSARY — the cresting word-list guards and arms you (+5% dodge, +5% ATK)... and empties your purse for the arming (−4% souls)"},
 		{"text": "SALT GLOSSARY — the brine word-list fills and teaches you (+6% souls, +4% XP)... and shifts your guard for the filling (−3% dodge)"},
+		{"text": "DEEP LIBER — the deepest book-of-books honors your arm and guard (+7% ATK, +3% dodge)... and empties your purse for the honor (−3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -18929,6 +18930,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT GLOSSARY"
 		1237:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP LIBER"
+		1238:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -20224,6 +20230,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE GLOSSARY": "The bilgewater word-list fills and teaches you, Kael — it shifts your guard for the filling.",
 	"CREST GLOSSARY": "The cresting word-list guards and arms you, Kael — it empties your purse for the arming.",
 	"SALT GLOSSARY": "The brine word-list fills and teaches you, Kael — it shifts your guard for the filling.",
+	"DEEP LIBER": "The deepest book-of-books honors your arm and guard, Kael — it empties your purse for the honor.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
