@@ -34794,7 +34794,7 @@ func _omen_deal(idx: int) -> void:
 		3080:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
-	omen_name = oname if omen_name == "" else omen_name + "+" + oname
+	omen_name = oname if omen_name == "" else omen_name + " + " + oname
 	if not Stats.oaths_seen.has(oname):
 		Stats.oaths_seen.append(oname)
 	if Stats.oaths_seen.size() >= 12:
