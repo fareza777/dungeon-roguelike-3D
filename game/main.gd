@@ -13340,6 +13340,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.06
 			Stats.soul_gain_pct += 0.05
 			toast("Pale Ritornello: The pale ritornello-return guards and fills you, Kael.")
+		673:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Grey Ritornello: The grey ritornello-return guards and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -36027,6 +36031,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Salt Cantiga — the salt cantiga-song fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Ritornello — the deep ritornello-return sharpens and guards you (+5% ATK, +3% dodge)"},
 		{"text": "Pale Ritornello — the pale ritornello-return guards and fills you (+6% dodge, +5% souls)"},
+		{"text": "Grey Ritornello — the grey ritornello-return guards and teaches you (+5% dodge, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
