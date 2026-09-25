@@ -9,6 +9,8 @@ var tile := 4.0
 var t := 0.0
 var mesh_holder: Node3D
 var beam: MeshInstance3D = null
+var ring_node: MeshInstance3D = null
+var name_lbl: Label3D = null
 
 
 func setup(id: String, tex: Texture2D, p_tile: float) -> void:
@@ -37,6 +39,7 @@ func setup(id: String, tex: Texture2D, p_tile: float) -> void:
 	ring.mesh = torus
 	ring.position.y = 0.12
 	add_child(ring)
+	ring_node = ring
 	# pilar cahaya loot — kelihatan dari seberang ruangan
 	beam = MeshInstance3D.new()
 	var bcm := CylinderMesh.new()
@@ -61,6 +64,7 @@ func setup(id: String, tex: Texture2D, p_tile: float) -> void:
 	nl.position = Vector3(0, 1.25, 0)
 	nl.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	add_child(nl)
+	name_lbl = nl
 	var dl := Label3D.new()
 	dl.text = String(w["desc"])
 	dl.font_size = 22
@@ -80,6 +84,13 @@ func _physics_process(delta: float) -> void:
 		beam.rotation.y -= delta * 0.8
 		var bm2: StandardMaterial3D = beam.mesh.material
 		bm2.albedo_color.a = 0.1 + 0.07 * sin(t * 4.0)
+	if ring_node != null:
+		var rs := 1.0 + 0.12 * sin(t * 5.0)
+		ring_node.scale = Vector3(rs, 1.0, rs)
+		var rm2: StandardMaterial3D = ring_node.mesh.material
+		rm2.albedo_color.a = 0.6 + 0.2 * sin(t * 5.0)
+	if name_lbl != null:
+		name_lbl.position.y = 1.25 + sin(t * 3.0 + 0.6) * 0.04
 	if Stats.draft_open:
 		return
 	var ps := get_tree().get_nodes_in_group("player")
