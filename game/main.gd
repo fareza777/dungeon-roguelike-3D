@@ -14284,6 +14284,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Bagatelle: The storm bagatelle-trifle sharpens and empowers you, Kael.")
+		886:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Bagatelle: The keel bagatelle-trifle fills and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -16925,6 +16929,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE ANAPHORA — the tide anaphora-offering quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM ANAPHORA — the storm anaphora-offering sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL ANAPHORA — the keel anaphora-offering fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
+		{"text": "HULL ANAPHORA — the hull anaphora-offering bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -30003,6 +30008,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL ANAPHORA"
 		2608:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL ANAPHORA"
+		2609:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -32677,6 +32687,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE ANAPHORA": "The tide anaphora-offering pulls your feet along its rite, Kael — swifter and sharper, at a cost.",
 	"STORM ANAPHORA": "The storm anaphora-offering thunders its rite through your arms, Kael — sharper and deadlier, at a cost.",
 	"KEEL ANAPHORA": "The keel anaphora-offering anchors its rite in your hull, Kael — richer and plated, at a cost.",
+	"HULL ANAPHORA": "The hull anaphora-offering planks its rite along your ribs, Kael — bulkier and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -38724,6 +38735,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Bagatelle — the grey bagatelle-trifle guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Bagatelle — the tide bagatelle-trifle quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Bagatelle — the storm bagatelle-trifle sharpens and empowers you (+5% ATK, +6% crit)"},
+		{"text": "Keel Bagatelle — the keel bagatelle-trifle fills and plates you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
