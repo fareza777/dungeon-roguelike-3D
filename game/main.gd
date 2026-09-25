@@ -4497,6 +4497,27 @@ func _souls(pos: Vector3, n := 7, col := Color(0.6, 0.85, 1.0)) -> void:
 	var tw := p.create_tween()
 	tw.tween_interval(1.4)
 	tw.tween_callback(p.queue_free)
+	# wisps terbang melengkung ke hero — jiwa pulang ke dompet
+	if player != null and is_instance_valid(player):
+		for w in range(mini(n, 3)):
+			var wl := Label3D.new()
+			wl.text = "◈"
+			wl.font_size = 90
+			wl.pixel_size = 0.012
+			wl.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+			wl.modulate = col
+			wl.no_depth_test = true
+			add_child(wl)
+			wl.global_position = pos + Vector3(0, 0.5 * info.tile, 0)
+			var wt := wl.create_tween()
+			wt.tween_interval(0.1 * w)
+			var wp: Vector3 = player.global_position + Vector3(0, 0.7 * info.tile, 0)
+			wt.set_parallel(true)
+			wt.tween_property(wl, "global_position", wp, 0.55).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
+			wt.tween_property(wl, "scale", Vector3(0.4, 0.4, 0.4), 0.55)
+			wt.tween_property(wl, "modulate:a", 0.0, 0.55)
+			wt.set_parallel(false)
+			wt.tween_callback(wl.queue_free)
 
 
 func _step_dust(pos: Vector3) -> void:
