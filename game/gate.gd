@@ -121,6 +121,7 @@ func set_open(o: bool, instant := false) -> void:
 	if instant:
 		bars.position.y = target_y
 		return
+	Sfx.play("gate", 1.1 if o else 0.85)
 	tw = create_tween()
 	if o:
 		tw.tween_property(bars, "position:y", target_y, 0.55).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
