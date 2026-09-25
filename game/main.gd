@@ -11947,6 +11947,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_atk_pct += 0.05
 			toast("Crest Serenade: the crest evening-song — +5% dodge, +5% ATK this run")
+		340:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			toast("Salt Serenade: the brine evening-song — +6% souls, +4% XP this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30485,6 +30489,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Wake Serenade — the wake evening-song: +6% speed, +4% souls this run"},
 		{"text": "Bilge Serenade — the bilge evening-song: +5% souls, +5% XP this run"},
 		{"text": "Crest Serenade — the crest evening-song: +5% dodge, +5% ATK this run"},
+		{"text": "Salt Serenade — the brine evening-song: +6% souls, +4% XP this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
