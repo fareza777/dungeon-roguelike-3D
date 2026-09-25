@@ -10832,6 +10832,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.soul_gain_pct += 0.03
 			toast("Fog Psalm: the mist's hymn hides your step — +5% dodge, +3% souls this run")
+		179:
+			Stats.buff_speed_pct += 0.04
+			Stats.dodge += 0.03
+			toast("Crest Psalm: the whitecap's hymn lifts your feet — +4% speed, +3% dodge this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17538,6 +17542,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Hull Verse — the hull-line's low protection: +1 armor, +3% souls this run"},
 			{"text": "Wake Psalm — the foam's hymn teaches sharper work: +5% XP, +3% ATK this run"},
 			{"text": "Fog Psalm — the mist's hymn hides your step: +5% dodge, +3% souls this run"},
+			{"text": "Crest Psalm — the whitecap's hymn lifts your feet: +4% speed, +3% dodge this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
