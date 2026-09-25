@@ -536,6 +536,7 @@ func _build_settings() -> void:
 	qual_opt.add_theme_stylebox_override("hover", qsb_h)
 	qual_opt.add_theme_stylebox_override("pressed", qsb_p)
 	qual_opt.item_selected.connect(func(ix: int) -> void:
+		Sfx.play("click")
 		Stats.quality = ix - 1
 		Stats.save_game()
 	)
@@ -555,6 +556,7 @@ func _build_settings() -> void:
 	shake_opt.add_theme_stylebox_override("hover", qsb_h)
 	shake_opt.add_theme_stylebox_override("pressed", qsb_p)
 	shake_opt.item_selected.connect(func(ix: int) -> void:
+		Sfx.play("click")
 		Stats.cam_shake = ix == 0
 		Stats.save_game()
 	)
@@ -573,6 +575,7 @@ func _build_settings() -> void:
 	flash_opt.add_theme_stylebox_override("hover", qsb_h)
 	flash_opt.add_theme_stylebox_override("pressed", qsb_p)
 	flash_opt.item_selected.connect(func(ix: int) -> void:
+		Sfx.play("click")
 		Stats.screen_flash = ix == 0
 		Stats.save_game()
 	)
@@ -592,6 +595,7 @@ func _build_settings() -> void:
 	dn_opt.add_theme_stylebox_override("hover", qsb_h)
 	dn_opt.add_theme_stylebox_override("pressed", qsb_p)
 	dn_opt.item_selected.connect(func(ix: int) -> void:
+		Sfx.play("click")
 		Stats.dmg_numbers = ix == 0
 		Stats.save_game()
 	)
@@ -611,6 +615,7 @@ func _build_settings() -> void:
 	mm_opt.add_theme_stylebox_override("hover", qsb_h)
 	mm_opt.add_theme_stylebox_override("pressed", qsb_p)
 	mm_opt.item_selected.connect(func(ix: int) -> void:
+		Sfx.play("click")
 		Stats.show_minimap = ix == 0
 		Stats.save_game()
 	)
@@ -631,6 +636,7 @@ func _build_settings() -> void:
 	hp_opt.add_theme_stylebox_override("hover", qsb_h)
 	hp_opt.add_theme_stylebox_override("pressed", qsb_p)
 	hp_opt.item_selected.connect(func(ix: int) -> void:
+		Sfx.play("click")
 		Stats.haptics = ix == 0
 		Stats.save_game()
 	)
