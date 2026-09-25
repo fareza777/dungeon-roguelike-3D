@@ -18388,6 +18388,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Rotrouenge: The bottom rotrouenge-verse fills and guards you, Kael.")
+		1895:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Rotrouenge: The grim rotrouenge-verse sharpens, guards, and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -22037,6 +22042,7 @@ func _offer_omens() -> void:
 		{"text": "HULL PSALTIRION — the hull psaltirion-book bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH PSALTIRION — the trench psaltirion-book sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 		{"text": "BOTTOM PSALTIRION — the bottom psaltirion-book fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM PSALTIRION — the grim psaltirion-book sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -40222,6 +40228,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM PSALTIRION"
 		3616:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM PSALTIRION"
+		3617:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -43908,6 +43920,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL PSALTIRION": "The hull psaltirion-book swells its psaltiria through your frame, Kael — bulked and guarded, at a cost.",
 	"TRENCH PSALTIRION": "The trench psaltirion-book drives its psaltiria down your arm, Kael — sharpened and hastened, at a cost.",
 	"BOTTOM PSALTIRION": "The bottom psaltirion-book settles its psaltiria in your purse, Kael — richer and guarded, at a cost.",
+	"GRIM PSALTIRION": "The grim psaltirion-book drops its psaltiria like ballast in your bones, Kael — sharpened, guarded, plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -50964,6 +50977,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Rotrouenge — the hull rotrouenge-verse bulks and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Rotrouenge — the trench rotrouenge-verse sharpens and hastens you (+5% ATK, +4% ASPD)"},
 		{"text": "Bottom Rotrouenge — the bottom rotrouenge-verse fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Rotrouenge — the grim rotrouenge-verse sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
