@@ -20568,6 +20568,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Lancers: The storm lancers-figure sharpens and strikes you, Kael.")
+		2431:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Lancers: The keel lancers-figure fills and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -24753,6 +24757,7 @@ func _offer_omens() -> void:
 		{"text": "GREY LAXARION — the grey laxarion-shrine guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE LAXARION — the tide laxarion-shrine quickens and hardens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM LAXARION — the storm laxarion-shrine hardens and sharpens you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
+		{"text": "KEEL LAXARION — the keel laxarion-shrine fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -45654,6 +45659,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM LAXARION"
 		4152:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL LAXARION"
+		4153:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -49876,6 +49886,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY LAXARION": "The grey laxarion-shrine keeps its laxaria over your shoulders, Kael — guarded and wiser, at a cost.",
 	"TIDE LAXARION": "The tide laxarion-shrine keeps its laxaria through your wake, Kael — quicker and harder, at a cost.",
 	"STORM LAXARION": "The storm laxarion-shrine keeps its laxaria into your swings, Kael — harder and keener, at a cost.",
+	"KEEL LAXARION": "The keel laxarion-shrine keeps its laxaria along your ribs, Kael — richer and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -57468,6 +57479,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Lancers — the grey lancers-figure guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Lancers — the tide lancers-figure quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Lancers — the storm lancers-figure sharpens and strikes you (+5% ATK, +6% crit)"},
+		{"text": "Keel Lancers — the keel lancers-figure fills and plates you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
