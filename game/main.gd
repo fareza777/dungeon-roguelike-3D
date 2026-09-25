@@ -12805,6 +12805,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL LIBER — the hull book-of-books fills your purse and plates your hide (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
 		{"text": "HULL LIBER — the shipwright's book-of-books fills your frame and guards you (+6% max HP, +4% dodge)... and slows your step for the filling (−3% speed)"},
 		{"text": "TRENCH LIBER — the fathom's book-of-books arms you and quickens your swing (+5% ATK, +4% attack speed)... and shifts your guard for the quickening (−4% dodge)"},
+		{"text": "BOTTOM LIBER — the deepest-bound book-of-books fills and guards you (+7% souls, +4% dodge)... and weakens your arm for the guarding (−3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -18977,6 +18978,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH LIBER"
 		1245:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM LIBER"
+		1246:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -20280,6 +20286,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL LIBER": "The hull book-of-books fills your purse and plates your hide, Kael — it shifts your guard for the plating.",
 	"HULL LIBER": "The shipwright's book-of-books fills your frame and guards you, Kael — it slows your step for the filling.",
 	"TRENCH LIBER": "The fathom's book-of-books arms you and quickens your swing, Kael — it shifts your guard for the quickening.",
+	"BOTTOM LIBER": "The deepest-bound book-of-books fills and guards you, Kael — it weakens your arm for the guarding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
