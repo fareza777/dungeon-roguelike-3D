@@ -233,6 +233,7 @@ const DB := {
 	"auditors_lens": {"name": "Auditor's Lens", "chip": "AU", "desc": "the field auditor's seeing-glass — +4% crit, +3% dodge", "rarity": 2, "mods": {"crit": 0.04, "dodge": 0.03}},
 	"audit_crown": {"name": "Audit Crown", "chip": "AC", "desc": "the grey count's weighing diadem — +8% souls, −2 armor (the weighed give back)", "rarity": 2, "mods": {"soul_gain_pct": 0.08, "armor": -2}},
 	"writ_charm": {"name": "Writ Charm", "chip": "AD", "desc": "a sealed writ carried close — +5% dodge, +3% souls (the paper travels light)", "rarity": 1, "mods": {"dodge": 0.05, "soul_gain_pct": 0.03}},
+	"scribe_quill": {"name": "Scribe Quill", "chip": "AE", "desc": "the court scribe's own quill — +4% ATK, +4% souls (every stroke is entered twice)", "rarity": 1, "mods": {"atk_pct": 0.04, "soul_gain_pct": 0.04}},
 # ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
