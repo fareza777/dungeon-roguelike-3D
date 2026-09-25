@@ -19381,6 +19381,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Passamezzo: The bilge passamezzo-verse fills and teaches you, Kael.")
+		2139:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Passamezzo: The crest passamezzo-verse guards and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -23274,6 +23278,7 @@ func _offer_omens() -> void:
 		{"text": "FOG STICHEROLOGION — the fog sticherologion-book shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE STICHEROLOGION — the wake sticherologion-book quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE STICHEROLOGION — the bilge sticherologion-book fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
+		{"text": "CREST STICHEROLOGION — the crest sticherologion-book guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -42696,6 +42701,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE STICHEROLOGION"
 		3860:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST STICHEROLOGION"
+		3861:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -46626,6 +46636,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG STICHEROLOGION": "The fog sticherologion-book rolls its sticherologie over your eyes, Kael — shrouded and richer, at a cost.",
 	"WAKE STICHEROLOGION": "The wake sticherologion-book streams its sticherologie behind you, Kael — quicker and richer, at a cost.",
 	"BILGE STICHEROLOGION": "The bilge sticherologion-book pumps its sticherologie into your purse, Kael — richer and wiser, at a cost.",
+	"CREST STICHEROLOGION": "The crest sticherologion-book breaks its sticherologie on your blade, Kael — guarded and sharpened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -53926,6 +53937,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Passamezzo — the fog passamezzo-verse shrouds and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Passamezzo — the wake passamezzo-verse quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Passamezzo — the bilge passamezzo-verse fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Passamezzo — the crest passamezzo-verse guards and sharpens you (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
