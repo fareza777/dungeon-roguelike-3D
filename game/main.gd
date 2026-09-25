@@ -14009,6 +14009,7 @@ func _offer_omens() -> void:
 		{"text": "FOG STABAT — the mist sorrow-hymn veils and fills you (+7% dodge, +4% souls)... and dulls your edge for the veiling (−4% ATK)"},
 		{"text": "WAKE STABAT — the wake sorrow-hymn speeds and fills you (+6% speed, +4% souls)... and shifts your guard for the speeding (−3% dodge)"},
 		{"text": "BILGE STABAT — the bilge sorrow-hymn fills and schools you (+5% souls, +5% XP)... and shifts your guard for the schooling (−3% dodge)"},
+		{"text": "CREST STABAT — the crest sorrow-hymn guards and sharpens you (+5% dodge, +5% ATK)... and lightens your purse for the guarding (−4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -23551,6 +23552,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE STABAT"
 		1910:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST STABAT"
+		1911:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -25519,6 +25525,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG STABAT": "The mist sorrow-hymn veils and fills you, Kael — it dulls your edge for the veiling.",
 	"WAKE STABAT": "The wake sorrow-hymn speeds and fills you, Kael — it shifts your guard for the speeding.",
 	"BILGE STABAT": "The bilge sorrow-hymn fills and schools you, Kael — it shifts your guard for the schooling.",
+	"CREST STABAT": "The crest sorrow-hymn guards and sharpens you, Kael — it lightens your purse for the guarding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
