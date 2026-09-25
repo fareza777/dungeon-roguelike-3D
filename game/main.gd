@@ -14817,6 +14817,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.dodge += 0.03
 			toast("Deep Pastorale: The deep pastorale-air sharpens and guards you, Kael.")
+		1017:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			toast("Pale Pastorale: The pale pastorale-air guards and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17589,6 +17593,7 @@ func _offer_omens() -> void:
 		{"text": "SALT PEDALION — the salt pedalion-rudder fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 		{"text": "DEEP PARAKLITIKI — the deep paraklitiki-office sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 		{"text": "PALE PARAKLITIKI — the pale paraklitiki-office guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
+		{"text": "GREY PARAKLITIKI — the grey paraklitiki-office guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -31331,6 +31336,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "PALE PARAKLITIKI"
 		2739:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "GREY PARAKLITIKI"
+		2740:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -34136,6 +34146,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT PEDALION": "The salt pedalion-rudder crystallizes its canons in your purse, Kael — richer and wiser, at a cost.",
 	"DEEP PARAKLITIKI": "The deep paraklitiki-office intones its weekday canons over you, Kael — sharper, at a cost.",
 	"PALE PARAKLITIKI": "The pale paraklitiki-office intones its weekday canons over your guard, Kael — guarded, at a cost.",
+	"GREY PARAKLITIKI": "The grey paraklitiki-office drones its weekday canons through you, Kael — guarded and wiser, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -40314,6 +40325,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Crest Prelude — the crest prelude-opening guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Prelude — the salt prelude-opening fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Pastorale — the deep pastorale-air sharpens and guards you (+5% ATK, +3% dodge)"},
+		{"text": "Pale Pastorale — the pale pastorale-air guards and fills you (+6% dodge, +5% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
