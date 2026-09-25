@@ -20922,6 +20922,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.06
 			Stats.soul_gain_pct += 0.05
 			toast("Pale Cabriole: The pale cabriole-beat guards and fills you, Kael.")
+		2518:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Grey Cabriole: The grey cabriole-beat guards and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -25194,6 +25198,7 @@ func _offer_omens() -> void:
 		{"text": "SALT EPIGONATION — the salt epigonation-pad fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 		{"text": "DEEP ARTOPHORION — the deep artophorion-shrine sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 		{"text": "PALE ARTOPHORION — the pale artophorion-shrine guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
+		{"text": "GREY ARTOPHORION — the grey artophorion-shrine guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -46536,6 +46541,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "PALE ARTOPHORION"
 		4239:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "GREY ARTOPHORION"
+		4240:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -50845,6 +50855,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT EPIGONATION": "The salt epigonation-pad buckles its epigonations over your salt, Kael — richer and wiser, at a cost.",
 	"DEEP ARTOPHORION": "The deep artophorion-shrine houses its artophoria over your blade, Kael — keen and guarded, at a cost.",
 	"PALE ARTOPHORION": "The pale artophorion-shrine houses its artophoria over your wake, Kael — guarded and filled, at a cost.",
+	"GREY ARTOPHORION": "The grey artophorion-shrine houses its artophoria over your shoulders, Kael — guarded and wiser, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -58524,6 +58535,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Salt Entrechat — the salt entrechat-cross fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Cabriole — the deep cabriole-beat sharpens and guards you (+5% ATK, +3% dodge)"},
 		{"text": "Pale Cabriole — the pale cabriole-beat guards and fills you (+6% dodge, +5% souls)"},
+		{"text": "Grey Cabriole — the grey cabriole-beat guards and teaches you (+5% dodge, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
