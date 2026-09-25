@@ -11893,6 +11893,7 @@ func _offer_omens() -> void:
 		{"text": "GREY MISSIVE — the pale letter instructs and guards you (+5% XP, +5% dodge)... and weakens your arm for the teaching (−4% ATK)"},
 		{"text": "TIDE MISSIVE — the current's letter carries and arms you (+6% speed, +4% ATK)... and leaves your guard for the carrying (−3% dodge)"},
 		{"text": "STORM MISSIVE — the tempest's letter charges your arm and aim (+5% ATK, +6% crit)... and uncovers your guard for the charge (−4% dodge)"},
+		{"text": "KEEL MISSIVE — the spine's letter fills and covers you (+6% souls, +3 armor)... and leaves your guard for the covering (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -14394,6 +14395,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM MISSIVE"
 		522:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL MISSIVE"
+		523:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -14971,6 +14977,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY MISSIVE": "The pale letter instructs and guards you, Kael — it weakens your arm for the teaching.",
 	"TIDE MISSIVE": "The current's letter carries and arms you, Kael — it leaves your guard for the carrying.",
 	"STORM MISSIVE": "The tempest's letter charges your arm and aim, Kael — it uncovers your guard for the charge.",
+	"KEEL MISSIVE": "The spine's letter fills and covers you, Kael — it leaves your guard for the covering.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
