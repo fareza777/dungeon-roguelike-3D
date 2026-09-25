@@ -15395,6 +15395,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Bouree: The trench bouree-step sharpens and hastens you, Kael.")
+		1159:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Bouree: The bottom bouree-step fills and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -18308,6 +18312,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL ORDINARIUM — the keel ordinarium-order fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL ORDINARIUM — the hull ordinarium-order bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH ORDINARIUM — the trench ordinarium-order sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
+		{"text": "BOTTOM ORDINARIUM — the bottom ordinarium-order fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -32764,6 +32769,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH ORDINARIUM"
 		2880:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM ORDINARIUM"
+		2881:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -35710,6 +35720,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL ORDINARIUM": "The keel ordinarium-order moors its standing-orders to your hull, Kael — richer and plated, at a cost.",
 	"HULL ORDINARIUM": "The hull ordinarium-order planks its standing-orders along your ribs, Kael — bulkier and guarded, at a cost.",
 	"TRENCH ORDINARIUM": "The trench ordinarium-order murmurs its standing-orders down your spine, Kael — sharper and quicker, at a cost.",
+	"BOTTOM ORDINARIUM": "The bottom ordinarium-order settles its standing-orders in your purse, Kael — richer and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -42030,6 +42041,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Bouree — the keel bouree-step fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Bouree — the hull bouree-step bulks and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Bouree — the trench bouree-step sharpens and hastens you (+5% ATK, +4% ASPD)"},
+		{"text": "Bottom Bouree — the bottom bouree-step fills and guards you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
