@@ -22121,6 +22121,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_armor += 3
 			toast("Keel Gopak: The keel gopak-leap fills and armors you, Kael.")
+		2807:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			toast("Hull Gopak: The hull gopak-leap thickens and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -26682,6 +26686,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE KOMBOSKINI — the tide komboskini-knots quicken and sharpen you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM KOMBOSKINI — the storm komboskini-knots sharpen and luck you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL KOMBOSKINI — the keel komboskini-knots fill and armor you... at a cost (+6% souls, +3 armor, -4% dodge)"},
+		{"text": "HULL KOMBOSKINI — the hull komboskini-knots thicken and guard you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -49488,6 +49493,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL KOMBOSKINI"
 		4528:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL KOMBOSKINI"
+		4529:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -54086,6 +54096,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE KOMBOSKINI": "The tide komboskini-knots tie their komboskinia in your tide, Kael — quicker and keen, at a cost.",
 	"STORM KOMBOSKINI": "The storm komboskini-knots tie their komboskinia through your thunder, Kael — keen and lucky, at a cost.",
 	"KEEL KOMBOSKINI": "The keel komboskini-knots tie their komboskinia in your hold, Kael — filled and plated, at a cost.",
+	"HULL KOMBOSKINI": "The hull komboskini-knots tie their komboskinia on your hull, Kael — thick and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -62054,6 +62065,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Tide Gopak — the tide gopak-leap quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Gopak — the storm gopak-leap sharpens and lucks you (+5% ATK, +6% crit)"},
 		{"text": "Keel Gopak — the keel gopak-leap fills and armors you (+6% souls, +3 armor)"},
+		{"text": "Hull Gopak — the hull gopak-leap thickens and guards you (+6% max HP, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
