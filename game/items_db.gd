@@ -229,6 +229,7 @@ const DB := {
 	"pale_ledger": {"name": "Pale Ledger", "chip": "PL", "desc": "a grey clerk's abridged tally — +6% souls, −2% ATK", "rarity": 2, "mods": {"soul_gain_pct": 0.06, "atk_pct": -0.02}},
 	"grey_seal": {"name": "Grey Seal", "chip": "GS", "desc": "the pale court's stamp of passage — +3 armor, +2% souls", "rarity": 2, "mods": {"armor": 3, "soul_gain_pct": 0.02}},
 	"clerks_abacus": {"name": "Clerk's Abacus", "chip": "AX", "desc": "the grey clerk's counting frame — +4% souls, +4% XP", "rarity": 2, "mods": {"soul_gain_pct": 0.04, "xp_pct": 0.04}},
+	"reckoners_slate": {"name": "Reckoner's Slate", "chip": "RE", "desc": "the white count's writing stone — +3% ATK, +4% XP", "rarity": 2, "mods": {"atk_pct": 0.03, "xp_pct": 0.04}},
 # ---- fallback berulang ----
 	"berkat_pandai_besi": {"name": "Smith's Blessing", "chip": "SM+", "desc": "+1 ATK", "rarity": 0, "repeat": true, "mods": {"atk": 1.0}},
 }
