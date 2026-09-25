@@ -11654,6 +11654,7 @@ func _offer_omens() -> void:
 		{"text": "GRIM VERDICT — the reaper's ruling edges and quickens your arm (+7% ATK, +4% crit)... and slows your step for the edging (−4% speed)"},
 		{"text": "TRENCH VERDICT — the deep's ruling pays and instructs you (+5% souls, +5% XP)... and presses off your plate (−2 armor)"},
 		{"text": "STORM VERDICT — the gale's ruling rides and edges your arm (+6% attack speed, +5% crit)... and blows your guard wide (−4% dodge)"},
+		{"text": "BOTTOM VERDICT — the floor's ruling sinks all its weight into your arm (+8% ATK)... and strips you for the weight (−2 armor, −3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13054,6 +13055,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM VERDICT"
 		304:
+			Stats.buff_atk_pct += 0.08
+			Stats.buff_armor -= 2
+			Stats.buff_speed_pct -= 0.03
+			oname = "BOTTOM VERDICT"
+		305:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13411,6 +13417,7 @@ func _omen_deal(idx: int) -> void:
 	"GRIM VERDICT": "The reaper's ruling edges and quickens your arm, Kael — it slows your step for the edging.",
 	"TRENCH VERDICT": "The deep's ruling pays and instructs you, Kael — it presses off your plate for the payment.",
 	"STORM VERDICT": "The gale's ruling rides and edges your arm, Kael — it blows your guard wide for the riding.",
+	"BOTTOM VERDICT": "The floor's ruling sinks all its weight into your arm, Kael — it strips you for the weight.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
