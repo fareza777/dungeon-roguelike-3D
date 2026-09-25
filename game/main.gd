@@ -22170,6 +22170,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Grey Kalamatianos: The grey kalamatianos-step guards and teaches you, Kael.")
+		2819:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			toast("Tide Kalamatianos: The tide kalamatianos-step quickens and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -26743,6 +26747,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP ORARION — the deep orarion-stole sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 		{"text": "PALE ORARION — the pale orarion-stole guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY ORARION — the grey orarion-stole guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
+		{"text": "TIDE ORARION — the tide orarion-stole quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -49610,6 +49615,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY ORARION"
 		4540:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE ORARION"
+		4541:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -54220,6 +54230,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP ORARION": "The deep orarion-stole drapes its oraria over your blade, Kael — keen and guarded, at a cost.",
 	"PALE ORARION": "The pale orarion-stole drapes its oraria over your wake, Kael — guarded and filled, at a cost.",
 	"GREY ORARION": "The grey orarion-stole drapes its oraria through your grey watch, Kael — guarded and wiser, at a cost.",
+	"TIDE ORARION": "The tide orarion-stole drapes its oraria in your tide, Kael — quicker and keen, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -62200,6 +62211,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Deep Kalamatianos — the deep kalamatianos-step sharpens and guards you (+5% ATK, +3% dodge)"},
 		{"text": "Pale Kalamatianos — the pale kalamatianos-step guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Kalamatianos — the grey kalamatianos-step guards and teaches you (+5% dodge, +5% XP)"},
+		{"text": "Tide Kalamatianos — the tide kalamatianos-step quickens and sharpens you (+6% speed, +4% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
