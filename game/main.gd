@@ -18649,6 +18649,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Quadernaria: The bilge quadernaria-verse fills and teaches you, Kael.")
+		1959:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Quadernaria: The crest quadernaria-verse guards and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -22362,6 +22366,7 @@ func _offer_omens() -> void:
 		{"text": "FOG MOUSIKOS — the fog mousikos-book shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE MOUSIKOS — the wake mousikos-book quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE MOUSIKOS — the bilge mousikos-book fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
+		{"text": "CREST MOUSIKOS — the crest mousikos-book guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -40872,6 +40877,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE MOUSIKOS"
 		3680:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST MOUSIKOS"
+		3681:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -44622,6 +44632,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG MOUSIKOS": "The fog mousikos-book rolls its mousikoi over your eyes, Kael — shrouded and richer, at a cost.",
 	"WAKE MOUSIKOS": "The wake mousikos-book streams its mousikoi behind you, Kael — quicker and richer, at a cost.",
 	"BILGE MOUSIKOS": "The bilge mousikos-book sloshes its mousikoi into your boots, Kael — richer and wiser, at a cost.",
+	"CREST MOUSIKOS": "The crest mousikos-book breaks its mousikoi on your blade, Kael — guarded and sharpened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -51742,6 +51753,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Quadernaria — the fog quadernaria-verse shrouds and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Quadernaria — the wake quadernaria-verse quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Quadernaria — the bilge quadernaria-verse fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Quadernaria — the crest quadernaria-verse guards and sharpens you (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
