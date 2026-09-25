@@ -732,6 +732,14 @@ func _strike() -> void:
 						var mcb := get_tree().current_scene
 						if mcb != null and mcb.has_method("_damage_number"):
 							mcb._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "BREAKER", Color(0.8, 0.85, 0.9), false)
+			if Stats.weapon_id == "bottom_brand":
+				var bbn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", bbn)
+				if bbn % 6 == 0:
+					f.stun(0.7)
+					var mbb := get_tree().current_scene
+					if mbb != null and mbb.has_method("_damage_number"):
+						mbb._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "PRESS", Color(0.45, 0.5, 0.62), false)
 			if Stats.weapon_id == "pilot_lantern":
 				var pln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", pln)
