@@ -22280,6 +22280,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_xp_pct += 0.04
 			toast("Salt Sirtaki: The salt sirtaki-step fills and teaches you, Kael.")
+		2846:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.03
+			toast("Deep Tsifteteli: The deep tsifteteli-shimmy sharpens and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -26880,6 +26884,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE KAMILAVKA — the bilge kamilavka-hat fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 		{"text": "CREST KAMILAVKA — the crest kamilavka-hat guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT KAMILAVKA — the salt kamilavka-hat fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
+		{"text": "DEEP SKUFIA — the deep skufia-cap sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -49884,6 +49889,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT KAMILAVKA"
 		4567:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP SKUFIA"
+		4568:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -54521,6 +54531,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE KAMILAVKA": "The bilge kamilavka-hat crowns its kamilavki in your hold, Kael — richer and wiser, at a cost.",
 	"CREST KAMILAVKA": "The crest kamilavka-hat crowns its kamilavki on your crest, Kael — guarded and keen, at a cost.",
 	"SALT KAMILAVKA": "The salt kamilavka-hat crowns its kamilavki over your salt, Kael — richer and wiser, at a cost.",
+	"DEEP SKUFIA": "The deep skufia-cap settles its skufii over your blade, Kael — keen and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -62528,6 +62539,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bilge Sirtaki — the bilge sirtaki-step fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Sirtaki — the crest sirtaki-step guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Sirtaki — the salt sirtaki-step fills and teaches you (+6% souls, +4% XP)"},
+		{"text": "Deep Tsifteteli — the deep tsifteteli-shimmy sharpens and guards you (+5% ATK, +3% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
