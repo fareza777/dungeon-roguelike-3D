@@ -11472,6 +11472,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_xp_pct += 0.04
 			toast("Salt Antiphon: the brine's answering verse — +6% souls, +4% XP this run")
+		223:
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge += 0.03
+			toast("Keel Antiphon: the hull's answering verse — +4% ATK, +3% dodge this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -23627,6 +23631,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Grey Refrain — the pale refrain, spoken slow: +5% dodge, +5% XP this run"},
 			{"text": "Storm Antiphon — the gale's answering verse: +5% ATK, +6% crit this run"},
 			{"text": "Salt Antiphon — the brine's answering verse: +6% souls, +4% XP this run"},
+			{"text": "Keel Antiphon — the hull's answering verse: +4% ATK, +3% dodge this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
