@@ -20690,6 +20690,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Schottische: The storm schottische-step hardens and keenens you, Kael.")
+		2461:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Schottische: The keel schottische-step fills and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -24905,6 +24909,7 @@ func _offer_omens() -> void:
 		{"text": "GREY PROSKOMIDIA — the grey proskomidia-rite guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE PROSKOMIDIA — the tide proskomidia-rite quickens and hardens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM PROSKOMIDIA — the storm proskomidia-rite hardens and keenens you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
+		{"text": "KEEL PROSKOMIDIA — the keel proskomidia-rite fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -45958,6 +45963,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM PROSKOMIDIA"
 		4182:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL PROSKOMIDIA"
+		4183:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -50210,6 +50220,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY PROSKOMIDIA": "The grey proskomidia-rite prepares its proskomidiai over your shoulders, Kael — guarded and wiser, at a cost.",
 	"TIDE PROSKOMIDIA": "The tide proskomidia-rite prepares its proskomidiai through your wake, Kael — quicker and harder, at a cost.",
 	"STORM PROSKOMIDIA": "The storm proskomidia-rite prepares its proskomidiai under your thunder, Kael — harder and keener, at a cost.",
+	"KEEL PROSKOMIDIA": "The keel proskomidia-rite prepares its proskomidiai under your hull, Kael — richer and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -57832,6 +57843,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Schottische — the grey schottische-step guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Schottische — the tide schottische-step quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Schottische — the storm schottische-step hardens and keenens you (+5% ATK, +6% crit)"},
+		{"text": "Keel Schottische — the keel schottische-step fills and plates you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
