@@ -23902,6 +23902,8 @@ func _process(delta: float) -> void:
 				ui.pray_l.modulate = Color(1.0, 1.0, 1.0).lerp(Color(0.65, 0.85, 1.0), 0.5 + 0.5 * sin(pray_t * 9.0))
 			if pray_t >= 2.0:
 				prayed = true
+				if ui.has("pray_l"):
+					ui.pray_l.visible = false
 				Stats.earn_souls(1)
 				_souls_l()
 				Sfx.play("whisper")
