@@ -11116,6 +11116,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP SUMMONS — the trench calls, and your arm answers sharp (+6% ATK)... it keeps your tolls for the fare (−4% souls)"},
 		{"text": "GREY SUMMONS — the pale bailiff calls, and souls gather (+5% souls, +5% dodge)... the hearing blunts your arm (−4% ATK)"},
 		{"text": "BILGE WARRANT — the hold's writ, stamped in slick and edge (+7% ATK)... wet footing betrays you (−6% dodge)"},
+		{"text": "PALE SUMMONS — the grey court's call is a long lecture (+7% XP)... the usher collects in souls (−4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12096,6 +12097,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.06
 			oname = "BILGE WARRANT"
 		215:
+			Stats.buff_xp_pct += 0.07
+			Stats.soul_gain_pct -= 0.04
+			oname = "PALE SUMMONS"
+		216:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12360,6 +12365,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP SUMMONS": "When the deep calls, you answer in blade or in coin, Kael — it prefers both.",
 	"GREY SUMMONS": "The bailiff's summons never says what was taken, Kael — only what was left.",
 	"BILGE WARRANT": "Signed in the wettest ink there is, Kael — everything signed in bilge water slides.",
+	"PALE SUMMONS": "The grey court never finishes a lecture early, Kael — tip the usher or it runs longer.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
