@@ -15416,6 +15416,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Bouree: The bilge bouree-step fills and teaches you, Kael.")
+		1164:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Bouree: The crest bouree-step guards and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -18334,6 +18338,7 @@ func _offer_omens() -> void:
 		{"text": "FOG ORDINARIUM — the fog ordinarium-order shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE ORDINARIUM — the wake ordinarium-order quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE ORDINARIUM — the bilge ordinarium-order fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
+		{"text": "CREST ORDINARIUM — the crest ordinarium-order guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -32816,6 +32821,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE ORDINARIUM"
 		2885:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST ORDINARIUM"
+		2886:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -35767,6 +35777,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG ORDINARIUM": "The fog ordinarium-order veils its standing-orders over your silhouette, Kael — shrouded, at a cost.",
 	"WAKE ORDINARIUM": "The wake ordinarium-order trails its standing-orders in your wake, Kael — swifter, at a cost.",
 	"BILGE ORDINARIUM": "The bilge ordinarium-order slops its standing-orders through your head, Kael — richer and wiser, at a cost.",
+	"CREST ORDINARIUM": "The crest ordinarium-order raises its standing-orders like a wave-crest, Kael — guarded and sharpened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -42092,6 +42103,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Bouree — the fog bouree-step shrouds and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Bouree — the wake bouree-step quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Bouree — the bilge bouree-step fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Bouree — the crest bouree-step guards and sharpens you (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
