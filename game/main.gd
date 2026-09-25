@@ -19791,6 +19791,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Farandole: The bottom farandole-chain fills and guards you, Kael.")
+		2240:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Farandole: The grim farandole-chain sharpens, guards, and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -23785,6 +23790,7 @@ func _offer_omens() -> void:
 		{"text": "HULL SYNDESMOS — the hull syndesmos-scroll bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH SYNDESMOS — the trench syndesmos-scroll sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 		{"text": "BOTTOM SYNDESMOS — the bottom syndesmos-scroll fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM SYNDESMOS — the grim syndesmos-scroll sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -43718,6 +43724,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM SYNDESMOS"
 		3961:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM SYNDESMOS"
+		3962:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -47749,6 +47761,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL SYNDESMOS": "The hull syndesmos-scroll planks its syndesmoi over your heart, Kael — bulked and guarded, at a cost.",
 	"TRENCH SYNDESMOS": "The trench syndesmos-scroll drives its syndesmoi down your arm, Kael — sharpened and hastened, at a cost.",
 	"BOTTOM SYNDESMOS": "The bottom syndesmos-scroll settles its syndesmoi in your purse, Kael — richer and guarded, at a cost.",
+	"GRIM SYNDESMOS": "The grim syndesmos-scroll lays its syndesmoi like ballast in your bones, Kael — sharpened, guarded, plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -55150,6 +55163,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Farandole — the hull farandole-chain bulks and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Farandole — the trench farandole-chain sharpens and hastens you (+5% ATK, +4% ASPD)"},
 		{"text": "Bottom Farandole — the bottom farandole-chain fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Farandole — the grim farandole-chain sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
