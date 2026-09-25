@@ -11510,9 +11510,9 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			toast("Crest Antiphon: the cresting answering verse — +5% dodge, +5% ATK this run")
 		232:
-			Stats.soul_gain_pct += 0.06
-			Stats.buff_xp_pct += 0.04
-			toast("Salt Antiphon: the brine answering verse — +6% souls, +4% XP this run")
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			toast("Deep Antiphon: the deepest answering verse — +7% ATK, +3% dodge this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -24961,7 +24961,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Wake Antiphon — the trailing answering verse: +6% speed, +4% souls this run"},
 		{"text": "Bilge Antiphon — the bilgewater answering verse: +5% souls, +5% XP this run"},
 		{"text": "Crest Antiphon — the cresting answering verse: +5% dodge, +5% ATK this run"},
-		{"text": "Salt Antiphon — the brine answering verse: +6% souls, +4% XP this run"},
+		{"text": "Deep Antiphon — the deepest answering verse: +7% ATK, +3% dodge this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
