@@ -11346,6 +11346,7 @@ func _offer_omens() -> void:
 		{"text": "SALT CENSUS — the white count weighs your purse kindly (+5% souls, +3% dodge)... its tallies never teach (−3% XP)"},
 		{"text": "BOTTOM CENSUS — the trench's last roll takes inventory of your plate (+4% max HP, +3% XP)... and files the bill (−3% souls)"},
 		{"text": "GREY INVENTORY — the pale clerk counts your hands for stock (+5% ATK)... and charges the audit (−4% speed)"},
+		{"text": "PALE CENSUS — the white roll reads you as someone faster (+6% speed)... and harder to hide (+4% aggro)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12409,6 +12410,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GREY INVENTORY"
 		234:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_aggro_pct += 0.04
+			oname = "PALE CENSUS"
+		235:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12694,6 +12699,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT CENSUS": "The white count weighs purses, Kael — yours came out a little heavier going in.",
 	"BOTTOM CENSUS": "The last roll of the trench counts plate and pulse, Kael — you registered as larger than you feel.",
 	"GREY INVENTORY": "The pale clerk counts your hands for stock, Kael — his ledger says you came in well-armed.",
+	"PALE CENSUS": "The white roll lists you under 'quick', Kael — the drowned read the same column.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
