@@ -5866,7 +5866,10 @@ func _on_enemy_died(e) -> void:
 			_spawn_wisp_at(e.global_position + woff)
 	elif pale_wake and not e.is_boss and rng.randf() < 0.2:
 		_spawn_wisp_at(e.global_position + Vector3(0, 0.4, 0))
-	Sfx.play("death")
+	Sfx.play("death", 0.92 + randf() * 0.16)
+	if e.elite:
+		_damage_number(e.global_position + Vector3(0, 1.1 * info.tile, 0), "☠ ELITE FELLED", Color(1.0, 0.78, 0.3), true)
+		_souls(e.global_position, 10, Color(1.0, 0.82, 0.35))
 	kills_run += 1
 	if kills_run >= 30:
 		_quest_event("swab30")
