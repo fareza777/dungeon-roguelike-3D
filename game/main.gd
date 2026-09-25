@@ -13989,6 +13989,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL TE DEUM — the keel praise-hymn fills and plates you (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
 		{"text": "HULL TE DEUM — the hull praise-hymn swells and veils you (+6% max HP, +4% dodge)... and slows your step for the swelling (−3% speed)"},
 		{"text": "TRENCH TE DEUM — the trench praise-hymn sharpens and hastens you (+5% ATK, +4% attack speed)... and shifts your guard for the hastening (−4% dodge)"},
+		{"text": "BOTTOM TE DEUM — the bottom praise-hymn fills and veils you (+7% souls, +4% dodge)... and dulls your edge for the filling (−3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -23429,6 +23430,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH TE DEUM"
 		1890:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM TE DEUM"
+		1891:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -25377,6 +25383,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL TE DEUM": "The keel praise-hymn fills and plates you, Kael — it shifts your guard for the plating.",
 	"HULL TE DEUM": "The hull praise-hymn swells and veils you, Kael — it slows your step for the swelling.",
 	"TRENCH TE DEUM": "The trench praise-hymn sharpens and hastens you, Kael — it shifts your guard for the hastening.",
+	"BOTTOM TE DEUM": "The bottom praise-hymn fills and veils you, Kael — it dulls your edge for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
