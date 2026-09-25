@@ -21052,6 +21052,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Glissade: The tide glissade-slide quickens and sharpens you, Kael.")
+		2550:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Glissade: The storm glissade-slide hardens and keenens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -25356,6 +25360,7 @@ func _offer_omens() -> void:
 		{"text": "PALE DISKARION — the pale diskarion-paten guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY DISKARION — the grey diskarion-paten guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE DISKARION — the tide diskarion-paten quickens and hardens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
+		{"text": "STORM DISKARION — the storm diskarion-paten hardens and keenens you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -46860,6 +46865,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE DISKARION"
 		4271:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM DISKARION"
+		4272:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -51201,6 +51211,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE DISKARION": "The pale diskarion-paten raises its diskaria over your wake, Kael — guarded and filled, at a cost.",
 	"GREY DISKARION": "The grey diskarion-paten raises its diskaria over your shoulders, Kael — guarded and wiser, at a cost.",
 	"TIDE DISKARION": "The tide diskarion-paten raises its diskaria through your wake, Kael — quicker and harder, at a cost.",
+	"STORM DISKARION": "The storm diskarion-paten raises its diskaria under your thunder, Kael — harder and keener, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -58912,6 +58923,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Glissade — the pale glissade-slide guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Glissade — the grey glissade-slide guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Glissade — the tide glissade-slide quickens and sharpens you (+6% speed, +4% ATK)"},
+		{"text": "Storm Glissade — the storm glissade-slide hardens and keenens you (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
