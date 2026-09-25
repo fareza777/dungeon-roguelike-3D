@@ -21792,6 +21792,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_xp_pct += 0.04
 			toast("Salt Habanera: The salt habanera-step fills and teaches you, Kael.")
+		2726:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.03
+			toast("Deep Seguidilla: The deep seguidilla-step sharpens and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -26272,6 +26276,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE RHASON — the bilge rhason-robe fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 		{"text": "CREST RHASON — the crest rhason-robe guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT RHASON — the salt rhason-robe fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
+		{"text": "DEEP KOUKOULION — the deep koukoulion-hood sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -48668,6 +48673,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT RHASON"
 		4447:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP KOUKOULION"
+		4448:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -53185,6 +53195,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE RHASON": "The bilge rhason-robe folds its rhasons in your hold, Kael — richer and wiser, at a cost.",
 	"CREST RHASON": "The crest rhason-robe folds its rhasons on your crest, Kael — guarded and keen, at a cost.",
 	"SALT RHASON": "The salt rhason-robe folds its rhasons over your salt, Kael — richer and wiser, at a cost.",
+	"DEEP KOUKOULION": "The deep koukoulion-hood folds its koukoulia over your blade, Kael — keen and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -61072,6 +61083,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bilge Habanera — the bilge habanera-step fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Habanera — the crest habanera-step guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Habanera — the salt habanera-step fills and teaches you (+6% souls, +4% XP)"},
+		{"text": "Deep Seguidilla — the deep seguidilla-step sharpens and guards you (+5% ATK, +3% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
