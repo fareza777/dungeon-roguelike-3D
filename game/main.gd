@@ -12848,6 +12848,7 @@ func _offer_omens() -> void:
 		{"text": "FOG PRIMER — the mist's first-book veils and fills you (+7% dodge, +4% souls)... and weakens your arm for the veiling (−4% ATK)"},
 		{"text": "WAKE PRIMER — the trailing first-book speeds you and fills your purse (+6% speed, +4% souls)... and shifts your guard for the speeding (−3% dodge)"},
 		{"text": "BILGE PRIMER — the bilgewater first-book fills and teaches you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
+		{"text": "CREST PRIMER — the cresting first-book guards and arms you (+5% dodge, +5% ATK)... and empties your purse for the arming (−4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -19198,6 +19199,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE PRIMER"
 		1280:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST PRIMER"
+		1281:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -20536,6 +20542,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG PRIMER": "The mist's first-book veils and fills you, Kael — it weakens your arm for the veiling.",
 	"WAKE PRIMER": "The trailing first-book speeds you and fills your purse, Kael — it shifts your guard for the speeding.",
 	"BILGE PRIMER": "The bilgewater first-book fills and teaches you, Kael — it shifts your guard for the filling.",
+	"CREST PRIMER": "The cresting first-book guards and arms you, Kael — it empties your purse for the arming.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
