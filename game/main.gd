@@ -12766,6 +12766,7 @@ func _offer_omens() -> void:
 		{"text": "STORM COMPENDIUM — the tempest's full-tome charges your arm and aim (+5% ATK, +6% crit)... and uncovers your guard for the charge (−4% dodge)"},
 		{"text": "KEEL COMPENDIUM — the hull full-tome fills your purse and plates your hide (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
 		{"text": "HULL COMPENDIUM — the shipwright's full-tome fills your frame and guards you (+6% max HP, +4% dodge)... and slows your step for the filling (−3% speed)"},
+		{"text": "TRENCH COMPENDIUM — the fathom's full-tome arms you and quickens your swing (+5% ATK, +4% attack speed)... and shifts your guard for the quickening (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -18781,6 +18782,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL COMPENDIUM"
 		1214:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH COMPENDIUM"
+		1215:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -20053,6 +20059,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM COMPENDIUM": "The tempest's full-tome charges your arm and aim, Kael — it uncovers your guard for the charge.",
 	"KEEL COMPENDIUM": "The hull full-tome fills your purse and plates your hide, Kael — it shifts your guard for the plating.",
 	"HULL COMPENDIUM": "The shipwright's full-tome fills your frame and guards you, Kael — it slows your step for the filling.",
+	"TRENCH COMPENDIUM": "The fathom's full-tome arms you and quickens your swing, Kael — it shifts your guard for the quickening.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
