@@ -15144,6 +15144,7 @@ func _offer_omens() -> void:
 		{"text": "FOG SARUM — the fog sarum-rite shrouds and fills you (+7% dodge, +4% souls)... and dulls your edge for the shrouding (−4% ATK)"},
 		{"text": "WAKE SARUM — the wake sarum-rite quickens and fills you (+6% speed, +4% souls)... and shifts your guard for the quickening (−3% dodge)"},
 		{"text": "BILGE SARUM — the bilge sarum-rite fills and teaches you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
+		{"text": "CREST SARUM — the crest sarum-rite guards and sharpens you (+5% dodge, +5% ATK)... and empties your purse for the guarding (−4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -26434,6 +26435,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE SARUM"
 		2255:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST SARUM"
+		2256:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -28747,6 +28753,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG SARUM": "The fog sarum-rite shrouds and fills you, Kael — it dulls your edge for the shrouding.",
 	"WAKE SARUM": "The wake sarum-rite quickens and fills you, Kael — it shifts your guard for the quickening.",
 	"BILGE SARUM": "The bilge sarum-rite fills and teaches you, Kael — it shifts your guard for the filling.",
+	"CREST SARUM": "The crest sarum-rite guards and sharpens you, Kael — it empties your purse for the guarding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
