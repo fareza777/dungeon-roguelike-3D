@@ -7776,6 +7776,10 @@ func _boss_banter(idx: int) -> void:
 		return
 	l.text = boss_name + ": " + txt
 	l.modulate = Color(1.0, 0.5, 0.4, 1.0)
+	l.pivot_offset = l.size * 0.5
+	l.scale = Vector2(1.3, 1.3)
+	var ptw: Tween = l.create_tween()
+	ptw.tween_property(l, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	var tw := create_tween()
 	tw.tween_interval(2.2)
 	tw.tween_property(l, "modulate:a", 0.0, 0.5)
