@@ -20772,6 +20772,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.04
 			Stats.buff_armor += 2
 			toast("Grim Varsovienne: The grim varsovienne-turn hardens, guards and plates you, Kael.")
+		2481:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			toast("Fog Varsovienne: The fog varsovienne-turn guards and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -25007,6 +25011,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH EPIMANIKIA — the trench epimanikia-cuffs harden and hasten you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
 		{"text": "BOTTOM EPIMANIKIA — the bottom epimanikia-cuffs fill and guard you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 		{"text": "GRIM EPIMANIKIA — the grim epimanikia-cuffs harden, guard and plate you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
+		{"text": "FOG EPIMANIKIA — the fog epimanikia-cuffs guard and fill you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -46162,6 +46167,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM EPIMANIKIA"
 		4202:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG EPIMANIKIA"
+		4203:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -50434,6 +50444,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH EPIMANIKIA": "The trench epimanikia-cuffs clasp their epimanikia down your trench, Kael — harder and hastened, at a cost.",
 	"BOTTOM EPIMANIKIA": "The bottom epimanikia-cuffs clasp their epimanikia on your floor, Kael — richer and guarded, at a cost.",
 	"GRIM EPIMANIKIA": "The grim epimanikia-cuffs clasp their epimanikia across your guard, Kael — harder, guarded and plated, at a cost.",
+	"FOG EPIMANIKIA": "The fog epimanikia-cuffs clasp their epimanikia in your spray, Kael — guarded and filled, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -58076,6 +58087,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Trench Varsovienne — the trench varsovienne-turn hardens and hastens you (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Varsovienne — the bottom varsovienne-turn fills and guards you (+7% souls, +4% dodge)"},
 		{"text": "Grim Varsovienne — the grim varsovienne-turn hardens, guards and plates you (+5% ATK, +4% dodge, +2 armor)"},
+		{"text": "Fog Varsovienne — the fog varsovienne-turn guards and fills you (+7% dodge, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
