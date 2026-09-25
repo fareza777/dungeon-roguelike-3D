@@ -11599,6 +11599,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP WRIT — the trench's writ instructs and pays you (+6% XP, +4% souls)... and presses off your plate (−2 armor)"},
 		{"text": "BILGE WRIT — the hold's writ pays you in dripping salt (+8% souls)... and drowns your striking arm (−3% attack speed)"},
 		{"text": "GREY WRIT — the pale count's writ covers you fully (+4% souls, +4% XP, +2 armor)... and pins your step (−4% dodge)"},
+		{"text": "KEEL WRIT — the hull's writ arms and drives you (+5% ATK, +3% speed)... and hulls your purse for the arming (−4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12905,6 +12906,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "GREY WRIT"
 		285:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_speed_pct += 0.03
+			Stats.soul_gain_pct -= 0.04
+			oname = "KEEL WRIT"
+		286:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13241,6 +13247,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP WRIT": "The trench's writ instructs and pays you, Kael — it presses off your plate for the tuition.",
 	"BILGE WRIT": "The hold's writ pays you in dripping salt, Kael — it drowns your arm for the payment.",
 	"GREY WRIT": "The pale count's writ covers you fully, Kael — it pins your step for the covering.",
+	"KEEL WRIT": "The hull's writ arms and drives you, Kael — it hulls your purse for the arming.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
