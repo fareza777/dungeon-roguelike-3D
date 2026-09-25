@@ -16434,6 +16434,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE ORDINALE — the bilge ordinale-rite fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 		{"text": "CREST ORDINALE — the crest ordinale-rite guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT ORDINALE — the salt ordinale-rite fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
+		{"text": "DEEP COLLECTARIUM — the deep collectarium-prayer sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -29026,6 +29027,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT ORDINALE"
 		2512:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP COLLECTARIUM"
+		2513:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -31604,6 +31610,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE ORDINALE": "The bilge ordinale-rite pours grey wisdom into your purse, Kael — richer, at a cost.",
 	"CREST ORDINALE": "The crest ordinale-rite crowns your guard with foam, Kael — guarded and deadly, at a cost.",
 	"SALT ORDINALE": "The salt ordinale-rite closes its rubric around you, Kael — richer and wiser, at a cost. ORDINALE #148 complete.",
+	"DEEP COLLECTARIUM": "The deep collectarium-prayer gathers around your arm, Kael — sharper, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
