@@ -11073,6 +11073,7 @@ func _offer_omens() -> void:
 		{"text": "SALT WARRANT — the exchequer's writ of seizure (+5% ATK, +4% souls)... it seizes your plating (−2 armor)"},
 		{"text": "BOTTOM WARRANT — the trench's writ, stamped in pressure (+6% ATK)... it pins your footing (−5% dodge)"},
 		{"text": "PALE WARRANT — the grey court licenses your stride (+5% ATK, +4% dodge)... and pares your flesh (−3% max HP)"},
+		{"text": "FOG WARRANT — the mist's writ of concealment (+6% dodge)... served cold, it dulls your edge (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12032,6 +12033,10 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_maxhp_pct -= 0.03
 			oname = "PALE WARRANT"
 		210:
+			Stats.dodge += 0.06
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG WARRANT"
+		211:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12291,6 +12296,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT WARRANT": "A writ of seizure works both ways down here, Kael — it takes what it pleases.",
 	"BOTTOM WARRANT": "Pressure makes a fine signature, Kael — it holds as well on your feet as on the page.",
 	"PALE WARRANT": "The grey court licenses what it cannot stop, Kael — it clips the license out of your hide.",
+	"FOG WARRANT": "The mist hides what the court cannot catch, Kael — it never learned to swing a blade.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
