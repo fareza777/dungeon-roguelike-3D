@@ -37085,7 +37085,7 @@ func _toggle_bestiary() -> void:
 		row.add_child(info)
 		var kl := Label.new()
 		kl.text = "×%d" % n if n > 0 else ""
-		kl.modulate = Color(1.0, 0.6, 0.4, 0.9)
+		kl.modulate = Color(1.0, 0.85, 0.3, 0.95) if n >= 50 else (Color(1.0, 0.6, 0.4, 0.9) if n >= 10 else Color(1.0, 0.7, 0.55, 0.7))
 		kl.add_theme_font_size_override("font_size", 17)
 		kl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		row.add_child(kl)
