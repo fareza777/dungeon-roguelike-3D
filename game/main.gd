@@ -16243,6 +16243,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL PONTIFICALE — the keel pontificale-rite fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL PONTIFICALE — the hull pontificale-rite bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH PONTIFICALE — the trench pontificale-rite sharpens and hastens your arm... at a cost (+5% ATK, +4% attack speed, -4% dodge)"},
+		{"text": "BOTTOM PONTIFICALE — the bottom pontificale-rite fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -28647,6 +28648,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH PONTIFICALE"
 		2475:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM PONTIFICALE"
+		2476:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -31188,6 +31194,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL PONTIFICALE": "The keel pontificale-rite irons your frame, Kael — richer and harder, at a cost.",
 	"HULL PONTIFICALE": "The hull pontificale-rite broadens your frame, Kael — tougher, at a cost.",
 	"TRENCH PONTIFICALE": "The trench pontificale-rite sinks through your arm, Kael — faster steel, at a cost.",
+	"BOTTOM PONTIFICALE": "The bottom pontificale-rite wells up through your purse, Kael — richer, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
