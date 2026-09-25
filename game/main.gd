@@ -18441,6 +18441,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 0.06
 			Stats.dodge += 0.04
 			toast("Hull Lauda: The hull lauda-verse bulks and guards you, Kael.")
+		1908:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			toast("Trench Lauda: The trench lauda-verse sharpens and hastens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -22103,6 +22107,7 @@ func _offer_omens() -> void:
 		{"text": "STORM HYMNOLOGION — the storm hymnologion-book sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL HYMNOLOGION — the keel hymnologion-book fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL HYMNOLOGION — the hull hymnologion-book bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
+		{"text": "TRENCH HYMNOLOGION — the trench hymnologion-book sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -40354,6 +40359,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL HYMNOLOGION"
 		3629:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH HYMNOLOGION"
+		3630:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -44053,6 +44063,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM HYMNOLOGION": "The storm hymnologion-book thunders its hymnologia through your grip, Kael — sharpened and empowered, at a cost.",
 	"KEEL HYMNOLOGION": "The keel hymnologion-book rivets its hymnologia to your ribs, Kael — richer and plated, at a cost.",
 	"HULL HYMNOLOGION": "The hull hymnologion-book swells its hymnologia through your frame, Kael — bulked and guarded, at a cost.",
+	"TRENCH HYMNOLOGION": "The trench hymnologion-book drives its hymnologia down your arm, Kael — sharpened and hastened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -51122,6 +51133,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Storm Lauda — the storm lauda-verse sharpens and empowers you (+5% ATK, +6% crit)"},
 		{"text": "Keel Lauda — the keel lauda-verse fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Lauda — the hull lauda-verse bulks and guards you (+6% max HP, +4% dodge)"},
+		{"text": "Trench Lauda — the trench lauda-verse sharpens and hastens you (+5% ATK, +4% ASPD)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
