@@ -16384,6 +16384,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.07
 			Stats.soul_gain_pct += 0.04
 			toast("Fog Forlana: The fog forlana-step shrouds and fills you, Kael.")
+		1402:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			toast("Wake Forlana: The wake forlana-step quickens and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -19540,6 +19544,7 @@ func _offer_omens() -> void:
 		{"text": "BOTTOM CANONIKON — the bottom canonikon-book fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 		{"text": "GRIM CANONIKON — the grim canonikon-book sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 		{"text": "FOG CANONIKON — the fog canonikon-book shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
+		{"text": "WAKE CANONIKON — the wake canonikon-book quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -35228,6 +35233,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "FOG CANONIKON"
 		3123:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "WAKE CANONIKON"
+		3124:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -38421,6 +38431,7 @@ func _omen_deal(idx: int) -> void:
 	"BOTTOM CANONIKON": "The bottom canonikon-book settles its canon-offices in your purse, Kael — richer and guarded, at a cost.",
 	"GRIM CANONIKON": "The grim canonikon-book drops its canon-offices like ballast in your bones, Kael — sharpened, guarded, plated, at a cost.",
 	"FOG CANONIKON": "The fog canonikon-book veils its canon-offices over your silhouette, Kael — shrouded, at a cost.",
+	"WAKE CANONIKON": "The wake canonikon-book trails its canon-offices in your wake, Kael — swifter, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -44984,6 +44995,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bottom Forlana — the bottom forlana-step fills and guards you (+7% souls, +4% dodge)"},
 		{"text": "Grim Forlana — the grim forlana-step sharpens, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Forlana — the fog forlana-step shrouds and fills you (+7% dodge, +4% souls)"},
+		{"text": "Wake Forlana — the wake forlana-step quickens and fills you (+6% speed, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
