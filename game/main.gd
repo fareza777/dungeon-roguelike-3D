@@ -11806,6 +11806,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL PRECEPT — the spine's teaching fills and covers you (+6% souls, +3 armor)... and leaves your guard for the covering (−4% dodge)"},
 		{"text": "HULL PRECEPT — the body's teaching holds and guards you (+6% max HP, +4% dodge)... and settles on your step (−3% speed)"},
 		{"text": "TRENCH PRECEPT — the depths' teaching sharpens your arm (+5% ATK, +4% attack speed)... and leaves your guard for the sharpening (−4% dodge)"},
+		{"text": "BOTTOM PRECEPT — the floor's teaching fills and veils you (+7% souls, +4% dodge)... and weakens your arm for the filling (−3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13866,6 +13867,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH PRECEPT"
 		435:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM PRECEPT"
+		436:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -14356,6 +14362,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL PRECEPT": "The spine's teaching fills and covers you, Kael — it leaves your guard for the covering.",
 	"HULL PRECEPT": "The body's teaching holds and guards you, Kael — it settles on your step for the holding.",
 	"TRENCH PRECEPT": "The depths' teaching sharpens your arm, Kael — it leaves your guard for the sharpening.",
+	"BOTTOM PRECEPT": "The floor's teaching fills and veils you, Kael — it weakens your arm for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
