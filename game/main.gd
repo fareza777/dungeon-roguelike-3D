@@ -11723,6 +11723,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE FIAT — the trail's decree carries and pays you (+6% speed, +4% souls)... and leaves your guard for the carrying (−3% dodge)"},
 		{"text": "BILGE FIAT — the hold's decree fills and instructs you (+5% souls, +5% XP)... and shifts your guard for the filling (−3% dodge)"},
 		{"text": "CREST FIAT — the breaker's decree lifts your guard and arm (+5% dodge, +5% ATK)... and offers less in return (−4% souls)"},
+		{"text": "DEEP UKASE — the trench's proclamation arms and guards you (+7% ATK, +3% dodge)... and offers less in return (−3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13364,6 +13365,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.04
 			oname = "CREST FIAT"
 		352:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP UKASE"
+		353:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13769,6 +13775,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE FIAT": "The trail's decree carries and pays you, Kael — it leaves your guard for the carrying.",
 	"BILGE FIAT": "The hold's decree fills and instructs you, Kael — it shifts your guard for the filling.",
 	"CREST FIAT": "The breaker's decree lifts your guard and arm, Kael — it offers less in return for the lifting.",
+	"DEEP UKASE": "The trench's proclamation arms and guards you, Kael — it offers less in return for the proclamation.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
