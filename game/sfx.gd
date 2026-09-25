@@ -40,6 +40,8 @@ const BANK := {
 	"armor": "res://assets/audio/sfx/hit.wav",
 	"crit": "res://assets/audio/sfx/hit.wav",
 	"fire": "res://assets/audio/sfx/thunder.wav",
+	"bell": "res://assets/audio/sfx/quest.mp3",
+	"hit2": "res://assets/audio/sfx/hit.wav",
 }
 const MUSIC_BANK := {
 	"menu": "res://assets/audio/music/menu.mp3",
