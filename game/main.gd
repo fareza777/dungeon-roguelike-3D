@@ -11603,6 +11603,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE WRIT — the current's writ carries your step and your guard (+5% speed, +4% dodge)... and carries off your coin (−3% souls)"},
 		{"text": "GRIM WRIT — the reaper's writ sharpens your arm to a cruel edge (+7% ATK)... and loosens your guard for the sharpening (−4% dodge)"},
 		{"text": "STORM WRIT — the gale's writ rides your arm with lightning (+5% crit, +5% attack speed)... and blows your guard wide (−4% dodge)"},
+		{"text": "TRENCH WRIT — the trench's writ plates your arm in pressure (+6% ATK, +2 armor)... and salts your purse for the plating (−4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12928,6 +12929,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM WRIT"
 		289:
+			Stats.buff_atk_pct += 0.06
+			Stats.buff_armor += 2
+			Stats.soul_gain_pct -= 0.04
+			oname = "TRENCH WRIT"
+		290:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13268,6 +13274,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE WRIT": "The current's writ carries your step and your guard, Kael — it carries off your coin in the same water.",
 	"GRIM WRIT": "The reaper's writ sharpens your arm to a cruel edge, Kael — it loosens your guard for the sharpening.",
 	"STORM WRIT": "The gale's writ rides your arm with lightning, Kael — it blows your guard wide to make room for the strike.",
+	"TRENCH WRIT": "The trench's writ plates your arm in pressure, Kael — it salts your purse for the plating.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
