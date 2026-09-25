@@ -13280,6 +13280,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE CANTATA — the surging sung work speeds you and arms you (+6% speed, +4% ATK)... and shifts your guard for the speeding (−3% dodge)"},
 		{"text": "STORM CANTATA — the tempest's sung work arms and sharpens you (+5% ATK, +6% crit)... and shifts your guard for the sharpening (−4% dodge)"},
 		{"text": "KEEL CANTATA — the ship's sung work fills and plates you (+6% souls, +3 armor)... and shifts your guard for the plating (−4% dodge)"},
+		{"text": "HULL CANTATA — the shipwright's sung work fills your frame and guards you (+6% max HP, +4% dodge)... and slows your step for the filling (−3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -21342,6 +21343,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL CANTATA"
 		1618:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL CANTATA"
+		1619:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -23018,6 +23024,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE CANTATA": "The surging sung work speeds you and arms you, Kael — it shifts your guard for the speeding.",
 	"STORM CANTATA": "The tempest's sung work arms and sharpens you, Kael — it shifts your guard for the sharpening.",
 	"KEEL CANTATA": "The ship's sung work fills and plates you, Kael — it shifts your guard for the plating.",
+	"HULL CANTATA": "The shipwright's sung work fills your frame and guards you, Kael — it slows your step for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
