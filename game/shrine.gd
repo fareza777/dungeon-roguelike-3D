@@ -132,6 +132,37 @@ func setup(p_tile: float, p_kind := 0) -> void:
 	glow.omni_range = 2.2 * tile
 	glow.position.y = 1.0 * tile
 	add_child(glow)
+	# label nama melayang di atas patung — pemain tahu altar mana dari kejauhan
+	var nl := Label3D.new()
+	var names := {
+		0: ["✦ BLESSING ALTAR", Color(1.0, 0.8, 0.3)],
+		1: ["☗ MAHZAN'S STALL", Color(0.45, 0.6, 1.0)],
+		2: ["☠ CURSED OBELISK", Color(1.0, 0.15, 0.1)],
+		3: ["▲ SOUL FORGE", Color(1.0, 0.45, 0.12)],
+		4: ["◇ MIRROR OF FATHOMS", Color(0.45, 0.65, 1.0)],
+		5: ["☠ BOUNTY STONE", Color(1.0, 0.55, 0.15)],
+		6: ["◈ SUNKEN VAULT", Color(0.95, 0.85, 0.3)],
+		7: ["≋ FERRYMAN'S POST", Color(0.35, 0.5, 1.0)],
+		8: ["◈ GAMBLER'S WELL", Color(0.7, 0.95, 0.25)],
+		9: ["◈ SCAVENGER'S CACHE", Color(0.85, 0.6, 0.3)],
+		10: ["◈ SOUL FOUNTAIN", Color(0.3, 0.95, 0.8)],
+		11: ["≋ DROWNED ALTAR", Color(0.4, 0.85, 1.0)],
+		12: ["▲ KEELSTONE", Color(0.4, 0.6, 1.05)],
+		13: ["☠ THRONE'S OFFERING", Color(0.65, 0.25, 0.95)],
+		14: ["☽ MOONPOOL", Color(0.8, 0.9, 1.15)],
+		15: ["✚ QUARTERMASTER", Color(0.6, 0.9, 0.5)],
+		16: ["♪ SIREN'S CONCH", Color(0.85, 0.5, 0.95)],
+	}
+	var nv: Array = names.get(kind, names[0])
+	nl.text = String(nv[0])
+	nl.font_size = 56
+	nl.pixel_size = 0.010
+	nl.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	nl.modulate = nv[1]
+	nl.outline_size = 10
+	nl.outline_modulate = Color(0.06, 0.05, 0.1, 0.95)
+	nl.position.y = 2.1 * tile
+	add_child(nl)
 
 
 func _aabb(node: Node) -> AABB:
