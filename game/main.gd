@@ -18954,6 +18954,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Ballo: The bilge ballo-verse fills and teaches you, Kael.")
+		2034:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Ballo: The crest ballo-verse guards and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -22742,6 +22746,7 @@ func _offer_omens() -> void:
 		{"text": "FOG ONOMASTIKON — the fog onomastikon-book shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE ONOMASTIKON — the wake onomastikon-book quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE ONOMASTIKON — the bilge onomastikon-book fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
+		{"text": "CREST ONOMASTIKON — the crest onomastikon-book guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -41632,6 +41637,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE ONOMASTIKON"
 		3755:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST ONOMASTIKON"
+		3756:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -45457,6 +45467,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG ONOMASTIKON": "The fog onomastikon-book names its onomastika over your eyes, Kael — shrouded and richer, at a cost.",
 	"WAKE ONOMASTIKON": "The wake onomastikon-book names its onomastika behind you, Kael — quicker and richer, at a cost.",
 	"BILGE ONOMASTIKON": "The bilge onomastikon-book names its onomastika into your boots, Kael — richer and wiser, at a cost.",
+	"CREST ONOMASTIKON": "The crest onomastikon-book names its onomastika on your blade, Kael — guarded and sharpened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -52652,6 +52663,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Ballo — the fog ballo-verse shrouds and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Ballo — the wake ballo-verse quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Ballo — the bilge ballo-verse fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Ballo — the crest ballo-verse guards and sharpens you (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
