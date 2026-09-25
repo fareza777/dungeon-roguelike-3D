@@ -11647,6 +11647,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_xp_pct += 0.04
 			toast("Salt Paean: the brine hymn of praise — +6% souls, +4% XP this run")
+		266:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			toast("Deep Threnody: the deepest lament-turned-hymn — +7% ATK, +3% dodge this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -28733,6 +28737,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bilge Paean — the bilgewater hymn of praise: +5% souls, +5% XP this run"},
 		{"text": "Crest Paean — the cresting hymn of praise: +5% dodge, +5% ATK this run"},
 		{"text": "Salt Paean — the brine hymn of praise: +6% souls, +4% XP this run"},
+		{"text": "Deep Threnody — the deepest lament-turned-hymn: +7% ATK, +3% dodge this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
