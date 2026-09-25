@@ -10471,6 +10471,7 @@ func _combo_milestone(txt: String, col: Color) -> void:
 		trauma = minf(trauma + 0.18, 0.5)
 
 func _combo_set(n: int) -> void:
+	var combo_prev := combo
 	combo = n
 	combo_max = maxi(combo_max, n)
 	combo_t = 4.0 * (1.45 if Stats.relics.has("relik_tempo") else 1.0) * (1.0 + combo_rate_bonus)
@@ -10544,6 +10545,8 @@ func _combo_set(n: int) -> void:
 				_damage_number(player.global_position + Vector3(0, 1.1 * info.tile, 0), "+1 HP", Color(0.4, 1.0, 0.55), true)
 	else:
 		if ui.combo_l.visible and ui.combo_l.modulate.a > 0.5:
+			if combo_prev >= 8:
+				Sfx.play("combo", 0.7)
 			var dtw: Tween = ui.combo_l.create_tween()
 			dtw.tween_property(ui.combo_l, "modulate:a", 0.0, 0.35).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
 			dtw.tween_callback(func() -> void:
