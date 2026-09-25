@@ -14931,6 +14931,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_atk_pct += 0.05
 			toast("Crest Romanza: The crest romanza-song guards and sharpens you, Kael.")
+		1045:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			toast("Salt Romanza: The salt romanza-song fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17731,6 +17735,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE ANASTASIMATARION — the bilge anastasimatarion-resurrection fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 		{"text": "CREST ANASTASIMATARION — the crest anastasimatarion-resurrection guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT ANASTASIMATARION — the salt anastasimatarion-resurrection fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
+		{"text": "DEEP HEIRMOLOGION — the deep heirmologion-melody sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -31615,6 +31620,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT ANASTASIMATARION"
 		2767:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP HEIRMOLOGION"
+		2768:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -34448,6 +34458,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE ANASTASIMATARION": "The bilge anastasimatarion-resurrection steeps its rising-canons in your pockets, Kael — richer and wiser, at a cost.",
 	"CREST ANASTASIMATARION": "The crest anastasimatarion-resurrection crashes its rising-canons over your blade, Kael — guarded and sharper, at a cost.",
 	"SALT ANASTASIMATARION": "The salt anastasimatarion-resurrection crystallizes its rising-canons in your purse, Kael — richer and wiser, at a cost.",
+	"DEEP HEIRMOLOGION": "The deep heirmologion-melody sets its model-tunes in your wrists, Kael — sharper, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -40654,6 +40665,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Wake Romanza — the wake romanza-song quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Romanza — the bilge romanza-song fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Romanza — the crest romanza-song guards and sharpens you (+5% dodge, +5% ATK)"},
+		{"text": "Salt Romanza — the salt romanza-song fills and teaches you (+6% souls, +4% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
