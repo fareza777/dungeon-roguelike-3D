@@ -11403,6 +11403,7 @@ func _offer_omens() -> void:
 		{"text": "GREY ROLL — the pale count's dice fall kind (+5% crit)... though they cost a coin (−4% souls)"},
 		{"text": "KEEL DUE — the hull's toll posts your share (+6% souls)... but toll-roads are slow roads (−3% speed)"},
 		{"text": "FOG DUE — the mist's toll is paid in absence (+5% dodge)... the clerk takes his coin anyway (−4% souls)"},
+		{"text": "SALT ROLL — the white count's dice come up even (+4% ATK, +4% armor)... luck is never free (−3% XP)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12492,6 +12493,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.04
 			oname = "FOG DUE"
 		240:
+			Stats.buff_atk_pct += 0.04
+			Stats.buff_armor += 1
+			Stats.buff_xp_pct -= 0.03
+			oname = "SALT ROLL"
+		241:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -12783,6 +12789,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY ROLL": "The pale count rolls dice for the drowned, Kael — tonight they fell kind.",
 	"KEEL DUE": "Every hull posts its dues, Kael — yours came back overpaid.",
 	"FOG DUE": "The mist takes its toll in presence, Kael — you simply aren't there when the knife lands.",
+	"SALT ROLL": "The white count's dice came up even, Kael — even is as close to lucky as the drowned get.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
