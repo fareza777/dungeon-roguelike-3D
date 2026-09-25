@@ -61,7 +61,7 @@ func _physics_process(delta: float) -> void:
 					if dist < 0.6:
 						absorbed = true
 						Stats.add_xp(value)
-						Sfx.play("xp")
+						Sfx.play("xp", 0.94 + randf() * 0.14)
 						var m := get_tree().current_scene
 						if m != null and m.has_method("_quest_event"):
 							m._quest_event("gem")
