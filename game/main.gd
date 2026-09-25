@@ -18811,6 +18811,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Chiarenzana: The trench chiarenzana-verse sharpens and hastens you, Kael.")
+		1999:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Chiarenzana: The bottom chiarenzana-verse fills and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -22564,6 +22568,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL ROTULUS — the keel rotulus-scroll fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL ROTULUS — the hull rotulus-scroll bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH ROTULUS — the trench rotulus-scroll sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
+		{"text": "BOTTOM ROTULUS — the bottom rotulus-scroll fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -41276,6 +41281,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH ROTULUS"
 		3720:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM ROTULUS"
+		3721:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -45066,6 +45076,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL ROTULUS": "The keel rotulus-scroll rivets its rotuli to your ribs, Kael — richer and plated, at a cost.",
 	"HULL ROTULUS": "The hull rotulus-scroll swells its rotuli through your frame, Kael — bulked and guarded, at a cost.",
 	"TRENCH ROTULUS": "The trench rotulus-scroll drives its rotuli down your arm, Kael — sharpened and hastened, at a cost.",
+	"BOTTOM ROTULUS": "The bottom rotulus-scroll settles its rotuli in your purse, Kael — richer and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -52226,6 +52237,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Chiarenzana — the keel chiarenzana-verse fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Chiarenzana — the hull chiarenzana-verse bulks and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Chiarenzana — the trench chiarenzana-verse sharpens and hastens you (+5% ATK, +4% ASPD)"},
+		{"text": "Bottom Chiarenzana — the bottom chiarenzana-verse fills and guards you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
