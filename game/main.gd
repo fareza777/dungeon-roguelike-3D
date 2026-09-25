@@ -22064,6 +22064,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 0.06
 			Stats.dodge += 0.04
 			toast("Hull Morris: The hull morris-step thickens and guards you, Kael.")
+		2793:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			toast("Trench Morris: The trench morris-step sharpens and hastens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -26611,6 +26615,7 @@ func _offer_omens() -> void:
 		{"text": "STORM LESTOVKA — the storm lestovka-steps sharpen and luck you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL LESTOVKA — the keel lestovka-steps fill and armor you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL LESTOVKA — the hull lestovka-steps thicken and guard you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
+		{"text": "TRENCH LESTOVKA — the trench lestovka-steps sharpen and hasten you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -49346,6 +49351,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL LESTOVKA"
 		4514:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH LESTOVKA"
+		4515:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -53930,6 +53940,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM LESTOVKA": "The storm lestovka-steps fold their lestovki through your thunder, Kael — keen and lucky, at a cost.",
 	"KEEL LESTOVKA": "The keel lestovka-steps fold their lestovki in your hold, Kael — filled and plated, at a cost.",
 	"HULL LESTOVKA": "The hull lestovka-steps fold their lestovki on your hull, Kael — thick and guarded, at a cost.",
+	"TRENCH LESTOVKA": "The trench lestovka-steps fold their lestovki in your trench, Kael — keen and quick, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -61884,6 +61895,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Storm Morris — the storm morris-step sharpens and lucks you (+5% ATK, +6% crit)"},
 		{"text": "Keel Morris — the keel morris-step fills and armors you (+6% souls, +3 armor)"},
 		{"text": "Hull Morris — the hull morris-step thickens and guards you (+6% max HP, +4% dodge)"},
+		{"text": "Trench Morris — the trench morris-step sharpens and hastens you (+5% ATK, +4% atk speed)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
