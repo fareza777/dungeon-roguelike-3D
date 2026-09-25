@@ -177,6 +177,9 @@ func stun(t: float) -> void:
 	scale = _base_scale
 	if mat != null:
 		mat.set_shader_parameter("flash", 0.6)
+	var mgu := get_tree().current_scene
+	if mgu != null and mgu.has_method("_damage_number"):
+		mgu._damage_number(global_position + Vector3(0, 0.75 * room_tile, 0), "☆ STUNNED", Color(1.0, 0.9, 0.45), true)
 
 
 func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_elite: bool, floor_num: int) -> void:
