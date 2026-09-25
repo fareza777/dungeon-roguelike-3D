@@ -10205,7 +10205,8 @@ func _damage_number(pos: Vector3, txt: String, col: Color, big := false) -> void
 	var l := Label3D.new()
 	room.add_child(l)
 	l.text = txt
-	l.font_size = 140 if big else 96
+	# 長い警告文（affix warn 等）は小さめにして画面内に収める
+	l.font_size = 140 if big else (96 if txt.length() <= 24 else 64)
 	l.pixel_size = 0.012
 	l.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	l.modulate = col
