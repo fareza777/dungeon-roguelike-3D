@@ -13538,6 +13538,7 @@ func _offer_omens() -> void:
 		{"text": "BOTTOM CREDO — the deepest creed-hymn fills and veils you (+7% souls, +4% dodge)... and weakens your arm for the filling (−3% ATK)"},
 		{"text": "GRIM CREDO — the grave creed-hymn arms, veils and plates you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the veiling (−4% speed)"},
 		{"text": "FOG CREDO — the mist creed-hymn veils and fills you (+7% dodge, +4% souls)... and weakens your arm for the veiling (−4% ATK)"},
+		{"text": "WAKE CREDO — the trailing creed-hymn speeds and fills you (+6% speed, +4% souls)... and shifts your guard for the speeding (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -22538,6 +22539,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "FOG CREDO"
 		1803:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "WAKE CREDO"
+		1804:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -24399,6 +24405,7 @@ func _omen_deal(idx: int) -> void:
 	"BOTTOM CREDO": "The deepest creed-hymn fills and veils you, Kael — it weakens your arm for the filling.",
 	"GRIM CREDO": "The grave creed-hymn arms, veils and plates you, Kael — it slows your step for the veiling.",
 	"FOG CREDO": "The mist creed-hymn veils and fills you, Kael — it weakens your arm for the veiling.",
+	"WAKE CREDO": "The trailing creed-hymn speeds and fills you, Kael — it shifts your guard for the speeding.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
