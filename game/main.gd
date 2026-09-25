@@ -15452,6 +15452,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 0.06
 			Stats.dodge += 0.04
 			toast("Hull Tambourin: The hull tambourin-beat bulks and guards you, Kael.")
+		1173:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			toast("Trench Tambourin: The trench tambourin-beat sharpens and hastens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -18379,6 +18383,7 @@ func _offer_omens() -> void:
 		{"text": "STORM ANTIPHONARIUM — the storm antiphonarium-antiphon sharpens and empowers you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL ANTIPHONARIUM — the keel antiphonarium-antiphon fills and plates you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL ANTIPHONARIUM — the hull antiphonarium-antiphon bulks and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
+		{"text": "TRENCH ANTIPHONARIUM — the trench antiphonarium-antiphon sharpens and hastens you... at a cost (+5% ATK, +4% ASPD, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -32906,6 +32911,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL ANTIPHONARIUM"
 		2894:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH ANTIPHONARIUM"
+		2895:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -35866,6 +35876,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM ANTIPHONARIUM": "The storm antiphonarium-antiphon crashes its antiphon-books open, Kael — sharpened, at a cost.",
 	"KEEL ANTIPHONARIUM": "The keel antiphonarium-antiphon rivets its antiphon-books to your ribs, Kael — richer and plated, at a cost.",
 	"HULL ANTIPHONARIUM": "The hull antiphonarium-antiphon folds its antiphon-books around your frame, Kael — bulked and guarded, at a cost.",
+	"TRENCH ANTIPHONARIUM": "The trench antiphonarium-antiphon drags its antiphon-books through your knuckles, Kael — sharpened, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -42200,6 +42211,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Storm Tambourin — the storm tambourin-beat sharpens and empowers you (+5% ATK, +6% crit)"},
 		{"text": "Keel Tambourin — the keel tambourin-beat fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Tambourin — the hull tambourin-beat bulks and guards you (+6% max HP, +4% dodge)"},
+		{"text": "Trench Tambourin — the trench tambourin-beat sharpens and hastens you (+5% ATK, +4% ASPD)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
