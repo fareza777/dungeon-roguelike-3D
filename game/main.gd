@@ -11987,6 +11987,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Nocturne: the abyssal night-song — +7% souls, +4% dodge this run")
+		350:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			toast("Grim Nocturne: the grim night-song — +5% ATK, +4% dodge this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30641,6 +30645,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Nocturne — the hull night-song: +6% max HP, +4% dodge this run"},
 		{"text": "Trench Nocturne — the trench night-song: +5% ATK, +4% attack speed this run"},
 		{"text": "Bottom Nocturne — the abyssal night-song: +7% souls, +4% dodge this run"},
+		{"text": "Grim Nocturne — the grim night-song: +5% ATK, +4% dodge this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
