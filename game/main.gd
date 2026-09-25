@@ -235,6 +235,7 @@ var env: Environment
 var joystick
 var ui := {}
 var trauma := 0.0
+var torch_lights: Array = []
 var fov_punch := 0.0
 var run_state := "playing"
 var seed_val := 7
@@ -1978,6 +1979,7 @@ func _apply_biome() -> void:
 
 
 func _style_room() -> void:
+	torch_lights.clear()
 	var floor_mat := M.toon(dungeon_tex, biome["floor"], 0.15)
 	var wall_mat := M.toon(dungeon_tex, biome["wall"], 0.2)
 	var prop_mat := M.toon(dungeon_tex, biome["prop"], 0.2)
@@ -1999,6 +2001,7 @@ func _style_room() -> void:
 		omni.light_energy = biome.get("torch_e", 1.4)
 		omni.omni_range = biome.get("torch_r", 7.0)
 		omni.omni_attenuation = 1.3
+		torch_lights.append({"l": omni, "e": omni.light_energy, "ph": rng.randf() * 6.28})
 
 
 # ---------------- run lifecycle ----------------
@@ -37735,6 +37738,10 @@ func _process(delta: float) -> void:
 				toast("The new blade cools — trial over")
 		if ui.has("time_label"):
 			ui.time_label.text = "%d:%02d" % [int(run_time) / 60, int(run_time) % 60]
+		for td in torch_lights:
+			var tl = td["l"]
+			if is_instance_valid(tl):
+				tl.light_energy = float(td["e"]) * (0.9 + 0.1 * sin(floor_t * 7.0 + float(td["ph"])) + 0.04 * sin(floor_t * 23.0 + float(td["ph"]) * 2.0))
 		if brine_callus:
 			var under_half: bool = player.hp < Stats.get_stat("max_hp") * 0.5
 			if under_half and not callus_on:
