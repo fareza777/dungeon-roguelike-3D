@@ -17,3 +17,8 @@ tools/test_sfx.bin
 # Screenshot autotest (diregenerasi tiap run)
 game/out_*.png
 visual-test/out_*.png
+_omen_add.py
+_bless_add.py
+_polish_sec.py
+_omen_round.py
+_polish_round.py
