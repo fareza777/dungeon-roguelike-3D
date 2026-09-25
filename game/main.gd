@@ -11570,6 +11570,7 @@ func _offer_omens() -> void:
 		{"text": "BOTTOM DOCKET — the trench's docket presses your arm heavier (+7% ATK)... and presses out your coin (−4% souls)"},
 		{"text": "GRIM DOCKET — the grim clerk's docket sharpens your sentence (+6% crit, +4% ATK)... and slow-papers your escape (−3% dodge)"},
 		{"text": "TRENCH DOCKET — the last docket pays you in salt and schooling (+5% souls, +5% XP)... and anchors your heels (−3% speed)"},
+		{"text": "WAKE SUMMONS — the wake's summons calls your hands to court (+5% attack speed, +4% souls)... the calling thins your guard (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -12826,6 +12827,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "TRENCH DOCKET"
 		275:
+			Stats.buff_aspd += 0.05
+			Stats.soul_gain_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "WAKE SUMMONS"
+		276:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13152,6 +13158,7 @@ func _omen_deal(idx: int) -> void:
 	"BOTTOM DOCKET": "The trench's docket presses your arm heavier, Kael — pressure always presses out the coin.",
 	"GRIM DOCKET": "The grim clerk's docket sharpens your sentence, Kael — slow paper always holds the feet.",
 	"TRENCH DOCKET": "The last docket pays you in salt and schooling, Kael — it anchors your heels for the payment.",
+	"WAKE SUMMONS": "The wake's summons calls your hands to court, Kael — a calling always thins the guard.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
