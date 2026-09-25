@@ -20645,6 +20645,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Redowa: The bottom redowa-turn fills and guards you, Kael.")
+		2450:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Redowa: The grim redowa-turn hardens, guards and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -24849,6 +24854,7 @@ func _offer_omens() -> void:
 		{"text": "HULL TYPIKONIKON — the hull typikonikon-rule toughens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH TYPIKONIKON — the trench typikonikon-rule hardens and hastens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
 		{"text": "BOTTOM TYPIKONIKON — the bottom typikonikon-rule fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM TYPIKONIKON — the grim typikonikon-rule hardens, guards and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -45846,6 +45852,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM TYPIKONIKON"
 		4171:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM TYPIKONIKON"
+		4172:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -50087,6 +50099,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL TYPIKONIKON": "The hull typikonikon-rule orders its typikonika over your hull, Kael — tougher and guarded, at a cost.",
 	"TRENCH TYPIKONIKON": "The trench typikonikon-rule orders its typikonika into your wrists, Kael — harder and hastened, at a cost.",
 	"BOTTOM TYPIKONIKON": "The bottom typikonikon-rule orders its typikonika into your purse, Kael — richer and guarded, at a cost.",
+	"GRIM TYPIKONIKON": "The grim typikonikon-rule orders its typikonika across your guard, Kael — harder, guarded and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -57698,6 +57711,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Redowa — the hull redowa-turn toughens and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Redowa — the trench redowa-turn hardens and hastens you (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Redowa — the bottom redowa-turn fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Redowa — the grim redowa-turn hardens, guards and plates you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
