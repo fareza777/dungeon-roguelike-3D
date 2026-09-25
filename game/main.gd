@@ -16199,6 +16199,7 @@ func _offer_omens() -> void:
 		{"text": "GRIM RITUALE — the grim rituale-rite sharpens, guards, and plates you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 		{"text": "FOG RITUALE — the fog rituale-rite shrouds and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE RITUALE — the wake rituale-rite quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
+		{"text": "BILGE RITUALE — the bilge rituale-rite fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -28548,6 +28549,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "WAKE RITUALE"
 		2464:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.dodge -= 0.03
+			oname = "BILGE RITUALE"
+		2465:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -31078,6 +31084,7 @@ func _omen_deal(idx: int) -> void:
 	"GRIM RITUALE": "The grim rituale-rite darkens around your arm, Kael — deadlier, at a cost.",
 	"FOG RITUALE": "The fog rituale-rite breathes over your steps, Kael — hidden and rich, at a cost.",
 	"WAKE RITUALE": "The wake rituale-rite pulls at your heels, Kael — swifter and richer, at a cost.",
+	"BILGE RITUALE": "The bilge rituale-rite wells up around you, Kael — richer and wiser, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
