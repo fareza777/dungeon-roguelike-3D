@@ -880,6 +880,16 @@ func _strike() -> void:
 					var mvb := get_tree().current_scene
 					if mvb != null and mvb.has_method("_damage_number"):
 						mvb._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "VERDICT", Color(0.5, 0.48, 0.4), false)
+			if Stats.weapon_id == "neap_edge":
+				var NPn: int = int(get_tree().current_scene.get("net_n") or 0) + 1
+				get_tree().current_scene.set("net_n", NPn)
+				if NPn % 9 == 0:
+					for npf in get_tree().get_nodes_in_group("enemies"):
+						if npf.get("state") != "dead" and npf.global_position.distance_to(global_position) < 3.0 * room_tile:
+							npf.set("slow_t", 2.0)
+					var mnp := get_tree().current_scene
+					if mnp != null and mnp.has_method("_damage_number"):
+						mnp._damage_number(f.global_position + Vector3(0, 0.9 * room_tile, 0), "NEAP", Color(0.42, 0.55, 0.62), false)
 			if Stats.weapon_id == "pilot_lantern":
 				var pln: int = int(get_tree().current_scene.get("net_n") or 0) + 1
 				get_tree().current_scene.set("net_n", pln)
