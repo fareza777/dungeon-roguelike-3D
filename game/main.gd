@@ -11716,6 +11716,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.06
 			Stats.soul_gain_pct += 0.05
 			toast("Pale Elegy: the wan mourning-song — +6% dodge, +5% souls this run")
+		283:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Grey Elegy: the ashen mourning-song — +5% dodge, +5% XP this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29879,6 +29883,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Salt Threnody — the brine lament-turned-hymn: +6% souls, +4% XP this run"},
 		{"text": "Deep Elegy — the deepest mourning-song: +7% ATK, +3% dodge this run"},
 		{"text": "Pale Elegy — the wan mourning-song: +6% dodge, +5% souls this run"},
+		{"text": "Grey Elegy — the ashen mourning-song: +5% dodge, +5% XP this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
