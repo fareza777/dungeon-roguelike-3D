@@ -23318,6 +23318,10 @@ func _process(delta: float) -> void:
 				ui.atk_btn.modulate = Color(1.35, 1.15, 0.6)
 				var ctw: Tween = ui.atk_btn.create_tween()
 				ctw.tween_property(ui.atk_btn, "scale", Vector2(1.18, 1.18), 0.12).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+			elif not atk_charged:
+				var chg: float = clampf(atk_hold_t / heavy_threshold, 0.0, 1.0)
+				ui.atk_btn.modulate = Color(1.0, 1.0, 1.0).lerp(Color(1.35, 1.15, 0.6), chg * 0.7)
+				ui.atk_btn.scale = Vector2.ONE * (1.0 + 0.1 * chg)
 		else:
 			if atk_hold_t >= (0.4 if Stats.relics.has("pendulum") else 0.6):
 				_heavy_attack()
