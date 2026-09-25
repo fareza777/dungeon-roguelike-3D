@@ -19881,6 +19881,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.dodge += 0.03
 			toast("Deep Estate: The deep estate-measure sharpens and guards you, Kael.")
+		2262:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			toast("Pale Estate: The pale estate-measure guards and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -23897,6 +23901,7 @@ func _offer_omens() -> void:
 		{"text": "CREST PEDALKION — the crest pedalkion-rudder guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT PEDALKION — the salt pedalkion-rudder fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 		{"text": "DEEP ORTHROSEON — the deep orthroseon-matins hardens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
+		{"text": "PALE ORTHROSEON — the pale orthroseon-matins guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -43942,6 +43947,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "DEEP ORTHROSEON"
 		3983:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE ORTHROSEON"
+		3984:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -47995,6 +48005,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST PEDALKION": "The crest pedalkion-rudder breaks its pedalkia on your blade, Kael — guarded and sharpened, at a cost.",
 	"SALT PEDALKION": "The salt pedalkion-rudder crusts its pedalkia on your palms, Kael — richer and wiser, at a cost.",
 	"DEEP ORTHROSEON": "The deep orthroseon-matins dawns its orthroseoi over your blade, Kael — harder and guarded, at a cost.",
+	"PALE ORTHROSEON": "The pale orthroseon-matins shades its orthroseoi over your wake, Kael — guarded and filled, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -55418,6 +55429,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Crest Voltaire — the crest voltaire-verse guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Voltaire — the salt voltaire-verse fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Estate — the deep estate-measure sharpens and guards you (+5% ATK, +3% dodge)"},
+		{"text": "Pale Estate — the pale estate-measure guards and fills you (+6% dodge, +5% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
