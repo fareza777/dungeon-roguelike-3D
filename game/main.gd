@@ -11686,6 +11686,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL MANDATE — the backbone's charge steadies your arm, plate, and step (+5% ATK, +2 armor, +3% speed)... and offers less in return (−4% souls)"},
 		{"text": "HULL MANDATE — the ship's charge plates you broadest (+8% HP)... and loads your step for the plating (−3% speed)"},
 		{"text": "TRENCH MANDATE — the rift's charge arms and drives you (+7% ATK, +3% speed)... and presses off your plate (−2 armor)"},
+		{"text": "BOTTOM MANDATE — the floor's charge fills and veils you (+7% souls, +4% dodge)... and weakens your arm for the filling (−3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -13226,6 +13227,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_armor -= 2
 			oname = "TRENCH MANDATE"
 		332:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM MANDATE"
+		333:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -13611,6 +13617,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL MANDATE": "The backbone's charge steadies your arm, plate, and step, Kael — it offers less in return for the steadying.",
 	"HULL MANDATE": "The ship's charge plates you broadest, Kael — it loads your step for the plating.",
 	"TRENCH MANDATE": "The rift's charge arms and drives you, Kael — it presses off your plate for the driving.",
+	"BOTTOM MANDATE": "The floor's charge fills and veils you, Kael — it weakens your arm for the filling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
