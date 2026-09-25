@@ -12320,6 +12320,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.06
 			Stats.soul_gain_pct += 0.05
 			toast("Pale Nones: the wan canonical-hours — +6% dodge, +5% souls this run")
+		433:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Grey Nones: the ashen canonical-hours — +5% dodge, +5% XP this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -31799,6 +31803,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Salt Terce — the brine hour-prayer: +6% souls, +4% XP this run"},
 		{"text": "Deep Nones — the deep canonical-hours: +7% ATK, +3% dodge this run"},
 		{"text": "Pale Nones — the wan canonical-hours: +6% dodge, +5% souls this run"},
+		{"text": "Grey Nones — the ashen canonical-hours: +5% dodge, +5% XP this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
