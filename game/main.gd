@@ -14982,6 +14982,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP ANABATHMOI — the deep anabathmos-ascent sharpens and guards you (+7% ATK, +3% dodge)... and lightens your purse for the sharpening (−3% souls)"},
 		{"text": "PALE ANABATHMOI — the pale anabathmos-ascent guards and fills you (+6% dodge, +5% souls)... and dulls your edge for the guarding (−4% ATK)"},
 		{"text": "GREY ANABATHMOI — the grey anabathmos-ascent guards and teaches you (+5% dodge, +5% XP)... and dulls your edge for the teaching (−4% ATK)"},
+		{"text": "TIDE ANABATHMOI — the tide anabathmos-ascent quickens and sharpens you (+6% speed, +4% ATK)... and shifts your guard for the quickening (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -26069,6 +26070,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY ANABATHMOI"
 		2215:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE ANABATHMOI"
+		2216:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -28342,6 +28348,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP ANABATHMOI": "The deep anabathmos-ascent sharpens and guards you, Kael — it lightens your purse for the sharpening.",
 	"PALE ANABATHMOI": "The pale anabathmos-ascent guards and fills you, Kael — it dulls your edge for the guarding.",
 	"GREY ANABATHMOI": "The grey anabathmos-ascent guards and teaches you, Kael — it dulls your edge for the teaching.",
+	"TIDE ANABATHMOI": "The tide anabathmos-ascent quickens and sharpens you, Kael — it shifts your guard for the quickening.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
