@@ -11991,6 +11991,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH MANIFESTO — the cutting's declaration edges and quickens your arm (+5% ATK, +4% attack speed)... and uncovers your guard for the edging (−4% dodge)"},
 		{"text": "BOTTOM MANIFESTO — the floor's declaration fills and veils you (+7% souls, +4% dodge)... and weakens your arm for the filling (−3% ATK)"},
 		{"text": "GRIM MANIFESTO — the dark declaration arms, guards and plates you (+5% ATK, +4% dodge, +2 armor)... and slows your step for the declaring (−4% speed)"},
+		{"text": "FOG MANIFESTO — the mist's declaration veils and pays you (+7% dodge, +4% souls)... and weakens your arm for the veiling (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -14746,6 +14747,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM MANIFESTO"
 		572:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG MANIFESTO"
+		573:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + "+" + oname
@@ -15373,6 +15379,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH MANIFESTO": "The cutting's declaration edges and quickens your arm, Kael — it uncovers your guard for the edging.",
 	"BOTTOM MANIFESTO": "The floor's declaration fills and veils you, Kael — it weakens your arm for the filling.",
 	"GRIM MANIFESTO": "The dark declaration arms, guards and plates you, Kael — it slows your step for the declaring.",
+	"FOG MANIFESTO": "The mist's declaration veils and pays you, Kael — it weakens your arm for the veiling.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
