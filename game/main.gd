@@ -18112,6 +18112,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.dodge += 0.03
 			toast("Deep Tordion: The deep tordion-verse sharpens and guards you, Kael.")
+		1827:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			toast("Pale Tordion: The pale tordion-verse guards and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -21693,6 +21697,7 @@ func _offer_omens() -> void:
 		{"text": "CREST RITUALARIUM — the crest ritualarium-book guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT RITUALARIUM — the salt ritualarium-book fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 		{"text": "DEEP AGENDARIUM — the deep agendarium-book sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
+		{"text": "PALE AGENDARIUM — the pale agendarium-book guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -39534,6 +39539,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "DEEP AGENDARIUM"
 		3548:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE AGENDARIUM"
+		3549:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -43152,6 +43162,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST RITUALARIUM": "The crest ritualarium-book raises its ritualaria like a wave-crest, Kael — guarded and sharpened, at a cost.",
 	"SALT RITUALARIUM": "The salt ritualarium-book sprinkles its ritualaria over your ledger, Kael — richer and wiser, at a cost.",
 	"DEEP AGENDARIUM": "The deep agendarium-book opens its agendaria in the deep, Kael — sharpened and guarded, at a cost.",
+	"PALE AGENDARIUM": "The pale agendarium-book pales its agendaria over your form, Kael — guarded and richer, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -50140,6 +50151,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Crest Ariette — the crest ariette-verse guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Ariette — the salt ariette-verse fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Tordion — the deep tordion-verse sharpens and guards you (+5% ATK, +3% dodge)"},
+		{"text": "Pale Tordion — the pale tordion-verse guards and fills you (+6% dodge, +5% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
