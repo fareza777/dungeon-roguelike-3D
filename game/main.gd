@@ -10892,6 +10892,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.04
 			Stats.buff_xp_pct += 0.04
 			toast("Grey Psalm: the pale choir's even measure — +4% ATK, +4% XP this run")
+		183:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.buff_armor -= 1
+			toast("Hull Psalm: the timber-choir's deep note — +6% max HP, −1 armor this run")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -17652,6 +17656,7 @@ func _on_shrine_invoked(s) -> void:
 			{"text": "Deep Psalm — the trench-choir's deepest note: +6% souls, +2 armor this run"},
 			{"text": "Salt Psalm — the choir's sharp refrain: +5% ATK, +3% souls this run"},
 			{"text": "Grey Psalm — the pale choir's even measure: +4% ATK, +4% XP this run"},
+			{"text": "Hull Psalm — the timber-choir's deep note: +6% max HP, −1 armor this run"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
