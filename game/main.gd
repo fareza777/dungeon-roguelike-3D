@@ -23646,6 +23646,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_armor += 3
 			toast("Keel Syrtos: The keel syrtos-step fills and armors you, Kael.")
+		3182:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			toast("Hull Syrtos: The hull syrtos-step thickens and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -28582,6 +28586,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE PODRYAZNIK — the tide podryaznik quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM PODRYAZNIK — the storm podryaznik sharpens and furious you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL PODRYAZNIK — the keel podryaznik fills and armors you... at a cost (+6% souls, +3 armor, -4% dodge)"},
+		{"text": "HULL PODRYAZNIK — the hull podryaznik thickens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -53288,6 +53293,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL PODRYAZNIK"
 		4903:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL PODRYAZNIK"
+		4904:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -58261,6 +58271,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE PODRYAZNIK": "The tide podryaznik wraps its under-cassock on your tide, Kael — quicker and keener, at a cost.",
 	"STORM PODRYAZNIK": "The storm podryaznik wraps its under-cassock on your storm, Kael — keen and furious, at a cost.",
 	"KEEL PODRYAZNIK": "The keel podryaznik wraps its under-cassock down your keel, Kael — filled and plated, at a cost.",
+	"HULL PODRYAZNIK": "The hull podryaznik wraps its under-cassock round your hull, Kael — thicker and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -66604,6 +66615,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Tide Syrtos — the tide syrtos-step quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Syrtos — the storm syrtos-step sharpens and furious you (+5% ATK, +6% crit)"},
 		{"text": "Keel Syrtos — the keel syrtos-step fills and armors you (+6% souls, +3 armor)"},
+		{"text": "Hull Syrtos — the hull syrtos-step thickens and guards you (+6% max HP, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
