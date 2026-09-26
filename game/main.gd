@@ -24090,6 +24090,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 4
 			Stats.buff_armor += 2
 			toast("Grim Iskenderun: The grim iskenderun-step arms you, Kael.")
+		3291:
+			Stats.dodge += 7
+			Stats.soul_gain_pct += 4
+			toast("Fog Iskenderun: The fog iskenderun-step blurs and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29135,6 +29139,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH SOLEA — TRENCH SOLEA — the trench solea drags your arm fast (+5% ATK, +4% atk speed)... its depth sways your step (−4% dodge)"},
 		{"text": "BOTTOM SOLEA — BOTTOM SOLEA — the bottom solea hoards what sinks (+7% souls, +4% dodge)... its murk dulls your edge (−3% ATK)"},
 		{"text": "GRIM SOLEA — GRIM SOLEA — the grim solea arms you whole (+5% ATK, +4% dodge, +2 armor)... its weight anchors you (−4% speed)"},
+		{"text": "FOG SOLEA — FOG SOLEA — the fog solea blurs the approach past (+7% dodge, +4% souls)... its haze blunts your edge (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54394,6 +54399,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 4
 			oname = "GRIM SOLEA"
 		5012:
+			Stats.dodge += 7
+			Stats.soul_gain_pct += 4
+			Stats.buff_atk_pct -= 4
+			oname = "FOG SOLEA"
+		5013:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59476,6 +59486,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH SOLEA": "The trench solea drags your arm, Kael.",
 	"BOTTOM SOLEA": "The bottom solea hoards for you, Kael.",
 	"GRIM SOLEA": "The grim solea arms you whole, Kael.",
+	"FOG SOLEA": "The fog solea blurs you past, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -67928,6 +67939,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Trench Iskenderun — the trench iskenderun-step strikes and hastens you (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Iskenderun — the bottom iskenderun-step fills and guards you (+7% souls, +4% dodge)"},
 		{"text": "Grim Iskenderun — the grim iskenderun-step strikes, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
+		{"text": "Fog Iskenderun — the fog iskenderun-step blurs and fills you (+7% dodge, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
