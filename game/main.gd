@@ -24033,6 +24033,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 7
 			Stats.soul_gain_pct += 4
 			toast("Fog Ballos: The fog ballos-step blurs and fills you, Kael.")
+		3277:
+			Stats.buff_speed_pct += 6
+			Stats.soul_gain_pct += 4
+			toast("Wake Ballos: The wake ballos-step carries and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29064,6 +29068,7 @@ func _offer_omens() -> void:
 		{"text": "BOTTOM ANALOGION — BOTTOM ANALOGION — the bottom lectern hoards the sunken verses (+7% souls, +4% dodge)... its murk dulls your edge (−3% ATK)"},
 		{"text": "GRIM ANALOGION — GRIM ANALOGION — the grim lectern arms you whole (+5% ATK, +4% dodge, +2 armor)... its weight anchors you (−4% speed)"},
 		{"text": "FOG ANALOGION — FOG ANALOGION — the fog lectern blurs its psalm past (+7% dodge, +4% souls)... its haze blunts your edge (−4% ATK)"},
+		{"text": "WAKE ANALOGION — WAKE ANALOGION — the wake lectern pulls you along (+6% speed, +4% souls)... its wash tilts your step (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54252,6 +54257,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 4
 			oname = "FOG ANALOGION"
 		4998:
+			Stats.buff_speed_pct += 6
+			Stats.soul_gain_pct += 4
+			Stats.dodge -= 3
+			oname = "WAKE ANALOGION"
+		4999:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59320,6 +59330,7 @@ func _omen_deal(idx: int) -> void:
 	"BOTTOM ANALOGION": "The bottom lectern hoards for you, Kael.",
 	"GRIM ANALOGION": "The grim lectern arms you whole, Kael.",
 	"FOG ANALOGION": "The fog lectern blurs you past, Kael.",
+	"WAKE ANALOGION": "The wake lectern pulls you along, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -67758,6 +67769,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bottom Ballos — the bottom ballos-step fills and guards you (+7% souls, +4% dodge)"},
 		{"text": "Grim Ballos — the grim ballos-step strikes, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Ballos — the fog ballos-step blurs and fills you (+7% dodge, +4% souls)"},
+		{"text": "Wake Ballos — the wake ballos-step carries and fills you (+6% speed, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
