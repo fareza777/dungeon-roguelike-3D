@@ -23065,6 +23065,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Hasaposerviko: The bilge hasaposerviko-step fills and teaches you, Kael.")
+		3039:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Hasaposerviko: The crest hasaposerviko-step guards and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -27858,6 +27862,7 @@ func _offer_omens() -> void:
 		{"text": "FOG MANTIAS — the fog mantias guards and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE MANTIAS — the wake mantias quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 		{"text": "BILGE MANTIAS — the bilge mantias fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
+		{"text": "CREST MANTIAS — the crest mantias guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -51840,6 +51845,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE MANTIAS"
 		4760:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST MANTIAS"
+		4761:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -56670,6 +56680,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG MANTIAS": "The fog mantias falls across your shoulders in the fog, Kael — guarded and filled, at a cost.",
 	"WAKE MANTIAS": "The wake mantias falls across your shoulders in your wake, Kael — quicker and filled, at a cost.",
 	"BILGE MANTIAS": "The bilge mantias falls across your shoulders in the hold, Kael — richer and wiser, at a cost.",
+	"CREST MANTIAS": "The crest mantias falls across your shoulders on the crest, Kael — guarded and keen, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -64870,6 +64881,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Hasaposerviko — the fog hasaposerviko-step guards and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Hasaposerviko — the wake hasaposerviko-step quickens and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Hasaposerviko — the bilge hasaposerviko-step fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Hasaposerviko — the crest hasaposerviko-step guards and sharpens you (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
