@@ -23166,6 +23166,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Pyrrhichios: The trench pyrrhichios-step sharpens and hastens you, Kael.")
+		3064:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Pyrrhichios: The bottom pyrrhichios-step fills and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -27984,6 +27988,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL RASON — the keel rason fills and armors you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL RASON — the hull rason thickens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH RASON — the trench rason sharpens and hastens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
+		{"text": "BOTTOM RASON — the bottom rason fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -52092,6 +52097,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH RASON"
 		4785:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM RASON"
+		4786:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -56947,6 +56957,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL RASON": "The keel rason robes you from floor to throat along the keel, Kael — filled and plated, at a cost.",
 	"HULL RASON": "The hull rason robes you from floor to throat around the hull, Kael — thicker and guarded, at a cost.",
 	"TRENCH RASON": "The trench rason robes you from floor to throat in the trench, Kael — keen and quick, at a cost.",
+	"BOTTOM RASON": "The bottom rason robes you from floor to throat at the bottom, Kael — filled and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -65172,6 +65183,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Pyrrhichios — the keel pyrrhichios-step fills and armors you (+6% souls, +3 armor)"},
 		{"text": "Hull Pyrrhichios — the hull pyrrhichios-step thickens and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Pyrrhichios — the trench pyrrhichios-step sharpens and hastens you (+5% ATK, +4% atk speed)"},
+		{"text": "Bottom Pyrrhichios — the bottom pyrrhichios-step fills and guards you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
