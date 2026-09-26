@@ -7,10 +7,26 @@ func _ready() -> void:
 	for a in OS.get_cmdline_user_args():
 		if a == "--autotest":
 			fast = true
-	var bg := ColorRect.new()
-	bg.color = Color(0.03, 0.02, 0.05)
-	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
-	add_child(bg)
+	if ResourceLoader.exists("res://assets/ui/menu_bg.png"):
+		var bg := TextureRect.new()
+		bg.texture = load("res://assets/ui/menu_bg.png")
+		bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		bg.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+		bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+		bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		bg.modulate = Color(0.5, 0.45, 0.55, 0.0)
+		add_child(bg)
+		var bgt := bg.create_tween()
+		bgt.tween_property(bg, "modulate:a", 0.55, 1.2).set_trans(Tween.TRANS_SINE)
+		bg.pivot_offset = bg.size * 0.5
+		var kbg := bg.create_tween()
+		kbg.set_loops()
+		kbg.tween_property(bg, "scale", Vector2(1.06, 1.06), 12.0).set_trans(Tween.TRANS_SINE)
+	else:
+		var bg := ColorRect.new()
+		bg.color = Color(0.03, 0.02, 0.05)
+		bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+		add_child(bg)
 	var cc := CenterContainer.new()
 	cc.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(cc)
