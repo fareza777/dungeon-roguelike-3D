@@ -23968,6 +23968,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 4
 			Stats.buff_armor += 2
 			toast("Grim Sousta: The grim sousta-step arms you, Kael.")
+		3261:
+			Stats.dodge += 7
+			Stats.soul_gain_pct += 4
+			toast("Fog Sousta: The fog sousta-step blurs and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -28983,6 +28987,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH TETRAPYLON — TRENCH TETRAPYLON — the trench four-gate drags your arm fast (+5% ATK, +4% atk speed)... its depth sways your step (−4% dodge)"},
 		{"text": "BOTTOM TETRAPYLON — BOTTOM TETRAPYLON — the bottom four-gate hoards what sinks (+7% souls, +4% dodge)... its murk dulls your edge (−3% ATK)"},
 		{"text": "GRIM TETRAPYLON — GRIM TETRAPYLON — the grim four-gate arms you whole (+5% ATK, +4% dodge, +2 armor)... its weight anchors you (−4% speed)"},
+		{"text": "FOG TETRAPYLON — FOG TETRAPYLON — the fog four-gate blurs you past (+7% dodge, +4% souls)... its haze blunts your edge (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54090,6 +54095,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 4
 			oname = "GRIM TETRAPYLON"
 		4982:
+			Stats.dodge += 7
+			Stats.soul_gain_pct += 4
+			Stats.buff_atk_pct -= 4
+			oname = "FOG TETRAPYLON"
+		4983:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59142,6 +59152,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH TETRAPYLON": "The trench four-gate drags your arm, Kael.",
 	"BOTTOM TETRAPYLON": "The bottom four-gate hoards for you, Kael.",
 	"GRIM TETRAPYLON": "The grim four-gate arms you whole, Kael.",
+	"FOG TETRAPYLON": "The fog four-gate blurs you past, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -67564,6 +67575,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Trench Sousta — the trench sousta-step strikes and hastens you (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Sousta — the bottom sousta-step fills and guards you (+7% souls, +4% dodge)"},
 		{"text": "Grim Sousta — the grim sousta-step strikes, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
+		{"text": "Fog Sousta — the fog sousta-step blurs and fills you (+7% dodge, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
