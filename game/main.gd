@@ -25865,6 +25865,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Kerkyraikos: The bottom kerkyraikos-step fills and slips you, Kael.")
+		3710:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Kerkyraikos: The grim kerkyraikos-step strikes, slips, and plates, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -31329,6 +31334,7 @@ func _offer_omens() -> void:
 		{"text": "HULL EISAGOGE — the hull eisagoge-step thickens your frame and slips, but sits heavier (+6% HP, +4% dodge, −3% speed)"},
 		{"text": "TRENCH EISAGOGE — the trench eisagoge-step drives harder and quicker, but slips off the stance (+5% ATK, +4% atk speed, −4% dodge)"},
 		{"text": "BOTTOM EISAGOGE — the bottom eisagoge-step pays richly and slips, but dulls the edge (+7% souls, +4% dodge, −3% ATK)"},
+		{"text": "GRIM EISAGOGE — the grim eisagoge-step strikes, slips, plates — but anchors you (+5% ATK, +4% dodge, +2 armor, −4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -58710,6 +58716,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM EISAGOGE"
 		5431:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM EISAGOGE"
+		5432:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -64215,6 +64227,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL EISAGOGE": "Hull Eisagoge — the introduction-text braces the hull, Kael.",
 	"TRENCH EISAGOGE": "Trench Eisagoge — the introduction-text bites fastest down deep, Kael.",
 	"BOTTOM EISAGOGE": "Bottom Eisagoge — the introduction-text sinks to the seabed, Kael.",
+	"GRIM EISAGOGE": "Grim Eisagoge — a mourning introduction-text, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -73086,6 +73099,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Kerkyraikos — the hull kerkyraikos-step thickens your frame and slips you (+6% HP, +4% dodge)"},
 		{"text": "Trench Kerkyraikos — the trench kerkyraikos-step drives harder and quicker (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Kerkyraikos — the bottom kerkyraikos-step fills and slips you (+7% souls, +4% dodge)"},
+		{"text": "Grim Kerkyraikos — the grim kerkyraikos-step strikes, slips, and plates (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
