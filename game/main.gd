@@ -25436,6 +25436,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_atk_pct += 0.05
 			toast("Crest Kalymniotikos: The crest kalymniotikos-step slips and strikes true, Kael.")
+		3610:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			toast("Salt Kalymniotikos: The salt kalymniotikos-step fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30800,6 +30804,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE ORARIONITE — the wake orarionite-step trails you fast and pays, but slips off the stance (+6% speed, +4% souls, −3% dodge)"},
 		{"text": "BILGE ORARIONITE — the bilge orarionite-step fills and teaches, but sits heavier (+5% souls, +5% XP, −3% dodge)"},
 		{"text": "CREST ORARIONITE — the crest orarionite-step slips and strikes, but pays thinner (+5% dodge, +5% ATK, −4% souls)"},
+		{"text": "SALT ORARIONITE — the salt orarionite-step fills and teaches, but sits heavier (+6% souls, +4% XP, −3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -57675,6 +57680,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.04
 			oname = "CREST ORARIONITE"
 		5331:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "SALT ORARIONITE"
+		5332:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -63080,6 +63090,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE ORARIONITE": "Wake Orarionite — the deacon-stole trails in the foam, Kael.",
 	"BILGE ORARIONITE": "Bilge Orarionite — the deacon-stole soaks in the bilge, Kael.",
 	"CREST ORARIONITE": "Crest Orarionite — white-tops on the deacon-stole, Kael.",
+	"SALT ORARIONITE": "Salt Orarionite — rime on the deacon-stole, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -71851,6 +71862,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Wake Kalymniotikos — the wake kalymniotikos-step trails you fast and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Kalymniotikos — the bilge kalymniotikos-step fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Kalymniotikos — the crest kalymniotikos-step slips and strikes true (+5% dodge, +5% ATK)"},
+		{"text": "Salt Kalymniotikos — the salt kalymniotikos-step fills and teaches you (+6% souls, +4% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
