@@ -23154,6 +23154,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Pyrrhichios: The storm pyrrhichios-step sharpens and furious you, Kael.")
+		3061:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Pyrrhichios: The keel pyrrhichios-step fills and armors you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -27969,6 +27973,7 @@ func _offer_omens() -> void:
 		{"text": "GREY RASON — the grey rason guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE RASON — the tide rason quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM RASON — the storm rason sharpens and furious you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
+		{"text": "KEEL RASON — the keel rason fills and armors you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -52062,6 +52067,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM RASON"
 		4782:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL RASON"
+		4783:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -56914,6 +56924,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY RASON": "The grey rason robes you from floor to throat in the grey hours, Kael — guarded and taught, at a cost.",
 	"TIDE RASON": "The tide rason robes you from floor to throat with the tide, Kael — quicker and keener, at a cost.",
 	"STORM RASON": "The storm rason robes you from floor to throat in the storm, Kael — keen and furious, at a cost.",
+	"KEEL RASON": "The keel rason robes you from floor to throat along the keel, Kael — filled and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -65136,6 +65147,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Pyrrhichios — the grey pyrrhichios-step guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Pyrrhichios — the tide pyrrhichios-step quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Pyrrhichios — the storm pyrrhichios-step sharpens and furious you (+5% ATK, +6% crit)"},
+		{"text": "Keel Pyrrhichios — the keel pyrrhichios-step fills and armors you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
