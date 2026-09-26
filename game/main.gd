@@ -25845,6 +25845,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Kerkyraikos: The tide kerkyraikos-step speeds and bites, Kael.")
+		3705:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Kerkyraikos: The storm kerkyraikos-step strikes and sharpens, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -31304,6 +31308,7 @@ func _offer_omens() -> void:
 		{"text": "PALE EISAGOGE — the pale eisagoge-step slips and fills, but dulls the edge (+6% dodge, +5% souls, −4% ATK)"},
 		{"text": "GREY EISAGOGE — the grey eisagoge-step slips and teaches, but dulls the edge (+5% dodge, +5% XP, −4% ATK)"},
 		{"text": "TIDE EISAGOGE — the tide eisagoge-step speeds and bites, but slips off the stance (+6% speed, +4% ATK, −3% dodge)"},
+		{"text": "STORM EISAGOGE — the storm eisagoge-step strikes and sharpens, but slips off the stance (+5% ATK, +6% crit, −4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -58660,6 +58665,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE EISAGOGE"
 		5426:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM EISAGOGE"
+		5427:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -64160,6 +64170,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE EISAGOGE": "Pale Eisagoge — moonlight on the introduction-text, Kael.",
 	"GREY EISAGOGE": "Grey Eisagoge — ash on the introduction-text, Kael.",
 	"TIDE EISAGOGE": "Tide Eisagoge — the introduction-text tides you onward, Kael.",
+	"STORM EISAGOGE": "Storm Eisagoge — thunder reads the introduction-text, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -73026,6 +73037,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Kerkyraikos — the pale kerkyraikos-step slips and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Kerkyraikos — the grey kerkyraikos-step slips and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Kerkyraikos — the tide kerkyraikos-step speeds and bites (+6% speed, +4% ATK)"},
+		{"text": "Storm Kerkyraikos — the storm kerkyraikos-step strikes and sharpens (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
