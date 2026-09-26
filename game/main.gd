@@ -23992,6 +23992,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 5
 			Stats.dodge += 3
 			toast("Deep Ballos: The deep ballos-step quickens your arm, Kael.")
+		3267:
+			Stats.dodge += 6
+			Stats.soul_gain_pct += 5
+			toast("Pale Ballos: The pale ballos-step slips you aside, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29013,6 +29017,7 @@ func _offer_omens() -> void:
 		{"text": "CREST TETRAPYLON — CREST TETRAPYLON — the crest four-gate breaks over you (+5% dodge, +5% ATK)... its foam spills your purse (−4% souls)"},
 		{"text": "SALT TETRAPYLON — SALT TETRAPYLON — the salt four-gate preserves what you keep (+6% souls, +4% XP)... its crust slows your step (−3% dodge)"},
 		{"text": "DEEP ANALOGION — DEEP ANALOGION — the deep lectern holds the drowned psalms (+7% ATK, +3% dodge)... its pages tithe (−3% souls)"},
+		{"text": "PALE ANALOGION — PALE ANALOGION — the pale lectern holds fog-bound psalms (+6% dodge, +5% souls)... its stand blunts your arm (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54150,6 +54155,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 3
 			oname = "DEEP ANALOGION"
 		4988:
+			Stats.dodge += 6
+			Stats.soul_gain_pct += 5
+			Stats.buff_atk_pct -= 4
+			oname = "PALE ANALOGION"
+		4989:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59208,6 +59218,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST TETRAPYLON": "The crest four-gate breaks for you, Kael.",
 	"SALT TETRAPYLON": "The salt four-gate preserves you, Kael.",
 	"DEEP ANALOGION": "The deep lectern opens for you, Kael — it keeps a toll in souls.",
+	"PALE ANALOGION": "The pale lectern pays you in mist and memory, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -67636,6 +67647,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Crest Sousta — the crest sousta-step guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Sousta — the salt sousta-step fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Ballos — the deep ballos-step quickens your arm (+5% ATK, +3% dodge)"},
+		{"text": "Pale Ballos — the pale ballos-step slips you aside (+6% dodge, +5% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
