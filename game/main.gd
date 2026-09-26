@@ -23329,6 +23329,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Grey Furiant: The grey furiant-step guards and teaches you, Kael.")
+		3104:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			toast("Tide Furiant: The tide furiant-step quickens and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -28187,6 +28191,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP ENGOLPION — the deep engolpion sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 		{"text": "PALE ENGOLPION — the pale engolpion guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY ENGOLPION — the grey engolpion guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
+		{"text": "TIDE ENGOLPION — the tide engolpion quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -52498,6 +52503,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY ENGOLPION"
 		4825:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE ENGOLPION"
+		4826:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -57393,6 +57403,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP ENGOLPION": "The deep engolpion locks its icon at your chest, Kael — keen and guarded, at a cost.",
 	"PALE ENGOLPION": "The pale engolpion locks its icon on your pale breast, Kael — guarded and filled, at a cost.",
 	"GREY ENGOLPION": "The grey engolpion locks its icon over your grey hours, Kael — guarded and taught, at a cost.",
+	"TIDE ENGOLPION": "The tide engolpion locks its icon with your tide, Kael — quicker and keener, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -65658,6 +65669,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Deep Furiant — the deep furiant-step sharpens and guards you (+5% ATK, +3% dodge)"},
 		{"text": "Pale Furiant — the pale furiant-step guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Furiant — the grey furiant-step guards and teaches you (+5% dodge, +5% XP)"},
+		{"text": "Tide Furiant — the tide furiant-step quickens and sharpens you (+6% speed, +4% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
