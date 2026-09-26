@@ -23500,6 +23500,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_xp_pct += 0.04
 			toast("Salt Kolomeyka: The salt kolomeyka-step fills and teaches you, Kael.")
+		3146:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.03
+			toast("Deep Danzon: The deep danzon-step sharpens and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -28400,6 +28404,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE ZOSTIKON — the bilge zostikon fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 		{"text": "CREST ZOSTIKON — the crest zostikon guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT ZOSTIKON — the salt zostikon fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
+		{"text": "DEEP DALMATICA — the deep dalmatica sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -52924,6 +52929,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT ZOSTIKON"
 		4867:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP DALMATICA"
+		4868:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -57861,6 +57871,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE ZOSTIKON": "The bilge zostikon girds its belt in your hold, Kael — richer and wiser, at a cost.",
 	"CREST ZOSTIKON": "The crest zostikon girds its belt on your crest, Kael — guarded and keen, at a cost.",
 	"SALT ZOSTIKON": "The salt zostikon girds its belt across your salt-brows, Kael — filled and taught, at a cost.",
+	"DEEP DALMATICA": "The deep dalmatica drapes its wide sleeves over you, Kael — keen and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -66168,6 +66179,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bilge Kolomeyka — the bilge kolomeyka-step fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Kolomeyka — the crest kolomeyka-step guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Kolomeyka — the salt kolomeyka-step fills and teaches you (+6% souls, +4% XP)"},
+		{"text": "Deep Danzon — the deep danzon-step sharpens and guards you (+5% ATK, +3% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
