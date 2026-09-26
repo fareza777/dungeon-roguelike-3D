@@ -23353,6 +23353,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Furiant: The bottom furiant-step fills and guards you, Kael.")
+		3110:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Furiant: The grim furiant-step sharpens, guards and armors you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -28217,6 +28222,7 @@ func _offer_omens() -> void:
 		{"text": "HULL ENGOLPION — the hull engolpion thickens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH ENGOLPION — the trench engolpion sharpens and hastens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
 		{"text": "BOTTOM ENGOLPION — the bottom engolpion fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM ENGOLPION — the grim engolpion sharpens, guards and armors you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -52558,6 +52564,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM ENGOLPION"
 		4831:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM ENGOLPION"
+		4832:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -57459,6 +57471,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL ENGOLPION": "The hull engolpion locks its icon around your hull, Kael — thicker and guarded, at a cost.",
 	"TRENCH ENGOLPION": "The trench engolpion locks its icon in your trench, Kael — keen and quick, at a cost.",
 	"BOTTOM ENGOLPION": "The bottom engolpion locks its icon at your bottom, Kael — filled and guarded, at a cost.",
+	"GRIM ENGOLPION": "The grim engolpion locks its icon through your grim vigil, Kael — keen, guarded, plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -65730,6 +65743,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Furiant — the hull furiant-step thickens and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Furiant — the trench furiant-step sharpens and hastens you (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Furiant — the bottom furiant-step fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Furiant — the grim furiant-step sharpens, guards and armors you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
