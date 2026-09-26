@@ -25597,6 +25597,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Grey Kangeliotikos: The grey kangeliotikos-step slips and teaches you, Kael.")
+		3644:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			toast("Tide Kangeliotikos: The tide kangeliotikos-step speeds and bites, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30995,6 +30999,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP SPITWADDLE — the deep spitwaddle-step bites and slips, but pays thinner (+7% ATK, +3% dodge, −3% souls)"},
 		{"text": "PALE SPITWADDLE — the pale spitwaddle-step slips and fills, but dulls the edge (+6% dodge, +5% souls, −4% ATK)"},
 		{"text": "GREY SPITWADDLE — the grey spitwaddle-step slips and teaches, but dulls the edge (+5% dodge, +5% XP, −4% ATK)"},
+		{"text": "TIDE SPITWADDLE — the tide spitwaddle-step speeds and bites, but slips off the stance (+6% speed, +4% ATK, −3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -58042,6 +58047,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY SPITWADDLE"
 		5365:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE SPITWADDLE"
+		5366:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -63481,6 +63491,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP SPITWADDLE": "Deep Spitwaddle — the dry-march churns dark, Kael.",
 	"PALE SPITWADDLE": "Pale Spitwaddle — moonlight on the dry-march, Kael.",
 	"GREY SPITWADDLE": "Grey Spitwaddle — ash on the dry-march, Kael.",
+	"TIDE SPITWADDLE": "Tide Spitwaddle — the dry-march tides you onward, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -72286,6 +72297,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Deep Kangeliotikos — the deep kangeliotikos-step bites and slips you (+7% ATK, +3% dodge)"},
 		{"text": "Pale Kangeliotikos — the pale kangeliotikos-step slips and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Kangeliotikos — the grey kangeliotikos-step slips and teaches you (+5% dodge, +5% XP)"},
+		{"text": "Tide Kangeliotikos — the tide kangeliotikos-step speeds and bites (+6% speed, +4% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
