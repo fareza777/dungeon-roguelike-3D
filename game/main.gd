@@ -25273,6 +25273,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Yianni: The tide yianni-step speeds and bites, Kael.")
+		3570:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Yianni: The storm yianni-step strikes and sharpens, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30597,6 +30601,7 @@ func _offer_omens() -> void:
 		{"text": "PALE PROSKYNITARTIKON — the pale proskynitartikon-step slips and fills, but dulls the edge (+6% dodge, +5% souls, −4% ATK)"},
 		{"text": "GREY PROSKYNITARTIKON — the grey proskynitartikon-step slips and teaches, but dulls the edge (+5% dodge, +5% XP, −4% ATK)"},
 		{"text": "TIDE PROSKYNITARTIKON — the tide proskynitartikon-step speeds and bites, but slips off the stance (+6% speed, +4% ATK, −3% dodge)"},
+		{"text": "STORM PROSKYNITARTIKON — the storm proskynitartikon-step strikes and sharpens, but slips off the stance (+5% ATK, +6% crit, −4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -57269,6 +57274,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE PROSKYNITARTIKON"
 		5291:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM PROSKYNITARTIKON"
+		5292:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -62634,6 +62644,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE PROSKYNITARTIKON": "Pale Proskynitartikon — moonlight on the pilgrim-roll, Kael.",
 	"GREY PROSKYNITARTIKON": "Grey Proskynitartikon — ash on the pilgrim-roll, Kael.",
 	"TIDE PROSKYNITARTIKON": "Tide Proskynitartikon — the pilgrim-roll tides you onward, Kael.",
+	"STORM PROSKYNITARTIKON": "Storm Proskynitartikon — thunder reads the pilgrim-roll, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -71365,6 +71376,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Yianni — the pale yianni-step slips and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Yianni — the grey yianni-step slips and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Yianni — the tide yianni-step speeds and bites (+6% speed, +4% ATK)"},
+		{"text": "Storm Yianni — the storm yianni-step strikes and sharpens (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
