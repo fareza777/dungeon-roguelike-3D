@@ -24223,6 +24223,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 6
 			Stats.soul_gain_pct += 4
 			toast("Wake Dipat: The wake dipat-step carries and fills you, Kael.")
+		3323:
+			Stats.soul_gain_pct += 5
+			Stats.buff_xp_pct += 5
+			toast("Bilge Dipat: The bilge dipat-step fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29300,6 +29304,7 @@ func _offer_omens() -> void:
 		{"text": "GRIM DIASOURA — GRIM DIASOURA — the grim diasoura arms you whole (+5% ATK, +4% dodge, +2 armor)... its weight anchors you (−4% speed)"},
 		{"text": "FOG DIASOURA — FOG DIASOURA — the fog diasoura blurs its rite past (+7% dodge, +4% souls)... its haze blunts your edge (−4% ATK)"},
 		{"text": "WAKE DIASOURA — WAKE DIASOURA — the wake diasoura pulls you along (+6% speed, +4% souls)... its wash tilts your step (−3% dodge)"},
+		{"text": "BILGE DIASOURA — BILGE DIASOURA — the bilge diasoura ferments the rite (+5% souls, +5% XP)... its stench slows your step (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54721,6 +54726,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 3
 			oname = "WAKE DIASOURA"
 		5044:
+			Stats.soul_gain_pct += 5
+			Stats.buff_xp_pct += 5
+			Stats.dodge -= 3
+			oname = "BILGE DIASOURA"
+		5045:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59835,6 +59845,7 @@ func _omen_deal(idx: int) -> void:
 	"GRIM DIASOURA": "The grim diasoura arms you whole, Kael.",
 	"FOG DIASOURA": "The fog diasoura blurs you past, Kael.",
 	"WAKE DIASOURA": "The wake diasoura pulls you along, Kael.",
+	"BILGE DIASOURA": "The bilge diasoura ferments for you, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -68319,6 +68330,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grim Dipat — the grim dipat-step strikes, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Dipat — the fog dipat-step blurs and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Dipat — the wake dipat-step carries and fills you (+6% speed, +4% souls)"},
+		{"text": "Bilge Dipat — the bilge dipat-step fills and teaches you (+5% souls, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
