@@ -25403,6 +25403,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_armor += 3
 			toast("Keel Kalymniotikos: The keel kalymniotikos-step fills and plates you, Kael.")
+		3602:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			toast("Hull Kalymniotikos: The hull kalymniotikos-step thickens your frame and slips you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30759,6 +30763,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE ORARIONITE — the tide orarionite-step speeds and bites, but slips off the stance (+6% speed, +4% ATK, −3% dodge)"},
 		{"text": "STORM ORARIONITE — the storm orarionite-step strikes and sharpens, but slips off the stance (+5% ATK, +6% crit, −4% dodge)"},
 		{"text": "KEEL ORARIONITE — the keel orarionite-step fills and plates, but slips off the stance (+6% souls, +3 armor, −4% dodge)"},
+		{"text": "HULL ORARIONITE — the hull orarionite-step thickens your frame and slips, but sits heavier (+6% HP, +4% dodge, −3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -57593,6 +57598,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL ORARIONITE"
 		5323:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL ORARIONITE"
+		5324:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -62990,6 +63000,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE ORARIONITE": "Tide Orarionite — the deacon-stole tides you onward, Kael.",
 	"STORM ORARIONITE": "Storm Orarionite — thunder reads the deacon-stole, Kael.",
 	"KEEL ORARIONITE": "Keel Orarionite — the deacon-stole rides low, Kael.",
+	"HULL ORARIONITE": "Hull Orarionite — the deacon-stole braces the hull, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -71753,6 +71764,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Tide Kalymniotikos — the tide kalymniotikos-step speeds and bites (+6% speed, +4% ATK)"},
 		{"text": "Storm Kalymniotikos — the storm kalymniotikos-step strikes and sharpens (+5% ATK, +6% crit)"},
 		{"text": "Keel Kalymniotikos — the keel kalymniotikos-step fills and plates you (+6% souls, +3 armor)"},
+		{"text": "Hull Kalymniotikos — the hull kalymniotikos-step thickens your frame and slips you (+6% HP, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
