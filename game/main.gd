@@ -23044,6 +23044,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Hasaposerviko: The trench hasaposerviko-step sharpens and hastens you, Kael.")
+		3034:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Hasaposerviko: The bottom hasaposerviko-step fills and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -27832,6 +27836,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL MANTIAS — the keel mantias fills and armors you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL MANTIAS — the hull mantias thickens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH MANTIAS — the trench mantias sharpens and hastens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
+		{"text": "BOTTOM MANTIAS — the bottom mantias fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -51788,6 +51793,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH MANTIAS"
 		4755:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM MANTIAS"
+		4756:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -56613,6 +56623,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL MANTIAS": "The keel mantias falls across your shoulders along the keel, Kael — filled and plated, at a cost.",
 	"HULL MANTIAS": "The hull mantias falls across your shoulders around the hull, Kael — thicker and guarded, at a cost.",
 	"TRENCH MANTIAS": "The trench mantias falls across your shoulders in the trench, Kael — keen and quick, at a cost.",
+	"BOTTOM MANTIAS": "The bottom mantias falls across your shoulders at the bottom, Kael — filled and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -64808,6 +64819,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Hasaposerviko — the keel hasaposerviko-step fills and armors you (+6% souls, +3 armor)"},
 		{"text": "Hull Hasaposerviko — the hull hasaposerviko-step thickens and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Hasaposerviko — the trench hasaposerviko-step sharpens and hastens you (+5% ATK, +4% atk speed)"},
+		{"text": "Bottom Hasaposerviko — the bottom hasaposerviko-step fills and guards you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
