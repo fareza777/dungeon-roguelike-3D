@@ -24510,6 +24510,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.06
 			Stats.soul_gain_pct += 0.05
 			toast("Pale Kathistikos: The pale kathistikos-step slips and fills you, Kael.")
+		3388:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Grey Kathistikos: The grey kathistikos-step slips and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29652,6 +29656,7 @@ func _offer_omens() -> void:
 		{"text": "SALT HEXAPTERYGON — the salt hexapterygon-step fills and teaches, but sits heavier (+6% souls, +4% XP, −3% dodge)"},
 		{"text": "DEEP TABLION — the deep tablion-step strikes harder, slips better, pays thinner (+7% ATK, +3% dodge, −3% souls)"},
 		{"text": "PALE TABLION — the pale tablion-step slips like ghost-silk, pays a little more, strikes lighter (+6% dodge, +5% souls, −4% ATK)"},
+		{"text": "GREY TABLION — the grey tablion-step slips, teaches, strikes lighter (+5% dodge, +5% XP, −4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -55402,6 +55407,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "PALE TABLION"
 		5109:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "GREY TABLION"
+		5110:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -60581,6 +60591,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT HEXAPTERYGON": "Salt Hexapterygon — rime dries the feathers but never the shrine, Kael.",
 	"DEEP TABLION": "Deep Tablion — the imperial chest-patch seals your breast, Kael.",
 	"PALE TABLION": "Pale Tablion — a whitened patch over the old wound, Kael.",
+	"GREY TABLION": "Grey Tablion — the tarnished badge keeps its lessons, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -69130,6 +69141,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Salt Siganos — the salt siganos-step fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Kathistikos — the deep kathistikos-step quickens your arm (+5% ATK, +3% dodge)"},
 		{"text": "Pale Kathistikos — the pale kathistikos-step slips and fills you (+6% dodge, +5% souls)"},
+		{"text": "Grey Kathistikos — the grey kathistikos-step slips and teaches you (+5% dodge, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
