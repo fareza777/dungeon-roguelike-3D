@@ -24049,6 +24049,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 6
 			Stats.buff_xp_pct += 4
 			toast("Salt Ballos: The salt ballos-step fills and teaches you, Kael.")
+		3281:
+			Stats.buff_atk_pct += 5
+			Stats.dodge += 3
+			toast("Deep Iskenderun: The deep iskenderun-step quickens your arm, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29084,6 +29088,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE ANALOGION — BILGE ANALOGION — the bilge lectern ferments the sunken verses (+5% souls, +5% XP)... its stench slows your step (−3% dodge)"},
 		{"text": "CREST ANALOGION — CREST ANALOGION — the crest lectern breaks over you (+5% dodge, +5% ATK)... its foam spills your purse (−4% souls)"},
 		{"text": "SALT ANALOGION — SALT ANALOGION — the salt lectern preserves the last verse (+6% souls, +4% XP)... its crust slows your step (−3% dodge)"},
+		{"text": "DEEP SOLEA — DEEP SOLEA — the deep solea leads you to the edge (+7% ATK, +3% dodge)... its stones tithe (−3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54292,6 +54297,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 3
 			oname = "SALT ANALOGION"
 		5002:
+			Stats.buff_atk_pct += 7
+			Stats.dodge += 3
+			Stats.soul_gain_pct -= 3
+			oname = "DEEP SOLEA"
+		5003:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59364,6 +59374,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE ANALOGION": "The bilge lectern ferments for you, Kael.",
 	"CREST ANALOGION": "The crest lectern breaks for you, Kael.",
 	"SALT ANALOGION": "The salt lectern preserves you, Kael.",
+	"DEEP SOLEA": "The deep solea leads you to the edge, Kael — it keeps a toll in souls.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -67806,6 +67817,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bilge Ballos — the bilge ballos-step fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Ballos — the crest ballos-step guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Ballos — the salt ballos-step fills and teaches you (+6% souls, +4% XP)"},
+		{"text": "Deep Iskenderun — the deep iskenderun-step quickens your arm (+5% ATK, +3% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
