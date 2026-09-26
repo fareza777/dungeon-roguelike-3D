@@ -24408,6 +24408,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 0.06
 			Stats.dodge += 0.04
 			toast("Hull Patinada: The hull patinada-step thickens your frame and slips you, Kael.")
+		3363:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			toast("Trench Patinada: The trench patinada-step drives harder and quicker, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29525,6 +29529,7 @@ func _offer_omens() -> void:
 		{"text": "STORM EMBOTICHON — the storm embotichon-step strikes harder and truer, but grounds you (+5% ATK, +6% crit, −4% dodge)"},
 		{"text": "KEEL EMBOTICHON — the keel embotichon-step fills, plates, grounds you (+6% souls, +3 armor, −4% dodge)"},
 		{"text": "HULL EMBOTICHON — the hull embotichon-step thickens your frame and slips, but slows you (+6% HP, +4% dodge, −3% speed)"},
+		{"text": "TRENCH EMBOTICHON — the trench embotichon-step drives harder and quicker, but grounds you (+5% ATK, +4% atk speed, −4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -55148,6 +55153,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL EMBOTICHON"
 		5084:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH EMBOTICHON"
+		5085:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -60302,6 +60312,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM EMBOTICHON": "Storm Embotichon — the vambrace hums with static, Kael.",
 	"KEEL EMBOTICHON": "Keel Embotichon — keel-fastened bronze keeps you upright, Kael.",
 	"HULL EMBOTICHON": "Hull Embotichon — double-forged bronze over doubled bone, Kael.",
+	"TRENCH EMBOTICHON": "Trench Embotichon — pressure-dark bronze drinks the light, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -68826,6 +68837,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Storm Patinada — the storm patinada-step strikes harder and truer (+5% ATK, +6% crit)"},
 		{"text": "Keel Patinada — the keel patinada-step fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Patinada — the hull patinada-step thickens your frame and slips you (+6% HP, +4% dodge)"},
+		{"text": "Trench Patinada — the trench patinada-step drives harder and quicker (+5% ATK, +4% atk speed)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
