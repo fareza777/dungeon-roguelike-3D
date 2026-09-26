@@ -24194,6 +24194,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 5
 			Stats.buff_crit += 6
 			toast("Storm Dipat: The storm dipat-step strikes and quickens you, Kael.")
+		3316:
+			Stats.soul_gain_pct += 6
+			Stats.buff_armor += 3
+			toast("Keel Dipat: The keel dipat-step fills and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29264,6 +29268,7 @@ func _offer_omens() -> void:
 		{"text": "GREY DIASOURA — GREY DIASOURA — the grey diasoura teaches its rite (+5% dodge, +5% XP)... its shadow dulls your edge (−4% ATK)"},
 		{"text": "TIDE DIASOURA — TIDE DIASOURA — the tide diasoura carries you fast (+6% speed, +4% ATK)... its current tilts your step (−3% dodge)"},
 		{"text": "STORM DIASOURA — STORM DIASOURA — the storm diasoura breaks under thunder (+5% ATK, +6% crit)... its wind rocks your guard (−4% dodge)"},
+		{"text": "KEEL DIASOURA — KEEL DIASOURA — the keel diasoura stands iron-fast (+6% souls, +3 armor)... its weight slows your step (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54649,6 +54654,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 4
 			oname = "STORM DIASOURA"
 		5037:
+			Stats.soul_gain_pct += 6
+			Stats.buff_armor += 3
+			Stats.dodge -= 4
+			oname = "KEEL DIASOURA"
+		5038:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59756,6 +59766,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY DIASOURA": "The grey diasoura teaches you its rite, Kael.",
 	"TIDE DIASOURA": "The tide diasoura carries you through, Kael.",
 	"STORM DIASOURA": "The storm diasoura breaks the sky for you, Kael.",
+	"KEEL DIASOURA": "The keel diasoura stands fast for you, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -68233,6 +68244,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Dipat — the grey dipat-step teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Dipat — the tide dipat-step carries and quickens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Dipat — the storm dipat-step strikes and quickens you (+5% ATK, +6% crit)"},
+		{"text": "Keel Dipat — the keel dipat-step fills and plates you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
