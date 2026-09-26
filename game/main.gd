@@ -24235,6 +24235,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 6
 			Stats.buff_xp_pct += 4
 			toast("Salt Dipat: The salt dipat-step fills and teaches you, Kael.")
+		3326:
+			Stats.buff_atk_pct += 5
+			Stats.dodge += 3
+			toast("Deep Nizamikos: The deep nizamikos-step quickens your arm, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29315,6 +29319,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE DIASOURA — BILGE DIASOURA — the bilge diasoura ferments the rite (+5% souls, +5% XP)... its stench slows your step (−3% dodge)"},
 		{"text": "CREST DIASOURA — CREST DIASOURA — the crest diasoura breaks over you (+5% dodge, +5% ATK)... its foam spills your purse (−4% souls)"},
 		{"text": "SALT DIASOURA — SALT DIASOURA — the salt diasoura preserves the last rite (+6% souls, +4% XP)... its crust slows your step (−3% dodge)"},
+		{"text": "DEEP PYXIDA — DEEP PYXIDA — the deep pyx keeps the drowned host (+7% ATK, +3% dodge)... its lid tithes (−3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54751,6 +54756,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 3
 			oname = "SALT DIASOURA"
 		5047:
+			Stats.buff_atk_pct += 7
+			Stats.dodge += 3
+			Stats.soul_gain_pct -= 3
+			oname = "DEEP PYXIDA"
+		5048:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59868,6 +59878,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE DIASOURA": "The bilge diasoura ferments for you, Kael.",
 	"CREST DIASOURA": "The crest diasoura breaks for you, Kael.",
 	"SALT DIASOURA": "The salt diasoura preserves you, Kael.",
+	"DEEP PYXIDA": "The deep pyx opens for you, Kael — it keeps a toll in souls.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -68355,6 +68366,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bilge Dipat — the bilge dipat-step fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Dipat — the crest dipat-step guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Dipat — the salt dipat-step fills and teaches you (+6% souls, +4% XP)"},
+		{"text": "Deep Nizamikos — the deep nizamikos-step quickens your arm (+5% ATK, +3% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
