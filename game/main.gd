@@ -24457,6 +24457,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Siganos: The tide siganos-step surges your pace and arm, Kael.")
+		3375:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Siganos: The storm siganos-step strikes harder and truer, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29586,6 +29590,7 @@ func _offer_omens() -> void:
 		{"text": "PALE HEXAPTERYGON — the pale hexapterygon-step slips like ghost-wings, pays a little more, strikes lighter (+6% dodge, +5% souls, −4% ATK)"},
 		{"text": "GREY HEXAPTERYGON — the grey hexapterygon-step slips, teaches, strikes lighter (+5% dodge, +5% XP, −4% ATK)"},
 		{"text": "TIDE HEXAPTERYGON — the tide hexapterygon-step surges your pace and arm, but sits heavier (+6% speed, +4% ATK, −3% dodge)"},
+		{"text": "STORM HEXAPTERYGON — the storm hexapterygon-step strikes harder and truer, but grounds you (+5% ATK, +6% crit, −4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -55270,6 +55275,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE HEXAPTERYGON"
 		5096:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM HEXAPTERYGON"
+		5097:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -60436,6 +60446,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE HEXAPTERYGON": "Pale Hexapterygon — bleached feathers beat the air, Kael.",
 	"GREY HEXAPTERYGON": "Grey Hexapterygon — ashen wings remember every rite, Kael.",
 	"TIDE HEXAPTERYGON": "Tide Hexapterygon — the wings pull like undertow, Kael.",
+	"STORM HEXAPTERYGON": "Storm Hexapterygon — thunder rides the feathered blades, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -68972,6 +68983,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Siganos — the pale siganos-step slips and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Siganos — the grey siganos-step slips and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Siganos — the tide siganos-step surges your pace and arm (+6% speed, +4% ATK)"},
+		{"text": "Storm Siganos — the storm siganos-step strikes harder and truer (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
