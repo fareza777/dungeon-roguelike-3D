@@ -24117,6 +24117,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 5
 			Stats.dodge += 3
 			toast("Deep Aptaliko: The deep aptaliko-step quickens your arm, Kael.")
+		3297:
+			Stats.dodge += 6
+			Stats.soul_gain_pct += 5
+			toast("Pale Aptaliko: The pale aptaliko-step slips you aside, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29168,6 +29172,7 @@ func _offer_omens() -> void:
 		{"text": "CREST SOLEA — CREST SOLEA — the crest solea breaks over the edge (+5% dodge, +5% ATK)... its foam spills your purse (−4% souls)"},
 		{"text": "SALT SOLEA — SALT SOLEA — the salt solea preserves the last approach (+6% souls, +4% XP)... its crust slows your step (−3% dodge)"},
 		{"text": "DEEP VIMA — DEEP VIMA — the deep sanctuary's step is sunk (+7% ATK, +3% dodge)... its floor tithes (−3% souls)"},
+		{"text": "PALE VIMA — PALE VIMA — the pale sanctuary's step opens on mist (+6% dodge, +5% souls)... its floor blunts your arm (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54457,6 +54462,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 3
 			oname = "DEEP VIMA"
 		5018:
+			Stats.dodge += 6
+			Stats.soul_gain_pct += 5
+			Stats.buff_atk_pct -= 4
+			oname = "PALE VIMA"
+		5019:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59545,6 +59555,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST SOLEA": "The crest solea breaks for you, Kael.",
 	"SALT SOLEA": "The salt solea preserves you, Kael.",
 	"DEEP VIMA": "The deep sanctuary's step opens for you, Kael — it keeps a toll in souls.",
+	"PALE VIMA": "The pale sanctuary pays you in mist and memory, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -68003,6 +68014,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Crest Iskenderun — the crest iskenderun-step guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Iskenderun — the salt iskenderun-step fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Aptaliko — the deep aptaliko-step quickens your arm (+5% ATK, +3% dodge)"},
+		{"text": "Pale Aptaliko — the pale aptaliko-step slips you aside (+6% dodge, +5% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
