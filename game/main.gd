@@ -25054,6 +25054,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.04
 			Stats.buff_armor += 2
 			toast("Grim Bajraktari: The grim bajraktari-step strikes, slips and plates you, Kael.")
+		3516:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			toast("Fog Bajraktari: The fog bajraktari-step veils and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30324,6 +30328,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH PERISKELEI — the trench periskelei-step drives harder and quicker, but slips off the stance (+5% ATK, +4% atk speed, −4% dodge)"},
 		{"text": "BOTTOM PERISKELEI — the bottom periskelei-step pays richly and slips, but dulls the edge (+7% souls, +4% dodge, −3% ATK)"},
 		{"text": "GRIM PERISKELEI — the grim periskelei-step strikes, slips, plates — but anchors you (+5% ATK, +4% dodge, +2 armor, −4% speed)"},
+		{"text": "FOG PERISKELEI — the fog periskelei-step veils you thick and pays, but dulls the edge (+7% dodge, +4% souls, −4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -56723,6 +56728,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM PERISKELEI"
 		5237:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG PERISKELEI"
+		5238:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -62030,6 +62040,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH PERISKELEI": "Trench Periskelei — the greave bites fastest down deep, Kael.",
 	"BOTTOM PERISKELEI": "Bottom Periskelei — the greave sinks to the seabed, Kael.",
 	"GRIM PERISKELEI": "Grim Periskelei — a greave of mourning iron, Kael.",
+	"FOG PERISKELEI": "Fog Periskelei — murk on the greave's clasp, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -70707,6 +70718,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Trench Bajraktari — the trench bajraktari-step drives harder and quicker (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Bajraktari — the bottom bajraktari-step fills and slips you (+7% souls, +4% dodge)"},
 		{"text": "Grim Bajraktari — the grim bajraktari-step strikes, slips and plates you (+5% ATK, +4% dodge, +2 armor)"},
+		{"text": "Fog Bajraktari — the fog bajraktari-step veils and fills you (+7% dodge, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
