@@ -25228,6 +25228,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Kangeli: The trench kangeli-step drives harder and quicker, Kael.")
+		3559:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Kangeli: The bottom kangeli-step fills and slips you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30541,6 +30545,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL ECCLESIA — the keel ecclesia-step fills and plates, but slips off the stance (+6% souls, +3 armor, −4% dodge)"},
 		{"text": "HULL ECCLESIA — the hull ecclesia-step thickens your frame and slips, but sits heavier (+6% HP, +4% dodge, −3% speed)"},
 		{"text": "TRENCH ECCLESIA — the trench ecclesia-step drives harder and quicker, but slips off the stance (+5% ATK, +4% atk speed, −4% dodge)"},
+		{"text": "BOTTOM ECCLESIA — the bottom ecclesia-step pays richly and slips, but dulls the edge (+7% souls, +4% dodge, −3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -57157,6 +57162,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH ECCLESIA"
 		5280:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM ECCLESIA"
+		5281:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -62511,6 +62521,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL ECCLESIA": "Keel Ecclesia — the assembly rides low, Kael.",
 	"HULL ECCLESIA": "Hull Ecclesia — the assembly braces the hull, Kael.",
 	"TRENCH ECCLESIA": "Trench Ecclesia — the canon bites fastest down deep, Kael.",
+	"BOTTOM ECCLESIA": "Bottom Ecclesia — the assembly sinks to the seabed, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -71231,6 +71242,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Kangeli — the keel kangeli-step fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Kangeli — the hull kangeli-step thickens your frame and slips you (+6% HP, +4% dodge)"},
 		{"text": "Trench Kangeli — the trench kangeli-step drives harder and quicker (+5% ATK, +4% atk speed)"},
+		{"text": "Bottom Kangeli — the bottom kangeli-step fills and slips you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
