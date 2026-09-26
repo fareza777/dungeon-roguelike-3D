@@ -24831,6 +24831,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_armor += 3
 			toast("Keel Politiko: The keel politiko-step fills and plates you, Kael.")
+		3467:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			toast("Hull Politiko: The hull politiko-step thickens your frame and slips you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30052,6 +30056,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE DIAKONIMA — the tide diakonima-step speeds and bites, but slips off the stance (+6% speed, +4% ATK, −3% dodge)"},
 		{"text": "STORM DIAKONIMA — the storm diakonima-step strikes and sharpens, but slips off the stance (+5% ATK, +6% crit, −4% dodge)"},
 		{"text": "KEEL DIAKONIMA — the keel diakonima-step fills and plates, but slips off the stance (+6% souls, +3 armor, −4% dodge)"},
+		{"text": "HULL DIAKONIMA — the hull diakonima-step thickens your frame and slips, but sits heavier (+6% HP, +4% dodge, −3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -56202,6 +56207,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL DIAKONIMA"
 		5188:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL DIAKONIMA"
+		5189:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -61460,6 +61470,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE DIAKONIMA": "Tide Diakonima — the canticle rides the current, Kael.",
 	"STORM DIAKONIMA": "Storm Diakonima — thunder in the litany, Kael.",
 	"KEEL DIAKONIMA": "Keel Diakonima — the litany rides low, Kael.",
+	"HULL DIAKONIMA": "Hull Diakonima — the litany stiffens the timber, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -70088,6 +70099,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Tide Politiko — the tide politiko-step speeds and bites (+6% speed, +4% ATK)"},
 		{"text": "Storm Politiko — the storm politiko-step strikes and sharpens (+5% ATK, +6% crit)"},
 		{"text": "Keel Politiko — the keel politiko-step fills and plates you (+6% souls, +3 armor)"},
+		{"text": "Hull Politiko — the hull politiko-step thickens your frame and slips you (+6% HP, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
