@@ -24575,6 +24575,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Grey Arapistikos: The grey arapistikos-step slips and teaches you, Kael.")
+		3404:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			toast("Tide Arapistikos: The tide arapistikos-step surges your pace and arm, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29733,6 +29737,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP FERETORY — the deep feretory-step strikes harder, slips better, pays thinner (+7% ATK, +3% dodge, −3% souls)"},
 		{"text": "PALE FERETORY — the pale feretory-step slips like ghost-relic, pays a little more, strikes lighter (+6% dodge, +5% souls, −4% ATK)"},
 		{"text": "GREY FERETORY — the grey feretory-step slips, teaches, strikes lighter (+5% dodge, +5% XP, −4% ATK)"},
+		{"text": "TIDE FERETORY — the tide feretory-step surges your pace and arm, but sits heavier (+6% speed, +4% ATK, −3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -55564,6 +55569,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY FERETORY"
 		5125:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE FERETORY"
+		5126:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -60759,6 +60769,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP FERETORY": "Deep Feretory — the relic-shrine weighs on your back, Kael.",
 	"PALE FERETORY": "Pale Feretory — the whitened shrine-glass shimmers, Kael.",
 	"GREY FERETORY": "Grey Feretory — the weathered shrine keeps its lessons, Kael.",
+	"TIDE FERETORY": "Tide Feretory — the shrine pulls with the swell, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -69324,6 +69335,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Deep Arapistikos — the deep arapistikos-step quickens your arm (+5% ATK, +3% dodge)"},
 		{"text": "Pale Arapistikos — the pale arapistikos-step slips and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Arapistikos — the grey arapistikos-step slips and teaches you (+5% dodge, +5% XP)"},
+		{"text": "Tide Arapistikos — the tide arapistikos-step surges your pace and arm (+6% speed, +4% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
