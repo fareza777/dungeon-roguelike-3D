@@ -23597,6 +23597,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Endeka: The bottom endeka-step fills and guards you, Kael.")
+		3170:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Endeka: The grim endeka-step sharpens, guards and armors you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -28521,6 +28526,7 @@ func _offer_omens() -> void:
 		{"text": "HULL EXORASSON — the hull exorasson thickens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH EXORASSON — the trench exorasson sharpens and hastens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
 		{"text": "BOTTOM EXORASSON — the bottom exorasson fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM EXORASSON — the grim exorasson sharpens, guards and armors you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -53166,6 +53172,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM EXORASSON"
 		4891:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM EXORASSON"
+		4892:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -58127,6 +58139,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL EXORASSON": "The hull exorasson pulls its outer cassock round your hull, Kael — thicker and guarded, at a cost.",
 	"TRENCH EXORASSON": "The trench exorasson pulls its outer cassock in your trench, Kael — keen and quick, at a cost.",
 	"BOTTOM EXORASSON": "The bottom exorasson pulls its outer cassock at your bottom, Kael — filled and guarded, at a cost.",
+	"GRIM EXORASSON": "The grim exorasson pulls its outer cassock through your grim vigil, Kael — keen, guarded, plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -66458,6 +66471,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Endeka — the hull endeka-step thickens and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Endeka — the trench endeka-step sharpens and hastens you (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Endeka — the bottom endeka-step fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Endeka — the grim endeka-step sharpens, guards and armors you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
