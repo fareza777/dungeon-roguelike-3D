@@ -23984,6 +23984,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 5
 			Stats.buff_atk_pct += 5
 			toast("Crest Sousta: The crest sousta-step guards and sharpens you, Kael.")
+		3265:
+			Stats.soul_gain_pct += 6
+			Stats.buff_xp_pct += 4
+			toast("Salt Sousta: The salt sousta-step fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29003,6 +29007,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE TETRAPYLON — WAKE TETRAPYLON — the wake four-gate pulls you along (+6% speed, +4% souls)... its wash tilts your step (−3% dodge)"},
 		{"text": "BILGE TETRAPYLON — BILGE TETRAPYLON — the bilge four-gate ferments what's below (+5% souls, +5% XP)... its stench slows your step (−3% dodge)"},
 		{"text": "CREST TETRAPYLON — CREST TETRAPYLON — the crest four-gate breaks over you (+5% dodge, +5% ATK)... its foam spills your purse (−4% souls)"},
+		{"text": "SALT TETRAPYLON — SALT TETRAPYLON — the salt four-gate preserves what you keep (+6% souls, +4% XP)... its crust slows your step (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54130,6 +54135,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 4
 			oname = "CREST TETRAPYLON"
 		4986:
+			Stats.soul_gain_pct += 6
+			Stats.buff_xp_pct += 4
+			Stats.dodge -= 3
+			oname = "SALT TETRAPYLON"
+		4987:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59186,6 +59196,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE TETRAPYLON": "The wake four-gate pulls you along, Kael.",
 	"BILGE TETRAPYLON": "The bilge four-gate ferments for you, Kael.",
 	"CREST TETRAPYLON": "The crest four-gate breaks for you, Kael.",
+	"SALT TETRAPYLON": "The salt four-gate preserves you, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -67612,6 +67623,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Wake Sousta — the wake sousta-step carries and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Sousta — the bilge sousta-step fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Sousta — the crest sousta-step guards and sharpens you (+5% dodge, +5% ATK)"},
+		{"text": "Salt Sousta — the salt sousta-step fills and teaches you (+6% souls, +4% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
