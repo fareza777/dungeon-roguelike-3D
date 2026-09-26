@@ -25544,6 +25544,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Nisiotikos: The storm nisiotikos-step strikes and sharpens, Kael.")
+		3631:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Nisiotikos: The keel nisiotikos-step fills and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30929,6 +30933,7 @@ func _offer_omens() -> void:
 		{"text": "GREY TRISAGIONALE — the grey trisagionale-step slips and teaches, but dulls the edge (+5% dodge, +5% XP, −4% ATK)"},
 		{"text": "TIDE TRISAGIONALE — the tide trisagionale-step speeds and bites, but slips off the stance (+6% speed, +4% ATK, −3% dodge)"},
 		{"text": "STORM TRISAGIONALE — the storm trisagionale-step strikes and sharpens, but slips off the stance (+5% ATK, +6% crit, −4% dodge)"},
+		{"text": "KEEL TRISAGIONALE — the keel trisagionale-step fills and plates, but slips off the stance (+6% souls, +3 armor, −4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -57910,6 +57915,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM TRISAGIONALE"
 		5352:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL TRISAGIONALE"
+		5353:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -63336,6 +63346,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY TRISAGIONALE": "Grey Trisagionale — ash on the thrice-holy, Kael.",
 	"TIDE TRISAGIONALE": "Tide Trisagionale — the thrice-holy tides you onward, Kael.",
 	"STORM TRISAGIONALE": "Storm Trisagionale — thunder chants the thrice-holy, Kael.",
+	"KEEL TRISAGIONALE": "Keel Trisagionale — the thrice-holy rides low, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -72128,6 +72139,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Nisiotikos — the grey nisiotikos-step slips and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Nisiotikos — the tide nisiotikos-step speeds and bites (+6% speed, +4% ATK)"},
 		{"text": "Storm Nisiotikos — the storm nisiotikos-step strikes and sharpens (+5% ATK, +6% crit)"},
+		{"text": "Keel Nisiotikos — the keel nisiotikos-step fills and plates you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
