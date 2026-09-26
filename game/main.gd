@@ -25184,6 +25184,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.soul_gain_pct += 0.04
 			toast("Wake Tsikna: The wake tsikna-step trails you fast and fills you, Kael.")
+		3548:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Bilge Tsikna: The bilge tsikna-step fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30486,6 +30490,7 @@ func _offer_omens() -> void:
 		{"text": "GRIM ECOLOUTHIES — the grim ecolouthies-step strikes, slips, plates — but anchors you (+5% ATK, +4% dodge, +2 armor, −4% speed)"},
 		{"text": "FOG ECOLOUTHIES — the fog ecolouthies-step veils you thick and pays, but dulls the edge (+7% dodge, +4% souls, −4% ATK)"},
 		{"text": "WAKE ECOLOUTHIES — the wake ecolouthies-step trails you fast and pays, but slips off the stance (+6% speed, +4% souls, −3% dodge)"},
+		{"text": "BILGE ECOLOUTHIES — the bilge ecolouthies-step fills and teaches, but sits heavier (+5% souls, +5% XP, −3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -57047,6 +57052,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "WAKE ECOLOUTHIES"
 		5269:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.dodge -= 0.03
+			oname = "BILGE ECOLOUTHIES"
+		5270:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -62390,6 +62400,7 @@ func _omen_deal(idx: int) -> void:
 	"GRIM ECOLOUTHIES": "Grim Ecolouthies — a mourning order, Kael.",
 	"FOG ECOLOUTHIES": "Fog Ecolouthies — murk reads the rubric, Kael.",
 	"WAKE ECOLOUTHIES": "Wake Ecolouthies — the order trails in the foam, Kael.",
+	"BILGE ECOLOUTHIES": "Bilge Ecolouthies — the rubric soaks in the bilge, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -71099,6 +71110,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grim Tsikna — the grim tsikna-step strikes, slips and plates you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Tsikna — the fog tsikna-step veils and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Tsikna — the wake tsikna-step trails you fast and fills you (+6% speed, +4% souls)"},
+		{"text": "Bilge Tsikna — the bilge tsikna-step fills and teaches you (+5% souls, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
