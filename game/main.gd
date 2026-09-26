@@ -23398,6 +23398,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Dumka: The storm dumka-step sharpens and furious you, Kael.")
+		3121:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Dumka: The keel dumka-step fills and armors you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -28273,6 +28277,7 @@ func _offer_omens() -> void:
 		{"text": "GREY PARAMAN — the grey paraman guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE PARAMAN — the tide paraman quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM PARAMAN — the storm paraman sharpens and furious you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
+		{"text": "KEEL PARAMAN — the keel paraman fills and armors you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -52670,6 +52675,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM PARAMAN"
 		4842:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL PARAMAN"
+		4843:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -57582,6 +57592,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY PARAMAN": "The grey paraman cuffs its paraman-bands over your grey hours, Kael — guarded and taught, at a cost.",
 	"TIDE PARAMAN": "The tide paraman cuffs its paraman-bands with your tide, Kael — quicker and keener, at a cost.",
 	"STORM PARAMAN": "The storm paraman cuffs its paraman-bands in your storm, Kael — keen and furious, at a cost.",
+	"KEEL PARAMAN": "The keel paraman cuffs its paraman-bands along your keel, Kael — filled and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -65864,6 +65875,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Dumka — the grey dumka-step guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Dumka — the tide dumka-step quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Dumka — the storm dumka-step sharpens and furious you (+5% ATK, +6% crit)"},
+		{"text": "Keel Dumka — the keel dumka-step fills and armors you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
