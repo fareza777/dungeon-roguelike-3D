@@ -212,6 +212,8 @@ func _physics_process(delta: float) -> void:
 	global_position.x = clamp(global_position.x, bounds.get("min_x", -100.0), bounds.get("max_x", 100.0))
 	global_position.z = clamp(global_position.z, bounds.get("min_z", -100.0), bounds.get("max_z", 100.0))
 	global_position.y = 0.0
+	var lean_t := clampf(base_v.length() / maxf(spd_eff, 1.0), 0.0, 1.0) * 0.1
+	rotation.x = lerpf(rotation.x, lean_t, delta * 7.0)
 	if dir.length() > 0.1:
 		rotation.y = lerp_angle(rotation.y, atan2(dir.x, dir.z), delta * 14.0)
 		step_t -= delta
