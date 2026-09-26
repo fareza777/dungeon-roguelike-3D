@@ -25581,6 +25581,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_atk_pct += 0.05
 			toast("Crest Nisiotikos: The crest nisiotikos-step slips and bites, Kael.")
+		3640:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			toast("Salt Nisiotikos: The salt nisiotikos-step fills and teaches, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30975,6 +30979,7 @@ func _offer_omens() -> void:
 		{"text": "WAKE TRISAGIONALE — the wake trisagionale-step speeds and fills, but slips off the stance (+6% speed, +4% souls, −3% dodge)"},
 		{"text": "BILGE TRISAGIONALE — the bilge trisagionale-step fills and teaches, but slips off the stance (+5% souls, +5% XP, −3% dodge)"},
 		{"text": "CREST TRISAGIONALE — the crest trisagionale-step slips and bites, but pays thinner (+5% dodge, +5% ATK, −4% souls)"},
+		{"text": "SALT TRISAGIONALE — the salt trisagionale-step fills and teaches, but slips off the stance (+6% souls, +4% XP, −3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -58002,6 +58007,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.04
 			oname = "CREST TRISAGIONALE"
 		5361:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_xp_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "SALT TRISAGIONALE"
+		5362:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -63437,6 +63447,7 @@ func _omen_deal(idx: int) -> void:
 	"WAKE TRISAGIONALE": "Wake Trisagionale — the thrice-holy trails silver, Kael.",
 	"BILGE TRISAGIONALE": "Bilge Trisagionale — the thrice-holy drips black water, Kael.",
 	"CREST TRISAGIONALE": "Crest Trisagionale — the thrice-holy chants on the wave-tops, Kael.",
+	"SALT TRISAGIONALE": "Salt Trisagionale — the thrice-holy cures in brine, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -72238,6 +72249,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Wake Nisiotikos — the wake nisiotikos-step speeds and fills (+6% speed, +4% souls)"},
 		{"text": "Bilge Nisiotikos — the bilge nisiotikos-step fills and teaches (+5% souls, +5% XP)"},
 		{"text": "Crest Nisiotikos — the crest nisiotikos-step slips and bites (+5% dodge, +5% ATK)"},
+		{"text": "Salt Nisiotikos — the salt nisiotikos-step fills and teaches (+6% souls, +4% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
