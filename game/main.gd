@@ -24024,6 +24024,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 7
 			Stats.dodge += 4
 			toast("Bottom Ballos: The bottom ballos-step fills and guards you, Kael.")
+		3275:
+			Stats.buff_atk_pct += 5
+			Stats.dodge += 4
+			Stats.buff_armor += 2
+			toast("Grim Ballos: The grim ballos-step arms you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29053,6 +29058,7 @@ func _offer_omens() -> void:
 		{"text": "HULL ANALOGION — HULL ANALOGION — the hull lectern thickens your frame (+6% max HP, +4% dodge)... its timbers weigh you (−3% speed)"},
 		{"text": "TRENCH ANALOGION — TRENCH ANALOGION — the trench lectern drags your arm fast (+5% ATK, +4% atk speed)... its depth sways your step (−4% dodge)"},
 		{"text": "BOTTOM ANALOGION — BOTTOM ANALOGION — the bottom lectern hoards the sunken verses (+7% souls, +4% dodge)... its murk dulls your edge (−3% ATK)"},
+		{"text": "GRIM ANALOGION — GRIM ANALOGION — the grim lectern arms you whole (+5% ATK, +4% dodge, +2 armor)... its weight anchors you (−4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54230,6 +54236,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 3
 			oname = "BOTTOM ANALOGION"
 		4996:
+			Stats.buff_atk_pct += 5
+			Stats.dodge += 4
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 4
+			oname = "GRIM ANALOGION"
+		4997:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59296,6 +59308,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL ANALOGION": "The hull lectern thickens your frame, Kael.",
 	"TRENCH ANALOGION": "The trench lectern drags your arm, Kael.",
 	"BOTTOM ANALOGION": "The bottom lectern hoards for you, Kael.",
+	"GRIM ANALOGION": "The grim lectern arms you whole, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -67732,6 +67745,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Ballos — the hull ballos-step thickens and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Ballos — the trench ballos-step strikes and hastens you (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Ballos — the bottom ballos-step fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Ballos — the grim ballos-step strikes, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
