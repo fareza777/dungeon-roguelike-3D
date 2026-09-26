@@ -24754,6 +24754,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.06
 			Stats.soul_gain_pct += 0.05
 			toast("Pale Erotikos: The pale erotikos-step slips and fills you, Kael.")
+		3448:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Grey Erotikos: The grey erotikos-step slips and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29956,6 +29960,7 @@ func _offer_omens() -> void:
 		{"text": "SALT STICHOS — the salt stichos-step fills and teaches, but sits heavier (+6% souls, +4% XP, −3% dodge)"},
 		{"text": "DEEP OURANOI — the deep ouranoi-step bites and slips, but pays thinner (+7% ATK, +3% dodge, −3% souls)"},
 		{"text": "PALE OURANOI — the pale ouranoi-step slips and fills, but dulls the edge (+6% dodge, +5% souls, −4% ATK)"},
+		{"text": "GREY OURANOI — the grey ouranoi-step slips and teaches, but dulls the edge (+5% dodge, +5% XP, −4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -56010,6 +56015,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "PALE OURANOI"
 		5169:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "GREY OURANOI"
+		5170:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -61249,6 +61259,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT STICHOS": "Salt Stichos — rime on the refrain, Kael.",
 	"DEEP OURANOI": "Deep Ouranoi — the heavens bend low over the sea, Kael.",
 	"PALE OURANOI": "Pale Ouranoi — starlight on the sea, Kael.",
+	"GREY OURANOI": "Grey Ouranoi — cloud-veil over the deep, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -69858,6 +69869,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Salt Thalassikos — the salt thalassikos-step fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Erotikos — the deep erotikos-step bites and slips you (+7% ATK, +3% dodge)"},
 		{"text": "Pale Erotikos — the pale erotikos-step slips and fills you (+6% dodge, +5% souls)"},
+		{"text": "Grey Erotikos — the grey erotikos-step slips and teaches you (+5% dodge, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
