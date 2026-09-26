@@ -25167,6 +25167,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Tsikna: The trench tsikna-step drives harder and quicker, Kael.")
+		3544:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Tsikna: The bottom tsikna-step fills and slips you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30465,6 +30469,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL ECOLOUTHIES — the keel ecolouthies-step fills and plates, but slips off the stance (+6% souls, +3 armor, −4% dodge)"},
 		{"text": "HULL ECOLOUTHIES — the hull ecolouthies-step thickens your frame and slips, but sits heavier (+6% HP, +4% dodge, −3% speed)"},
 		{"text": "TRENCH ECOLOUTHIES — the trench ecolouthies-step drives harder and quicker, but slips off the stance (+5% ATK, +4% atk speed, −4% dodge)"},
+		{"text": "BOTTOM ECOLOUTHIES — the bottom ecolouthies-step pays richly and slips, but dulls the edge (+7% souls, +4% dodge, −3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -57005,6 +57010,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH ECOLOUTHIES"
 		5265:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM ECOLOUTHIES"
+		5266:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -62344,6 +62354,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL ECOLOUTHIES": "Keel Ecolouthies — the order rides low, Kael.",
 	"HULL ECOLOUTHIES": "Hull Ecolouthies — the order braces the hull, Kael.",
 	"TRENCH ECOLOUTHIES": "Trench Ecolouthies — the order bites fastest down deep, Kael.",
+	"BOTTOM ECOLOUTHIES": "Bottom Ecolouthies — the order sinks to the seabed, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -71049,6 +71060,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Tsikna — the keel tsikna-step fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Tsikna — the hull tsikna-step thickens your frame and slips you (+6% HP, +4% dodge)"},
 		{"text": "Trench Tsikna — the trench tsikna-step drives harder and quicker (+5% ATK, +4% atk speed)"},
+		{"text": "Bottom Tsikna — the bottom tsikna-step fills and slips you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
