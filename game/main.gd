@@ -10029,6 +10029,9 @@ func _refresh_hero() -> void:
 		var wm: Node3D = load(WDB.DIR + w["gltf"]).instantiate()
 		M.paint(wm, M.toon(skeleton_tex, w["tint"], 0.35))
 		slot.add_child(wm)
+		var wtw: Tween = wm.create_tween()
+		wtw.set_loops()
+		wtw.tween_property(wm, "rotation:y", TAU, 6.0)
 	# kolom kanan
 	var vb: VBoxContainer = ui.hero_right
 	for c in vb.get_children():
