@@ -23227,6 +23227,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Serra: The trench serra-step sharpens and hastens you, Kael.")
+		3079:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Serra: The bottom serra-step fills and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -28060,6 +28064,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL CHETVKI — the keel chetvki fills and armors you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL CHETVKI — the hull chetvki thickens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH CHETVKI — the trench chetvki sharpens and hastens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
+		{"text": "BOTTOM CHETVKI — the bottom chetvki fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -52244,6 +52249,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH CHETVKI"
 		4800:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM CHETVKI"
+		4801:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -57114,6 +57124,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL CHETVKI": "The keel chetvki counts its hundred knots along your keel, Kael — filled and plated, at a cost.",
 	"HULL CHETVKI": "The hull chetvki counts its hundred knots around your hull, Kael — thicker and guarded, at a cost.",
 	"TRENCH CHETVKI": "The trench chetvki counts its hundred knots in your trench, Kael — keen and quick, at a cost.",
+	"BOTTOM CHETVKI": "The bottom chetvki counts its hundred knots at your bottom, Kael — filled and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -65354,6 +65365,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Serra — the keel serra-step fills and armors you (+6% souls, +3 armor)"},
 		{"text": "Hull Serra — the hull serra-step thickens and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Serra — the trench serra-step sharpens and hastens you (+5% ATK, +4% atk speed)"},
+		{"text": "Bottom Serra — the bottom serra-step fills and guards you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
