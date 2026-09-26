@@ -23280,6 +23280,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_armor += 3
 			toast("Keel Balleti: The keel balleti-step fills and armors you, Kael.")
+		3092:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			toast("Hull Balleti: The hull balleti-step thickens and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -28126,6 +28130,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE PANAGIA — the tide panagia quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM PANAGIA — the storm panagia sharpens and furious you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL PANAGIA — the keel panagia fills and armors you... at a cost (+6% souls, +3 armor, -4% dodge)"},
+		{"text": "HULL PANAGIA — the hull panagia thickens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -52376,6 +52381,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL PANAGIA"
 		4813:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL PANAGIA"
+		4814:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -57259,6 +57269,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE PANAGIA": "The tide panagia hangs its medallion with your tide, Kael — quicker and keener, at a cost.",
 	"STORM PANAGIA": "The storm panagia hangs its medallion in your storm, Kael — keen and furious, at a cost.",
 	"KEEL PANAGIA": "The keel panagia hangs its medallion along your keel, Kael — filled and plated, at a cost.",
+	"HULL PANAGIA": "The hull panagia hangs its medallion around your hull, Kael — thicker and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -65512,6 +65523,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Tide Balleti — the tide balleti-step quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Balleti — the storm balleti-step sharpens and furious you (+5% ATK, +6% crit)"},
 		{"text": "Keel Balleti — the keel balleti-step fills and armors you (+6% souls, +3 armor)"},
+		{"text": "Hull Balleti — the hull balleti-step thickens and guards you (+6% max HP, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
