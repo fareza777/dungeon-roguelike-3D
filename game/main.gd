@@ -24839,6 +24839,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Politiko: The trench politiko-step drives harder and quicker, Kael.")
+		3469:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Politiko: The bottom politiko-step fills and slips you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30062,6 +30066,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL DIAKONIMA — the keel diakonima-step fills and plates, but slips off the stance (+6% souls, +3 armor, −4% dodge)"},
 		{"text": "HULL DIAKONIMA — the hull diakonima-step thickens your frame and slips, but sits heavier (+6% HP, +4% dodge, −3% speed)"},
 		{"text": "TRENCH DIAKONIMA — the trench diakonima-step drives harder and quicker, but slips off the stance (+5% ATK, +4% atk speed, −4% dodge)"},
+		{"text": "BOTTOM DIAKONIMA — the bottom diakonima-step pays richly and slips, but dulls the edge (+7% souls, +4% dodge, −3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -56222,6 +56227,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH DIAKONIMA"
 		5190:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM DIAKONIMA"
+		5191:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -61482,6 +61492,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL DIAKONIMA": "Keel Diakonima — the litany rides low, Kael.",
 	"HULL DIAKONIMA": "Hull Diakonima — the litany stiffens the timber, Kael.",
 	"TRENCH DIAKONIMA": "Trench Diakonima — the litany chants fastest down deep, Kael.",
+	"BOTTOM DIAKONIMA": "Bottom Diakonima — the last prayer sinks to the floor, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -70112,6 +70123,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Politiko — the keel politiko-step fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Politiko — the hull politiko-step thickens your frame and slips you (+6% HP, +4% dodge)"},
 		{"text": "Trench Politiko — the trench politiko-step drives harder and quicker (+5% ATK, +4% atk speed)"},
+		{"text": "Bottom Politiko — the bottom politiko-step fills and slips you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
