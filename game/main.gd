@@ -23902,6 +23902,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Pentozali: The bottom pentozali-step fills and guards you, Kael.")
+		3245:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Pentozali: The grim pentozali-step sharpens, guards and armors you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -28901,6 +28906,7 @@ func _offer_omens() -> void:
 		{"text": "HULL PROSFORA — the hull prosfora thickens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH PROSFORA — the trench prosfora sharpens and hastens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
 		{"text": "BOTTOM PROSFORA — the bottom prosfora fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM PROSFORA — the grim prosfora sharpens, guards and armors you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -53926,6 +53932,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM PROSFORA"
 		4966:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM PROSFORA"
+		4967:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -58962,6 +58974,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL PROSFORA": "The hull prosfora lifts its offering-loaf round your hull, Kael — thicker and guarded, at a cost.",
 	"TRENCH PROSFORA": "The trench prosfora lifts its offering-loaf in your trench, Kael — keen and quick, at a cost.",
 	"BOTTOM PROSFORA": "The bottom prosfora lifts its offering-loaf at your bottom, Kael — filled and guarded, at a cost.",
+	"GRIM PROSFORA": "The grim prosfora lifts its offering-loaf through your grim vigil, Kael — keen, guarded, plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -67368,6 +67381,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Pentozali — the hull pentozali-step thickens and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Pentozali — the trench pentozali-step sharpens and hastens you (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Pentozali — the bottom pentozali-step fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Pentozali — the grim pentozali-step sharpens, guards and armors you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
