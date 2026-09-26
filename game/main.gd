@@ -23947,6 +23947,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 5
 			Stats.buff_crit += 6
 			toast("Storm Sousta: The storm sousta-step strikes and quickens you, Kael.")
+		3256:
+			Stats.soul_gain_pct += 6
+			Stats.buff_armor += 3
+			toast("Keel Sousta: The keel sousta-step fills and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -28957,6 +28961,7 @@ func _offer_omens() -> void:
 		{"text": "GREY TETRAPYLON — GREY TETRAPYLON — the grey four-gate teaches its passage (+5% dodge, +5% XP)... its shadow dulls your edge (−4% ATK)"},
 		{"text": "TIDE TETRAPYLON — TIDE TETRAPYLON — the tide four-gate swings you through fast (+6% speed, +4% ATK)... its current tilts your step (−3% dodge)"},
 		{"text": "STORM TETRAPYLON — STORM TETRAPYLON — the storm four-gate cracks the sky open (+5% ATK, +6% crit)... its wind rocks your guard (−4% dodge)"},
+		{"text": "KEEL TETRAPYLON — KEEL TETRAPYLON — the keel four-gate plates your hull (+6% souls, +3 armor)... its weight slows your step (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54038,6 +54043,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 4
 			oname = "STORM TETRAPYLON"
 		4977:
+			Stats.soul_gain_pct += 6
+			Stats.buff_armor += 3
+			Stats.dodge -= 4
+			oname = "KEEL TETRAPYLON"
+		4978:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59085,6 +59095,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY TETRAPYLON": "The grey four-gate teaches you its passage, Kael.",
 	"TIDE TETRAPYLON": "The tide four-gate swings you through, Kael.",
 	"STORM TETRAPYLON": "The storm four-gate cracks the sky for you, Kael.",
+	"KEEL TETRAPYLON": "The keel four-gate plates you, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -67502,6 +67513,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Sousta — the grey sousta-step teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Sousta — the tide sousta-step carries and quickens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Sousta — the storm sousta-step strikes and quickens you (+5% ATK, +6% crit)"},
+		{"text": "Keel Sousta — the keel sousta-step fills and plates you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
