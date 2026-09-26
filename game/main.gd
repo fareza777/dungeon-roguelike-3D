@@ -24984,6 +24984,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Zaramo: The trench zaramo-step drives harder and quicker, Kael.")
+		3499:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Zaramo: The bottom zaramo-step fills and slips you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30237,6 +30241,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL EPARCHIKON — the keel eparchikon-step fills and plates, but slips off the stance (+6% souls, +3 armor, −4% dodge)"},
 		{"text": "HULL EPARCHIKON — the hull eparchikon-step thickens your frame and slips, but sits heavier (+6% HP, +4% dodge, −3% speed)"},
 		{"text": "TRENCH EPARCHIKON — the trench eparchikon-step drives harder and quicker, but slips off the stance (+5% ATK, +4% atk speed, −4% dodge)"},
+		{"text": "BOTTOM EPARCHIKON — the bottom eparchikon-step pays richly and slips, but dulls the edge (+7% souls, +4% dodge, −3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -56549,6 +56554,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH EPARCHIKON"
 		5220:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM EPARCHIKON"
+		5221:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -61839,6 +61849,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL EPARCHIKON": "Keel Eparchikon — the seal sits low in the hull, Kael.",
 	"HULL EPARCHIKON": "Hull Eparchikon — the seal braces the timber, Kael.",
 	"TRENCH EPARCHIKON": "Trench Eparchikon — the seal signs fastest down deep, Kael.",
+	"BOTTOM EPARCHIKON": "Bottom Eparchikon — the seal sinks to the seabed, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -70499,6 +70510,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Zaramo — the keel zaramo-step fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Zaramo — the hull zaramo-step thickens your frame and slips you (+6% HP, +4% dodge)"},
 		{"text": "Trench Zaramo — the trench zaramo-step drives harder and quicker (+5% ATK, +4% atk speed)"},
+		{"text": "Bottom Zaramo — the bottom zaramo-step fills and slips you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
