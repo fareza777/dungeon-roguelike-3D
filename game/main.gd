@@ -24932,6 +24932,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.04
 			Stats.buff_armor += 2
 			toast("Grim Makrygianis: The grim makrygianis-step strikes, slips and plates you, Kael.")
+		3486:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			toast("Fog Makrygianis: The fog makrygianis-step veils and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30172,6 +30176,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH SCHEMA — the trench schema-step drives harder and quicker, but slips off the stance (+5% ATK, +4% atk speed, −4% dodge)"},
 		{"text": "BOTTOM SCHEMA — the bottom schema-step pays richly and slips, but dulls the edge (+7% souls, +4% dodge, −3% ATK)"},
 		{"text": "GRIM SCHEMA — the grim schema-step strikes, slips, plates — but anchors you (+5% ATK, +4% dodge, +2 armor, −4% speed)"},
+		{"text": "FOG SCHEMA — the fog schema-step veils you thick and pays, but dulls the edge (+7% dodge, +4% souls, −4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -56419,6 +56424,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM SCHEMA"
 		5207:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG SCHEMA"
+		5208:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -61696,6 +61706,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH SCHEMA": "Trench Schema — the habit cuts fastest down deep, Kael.",
 	"BOTTOM SCHEMA": "Bottom Schema — the habit sinks to the seabed, Kael.",
 	"GRIM SCHEMA": "Grim Schema — a mourning habit in iron, Kael.",
+	"FOG SCHEMA": "Fog Schema — the habit's fold goes to murk, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -70343,6 +70354,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Trench Makrygianis — the trench makrygianis-step drives harder and quicker (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Makrygianis — the bottom makrygianis-step fills and slips you (+7% souls, +4% dodge)"},
 		{"text": "Grim Makrygianis — the grim makrygianis-step strikes, slips and plates you (+5% ATK, +4% dodge, +2 armor)"},
+		{"text": "Fog Makrygianis — the fog makrygianis-step veils and fills you (+7% dodge, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
