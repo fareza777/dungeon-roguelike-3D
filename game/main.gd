@@ -22707,6 +22707,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_xp_pct += 0.04
 			toast("Salt Mazurek: The salt mazurek-step fills and teaches you, Kael.")
+		2951:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.03
+			toast("Deep Krakowiak: The deep krakowiak-step sharpens and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -27412,6 +27416,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE CHOTKI — the bilge chotki fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 		{"text": "CREST CHOTKI — the crest chotki guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT CHOTKI — the salt chotki fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
+		{"text": "DEEP EPITRACHELION — the deep epitrachelion sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -50948,6 +50953,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT CHOTKI"
 		4672:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP EPITRACHELION"
+		4673:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -55690,6 +55700,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE CHOTKI": "The bilge chotki counts its beads in your hold, Kael — richer and wiser, at a cost.",
 	"CREST CHOTKI": "The crest chotki counts its beads on your crest, Kael — guarded and keen, at a cost.",
 	"SALT CHOTKI": "The salt chotki counts its beads across your salt-brows, Kael — filled and taught, at a cost.",
+	"DEEP EPITRACHELION": "The deep epitrachelion wraps its stoles over your brow, Kael — keen and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -63802,6 +63813,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bilge Mazurek — the bilge mazurek-step fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Mazurek — the crest mazurek-step guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Mazurek — the salt mazurek-step fills and teaches you (+6% souls, +4% XP)"},
+		{"text": "Deep Krakowiak — the deep krakowiak-step sharpens and guards you (+5% ATK, +3% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
