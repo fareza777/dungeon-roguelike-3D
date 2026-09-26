@@ -24652,6 +24652,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 0.06
 			Stats.dodge += 0.04
 			toast("Hull Koftos: The hull koftos-step thickens your frame and slips you, Kael.")
+		3423:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			toast("Trench Koftos: The trench koftos-step drives harder and quicker, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29829,6 +29833,7 @@ func _offer_omens() -> void:
 		{"text": "STORM PROPONTIS — the storm propontis-step strikes and sharpens, but slips off the stance (+5% ATK, +6% crit, −4% dodge)"},
 		{"text": "KEEL PROPONTIS — the keel propontis-step fills and plates, but slips off the stance (+6% souls, +3 armor, −4% dodge)"},
 		{"text": "HULL PROPONTIS — the hull propontis-step thickens your frame and slips, but sits heavier (+6% HP, +4% dodge, −3% speed)"},
+		{"text": "TRENCH PROPONTIS — the trench propontis-step drives harder and quicker, but slips off the stance (+5% ATK, +4% atk speed, −4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -55756,6 +55761,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL PROPONTIS"
 		5144:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH PROPONTIS"
+		5145:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -60970,6 +60980,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM PROPONTIS": "Storm Propontis — the strait runs black and loud, Kael.",
 	"KEEL PROPONTIS": "Keel Propontis — hull-song under the hull, Kael.",
 	"HULL PROPONTIS": "Hull Propontis — the sea braces the plank, Kael.",
+	"TRENCH PROPONTIS": "Trench Propontis — the trench-current runs fastest, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -69554,6 +69565,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Storm Koftos — the storm koftos-step strikes and sharpens (+5% ATK, +6% crit)"},
 		{"text": "Keel Koftos — the keel koftos-step fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Koftos — the hull koftos-step thickens your frame and slips you (+6% HP, +4% dodge)"},
+		{"text": "Trench Koftos — the trench koftos-step drives harder and quicker (+5% ATK, +4% atk speed)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
