@@ -23240,6 +23240,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.07
 			Stats.soul_gain_pct += 0.04
 			toast("Fog Serra: The fog serra-step guards and fills you, Kael.")
+		3082:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			toast("Wake Serra: The wake serra-step quickens and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -28076,6 +28080,7 @@ func _offer_omens() -> void:
 		{"text": "BOTTOM CHETVKI — the bottom chetvki fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 		{"text": "GRIM CHETVKI — the grim chetvki sharpens, guards and armors you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 		{"text": "FOG CHETVKI — the fog chetvki guards and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
+		{"text": "WAKE CHETVKI — the wake chetvki quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -52276,6 +52281,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "FOG CHETVKI"
 		4803:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "WAKE CHETVKI"
+		4804:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -57149,6 +57159,7 @@ func _omen_deal(idx: int) -> void:
 	"BOTTOM CHETVKI": "The bottom chetvki counts its hundred knots at your bottom, Kael — filled and guarded, at a cost.",
 	"GRIM CHETVKI": "The grim chetvki counts its hundred knots through your grim vigil, Kael — keen, guarded, plated, at a cost.",
 	"FOG CHETVKI": "The fog chetvki counts its hundred knots in your fog, Kael — guarded and filled, at a cost.",
+	"WAKE CHETVKI": "The wake chetvki counts its hundred knots in your wake, Kael — quicker and filled, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -65392,6 +65403,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bottom Serra — the bottom serra-step fills and guards you (+7% souls, +4% dodge)"},
 		{"text": "Grim Serra — the grim serra-step sharpens, guards and armors you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Serra — the fog serra-step guards and fills you (+7% dodge, +4% souls)"},
+		{"text": "Wake Serra — the wake serra-step quickens and fills you (+6% speed, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
