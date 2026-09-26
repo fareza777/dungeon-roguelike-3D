@@ -24012,6 +24012,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 6
 			Stats.buff_armor += 3
 			toast("Keel Ballos: The keel ballos-step fills and plates you, Kael.")
+		3272:
+			Stats.buff_maxhp_pct += 6
+			Stats.dodge += 4
+			toast("Hull Ballos: The hull ballos-step thickens and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29038,6 +29042,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE ANALOGION — TIDE ANALOGION — the tide lectern turns its own page fast (+6% speed, +4% ATK)... its current tilts your step (−3% dodge)"},
 		{"text": "STORM ANALOGION — STORM ANALOGION — the storm lectern cracks its psalm aloud (+5% ATK, +6% crit)... its wind rocks your guard (−4% dodge)"},
 		{"text": "KEEL ANALOGION — KEEL ANALOGION — the keel lectern stands iron-fast (+6% souls, +3 armor)... its weight slows your step (−4% dodge)"},
+		{"text": "HULL ANALOGION — HULL ANALOGION — the hull lectern thickens your frame (+6% max HP, +4% dodge)... its timbers weigh you (−3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54200,6 +54205,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 4
 			oname = "KEEL ANALOGION"
 		4993:
+			Stats.buff_maxhp_pct += 6
+			Stats.dodge += 4
+			Stats.buff_speed_pct -= 3
+			oname = "HULL ANALOGION"
+		4994:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59263,6 +59273,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE ANALOGION": "The tide lectern swings you through, Kael.",
 	"STORM ANALOGION": "The storm lectern cracks the sky for you, Kael.",
 	"KEEL ANALOGION": "The keel lectern stands fast for you, Kael.",
+	"HULL ANALOGION": "The hull lectern thickens your frame, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -67696,6 +67707,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Tide Ballos — the tide ballos-step carries and quickens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Ballos — the storm ballos-step strikes and quickens you (+5% ATK, +6% crit)"},
 		{"text": "Keel Ballos — the keel ballos-step fills and plates you (+6% souls, +3 armor)"},
+		{"text": "Hull Ballos — the hull ballos-step thickens and guards you (+6% max HP, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
