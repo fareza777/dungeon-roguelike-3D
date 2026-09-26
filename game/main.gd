@@ -22544,6 +22544,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Antikristos: The storm antikristos-step sharpens and brutalizes you, Kael.")
+		2911:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Antikristos: The keel antikristos-step fills and armors you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -27209,6 +27213,7 @@ func _offer_omens() -> void:
 		{"text": "GREY KADILO — the grey kadilo guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE KADILO — the tide kadilo quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM KADILO — the storm kadilo sharpens and brutalizes you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
+		{"text": "KEEL KADILO — the keel kadilo fills and armors you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -50542,6 +50547,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM KADILO"
 		4632:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL KADILO"
+		4633:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -55244,6 +55254,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY KADILO": "The grey kadilo swings its kadila over your grey hours, Kael — guarded and taught, at a cost.",
 	"TIDE KADILO": "The tide kadilo swings its kadila with your tide, Kael — quicker and keener, at a cost.",
 	"STORM KADILO": "The storm kadilo swings its kadila through your storm, Kael — keen and cruel, at a cost.",
+	"KEEL KADILO": "The keel kadilo swings its kadila above your keel, Kael — filled and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -63316,6 +63327,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Antikristos — the grey antikristos-step guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Antikristos — the tide antikristos-step quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Antikristos — the storm antikristos-step sharpens and brutalizes you (+5% ATK, +6% crit)"},
+		{"text": "Keel Antikristos — the keel antikristos-step fills and armors you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
