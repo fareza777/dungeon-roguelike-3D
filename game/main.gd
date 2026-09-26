@@ -24077,6 +24077,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 6
 			Stats.dodge += 4
 			toast("Hull Iskenderun: The hull iskenderun-step thickens and guards you, Kael.")
+		3288:
+			Stats.buff_atk_pct += 5
+			Stats.buff_aspd += 0.04
+			toast("Trench Iskenderun: The trench iskenderun-step strikes and hastens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29119,6 +29123,7 @@ func _offer_omens() -> void:
 		{"text": "STORM SOLEA — STORM SOLEA — the storm solea breaks under thunder (+5% ATK, +6% crit)... its wind rocks your guard (−4% dodge)"},
 		{"text": "KEEL SOLEA — KEEL SOLEA — the keel solea stands stone-fast (+6% souls, +3 armor)... its weight slows your step (−4% dodge)"},
 		{"text": "HULL SOLEA — HULL SOLEA — the hull solea thickens your frame (+6% max HP, +4% dodge)... its timbers weigh you (−3% speed)"},
+		{"text": "TRENCH SOLEA — TRENCH SOLEA — the trench solea drags your arm fast (+5% ATK, +4% atk speed)... its depth sways your step (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54362,6 +54367,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 3
 			oname = "HULL SOLEA"
 		5009:
+			Stats.buff_atk_pct += 5
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 4
+			oname = "TRENCH SOLEA"
+		5010:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59441,6 +59451,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM SOLEA": "The storm solea breaks the sky for you, Kael.",
 	"KEEL SOLEA": "The keel solea stands fast for you, Kael.",
 	"HULL SOLEA": "The hull solea thickens your frame, Kael.",
+	"TRENCH SOLEA": "The trench solea drags your arm, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -67890,6 +67901,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Storm Iskenderun — the storm iskenderun-step strikes and quickens you (+5% ATK, +6% crit)"},
 		{"text": "Keel Iskenderun — the keel iskenderun-step fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Iskenderun — the hull iskenderun-step thickens and guards you (+6% max HP, +4% dodge)"},
+		{"text": "Trench Iskenderun — the trench iskenderun-step strikes and hastens you (+5% ATK, +4% atk speed)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
