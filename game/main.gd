@@ -24271,6 +24271,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 7
 			Stats.dodge += 4
 			toast("Bottom Nizamikos: The bottom nizamikos-step fills and guards you, Kael.")
+		3335:
+			Stats.buff_atk_pct += 5
+			Stats.dodge += 4
+			Stats.buff_armor += 2
+			toast("Grim Nizamikos: The grim nizamikos-step arms you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29360,6 +29365,7 @@ func _offer_omens() -> void:
 		{"text": "HULL PYXIDA — HULL PYXIDA — the hull pyx thickens your frame (+6% max HP, +4% dodge)... its timbers weigh you (−3% speed)"},
 		{"text": "TRENCH PYXIDA — TRENCH PYXIDA — the trench pyx drags your arm fast (+5% ATK, +4% atk speed)... its depth sways your step (−4% dodge)"},
 		{"text": "BOTTOM PYXIDA — BOTTOM PYXIDA — the bottom pyx hoards what sinks (+7% souls, +4% dodge)... its murk dulls your edge (−3% ATK)"},
+		{"text": "GRIM PYXIDA — GRIM PYXIDA — the grim pyx arms you whole (+5% ATK, +4% dodge, +2 armor)... its weight anchors you (−4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54841,6 +54847,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 3
 			oname = "BOTTOM PYXIDA"
 		5056:
+			Stats.buff_atk_pct += 5
+			Stats.dodge += 4
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 4
+			oname = "GRIM PYXIDA"
+		5057:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59967,6 +59979,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL PYXIDA": "The hull pyx thickens your frame, Kael.",
 	"TRENCH PYXIDA": "The trench pyx drags your arm, Kael.",
 	"BOTTOM PYXIDA": "The bottom pyx hoards for you, Kael.",
+	"GRIM PYXIDA": "The grim pyx arms you whole, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -68463,6 +68476,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Nizamikos — the hull nizamikos-step thickens and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Nizamikos — the trench nizamikos-step strikes and hastens you (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Nizamikos — the bottom nizamikos-step fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Nizamikos — the grim nizamikos-step strikes, guards, and plates you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
