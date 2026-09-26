@@ -24343,6 +24343,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_armor += 3
 			toast("Keel Lerikos: The keel lerikos-step fills and plates you, Kael.")
+		3347:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			toast("Hull Lerikos: The hull lerikos-step thickens your frame and slips you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29444,6 +29448,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE ZAROUCHON — the tide zarouchon-step surges your pace and arm, but sits heavier (+6% speed, +4% ATK, −3% dodge)"},
 		{"text": "STORM ZAROUCHON — the storm zarouchon-step strikes harder and truer, but grounds you (+5% ATK, +6% crit, −4% dodge)"},
 		{"text": "KEEL ZAROUCHON — the keel zarouchon-step fills, plates, grounds you (+6% souls, +3 armor, −4% dodge)"},
+		{"text": "HULL ZAROUCHON — the hull zarouchon-step thickens your frame and slips, but slows you (+6% HP, +4% dodge, −3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54986,6 +54991,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL ZAROUCHON"
 		5068:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL ZAROUCHON"
+		5069:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -60124,6 +60134,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE ZAROUCHON": "Tide Zarouchon — the mail rolls like the swell, Kael.",
 	"STORM ZAROUCHON": "Storm Zarouchon — lightning threads the links, Kael.",
 	"KEEL ZAROUCHON": "Keel Zarouchon — barnacle-hung mail keeps the hull of you, Kael.",
+	"HULL ZAROUCHON": "Hull Zarouchon — doubled plate over doubled bone, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -68632,6 +68643,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Tide Lerikos — the tide lerikos-step surges your pace and arm (+6% speed, +4% ATK)"},
 		{"text": "Storm Lerikos — the storm lerikos-step strikes harder and truer (+5% ATK, +6% crit)"},
 		{"text": "Keel Lerikos — the keel lerikos-step fills and plates you (+6% souls, +3 armor)"},
+		{"text": "Hull Lerikos — the hull lerikos-step thickens your frame and slips you (+6% HP, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
