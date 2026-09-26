@@ -24239,6 +24239,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 5
 			Stats.dodge += 3
 			toast("Deep Nizamikos: The deep nizamikos-step quickens your arm, Kael.")
+		3327:
+			Stats.dodge += 6
+			Stats.soul_gain_pct += 5
+			toast("Pale Nizamikos: The pale nizamikos-step slips you aside, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29320,6 +29324,7 @@ func _offer_omens() -> void:
 		{"text": "CREST DIASOURA — CREST DIASOURA — the crest diasoura breaks over you (+5% dodge, +5% ATK)... its foam spills your purse (−4% souls)"},
 		{"text": "SALT DIASOURA — SALT DIASOURA — the salt diasoura preserves the last rite (+6% souls, +4% XP)... its crust slows your step (−3% dodge)"},
 		{"text": "DEEP PYXIDA — DEEP PYXIDA — the deep pyx keeps the drowned host (+7% ATK, +3% dodge)... its lid tithes (−3% souls)"},
+		{"text": "PALE PYXIDA — PALE PYXIDA — the pale pyx keeps the fog-bound host (+6% dodge, +5% souls)... its lid blunts your arm (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54761,6 +54766,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 3
 			oname = "DEEP PYXIDA"
 		5048:
+			Stats.dodge += 6
+			Stats.soul_gain_pct += 5
+			Stats.buff_atk_pct -= 4
+			oname = "PALE PYXIDA"
+		5049:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59879,6 +59889,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST DIASOURA": "The crest diasoura breaks for you, Kael.",
 	"SALT DIASOURA": "The salt diasoura preserves you, Kael.",
 	"DEEP PYXIDA": "The deep pyx opens for you, Kael — it keeps a toll in souls.",
+	"PALE PYXIDA": "The pale pyx pays you in mist and memory, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -68367,6 +68378,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Crest Dipat — the crest dipat-step guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Dipat — the salt dipat-step fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Nizamikos — the deep nizamikos-step quickens your arm (+5% ATK, +3% dodge)"},
+		{"text": "Pale Nizamikos — the pale nizamikos-step slips you aside (+6% dodge, +5% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
