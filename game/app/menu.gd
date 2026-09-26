@@ -213,7 +213,7 @@ func _build() -> void:
 	var ach_txt := " • ◆ %d/%d" % [Stats.ach.size(), Stats.ACH_DEF.size()] if Stats.ach.size() > 0 else ""
 	var ng_txt := " • ♛ NG+%d" % Stats.ng_plus if Stats.ng_plus > 0 else ""
 	var lore_txt := " • Lore %d/%d" % [Stats.lore_seen.size(), MGD.LORE_LINES.size()] if Stats.lore_seen.size() > 0 else ""
-	var oath_txt := " • ☗ %d/4952" % Stats.oaths_seen.size() if Stats.oaths_seen.size() > 0 else ""
+	var oath_txt := " • ☗ %d/4953" % Stats.oaths_seen.size() if Stats.oaths_seen.size() > 0 else ""
 	var best_txt := " • ⚔ %d kinds slain" % Stats.arch_kills.size() if Stats.arch_kills.size() > 0 else ""
 	var souls_txt := " • ◈ %d" % Stats.souls if Stats.souls > 0 else ""
 	var mast_txt := " • ★ %d/%d mastered" % [Stats.mastered.size(), WDB.POOL.size()] if Stats.mastered.size() > 0 else ""
