@@ -25479,6 +25479,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Arpagos: The tide arpagos-step speeds and bites, Kael.")
+		3615:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Arpagos: The storm arpagos-step strikes and sharpens, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30848,6 +30852,7 @@ func _offer_omens() -> void:
 		{"text": "PALE DIACONICON — the pale diaconicon-step slips and fills, but dulls the edge (+6% dodge, +5% souls, −4% ATK)"},
 		{"text": "GREY DIACONICON — the grey diaconicon-step slips and teaches, but dulls the edge (+5% dodge, +5% XP, −4% ATK)"},
 		{"text": "TIDE DIACONICON — the tide diaconicon-step speeds and bites, but slips off the stance (+6% speed, +4% ATK, −3% dodge)"},
+		{"text": "STORM DIACONICON — the storm diaconicon-step strikes and sharpens, but slips off the stance (+5% ATK, +6% crit, −4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -57748,6 +57753,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE DIACONICON"
 		5336:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM DIACONICON"
+		5337:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -63158,6 +63168,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE DIACONICON": "Pale Diaconicon — moonlight on the deacon-book, Kael.",
 	"GREY DIACONICON": "Grey Diaconicon — ash on the deacon-book, Kael.",
 	"TIDE DIACONICON": "Tide Diaconicon — the deacon-book tides you onward, Kael.",
+	"STORM DIACONICON": "Storm Diaconicon — thunder reads the deacon-book, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -71934,6 +71945,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Arpagos — the pale arpagos-step slips and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Arpagos — the grey arpagos-step slips and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Arpagos — the tide arpagos-step speeds and bites (+6% speed, +4% ATK)"},
+		{"text": "Storm Arpagos — the storm arpagos-step strikes and sharpens (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
