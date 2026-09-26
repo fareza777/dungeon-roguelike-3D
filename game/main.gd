@@ -25646,6 +25646,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_xp_pct += 0.04
 			toast("Salt Kangeliotikos: The salt kangeliotikos-step fills and teaches, Kael.")
+		3656:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			toast("Deep Lerian: The deep lerian-step bites and slips you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -31056,6 +31060,7 @@ func _offer_omens() -> void:
 		{"text": "BILGE SPITWADDLE — the bilge spitwaddle-step fills and teaches, but slips off the stance (+5% souls, +5% XP, −3% dodge)"},
 		{"text": "CREST SPITWADDLE — the crest spitwaddle-step slips and bites, but pays thinner (+5% dodge, +5% ATK, −4% souls)"},
 		{"text": "SALT SPITWADDLE — the salt spitwaddle-step fills and teaches, but slips off the stance (+6% souls, +4% XP, −3% dodge)"},
+		{"text": "DEEP ABACUS — the deep abacus-step bites and slips, but pays thinner (+7% ATK, +3% dodge, −3% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -58164,6 +58169,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "SALT SPITWADDLE"
 		5377:
+			Stats.buff_atk_pct += 0.07
+			Stats.dodge += 0.03
+			Stats.soul_gain_pct -= 0.03
+			oname = "DEEP ABACUS"
+		5378:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -63615,6 +63625,7 @@ func _omen_deal(idx: int) -> void:
 	"BILGE SPITWADDLE": "Bilge Spitwaddle — the dry-march drips black water, Kael.",
 	"CREST SPITWADDLE": "Crest Spitwaddle — the dry-march on the wave-tops, Kael.",
 	"SALT SPITWADDLE": "Salt Spitwaddle — the dry-march cures in brine, Kael.",
+	"DEEP ABACUS": "Deep Abacus — the counting-frame runs dark, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -72432,6 +72443,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bilge Kangeliotikos — the bilge kangeliotikos-step fills and teaches (+5% souls, +5% XP)"},
 		{"text": "Crest Kangeliotikos — the crest kangeliotikos-step slips and bites (+5% dodge, +5% ATK)"},
 		{"text": "Salt Kangeliotikos — the salt kangeliotikos-step fills and teaches (+6% souls, +4% XP)"},
+		{"text": "Deep Lerian — the deep lerian-step bites and slips you (+7% ATK, +3% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
