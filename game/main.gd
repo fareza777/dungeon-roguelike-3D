@@ -24445,6 +24445,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.dodge += 0.03
 			toast("Deep Siganos: The deep siganos-step quickens your arm, Kael.")
+		3372:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			toast("Pale Siganos: The pale siganos-step slips and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29571,6 +29575,7 @@ func _offer_omens() -> void:
 		{"text": "CREST EMBOTICHON — the crest embotichon-step slips and strikes, but pays thinner (+5% dodge, +5% ATK, −4% souls)"},
 		{"text": "SALT EMBOTICHON — the salt embotichon-step fills and teaches, but sits heavier (+6% souls, +4% XP, −3% dodge)"},
 		{"text": "DEEP HEXAPTERYGON — the deep hexapterygon-step strikes harder, slips better, pays thinner (+7% ATK, +3% dodge, −3% souls)"},
+		{"text": "PALE HEXAPTERYGON — the pale hexapterygon-step slips like ghost-wings, pays a little more, strikes lighter (+6% dodge, +5% souls, −4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -55240,6 +55245,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "DEEP HEXAPTERYGON"
 		5093:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE HEXAPTERYGON"
+		5094:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -60403,6 +60413,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST EMBOTICHON": "Crest Embotichon — surf-bright bronze sheds every blow, Kael.",
 	"SALT EMBOTICHON": "Salt Embotichon — rime-crusted bronze that never dries, Kael.",
 	"DEEP HEXAPTERYGON": "Deep Hexapterygon — the six-winged fan fans the dead away, Kael.",
+	"PALE HEXAPTERYGON": "Pale Hexapterygon — bleached feathers beat the air, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -68936,6 +68947,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Crest Patinada — the crest patinada-step slips and strikes true (+5% dodge, +5% ATK)"},
 		{"text": "Salt Patinada — the salt patinada-step fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Siganos — the deep siganos-step quickens your arm (+5% ATK, +3% dodge)"},
+		{"text": "Pale Siganos — the pale siganos-step slips and fills you (+6% dodge, +5% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
