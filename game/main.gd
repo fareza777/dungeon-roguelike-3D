@@ -25638,6 +25638,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Kangeliotikos: The bilge kangeliotikos-step fills and teaches, Kael.")
+		3654:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Kangeliotikos: The crest kangeliotikos-step slips and bites, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -31046,6 +31050,7 @@ func _offer_omens() -> void:
 		{"text": "FOG SPITWADDLE — the fog spitwaddle-step slips widely and fills, but dulls the edge (+7% dodge, +4% souls, −4% ATK)"},
 		{"text": "WAKE SPITWADDLE — the wake spitwaddle-step speeds and fills, but slips off the stance (+6% speed, +4% souls, −3% dodge)"},
 		{"text": "BILGE SPITWADDLE — the bilge spitwaddle-step fills and teaches, but slips off the stance (+5% souls, +5% XP, −3% dodge)"},
+		{"text": "CREST SPITWADDLE — the crest spitwaddle-step slips and bites, but pays thinner (+5% dodge, +5% ATK, −4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -58144,6 +58149,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE SPITWADDLE"
 		5375:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST SPITWADDLE"
+		5376:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -63593,6 +63603,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG SPITWADDLE": "Fog Spitwaddle — the dry-march marches in a veil, Kael.",
 	"WAKE SPITWADDLE": "Wake Spitwaddle — the dry-march trails silver, Kael.",
 	"BILGE SPITWADDLE": "Bilge Spitwaddle — the dry-march drips black water, Kael.",
+	"CREST SPITWADDLE": "Crest Spitwaddle — the dry-march on the wave-tops, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -72408,6 +72419,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Kangeliotikos — the fog kangeliotikos-step slips widely and fills (+7% dodge, +4% souls)"},
 		{"text": "Wake Kangeliotikos — the wake kangeliotikos-step speeds and fills (+6% speed, +4% souls)"},
 		{"text": "Bilge Kangeliotikos — the bilge kangeliotikos-step fills and teaches (+5% souls, +5% XP)"},
+		{"text": "Crest Kangeliotikos — the crest kangeliotikos-step slips and bites (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
