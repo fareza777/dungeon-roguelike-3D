@@ -25772,6 +25772,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.07
 			Stats.dodge += 0.03
 			toast("Deep Mykoniatikos: The deep mykoniatikos-step bites and slips you, Kael.")
+		3687:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			toast("Pale Mykoniatikos: The pale mykoniatikos-step slips and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -31213,6 +31217,7 @@ func _offer_omens() -> void:
 		{"text": "CREST LEITOURGIKON — the crest leitourgikon-step slips and bites, but pays thinner (+5% dodge, +5% ATK, −4% souls)"},
 		{"text": "SALT LEITOURGIKON — the salt leitourgikon-step fills and teaches, but slips off the stance (+6% souls, +4% XP, −3% dodge)"},
 		{"text": "DEEP PROSKYNITARION — the deep proskynitarion-step bites and slips, but pays thinner (+7% ATK, +3% dodge, −3% souls)"},
+		{"text": "PALE PROSKYNITARION — the pale proskynitarion-step slips and fills, but dulls the edge (+6% dodge, +5% souls, −4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -58478,6 +58483,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "DEEP PROSKYNITARION"
 		5408:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE PROSKYNITARION"
+		5409:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -63960,6 +63970,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST LEITOURGIKON": "Crest Leitourgikon — the service-book reads on the wave-tops, Kael.",
 	"SALT LEITOURGIKON": "Salt Leitourgikon — the service-book cures in brine, Kael.",
 	"DEEP PROSKYNITARION": "Deep Proskynitarion — the pilgrim-roll runs dark, Kael.",
+	"PALE PROSKYNITARION": "Pale Proskynitarion — moonlight on the pilgrim-roll, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -72808,6 +72819,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Crest Kassiani — the crest kassiani-step slips and bites (+5% dodge, +5% ATK)"},
 		{"text": "Salt Kassiani — the salt kassiani-step fills and teaches (+6% souls, +4% XP)"},
 		{"text": "Deep Mykoniatikos — the deep mykoniatikos-step bites and slips you (+7% ATK, +3% dodge)"},
+		{"text": "Pale Mykoniatikos — the pale mykoniatikos-step slips and fills you (+6% dodge, +5% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
