@@ -23939,6 +23939,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 5
 			Stats.buff_xp_pct += 5
 			toast("Grey Sousta: The grey sousta-step teaches you, Kael.")
+		3254:
+			Stats.buff_speed_pct += 6
+			Stats.buff_atk_pct += 4
+			toast("Tide Sousta: The tide sousta-step carries and quickens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -28947,6 +28951,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP TETRAPYLON — DEEP TETRAPYLON — the deep four-gate stands over the crossing (+7% ATK, +3% dodge)... its lintels tithe (−3% souls)"},
 		{"text": "PALE TETRAPYLON — PALE TETRAPYLON — the pale four-gate opens on mist (+6% dodge, +5% souls)... its arch blunts your arm (−4% ATK)"},
 		{"text": "GREY TETRAPYLON — GREY TETRAPYLON — the grey four-gate teaches its passage (+5% dodge, +5% XP)... its shadow dulls your edge (−4% ATK)"},
+		{"text": "TIDE TETRAPYLON — TIDE TETRAPYLON — the tide four-gate swings you through fast (+6% speed, +4% ATK)... its current tilts your step (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54018,6 +54023,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 4
 			oname = "GREY TETRAPYLON"
 		4975:
+			Stats.buff_speed_pct += 6
+			Stats.buff_atk_pct += 4
+			Stats.dodge -= 3
+			oname = "TIDE TETRAPYLON"
+		4976:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59063,6 +59073,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP TETRAPYLON": "The deep four-gate lets you pass, Kael — it keeps a toll in souls.",
 	"PALE TETRAPYLON": "The pale four-gate pays you in mist and memory, Kael.",
 	"GREY TETRAPYLON": "The grey four-gate teaches you its passage, Kael.",
+	"TIDE TETRAPYLON": "The tide four-gate swings you through, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -67478,6 +67489,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Deep Sousta — the deep sousta-step quickens your arm (+5% ATK, +3% dodge)"},
 		{"text": "Pale Sousta — the pale sousta-step slips you aside (+6% dodge, +5% souls)"},
 		{"text": "Grey Sousta — the grey sousta-step teaches you (+5% dodge, +5% XP)"},
+		{"text": "Tide Sousta — the tide sousta-step carries and quickens you (+6% speed, +4% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
