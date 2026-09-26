@@ -25420,6 +25420,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.04
 			Stats.buff_armor += 2
 			toast("Grim Kalymniotikos: The grim kalymniotikos-step strikes, slips and plates you, Kael.")
+		3606:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			toast("Fog Kalymniotikos: The fog kalymniotikos-step veils and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30780,6 +30784,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH ORARIONITE — the trench orarionite-step drives harder and quicker, but slips off the stance (+5% ATK, +4% atk speed, −4% dodge)"},
 		{"text": "BOTTOM ORARIONITE — the bottom orarionite-step pays richly and slips, but dulls the edge (+7% souls, +4% dodge, −3% ATK)"},
 		{"text": "GRIM ORARIONITE — the grim orarionite-step strikes, slips, plates — but anchors you (+5% ATK, +4% dodge, +2 armor, −4% speed)"},
+		{"text": "FOG ORARIONITE — the fog orarionite-step veils you thick and pays, but dulls the edge (+7% dodge, +4% souls, −4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -57635,6 +57640,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM ORARIONITE"
 		5327:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG ORARIONITE"
+		5328:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -63036,6 +63046,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH ORARIONITE": "Trench Orarionite — the deacon-stole bites fastest down deep, Kael.",
 	"BOTTOM ORARIONITE": "Bottom Orarionite — the deacon-stole sinks to the seabed, Kael.",
 	"GRIM ORARIONITE": "Grim Orarionite — a mourning deacon-stole, Kael.",
+	"FOG ORARIONITE": "Fog Orarionite — murk on the deacon-stole, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -71803,6 +71814,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Trench Kalymniotikos — the trench kalymniotikos-step drives harder and quicker (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Kalymniotikos — the bottom kalymniotikos-step fills and slips you (+7% souls, +4% dodge)"},
 		{"text": "Grim Kalymniotikos — the grim kalymniotikos-step strikes, slips and plates you (+5% ATK, +4% dodge, +2 armor)"},
+		{"text": "Fog Kalymniotikos — the fog kalymniotikos-step veils and fills you (+7% dodge, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
