@@ -24972,6 +24972,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Zaramo: The storm zaramo-step strikes and sharpens, Kael.")
+		3496:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Zaramo: The keel zaramo-step fills and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30222,6 +30226,7 @@ func _offer_omens() -> void:
 		{"text": "GREY EPARCHIKON — the grey eparchikon-step slips and teaches, but dulls the edge (+5% dodge, +5% XP, −4% ATK)"},
 		{"text": "TIDE EPARCHIKON — the tide eparchikon-step speeds and bites, but slips off the stance (+6% speed, +4% ATK, −3% dodge)"},
 		{"text": "STORM EPARCHIKON — the storm eparchikon-step strikes and sharpens, but slips off the stance (+5% ATK, +6% crit, −4% dodge)"},
+		{"text": "KEEL EPARCHIKON — the keel eparchikon-step fills and plates, but slips off the stance (+6% souls, +3 armor, −4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -56519,6 +56524,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM EPARCHIKON"
 		5217:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL EPARCHIKON"
+		5218:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -61806,6 +61816,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY EPARCHIKON": "Grey Eparchikon — ash on the governor's ledger, Kael.",
 	"TIDE EPARCHIKON": "Tide Eparchikon — the seal rides the current, Kael.",
 	"STORM EPARCHIKON": "Storm Eparchikon — thunder over the governor's court, Kael.",
+	"KEEL EPARCHIKON": "Keel Eparchikon — the seal sits low in the hull, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -70463,6 +70474,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Zaramo — the grey zaramo-step slips and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Zaramo — the tide zaramo-step speeds and bites (+6% speed, +4% ATK)"},
 		{"text": "Storm Zaramo — the storm zaramo-step strikes and sharpens (+5% ATK, +6% crit)"},
+		{"text": "Keel Zaramo — the keel zaramo-step fills and plates you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
