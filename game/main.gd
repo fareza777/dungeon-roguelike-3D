@@ -24433,6 +24433,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Patinada: The bilge patinada-step fills and teaches you, Kael.")
+		3369:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Patinada: The crest patinada-step slips and strikes true, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29556,6 +29560,7 @@ func _offer_omens() -> void:
 		{"text": "FOG EMBOTICHON — the fog embotichon-step veils you thick and pays, but dulls the edge (+7% dodge, +4% souls, −4% ATK)"},
 		{"text": "WAKE EMBOTICHON — the wake embotichon-step trails you fast and pays, but slips off the stance (+6% speed, +4% souls, −3% dodge)"},
 		{"text": "BILGE EMBOTICHON — the bilge embotichon-step fills and teaches, but sits heavier (+5% souls, +5% XP, −3% dodge)"},
+		{"text": "CREST EMBOTICHON — the crest embotichon-step slips and strikes, but pays thinner (+5% dodge, +5% ATK, −4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -55210,6 +55215,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE EMBOTICHON"
 		5090:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST EMBOTICHON"
+		5091:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -60370,6 +60380,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG EMBOTICHON": "Fog Embotichon — the vambrace breathes mist through its seams, Kael.",
 	"WAKE EMBOTICHON": "Wake Embotichon — the vambrace remembers the ship's churn, Kael.",
 	"BILGE EMBOTICHON": "Bilge Embotichon — bronze stained from below deck, Kael.",
+	"CREST EMBOTICHON": "Crest Embotichon — surf-bright bronze sheds every blow, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -68900,6 +68911,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Patinada — the fog patinada-step veils and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Patinada — the wake patinada-step trails you fast and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Patinada — the bilge patinada-step fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Patinada — the crest patinada-step slips and strikes true (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
