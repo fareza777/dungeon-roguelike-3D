@@ -22817,6 +22817,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.soul_gain_pct += 0.04
 			toast("Wake Horovod: The wake horovod-circle quickens and fills you, Kael.")
+		2978:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Bilge Horovod: The bilge horovod-circle fills and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -27549,6 +27553,7 @@ func _offer_omens() -> void:
 		{"text": "GRIM OMOPHORION — the grim omophorion sharpens, guards and armors you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 		{"text": "FOG OMOPHORION — the fog omophorion guards and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 		{"text": "WAKE OMOPHORION — the wake omophorion quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
+		{"text": "BILGE OMOPHORION — the bilge omophorion fills and teaches you... at a cost (+5% souls, +5% XP, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -51222,6 +51227,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "WAKE OMOPHORION"
 		4699:
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.dodge -= 0.03
+			oname = "BILGE OMOPHORION"
+		4700:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -55991,6 +56001,7 @@ func _omen_deal(idx: int) -> void:
 	"GRIM OMOPHORION": "The grim omophorion drapes its omophoria through your grim vigil, Kael — keen, guarded, plated, at a cost.",
 	"FOG OMOPHORION": "The fog omophorion drapes its omophoria in your fog, Kael — guarded and filled, at a cost.",
 	"WAKE OMOPHORION": "The wake omophorion drapes its omophoria in your wake, Kael — quicker and filled, at a cost.",
+	"BILGE OMOPHORION": "The bilge omophorion drapes its omophoria in your hold, Kael — richer and wiser, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -64130,6 +64141,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grim Horovod — the grim horovod-circle sharpens, guards and armors you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Horovod — the fog horovod-circle guards and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Horovod — the wake horovod-circle quickens and fills you (+6% speed, +4% souls)"},
+		{"text": "Bilge Horovod — the bilge horovod-circle fills and teaches you (+5% souls, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
