@@ -22792,6 +22792,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_armor += 3
 			toast("Keel Horovod: The keel horovod-circle fills and armors you, Kael.")
+		2972:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			toast("Hull Horovod: The hull horovod-circle thickens and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -27518,6 +27522,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE OMOPHORION — the tide omophorion quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM OMOPHORION — the storm omophorion sharpens and brutalizes you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL OMOPHORION — the keel omophorion fills and armors you... at a cost (+6% souls, +3 armor, -4% dodge)"},
+		{"text": "HULL OMOPHORION — the hull omophorion thickens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -51160,6 +51165,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL OMOPHORION"
 		4693:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL OMOPHORION"
+		4694:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -55923,6 +55933,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE OMOPHORION": "The tide omophorion drapes its omophoria with your tide, Kael — quicker and keener, at a cost.",
 	"STORM OMOPHORION": "The storm omophorion drapes its omophoria through your storm, Kael — keen and cruel, at a cost.",
 	"KEEL OMOPHORION": "The keel omophorion drapes its omophoria above your keel, Kael — filled and plated, at a cost.",
+	"HULL OMOPHORION": "The hull omophorion drapes its omophoria on your hull, Kael — thick and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -64056,6 +64067,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Tide Horovod — the tide horovod-circle quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Horovod — the storm horovod-circle sharpens and brutalizes you (+5% ATK, +6% crit)"},
 		{"text": "Keel Horovod — the keel horovod-circle fills and armors you (+6% souls, +3 armor)"},
+		{"text": "Hull Horovod — the hull horovod-circle thickens and guards you (+6% max HP, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
