@@ -23931,6 +23931,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 5
 			Stats.dodge += 3
 			toast("Deep Sousta: The deep sousta-step quickens your arm, Kael.")
+		3252:
+			Stats.dodge += 6
+			Stats.soul_gain_pct += 5
+			toast("Pale Sousta: The pale sousta-step slips you aside, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -28937,6 +28941,7 @@ func _offer_omens() -> void:
 		{"text": "CREST PROSFORA — the crest prosfora guards and sharpens you... at a cost (+5% dodge, +5% ATK, -4% souls)"},
 		{"text": "SALT PROSFORA — the salt prosfora fills and teaches you... at a cost (+6% souls, +4% XP, -3% dodge)"},
 		{"text": "DEEP TETRAPYLON — DEEP TETRAPYLON — the deep four-gate stands over the crossing (+7% ATK, +3% dodge)... its lintels tithe (−3% souls)"},
+		{"text": "PALE TETRAPYLON — PALE TETRAPYLON — the pale four-gate opens on mist (+6% dodge, +5% souls)... its arch blunts your arm (−4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -53998,6 +54003,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 3
 			oname = "DEEP TETRAPYLON"
 		4973:
+			Stats.dodge += 6
+			Stats.soul_gain_pct += 5
+			Stats.buff_atk_pct -= 4
+			oname = "PALE TETRAPYLON"
+		4974:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59041,6 +59051,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST PROSFORA": "The crest prosfora lifts its offering-loaf on your crest, Kael — guarded and keen, at a cost.",
 	"SALT PROSFORA": "The salt prosfora lifts its offering-loaf on your salt-brows, Kael — filled and taught, at a cost.",
 	"DEEP TETRAPYLON": "The deep four-gate lets you pass, Kael — it keeps a toll in souls.",
+	"PALE TETRAPYLON": "The pale four-gate pays you in mist and memory, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -67453,7 +67464,8 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bilge Pentozali — the bilge pentozali-step fills and teaches you (+5% souls, +5% XP)"},
 		{"text": "Crest Pentozali — the crest pentozali-step guards and sharpens you (+5% dodge, +5% ATK)"},
 		{"text": "Salt Pentozali — the salt pentozali-step fills and teaches you (+6% souls, +4% XP)"},
-		{"text": "Deep Sousta — Deep Sousta — the deep sousta-step quickens your arm (+5% ATK, +3% dodge)"},
+		{"text": "Deep Sousta — the deep sousta-step quickens your arm (+5% ATK, +3% dodge)"},
+		{"text": "Pale Sousta — the pale sousta-step slips you aside (+6% dodge, +5% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
