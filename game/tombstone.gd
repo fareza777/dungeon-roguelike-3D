@@ -67,6 +67,8 @@ func _physics_process(delta: float) -> void:
 		return
 	t -= delta
 	scale = Vector3.ONE * (0.75 + 0.25 * maxf(0.0, t / 3.0))
+	var urg := 1.0 - clampf(t / 3.0, 0.0, 1.0)
+	rotation.z = sin(Time.get_ticks_msec() / 90.0) * 0.05 * urg
 	if tick_l != null:
 		var rem := int(ceil(t))
 		tick_l.text = str(maxi(rem, 1))
