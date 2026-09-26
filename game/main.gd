@@ -25748,6 +25748,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.04
 			Stats.buff_armor += 2
 			toast("Grim Kassiani: The grim kassiani-step strikes, slips, and plates, Kael.")
+		3681:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			toast("Fog Kassiani: The fog kassiani-step slips widely and fills, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -31183,6 +31187,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH LEITOURGIKON — the trench leitourgikon-step drives harder and quicker, but slips off the stance (+5% ATK, +4% atk speed, −4% dodge)"},
 		{"text": "BOTTOM LEITOURGIKON — the bottom leitourgikon-step pays richly and slips, but dulls the edge (+7% souls, +4% dodge, −3% ATK)"},
 		{"text": "GRIM LEITOURGIKON — the grim leitourgikon-step strikes, slips, plates — but anchors you (+5% ATK, +4% dodge, +2 armor, −4% speed)"},
+		{"text": "FOG LEITOURGIKON — the fog leitourgikon-step slips widely and fills, but dulls the edge (+7% dodge, +4% souls, −4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -58418,6 +58423,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM LEITOURGIKON"
 		5402:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG LEITOURGIKON"
+		5403:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -63894,6 +63904,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH LEITOURGIKON": "Trench Leitourgikon — the service-book bites fastest down deep, Kael.",
 	"BOTTOM LEITOURGIKON": "Bottom Leitourgikon — the service-book sinks to the seabed, Kael.",
 	"GRIM LEITOURGIKON": "Grim Leitourgikon — a mourning service-book, Kael.",
+	"FOG LEITOURGIKON": "Fog Leitourgikon — the service-book reads in a veil, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -72736,6 +72747,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Trench Kassiani — the trench kassiani-step drives harder and quicker (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Kassiani — the bottom kassiani-step fills and slips you (+7% souls, +4% dodge)"},
 		{"text": "Grim Kassiani — the grim kassiani-step strikes, slips, and plates (+5% ATK, +4% dodge, +2 armor)"},
+		{"text": "Fog Kassiani — the fog kassiani-step slips widely and fills (+7% dodge, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
