@@ -23085,6 +23085,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Grey Tsakonikos: The grey tsakonikos-step guards and teaches you, Kael.")
+		3044:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			toast("Tide Tsakonikos: The tide tsakonikos-step quickens and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -27883,6 +27887,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP ANALAVOS — the deep analavos sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 		{"text": "PALE ANALAVOS — the pale analavos guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY ANALAVOS — the grey analavos guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
+		{"text": "TIDE ANALAVOS — the tide analavos quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -51890,6 +51895,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY ANALAVOS"
 		4765:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE ANALAVOS"
+		4766:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -56725,6 +56735,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP ANALAVOS": "The deep analavos wraps its burial-cloth around you, Kael — keen and guarded, at a cost.",
 	"PALE ANALAVOS": "The pale analavos wraps its burial-cloth around your pallor, Kael — guarded and filled, at a cost.",
 	"GREY ANALAVOS": "The grey analavos wraps its burial-cloth over your grey hours, Kael — guarded and taught, at a cost.",
+	"TIDE ANALAVOS": "The tide analavos wraps its burial-cloth with your tide, Kael — quicker and keener, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -64930,6 +64941,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Deep Tsakonikos — the deep tsakonikos-step sharpens and guards you (+5% ATK, +3% dodge)"},
 		{"text": "Pale Tsakonikos — the pale tsakonikos-step guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Tsakonikos — the grey tsakonikos-step guards and teaches you (+5% dodge, +5% XP)"},
+		{"text": "Tide Tsakonikos — the tide tsakonikos-step quickens and sharpens you (+6% speed, +4% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
