@@ -25098,6 +25098,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_armor += 3
 			toast("Keel Lerkarikos: The keel lerkarikos-step fills and plates you, Kael.")
+		3527:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			toast("Hull Lerkarikos: The hull lerkarikos-step thickens your frame and slips you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30379,6 +30383,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE LEITOURGEMA — the tide leitourgema-step speeds and bites, but slips off the stance (+6% speed, +4% ATK, −3% dodge)"},
 		{"text": "STORM LEITOURGEMA — the storm leitourgema-step strikes and sharpens, but slips off the stance (+5% ATK, +6% crit, −4% dodge)"},
 		{"text": "KEEL LEITOURGEMA — the keel leitourgema-step fills and plates, but slips off the stance (+6% souls, +3 armor, −4% dodge)"},
+		{"text": "HULL LEITOURGEMA — the hull leitourgema-step thickens your frame and slips, but sits heavier (+6% HP, +4% dodge, −3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -56833,6 +56838,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL LEITOURGEMA"
 		5248:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL LEITOURGEMA"
+		5249:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -62155,6 +62165,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE LEITOURGEMA": "Tide Leitourgema — the office tides you onward, Kael.",
 	"STORM LEITOURGEMA": "Storm Leitourgema — thunder reads the office, Kael.",
 	"KEEL LEITOURGEMA": "Keel Leitourgema — the office rides low, Kael.",
+	"HULL LEITOURGEMA": "Hull Leitourgema — the office braces the hull, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -70843,6 +70854,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Tide Lerkarikos — the tide lerkarikos-step speeds and bites (+6% speed, +4% ATK)"},
 		{"text": "Storm Lerkarikos — the storm lerkarikos-step strikes and sharpens (+5% ATK, +6% crit)"},
 		{"text": "Keel Lerkarikos — the keel lerkarikos-step fills and plates you (+6% souls, +3 armor)"},
+		{"text": "Hull Lerkarikos — the hull lerkarikos-step thickens your frame and slips you (+6% HP, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
