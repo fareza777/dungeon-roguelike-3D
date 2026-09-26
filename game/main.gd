@@ -24133,6 +24133,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 5
 			Stats.buff_crit += 6
 			toast("Storm Aptaliko: The storm aptaliko-step strikes and quickens you, Kael.")
+		3301:
+			Stats.soul_gain_pct += 6
+			Stats.buff_armor += 3
+			toast("Keel Aptaliko: The keel aptaliko-step fills and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29188,6 +29192,7 @@ func _offer_omens() -> void:
 		{"text": "GREY VIMA — GREY VIMA — the grey sanctuary's step teaches its rites (+5% dodge, +5% XP)... its shadow dulls your edge (−4% ATK)"},
 		{"text": "TIDE VIMA — TIDE VIMA — the tide sanctuary's step carries you fast (+6% speed, +4% ATK)... its current tilts your step (−3% dodge)"},
 		{"text": "STORM VIMA — STORM VIMA — the storm sanctuary's step breaks under thunder (+5% ATK, +6% crit)... its wind rocks your guard (−4% dodge)"},
+		{"text": "KEEL VIMA — KEEL VIMA — the keel sanctuary's step stands iron-fast (+6% souls, +3 armor)... its weight slows your step (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54497,6 +54502,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 4
 			oname = "STORM VIMA"
 		5022:
+			Stats.soul_gain_pct += 6
+			Stats.buff_armor += 3
+			Stats.dodge -= 4
+			oname = "KEEL VIMA"
+		5023:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59589,6 +59599,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY VIMA": "The grey sanctuary teaches you its rites, Kael.",
 	"TIDE VIMA": "The tide sanctuary carries you through, Kael.",
 	"STORM VIMA": "The storm sanctuary breaks the sky for you, Kael.",
+	"KEEL VIMA": "The keel sanctuary stands fast for you, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -68051,6 +68062,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Aptaliko — the grey aptaliko-step teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Aptaliko — the tide aptaliko-step carries and quickens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Aptaliko — the storm aptaliko-step strikes and quickens you (+5% ATK, +6% crit)"},
+		{"text": "Keel Aptaliko — the keel aptaliko-step fills and plates you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
