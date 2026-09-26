@@ -34,6 +34,7 @@ func _physics_process(delta: float) -> void:
 		return
 	t += delta
 	rotation.y += delta * 4.0
+	var settled := false
 	if position.y > 0.14 or vel.y > 0.0:
 		vel.y -= 22.0 * delta
 		position += vel * delta
@@ -44,6 +45,7 @@ func _physics_process(delta: float) -> void:
 			vel.z *= 0.6
 			if vel.y < 0.4:
 				vel = Vector3.ZERO
+	settled = vel == Vector3.ZERO
 	if t > 0.45:
 		var ps := get_tree().get_nodes_in_group("player")
 		if not ps.is_empty():
@@ -51,10 +53,18 @@ func _physics_process(delta: float) -> void:
 			if p.get("dead") != true:
 				var d: Vector3 = p.global_position + Vector3(0.0, 0.8, 0.0) - global_position
 				var dist := d.length()
-				if dist < 1.4 * tile:
-					global_position += d.normalized() * (6.0 + t * 6.0) * delta
+				var range := 1.4 * tile * (1.0 + Stats.magnet)
+				if dist < range:
+					var zip := 1.0 + clampf(1.0 - dist / range, 0.0, 1.0) * 2.6
+					global_position += d.normalized() * (6.0 + t * 6.0) * zip * delta
+					scale = Vector3.ONE * clampf(0.45 + 0.55 * dist / range, 0.45, 1.0)
 					if dist < 0.6:
 						absorbed = true
 						Stats.add_xp(value)
-						Sfx.play("xp")
+						Sfx.play("xp", 0.94 + randf() * 0.14)
+						var m := get_tree().current_scene
+						if m != null and m.has_method("_quest_event"):
+							m._quest_event("gem")
 						queue_free()
+				elif settled:
+					position.y = 0.14 + sin(t * 2.6) * 0.06

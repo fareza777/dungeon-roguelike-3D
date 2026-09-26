@@ -126,7 +126,7 @@ static func build_floor(parent: Node3D, seed_val: int, floor_num: int) -> Dictio
 				doors.append({"pos": Vector3(xoff + door_i * s, 0.0, zoff - (h - 0.5) * s), "room": ri})
 			else:
 				_solid(parent, ab)
-		ranges.append({"z0": zoff + 0.5 * s, "z1": zoff - (h - 0.5) * s})
+		ranges.append({"z0": zoff + 0.5 * s, "z1": zoff - (h - 0.5) * s, "x0": xoff, "x1": xoff + (w - 1) * s})
 		# tembok barat & timur + tabrakan
 		for j in range(h):
 			var ww := _place(parent, wall_ps, Vector3(xoff - s, 0.0, zoff - j * s), 90.0)
