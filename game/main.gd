@@ -24263,6 +24263,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 6
 			Stats.dodge += 4
 			toast("Hull Nizamikos: The hull nizamikos-step thickens and guards you, Kael.")
+		3333:
+			Stats.buff_atk_pct += 5
+			Stats.buff_aspd += 0.04
+			toast("Trench Nizamikos: The trench nizamikos-step strikes and hastens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29350,6 +29354,7 @@ func _offer_omens() -> void:
 		{"text": "STORM PYXIDA — STORM PYXIDA — the storm pyx cracks its host aloud (+5% ATK, +6% crit)... its wind rocks your guard (−4% dodge)"},
 		{"text": "KEEL PYXIDA — KEEL PYXIDA — the keel pyx stands iron-fast (+6% souls, +3 armor)... its weight slows your step (−4% dodge)"},
 		{"text": "HULL PYXIDA — HULL PYXIDA — the hull pyx thickens your frame (+6% max HP, +4% dodge)... its timbers weigh you (−3% speed)"},
+		{"text": "TRENCH PYXIDA — TRENCH PYXIDA — the trench pyx drags your arm fast (+5% ATK, +4% atk speed)... its depth sways your step (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54821,6 +54826,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 3
 			oname = "HULL PYXIDA"
 		5054:
+			Stats.buff_atk_pct += 5
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 4
+			oname = "TRENCH PYXIDA"
+		5055:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59945,6 +59955,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM PYXIDA": "The storm pyx cracks the sky for you, Kael.",
 	"KEEL PYXIDA": "The keel pyx stands fast for you, Kael.",
 	"HULL PYXIDA": "The hull pyx thickens your frame, Kael.",
+	"TRENCH PYXIDA": "The trench pyx drags your arm, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -68439,6 +68450,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Storm Nizamikos — the storm nizamikos-step strikes and quickens you (+5% ATK, +6% crit)"},
 		{"text": "Keel Nizamikos — the keel nizamikos-step fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Nizamikos — the hull nizamikos-step thickens and guards you (+6% max HP, +4% dodge)"},
+		{"text": "Trench Nizamikos — the trench nizamikos-step strikes and hastens you (+5% ATK, +4% atk speed)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
