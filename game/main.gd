@@ -25687,6 +25687,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.04
 			Stats.buff_armor += 2
 			toast("Grim Lerian: The grim lerian-step strikes, slips, and plates, Kael.")
+		3666:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			toast("Fog Lerian: The fog lerian-step slips widely and fills, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -31107,6 +31111,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH ABACUS — the trench abacus-step drives harder and quicker, but slips off the stance (+5% ATK, +4% atk speed, −4% dodge)"},
 		{"text": "BOTTOM ABACUS — the bottom abacus-step pays richly and slips, but dulls the edge (+7% souls, +4% dodge, −3% ATK)"},
 		{"text": "GRIM ABACUS — the grim abacus-step strikes, slips, plates — but anchors you (+5% ATK, +4% dodge, +2 armor, −4% speed)"},
+		{"text": "FOG ABACUS — the fog abacus-step slips widely and fills, but dulls the edge (+7% dodge, +4% souls, −4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -58266,6 +58271,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM ABACUS"
 		5387:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG ABACUS"
+		5388:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -63727,6 +63737,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH ABACUS": "Trench Abacus — the counting-frame bites fastest down deep, Kael.",
 	"BOTTOM ABACUS": "Bottom Abacus — the counting-frame sinks to the seabed, Kael.",
 	"GRIM ABACUS": "Grim Abacus — a mourning tally, Kael.",
+	"FOG ABACUS": "Fog Abacus — the counting-frame tallies in a veil, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -72554,6 +72565,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Trench Lerian — the trench lerian-step drives harder and quicker (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Lerian — the bottom lerian-step fills and slips you (+7% souls, +4% dodge)"},
 		{"text": "Grim Lerian — the grim lerian-step strikes, slips, and plates (+5% ATK, +4% dodge, +2 armor)"},
+		{"text": "Fog Lerian — the fog lerian-step slips widely and fills (+7% dodge, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
