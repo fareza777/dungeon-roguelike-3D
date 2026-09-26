@@ -25090,6 +25090,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Lerkarikos: The tide lerkarikos-step speeds and bites, Kael.")
+		3525:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Lerkarikos: The storm lerkarikos-step strikes and sharpens, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30369,6 +30373,7 @@ func _offer_omens() -> void:
 		{"text": "PALE LEITOURGEMA — the pale leitourgema-step slips and fills, but dulls the edge (+6% dodge, +5% souls, −4% ATK)"},
 		{"text": "GREY LEITOURGEMA — the grey leitourgema-step slips and teaches, but dulls the edge (+5% dodge, +5% XP, −4% ATK)"},
 		{"text": "TIDE LEITOURGEMA — the tide leitourgema-step speeds and bites, but slips off the stance (+6% speed, +4% ATK, −3% dodge)"},
+		{"text": "STORM LEITOURGEMA — the storm leitourgema-step strikes and sharpens, but slips off the stance (+5% ATK, +6% crit, −4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -56813,6 +56818,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE LEITOURGEMA"
 		5246:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM LEITOURGEMA"
+		5247:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -62133,6 +62143,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE LEITOURGEMA": "Pale Leitourgema — moonlight on the office-book, Kael.",
 	"GREY LEITOURGEMA": "Grey Leitourgema — ash on the service-book, Kael.",
 	"TIDE LEITOURGEMA": "Tide Leitourgema — the office tides you onward, Kael.",
+	"STORM LEITOURGEMA": "Storm Leitourgema — thunder reads the office, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -70819,6 +70830,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Lerkarikos — the pale lerkarikos-step slips and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Lerkarikos — the grey lerkarikos-step slips and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Lerkarikos — the tide lerkarikos-step speeds and bites (+6% speed, +4% ATK)"},
+		{"text": "Storm Lerkarikos — the storm lerkarikos-step strikes and sharpens (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
