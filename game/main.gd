@@ -23760,6 +23760,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Karsilamas: The tide karsilamas-step quickens and sharpens you, Kael.")
+		3210:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Karsilamas: The storm karsilamas-step sharpens and furious you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -28724,6 +28728,7 @@ func _offer_omens() -> void:
 		{"text": "PALE EPIKTINION — the pale epiktinion guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY EPIKTINION — the grey epiktinion guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE EPIKTINION — the tide epiktinion quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
+		{"text": "STORM EPIKTINION — the storm epiktinion sharpens and furious you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -53572,6 +53577,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE EPIKTINION"
 		4931:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM EPIKTINION"
+		4932:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -58573,6 +58583,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE EPIKTINION": "The pale epiktinion presses its miter upon your pallor, Kael — guarded and filled, at a cost.",
 	"GREY EPIKTINION": "The grey epiktinion presses its miter upon your grey hours, Kael — guarded and taught, at a cost.",
 	"TIDE EPIKTINION": "The tide epiktinion presses its miter on your tide, Kael — quicker and keener, at a cost.",
+	"STORM EPIKTINION": "The storm epiktinion presses its miter on your storm, Kael — keen and furious, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -66944,6 +66955,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Karsilamas — the pale karsilamas-step guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Karsilamas — the grey karsilamas-step guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Karsilamas — the tide karsilamas-step quickens and sharpens you (+6% speed, +4% ATK)"},
+		{"text": "Storm Karsilamas — the storm karsilamas-step sharpens and furious you (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
