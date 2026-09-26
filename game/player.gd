@@ -73,6 +73,9 @@ func dash_burst(dir: Vector3) -> void:
 	stw.tween_property(smat, "albedo_color:a", 0.0, 0.3)
 	stw.tween_property(streak, "scale:z", 2.2, 0.3)
 	stw.chain().tween_callback(streak.queue_free)
+	var mv10 := get_tree().current_scene
+	if mv10 != null and mv10.has_method("_shock_ring"):
+		mv10._shock_ring(global_position, Color(0.7, 0.75, 0.8, 0.5))
 	dash_dir = Vector3(dir.x, 0, dir.z).normalized()
 	invuln = maxf(invuln, 0.4)
 	anim_lock = maxf(anim_lock, 0.22)
