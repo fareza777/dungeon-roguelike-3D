@@ -22569,6 +22569,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.07
 			Stats.soul_gain_pct += 0.04
 			toast("Fog Antikristos: The fog antikristos-step guards and fills you, Kael.")
+		2917:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			toast("Wake Antikristos: The wake antikristos-step quickens and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -27240,6 +27244,7 @@ func _offer_omens() -> void:
 		{"text": "BOTTOM KADILO — the bottom kadilo fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 		{"text": "GRIM KADILO — the grim kadilo sharpens, guards and armors you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 		{"text": "FOG KADILO — the fog kadilo guards and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
+		{"text": "WAKE KADILO — the wake kadilo quickens and fills you... at a cost (+6% speed, +4% souls, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -50604,6 +50609,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "FOG KADILO"
 		4638:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "WAKE KADILO"
+		4639:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -55312,6 +55322,7 @@ func _omen_deal(idx: int) -> void:
 	"BOTTOM KADILO": "The bottom kadilo swings its kadila at your bottom, Kael — filled and guarded, at a cost.",
 	"GRIM KADILO": "The grim kadilo swings its kadila through your grim vigil, Kael — keen, guarded, plated, at a cost.",
 	"FOG KADILO": "The fog kadilo swings its kadila in your fog, Kael — guarded and filled, at a cost.",
+	"WAKE KADILO": "The wake kadilo swings its kadila in your wake, Kael — quicker and filled, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -63390,6 +63401,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bottom Antikristos — the bottom antikristos-step fills and guards you (+7% souls, +4% dodge)"},
 		{"text": "Grim Antikristos — the grim antikristos-step sharpens, guards and armors you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Antikristos — the fog antikristos-step guards and fills you (+7% dodge, +4% souls)"},
+		{"text": "Wake Antikristos — the wake antikristos-step quickens and fills you (+6% speed, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
