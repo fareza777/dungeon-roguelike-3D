@@ -24518,6 +24518,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Kathistikos: The tide kathistikos-step surges your pace and arm, Kael.")
+		3390:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Kathistikos: The storm kathistikos-step strikes harder and truer, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29662,6 +29666,7 @@ func _offer_omens() -> void:
 		{"text": "PALE TABLION — the pale tablion-step slips like ghost-silk, pays a little more, strikes lighter (+6% dodge, +5% souls, −4% ATK)"},
 		{"text": "GREY TABLION — the grey tablion-step slips, teaches, strikes lighter (+5% dodge, +5% XP, −4% ATK)"},
 		{"text": "TIDE TABLION — the tide tablion-step surges your pace and arm, but sits heavier (+6% speed, +4% ATK, −3% dodge)"},
+		{"text": "STORM TABLION — the storm tablion-step strikes harder and truer, but grounds you (+5% ATK, +6% crit, −4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -55422,6 +55427,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE TABLION"
 		5111:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM TABLION"
+		5112:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -60603,6 +60613,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE TABLION": "Pale Tablion — a whitened patch over the old wound, Kael.",
 	"GREY TABLION": "Grey Tablion — the tarnished badge keeps its lessons, Kael.",
 	"TIDE TABLION": "Tide Tablion — the patch pulls with the swell, Kael.",
+	"STORM TABLION": "Storm Tablion — the badge crackles with storm-fire, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -69154,6 +69165,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Kathistikos — the pale kathistikos-step slips and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Kathistikos — the grey kathistikos-step slips and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Kathistikos — the tide kathistikos-step surges your pace and arm (+6% speed, +4% ATK)"},
+		{"text": "Storm Kathistikos — the storm kathistikos-step strikes harder and truer (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
