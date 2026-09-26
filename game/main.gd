@@ -23882,6 +23882,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Pentozali: The tide pentozali-step quickens and sharpens you, Kael.")
+		3240:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Pentozali: The storm pentozali-step sharpens and furious you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -28876,6 +28880,7 @@ func _offer_omens() -> void:
 		{"text": "PALE PROSFORA — the pale prosfora guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY PROSFORA — the grey prosfora guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE PROSFORA — the tide prosfora quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
+		{"text": "STORM PROSFORA — the storm prosfora sharpens and furious you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -53876,6 +53881,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE PROSFORA"
 		4961:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM PROSFORA"
+		4962:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -58907,6 +58917,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE PROSFORA": "The pale prosfora lifts its offering-loaf over your pallor, Kael — guarded and filled, at a cost.",
 	"GREY PROSFORA": "The grey prosfora lifts its offering-loaf over your grey hours, Kael — guarded and taught, at a cost.",
 	"TIDE PROSFORA": "The tide prosfora lifts its offering-loaf on your tide, Kael — quicker and keener, at a cost.",
+	"STORM PROSFORA": "The storm prosfora lifts its offering-loaf on your storm, Kael — keen and furious, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -67308,6 +67319,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Pentozali — the pale pentozali-step guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Pentozali — the grey pentozali-step guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Pentozali — the tide pentozali-step quickens and sharpens you (+6% speed, +4% ATK)"},
+		{"text": "Storm Pentozali — the storm pentozali-step sharpens and furious you (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
