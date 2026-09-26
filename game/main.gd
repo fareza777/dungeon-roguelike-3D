@@ -24004,6 +24004,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 6
 			Stats.buff_atk_pct += 4
 			toast("Tide Ballos: The tide ballos-step carries and quickens you, Kael.")
+		3270:
+			Stats.buff_atk_pct += 5
+			Stats.buff_crit += 6
+			toast("Storm Ballos: The storm ballos-step strikes and quickens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29028,6 +29032,7 @@ func _offer_omens() -> void:
 		{"text": "PALE ANALOGION — PALE ANALOGION — the pale lectern holds fog-bound psalms (+6% dodge, +5% souls)... its stand blunts your arm (−4% ATK)"},
 		{"text": "GREY ANALOGION — GREY ANALOGION — the grey lectern teaches its verses (+5% dodge, +5% XP)... its shadow dulls your edge (−4% ATK)"},
 		{"text": "TIDE ANALOGION — TIDE ANALOGION — the tide lectern turns its own page fast (+6% speed, +4% ATK)... its current tilts your step (−3% dodge)"},
+		{"text": "STORM ANALOGION — STORM ANALOGION — the storm lectern cracks its psalm aloud (+5% ATK, +6% crit)... its wind rocks your guard (−4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54180,6 +54185,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 3
 			oname = "TIDE ANALOGION"
 		4991:
+			Stats.buff_atk_pct += 5
+			Stats.buff_crit += 6
+			Stats.dodge -= 4
+			oname = "STORM ANALOGION"
+		4992:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59241,6 +59251,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE ANALOGION": "The pale lectern pays you in mist and memory, Kael.",
 	"GREY ANALOGION": "The grey lectern teaches you its verses, Kael.",
 	"TIDE ANALOGION": "The tide lectern swings you through, Kael.",
+	"STORM ANALOGION": "The storm lectern cracks the sky for you, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -67672,6 +67683,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Ballos — the pale ballos-step slips you aside (+6% dodge, +5% souls)"},
 		{"text": "Grey Ballos — the grey ballos-step teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Ballos — the tide ballos-step carries and quickens you (+6% speed, +4% ATK)"},
+		{"text": "Storm Ballos — the storm ballos-step strikes and quickens you (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
