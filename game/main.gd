@@ -25609,6 +25609,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.06
 			Stats.buff_armor += 3
 			toast("Keel Kangeliotikos: The keel kangeliotikos-step fills and plates you, Kael.")
+		3647:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			toast("Hull Kangeliotikos: The hull kangeliotikos-step thickens your frame and slips you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -31010,6 +31014,7 @@ func _offer_omens() -> void:
 		{"text": "TIDE SPITWADDLE — the tide spitwaddle-step speeds and bites, but slips off the stance (+6% speed, +4% ATK, −3% dodge)"},
 		{"text": "STORM SPITWADDLE — the storm spitwaddle-step strikes and sharpens, but slips off the stance (+5% ATK, +6% crit, −4% dodge)"},
 		{"text": "KEEL SPITWADDLE — the keel spitwaddle-step fills and plates, but slips off the stance (+6% souls, +3 armor, −4% dodge)"},
+		{"text": "HULL SPITWADDLE — the hull spitwaddle-step thickens your frame and slips, but sits heavier (+6% HP, +4% dodge, −3% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -58072,6 +58077,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "KEEL SPITWADDLE"
 		5368:
+			Stats.buff_maxhp_pct += 0.06
+			Stats.dodge += 0.04
+			Stats.buff_speed_pct -= 0.03
+			oname = "HULL SPITWADDLE"
+		5369:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -63514,6 +63524,7 @@ func _omen_deal(idx: int) -> void:
 	"TIDE SPITWADDLE": "Tide Spitwaddle — the dry-march tides you onward, Kael.",
 	"STORM SPITWADDLE": "Storm Spitwaddle — thunder marches dry, Kael.",
 	"KEEL SPITWADDLE": "Keel Spitwaddle — the dry-march rides low, Kael.",
+	"HULL SPITWADDLE": "Hull Spitwaddle — the dry-march braces the hull, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -72322,6 +72333,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Tide Kangeliotikos — the tide kangeliotikos-step speeds and bites (+6% speed, +4% ATK)"},
 		{"text": "Storm Kangeliotikos — the storm kangeliotikos-step strikes and sharpens (+5% ATK, +6% crit)"},
 		{"text": "Keel Kangeliotikos — the keel kangeliotikos-step fills and plates you (+6% souls, +3 armor)"},
+		{"text": "Hull Kangeliotikos — the hull kangeliotikos-step thickens your frame and slips you (+6% HP, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
