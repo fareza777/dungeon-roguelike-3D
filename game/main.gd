@@ -24927,6 +24927,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Makrygianis: The bottom makrygianis-step fills and slips you, Kael.")
+		3485:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Makrygianis: The grim makrygianis-step strikes, slips and plates you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30166,6 +30171,7 @@ func _offer_omens() -> void:
 		{"text": "HULL SCHEMA — the hull schema-step thickens your frame and slips, but sits heavier (+6% HP, +4% dodge, −3% speed)"},
 		{"text": "TRENCH SCHEMA — the trench schema-step drives harder and quicker, but slips off the stance (+5% ATK, +4% atk speed, −4% dodge)"},
 		{"text": "BOTTOM SCHEMA — the bottom schema-step pays richly and slips, but dulls the edge (+7% souls, +4% dodge, −3% ATK)"},
+		{"text": "GRIM SCHEMA — the grim schema-step strikes, slips, plates — but anchors you (+5% ATK, +4% dodge, +2 armor, −4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -56407,6 +56413,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM SCHEMA"
 		5206:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM SCHEMA"
+		5207:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -61683,6 +61695,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL SCHEMA": "Hull Schema — the habit hangs like wet sail, Kael.",
 	"TRENCH SCHEMA": "Trench Schema — the habit cuts fastest down deep, Kael.",
 	"BOTTOM SCHEMA": "Bottom Schema — the habit sinks to the seabed, Kael.",
+	"GRIM SCHEMA": "Grim Schema — a mourning habit in iron, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -70329,6 +70342,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Makrygianis — the hull makrygianis-step thickens your frame and slips you (+6% HP, +4% dodge)"},
 		{"text": "Trench Makrygianis — the trench makrygianis-step drives harder and quicker (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Makrygianis — the bottom makrygianis-step fills and slips you (+7% souls, +4% dodge)"},
+		{"text": "Grim Makrygianis — the grim makrygianis-step strikes, slips and plates you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
