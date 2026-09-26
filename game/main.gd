@@ -25658,6 +25658,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Grey Lerian: The grey lerian-step slips and teaches you, Kael.")
+		3659:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			toast("Tide Lerian: The tide lerian-step speeds and bites, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -31071,6 +31075,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP ABACUS — the deep abacus-step bites and slips, but pays thinner (+7% ATK, +3% dodge, −3% souls)"},
 		{"text": "PALE ABACUS — the pale abacus-step slips and fills, but dulls the edge (+6% dodge, +5% souls, −4% ATK)"},
 		{"text": "GREY ABACUS — the grey abacus-step slips and teaches, but dulls the edge (+5% dodge, +5% XP, −4% ATK)"},
+		{"text": "TIDE ABACUS — the tide abacus-step speeds and bites, but slips off the stance (+6% speed, +4% ATK, −3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -58194,6 +58199,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY ABACUS"
 		5380:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE ABACUS"
+		5381:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -63648,6 +63658,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP ABACUS": "Deep Abacus — the counting-frame runs dark, Kael.",
 	"PALE ABACUS": "Pale Abacus — moonlight on the counting-frame, Kael.",
 	"GREY ABACUS": "Grey Abacus — ash on the counting-frame, Kael.",
+	"TIDE ABACUS": "Tide Abacus — the counting-frame tides you onward, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -72468,6 +72479,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Deep Lerian — the deep lerian-step bites and slips you (+7% ATK, +3% dodge)"},
 		{"text": "Pale Lerian — the pale lerian-step slips and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Lerian — the grey lerian-step slips and teaches you (+5% dodge, +5% XP)"},
+		{"text": "Tide Lerian — the tide lerian-step speeds and bites (+6% speed, +4% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
