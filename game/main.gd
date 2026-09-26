@@ -25560,6 +25560,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Nisiotikos: The bottom nisiotikos-step fills and slips you, Kael.")
+		3635:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Nisiotikos: The grim nisiotikos-step strikes, slips, and plates, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30949,6 +30954,7 @@ func _offer_omens() -> void:
 		{"text": "HULL TRISAGIONALE — the hull trisagionale-step thickens your frame and slips, but sits heavier (+6% HP, +4% dodge, −3% speed)"},
 		{"text": "TRENCH TRISAGIONALE — the trench trisagionale-step drives harder and quicker, but slips off the stance (+5% ATK, +4% atk speed, −4% dodge)"},
 		{"text": "BOTTOM TRISAGIONALE — the bottom trisagionale-step pays richly and slips, but dulls the edge (+7% souls, +4% dodge, −3% ATK)"},
+		{"text": "GRIM TRISAGIONALE — the grim trisagionale-step strikes, slips, plates — but anchors you (+5% ATK, +4% dodge, +2 armor, −4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -57950,6 +57956,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM TRISAGIONALE"
 		5356:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM TRISAGIONALE"
+		5357:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -63380,6 +63392,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL TRISAGIONALE": "Hull Trisagionale — the thrice-holy braces the hull, Kael.",
 	"TRENCH TRISAGIONALE": "Trench Trisagionale — the thrice-holy bites fastest down deep, Kael.",
 	"BOTTOM TRISAGIONALE": "Bottom Trisagionale — the thrice-holy sinks to the seabed, Kael.",
+	"GRIM TRISAGIONALE": "Grim Trisagionale — a mourning thrice-holy, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -72176,6 +72189,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Nisiotikos — the hull nisiotikos-step thickens your frame and slips you (+6% HP, +4% dodge)"},
 		{"text": "Trench Nisiotikos — the trench nisiotikos-step drives harder and quicker (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Nisiotikos — the bottom nisiotikos-step fills and slips you (+7% souls, +4% dodge)"},
+		{"text": "Grim Nisiotikos — the grim nisiotikos-step strikes, slips, and plates (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
