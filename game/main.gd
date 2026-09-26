@@ -23114,6 +23114,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.04
 			Stats.buff_armor += 2
 			toast("Grim Tsakonikos: The grim tsakonikos-step sharpens, guards and armors you, Kael.")
+		3051:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			toast("Fog Tsakonikos: The fog tsakonikos-step guards and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -27919,6 +27923,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH ANALAVOS — the trench analavos sharpens and hastens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
 		{"text": "BOTTOM ANALAVOS — the bottom analavos fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 		{"text": "GRIM ANALAVOS — the grim analavos sharpens, guards and armors you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
+		{"text": "FOG ANALAVOS — the fog analavos guards and fills you... at a cost (+7% dodge, +4% souls, -4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -51962,6 +51967,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM ANALAVOS"
 		4772:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG ANALAVOS"
+		4773:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -56804,6 +56814,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH ANALAVOS": "The trench analavos wraps its burial-cloth in your trench, Kael — keen and quick, at a cost.",
 	"BOTTOM ANALAVOS": "The bottom analavos wraps its burial-cloth at your bottom, Kael — filled and guarded, at a cost.",
 	"GRIM ANALAVOS": "The grim analavos wraps its burial-cloth through your grim vigil, Kael — keen, guarded, plated, at a cost.",
+	"FOG ANALAVOS": "The fog analavos wraps its burial-cloth in your fog, Kael — guarded and filled, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -65016,6 +65027,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Trench Tsakonikos — the trench tsakonikos-step sharpens and hastens you (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Tsakonikos — the bottom tsakonikos-step fills and guards you (+7% souls, +4% dodge)"},
 		{"text": "Grim Tsakonikos — the grim tsakonikos-step sharpens, guards and armors you (+5% ATK, +4% dodge, +2 armor)"},
+		{"text": "Fog Tsakonikos — the fog tsakonikos-step guards and fills you (+7% dodge, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
