@@ -23589,6 +23589,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 0.06
 			Stats.dodge += 0.04
 			toast("Hull Endeka: The hull endeka-step thickens and guards you, Kael.")
+		3168:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			toast("Trench Endeka: The trench endeka-step sharpens and hastens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -28511,6 +28515,7 @@ func _offer_omens() -> void:
 		{"text": "STORM EXORASSON — the storm exorasson sharpens and furious you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 		{"text": "KEEL EXORASSON — the keel exorasson fills and armors you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL EXORASSON — the hull exorasson thickens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
+		{"text": "TRENCH EXORASSON — the trench exorasson sharpens and hastens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -53146,6 +53151,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL EXORASSON"
 		4889:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH EXORASSON"
+		4890:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -58105,6 +58115,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM EXORASSON": "The storm exorasson pulls its outer cassock on your storm, Kael — keen and furious, at a cost.",
 	"KEEL EXORASSON": "The keel exorasson pulls its outer cassock down your keel, Kael — filled and plated, at a cost.",
 	"HULL EXORASSON": "The hull exorasson pulls its outer cassock round your hull, Kael — thicker and guarded, at a cost.",
+	"TRENCH EXORASSON": "The trench exorasson pulls its outer cassock in your trench, Kael — keen and quick, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -66434,6 +66445,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Storm Endeka — the storm endeka-step sharpens and furious you (+5% ATK, +6% crit)"},
 		{"text": "Keel Endeka — the keel endeka-step fills and armors you (+6% souls, +3 armor)"},
 		{"text": "Hull Endeka — the hull endeka-step thickens and guards you (+6% max HP, +4% dodge)"},
+		{"text": "Trench Endeka — the trench endeka-step sharpens and hastens you (+5% ATK, +4% atk speed)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
