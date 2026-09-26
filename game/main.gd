@@ -25715,6 +25715,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.06
 			Stats.soul_gain_pct += 0.05
 			toast("Pale Kassiani: The pale kassiani-step slips and fills you, Kael.")
+		3673:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Grey Kassiani: The grey kassiani-step slips and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -31142,6 +31146,7 @@ func _offer_omens() -> void:
 		{"text": "SALT ABACUS — the salt abacus-step fills and teaches, but slips off the stance (+6% souls, +4% XP, −3% dodge)"},
 		{"text": "DEEP LEITOURGIKON — the deep leitourgikon-step bites and slips, but pays thinner (+7% ATK, +3% dodge, −3% souls)"},
 		{"text": "PALE LEITOURGIKON — the pale leitourgikon-step slips and fills, but dulls the edge (+6% dodge, +5% souls, −4% ATK)"},
+		{"text": "GREY LEITOURGIKON — the grey leitourgikon-step slips and teaches, but dulls the edge (+5% dodge, +5% XP, −4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -58336,6 +58341,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "PALE LEITOURGIKON"
 		5394:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "GREY LEITOURGIKON"
+		5395:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -63804,6 +63814,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT ABACUS": "Salt Abacus — the counting-frame cures in brine, Kael.",
 	"DEEP LEITOURGIKON": "Deep Leitourgikon — the service-book runs dark, Kael.",
 	"PALE LEITOURGIKON": "Pale Leitourgikon — moonlight on the service-book, Kael.",
+	"GREY LEITOURGIKON": "Grey Leitourgikon — ash on the service-book, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -72638,6 +72649,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Salt Lerian — the salt lerian-step fills and teaches (+6% souls, +4% XP)"},
 		{"text": "Deep Kassiani — the deep kassiani-step bites and slips you (+7% ATK, +3% dodge)"},
 		{"text": "Pale Kassiani — the pale kassiani-step slips and fills you (+6% dodge, +5% souls)"},
+		{"text": "Grey Kassiani — the grey kassiani-step slips and teaches you (+5% dodge, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
