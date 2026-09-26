@@ -22865,6 +22865,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Syrba: The bottom syrba-step fills and guards you, Kael.")
+		2990:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Syrba: The grim syrba-step sharpens, guards and armors you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -27609,6 +27614,7 @@ func _offer_omens() -> void:
 		{"text": "HULL STICHARION — the hull sticharion thickens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH STICHARION — the trench sticharion sharpens and hastens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
 		{"text": "BOTTOM STICHARION — the bottom sticharion fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM STICHARION — the grim sticharion sharpens, guards and armors you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -51342,6 +51348,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM STICHARION"
 		4711:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM STICHARION"
+		4712:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -56123,6 +56135,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL STICHARION": "The hull sticharion drapes its sticharia on your hull, Kael — thick and guarded, at a cost.",
 	"TRENCH STICHARION": "The trench sticharion drapes its sticharia in your trench, Kael — keen and quick, at a cost.",
 	"BOTTOM STICHARION": "The bottom sticharion drapes its sticharia at your bottom, Kael — filled and guarded, at a cost.",
+	"GRIM STICHARION": "The grim sticharion drapes its sticharia through your grim vigil, Kael — keen, guarded, plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -64274,6 +64287,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Syrba — the hull syrba-step thickens and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Syrba — the trench syrba-step sharpens and hastens you (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Syrba — the bottom syrba-step fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Syrba — the grim syrba-step sharpens, guards and armors you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
