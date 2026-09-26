@@ -23699,6 +23699,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Zeimbekiko: The tide zeimbekiko-step quickens and sharpens you, Kael.")
+		3195:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Zeimbekiko: The storm zeimbekiko-step sharpens and furious you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -28648,6 +28652,7 @@ func _offer_omens() -> void:
 		{"text": "PALE KLOBUKARION — the pale klobukarion guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY KLOBUKARION — the grey klobukarion guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE KLOBUKARION — the tide klobukarion quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
+		{"text": "STORM KLOBUKARION — the storm klobukarion sharpens and furious you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -53420,6 +53425,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE KLOBUKARION"
 		4916:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM KLOBUKARION"
+		4917:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -58406,6 +58416,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE KLOBUKARION": "The pale klobukarion lowers its veiled hat over your pallor, Kael — guarded and filled, at a cost.",
 	"GREY KLOBUKARION": "The grey klobukarion lowers its veiled hat over your grey hours, Kael — guarded and taught, at a cost.",
 	"TIDE KLOBUKARION": "The tide klobukarion lowers its veiled hat on your tide, Kael — quicker and keener, at a cost.",
+	"STORM KLOBUKARION": "The storm klobukarion lowers its veiled hat on your storm, Kael — keen and furious, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -66762,6 +66773,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Zeimbekiko — the pale zeimbekiko-step guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Zeimbekiko — the grey zeimbekiko-step guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Zeimbekiko — the tide zeimbekiko-step quickens and sharpens you (+6% speed, +4% ATK)"},
+		{"text": "Storm Zeimbekiko — the storm zeimbekiko-step sharpens and furious you (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
