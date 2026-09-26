@@ -24186,6 +24186,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 5
 			Stats.buff_xp_pct += 5
 			toast("Grey Dipat: The grey dipat-step teaches you, Kael.")
+		3314:
+			Stats.buff_speed_pct += 6
+			Stats.buff_atk_pct += 4
+			toast("Tide Dipat: The tide dipat-step carries and quickens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29254,6 +29258,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP DIASOURA — DEEP DIASOURA — the deep diasoura shelters the sunken rite (+7% ATK, +3% dodge)... its shade tithes (−3% souls)"},
 		{"text": "PALE DIASOURA — PALE DIASOURA — the pale diasoura shelters in mist (+6% dodge, +5% souls)... its shade blunts your arm (−4% ATK)"},
 		{"text": "GREY DIASOURA — GREY DIASOURA — the grey diasoura teaches its rite (+5% dodge, +5% XP)... its shadow dulls your edge (−4% ATK)"},
+		{"text": "TIDE DIASOURA — TIDE DIASOURA — the tide diasoura carries you fast (+6% speed, +4% ATK)... its current tilts your step (−3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54629,6 +54634,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 4
 			oname = "GREY DIASOURA"
 		5035:
+			Stats.buff_speed_pct += 6
+			Stats.buff_atk_pct += 4
+			Stats.dodge -= 3
+			oname = "TIDE DIASOURA"
+		5036:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59734,6 +59744,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP DIASOURA": "The deep diasoura shelters you, Kael — it keeps a toll in souls.",
 	"PALE DIASOURA": "The pale diasoura pays you in mist and memory, Kael.",
 	"GREY DIASOURA": "The grey diasoura teaches you its rite, Kael.",
+	"TIDE DIASOURA": "The tide diasoura carries you through, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -68209,6 +68220,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Deep Dipat — the deep dipat-step quickens your arm (+5% ATK, +3% dodge)"},
 		{"text": "Pale Dipat — the pale dipat-step slips you aside (+6% dodge, +5% souls)"},
 		{"text": "Grey Dipat — the grey dipat-step teaches you (+5% dodge, +5% XP)"},
+		{"text": "Tide Dipat — the tide dipat-step carries and quickens you (+6% speed, +4% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
