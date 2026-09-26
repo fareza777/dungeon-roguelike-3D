@@ -24327,6 +24327,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.06
 			Stats.soul_gain_pct += 0.05
 			toast("Pale Lerikos: The pale lerikos-step slips and fills you, Kael.")
+		3343:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Grey Lerikos: The grey lerikos-step slips and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29424,6 +29428,7 @@ func _offer_omens() -> void:
 		{"text": "SALT PYXIDA — SALT PYXIDA — the salt pyx preserves the last host (+6% souls, +4% XP)... its crust slows your step (−3% dodge)"},
 		{"text": "DEEP ZAROUCHON — the deep zarouchon-step strikes harder, slips better, pays thinner (+7% ATK, +3% dodge, −3% souls)"},
 		{"text": "PALE ZAROUCHON — the pale zarouchon-step slips like ghost-mail, pays a little more, strikes lighter (+6% dodge, +5% souls, −4% ATK)"},
+		{"text": "GREY ZAROUCHON — the grey zarouchon-step slips, teaches, strikes lighter (+5% dodge, +5% XP, −4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54946,6 +54951,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "PALE ZAROUCHON"
 		5064:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "GREY ZAROUCHON"
+		5065:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -60080,6 +60090,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT PYXIDA": "The salt pyx preserves you, Kael.",
 	"DEEP ZAROUCHON": "Deep Zarouchon — the heavy chain-mail drapes your shoulders, Kael.",
 	"PALE ZAROUCHON": "Pale Zarouchon — the whitened chain whispers when it moves, Kael.",
+	"GREY ZAROUCHON": "Grey Zarouchon — the weathered mail remembers every blow, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -68584,6 +68595,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Salt Nizamikos — the salt nizamikos-step fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Lerikos — the deep lerikos-step quickens your arm (+5% ATK, +3% dodge)"},
 		{"text": "Pale Lerikos — the pale lerikos-step slips and fills you (+6% dodge, +5% souls)"},
+		{"text": "Grey Lerikos — the grey lerikos-step slips and teaches you (+5% dodge, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
