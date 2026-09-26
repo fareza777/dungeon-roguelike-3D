@@ -24774,6 +24774,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 0.06
 			Stats.dodge += 0.04
 			toast("Hull Erotikos: The hull erotikos-step thickens your frame and slips you, Kael.")
+		3453:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			toast("Trench Erotikos: The trench erotikos-step drives harder and quicker, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29981,6 +29985,7 @@ func _offer_omens() -> void:
 		{"text": "STORM OURANOI — the storm ouranoi-step strikes and sharpens, but slips off the stance (+5% ATK, +6% crit, −4% dodge)"},
 		{"text": "KEEL OURANOI — the keel ouranoi-step fills and plates, but slips off the stance (+6% souls, +3 armor, −4% dodge)"},
 		{"text": "HULL OURANOI — the hull ouranoi-step thickens your frame and slips, but sits heavier (+6% HP, +4% dodge, −3% speed)"},
+		{"text": "TRENCH OURANOI — the trench ouranoi-step drives harder and quicker, but slips off the stance (+5% ATK, +4% atk speed, −4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -56060,6 +56065,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL OURANOI"
 		5174:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH OURANOI"
+		5175:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -61304,6 +61314,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM OURANOI": "Storm Ouranoi — the heavens rage, Kael.",
 	"KEEL OURANOI": "Keel Ouranoi — sky-weight on the keel, Kael.",
 	"HULL OURANOI": "Hull Ouranoi — the vault braces the planks, Kael.",
+	"TRENCH OURANOI": "Trench Ouranoi — the heavens drop their weight, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -69918,6 +69929,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Storm Erotikos — the storm erotikos-step strikes and sharpens (+5% ATK, +6% crit)"},
 		{"text": "Keel Erotikos — the keel erotikos-step fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Erotikos — the hull erotikos-step thickens your frame and slips you (+6% HP, +4% dodge)"},
+		{"text": "Trench Erotikos — the trench erotikos-step drives harder and quicker (+5% ATK, +4% atk speed)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
