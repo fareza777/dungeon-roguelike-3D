@@ -63,6 +63,13 @@ func _ready() -> void:
 	t3.modulate = Color(1, 1, 1, 0.4)
 	t3.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vb.add_child(t3)
+	var seq: Array[Label] = [t1, t2, t3]
+	for i in seq.size():
+		var lb: Label = seq[i]
+		var base_a: float = lb.modulate.a
+		lb.modulate.a = 0.0
+		var ltw := lb.create_tween()
+		ltw.tween_property(lb, "modulate:a", base_a, 0.4).set_delay(0.25 + i * 0.12)
 	# bar loading tipis
 	var bar := ProgressBar.new()
 	bar.custom_minimum_size = Vector2(320, 8)
