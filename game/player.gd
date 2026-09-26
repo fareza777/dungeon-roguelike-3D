@@ -2082,6 +2082,8 @@ func take_hit(from_pos: Vector3, dmg_taken: int) -> void:
 	hp -= eff
 	invuln = 0.9
 	Sfx.play("hurt")
+	if mv != null and mv.has_method("_damage_number"):
+		mv._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "-%d" % eff, Color(1.0, 0.35, 0.3), true)
 	if mv != null and mv.has_method("_hurt_dir"):
 		mv._hurt_dir(from_pos)
 	hp_changed.emit(hp)
