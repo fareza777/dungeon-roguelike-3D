@@ -24166,6 +24166,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 5
 			Stats.buff_xp_pct += 5
 			toast("Bilge Aptaliko: The bilge aptaliko-step fills and teaches you, Kael.")
+		3309:
+			Stats.dodge += 5
+			Stats.buff_atk_pct += 5
+			toast("Crest Aptaliko: The crest aptaliko-step guards and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29229,6 +29233,7 @@ func _offer_omens() -> void:
 		{"text": "FOG VIMA — FOG VIMA — the fog sanctuary's step blurs the rites past (+7% dodge, +4% souls)... its haze blunts your edge (−4% ATK)"},
 		{"text": "WAKE VIMA — WAKE VIMA — the wake sanctuary's step pulls you along (+6% speed, +4% souls)... its wash tilts your step (−3% dodge)"},
 		{"text": "BILGE VIMA — BILGE VIMA — the bilge sanctuary's step ferments the rites (+5% souls, +5% XP)... its stench slows your step (−3% dodge)"},
+		{"text": "CREST VIMA — CREST VIMA — the crest sanctuary's step breaks over you (+5% dodge, +5% ATK)... its foam spills your purse (−4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54579,6 +54584,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 3
 			oname = "BILGE VIMA"
 		5030:
+			Stats.dodge += 5
+			Stats.buff_atk_pct += 5
+			Stats.soul_gain_pct -= 4
+			oname = "CREST VIMA"
+		5031:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59679,6 +59689,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG VIMA": "The fog sanctuary blurs you past, Kael.",
 	"WAKE VIMA": "The wake sanctuary pulls you along, Kael.",
 	"BILGE VIMA": "The bilge sanctuary ferments for you, Kael.",
+	"CREST VIMA": "The crest sanctuary breaks for you, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -68149,6 +68160,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Aptaliko — the fog aptaliko-step blurs and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Aptaliko — the wake aptaliko-step carries and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Aptaliko — the bilge aptaliko-step fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Aptaliko — the crest aptaliko-step guards and sharpens you (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
