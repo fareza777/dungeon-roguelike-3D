@@ -23459,6 +23459,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Kolomeyka: The storm kolomeyka-step sharpens and furious you, Kael.")
+		3136:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Kolomeyka: The keel kolomeyka-step fills and armors you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -28349,6 +28353,7 @@ func _offer_omens() -> void:
 		{"text": "GREY ZOSTIKON — the grey zostikon guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE ZOSTIKON — the tide zostikon quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM ZOSTIKON — the storm zostikon sharpens and furious you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
+		{"text": "KEEL ZOSTIKON — the keel zostikon fills and armors you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -52822,6 +52827,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM ZOSTIKON"
 		4857:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL ZOSTIKON"
+		4858:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -57749,6 +57759,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY ZOSTIKON": "The grey zostikon girds its belt over your grey hours, Kael — guarded and taught, at a cost.",
 	"TIDE ZOSTIKON": "The tide zostikon girds its belt with your tide, Kael — quicker and keener, at a cost.",
 	"STORM ZOSTIKON": "The storm zostikon girds its belt in your storm, Kael — keen and furious, at a cost.",
+	"KEEL ZOSTIKON": "The keel zostikon girds its belt along your keel, Kael — filled and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -66046,6 +66057,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Kolomeyka — the grey kolomeyka-step guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Kolomeyka — the tide kolomeyka-step quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Kolomeyka — the storm kolomeyka-step sharpens and furious you (+5% ATK, +6% crit)"},
+		{"text": "Keel Kolomeyka — the keel kolomeyka-step fills and armors you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
