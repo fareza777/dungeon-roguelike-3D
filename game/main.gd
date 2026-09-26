@@ -22743,6 +22743,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Krakowiak: The bottom krakowiak-step fills and guards you, Kael.")
+		2960:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Krakowiak: The grim krakowiak-step sharpens, guards and armors you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -27457,6 +27462,7 @@ func _offer_omens() -> void:
 		{"text": "HULL EPITRACHELION — the hull epitrachelion thickens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH EPITRACHELION — the trench epitrachelion sharpens and hastens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
 		{"text": "BOTTOM EPITRACHELION — the bottom epitrachelion fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM EPITRACHELION — the grim epitrachelion sharpens, guards and armors you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -51038,6 +51044,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM EPITRACHELION"
 		4681:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM EPITRACHELION"
+		4682:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -55789,6 +55801,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL EPITRACHELION": "The hull epitrachelion wraps its stoles on your hull, Kael — thick and guarded, at a cost.",
 	"TRENCH EPITRACHELION": "The trench epitrachelion wraps its stoles in your trench, Kael — keen and quick, at a cost.",
 	"BOTTOM EPITRACHELION": "The bottom epitrachelion wraps its stoles at your bottom, Kael — filled and guarded, at a cost.",
+	"GRIM EPITRACHELION": "The grim epitrachelion wraps its stoles through your grim vigil, Kael — keen, guarded, plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -63910,6 +63923,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Krakowiak — the hull krakowiak-step thickens and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Krakowiak — the trench krakowiak-step sharpens and hastens you (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Krakowiak — the bottom krakowiak-step fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Krakowiak — the grim krakowiak-step sharpens, guards and armors you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
