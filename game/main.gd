@@ -22922,6 +22922,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Karikazi: The trench karikazi-step sharpens and hastens you, Kael.")
+		3004:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Karikazi: The bottom karikazi-step fills and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -27680,6 +27684,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL PATERITSA — the keel pateritsa fills and armors you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 		{"text": "HULL PATERITSA — the hull pateritsa thickens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH PATERITSA — the trench pateritsa sharpens and hastens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
+		{"text": "BOTTOM PATERITSA — the bottom pateritsa fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -51484,6 +51489,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH PATERITSA"
 		4725:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM PATERITSA"
+		4726:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -56279,6 +56289,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL PATERITSA": "The keel pateritsa plants its pateritsi above your keel, Kael — filled and plated, at a cost.",
 	"HULL PATERITSA": "The hull pateritsa plants its pateritsi on your hull, Kael — thick and guarded, at a cost.",
 	"TRENCH PATERITSA": "The trench pateritsa plants its pateritsi in your trench, Kael — keen and quick, at a cost.",
+	"BOTTOM PATERITSA": "The bottom pateritsa plants its pateritsi at your bottom, Kael — filled and guarded, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -64444,6 +64455,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Karikazi — the keel karikazi-step fills and armors you (+6% souls, +3 armor)"},
 		{"text": "Hull Karikazi — the hull karikazi-step thickens and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Karikazi — the trench karikazi-step sharpens and hastens you (+5% ATK, +4% atk speed)"},
+		{"text": "Bottom Karikazi — the bottom karikazi-step fills and guards you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
