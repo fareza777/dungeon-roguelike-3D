@@ -22971,6 +22971,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_crit += 0.06
 			toast("Storm Gerakina: The storm gerakina-step sharpens and furious you, Kael.")
+		3016:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			toast("Keel Gerakina: The keel gerakina-step fills and armors you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -27741,6 +27745,7 @@ func _offer_omens() -> void:
 		{"text": "GREY ORLETS — the grey orlets guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
 		{"text": "TIDE ORLETS — the tide orlets quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 		{"text": "STORM ORLETS — the storm orlets sharpens and furious you... at a cost (+5% ATK, +6% crit, -4% dodge)"},
+		{"text": "KEEL ORLETS — the keel orlets fills and armors you... at a cost (+6% souls, +3 armor, -4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -51606,6 +51611,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "STORM ORLETS"
 		4737:
+			Stats.soul_gain_pct += 0.06
+			Stats.buff_armor += 3
+			Stats.dodge -= 0.04
+			oname = "KEEL ORLETS"
+		4738:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -56413,6 +56423,7 @@ func _omen_deal(idx: int) -> void:
 	"GREY ORLETS": "The grey orlets spreads its eagle-wings over your grey hours, Kael — guarded and taught, at a cost.",
 	"TIDE ORLETS": "The tide orlets spreads its eagle-wings with your tide, Kael — quicker and keener, at a cost.",
 	"STORM ORLETS": "The storm orlets spreads its eagle-wings in your storm, Kael — keen and furious, at a cost.",
+	"KEEL ORLETS": "The keel orlets spreads its eagle-wings along your keel, Kael — filled and plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -64590,6 +64601,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Grey Gerakina — the grey gerakina-step guards and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Gerakina — the tide gerakina-step quickens and sharpens you (+6% speed, +4% ATK)"},
 		{"text": "Storm Gerakina — the storm gerakina-step sharpens and furious you (+5% ATK, +6% crit)"},
+		{"text": "Keel Gerakina — the keel gerakina-step fills and armors you (+6% souls, +3 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
