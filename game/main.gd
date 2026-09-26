@@ -24206,6 +24206,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 5
 			Stats.buff_aspd += 0.04
 			toast("Trench Dipat: The trench dipat-step strikes and hastens you, Kael.")
+		3319:
+			Stats.soul_gain_pct += 7
+			Stats.dodge += 4
+			toast("Bottom Dipat: The bottom dipat-step fills and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29279,6 +29283,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL DIASOURA — KEEL DIASOURA — the keel diasoura stands iron-fast (+6% souls, +3 armor)... its weight slows your step (−4% dodge)"},
 		{"text": "HULL DIASOURA — HULL DIASOURA — the hull diasoura thickens your frame (+6% max HP, +4% dodge)... its timbers weigh you (−3% speed)"},
 		{"text": "TRENCH DIASOURA — TRENCH DIASOURA — the trench diasoura drags your arm fast (+5% ATK, +4% atk speed)... its depth sways your step (−4% dodge)"},
+		{"text": "BOTTOM DIASOURA — BOTTOM DIASOURA — the bottom diasoura hoards what sinks (+7% souls, +4% dodge)... its murk dulls your edge (−3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54679,6 +54684,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 4
 			oname = "TRENCH DIASOURA"
 		5040:
+			Stats.soul_gain_pct += 7
+			Stats.dodge += 4
+			Stats.buff_atk_pct -= 3
+			oname = "BOTTOM DIASOURA"
+		5041:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59789,6 +59799,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL DIASOURA": "The keel diasoura stands fast for you, Kael.",
 	"HULL DIASOURA": "The hull diasoura thickens your frame, Kael.",
 	"TRENCH DIASOURA": "The trench diasoura drags your arm, Kael.",
+	"BOTTOM DIASOURA": "The bottom diasoura hoards for you, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -68269,6 +68280,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Dipat — the keel dipat-step fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Dipat — the hull dipat-step thickens and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Dipat — the trench dipat-step strikes and hastens you (+5% ATK, +4% atk speed)"},
+		{"text": "Bottom Dipat — the bottom dipat-step fills and guards you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
