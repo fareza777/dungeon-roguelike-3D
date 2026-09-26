@@ -24632,6 +24632,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.06
 			Stats.soul_gain_pct += 0.05
 			toast("Pale Koftos: The pale koftos-step slips and fills you, Kael.")
+		3418:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			toast("Grey Koftos: The grey koftos-step slips and teaches you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29804,6 +29808,7 @@ func _offer_omens() -> void:
 		{"text": "SALT FERETORY — the salt feretory-step fills and teaches, but sits heavier (+6% souls, +4% XP, −3% dodge)"},
 		{"text": "DEEP PROPONTIS — the deep propontis-step bites and slips, but pays thinner (+7% ATK, +3% dodge, −3% souls)"},
 		{"text": "PALE PROPONTIS — the pale propontis-step slips and fills, but dulls the edge (+6% dodge, +5% souls, −4% ATK)"},
+		{"text": "GREY PROPONTIS — the grey propontis-step slips and teaches, but dulls the edge (+5% dodge, +5% XP, −4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -55706,6 +55711,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "PALE PROPONTIS"
 		5139:
+			Stats.dodge += 0.05
+			Stats.buff_xp_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "GREY PROPONTIS"
+		5140:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -60915,6 +60925,7 @@ func _omen_deal(idx: int) -> void:
 	"SALT FERETORY": "Salt Feretory — rime coats the shrine-glass, Kael.",
 	"DEEP PROPONTIS": "Deep Propontis — the Marmara deeps take their due, Kael.",
 	"PALE PROPONTIS": "Pale Propontis — moonlit shoal-water, Kael.",
+	"GREY PROPONTIS": "Grey Propontis — fog over the straits, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -69494,6 +69505,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Salt Arapistikos — the salt arapistikos-step fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Koftos — the deep koftos-step bites and slips you (+7% ATK, +3% dodge)"},
 		{"text": "Pale Koftos — the pale koftos-step slips and fills you (+6% dodge, +5% souls)"},
+		{"text": "Grey Koftos — the grey koftos-step slips and teaches you (+5% dodge, +5% XP)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
