@@ -24689,6 +24689,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.07
 			Stats.dodge += 0.03
 			toast("Deep Thalassikos: The deep thalassikos-step bites and slips you, Kael.")
+		3432:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			toast("Pale Thalassikos: The pale thalassikos-step slips and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29875,6 +29879,7 @@ func _offer_omens() -> void:
 		{"text": "CREST PROPONTIS — the crest propontis-step slips and strikes, but pays thinner (+5% dodge, +5% ATK, −4% souls)"},
 		{"text": "SALT PROPONTIS — the salt propontis-step fills and teaches, but sits heavier (+6% souls, +4% XP, −3% dodge)"},
 		{"text": "DEEP STICHOS — the deep stichos-step bites and slips, but pays thinner (+7% ATK, +3% dodge, −3% souls)"},
+		{"text": "PALE STICHOS — the pale stichos-step slips and fills, but dulls the edge (+6% dodge, +5% souls, −4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -55848,6 +55853,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "DEEP STICHOS"
 		5153:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE STICHOS"
+		5154:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -61071,6 +61081,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST PROPONTIS": "Crest Propontis — white-tops over the strait, Kael.",
 	"SALT PROPONTIS": "Salt Propontis — rime-bright strait, Kael.",
 	"DEEP STICHOS": "Deep Stichos — the psalm-verse goes down cold, Kael.",
+	"PALE STICHOS": "Pale Stichos — moonlit verse-line, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -69664,6 +69675,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Crest Koftos — the crest koftos-step slips and strikes true (+5% dodge, +5% ATK)"},
 		{"text": "Salt Koftos — the salt koftos-step fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Thalassikos — the deep thalassikos-step bites and slips you (+7% ATK, +3% dodge)"},
+		{"text": "Pale Thalassikos — the pale thalassikos-step slips and fills you (+6% dodge, +5% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
