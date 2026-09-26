@@ -22621,6 +22621,11 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.07
 			Stats.dodge += 0.04
 			toast("Bottom Ikariotikos: The bottom ikariotikos-step fills and guards you, Kael.")
+		2930:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			toast("Grim Ikariotikos: The grim ikariotikos-step sharpens, guards and armors you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -27305,6 +27310,7 @@ func _offer_omens() -> void:
 		{"text": "HULL BROJANICA — the hull brojanica thickens and guards you... at a cost (+6% max HP, +4% dodge, -3% speed)"},
 		{"text": "TRENCH BROJANICA — the trench brojanica sharpens and hastens you... at a cost (+5% ATK, +4% atk speed, -4% dodge)"},
 		{"text": "BOTTOM BROJANICA — the bottom brojanica fills and guards you... at a cost (+7% souls, +4% dodge, -3% ATK)"},
+		{"text": "GRIM BROJANICA — the grim brojanica sharpens, guards and armors you... at a cost (+5% ATK, +4% dodge, +2 armor, -4% speed)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -50734,6 +50740,12 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.03
 			oname = "BOTTOM BROJANICA"
 		4651:
+			Stats.buff_atk_pct += 0.05
+			Stats.dodge += 0.04
+			Stats.buff_armor += 2
+			Stats.buff_speed_pct -= 0.04
+			oname = "GRIM BROJANICA"
+		4652:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -55455,6 +55467,7 @@ func _omen_deal(idx: int) -> void:
 	"HULL BROJANICA": "The hull brojanica knots its brojanice on your hull, Kael — thick and guarded, at a cost.",
 	"TRENCH BROJANICA": "The trench brojanica knots its brojanice in your trench, Kael — keen and quick, at a cost.",
 	"BOTTOM BROJANICA": "The bottom brojanica knots its brojanice at your bottom, Kael — filled and guarded, at a cost.",
+	"GRIM BROJANICA": "The grim brojanica knots its brojanice through your grim vigil, Kael — keen, guarded, plated, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -63546,6 +63559,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Hull Ikariotikos — the hull ikariotikos-step thickens and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Ikariotikos — the trench ikariotikos-step sharpens and hastens you (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Ikariotikos — the bottom ikariotikos-step fills and guards you (+7% souls, +4% dodge)"},
+		{"text": "Grim Ikariotikos — the grim ikariotikos-step sharpens, guards and armors you (+5% ATK, +4% dodge, +2 armor)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
