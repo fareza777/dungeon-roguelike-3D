@@ -24608,6 +24608,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.07
 			Stats.soul_gain_pct += 0.04
 			toast("Fog Arapistikos: The fog arapistikos-step veils and fills you, Kael.")
+		3412:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			toast("Wake Arapistikos: The wake arapistikos-step trails you fast and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29774,6 +29778,7 @@ func _offer_omens() -> void:
 		{"text": "BOTTOM FERETORY — the bottom feretory-step pays richly and slips, but dulls the edge (+7% souls, +4% dodge, −3% ATK)"},
 		{"text": "GRIM FERETORY — the grim feretory-step strikes, slips, plates — but anchors you (+5% ATK, +4% dodge, +2 armor, −4% speed)"},
 		{"text": "FOG FERETORY — the fog feretory-step veils you thick and pays, but dulls the edge (+7% dodge, +4% souls, −4% ATK)"},
+		{"text": "WAKE FERETORY — the wake feretory-step trails you fast and pays, but slips off the stance (+6% speed, +4% souls, −3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -55646,6 +55651,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "FOG FERETORY"
 		5133:
+			Stats.buff_speed_pct += 0.06
+			Stats.soul_gain_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "WAKE FERETORY"
+		5134:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -60849,6 +60859,7 @@ func _omen_deal(idx: int) -> void:
 	"BOTTOM FERETORY": "Bottom Feretory — a shrine dredged from the deepest grave, Kael.",
 	"GRIM FERETORY": "Grim Feretory — the black shrine weighs like a tomb, Kael.",
 	"FOG FERETORY": "Fog Feretory — mist pools inside the shrine-glass, Kael.",
+	"WAKE FERETORY": "Wake Feretory — the shrine trails the ship's churn, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -69422,6 +69433,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Bottom Arapistikos — the bottom arapistikos-step fills and slips you (+7% souls, +4% dodge)"},
 		{"text": "Grim Arapistikos — the grim arapistikos-step strikes, slips and plates you (+5% ATK, +4% dodge, +2 armor)"},
 		{"text": "Fog Arapistikos — the fog arapistikos-step veils and fills you (+7% dodge, +4% souls)"},
+		{"text": "Wake Arapistikos — the wake arapistikos-step trails you fast and fills you (+6% speed, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
