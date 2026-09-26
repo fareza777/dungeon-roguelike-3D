@@ -102,6 +102,8 @@ var halfshell_shell := false
 var cantor_t := 6.5
 var bride_t := 5.5
 var oath_t := 3.0
+var fest_t := 6.0
+var fest_n := 0
 var slip_n := 0
 
 var healer := false
@@ -265,7 +267,7 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 		xp_val *= EDB.ELITE["xp_mult"]
 		sc *= EDB.ELITE["scale_mult"]
 		speed *= EDB.ELITE["spd_mult"]
-		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred", "seafaring", "feytouched", "knotted", "belltoll", "soulfed", "gutted", "beacon", "spry", "keenedged", "tidewrought", "lurker", "hoarfrost", "reefbound", "flotsam", "brinetouched", "bilged", "gilded", "saltbitten", "leeched", "windlashed", "halfshell", "soulwrought", "leaden", "grasping", "hungry", "numbing", "soulbound", "saltkin", "powderkeg", "hollow", "tarbound", "lagged", "bitter", "leviathan", "stormborn", "sundered", "reefsplit", "warped", "rusted", "embittered", "deathwarm", "tideheld", "marrowed", "keelmaw", "gloomtouched", "pitchwell", "giltborn", "bellchime", "riptorn", "tithed", "soulspill", "mossback", "charborn", "rimeborn", "keelhauled", "saltwept", "grimwater", "keelplated", "grimwrought", "wakehardened", "fathomborn", "soulheavy", "grimhull", "soulshell", "deckbound", "tollbound", "wakesworn", "deepworn", "crestbound", "crestworn", "wakebound", "saltworn", "greysworn", "palemarked", "saltbled", "reckoned", "audited", "enrolled", "enlisted", "censused", "tallied", "writbound", "galeswept", "ballasted", "trenchborn"][randi() % 134]
+		affix = ["swift", "bulwark", "vengeful", "siphon", "volatile", "mother", "frostbite", "warden", "thorned", "nightmare", "hoarded", "phantom", "regal", "reaper", "vampiric", "adamant", "shattered", "umbral", "wispsborn", "keelborn", "clamworn", "sirensong", "pearlbound", "barnacled", "tidal", "venomed", "riptide", "brinebound", "feral", "miser", "tideworn", "keelbound", "corroded", "salted", "webbed", "grim", "doomsayer", "drowning", "parched", "wrack", "crushing", "oathbound", "slippery", "mirrorhide", "keelmark", "tidebound", "charged", "bloated", "tarred", "seafaring", "feytouched", "knotted", "belltoll", "soulfed", "gutted", "beacon", "spry", "keenedged", "tidewrought", "lurker", "hoarfrost", "reefbound", "flotsam", "brinetouched", "bilged", "gilded", "saltbitten", "leeched", "windlashed", "halfshell", "soulwrought", "leaden", "grasping", "hungry", "numbing", "soulbound", "saltkin", "powderkeg", "hollow", "tarbound", "lagged", "bitter", "leviathan", "stormborn", "sundered", "reefsplit", "warped", "rusted", "embittered", "deathwarm", "tideheld", "marrowed", "keelmaw", "gloomtouched", "pitchwell", "giltborn", "bellchime", "riptorn", "tithed", "soulspill", "mossback", "charborn", "rimeborn", "keelhauled", "saltwept", "grimwater", "keelplated", "grimwrought", "wakehardened", "fathomborn", "soulheavy", "grimhull", "soulshell", "deckbound", "tollbound", "wakesworn", "deepworn", "crestbound", "crestworn", "wakebound", "saltworn", "greysworn", "palemarked", "saltbled", "reckoned", "audited", "enrolled", "enlisted", "censused", "tallied", "writbound", "galeswept", "ballasted", "trenchborn", "festering"][randi() % 135]
 		match affix:
 			"swift":
 				speed *= 1.45
@@ -811,6 +813,11 @@ func setup(p_mat: ShaderMaterial, tile: float, b: Dictionary, p_arch: String, p_
 				hp_max = hp
 				dmg += 2
 				xp_val = int(xp_val * 1.4)
+			"festering":
+				# membusuk hidup: mulai biasa, membengkak makin kuat tiap denyut
+				hp *= 1.15
+				speed *= 0.95
+				xp_val = int(xp_val * 1.35)
 	scale = Vector3.ONE * sc
 	_base_scale = scale
 	hp_max = hp
@@ -1108,6 +1115,11 @@ func _physics_process(delta: float) -> void:
 		if oath_t <= 0.0:
 			oath_t = 4.0
 			_oath_pulse()
+	if affix == "festering" and activated and state != "dead":
+		fest_t -= delta
+		if fest_t <= 0.0:
+			fest_t = 6.0
+			_fest_swell()
 	if bride and activated:
 		bride_t -= delta
 		if bride_t <= 0.0:
@@ -1801,6 +1813,22 @@ func _oath_pulse() -> void:
 				e2.hp = minf(e2.hp_max, e2.hp + 1.0)
 				if sc.has_method("_burst"):
 					sc._burst(e2.global_position + Vector3(0, 0.6 * room_tile, 0), Color(0.5, 1.0, 0.8))
+
+func _fest_swell() -> void:
+	# membusuk: tiap denyut membengkak — dmg & speed naik, maksimal 5 bengkak
+	if fest_n >= 5:
+		return
+	fest_n += 1
+	dmg += 1
+	dmg_max += 1
+	speed *= 1.05
+	var sc := get_tree().current_scene
+	if sc != null and sc.has_method("_burst"):
+		sc._burst(global_position + Vector3(0, 0.6 * room_tile, 0), Color(0.55, 0.85, 0.35))
+	if sc != null and sc.has_method("_damage_number"):
+		sc._damage_number(global_position + Vector3(0, 0.9 * room_tile, 0), "SWELLS", Color(0.6, 0.9, 0.4), true)
+	var tw := create_tween()
+	tw.tween_property(self, "scale", scale * 1.06, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 func _bride_pulse() -> void:
 	# pengantin busuk: nyanyiannya mempercepat sekutu ruangan (+8% per chant, cap +24%)
