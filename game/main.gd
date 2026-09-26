@@ -24591,6 +24591,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_maxhp_pct += 0.06
 			Stats.dodge += 0.04
 			toast("Hull Arapistikos: The hull arapistikos-step thickens your frame and slips you, Kael.")
+		3408:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			toast("Trench Arapistikos: The trench arapistikos-step drives harder and quicker, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29753,6 +29757,7 @@ func _offer_omens() -> void:
 		{"text": "STORM FERETORY — the storm feretory-step strikes harder and truer, but grounds you (+5% ATK, +6% crit, −4% dodge)"},
 		{"text": "KEEL FERETORY — the keel feretory-step fills, plates, grounds you (+6% souls, +3 armor, −4% dodge)"},
 		{"text": "HULL FERETORY — the hull feretory-step thickens your frame and slips, but slows you (+6% HP, +4% dodge, −3% speed)"},
+		{"text": "TRENCH FERETORY — the trench feretory-step drives harder and quicker, but grounds you (+5% ATK, +4% atk speed, −4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -55604,6 +55609,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.03
 			oname = "HULL FERETORY"
 		5129:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_aspd += 0.04
+			Stats.dodge -= 0.04
+			oname = "TRENCH FERETORY"
+		5130:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -60803,6 +60813,7 @@ func _omen_deal(idx: int) -> void:
 	"STORM FERETORY": "Storm Feretory — lightning rattles the reliquary, Kael.",
 	"KEEL FERETORY": "Keel Feretory — the shrine sits keel-heavy on the soul, Kael.",
 	"HULL FERETORY": "Hull Feretory — iron-bound shrine over doubled bone, Kael.",
+	"TRENCH FERETORY": "Trench Feretory — pressure-dark shrine drinks the light, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -69372,6 +69383,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Storm Arapistikos — the storm arapistikos-step strikes harder and truer (+5% ATK, +6% crit)"},
 		{"text": "Keel Arapistikos — the keel arapistikos-step fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Arapistikos — the hull arapistikos-step thickens your frame and slips you (+6% HP, +4% dodge)"},
+		{"text": "Trench Arapistikos — the trench arapistikos-step drives harder and quicker (+5% ATK, +4% atk speed)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
