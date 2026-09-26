@@ -25029,6 +25029,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_speed_pct += 0.06
 			Stats.buff_atk_pct += 0.04
 			toast("Tide Bajraktari: The tide bajraktari-step speeds and bites, Kael.")
+		3510:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			toast("Storm Bajraktari: The storm bajraktari-step strikes and sharpens, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30293,6 +30297,7 @@ func _offer_omens() -> void:
 		{"text": "PALE PERISKELEI — the pale periskelei-step slips and fills, but dulls the edge (+6% dodge, +5% souls, −4% ATK)"},
 		{"text": "GREY PERISKELEI — the grey periskelei-step slips and teaches, but dulls the edge (+5% dodge, +5% XP, −4% ATK)"},
 		{"text": "TIDE PERISKELEI — the tide periskelei-step speeds and bites, but slips off the stance (+6% speed, +4% ATK, −3% dodge)"},
+		{"text": "STORM PERISKELEI — the storm periskelei-step strikes and sharpens, but slips off the stance (+5% ATK, +6% crit, −4% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -56661,6 +56666,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "TIDE PERISKELEI"
 		5231:
+			Stats.buff_atk_pct += 0.05
+			Stats.buff_crit += 0.06
+			Stats.dodge -= 0.04
+			oname = "STORM PERISKELEI"
+		5232:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -61962,6 +61972,7 @@ func _omen_deal(idx: int) -> void:
 	"PALE PERISKELEI": "Pale Periskelei — moonlight on the greave, Kael.",
 	"GREY PERISKELEI": "Grey Periskelei — ash on the greave's clasp, Kael.",
 	"TIDE PERISKELEI": "Tide Periskelei — the greave rides the current, Kael.",
+	"STORM PERISKELEI": "Storm Periskelei — thunder on the greave, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -70633,6 +70644,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Pale Bajraktari — the pale bajraktari-step slips and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Bajraktari — the grey bajraktari-step slips and teaches you (+5% dodge, +5% XP)"},
 		{"text": "Tide Bajraktari — the tide bajraktari-step speeds and bites (+6% speed, +4% ATK)"},
+		{"text": "Storm Bajraktari — the storm bajraktari-step strikes and sharpens (+5% ATK, +6% crit)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
