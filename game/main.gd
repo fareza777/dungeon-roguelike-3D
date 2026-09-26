@@ -25298,6 +25298,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.04
 			Stats.buff_armor += 2
 			toast("Grim Yianni: The grim yianni-step strikes, slips and plates you, Kael.")
+		3576:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			toast("Fog Yianni: The fog yianni-step veils and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30628,6 +30632,7 @@ func _offer_omens() -> void:
 		{"text": "TRENCH PROSKYNITARTIKON — the trench proskynitartikon-step drives harder and quicker, but slips off the stance (+5% ATK, +4% atk speed, −4% dodge)"},
 		{"text": "BOTTOM PROSKYNITARTIKON — the bottom proskynitartikon-step pays richly and slips, but dulls the edge (+7% souls, +4% dodge, −3% ATK)"},
 		{"text": "GRIM PROSKYNITARTIKON — the grim proskynitartikon-step strikes, slips, plates — but anchors you (+5% ATK, +4% dodge, +2 armor, −4% speed)"},
+		{"text": "FOG PROSKYNITARTIKON — the fog proskynitartikon-step veils you thick and pays, but dulls the edge (+7% dodge, +4% souls, −4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -57331,6 +57336,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_speed_pct -= 0.04
 			oname = "GRIM PROSKYNITARTIKON"
 		5297:
+			Stats.dodge += 0.07
+			Stats.soul_gain_pct += 0.04
+			Stats.buff_atk_pct -= 0.04
+			oname = "FOG PROSKYNITARTIKON"
+		5298:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -62702,6 +62712,7 @@ func _omen_deal(idx: int) -> void:
 	"TRENCH PROSKYNITARTIKON": "Trench Proskynitartikon — the pilgrim-roll bites fastest down deep, Kael.",
 	"BOTTOM PROSKYNITARTIKON": "Bottom Proskynitartikon — the pilgrim-roll sinks to the seabed, Kael.",
 	"GRIM PROSKYNITARTIKON": "Grim Proskynitartikon — a mourning pilgrimage, Kael.",
+	"FOG PROSKYNITARTIKON": "Fog Proskynitartikon — murk reads the pilgrim-roll, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -71439,6 +71450,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Trench Yianni — the trench yianni-step drives harder and quicker (+5% ATK, +4% atk speed)"},
 		{"text": "Bottom Yianni — the bottom yianni-step fills and slips you (+7% souls, +4% dodge)"},
 		{"text": "Grim Yianni — the grim yianni-step strikes, slips and plates you (+5% ATK, +4% dodge, +2 armor)"},
+		{"text": "Fog Yianni — the fog yianni-step veils and fills you (+7% dodge, +4% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
