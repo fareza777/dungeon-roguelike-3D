@@ -24372,6 +24372,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Bilge Lerikos: The bilge lerikos-step fills and teaches you, Kael.")
+		3354:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			toast("Crest Lerikos: The crest lerikos-step slips and strikes true, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29480,6 +29484,7 @@ func _offer_omens() -> void:
 		{"text": "FOG ZAROUCHON — the fog zarouchon-step veils you thick and pays, but dulls the edge (+7% dodge, +4% souls, −4% ATK)"},
 		{"text": "WAKE ZAROUCHON — the wake zarouchon-step trails you fast and pays, but slips off the stance (+6% speed, +4% souls, −3% dodge)"},
 		{"text": "BILGE ZAROUCHON — the bilge zarouchon-step fills and teaches, but sits heavier (+5% souls, +5% XP, −3% dodge)"},
+		{"text": "CREST ZAROUCHON — the crest zarouchon-step slips and strikes, but pays thinner (+5% dodge, +5% ATK, −4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -55058,6 +55063,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.03
 			oname = "BILGE ZAROUCHON"
 		5075:
+			Stats.dodge += 0.05
+			Stats.buff_atk_pct += 0.05
+			Stats.soul_gain_pct -= 0.04
+			oname = "CREST ZAROUCHON"
+		5076:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -60203,6 +60213,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG ZAROUCHON": "Fog Zarouchon — the mail breathes mist through its links, Kael.",
 	"WAKE ZAROUCHON": "Wake Zarouchon — the mail remembers the ship's churn, Kael.",
 	"BILGE ZAROUCHON": "Bilge Zarouchon — reek-stained mail from below deck, Kael.",
+	"CREST ZAROUCHON": "Crest Zarouchon — wave-tossed mail sheds every blow, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -68718,6 +68729,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Lerikos — the fog lerikos-step veils and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Lerikos — the wake lerikos-step trails you fast and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Lerikos — the bilge lerikos-step fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Lerikos — the crest lerikos-step slips and strikes true (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
