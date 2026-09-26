@@ -25078,6 +25078,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.07
 			Stats.dodge += 0.03
 			toast("Deep Lerkarikos: The deep lerkarikos-step bites and slips you, Kael.")
+		3522:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			toast("Pale Lerkarikos: The pale lerkarikos-step slips and fills you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -30354,6 +30358,7 @@ func _offer_omens() -> void:
 		{"text": "CREST PERISKELEI — the crest periskelei-step slips and strikes, but pays thinner (+5% dodge, +5% ATK, −4% souls)"},
 		{"text": "SALT PERISKELEI — the salt periskelei-step fills and teaches, but sits heavier (+6% souls, +4% XP, −3% dodge)"},
 		{"text": "DEEP LEITOURGEMA — the deep leitourgema-step bites and slips, but pays thinner (+7% ATK, +3% dodge, −3% souls)"},
+		{"text": "PALE LEITOURGEMA — the pale leitourgema-step slips and fills, but dulls the edge (+6% dodge, +5% souls, −4% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -56783,6 +56788,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.soul_gain_pct -= 0.03
 			oname = "DEEP LEITOURGEMA"
 		5243:
+			Stats.dodge += 0.06
+			Stats.soul_gain_pct += 0.05
+			Stats.buff_atk_pct -= 0.04
+			oname = "PALE LEITOURGEMA"
+		5244:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -62100,6 +62110,7 @@ func _omen_deal(idx: int) -> void:
 	"CREST PERISKELEI": "Crest Periskelei — white-tops on the greave, Kael.",
 	"SALT PERISKELEI": "Salt Periskelei — rime on the greave's clasp, Kael.",
 	"DEEP LEITOURGEMA": "Deep Leitourgema — the office-work runs dark, Kael.",
+	"PALE LEITOURGEMA": "Pale Leitourgema — moonlight on the office-book, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -70783,6 +70794,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Crest Bajraktari — the crest bajraktari-step slips and strikes true (+5% dodge, +5% ATK)"},
 		{"text": "Salt Bajraktari — the salt bajraktari-step fills and teaches you (+6% souls, +4% XP)"},
 		{"text": "Deep Lerkarikos — the deep lerkarikos-step bites and slips you (+7% ATK, +3% dodge)"},
+		{"text": "Pale Lerkarikos — the pale lerkarikos-step slips and fills you (+6% dodge, +5% souls)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
