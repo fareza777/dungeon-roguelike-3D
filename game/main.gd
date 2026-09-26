@@ -22719,6 +22719,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.dodge += 0.05
 			Stats.buff_xp_pct += 0.05
 			toast("Grey Krakowiak: The grey krakowiak-step guards and teaches you, Kael.")
+		2954:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			toast("Tide Krakowiak: The tide krakowiak-step quickens and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -27427,6 +27431,7 @@ func _offer_omens() -> void:
 		{"text": "DEEP EPITRACHELION — the deep epitrachelion sharpens and guards you... at a cost (+7% ATK, +3% dodge, -3% souls)"},
 		{"text": "PALE EPITRACHELION — the pale epitrachelion guards and fills you... at a cost (+6% dodge, +5% souls, -4% ATK)"},
 		{"text": "GREY EPITRACHELION — the grey epitrachelion guards and teaches you... at a cost (+5% dodge, +5% XP, -4% ATK)"},
+		{"text": "TIDE EPITRACHELION — the tide epitrachelion quickens and sharpens you... at a cost (+6% speed, +4% ATK, -3% dodge)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -50978,6 +50983,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.buff_atk_pct -= 0.04
 			oname = "GREY EPITRACHELION"
 		4675:
+			Stats.buff_speed_pct += 0.06
+			Stats.buff_atk_pct += 0.04
+			Stats.dodge -= 0.03
+			oname = "TIDE EPITRACHELION"
+		4676:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -55723,6 +55733,7 @@ func _omen_deal(idx: int) -> void:
 	"DEEP EPITRACHELION": "The deep epitrachelion wraps its stoles over your brow, Kael — keen and guarded, at a cost.",
 	"PALE EPITRACHELION": "The pale epitrachelion wraps its stoles in your pallor, Kael — guarded and filled, at a cost.",
 	"GREY EPITRACHELION": "The grey epitrachelion wraps its stoles over your grey hours, Kael — guarded and taught, at a cost.",
+	"TIDE EPITRACHELION": "The tide epitrachelion wraps its stoles with your tide, Kael — quicker and keener, at a cost.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -63838,6 +63849,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Deep Krakowiak — the deep krakowiak-step sharpens and guards you (+5% ATK, +3% dodge)"},
 		{"text": "Pale Krakowiak — the pale krakowiak-step guards and fills you (+6% dodge, +5% souls)"},
 		{"text": "Grey Krakowiak — the grey krakowiak-step guards and teaches you (+5% dodge, +5% XP)"},
+		{"text": "Tide Krakowiak — the tide krakowiak-step quickens and sharpens you (+6% speed, +4% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
