@@ -24351,6 +24351,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 0.05
 			Stats.buff_aspd += 0.04
 			toast("Trench Lerikos: The trench lerikos-step drives harder and quicker, Kael.")
+		3349:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			toast("Bottom Lerikos: The bottom lerikos-step fills and slips you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29454,6 +29458,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL ZAROUCHON — the keel zarouchon-step fills, plates, grounds you (+6% souls, +3 armor, −4% dodge)"},
 		{"text": "HULL ZAROUCHON — the hull zarouchon-step thickens your frame and slips, but slows you (+6% HP, +4% dodge, −3% speed)"},
 		{"text": "TRENCH ZAROUCHON — the trench zarouchon-step drives harder and quicker, but grounds you (+5% ATK, +4% atk speed, −4% dodge)"},
+		{"text": "BOTTOM ZAROUCHON — the bottom zarouchon-step pays richly and slips, but dulls the edge (+7% souls, +4% dodge, −3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -55006,6 +55011,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 0.04
 			oname = "TRENCH ZAROUCHON"
 		5070:
+			Stats.soul_gain_pct += 0.07
+			Stats.dodge += 0.04
+			Stats.buff_atk_pct -= 0.03
+			oname = "BOTTOM ZAROUCHON"
+		5071:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -60146,6 +60156,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL ZAROUCHON": "Keel Zarouchon — barnacle-hung mail keeps the hull of you, Kael.",
 	"HULL ZAROUCHON": "Hull Zarouchon — doubled plate over doubled bone, Kael.",
 	"TRENCH ZAROUCHON": "Trench Zarouchon — abyssal links drink the light, Kael.",
+	"BOTTOM ZAROUCHON": "Bottom Zarouchon — mail dredged from the deepest shelf, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -68656,6 +68667,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Lerikos — the keel lerikos-step fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Lerikos — the hull lerikos-step thickens your frame and slips you (+6% HP, +4% dodge)"},
 		{"text": "Trench Lerikos — the trench lerikos-step drives harder and quicker (+5% ATK, +4% atk speed)"},
+		{"text": "Bottom Lerikos — the bottom lerikos-step fills and slips you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
