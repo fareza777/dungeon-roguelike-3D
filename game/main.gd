@@ -24145,6 +24145,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.buff_atk_pct += 5
 			Stats.buff_aspd += 0.04
 			toast("Trench Aptaliko: The trench aptaliko-step strikes and hastens you, Kael.")
+		3304:
+			Stats.soul_gain_pct += 7
+			Stats.dodge += 4
+			toast("Bottom Aptaliko: The bottom aptaliko-step fills and guards you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29203,6 +29207,7 @@ func _offer_omens() -> void:
 		{"text": "KEEL VIMA — KEEL VIMA — the keel sanctuary's step stands iron-fast (+6% souls, +3 armor)... its weight slows your step (−4% dodge)"},
 		{"text": "HULL VIMA — HULL VIMA — the hull sanctuary's step thickens your frame (+6% max HP, +4% dodge)... its timbers weigh you (−3% speed)"},
 		{"text": "TRENCH VIMA — TRENCH VIMA — the trench sanctuary's step drags your arm fast (+5% ATK, +4% atk speed)... its depth sways your step (−4% dodge)"},
+		{"text": "BOTTOM VIMA — BOTTOM VIMA — the bottom sanctuary's step hoards what sinks (+7% souls, +4% dodge)... its murk dulls your edge (−3% ATK)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54527,6 +54532,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 4
 			oname = "TRENCH VIMA"
 		5025:
+			Stats.soul_gain_pct += 7
+			Stats.dodge += 4
+			Stats.buff_atk_pct -= 3
+			oname = "BOTTOM VIMA"
+		5026:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59622,6 +59632,7 @@ func _omen_deal(idx: int) -> void:
 	"KEEL VIMA": "The keel sanctuary stands fast for you, Kael.",
 	"HULL VIMA": "The hull sanctuary thickens your frame, Kael.",
 	"TRENCH VIMA": "The trench sanctuary drags your arm, Kael.",
+	"BOTTOM VIMA": "The bottom sanctuary hoards for you, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -68087,6 +68098,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Keel Aptaliko — the keel aptaliko-step fills and plates you (+6% souls, +3 armor)"},
 		{"text": "Hull Aptaliko — the hull aptaliko-step thickens and guards you (+6% max HP, +4% dodge)"},
 		{"text": "Trench Aptaliko — the trench aptaliko-step strikes and hastens you (+5% ATK, +4% atk speed)"},
+		{"text": "Bottom Aptaliko — the bottom aptaliko-step fills and guards you (+7% souls, +4% dodge)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
