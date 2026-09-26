@@ -24102,6 +24102,10 @@ func _on_dlg_choice(idx: int) -> void:
 			Stats.soul_gain_pct += 5
 			Stats.buff_xp_pct += 5
 			toast("Bilge Iskenderun: The bilge iskenderun-step fills and teaches you, Kael.")
+		3294:
+			Stats.dodge += 5
+			Stats.buff_atk_pct += 5
+			toast("Crest Iskenderun: The crest iskenderun-step guards and sharpens you, Kael.")
 		50:
 			Stats.buff_aspd += 0.15
 			Stats.buff_speed_pct -= 0.05
@@ -29150,6 +29154,7 @@ func _offer_omens() -> void:
 		{"text": "FOG SOLEA — FOG SOLEA — the fog solea blurs the approach past (+7% dodge, +4% souls)... its haze blunts your edge (−4% ATK)"},
 		{"text": "WAKE SOLEA — WAKE SOLEA — the wake solea pulls you along the edge (+6% speed, +4% souls)... its wash tilts your step (−3% dodge)"},
 		{"text": "BILGE SOLEA — BILGE SOLEA — the bilge solea ferments the walk below (+5% souls, +5% XP)... its stench slows your step (−3% dodge)"},
+		{"text": "CREST SOLEA — CREST SOLEA — the crest solea breaks over the edge (+5% dodge, +5% ATK)... its foam spills your purse (−4% souls)"},
 	]
 	omen_pick.clear()
 	while omen_pick.size() < 3:
@@ -54424,6 +54429,11 @@ func _omen_deal(idx: int) -> void:
 			Stats.dodge -= 3
 			oname = "BILGE SOLEA"
 		5015:
+			Stats.dodge += 5
+			Stats.buff_atk_pct += 5
+			Stats.soul_gain_pct -= 4
+			oname = "CREST SOLEA"
+		5016:
 			nemesis_bounty = true
 			oname = "BLOOD DEBT"
 	omen_name = oname if omen_name == "" else omen_name + " + " + oname
@@ -59509,6 +59519,7 @@ func _omen_deal(idx: int) -> void:
 	"FOG SOLEA": "The fog solea blurs you past, Kael.",
 	"WAKE SOLEA": "The wake solea pulls you along, Kael.",
 	"BILGE SOLEA": "The bilge solea ferments for you, Kael.",
+	"CREST SOLEA": "The crest solea breaks for you, Kael.",
 	"BLOOD DEBT": "Signed in red and paid in full — show him what you became.",
 		"WELLREAD": "The stones remember you now, Kael — read them all, and grow rich on grief.",
 		"THE TIDE LENDS": "The vaults open for you, swordsman — but the King counts every coin you lift.",
@@ -67964,6 +67975,7 @@ func _on_shrine_invoked(s) -> void:
 		{"text": "Fog Iskenderun — the fog iskenderun-step blurs and fills you (+7% dodge, +4% souls)"},
 		{"text": "Wake Iskenderun — the wake iskenderun-step carries and fills you (+6% speed, +4% souls)"},
 		{"text": "Bilge Iskenderun — the bilge iskenderun-step fills and teaches you (+5% souls, +5% XP)"},
+		{"text": "Crest Iskenderun — the crest iskenderun-step guards and sharpens you (+5% dodge, +5% ATK)"},
 	]
 	bless_pick.clear()
 	while bless_pick.size() < 4:
